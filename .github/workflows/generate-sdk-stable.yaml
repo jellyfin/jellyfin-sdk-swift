@@ -15,14 +15,12 @@ jobs:
 
     - name: Generate	    
       uses: docker://openapitools/openapi-generator-cli:latest-release
-      env:
-        TS_POST_PROCESS_FILE: true
       with:
         args: >-
           generate -i https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json
           -g swift5
           --enable-post-process-file
-          -o /github/workspace/stable
+          -o /github/workspace
 
     - name: Check if .swift files were modified
       id: diff
