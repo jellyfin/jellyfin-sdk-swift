@@ -31,7 +31,7 @@ public struct ContainerProfile: Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(type, forKey: .type)
         try container.encodeIfPresent(conditions, forKey: .conditions)
-        try container.encodeIfPresent(container, forKey: .container)
+        //try container.encodeIfPresent(container, forKey: .container)
     }
 
 
