@@ -28,7 +28,7 @@ Method | HTTP request | Description
 [**postUpdatedMedia**](LibraryAPI.md#postupdatedmedia) | **POST** /Library/Media/Updated | Reports that new movies have been added by an external source.
 [**postUpdatedMovies**](LibraryAPI.md#postupdatedmovies) | **POST** /Library/Movies/Updated | Reports that new movies have been added by an external source.
 [**postUpdatedSeries**](LibraryAPI.md#postupdatedseries) | **POST** /Library/Series/Updated | Reports that new episodes of a series have been added by an external source.
-[**refreshLibrary**](LibraryAPI.md#refreshlibrary) | **POST** /Library/Refresh | Starts a library scan.
+[**refreshLibrary**](LibraryAPI.md#refreshlibrary) | **GET** /Library/Refresh | Starts a library scan.
 
 
 # **deleteItem**
@@ -384,7 +384,7 @@ Gets the library options info.
 import OpenAPIClient
 
 let libraryContentType = "libraryContentType_example" // String | Library content type. (optional)
-let isNewLibrary = true // Bool | Whether this is a new library. (optional) (default to false)
+let isNewLibrary = true // Bool | Whether this is a new library. (optional)
 
 // Gets the library options info.
 LibraryAPI.getLibraryOptionsInfo(libraryContentType: libraryContentType, isNewLibrary: isNewLibrary) { (response, error) in
@@ -404,7 +404,7 @@ LibraryAPI.getLibraryOptionsInfo(libraryContentType: libraryContentType, isNewLi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **libraryContentType** | **String** | Library content type. | [optional] 
- **isNewLibrary** | **Bool** | Whether this is a new library. | [optional] [default to false]
+ **isNewLibrary** | **Bool** | Whether this is a new library. | [optional] 
 
 ### Return type
 
@@ -1105,7 +1105,7 @@ Void (empty response body)
 
 # **postUpdatedMedia**
 ```swift
-    open class func postUpdatedMedia(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func postUpdatedMedia(mediaUpdateInfoDto: [MediaUpdateInfoDto], completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Reports that new movies have been added by an external source.
@@ -1115,10 +1115,10 @@ Reports that new movies have been added by an external source.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The update paths.
+let mediaUpdateInfoDto = [MediaUpdateInfoDto(path: "path_example", updateType: "updateType_example")] // [MediaUpdateInfoDto] | A list of updated media paths.
 
 // Reports that new movies have been added by an external source.
-LibraryAPI.postUpdatedMedia(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LibraryAPI.postUpdatedMedia(mediaUpdateInfoDto: mediaUpdateInfoDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1134,7 +1134,7 @@ LibraryAPI.postUpdatedMedia(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, e
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The update paths. | 
+ **mediaUpdateInfoDto** | [**[MediaUpdateInfoDto]**](MediaUpdateInfoDto.md) | A list of updated media paths. | 
 
 ### Return type
 

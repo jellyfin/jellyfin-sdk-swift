@@ -32,7 +32,7 @@ Name | Type | Description | Notes
 **keepUpTo** | **Int** |  | [optional] 
 **recordNewOnly** | **Bool** | Gets or sets a value indicating whether [record new only]. | [optional] 
 **days** | [DayOfWeek] | Gets or sets the days. | [optional] 
-**dayPattern** | [**DayPattern**](DayPattern.md) | Gets or sets the day pattern. | [optional] 
+**dayPattern** | [**DayPattern**](DayPattern.md) |  | [optional] 
 **imageTags** | **[String: String]** | Gets or sets the image tags. | [optional] 
 **parentThumbItemId** | **String** | Gets or sets the parent thumb item id. | [optional] 
 **parentThumbImageTag** | **String** | Gets or sets the parent thumb image tag. | [optional] 

@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **internalMetadataPath** | **String** | Gets or sets the internal metadata path. | [optional] 
 **transcodingTempPath** | **String** | Gets or sets the transcode path. | [optional] 
 **hasUpdateAvailable** | **Bool** | Gets or sets a value indicating whether this instance has update available. | [optional] 
-**encoderLocation** | [**FFmpegLocation**](FFmpegLocation.md) | Enum describing the location of the FFmpeg tool. | [optional] 
+**encoderLocation** | [**FFmpegLocation**](FFmpegLocation.md) |  | [optional] 
 **systemArchitecture** | [**Architecture**](Architecture.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

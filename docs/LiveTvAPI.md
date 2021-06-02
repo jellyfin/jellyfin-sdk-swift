@@ -49,7 +49,7 @@ Method | HTTP request | Description
 
 # **addListingProvider**
 ```swift
-    open class func addListingProvider(pw: String? = nil, validateListings: Bool? = nil, validateLogin: Bool? = nil, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: ListingsProviderInfo?, _ error: Error?) -> Void)
+    open class func addListingProvider(pw: String? = nil, validateListings: Bool? = nil, validateLogin: Bool? = nil, listingsProviderInfo: ListingsProviderInfo? = nil, completion: @escaping (_ data: ListingsProviderInfo?, _ error: Error?) -> Void)
 ```
 
 Adds a listings provider.
@@ -62,10 +62,10 @@ import OpenAPIClient
 let pw = "pw_example" // String | Password. (optional)
 let validateListings = true // Bool | Validate listings. (optional) (default to false)
 let validateLogin = true // Bool | Validate login. (optional) (default to false)
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | New listings info. (optional)
+let listingsProviderInfo = ListingsProviderInfo(id: "id_example", type: "type_example", username: "username_example", password: "password_example", listingsId: "listingsId_example", zipCode: "zipCode_example", country: "country_example", path: "path_example", enabledTuners: ["enabledTuners_example"], enableAllTuners: false, newsCategories: ["newsCategories_example"], sportsCategories: ["sportsCategories_example"], kidsCategories: ["kidsCategories_example"], movieCategories: ["movieCategories_example"], channelMappings: [NameValuePair(name: "name_example", value: "value_example")], moviePrefix: "moviePrefix_example", preferredLanguage: "preferredLanguage_example", userAgent: "userAgent_example") // ListingsProviderInfo | New listings info. (optional)
 
 // Adds a listings provider.
-LiveTvAPI.addListingProvider(pw: pw, validateListings: validateListings, validateLogin: validateLogin, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LiveTvAPI.addListingProvider(pw: pw, validateListings: validateListings, validateLogin: validateLogin, listingsProviderInfo: listingsProviderInfo) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
  **pw** | **String** | Password. | [optional] 
  **validateListings** | **Bool** | Validate listings. | [optional] [default to false]
  **validateLogin** | **Bool** | Validate login. | [optional] [default to false]
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | New listings info. | [optional] 
+ **listingsProviderInfo** | [**ListingsProviderInfo**](ListingsProviderInfo.md) | New listings info. | [optional] 
 
 ### Return type
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 # **addTunerHost**
 ```swift
-    open class func addTunerHost(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: TunerHostInfo?, _ error: Error?) -> Void)
+    open class func addTunerHost(tunerHostInfo: TunerHostInfo? = nil, completion: @escaping (_ data: TunerHostInfo?, _ error: Error?) -> Void)
 ```
 
 Adds a tuner host.
@@ -113,10 +113,10 @@ Adds a tuner host.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | New tuner host. (optional)
+let tunerHostInfo = TunerHostInfo(id: "id_example", url: "url_example", type: "type_example", deviceId: "deviceId_example", friendlyName: "friendlyName_example", importFavoritesOnly: false, allowHWTranscoding: false, enableStreamLooping: false, source: "source_example", tunerCount: 123, userAgent: "userAgent_example") // TunerHostInfo | New tuner host. (optional)
 
 // Adds a tuner host.
-LiveTvAPI.addTunerHost(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LiveTvAPI.addTunerHost(tunerHostInfo: tunerHostInfo) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -132,7 +132,7 @@ LiveTvAPI.addTunerHost(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | New tuner host. | [optional] 
+ **tunerHostInfo** | [**TunerHostInfo**](TunerHostInfo.md) | New tuner host. | [optional] 
 
 ### Return type
 
@@ -247,7 +247,7 @@ Void (empty response body)
 
 # **createSeriesTimer**
 ```swift
-    open class func createSeriesTimer(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func createSeriesTimer(seriesTimerInfoDto: SeriesTimerInfoDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Creates a live tv series timer.
@@ -257,10 +257,10 @@ Creates a live tv series timer.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | New series timer info. (optional)
+let seriesTimerInfoDto = SeriesTimerInfoDto(id: "id_example", type: "type_example", serverId: "serverId_example", externalId: "externalId_example", channelId: 123, externalChannelId: "externalChannelId_example", channelName: "channelName_example", channelPrimaryImageTag: "channelPrimaryImageTag_example", programId: "programId_example", externalProgramId: "externalProgramId_example", name: "name_example", overview: "overview_example", startDate: Date(), endDate: Date(), serviceName: "serviceName_example", priority: 123, prePaddingSeconds: 123, postPaddingSeconds: 123, isPrePaddingRequired: false, parentBackdropItemId: "parentBackdropItemId_example", parentBackdropImageTags: ["parentBackdropImageTags_example"], isPostPaddingRequired: false, keepUntil: KeepUntil(), recordAnyTime: false, skipEpisodesInLibrary: false, recordAnyChannel: false, keepUpTo: 123, recordNewOnly: false, days: [DayOfWeek()], dayPattern: DayPattern(), imageTags: "TODO", parentThumbItemId: "parentThumbItemId_example", parentThumbImageTag: "parentThumbImageTag_example", parentPrimaryImageItemId: "parentPrimaryImageItemId_example", parentPrimaryImageTag: "parentPrimaryImageTag_example") // SeriesTimerInfoDto | New series timer info. (optional)
 
 // Creates a live tv series timer.
-LiveTvAPI.createSeriesTimer(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LiveTvAPI.createSeriesTimer(seriesTimerInfoDto: seriesTimerInfoDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -276,7 +276,7 @@ LiveTvAPI.createSeriesTimer(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, e
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | New series timer info. | [optional] 
+ **seriesTimerInfoDto** | [**SeriesTimerInfoDto**](SeriesTimerInfoDto.md) | New series timer info. | [optional] 
 
 ### Return type
 
@@ -295,7 +295,7 @@ Void (empty response body)
 
 # **createTimer**
 ```swift
-    open class func createTimer(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func createTimer(timerInfoDto: TimerInfoDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Creates a live tv timer.
@@ -305,10 +305,10 @@ Creates a live tv timer.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | New timer info. (optional)
+let timerInfoDto = TimerInfoDto(id: "id_example", type: "type_example", serverId: "serverId_example", externalId: "externalId_example", channelId: 123, externalChannelId: "externalChannelId_example", channelName: "channelName_example", channelPrimaryImageTag: "channelPrimaryImageTag_example", programId: "programId_example", externalProgramId: "externalProgramId_example", name: "name_example", overview: "overview_example", startDate: Date(), endDate: Date(), serviceName: "serviceName_example", priority: 123, prePaddingSeconds: 123, postPaddingSeconds: 123, isPrePaddingRequired: false, parentBackdropItemId: "parentBackdropItemId_example", parentBackdropImageTags: ["parentBackdropImageTags_example"], isPostPaddingRequired: false, keepUntil: KeepUntil(), status: RecordingStatus(), seriesTimerId: "seriesTimerId_example", externalSeriesTimerId: "externalSeriesTimerId_example", runTimeTicks: 123, programInfo: BaseItemDto(name: "name_example", originalTitle: "originalTitle_example", serverId: "serverId_example", id: 123, etag: "etag_example", sourceType: "sourceType_example", playlistItemId: "playlistItemId_example", dateCreated: Date(), dateLastMediaAdded: Date(), extraType: "extraType_example", airsBeforeSeasonNumber: 123, airsAfterSeasonNumber: 123, airsBeforeEpisodeNumber: 123, canDelete: false, canDownload: false, hasSubtitles: false, preferredMetadataLanguage: "preferredMetadataLanguage_example", preferredMetadataCountryCode: "preferredMetadataCountryCode_example", supportsSync: false, container: "container_example", sortName: "sortName_example", forcedSortName: "forcedSortName_example", video3DFormat: Video3DFormat(), premiereDate: Date(), externalUrls: [ExternalUrl(name: "name_example", url: "url_example")], mediaSources: [MediaSourceInfo(_protocol: MediaProtocol(), id: "id_example", path: "path_example", encoderPath: "encoderPath_example", encoderProtocol: nil, type: MediaSourceType(), container: "container_example", size: 123, name: "name_example", isRemote: false, eTag: "eTag_example", runTimeTicks: 123, readAtNativeFramerate: false, ignoreDts: false, ignoreIndex: false, genPtsInput: false, supportsTranscoding: false, supportsDirectStream: false, supportsDirectPlay: false, isInfiniteStream: false, requiresOpening: false, openToken: "openToken_example", requiresClosing: false, liveStreamId: "liveStreamId_example", bufferMs: 123, requiresLooping: false, supportsProbing: false, videoType: VideoType(), isoType: IsoType(), video3DFormat: nil, mediaStreams: [MediaStream(codec: "codec_example", codecTag: "codecTag_example", language: "language_example", colorRange: "colorRange_example", colorSpace: "colorSpace_example", colorTransfer: "colorTransfer_example", colorPrimaries: "colorPrimaries_example", comment: "comment_example", timeBase: "timeBase_example", codecTimeBase: "codecTimeBase_example", title: "title_example", videoRange: "videoRange_example", localizedUndefined: "localizedUndefined_example", localizedDefault: "localizedDefault_example", localizedForced: "localizedForced_example", displayTitle: "displayTitle_example", nalLengthSize: "nalLengthSize_example", isInterlaced: false, isAVC: false, channelLayout: "channelLayout_example", bitRate: 123, bitDepth: 123, refFrames: 123, packetLength: 123, channels: 123, sampleRate: 123, isDefault: false, isForced: false, height: 123, width: 123, averageFrameRate: 123, realFrameRate: 123, profile: "profile_example", type: MediaStreamType(), aspectRatio: "aspectRatio_example", index: 123, score: 123, isExternal: false, deliveryMethod: SubtitleDeliveryMethod(), deliveryUrl: "deliveryUrl_example", isExternalUrl: false, isTextSubtitleStream: false, supportsExternalStream: false, path: "path_example", pixelFormat: "pixelFormat_example", level: 123, isAnamorphic: false)], mediaAttachments: [MediaAttachment(codec: "codec_example", codecTag: "codecTag_example", comment: "comment_example", index: 123, fileName: "fileName_example", mimeType: "mimeType_example", deliveryUrl: "deliveryUrl_example")], formats: ["formats_example"], bitrate: 123, timestamp: TransportStreamTimestamp(), requiredHttpHeaders: "TODO", transcodingUrl: "transcodingUrl_example", transcodingSubProtocol: "transcodingSubProtocol_example", transcodingContainer: "transcodingContainer_example", analyzeDurationMs: 123, defaultAudioStreamIndex: 123, defaultSubtitleStreamIndex: 123)], criticRating: 123, productionLocations: ["productionLocations_example"], path: "path_example", enableMediaSourceDisplay: false, officialRating: "officialRating_example", customRating: "customRating_example", channelId: 123, channelName: "channelName_example", overview: "overview_example", taglines: ["taglines_example"], genres: ["genres_example"], communityRating: 123, cumulativeRunTimeTicks: 123, runTimeTicks: 123, playAccess: PlayAccess(), aspectRatio: "aspectRatio_example", productionYear: 123, isPlaceHolder: false, number: "number_example", channelNumber: "channelNumber_example", indexNumber: 123, indexNumberEnd: 123, parentIndexNumber: 123, remoteTrailers: [MediaUrl(url: "url_example", name: "name_example")], providerIds: "TODO", isHD: false, isFolder: false, parentId: 123, type: "type_example", people: [BaseItemPerson(name: "name_example", id: "id_example", role: "role_example", type: "type_example", primaryImageTag: "primaryImageTag_example", imageBlurHashes: BaseItemPerson_ImageBlurHashes(primary: "TODO", art: "TODO", backdrop: "TODO", banner: "TODO", logo: "TODO", thumb: "TODO", disc: "TODO", box: "TODO", screenshot: "TODO", menu: "TODO", chapter: "TODO", boxRear: "TODO", profile: "TODO"))], studios: [NameGuidPair(name: "name_example", id: 123)], genreItems: [nil], parentLogoItemId: "parentLogoItemId_example", parentBackdropItemId: "parentBackdropItemId_example", parentBackdropImageTags: ["parentBackdropImageTags_example"], localTrailerCount: 123, userData: UserItemDataDto(rating: 123, playedPercentage: 123, unplayedItemCount: 123, playbackPositionTicks: 123, playCount: 123, isFavorite: false, likes: false, lastPlayedDate: Date(), played: false, key: "key_example", itemId: "itemId_example"), recursiveItemCount: 123, childCount: 123, seriesName: "seriesName_example", seriesId: 123, seasonId: 123, specialFeatureCount: 123, displayPreferencesId: "displayPreferencesId_example", status: "status_example", airTime: "airTime_example", airDays: [DayOfWeek()], tags: ["tags_example"], primaryImageAspectRatio: 123, artists: ["artists_example"], artistItems: [nil], album: "album_example", collectionType: "collectionType_example", displayOrder: "displayOrder_example", albumId: 123, albumPrimaryImageTag: "albumPrimaryImageTag_example", seriesPrimaryImageTag: "seriesPrimaryImageTag_example", albumArtist: "albumArtist_example", albumArtists: [nil], seasonName: "seasonName_example", mediaStreams: [nil], videoType: nil, partCount: 123, mediaSourceCount: 123, imageTags: "TODO", backdropImageTags: ["backdropImageTags_example"], screenshotImageTags: ["screenshotImageTags_example"], parentLogoImageTag: "parentLogoImageTag_example", parentArtItemId: "parentArtItemId_example", parentArtImageTag: "parentArtImageTag_example", seriesThumbImageTag: "seriesThumbImageTag_example", imageBlurHashes: BaseItemDto_ImageBlurHashes(primary: "TODO", art: "TODO", backdrop: "TODO", banner: "TODO", logo: "TODO", thumb: "TODO", disc: "TODO", box: "TODO", screenshot: "TODO", menu: "TODO", chapter: "TODO", boxRear: "TODO", profile: "TODO"), seriesStudio: "seriesStudio_example", parentThumbItemId: "parentThumbItemId_example", parentThumbImageTag: "parentThumbImageTag_example", parentPrimaryImageItemId: "parentPrimaryImageItemId_example", parentPrimaryImageTag: "parentPrimaryImageTag_example", chapters: [ChapterInfo(startPositionTicks: 123, name: "name_example", imagePath: "imagePath_example", imageDateModified: Date(), imageTag: "imageTag_example")], locationType: LocationType(), isoType: nil, mediaType: "mediaType_example", endDate: Date(), lockedFields: [MetadataField()], trailerCount: 123, movieCount: 123, seriesCount: 123, programCount: 123, episodeCount: 123, songCount: 123, albumCount: 123, artistCount: 123, musicVideoCount: 123, lockData: false, width: 123, height: 123, cameraMake: "cameraMake_example", cameraModel: "cameraModel_example", software: "software_example", exposureTime: 123, focalLength: 123, imageOrientation: ImageOrientation(), aperture: 123, shutterSpeed: 123, latitude: 123, longitude: 123, altitude: 123, isoSpeedRating: 123, seriesTimerId: "seriesTimerId_example", programId: "programId_example", channelPrimaryImageTag: "channelPrimaryImageTag_example", startDate: Date(), completionPercentage: 123, isRepeat: false, episodeTitle: "episodeTitle_example", channelType: ChannelType(), audio: ProgramAudio(), isMovie: false, isSports: false, isSeries: false, isLive: false, isNews: false, isKids: false, isPremiere: false, timerId: "timerId_example", currentProgram: nil)) // TimerInfoDto | New timer info. (optional)
 
 // Creates a live tv timer.
-LiveTvAPI.createTimer(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LiveTvAPI.createTimer(timerInfoDto: timerInfoDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -324,7 +324,7 @@ LiveTvAPI.createTimer(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | New timer info. | [optional] 
+ **timerInfoDto** | [**TimerInfoDto**](TimerInfoDto.md) | New timer info. | [optional] 
 
 ### Return type
 
@@ -1101,7 +1101,7 @@ This endpoint does not need any parameter.
 
 # **getLiveTvPrograms**
 ```swift
-    open class func getLiveTvPrograms(channelIds: [UUID]? = nil, userId: UUID? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, genres: [String]? = nil, genreIds: [UUID]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: UUID? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getLiveTvPrograms(channelIds: [UUID]? = nil, userId: UUID? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: String? = nil, sortOrder: String? = nil, genres: [String]? = nil, genreIds: [UUID]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: UUID? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets available live tv epgs.
@@ -1126,8 +1126,8 @@ let isKids = true // Bool | Optional. Filter for kids. (optional)
 let isSports = true // Bool | Optional. Filter for sports. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
-let sortBy = ["inner_example"] // [String] | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. (optional)
-let sortOrder = [SortOrder()] // [SortOrder] | Sort Order - Ascending,Descending. (optional)
+let sortBy = "sortBy_example" // String | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. (optional)
+let sortOrder = "sortOrder_example" // String | Sort Order - Ascending,Descending. (optional)
 let genres = ["inner_example"] // [String] | The genres to return guide information for. (optional)
 let genreIds = [123] // [UUID] | The genre ids to return guide information for. (optional)
 let enableImages = true // Bool | Optional. Include image information in output. (optional)
@@ -1171,8 +1171,8 @@ Name | Type | Description  | Notes
  **isSports** | **Bool** | Optional. Filter for sports. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
- **sortBy** | [**[String]**](String.md) | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. | [optional] 
- **sortOrder** | [**[SortOrder]**](SortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
+ **sortBy** | **String** | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. | [optional] 
+ **sortOrder** | **String** | Sort Order - Ascending,Descending. | [optional] 
  **genres** | [**[String]**](String.md) | The genres to return guide information for. | [optional] 
  **genreIds** | [**[UUID]**](UUID.md) | The genre ids to return guide information for. | [optional] 
  **enableImages** | **Bool** | Optional. Include image information in output. | [optional] 
@@ -1251,7 +1251,7 @@ Name | Type | Description  | Notes
 
 # **getPrograms**
 ```swift
-    open class func getPrograms(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getPrograms(getProgramsDto: GetProgramsDto? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets available live tv epgs.
@@ -1261,10 +1261,10 @@ Gets available live tv epgs.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Request body. (optional)
+let getProgramsDto = GetProgramsDto(channelIds: [123], userId: 123, minStartDate: Date(), hasAired: false, isAiring: false, maxStartDate: Date(), minEndDate: Date(), maxEndDate: Date(), isMovie: false, isSeries: false, isNews: false, isKids: false, isSports: false, startIndex: 123, limit: 123, sortBy: "sortBy_example", sortOrder: "sortOrder_example", genres: ["genres_example"], genreIds: [123], enableImages: false, enableTotalRecordCount: false, imageTypeLimit: 123, enableImageTypes: [ImageType()], enableUserData: false, seriesTimerId: "seriesTimerId_example", librarySeriesId: 123, fields: [ItemFields()]) // GetProgramsDto | Request body. (optional)
 
 // Gets available live tv epgs.
-LiveTvAPI.getPrograms(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LiveTvAPI.getPrograms(getProgramsDto: getProgramsDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1280,7 +1280,7 @@ LiveTvAPI.getPrograms(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Request body. | [optional] 
+ **getProgramsDto** | [**GetProgramsDto**](GetProgramsDto.md) | Request body. | [optional] 
 
 ### Return type
 
@@ -2065,7 +2065,7 @@ Void (empty response body)
 
 # **setChannelMapping**
 ```swift
-    open class func setChannelMapping(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: TunerChannelMapping?, _ error: Error?) -> Void)
+    open class func setChannelMapping(setChannelMappingDto: SetChannelMappingDto, completion: @escaping (_ data: TunerChannelMapping?, _ error: Error?) -> Void)
 ```
 
 Set channel mappings.
@@ -2075,10 +2075,10 @@ Set channel mappings.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The set channel mapping dto.
+let setChannelMappingDto = SetChannelMappingDto(providerId: "providerId_example", tunerChannelId: "tunerChannelId_example", providerChannelId: "providerChannelId_example") // SetChannelMappingDto | The set channel mapping dto.
 
 // Set channel mappings.
-LiveTvAPI.setChannelMapping(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LiveTvAPI.setChannelMapping(setChannelMappingDto: setChannelMappingDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2094,7 +2094,7 @@ LiveTvAPI.setChannelMapping(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, e
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The set channel mapping dto. | 
+ **setChannelMappingDto** | [**SetChannelMappingDto**](SetChannelMappingDto.md) | The set channel mapping dto. | 
 
 ### Return type
 
@@ -2113,7 +2113,7 @@ Name | Type | Description  | Notes
 
 # **updateSeriesTimer**
 ```swift
-    open class func updateSeriesTimer(timerId: String, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateSeriesTimer(timerId: String, seriesTimerInfoDto: SeriesTimerInfoDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a live tv series timer.
@@ -2124,10 +2124,10 @@ Updates a live tv series timer.
 import OpenAPIClient
 
 let timerId = "timerId_example" // String | Timer id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | New series timer info. (optional)
+let seriesTimerInfoDto = SeriesTimerInfoDto(id: "id_example", type: "type_example", serverId: "serverId_example", externalId: "externalId_example", channelId: 123, externalChannelId: "externalChannelId_example", channelName: "channelName_example", channelPrimaryImageTag: "channelPrimaryImageTag_example", programId: "programId_example", externalProgramId: "externalProgramId_example", name: "name_example", overview: "overview_example", startDate: Date(), endDate: Date(), serviceName: "serviceName_example", priority: 123, prePaddingSeconds: 123, postPaddingSeconds: 123, isPrePaddingRequired: false, parentBackdropItemId: "parentBackdropItemId_example", parentBackdropImageTags: ["parentBackdropImageTags_example"], isPostPaddingRequired: false, keepUntil: KeepUntil(), recordAnyTime: false, skipEpisodesInLibrary: false, recordAnyChannel: false, keepUpTo: 123, recordNewOnly: false, days: [DayOfWeek()], dayPattern: DayPattern(), imageTags: "TODO", parentThumbItemId: "parentThumbItemId_example", parentThumbImageTag: "parentThumbImageTag_example", parentPrimaryImageItemId: "parentPrimaryImageItemId_example", parentPrimaryImageTag: "parentPrimaryImageTag_example") // SeriesTimerInfoDto | New series timer info. (optional)
 
 // Updates a live tv series timer.
-LiveTvAPI.updateSeriesTimer(timerId: timerId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LiveTvAPI.updateSeriesTimer(timerId: timerId, seriesTimerInfoDto: seriesTimerInfoDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2144,7 +2144,7 @@ LiveTvAPI.updateSeriesTimer(timerId: timerId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TY
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **timerId** | **String** | Timer id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | New series timer info. | [optional] 
+ **seriesTimerInfoDto** | [**SeriesTimerInfoDto**](SeriesTimerInfoDto.md) | New series timer info. | [optional] 
 
 ### Return type
 
@@ -2163,7 +2163,7 @@ Void (empty response body)
 
 # **updateTimer**
 ```swift
-    open class func updateTimer(timerId: String, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateTimer(timerId: String, timerInfoDto: TimerInfoDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a live tv timer.
@@ -2174,10 +2174,10 @@ Updates a live tv timer.
 import OpenAPIClient
 
 let timerId = "timerId_example" // String | Timer id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | New timer info. (optional)
+let timerInfoDto = TimerInfoDto(id: "id_example", type: "type_example", serverId: "serverId_example", externalId: "externalId_example", channelId: 123, externalChannelId: "externalChannelId_example", channelName: "channelName_example", channelPrimaryImageTag: "channelPrimaryImageTag_example", programId: "programId_example", externalProgramId: "externalProgramId_example", name: "name_example", overview: "overview_example", startDate: Date(), endDate: Date(), serviceName: "serviceName_example", priority: 123, prePaddingSeconds: 123, postPaddingSeconds: 123, isPrePaddingRequired: false, parentBackdropItemId: "parentBackdropItemId_example", parentBackdropImageTags: ["parentBackdropImageTags_example"], isPostPaddingRequired: false, keepUntil: KeepUntil(), status: RecordingStatus(), seriesTimerId: "seriesTimerId_example", externalSeriesTimerId: "externalSeriesTimerId_example", runTimeTicks: 123, programInfo: BaseItemDto(name: "name_example", originalTitle: "originalTitle_example", serverId: "serverId_example", id: 123, etag: "etag_example", sourceType: "sourceType_example", playlistItemId: "playlistItemId_example", dateCreated: Date(), dateLastMediaAdded: Date(), extraType: "extraType_example", airsBeforeSeasonNumber: 123, airsAfterSeasonNumber: 123, airsBeforeEpisodeNumber: 123, canDelete: false, canDownload: false, hasSubtitles: false, preferredMetadataLanguage: "preferredMetadataLanguage_example", preferredMetadataCountryCode: "preferredMetadataCountryCode_example", supportsSync: false, container: "container_example", sortName: "sortName_example", forcedSortName: "forcedSortName_example", video3DFormat: Video3DFormat(), premiereDate: Date(), externalUrls: [ExternalUrl(name: "name_example", url: "url_example")], mediaSources: [MediaSourceInfo(_protocol: MediaProtocol(), id: "id_example", path: "path_example", encoderPath: "encoderPath_example", encoderProtocol: nil, type: MediaSourceType(), container: "container_example", size: 123, name: "name_example", isRemote: false, eTag: "eTag_example", runTimeTicks: 123, readAtNativeFramerate: false, ignoreDts: false, ignoreIndex: false, genPtsInput: false, supportsTranscoding: false, supportsDirectStream: false, supportsDirectPlay: false, isInfiniteStream: false, requiresOpening: false, openToken: "openToken_example", requiresClosing: false, liveStreamId: "liveStreamId_example", bufferMs: 123, requiresLooping: false, supportsProbing: false, videoType: VideoType(), isoType: IsoType(), video3DFormat: nil, mediaStreams: [MediaStream(codec: "codec_example", codecTag: "codecTag_example", language: "language_example", colorRange: "colorRange_example", colorSpace: "colorSpace_example", colorTransfer: "colorTransfer_example", colorPrimaries: "colorPrimaries_example", comment: "comment_example", timeBase: "timeBase_example", codecTimeBase: "codecTimeBase_example", title: "title_example", videoRange: "videoRange_example", localizedUndefined: "localizedUndefined_example", localizedDefault: "localizedDefault_example", localizedForced: "localizedForced_example", displayTitle: "displayTitle_example", nalLengthSize: "nalLengthSize_example", isInterlaced: false, isAVC: false, channelLayout: "channelLayout_example", bitRate: 123, bitDepth: 123, refFrames: 123, packetLength: 123, channels: 123, sampleRate: 123, isDefault: false, isForced: false, height: 123, width: 123, averageFrameRate: 123, realFrameRate: 123, profile: "profile_example", type: MediaStreamType(), aspectRatio: "aspectRatio_example", index: 123, score: 123, isExternal: false, deliveryMethod: SubtitleDeliveryMethod(), deliveryUrl: "deliveryUrl_example", isExternalUrl: false, isTextSubtitleStream: false, supportsExternalStream: false, path: "path_example", pixelFormat: "pixelFormat_example", level: 123, isAnamorphic: false)], mediaAttachments: [MediaAttachment(codec: "codec_example", codecTag: "codecTag_example", comment: "comment_example", index: 123, fileName: "fileName_example", mimeType: "mimeType_example", deliveryUrl: "deliveryUrl_example")], formats: ["formats_example"], bitrate: 123, timestamp: TransportStreamTimestamp(), requiredHttpHeaders: "TODO", transcodingUrl: "transcodingUrl_example", transcodingSubProtocol: "transcodingSubProtocol_example", transcodingContainer: "transcodingContainer_example", analyzeDurationMs: 123, defaultAudioStreamIndex: 123, defaultSubtitleStreamIndex: 123)], criticRating: 123, productionLocations: ["productionLocations_example"], path: "path_example", enableMediaSourceDisplay: false, officialRating: "officialRating_example", customRating: "customRating_example", channelId: 123, channelName: "channelName_example", overview: "overview_example", taglines: ["taglines_example"], genres: ["genres_example"], communityRating: 123, cumulativeRunTimeTicks: 123, runTimeTicks: 123, playAccess: PlayAccess(), aspectRatio: "aspectRatio_example", productionYear: 123, isPlaceHolder: false, number: "number_example", channelNumber: "channelNumber_example", indexNumber: 123, indexNumberEnd: 123, parentIndexNumber: 123, remoteTrailers: [MediaUrl(url: "url_example", name: "name_example")], providerIds: "TODO", isHD: false, isFolder: false, parentId: 123, type: "type_example", people: [BaseItemPerson(name: "name_example", id: "id_example", role: "role_example", type: "type_example", primaryImageTag: "primaryImageTag_example", imageBlurHashes: BaseItemPerson_ImageBlurHashes(primary: "TODO", art: "TODO", backdrop: "TODO", banner: "TODO", logo: "TODO", thumb: "TODO", disc: "TODO", box: "TODO", screenshot: "TODO", menu: "TODO", chapter: "TODO", boxRear: "TODO", profile: "TODO"))], studios: [NameGuidPair(name: "name_example", id: 123)], genreItems: [nil], parentLogoItemId: "parentLogoItemId_example", parentBackdropItemId: "parentBackdropItemId_example", parentBackdropImageTags: ["parentBackdropImageTags_example"], localTrailerCount: 123, userData: UserItemDataDto(rating: 123, playedPercentage: 123, unplayedItemCount: 123, playbackPositionTicks: 123, playCount: 123, isFavorite: false, likes: false, lastPlayedDate: Date(), played: false, key: "key_example", itemId: "itemId_example"), recursiveItemCount: 123, childCount: 123, seriesName: "seriesName_example", seriesId: 123, seasonId: 123, specialFeatureCount: 123, displayPreferencesId: "displayPreferencesId_example", status: "status_example", airTime: "airTime_example", airDays: [DayOfWeek()], tags: ["tags_example"], primaryImageAspectRatio: 123, artists: ["artists_example"], artistItems: [nil], album: "album_example", collectionType: "collectionType_example", displayOrder: "displayOrder_example", albumId: 123, albumPrimaryImageTag: "albumPrimaryImageTag_example", seriesPrimaryImageTag: "seriesPrimaryImageTag_example", albumArtist: "albumArtist_example", albumArtists: [nil], seasonName: "seasonName_example", mediaStreams: [nil], videoType: nil, partCount: 123, mediaSourceCount: 123, imageTags: "TODO", backdropImageTags: ["backdropImageTags_example"], screenshotImageTags: ["screenshotImageTags_example"], parentLogoImageTag: "parentLogoImageTag_example", parentArtItemId: "parentArtItemId_example", parentArtImageTag: "parentArtImageTag_example", seriesThumbImageTag: "seriesThumbImageTag_example", imageBlurHashes: BaseItemDto_ImageBlurHashes(primary: "TODO", art: "TODO", backdrop: "TODO", banner: "TODO", logo: "TODO", thumb: "TODO", disc: "TODO", box: "TODO", screenshot: "TODO", menu: "TODO", chapter: "TODO", boxRear: "TODO", profile: "TODO"), seriesStudio: "seriesStudio_example", parentThumbItemId: "parentThumbItemId_example", parentThumbImageTag: "parentThumbImageTag_example", parentPrimaryImageItemId: "parentPrimaryImageItemId_example", parentPrimaryImageTag: "parentPrimaryImageTag_example", chapters: [ChapterInfo(startPositionTicks: 123, name: "name_example", imagePath: "imagePath_example", imageDateModified: Date(), imageTag: "imageTag_example")], locationType: LocationType(), isoType: nil, mediaType: "mediaType_example", endDate: Date(), lockedFields: [MetadataField()], trailerCount: 123, movieCount: 123, seriesCount: 123, programCount: 123, episodeCount: 123, songCount: 123, albumCount: 123, artistCount: 123, musicVideoCount: 123, lockData: false, width: 123, height: 123, cameraMake: "cameraMake_example", cameraModel: "cameraModel_example", software: "software_example", exposureTime: 123, focalLength: 123, imageOrientation: ImageOrientation(), aperture: 123, shutterSpeed: 123, latitude: 123, longitude: 123, altitude: 123, isoSpeedRating: 123, seriesTimerId: "seriesTimerId_example", programId: "programId_example", channelPrimaryImageTag: "channelPrimaryImageTag_example", startDate: Date(), completionPercentage: 123, isRepeat: false, episodeTitle: "episodeTitle_example", channelType: ChannelType(), audio: ProgramAudio(), isMovie: false, isSports: false, isSeries: false, isLive: false, isNews: false, isKids: false, isPremiere: false, timerId: "timerId_example", currentProgram: nil)) // TimerInfoDto | New timer info. (optional)
 
 // Updates a live tv timer.
-LiveTvAPI.updateTimer(timerId: timerId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LiveTvAPI.updateTimer(timerId: timerId, timerInfoDto: timerInfoDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2194,7 +2194,7 @@ LiveTvAPI.updateTimer(timerId: timerId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **timerId** | **String** | Timer id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | New timer info. | [optional] 
+ **timerInfoDto** | [**TimerInfoDto**](TimerInfoDto.md) | New timer info. | [optional] 
 
 ### Return type
 

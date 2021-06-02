@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **messageCallbackUrl** | **String** | Gets or sets the message callback url. | [optional] 
 **supportsPersistentIdentifier** | **Bool** | Gets or sets a value indicating whether session supports a persistent identifier. | [optional] 
 **supportsSync** | **Bool** | Gets or sets a value indicating whether session supports sync. | [optional] 
-**deviceProfile** | [**DeviceProfile**](DeviceProfile.md) | Gets or sets the device profile. | [optional] 
+**deviceProfile** | [**DeviceProfile**](DeviceProfile.md) |  | [optional] 
 **appStoreUrl** | **String** | Gets or sets the app store url. | [optional] 
 **iconUrl** | **String** | Gets or sets the icon url. | [optional] 
 

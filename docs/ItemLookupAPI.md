@@ -13,13 +13,14 @@ Method | HTTP request | Description
 [**getMusicArtistRemoteSearchResults**](ItemLookupAPI.md#getmusicartistremotesearchresults) | **POST** /Items/RemoteSearch/MusicArtist | Get music artist remote search.
 [**getMusicVideoRemoteSearchResults**](ItemLookupAPI.md#getmusicvideoremotesearchresults) | **POST** /Items/RemoteSearch/MusicVideo | Get music video remote search.
 [**getPersonRemoteSearchResults**](ItemLookupAPI.md#getpersonremotesearchresults) | **POST** /Items/RemoteSearch/Person | Get person remote search.
+[**getRemoteSearchImage**](ItemLookupAPI.md#getremotesearchimage) | **GET** /Items/RemoteSearch/Image | Gets a remote image.
 [**getSeriesRemoteSearchResults**](ItemLookupAPI.md#getseriesremotesearchresults) | **POST** /Items/RemoteSearch/Series | Get series remote search.
 [**getTrailerRemoteSearchResults**](ItemLookupAPI.md#gettrailerremotesearchresults) | **POST** /Items/RemoteSearch/Trailer | Get trailer remote search.
 
 
 # **applySearchCriteria**
 ```swift
-    open class func applySearchCriteria(itemId: UUID, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, replaceAllImages: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func applySearchCriteria(itemId: UUID, remoteSearchResult: RemoteSearchResult, replaceAllImages: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Applies search criteria to an item and refreshes metadata.
@@ -30,11 +31,11 @@ Applies search criteria to an item and refreshes metadata.
 import OpenAPIClient
 
 let itemId = 987 // UUID | Item id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The remote search result.
+let remoteSearchResult = RemoteSearchResult(name: "name_example", providerIds: "TODO", productionYear: 123, indexNumber: 123, indexNumberEnd: 123, parentIndexNumber: 123, premiereDate: Date(), imageUrl: "imageUrl_example", searchProviderName: "searchProviderName_example", overview: "overview_example", albumArtist: nil, artists: [nil]) // RemoteSearchResult | The remote search result.
 let replaceAllImages = true // Bool | Optional. Whether or not to replace all images. Default: True. (optional) (default to true)
 
 // Applies search criteria to an item and refreshes metadata.
-ItemLookupAPI.applySearchCriteria(itemId: itemId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, replaceAllImages: replaceAllImages) { (response, error) in
+ItemLookupAPI.applySearchCriteria(itemId: itemId, remoteSearchResult: remoteSearchResult, replaceAllImages: replaceAllImages) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -51,7 +52,7 @@ ItemLookupAPI.applySearchCriteria(itemId: itemId, UNKNOWN_BASE_TYPE: UNKNOWN_BAS
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **itemId** | [**UUID**](.md) | Item id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The remote search result. | 
+ **remoteSearchResult** | [**RemoteSearchResult**](RemoteSearchResult.md) | The remote search result. | 
  **replaceAllImages** | **Bool** | Optional. Whether or not to replace all images. Default: True. | [optional] [default to true]
 
 ### Return type
@@ -71,7 +72,7 @@ Void (empty response body)
 
 # **getBookRemoteSearchResults**
 ```swift
-    open class func getBookRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getBookRemoteSearchResults(bookInfoRemoteSearchQuery: BookInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get book remote search.
@@ -81,10 +82,10 @@ Get book remote search.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let bookInfoRemoteSearchQuery = BookInfoRemoteSearchQuery(searchInfo: BookInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, seriesName: "seriesName_example"), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // BookInfoRemoteSearchQuery | Remote search query.
 
 // Get book remote search.
-ItemLookupAPI.getBookRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ItemLookupAPI.getBookRemoteSearchResults(bookInfoRemoteSearchQuery: bookInfoRemoteSearchQuery) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -100,7 +101,7 @@ ItemLookupAPI.getBookRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **bookInfoRemoteSearchQuery** | [**BookInfoRemoteSearchQuery**](BookInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 
@@ -119,7 +120,7 @@ Name | Type | Description  | Notes
 
 # **getBoxSetRemoteSearchResults**
 ```swift
-    open class func getBoxSetRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getBoxSetRemoteSearchResults(boxSetInfoRemoteSearchQuery: BoxSetInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get box set remote search.
@@ -129,10 +130,10 @@ Get box set remote search.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let boxSetInfoRemoteSearchQuery = BoxSetInfoRemoteSearchQuery(searchInfo: BoxSetInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // BoxSetInfoRemoteSearchQuery | Remote search query.
 
 // Get box set remote search.
-ItemLookupAPI.getBoxSetRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ItemLookupAPI.getBoxSetRemoteSearchResults(boxSetInfoRemoteSearchQuery: boxSetInfoRemoteSearchQuery) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -148,7 +149,7 @@ ItemLookupAPI.getBoxSetRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **boxSetInfoRemoteSearchQuery** | [**BoxSetInfoRemoteSearchQuery**](BoxSetInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 
@@ -215,7 +216,7 @@ Name | Type | Description  | Notes
 
 # **getMovieRemoteSearchResults**
 ```swift
-    open class func getMovieRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getMovieRemoteSearchResults(movieInfoRemoteSearchQuery: MovieInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get movie remote search.
@@ -225,10 +226,10 @@ Get movie remote search.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let movieInfoRemoteSearchQuery = MovieInfoRemoteSearchQuery(searchInfo: MovieInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // MovieInfoRemoteSearchQuery | Remote search query.
 
 // Get movie remote search.
-ItemLookupAPI.getMovieRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ItemLookupAPI.getMovieRemoteSearchResults(movieInfoRemoteSearchQuery: movieInfoRemoteSearchQuery) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -244,7 +245,7 @@ ItemLookupAPI.getMovieRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **movieInfoRemoteSearchQuery** | [**MovieInfoRemoteSearchQuery**](MovieInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 
@@ -263,7 +264,7 @@ Name | Type | Description  | Notes
 
 # **getMusicAlbumRemoteSearchResults**
 ```swift
-    open class func getMusicAlbumRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getMusicAlbumRemoteSearchResults(albumInfoRemoteSearchQuery: AlbumInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get music album remote search.
@@ -273,10 +274,10 @@ Get music album remote search.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let albumInfoRemoteSearchQuery = AlbumInfoRemoteSearchQuery(searchInfo: AlbumInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], artistProviderIds: "TODO", songInfos: [SongInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], album: "album_example", artists: ["artists_example"])]), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // AlbumInfoRemoteSearchQuery | Remote search query.
 
 // Get music album remote search.
-ItemLookupAPI.getMusicAlbumRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ItemLookupAPI.getMusicAlbumRemoteSearchResults(albumInfoRemoteSearchQuery: albumInfoRemoteSearchQuery) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -292,7 +293,7 @@ ItemLookupAPI.getMusicAlbumRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_T
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **albumInfoRemoteSearchQuery** | [**AlbumInfoRemoteSearchQuery**](AlbumInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 
@@ -311,7 +312,7 @@ Name | Type | Description  | Notes
 
 # **getMusicArtistRemoteSearchResults**
 ```swift
-    open class func getMusicArtistRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getMusicArtistRemoteSearchResults(artistInfoRemoteSearchQuery: ArtistInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get music artist remote search.
@@ -321,10 +322,10 @@ Get music artist remote search.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let artistInfoRemoteSearchQuery = ArtistInfoRemoteSearchQuery(searchInfo: ArtistInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, songInfos: [SongInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], album: "album_example", artists: ["artists_example"])]), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // ArtistInfoRemoteSearchQuery | Remote search query.
 
 // Get music artist remote search.
-ItemLookupAPI.getMusicArtistRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ItemLookupAPI.getMusicArtistRemoteSearchResults(artistInfoRemoteSearchQuery: artistInfoRemoteSearchQuery) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -340,7 +341,7 @@ ItemLookupAPI.getMusicArtistRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **artistInfoRemoteSearchQuery** | [**ArtistInfoRemoteSearchQuery**](ArtistInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 
@@ -359,7 +360,7 @@ Name | Type | Description  | Notes
 
 # **getMusicVideoRemoteSearchResults**
 ```swift
-    open class func getMusicVideoRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getMusicVideoRemoteSearchResults(musicVideoInfoRemoteSearchQuery: MusicVideoInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get music video remote search.
@@ -369,10 +370,10 @@ Get music video remote search.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let musicVideoInfoRemoteSearchQuery = MusicVideoInfoRemoteSearchQuery(searchInfo: MusicVideoInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, artists: ["artists_example"]), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // MusicVideoInfoRemoteSearchQuery | Remote search query.
 
 // Get music video remote search.
-ItemLookupAPI.getMusicVideoRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ItemLookupAPI.getMusicVideoRemoteSearchResults(musicVideoInfoRemoteSearchQuery: musicVideoInfoRemoteSearchQuery) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -388,7 +389,7 @@ ItemLookupAPI.getMusicVideoRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_T
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **musicVideoInfoRemoteSearchQuery** | [**MusicVideoInfoRemoteSearchQuery**](MusicVideoInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 
@@ -407,7 +408,7 @@ Name | Type | Description  | Notes
 
 # **getPersonRemoteSearchResults**
 ```swift
-    open class func getPersonRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getPersonRemoteSearchResults(personLookupInfoRemoteSearchQuery: PersonLookupInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get person remote search.
@@ -417,10 +418,10 @@ Get person remote search.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let personLookupInfoRemoteSearchQuery = PersonLookupInfoRemoteSearchQuery(searchInfo: PersonLookupInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // PersonLookupInfoRemoteSearchQuery | Remote search query.
 
 // Get person remote search.
-ItemLookupAPI.getPersonRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ItemLookupAPI.getPersonRemoteSearchResults(personLookupInfoRemoteSearchQuery: personLookupInfoRemoteSearchQuery) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -436,7 +437,7 @@ ItemLookupAPI.getPersonRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **personLookupInfoRemoteSearchQuery** | [**PersonLookupInfoRemoteSearchQuery**](PersonLookupInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 
@@ -453,22 +454,23 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getSeriesRemoteSearchResults**
+# **getRemoteSearchImage**
 ```swift
-    open class func getSeriesRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getRemoteSearchImage(imageUrl: String, providerName: String, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
-Get series remote search.
+Gets a remote image.
 
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let imageUrl = "imageUrl_example" // String | The image url.
+let providerName = "providerName_example" // String | The provider name.
 
-// Get series remote search.
-ItemLookupAPI.getSeriesRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+// Gets a remote image.
+ItemLookupAPI.getRemoteSearchImage(imageUrl: imageUrl, providerName: providerName) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -484,7 +486,56 @@ ItemLookupAPI.getSeriesRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **imageUrl** | **String** | The image url. | 
+ **providerName** | **String** | The provider name. | 
+
+### Return type
+
+**URL**
+
+### Authorization
+
+[CustomAuthentication](../README.md#CustomAuthentication)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: image/_*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getSeriesRemoteSearchResults**
+```swift
+    open class func getSeriesRemoteSearchResults(seriesInfoRemoteSearchQuery: SeriesInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+```
+
+Get series remote search.
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OpenAPIClient
+
+let seriesInfoRemoteSearchQuery = SeriesInfoRemoteSearchQuery(searchInfo: SeriesInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // SeriesInfoRemoteSearchQuery | Remote search query.
+
+// Get series remote search.
+ItemLookupAPI.getSeriesRemoteSearchResults(seriesInfoRemoteSearchQuery: seriesInfoRemoteSearchQuery) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **seriesInfoRemoteSearchQuery** | [**SeriesInfoRemoteSearchQuery**](SeriesInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 
@@ -503,7 +554,7 @@ Name | Type | Description  | Notes
 
 # **getTrailerRemoteSearchResults**
 ```swift
-    open class func getTrailerRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getTrailerRemoteSearchResults(trailerInfoRemoteSearchQuery: TrailerInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get trailer remote search.
@@ -513,10 +564,10 @@ Get trailer remote search.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Remote search query.
+let trailerInfoRemoteSearchQuery = TrailerInfoRemoteSearchQuery(searchInfo: TrailerInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // TrailerInfoRemoteSearchQuery | Remote search query.
 
 // Get trailer remote search.
-ItemLookupAPI.getTrailerRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ItemLookupAPI.getTrailerRemoteSearchResults(trailerInfoRemoteSearchQuery: trailerInfoRemoteSearchQuery) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -532,7 +583,7 @@ ItemLookupAPI.getTrailerRemoteSearchResults(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Remote search query. | 
+ **trailerInfoRemoteSearchQuery** | [**TrailerInfoRemoteSearchQuery**](TrailerInfoRemoteSearchQuery.md) | Remote search query. | 
 
 ### Return type
 

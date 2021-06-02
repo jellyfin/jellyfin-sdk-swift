@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** | Gets or sets the Name. | [optional] 
 **id** | **String** | Gets or sets the Id. | [optional] 
-**identification** | [**DeviceIdentification**](DeviceIdentification.md) | Gets or sets the Identification. | [optional] 
+**identification** | [**DeviceIdentification**](DeviceIdentification.md) |  | [optional] 
 **friendlyName** | **String** | Gets or sets the FriendlyName. | [optional] 
 **manufacturer** | **String** | Gets or sets the Manufacturer. | [optional] 
 **manufacturerUrl** | **String** | Gets or sets the ManufacturerUrl. | [optional] 

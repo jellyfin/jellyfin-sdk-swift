@@ -7,9 +7,9 @@ Method | HTTP request | Description
 [**deleteAlternateSources**](VideosAPI.md#deletealternatesources) | **DELETE** /Videos/{itemId}/AlternateSources | Removes alternate video sources.
 [**getAdditionalPart**](VideosAPI.md#getadditionalpart) | **GET** /Videos/{itemId}/AdditionalParts | Gets additional parts for a video.
 [**getVideoStream**](VideosAPI.md#getvideostream) | **GET** /Videos/{itemId}/stream | Gets a video stream.
-[**getVideoStreamByContainer**](VideosAPI.md#getvideostreambycontainer) | **GET** /Videos/{itemId}/stream.{container} | Gets a video stream.
+[**getVideoStreamByContainer**](VideosAPI.md#getvideostreambycontainer) | **GET** /Videos/{itemId}/{stream}.{container} | Gets a video stream.
 [**headVideoStream**](VideosAPI.md#headvideostream) | **HEAD** /Videos/{itemId}/stream | Gets a video stream.
-[**headVideoStreamByContainer**](VideosAPI.md#headvideostreambycontainer) | **HEAD** /Videos/{itemId}/stream.{container} | Gets a video stream.
+[**headVideoStreamByContainer**](VideosAPI.md#headvideostreambycontainer) | **HEAD** /Videos/{itemId}/{stream}.{container} | Gets a video stream.
 [**mergeVersions**](VideosAPI.md#mergeversions) | **POST** /Videos/MergeVersions | Merges videos into a single record.
 
 
@@ -257,7 +257,7 @@ No authorization required
 
 # **getVideoStreamByContainer**
 ```swift
-    open class func getVideoStreamByContainer(itemId: UUID, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getVideoStreamByContainer(itemId: UUID, container: String, stream: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream.
@@ -269,13 +269,14 @@ import OpenAPIClient
 
 let itemId = 987 // UUID | The item id.
 let container = "container_example" // String | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.
+let stream = "stream_example" // String | 
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
 let tag = "tag_example" // String | The tag. (optional)
 let deviceProfileId = "deviceProfileId_example" // String | Optional. The dlna device profile id to utilize. (optional)
 let playSessionId = "playSessionId_example" // String | The play session id. (optional)
 let segmentContainer = "segmentContainer_example" // String | The segment container. (optional)
-let segmentLength = 987 // Int | The segment length. (optional)
+let segmentLength = 987 // Int | The segment lenght. (optional)
 let minSegments = 987 // Int | The minimum number of segments. (optional)
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version. (optional)
 let deviceId = "deviceId_example" // String | The device id of the client requesting. Used to stop encoding processes when needed. (optional)
@@ -304,7 +305,7 @@ let maxRefFrames = 987 // Int | Optional. (optional)
 let maxVideoBitDepth = 987 // Int | Optional. The maximum video bit depth. (optional)
 let requireAvc = true // Bool | Optional. Whether to require avc. (optional)
 let deInterlace = true // Bool | Optional. Whether to deinterlace the video. (optional)
-let requireNonAnamorphic = true // Bool | Optional. Whether to require a non anamorphic stream. (optional)
+let requireNonAnamorphic = true // Bool | Optional. Whether to require a non anamporphic stream. (optional)
 let transcodingMaxAudioChannels = 987 // Int | Optional. The maximum number of audio channels to transcode. (optional)
 let cpuCoreLimit = 987 // Int | Optional. The limit of how many cpu cores to use. (optional)
 let liveStreamId = "liveStreamId_example" // String | The live stream id. (optional)
@@ -318,7 +319,7 @@ let context = EncodingContext() // EncodingContext | Optional. The MediaBrowser.
 let streamOptions = "TODO" // [String: String] | Optional. The streaming options. (optional)
 
 // Gets a video stream.
-VideosAPI.getVideoStreamByContainer(itemId: itemId, container: container, _static: _static, params: params, tag: tag, deviceProfileId: deviceProfileId, playSessionId: playSessionId, segmentContainer: segmentContainer, segmentLength: segmentLength, minSegments: minSegments, mediaSourceId: mediaSourceId, deviceId: deviceId, audioCodec: audioCodec, enableAutoStreamCopy: enableAutoStreamCopy, allowVideoStreamCopy: allowVideoStreamCopy, allowAudioStreamCopy: allowAudioStreamCopy, breakOnNonKeyFrames: breakOnNonKeyFrames, audioSampleRate: audioSampleRate, maxAudioBitDepth: maxAudioBitDepth, audioBitRate: audioBitRate, audioChannels: audioChannels, maxAudioChannels: maxAudioChannels, profile: profile, level: level, framerate: framerate, maxFramerate: maxFramerate, copyTimestamps: copyTimestamps, startTimeTicks: startTimeTicks, width: width, height: height, videoBitRate: videoBitRate, subtitleStreamIndex: subtitleStreamIndex, subtitleMethod: subtitleMethod, maxRefFrames: maxRefFrames, maxVideoBitDepth: maxVideoBitDepth, requireAvc: requireAvc, deInterlace: deInterlace, requireNonAnamorphic: requireNonAnamorphic, transcodingMaxAudioChannels: transcodingMaxAudioChannels, cpuCoreLimit: cpuCoreLimit, liveStreamId: liveStreamId, enableMpegtsM2TsMode: enableMpegtsM2TsMode, videoCodec: videoCodec, subtitleCodec: subtitleCodec, transcodeReasons: transcodeReasons, audioStreamIndex: audioStreamIndex, videoStreamIndex: videoStreamIndex, context: context, streamOptions: streamOptions) { (response, error) in
+VideosAPI.getVideoStreamByContainer(itemId: itemId, container: container, stream: stream, _static: _static, params: params, tag: tag, deviceProfileId: deviceProfileId, playSessionId: playSessionId, segmentContainer: segmentContainer, segmentLength: segmentLength, minSegments: minSegments, mediaSourceId: mediaSourceId, deviceId: deviceId, audioCodec: audioCodec, enableAutoStreamCopy: enableAutoStreamCopy, allowVideoStreamCopy: allowVideoStreamCopy, allowAudioStreamCopy: allowAudioStreamCopy, breakOnNonKeyFrames: breakOnNonKeyFrames, audioSampleRate: audioSampleRate, maxAudioBitDepth: maxAudioBitDepth, audioBitRate: audioBitRate, audioChannels: audioChannels, maxAudioChannels: maxAudioChannels, profile: profile, level: level, framerate: framerate, maxFramerate: maxFramerate, copyTimestamps: copyTimestamps, startTimeTicks: startTimeTicks, width: width, height: height, videoBitRate: videoBitRate, subtitleStreamIndex: subtitleStreamIndex, subtitleMethod: subtitleMethod, maxRefFrames: maxRefFrames, maxVideoBitDepth: maxVideoBitDepth, requireAvc: requireAvc, deInterlace: deInterlace, requireNonAnamorphic: requireNonAnamorphic, transcodingMaxAudioChannels: transcodingMaxAudioChannels, cpuCoreLimit: cpuCoreLimit, liveStreamId: liveStreamId, enableMpegtsM2TsMode: enableMpegtsM2TsMode, videoCodec: videoCodec, subtitleCodec: subtitleCodec, transcodeReasons: transcodeReasons, audioStreamIndex: audioStreamIndex, videoStreamIndex: videoStreamIndex, context: context, streamOptions: streamOptions) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -336,13 +337,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **itemId** | [**UUID**](.md) | The item id. | 
  **container** | **String** | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. | 
+ **stream** | **String** |  | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
  **tag** | **String** | The tag. | [optional] 
  **deviceProfileId** | **String** | Optional. The dlna device profile id to utilize. | [optional] 
  **playSessionId** | **String** | The play session id. | [optional] 
  **segmentContainer** | **String** | The segment container. | [optional] 
- **segmentLength** | **Int** | The segment length. | [optional] 
+ **segmentLength** | **Int** | The segment lenght. | [optional] 
  **minSegments** | **Int** | The minimum number of segments. | [optional] 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | [optional] 
  **deviceId** | **String** | The device id of the client requesting. Used to stop encoding processes when needed. | [optional] 
@@ -371,7 +373,7 @@ Name | Type | Description  | Notes
  **maxVideoBitDepth** | **Int** | Optional. The maximum video bit depth. | [optional] 
  **requireAvc** | **Bool** | Optional. Whether to require avc. | [optional] 
  **deInterlace** | **Bool** | Optional. Whether to deinterlace the video. | [optional] 
- **requireNonAnamorphic** | **Bool** | Optional. Whether to require a non anamorphic stream. | [optional] 
+ **requireNonAnamorphic** | **Bool** | Optional. Whether to require a non anamporphic stream. | [optional] 
  **transcodingMaxAudioChannels** | **Int** | Optional. The maximum number of audio channels to transcode. | [optional] 
  **cpuCoreLimit** | **Int** | Optional. The limit of how many cpu cores to use. | [optional] 
  **liveStreamId** | **String** | The live stream id. | [optional] 
@@ -545,7 +547,7 @@ No authorization required
 
 # **headVideoStreamByContainer**
 ```swift
-    open class func headVideoStreamByContainer(itemId: UUID, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headVideoStreamByContainer(itemId: UUID, container: String, stream: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream.
@@ -557,13 +559,14 @@ import OpenAPIClient
 
 let itemId = 987 // UUID | The item id.
 let container = "container_example" // String | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.
+let stream = "stream_example" // String | 
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
 let tag = "tag_example" // String | The tag. (optional)
 let deviceProfileId = "deviceProfileId_example" // String | Optional. The dlna device profile id to utilize. (optional)
 let playSessionId = "playSessionId_example" // String | The play session id. (optional)
 let segmentContainer = "segmentContainer_example" // String | The segment container. (optional)
-let segmentLength = 987 // Int | The segment length. (optional)
+let segmentLength = 987 // Int | The segment lenght. (optional)
 let minSegments = 987 // Int | The minimum number of segments. (optional)
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version. (optional)
 let deviceId = "deviceId_example" // String | The device id of the client requesting. Used to stop encoding processes when needed. (optional)
@@ -592,7 +595,7 @@ let maxRefFrames = 987 // Int | Optional. (optional)
 let maxVideoBitDepth = 987 // Int | Optional. The maximum video bit depth. (optional)
 let requireAvc = true // Bool | Optional. Whether to require avc. (optional)
 let deInterlace = true // Bool | Optional. Whether to deinterlace the video. (optional)
-let requireNonAnamorphic = true // Bool | Optional. Whether to require a non anamorphic stream. (optional)
+let requireNonAnamorphic = true // Bool | Optional. Whether to require a non anamporphic stream. (optional)
 let transcodingMaxAudioChannels = 987 // Int | Optional. The maximum number of audio channels to transcode. (optional)
 let cpuCoreLimit = 987 // Int | Optional. The limit of how many cpu cores to use. (optional)
 let liveStreamId = "liveStreamId_example" // String | The live stream id. (optional)
@@ -606,7 +609,7 @@ let context = EncodingContext() // EncodingContext | Optional. The MediaBrowser.
 let streamOptions = "TODO" // [String: String] | Optional. The streaming options. (optional)
 
 // Gets a video stream.
-VideosAPI.headVideoStreamByContainer(itemId: itemId, container: container, _static: _static, params: params, tag: tag, deviceProfileId: deviceProfileId, playSessionId: playSessionId, segmentContainer: segmentContainer, segmentLength: segmentLength, minSegments: minSegments, mediaSourceId: mediaSourceId, deviceId: deviceId, audioCodec: audioCodec, enableAutoStreamCopy: enableAutoStreamCopy, allowVideoStreamCopy: allowVideoStreamCopy, allowAudioStreamCopy: allowAudioStreamCopy, breakOnNonKeyFrames: breakOnNonKeyFrames, audioSampleRate: audioSampleRate, maxAudioBitDepth: maxAudioBitDepth, audioBitRate: audioBitRate, audioChannels: audioChannels, maxAudioChannels: maxAudioChannels, profile: profile, level: level, framerate: framerate, maxFramerate: maxFramerate, copyTimestamps: copyTimestamps, startTimeTicks: startTimeTicks, width: width, height: height, videoBitRate: videoBitRate, subtitleStreamIndex: subtitleStreamIndex, subtitleMethod: subtitleMethod, maxRefFrames: maxRefFrames, maxVideoBitDepth: maxVideoBitDepth, requireAvc: requireAvc, deInterlace: deInterlace, requireNonAnamorphic: requireNonAnamorphic, transcodingMaxAudioChannels: transcodingMaxAudioChannels, cpuCoreLimit: cpuCoreLimit, liveStreamId: liveStreamId, enableMpegtsM2TsMode: enableMpegtsM2TsMode, videoCodec: videoCodec, subtitleCodec: subtitleCodec, transcodeReasons: transcodeReasons, audioStreamIndex: audioStreamIndex, videoStreamIndex: videoStreamIndex, context: context, streamOptions: streamOptions) { (response, error) in
+VideosAPI.headVideoStreamByContainer(itemId: itemId, container: container, stream: stream, _static: _static, params: params, tag: tag, deviceProfileId: deviceProfileId, playSessionId: playSessionId, segmentContainer: segmentContainer, segmentLength: segmentLength, minSegments: minSegments, mediaSourceId: mediaSourceId, deviceId: deviceId, audioCodec: audioCodec, enableAutoStreamCopy: enableAutoStreamCopy, allowVideoStreamCopy: allowVideoStreamCopy, allowAudioStreamCopy: allowAudioStreamCopy, breakOnNonKeyFrames: breakOnNonKeyFrames, audioSampleRate: audioSampleRate, maxAudioBitDepth: maxAudioBitDepth, audioBitRate: audioBitRate, audioChannels: audioChannels, maxAudioChannels: maxAudioChannels, profile: profile, level: level, framerate: framerate, maxFramerate: maxFramerate, copyTimestamps: copyTimestamps, startTimeTicks: startTimeTicks, width: width, height: height, videoBitRate: videoBitRate, subtitleStreamIndex: subtitleStreamIndex, subtitleMethod: subtitleMethod, maxRefFrames: maxRefFrames, maxVideoBitDepth: maxVideoBitDepth, requireAvc: requireAvc, deInterlace: deInterlace, requireNonAnamorphic: requireNonAnamorphic, transcodingMaxAudioChannels: transcodingMaxAudioChannels, cpuCoreLimit: cpuCoreLimit, liveStreamId: liveStreamId, enableMpegtsM2TsMode: enableMpegtsM2TsMode, videoCodec: videoCodec, subtitleCodec: subtitleCodec, transcodeReasons: transcodeReasons, audioStreamIndex: audioStreamIndex, videoStreamIndex: videoStreamIndex, context: context, streamOptions: streamOptions) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -624,13 +627,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **itemId** | [**UUID**](.md) | The item id. | 
  **container** | **String** | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. | 
+ **stream** | **String** |  | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
  **tag** | **String** | The tag. | [optional] 
  **deviceProfileId** | **String** | Optional. The dlna device profile id to utilize. | [optional] 
  **playSessionId** | **String** | The play session id. | [optional] 
  **segmentContainer** | **String** | The segment container. | [optional] 
- **segmentLength** | **Int** | The segment length. | [optional] 
+ **segmentLength** | **Int** | The segment lenght. | [optional] 
  **minSegments** | **Int** | The minimum number of segments. | [optional] 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | [optional] 
  **deviceId** | **String** | The device id of the client requesting. Used to stop encoding processes when needed. | [optional] 
@@ -659,7 +663,7 @@ Name | Type | Description  | Notes
  **maxVideoBitDepth** | **Int** | Optional. The maximum video bit depth. | [optional] 
  **requireAvc** | **Bool** | Optional. Whether to require avc. | [optional] 
  **deInterlace** | **Bool** | Optional. Whether to deinterlace the video. | [optional] 
- **requireNonAnamorphic** | **Bool** | Optional. Whether to require a non anamorphic stream. | [optional] 
+ **requireNonAnamorphic** | **Bool** | Optional. Whether to require a non anamporphic stream. | [optional] 
  **transcodingMaxAudioChannels** | **Int** | Optional. The maximum number of audio channels to transcode. | [optional] 
  **cpuCoreLimit** | **Int** | Optional. The limit of how many cpu cores to use. | [optional] 
  **liveStreamId** | **String** | The live stream id. | [optional] 

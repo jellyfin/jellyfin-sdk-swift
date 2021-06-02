@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 # **play**
 ```swift
-    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Instructs a session to play an item.
@@ -282,13 +282,9 @@ let sessionId = "sessionId_example" // String | The session id.
 let playCommand = PlayCommand() // PlayCommand | The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now.
 let itemIds = [123] // [UUID] | The ids of the items to play, comma delimited.
 let startPositionTicks = 987 // Int64 | The starting position of the first item. (optional)
-let mediaSourceId = "mediaSourceId_example" // String | Optional. The media source id. (optional)
-let audioStreamIndex = 987 // Int | Optional. The index of the audio stream to play. (optional)
-let subtitleStreamIndex = 987 // Int | Optional. The index of the subtitle stream to play. (optional)
-let startIndex = 987 // Int | Optional. The start index. (optional)
 
 // Instructs a session to play an item.
-SessionAPI.play(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks, mediaSourceId: mediaSourceId, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, startIndex: startIndex) { (response, error) in
+SessionAPI.play(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -308,10 +304,6 @@ Name | Type | Description  | Notes
  **playCommand** | [**PlayCommand**](.md) | The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now. | 
  **itemIds** | [**[UUID]**](UUID.md) | The ids of the items to play, comma delimited. | 
  **startPositionTicks** | **Int64** | The starting position of the first item. | [optional] 
- **mediaSourceId** | **String** | Optional. The media source id. | [optional] 
- **audioStreamIndex** | **Int** | Optional. The index of the audio stream to play. | [optional] 
- **subtitleStreamIndex** | **Int** | Optional. The index of the subtitle stream to play. | [optional] 
- **startIndex** | **Int** | Optional. The start index. | [optional] 
 
 ### Return type
 
@@ -388,7 +380,7 @@ Void (empty response body)
 
 # **postFullCapabilities**
 ```swift
-    open class func postFullCapabilities(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, id: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func postFullCapabilities(clientCapabilitiesDto: ClientCapabilitiesDto, id: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates capabilities for a device.
@@ -398,11 +390,11 @@ Updates capabilities for a device.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The MediaBrowser.Model.Session.ClientCapabilities.
+let clientCapabilitiesDto = ClientCapabilitiesDto(playableMediaTypes: ["playableMediaTypes_example"], supportedCommands: [GeneralCommandType()], supportsMediaControl: false, supportsContentUploading: false, messageCallbackUrl: "messageCallbackUrl_example", supportsPersistentIdentifier: false, supportsSync: false, deviceProfile: DeviceProfile(name: "name_example", id: "id_example", identification: DeviceIdentification(friendlyName: "friendlyName_example", modelNumber: "modelNumber_example", serialNumber: "serialNumber_example", modelName: "modelName_example", modelDescription: "modelDescription_example", modelUrl: "modelUrl_example", manufacturer: "manufacturer_example", manufacturerUrl: "manufacturerUrl_example", headers: [HttpHeaderInfo(name: "name_example", value: "value_example", match: HeaderMatchType())]), friendlyName: "friendlyName_example", manufacturer: "manufacturer_example", manufacturerUrl: "manufacturerUrl_example", modelName: "modelName_example", modelDescription: "modelDescription_example", modelNumber: "modelNumber_example", modelUrl: "modelUrl_example", serialNumber: "serialNumber_example", enableAlbumArtInDidl: false, enableSingleAlbumArtLimit: false, enableSingleSubtitleLimit: false, supportedMediaTypes: "supportedMediaTypes_example", userId: "userId_example", albumArtPn: "albumArtPn_example", maxAlbumArtWidth: 123, maxAlbumArtHeight: 123, maxIconWidth: 123, maxIconHeight: 123, maxStreamingBitrate: 123, maxStaticBitrate: 123, musicStreamingTranscodingBitrate: 123, maxStaticMusicBitrate: 123, sonyAggregationFlags: "sonyAggregationFlags_example", protocolInfo: "protocolInfo_example", timelineOffsetSeconds: 123, requiresPlainVideoItems: false, requiresPlainFolders: false, enableMSMediaReceiverRegistrar: false, ignoreTranscodeByteRangeRequests: false, xmlRootAttributes: [XmlAttribute(name: "name_example", value: "value_example")], directPlayProfiles: [DirectPlayProfile(container: "container_example", audioCodec: "audioCodec_example", videoCodec: "videoCodec_example", type: DlnaProfileType())], transcodingProfiles: [TranscodingProfile(container: "container_example", type: nil, videoCodec: "videoCodec_example", audioCodec: "audioCodec_example", _protocol: "_protocol_example", estimateContentLength: false, enableMpegtsM2TsMode: false, transcodeSeekInfo: TranscodeSeekInfo(), copyTimestamps: false, context: EncodingContext(), enableSubtitlesInManifest: false, maxAudioChannels: "maxAudioChannels_example", minSegments: 123, segmentLength: 123, breakOnNonKeyFrames: false)], containerProfiles: [ContainerProfile(type: nil, conditions: [ProfileCondition(condition: ProfileConditionType(), property: ProfileConditionValue(), value: "value_example", isRequired: false)], container: "container_example")], codecProfiles: [CodecProfile(type: CodecType(), conditions: [nil], applyConditions: [nil], codec: "codec_example", container: "container_example")], responseProfiles: [ResponseProfile(container: "container_example", audioCodec: "audioCodec_example", videoCodec: "videoCodec_example", type: nil, orgPn: "orgPn_example", mimeType: "mimeType_example", conditions: [nil])], subtitleProfiles: [SubtitleProfile(format: "format_example", method: SubtitleDeliveryMethod(), didlMode: "didlMode_example", language: "language_example", container: "container_example")]), appStoreUrl: "appStoreUrl_example", iconUrl: "iconUrl_example") // ClientCapabilitiesDto | The MediaBrowser.Model.Session.ClientCapabilities.
 let id = "id_example" // String | The session id. (optional)
 
 // Updates capabilities for a device.
-SessionAPI.postFullCapabilities(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, id: id) { (response, error) in
+SessionAPI.postFullCapabilities(clientCapabilitiesDto: clientCapabilitiesDto, id: id) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -418,7 +410,7 @@ SessionAPI.postFullCapabilities(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, id: id) { 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The MediaBrowser.Model.Session.ClientCapabilities. | 
+ **clientCapabilitiesDto** | [**ClientCapabilitiesDto**](ClientCapabilitiesDto.md) | The MediaBrowser.Model.Session.ClientCapabilities. | 
  **id** | **String** | The session id. | [optional] 
 
 ### Return type
@@ -582,7 +574,7 @@ Void (empty response body)
 
 # **sendFullGeneralCommand**
 ```swift
-    open class func sendFullGeneralCommand(sessionId: String, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func sendFullGeneralCommand(sessionId: String, generalCommand: GeneralCommand, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Issues a full general command to a client.
@@ -593,10 +585,10 @@ Issues a full general command to a client.
 import OpenAPIClient
 
 let sessionId = "sessionId_example" // String | The session id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The MediaBrowser.Model.Session.GeneralCommand.
+let generalCommand = GeneralCommand(name: GeneralCommandType(), controllingUserId: 123, arguments: "TODO") // GeneralCommand | The MediaBrowser.Model.Session.GeneralCommand.
 
 // Issues a full general command to a client.
-SessionAPI.sendFullGeneralCommand(sessionId: sessionId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SessionAPI.sendFullGeneralCommand(sessionId: sessionId, generalCommand: generalCommand) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -613,7 +605,7 @@ SessionAPI.sendFullGeneralCommand(sessionId: sessionId, UNKNOWN_BASE_TYPE: UNKNO
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The MediaBrowser.Model.Session.GeneralCommand. | 
+ **generalCommand** | [**GeneralCommand**](GeneralCommand.md) | The MediaBrowser.Model.Session.GeneralCommand. | 
 
 ### Return type
 
@@ -682,7 +674,7 @@ Void (empty response body)
 
 # **sendMessageCommand**
 ```swift
-    open class func sendMessageCommand(sessionId: String, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func sendMessageCommand(sessionId: String, text: String, header: String? = nil, timeoutMs: Int64? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Issues a command to a client to display a message to the user.
@@ -693,10 +685,12 @@ Issues a command to a client to display a message to the user.
 import OpenAPIClient
 
 let sessionId = "sessionId_example" // String | The session id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs.
+let text = "text_example" // String | The message test.
+let header = "header_example" // String | The message header. (optional)
+let timeoutMs = 987 // Int64 | The message timeout. If omitted the user will have to confirm viewing the message. (optional)
 
 // Issues a command to a client to display a message to the user.
-SessionAPI.sendMessageCommand(sessionId: sessionId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SessionAPI.sendMessageCommand(sessionId: sessionId, text: text, header: header, timeoutMs: timeoutMs) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -713,7 +707,9 @@ SessionAPI.sendMessageCommand(sessionId: sessionId, UNKNOWN_BASE_TYPE: UNKNOWN_B
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. | 
+ **text** | **String** | The message test. | 
+ **header** | **String** | The message header. | [optional] 
+ **timeoutMs** | **Int64** | The message timeout. If omitted the user will have to confirm viewing the message. | [optional] 
 
 ### Return type
 
@@ -725,7 +721,7 @@ Void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/_*+json
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

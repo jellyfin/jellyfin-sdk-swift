@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**item** | [**BaseItemDto**](BaseItemDto.md) | Gets or sets the item. | [optional] 
+**item** | [**BaseItemDto**](BaseItemDto.md) |  | [optional] 
 **itemId** | **UUID** | Gets or sets the item identifier. | [optional] 
 **sessionId** | **String** | Gets or sets the session id. | [optional] 
 **mediaSourceId** | **String** | Gets or sets the media version identifier. | [optional] 

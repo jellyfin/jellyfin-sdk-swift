@@ -4,10 +4,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** | Gets or sets the name. | [optional] 
-**state** | [**TaskState**](TaskState.md) | Gets or sets the state of the task. | [optional] 
+**state** | [**TaskState**](TaskState.md) |  | [optional] 
 **currentProgressPercentage** | **Double** | Gets or sets the progress. | [optional] 
 **id** | **String** | Gets or sets the id. | [optional] 
-**lastExecutionResult** | [**TaskResult**](TaskResult.md) | Gets or sets the last execution result. | [optional] 
+**lastExecutionResult** | [**TaskResult**](TaskResult.md) |  | [optional] 
 **triggers** | [TaskTriggerInfo] | Gets or sets the triggers. | [optional] 
 **description** | **String** | Gets or sets the description. | [optional] 
 **category** | **String** | Gets or sets the category. | [optional] 

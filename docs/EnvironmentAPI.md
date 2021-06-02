@@ -246,7 +246,7 @@ Name | Type | Description  | Notes
 
 # **validatePath**
 ```swift
-    open class func validatePath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func validatePath(validatePathDto: ValidatePathDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Validates path.
@@ -256,10 +256,10 @@ Validates path.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Validate request object.
+let validatePathDto = ValidatePathDto(validateWritable: false, path: "path_example", isFile: false) // ValidatePathDto | Validate request object.
 
 // Validates path.
-EnvironmentAPI.validatePath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+EnvironmentAPI.validatePath(validatePathDto: validatePathDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -275,7 +275,7 @@ EnvironmentAPI.validatePath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, e
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Validate request object. | 
+ **validatePathDto** | [**ValidatePathDto**](ValidatePathDto.md) | Validate request object. | 
 
 ### Return type
 

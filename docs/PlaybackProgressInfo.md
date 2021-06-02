@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **canSeek** | **Bool** | Gets or sets a value indicating whether this instance can seek. | [optional] 
-**item** | [**BaseItemDto**](BaseItemDto.md) | Gets or sets the item. | [optional] 
+**item** | [**BaseItemDto**](BaseItemDto.md) |  | [optional] 
 **itemId** | **UUID** | Gets or sets the item identifier. | [optional] 
 **sessionId** | **String** | Gets or sets the session id. | [optional] 
 **mediaSourceId** | **String** | Gets or sets the media version identifier. | [optional] 
@@ -17,10 +17,10 @@ Name | Type | Description | Notes
 **volumeLevel** | **Int** | Gets or sets the volume level. | [optional] 
 **brightness** | **Int** |  | [optional] 
 **aspectRatio** | **String** |  | [optional] 
-**playMethod** | [**PlayMethod**](PlayMethod.md) | Gets or sets the play method. | [optional] 
+**playMethod** | [**PlayMethod**](PlayMethod.md) |  | [optional] 
 **liveStreamId** | **String** | Gets or sets the live stream identifier. | [optional] 
 **playSessionId** | **String** | Gets or sets the play session identifier. | [optional] 
-**repeatMode** | [**RepeatMode**](RepeatMode.md) | Gets or sets the repeat mode. | [optional] 
+**repeatMode** | [**RepeatMode**](RepeatMode.md) |  | [optional] 
 **nowPlayingQueue** | [QueueItem] |  | [optional] 
 **playlistItemId** | **String** |  | [optional] 
 

@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **communityRating** | **Double** | Gets or sets the community rating. | [optional] 
 **voteCount** | **Int** | Gets or sets the vote count. | [optional] 
 **language** | **String** | Gets or sets the language. | [optional] 
-**type** | [**ImageType**](ImageType.md) | Gets or sets the type. | [optional] 
-**ratingType** | [**RatingType**](RatingType.md) | Gets or sets the type of the rating. | [optional] 
+**type** | [**ImageType**](ImageType.md) |  | [optional] 
+**ratingType** | [**RatingType**](RatingType.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

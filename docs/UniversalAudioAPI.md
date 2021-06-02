@@ -36,7 +36,7 @@ let transcodingProtocol = "transcodingProtocol_example" // String | Optional. Th
 let maxAudioSampleRate = 987 // Int | Optional. The maximum audio sample rate. (optional)
 let maxAudioBitDepth = 987 // Int | Optional. The maximum audio bit depth. (optional)
 let enableRemoteMedia = true // Bool | Optional. Whether to enable remote media. (optional)
-let breakOnNonKeyFrames = true // Bool | Optional. Whether to break on non key frames. (optional) (default to false)
+let breakOnNonKeyFrames = true // Bool | Optional. Whether to break on non key frames. (optional)
 let enableRedirection = true // Bool | Whether to enable redirection. Defaults to true. (optional) (default to true)
 
 // Gets an audio stream.
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
  **maxAudioSampleRate** | **Int** | Optional. The maximum audio sample rate. | [optional] 
  **maxAudioBitDepth** | **Int** | Optional. The maximum audio bit depth. | [optional] 
  **enableRemoteMedia** | **Bool** | Optional. Whether to enable remote media. | [optional] 
- **breakOnNonKeyFrames** | **Bool** | Optional. Whether to break on non key frames. | [optional] [default to false]
+ **breakOnNonKeyFrames** | **Bool** | Optional. Whether to break on non key frames. | [optional] 
  **enableRedirection** | **Bool** | Whether to enable redirection. Defaults to true. | [optional] [default to true]
 
 ### Return type
@@ -118,7 +118,7 @@ let transcodingProtocol = "transcodingProtocol_example" // String | Optional. Th
 let maxAudioSampleRate = 987 // Int | Optional. The maximum audio sample rate. (optional)
 let maxAudioBitDepth = 987 // Int | Optional. The maximum audio bit depth. (optional)
 let enableRemoteMedia = true // Bool | Optional. Whether to enable remote media. (optional)
-let breakOnNonKeyFrames = true // Bool | Optional. Whether to break on non key frames. (optional) (default to false)
+let breakOnNonKeyFrames = true // Bool | Optional. Whether to break on non key frames. (optional)
 let enableRedirection = true // Bool | Whether to enable redirection. Defaults to true. (optional) (default to true)
 
 // Gets an audio stream.
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
  **maxAudioSampleRate** | **Int** | Optional. The maximum audio sample rate. | [optional] 
  **maxAudioBitDepth** | **Int** | Optional. The maximum audio bit depth. | [optional] 
  **enableRemoteMedia** | **Bool** | Optional. Whether to enable remote media. | [optional] 
- **breakOnNonKeyFrames** | **Bool** | Optional. Whether to break on non key frames. | [optional] [default to false]
+ **breakOnNonKeyFrames** | **Bool** | Optional. Whether to break on non key frames. | [optional] 
  **enableRedirection** | **Bool** | Whether to enable redirection. Defaults to true. | [optional] [default to true]
 
 ### Return type

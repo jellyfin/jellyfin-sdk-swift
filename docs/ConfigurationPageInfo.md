@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **menuSection** | **String** | Gets or sets the menu section. | [optional] 
 **menuIcon** | **String** | Gets or sets the menu icon. | [optional] 
 **displayName** | **String** | Gets or sets the display name. | [optional] 
-**configurationPageType** | [**ConfigurationPageType**](ConfigurationPageType.md) | Gets or sets the type of the configuration page. | [optional] 
+**configurationPageType** | [**ConfigurationPageType**](ConfigurationPageType.md) |  | [optional] 
 **pluginId** | **UUID** | Gets or sets the plugin id. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

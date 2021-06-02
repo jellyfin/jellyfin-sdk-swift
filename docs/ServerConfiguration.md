@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **logFileRetentionDays** | **Int** | Gets or sets the number of days we should retain log files. | [optional] 
 **isStartupWizardCompleted** | **Bool** | Gets or sets a value indicating whether this instance is first run. | [optional] 
 **cachePath** | **String** | Gets or sets the cache path. | [optional] 
-**previousVersion** | [**Version**](Version.md) | Gets or sets the last known version that was ran using the configuration. | [optional] 
+**previousVersion** | [**Version**](Version.md) |  | [optional] 
 **previousVersionStr** | **String** | Gets or sets the stringified PreviousVersion to be stored/loaded,  because System.Version itself isn&#39;t xml-serializable. | [optional] 
 **enableUPnP** | **Bool** | Gets or sets a value indicating whether to enable automatic port forwarding. | [optional] 
 **enableMetrics** | **Bool** | Gets or sets a value indicating whether to enable prometheus metrics exporting. | [optional] 
@@ -54,7 +54,7 @@ Name | Type | Description | Notes
 **maxAudiobookResume** | **Int** | Gets or sets the remaining minutes of a book that can be played while still saving playstate. If this percentage is crossed playstate will be reset to the beginning and the item will be marked watched. | [optional] 
 **libraryMonitorDelay** | **Int** | Gets or sets the delay in seconds that we will wait after a file system change to try and discover what has been added/removed  Some delay is necessary with some items because their creation is not atomic.  It involves the creation of several  different directories and files. | [optional] 
 **enableDashboardResponseCaching** | **Bool** | Gets or sets a value indicating whether [enable dashboard response caching].  Allows potential contributors without visual studio to modify production dashboard code and test changes. | [optional] 
-**imageSavingConvention** | [**ImageSavingConvention**](ImageSavingConvention.md) | Gets or sets the image saving convention. | [optional] 
+**imageSavingConvention** | [**ImageSavingConvention**](ImageSavingConvention.md) |  | [optional] 
 **metadataOptions** | [MetadataOptions] |  | [optional] 
 **skipDeserializationForBasicTypes** | **Bool** |  | [optional] 
 **serverName** | **String** |  | [optional] 
@@ -77,6 +77,7 @@ Name | Type | Description | Notes
 **isRemoteIPFilterBlacklist** | **Bool** | Gets or sets a value indicating whether &lt;seealso cref&#x3D;\&quot;P:MediaBrowser.Model.Configuration.ServerConfiguration.RemoteIPFilter\&quot; /&gt; contains a blacklist or a whitelist. Default is a whitelist. | [optional] 
 **imageExtractionTimeoutMs** | **Int** |  | [optional] 
 **pathSubstitutions** | [PathSubstitution] |  | [optional] 
+**enableSimpleArtistDetection** | **Bool** |  | [optional] 
 **uninstalledPlugins** | **[String]** |  | [optional] 
 **enableSlowResponseWarning** | **Bool** | Gets or sets a value indicating whether slow server responses should be logged as a warning. | [optional] 
 **slowResponseThresholdMs** | **Int64** | Gets or sets the threshold for the slow response time warning in ms. | [optional] 
@@ -86,6 +87,7 @@ Name | Type | Description | Notes
 **libraryScanFanoutConcurrency** | **Int** | Gets or sets the how the library scan fans out. | [optional] 
 **libraryMetadataRefreshConcurrency** | **Int** | Gets or sets the how many metadata refreshes can run concurrently. | [optional] 
 **removeOldPlugins** | **Bool** | Gets or sets a value indicating whether older plugins should automatically be deleted from the plugin folder. | [optional] 
+**disablePluginImages** | **Bool** | Gets or sets a value indicating whether plugin image should be disabled. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

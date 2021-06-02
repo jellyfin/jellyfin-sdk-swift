@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **itemIds** | **[UUID]** | Gets or sets the item ids. | [optional] 
 **startPositionTicks** | **Int64** | Gets or sets the start position ticks that the first item should be played at. | [optional] 
-**playCommand** | [**PlayCommand**](PlayCommand.md) | Gets or sets the play command. | [optional] 
+**playCommand** | [**PlayCommand**](PlayCommand.md) |  | [optional] 
 **controllingUserId** | **UUID** | Gets or sets the controlling user identifier. | [optional] 
 **subtitleStreamIndex** | **Int** |  | [optional] 
 **audioStreamIndex** | **Int** |  | [optional] 

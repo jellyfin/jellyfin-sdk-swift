@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | [**ImageType**](ImageType.md) | Gets or sets the type. | [optional] 
+**type** | [**ImageType**](ImageType.md) |  | [optional] 
 **limit** | **Int** | Gets or sets the limit. | [optional] 
 **minWidth** | **Int** | Gets or sets the minimum width. | [optional] 
 

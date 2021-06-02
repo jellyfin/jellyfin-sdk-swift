@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **appVersion** | **String** | Gets or sets the application version. | [optional] 
 **lastUserId** | **UUID** | Gets or sets the last user identifier. | [optional] 
 **dateLastActivity** | **Date** | Gets or sets the date last modified. | [optional] 
-**capabilities** | [**ClientCapabilities**](ClientCapabilities.md) | Gets or sets the capabilities. | [optional] 
+**capabilities** | [**ClientCapabilities**](ClientCapabilities.md) |  | [optional] 
 **iconUrl** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

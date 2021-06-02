@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 # **updateDisplayPreferences**
 ```swift
-    open class func updateDisplayPreferences(displayPreferencesId: String, userId: UUID, client: String, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateDisplayPreferences(displayPreferencesId: String, userId: UUID, client: String, displayPreferencesDto: DisplayPreferencesDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Update Display Preferences.
@@ -75,10 +75,10 @@ import OpenAPIClient
 let displayPreferencesId = "displayPreferencesId_example" // String | Display preferences id.
 let userId = 987 // UUID | User Id.
 let client = "client_example" // String | Client.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | New Display Preferences object.
+let displayPreferencesDto = DisplayPreferencesDto(id: "id_example", viewType: "viewType_example", sortBy: "sortBy_example", indexBy: "indexBy_example", rememberIndexing: false, primaryImageHeight: 123, primaryImageWidth: 123, customPrefs: "TODO", scrollDirection: ScrollDirection(), showBackdrop: false, rememberSorting: false, sortOrder: SortOrder(), showSidebar: false, client: "client_example") // DisplayPreferencesDto | New Display Preferences object.
 
 // Update Display Preferences.
-DisplayPreferencesAPI.updateDisplayPreferences(displayPreferencesId: displayPreferencesId, userId: userId, client: client, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+DisplayPreferencesAPI.updateDisplayPreferences(displayPreferencesId: displayPreferencesId, userId: userId, client: client, displayPreferencesDto: displayPreferencesDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
  **displayPreferencesId** | **String** | Display preferences id. | 
  **userId** | [**UUID**](.md) | User Id. | 
  **client** | **String** | Client. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | New Display Preferences object. | 
+ **displayPreferencesDto** | [**DisplayPreferencesDto**](DisplayPreferencesDto.md) | New Display Preferences object. | 
 
 ### Return type
 

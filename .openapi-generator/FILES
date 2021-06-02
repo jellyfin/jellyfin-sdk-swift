@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 Cartfile
 OpenAPIClient.podspec
 Package.swift
@@ -76,7 +75,6 @@ Sources/OpenAPIClient/Models/AccessSchedule.swift
 Sources/OpenAPIClient/Models/ActivityLogEntry.swift
 Sources/OpenAPIClient/Models/ActivityLogEntryQueryResult.swift
 Sources/OpenAPIClient/Models/AddVirtualFolderDto.swift
-Sources/OpenAPIClient/Models/AdminNotificationDto.swift
 Sources/OpenAPIClient/Models/AlbumInfo.swift
 Sources/OpenAPIClient/Models/AlbumInfoRemoteSearchQuery.swift
 Sources/OpenAPIClient/Models/AllThemeMediaResult.swift
@@ -111,7 +109,6 @@ Sources/OpenAPIClient/Models/ClientCapabilitiesDto.swift
 Sources/OpenAPIClient/Models/CodecProfile.swift
 Sources/OpenAPIClient/Models/CodecType.swift
 Sources/OpenAPIClient/Models/CollectionCreationResult.swift
-Sources/OpenAPIClient/Models/CollectionTypeOptions.swift
 Sources/OpenAPIClient/Models/ConfigurationPageInfo.swift
 Sources/OpenAPIClient/Models/ConfigurationPageType.swift
 Sources/OpenAPIClient/Models/ContainerProfile.swift
@@ -145,7 +142,6 @@ Sources/OpenAPIClient/Models/FileSystemEntryType.swift
 Sources/OpenAPIClient/Models/FontFile.swift
 Sources/OpenAPIClient/Models/ForgotPasswordAction.swift
 Sources/OpenAPIClient/Models/ForgotPasswordDto.swift
-Sources/OpenAPIClient/Models/ForgotPasswordPinDto.swift
 Sources/OpenAPIClient/Models/ForgotPasswordResult.swift
 Sources/OpenAPIClient/Models/GeneralCommand.swift
 Sources/OpenAPIClient/Models/GeneralCommandType.swift
@@ -200,9 +196,7 @@ Sources/OpenAPIClient/Models/MediaSourceType.swift
 Sources/OpenAPIClient/Models/MediaStream.swift
 Sources/OpenAPIClient/Models/MediaStreamType.swift
 Sources/OpenAPIClient/Models/MediaUpdateInfoDto.swift
-Sources/OpenAPIClient/Models/MediaUpdateInfoPathDto.swift
 Sources/OpenAPIClient/Models/MediaUrl.swift
-Sources/OpenAPIClient/Models/MessageCommand.swift
 Sources/OpenAPIClient/Models/MetadataEditorInfo.swift
 Sources/OpenAPIClient/Models/MetadataField.swift
 Sources/OpenAPIClient/Models/MetadataOptions.swift
@@ -288,9 +282,7 @@ Sources/OpenAPIClient/Models/SeriesStatus.swift
 Sources/OpenAPIClient/Models/SeriesTimerInfoDto.swift
 Sources/OpenAPIClient/Models/SeriesTimerInfoDtoQueryResult.swift
 Sources/OpenAPIClient/Models/ServerConfiguration.swift
-Sources/OpenAPIClient/Models/ServerDiscoveryInfo.swift
 Sources/OpenAPIClient/Models/SessionInfo.swift
-Sources/OpenAPIClient/Models/SessionMessageType.swift
 Sources/OpenAPIClient/Models/SessionUserInfo.swift
 Sources/OpenAPIClient/Models/SetChannelMappingDto.swift
 Sources/OpenAPIClient/Models/SetPlaylistItemRequestDto.swift
@@ -328,7 +320,6 @@ Sources/OpenAPIClient/Models/TunerHostInfo.swift
 Sources/OpenAPIClient/Models/TypeOptions.swift
 Sources/OpenAPIClient/Models/UnratedItem.swift
 Sources/OpenAPIClient/Models/UpdateLibraryOptionsDto.swift
-Sources/OpenAPIClient/Models/UpdateMediaPathRequestDto.swift
 Sources/OpenAPIClient/Models/UpdateUserEasyPassword.swift
 Sources/OpenAPIClient/Models/UpdateUserPassword.swift
 Sources/OpenAPIClient/Models/UploadSubtitleDto.swift
@@ -353,7 +344,6 @@ docs/ActivityLogAPI.md
 docs/ActivityLogEntry.md
 docs/ActivityLogEntryQueryResult.md
 docs/AddVirtualFolderDto.md
-docs/AdminNotificationDto.md
 docs/AlbumInfo.md
 docs/AlbumInfoRemoteSearchQuery.md
 docs/AllThemeMediaResult.md
@@ -394,7 +384,6 @@ docs/CodecProfile.md
 docs/CodecType.md
 docs/CollectionAPI.md
 docs/CollectionCreationResult.md
-docs/CollectionTypeOptions.md
 docs/ConfigurationAPI.md
 docs/ConfigurationPageInfo.md
 docs/ConfigurationPageType.md
@@ -437,7 +426,6 @@ docs/FilterAPI.md
 docs/FontFile.md
 docs/ForgotPasswordAction.md
 docs/ForgotPasswordDto.md
-docs/ForgotPasswordPinDto.md
 docs/ForgotPasswordResult.md
 docs/GeneralCommand.md
 docs/GeneralCommandType.md
@@ -506,9 +494,7 @@ docs/MediaSourceType.md
 docs/MediaStream.md
 docs/MediaStreamType.md
 docs/MediaUpdateInfoDto.md
-docs/MediaUpdateInfoPathDto.md
 docs/MediaUrl.md
-docs/MessageCommand.md
 docs/MetadataEditorInfo.md
 docs/MetadataField.md
 docs/MetadataOptions.md
@@ -606,10 +592,8 @@ docs/SeriesStatus.md
 docs/SeriesTimerInfoDto.md
 docs/SeriesTimerInfoDtoQueryResult.md
 docs/ServerConfiguration.md
-docs/ServerDiscoveryInfo.md
 docs/SessionAPI.md
 docs/SessionInfo.md
-docs/SessionMessageType.md
 docs/SessionUserInfo.md
 docs/SetChannelMappingDto.md
 docs/SetPlaylistItemRequestDto.md
@@ -657,7 +641,6 @@ docs/TypeOptions.md
 docs/UniversalAudioAPI.md
 docs/UnratedItem.md
 docs/UpdateLibraryOptionsDto.md
-docs/UpdateMediaPathRequestDto.md
 docs/UpdateUserEasyPassword.md
 docs/UpdateUserPassword.md
 docs/UploadSubtitleDto.md

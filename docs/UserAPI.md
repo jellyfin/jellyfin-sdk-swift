@@ -76,7 +76,7 @@ No authorization required
 
 # **authenticateUserByName**
 ```swift
-    open class func authenticateUserByName(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
+    open class func authenticateUserByName(authenticateUserByName: AuthenticateUserByName, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
 ```
 
 Authenticates a user by name.
@@ -86,10 +86,10 @@ Authenticates a user by name.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request.
+let authenticateUserByName = AuthenticateUserByName(username: "username_example", pw: "pw_example", password: "password_example") // AuthenticateUserByName | The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request.
 
 // Authenticates a user by name.
-UserAPI.authenticateUserByName(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.authenticateUserByName(authenticateUserByName: authenticateUserByName) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -105,7 +105,7 @@ UserAPI.authenticateUserByName(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request. | 
+ **authenticateUserByName** | [**AuthenticateUserByName**](AuthenticateUserByName.md) | The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request. | 
 
 ### Return type
 
@@ -124,7 +124,7 @@ No authorization required
 
 # **authenticateWithQuickConnect**
 ```swift
-    open class func authenticateWithQuickConnect(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
+    open class func authenticateWithQuickConnect(quickConnectDto: QuickConnectDto, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
 ```
 
 Authenticates a user with quick connect.
@@ -134,10 +134,10 @@ Authenticates a user with quick connect.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The Jellyfin.Api.Models.UserDtos.QuickConnectDto request.
+let quickConnectDto = QuickConnectDto(token: "token_example") // QuickConnectDto | The Jellyfin.Api.Models.UserDtos.QuickConnectDto request.
 
 // Authenticates a user with quick connect.
-UserAPI.authenticateWithQuickConnect(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.authenticateWithQuickConnect(quickConnectDto: quickConnectDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -153,7 +153,7 @@ UserAPI.authenticateWithQuickConnect(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (re
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The Jellyfin.Api.Models.UserDtos.QuickConnectDto request. | 
+ **quickConnectDto** | [**QuickConnectDto**](QuickConnectDto.md) | The Jellyfin.Api.Models.UserDtos.QuickConnectDto request. | 
 
 ### Return type
 
@@ -172,7 +172,7 @@ No authorization required
 
 # **createUserByName**
 ```swift
-    open class func createUserByName(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: UserDto?, _ error: Error?) -> Void)
+    open class func createUserByName(createUserByName: CreateUserByName, completion: @escaping (_ data: UserDto?, _ error: Error?) -> Void)
 ```
 
 Creates a user.
@@ -182,10 +182,10 @@ Creates a user.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The create user by name request body.
+let createUserByName = CreateUserByName(name: "name_example", password: "password_example") // CreateUserByName | The create user by name request body.
 
 // Creates a user.
-UserAPI.createUserByName(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.createUserByName(createUserByName: createUserByName) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -201,7 +201,7 @@ UserAPI.createUserByName(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The create user by name request body. | 
+ **createUserByName** | [**CreateUserByName**](CreateUserByName.md) | The create user by name request body. | 
 
 ### Return type
 
@@ -268,7 +268,7 @@ Void (empty response body)
 
 # **forgotPassword**
 ```swift
-    open class func forgotPassword(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: ForgotPasswordResult?, _ error: Error?) -> Void)
+    open class func forgotPassword(forgotPasswordDto: ForgotPasswordDto, completion: @escaping (_ data: ForgotPasswordResult?, _ error: Error?) -> Void)
 ```
 
 Initiates the forgot password process for a local user.
@@ -278,10 +278,10 @@ Initiates the forgot password process for a local user.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The forgot password request containing the entered username.
+let forgotPasswordDto = ForgotPasswordDto(enteredUsername: "enteredUsername_example") // ForgotPasswordDto | The forgot password request containing the entered username.
 
 // Initiates the forgot password process for a local user.
-UserAPI.forgotPassword(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.forgotPassword(forgotPasswordDto: forgotPasswordDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -297,7 +297,7 @@ UserAPI.forgotPassword(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The forgot password request containing the entered username. | 
+ **forgotPasswordDto** | [**ForgotPasswordDto**](ForgotPasswordDto.md) | The forgot password request containing the entered username. | 
 
 ### Return type
 
@@ -316,7 +316,7 @@ No authorization required
 
 # **forgotPasswordPin**
 ```swift
-    open class func forgotPasswordPin(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: PinRedeemResult?, _ error: Error?) -> Void)
+    open class func forgotPasswordPin(body: String? = nil, completion: @escaping (_ data: PinRedeemResult?, _ error: Error?) -> Void)
 ```
 
 Redeems a forgot password pin.
@@ -326,10 +326,10 @@ Redeems a forgot password pin.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The forgot password pin request containing the entered pin.
+let body = "body_example" // String | The pin. (optional)
 
 // Redeems a forgot password pin.
-UserAPI.forgotPasswordPin(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.forgotPasswordPin(body: body) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -345,7 +345,7 @@ UserAPI.forgotPasswordPin(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, err
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The forgot password pin request containing the entered pin. | 
+ **body** | **String** | The pin. | [optional] 
 
 ### Return type
 
@@ -550,7 +550,7 @@ Name | Type | Description  | Notes
 
 # **updateUser**
 ```swift
-    open class func updateUser(userId: UUID, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUser(userId: UUID, userDto: UserDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user.
@@ -561,10 +561,10 @@ Updates a user.
 import OpenAPIClient
 
 let userId = 987 // UUID | The user id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The updated user model.
+let userDto = UserDto(name: "name_example", serverId: "serverId_example", serverName: "serverName_example", id: 123, primaryImageTag: "primaryImageTag_example", hasPassword: false, hasConfiguredPassword: false, hasConfiguredEasyPassword: false, enableAutoLogin: false, lastLoginDate: Date(), lastActivityDate: Date(), configuration: UserConfiguration(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false), policy: UserPolicy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: 123, dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: [123], enableAllChannels: false, enabledFolders: [123], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: [123], blockedChannels: [123], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()), primaryImageAspectRatio: 123) // UserDto | The updated user model.
 
 // Updates a user.
-UserAPI.updateUser(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.updateUser(userId: userId, userDto: userDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -581,7 +581,7 @@ UserAPI.updateUser(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (resp
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | [**UUID**](.md) | The user id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The updated user model. | 
+ **userDto** | [**UserDto**](UserDto.md) | The updated user model. | 
 
 ### Return type
 
@@ -600,7 +600,7 @@ Void (empty response body)
 
 # **updateUserConfiguration**
 ```swift
-    open class func updateUserConfiguration(userId: UUID, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserConfiguration(userId: UUID, userConfiguration: UserConfiguration, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user configuration.
@@ -611,10 +611,10 @@ Updates a user configuration.
 import OpenAPIClient
 
 let userId = 987 // UUID | The user id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new user configuration.
+let userConfiguration = UserConfiguration(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false) // UserConfiguration | The new user configuration.
 
 // Updates a user configuration.
-UserAPI.updateUserConfiguration(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.updateUserConfiguration(userId: userId, userConfiguration: userConfiguration) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -631,7 +631,7 @@ UserAPI.updateUserConfiguration(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | [**UUID**](.md) | The user id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new user configuration. | 
+ **userConfiguration** | [**UserConfiguration**](UserConfiguration.md) | The new user configuration. | 
 
 ### Return type
 
@@ -650,7 +650,7 @@ Void (empty response body)
 
 # **updateUserEasyPassword**
 ```swift
-    open class func updateUserEasyPassword(userId: UUID, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserEasyPassword(userId: UUID, updateUserEasyPassword: UpdateUserEasyPassword, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user's easy password.
@@ -661,10 +661,10 @@ Updates a user's easy password.
 import OpenAPIClient
 
 let userId = 987 // UUID | The user id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request.
+let updateUserEasyPassword = UpdateUserEasyPassword(newPassword: "newPassword_example", newPw: "newPw_example", resetPassword: false) // UpdateUserEasyPassword | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request.
 
 // Updates a user's easy password.
-UserAPI.updateUserEasyPassword(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.updateUserEasyPassword(userId: userId, updateUserEasyPassword: updateUserEasyPassword) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -681,7 +681,7 @@ UserAPI.updateUserEasyPassword(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_T
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | [**UUID**](.md) | The user id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request. | 
+ **updateUserEasyPassword** | [**UpdateUserEasyPassword**](UpdateUserEasyPassword.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request. | 
 
 ### Return type
 
@@ -700,7 +700,7 @@ Void (empty response body)
 
 # **updateUserPassword**
 ```swift
-    open class func updateUserPassword(userId: UUID, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserPassword(userId: UUID, updateUserPassword: UpdateUserPassword, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user's password.
@@ -711,10 +711,10 @@ Updates a user's password.
 import OpenAPIClient
 
 let userId = 987 // UUID | The user id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request.
+let updateUserPassword = UpdateUserPassword(currentPassword: "currentPassword_example", currentPw: "currentPw_example", newPw: "newPw_example", resetPassword: false) // UpdateUserPassword | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request.
 
 // Updates a user's password.
-UserAPI.updateUserPassword(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.updateUserPassword(userId: userId, updateUserPassword: updateUserPassword) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -731,7 +731,7 @@ UserAPI.updateUserPassword(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | [**UUID**](.md) | The user id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request. | 
+ **updateUserPassword** | [**UpdateUserPassword**](UpdateUserPassword.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request. | 
 
 ### Return type
 
@@ -750,7 +750,7 @@ Void (empty response body)
 
 # **updateUserPolicy**
 ```swift
-    open class func updateUserPolicy(userId: UUID, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserPolicy(userId: UUID, userPolicy: UserPolicy, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user policy.
@@ -761,10 +761,10 @@ Updates a user policy.
 import OpenAPIClient
 
 let userId = 987 // UUID | The user id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new user policy.
+let userPolicy = UserPolicy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: 123, dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: [123], enableAllChannels: false, enabledFolders: [123], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: [123], blockedChannels: [123], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()) // UserPolicy | The new user policy.
 
 // Updates a user policy.
-UserAPI.updateUserPolicy(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+UserAPI.updateUserPolicy(userId: userId, userPolicy: userPolicy) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -781,7 +781,7 @@ UserAPI.updateUserPolicy(userId: userId, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | [**UUID**](.md) | The user id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new user policy. | 
+ **userPolicy** | [**UserPolicy**](UserPolicy.md) | The new user policy. | 
 
 ### Return type
 

@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **version** | **String** | Gets or sets the version. | [optional] 
-**versionNumber** | [**Version**](Version.md) | Gets the version as a System.Version. | [optional] [readonly] 
+**versionNumber** | [**Version**](Version.md) |  | [optional] 
 **changelog** | **String** | Gets or sets the changelog for this version. | [optional] 
 **targetAbi** | **String** | Gets or sets the ABI that this version was built against. | [optional] 
 **sourceUrl** | **String** | Gets or sets the source URL. | [optional] 

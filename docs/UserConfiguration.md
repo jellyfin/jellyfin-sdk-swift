@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **subtitleLanguagePreference** | **String** | Gets or sets the subtitle language preference. | [optional] 
 **displayMissingEpisodes** | **Bool** |  | [optional] 
 **groupedFolders** | **[String]** |  | [optional] 
-**subtitleMode** | [**SubtitlePlaybackMode**](SubtitlePlaybackMode.md) | An enum representing a subtitle playback mode. | [optional] 
+**subtitleMode** | [**SubtitlePlaybackMode**](SubtitlePlaybackMode.md) |  | [optional] 
 **displayCollectionsView** | **Bool** |  | [optional] 
 **enableLocalPassword** | **Bool** |  | [optional] 
 **orderedViews** | **[String]** |  | [optional] 

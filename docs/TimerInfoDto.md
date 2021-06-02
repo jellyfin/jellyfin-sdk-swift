@@ -26,11 +26,11 @@ Name | Type | Description | Notes
 **parentBackdropImageTags** | **[String]** | Gets or sets the parent backdrop image tags. | [optional] 
 **isPostPaddingRequired** | **Bool** | Gets or sets a value indicating whether this instance is post padding required. | [optional] 
 **keepUntil** | [**KeepUntil**](KeepUntil.md) |  | [optional] 
-**status** | [**RecordingStatus**](RecordingStatus.md) | Gets or sets the status. | [optional] 
+**status** | [**RecordingStatus**](RecordingStatus.md) |  | [optional] 
 **seriesTimerId** | **String** | Gets or sets the series timer identifier. | [optional] 
 **externalSeriesTimerId** | **String** | Gets or sets the external series timer identifier. | [optional] 
 **runTimeTicks** | **Int64** | Gets or sets the run time ticks. | [optional] 
-**programInfo** | [**BaseItemDto**](BaseItemDto.md) | Gets or sets the program information. | [optional] 
+**programInfo** | [**BaseItemDto**](BaseItemDto.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

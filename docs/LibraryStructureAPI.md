@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 # **addMediaPath**
 ```swift
-    open class func addMediaPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, refreshLibrary: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func addMediaPath(mediaPathDto: MediaPathDto, refreshLibrary: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Add a media path to a library.
@@ -26,11 +26,11 @@ Add a media path to a library.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The media path dto.
+let mediaPathDto = MediaPathDto(name: "name_example", path: "path_example", pathInfo: MediaPathInfo(path: "path_example", networkPath: "networkPath_example")) // MediaPathDto | The media path dto.
 let refreshLibrary = true // Bool | Whether to refresh the library. (optional) (default to false)
 
 // Add a media path to a library.
-LibraryStructureAPI.addMediaPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, refreshLibrary: refreshLibrary) { (response, error) in
+LibraryStructureAPI.addMediaPath(mediaPathDto: mediaPathDto, refreshLibrary: refreshLibrary) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -46,7 +46,7 @@ LibraryStructureAPI.addMediaPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, refreshLi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The media path dto. | 
+ **mediaPathDto** | [**MediaPathDto**](MediaPathDto.md) | The media path dto. | 
  **refreshLibrary** | **Bool** | Whether to refresh the library. | [optional] [default to false]
 
 ### Return type
@@ -66,7 +66,7 @@ Void (empty response body)
 
 # **addVirtualFolder**
 ```swift
-    open class func addVirtualFolder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func addVirtualFolder(name: String? = nil, collectionType: String? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Adds a virtual folder.
@@ -77,13 +77,13 @@ Adds a virtual folder.
 import OpenAPIClient
 
 let name = "name_example" // String | The name of the virtual folder. (optional)
-let collectionType = CollectionTypeOptions() // CollectionTypeOptions | The type of the collection. (optional)
+let collectionType = "collectionType_example" // String | The type of the collection. (optional)
 let paths = ["inner_example"] // [String] | The paths of the virtual folder. (optional)
 let refreshLibrary = true // Bool | Whether to refresh the library. (optional) (default to false)
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The library options. (optional)
+let addVirtualFolderDto = AddVirtualFolderDto(libraryOptions: LibraryOptions(enablePhotos: false, enableRealtimeMonitor: false, enableChapterImageExtraction: false, extractChapterImagesDuringLibraryScan: false, pathInfos: [MediaPathInfo(path: "path_example", networkPath: "networkPath_example")], saveLocalMetadata: false, enableInternetProviders: false, enableAutomaticSeriesGrouping: false, enableEmbeddedTitles: false, enableEmbeddedEpisodeInfos: false, automaticRefreshIntervalDays: 123, preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", seasonZeroDisplayName: "seasonZeroDisplayName_example", metadataSavers: ["metadataSavers_example"], disabledLocalMetadataReaders: ["disabledLocalMetadataReaders_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledSubtitleFetchers: ["disabledSubtitleFetchers_example"], subtitleFetcherOrder: ["subtitleFetcherOrder_example"], skipSubtitlesIfEmbeddedSubtitlesPresent: false, skipSubtitlesIfAudioTrackMatches: false, subtitleDownloadLanguages: ["subtitleDownloadLanguages_example"], requirePerfectSubtitleMatch: false, saveSubtitlesWithMedia: false, typeOptions: [TypeOptions(type: "type_example", metadataFetchers: ["metadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], imageFetchers: ["imageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"], imageOptions: [ImageOption(type: ImageType(), limit: 123, minWidth: 123)])])) // AddVirtualFolderDto | The library options. (optional)
 
 // Adds a virtual folder.
-LibraryStructureAPI.addVirtualFolder(name: name, collectionType: collectionType, paths: paths, refreshLibrary: refreshLibrary, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LibraryStructureAPI.addVirtualFolder(name: name, collectionType: collectionType, paths: paths, refreshLibrary: refreshLibrary, addVirtualFolderDto: addVirtualFolderDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -100,10 +100,10 @@ LibraryStructureAPI.addVirtualFolder(name: name, collectionType: collectionType,
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | The name of the virtual folder. | [optional] 
- **collectionType** | [**CollectionTypeOptions**](.md) | The type of the collection. | [optional] 
+ **collectionType** | **String** | The type of the collection. | [optional] 
  **paths** | [**[String]**](String.md) | The paths of the virtual folder. | [optional] 
  **refreshLibrary** | **Bool** | Whether to refresh the library. | [optional] [default to false]
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The library options. | [optional] 
+ **addVirtualFolderDto** | [**AddVirtualFolderDto**](AddVirtualFolderDto.md) | The library options. | [optional] 
 
 ### Return type
 
@@ -320,7 +320,7 @@ Void (empty response body)
 
 # **updateLibraryOptions**
 ```swift
-    open class func updateLibraryOptions(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateLibraryOptions(updateLibraryOptionsDto: UpdateLibraryOptionsDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Update library options.
@@ -330,10 +330,10 @@ Update library options.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The library name and options. (optional)
+let updateLibraryOptionsDto = UpdateLibraryOptionsDto(id: 123, libraryOptions: LibraryOptions(enablePhotos: false, enableRealtimeMonitor: false, enableChapterImageExtraction: false, extractChapterImagesDuringLibraryScan: false, pathInfos: [MediaPathInfo(path: "path_example", networkPath: "networkPath_example")], saveLocalMetadata: false, enableInternetProviders: false, enableAutomaticSeriesGrouping: false, enableEmbeddedTitles: false, enableEmbeddedEpisodeInfos: false, automaticRefreshIntervalDays: 123, preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", seasonZeroDisplayName: "seasonZeroDisplayName_example", metadataSavers: ["metadataSavers_example"], disabledLocalMetadataReaders: ["disabledLocalMetadataReaders_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledSubtitleFetchers: ["disabledSubtitleFetchers_example"], subtitleFetcherOrder: ["subtitleFetcherOrder_example"], skipSubtitlesIfEmbeddedSubtitlesPresent: false, skipSubtitlesIfAudioTrackMatches: false, subtitleDownloadLanguages: ["subtitleDownloadLanguages_example"], requirePerfectSubtitleMatch: false, saveSubtitlesWithMedia: false, typeOptions: [TypeOptions(type: "type_example", metadataFetchers: ["metadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], imageFetchers: ["imageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"], imageOptions: [ImageOption(type: ImageType(), limit: 123, minWidth: 123)])])) // UpdateLibraryOptionsDto | The library name and options. (optional)
 
 // Update library options.
-LibraryStructureAPI.updateLibraryOptions(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LibraryStructureAPI.updateLibraryOptions(updateLibraryOptionsDto: updateLibraryOptionsDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -349,7 +349,7 @@ LibraryStructureAPI.updateLibraryOptions(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The library name and options. | [optional] 
+ **updateLibraryOptionsDto** | [**UpdateLibraryOptionsDto**](UpdateLibraryOptionsDto.md) | The library name and options. | [optional] 
 
 ### Return type
 
@@ -368,7 +368,7 @@ Void (empty response body)
 
 # **updateMediaPath**
 ```swift
-    open class func updateMediaPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateMediaPath(name: String? = nil, mediaPathInfo: MediaPathInfo? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a media path.
@@ -378,10 +378,11 @@ Updates a media path.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The name of the library and path infos.
+let name = "name_example" // String | The name of the library. (optional)
+let mediaPathInfo = MediaPathInfo(path: "path_example", networkPath: "networkPath_example") // MediaPathInfo | The path info. (optional)
 
 // Updates a media path.
-LibraryStructureAPI.updateMediaPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+LibraryStructureAPI.updateMediaPath(name: name, mediaPathInfo: mediaPathInfo) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -397,7 +398,8 @@ LibraryStructureAPI.updateMediaPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (res
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The name of the library and path infos. | 
+ **name** | **String** | The name of the library. | [optional] 
+ **mediaPathInfo** | [**MediaPathInfo**](MediaPathInfo.md) | The path info. | [optional] 
 
 ### Return type
 

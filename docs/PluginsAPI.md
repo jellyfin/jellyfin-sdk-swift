@@ -456,7 +456,7 @@ Void (empty response body)
 
 # **updatePluginSecurityInfo**
 ```swift
-    open class func updatePluginSecurityInfo(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updatePluginSecurityInfo(pluginSecurityInfo: PluginSecurityInfo, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates plugin security info.
@@ -466,10 +466,10 @@ Updates plugin security info.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Plugin security info.
+let pluginSecurityInfo = PluginSecurityInfo(supporterKey: "supporterKey_example", isMbSupporter: false) // PluginSecurityInfo | Plugin security info.
 
 // Updates plugin security info.
-PluginsAPI.updatePluginSecurityInfo(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+PluginsAPI.updatePluginSecurityInfo(pluginSecurityInfo: pluginSecurityInfo) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -485,7 +485,7 @@ PluginsAPI.updatePluginSecurityInfo(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (res
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Plugin security info. | 
+ **pluginSecurityInfo** | [**PluginSecurityInfo**](PluginSecurityInfo.md) | Plugin security info. | 
 
 ### Return type
 

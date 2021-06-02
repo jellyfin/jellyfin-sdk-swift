@@ -65,12 +65,12 @@ Void (empty response body)
 
 # **createPlaylist**
 ```swift
-    open class func createPlaylist(name: String? = nil, ids: [UUID]? = nil, userId: UUID? = nil, mediaType: String? = nil, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: PlaylistCreationResult?, _ error: Error?) -> Void)
+    open class func createPlaylist(name: String? = nil, ids: [UUID]? = nil, userId: UUID? = nil, mediaType: String? = nil, createPlaylistDto: CreatePlaylistDto? = nil, completion: @escaping (_ data: PlaylistCreationResult?, _ error: Error?) -> Void)
 ```
 
 Creates a new playlist.
 
-For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.  Query parameters are obsolete.
+For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.
 
 ### Example 
 ```swift
@@ -81,10 +81,10 @@ let name = "name_example" // String | The playlist name. (optional)
 let ids = [123] // [UUID] | The item ids. (optional)
 let userId = 987 // UUID | The user id. (optional)
 let mediaType = "mediaType_example" // String | The media type. (optional)
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The create playlist payload. (optional)
+let createPlaylistDto = CreatePlaylistDto(name: "name_example", ids: [123], userId: 123, mediaType: "mediaType_example") // CreatePlaylistDto | The create playlist payload. (optional)
 
 // Creates a new playlist.
-PlaylistsAPI.createPlaylist(name: name, ids: ids, userId: userId, mediaType: mediaType, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+PlaylistsAPI.createPlaylist(name: name, ids: ids, userId: userId, mediaType: mediaType, createPlaylistDto: createPlaylistDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
  **ids** | [**[UUID]**](UUID.md) | The item ids. | [optional] 
  **userId** | [**UUID**](.md) | The user id. | [optional] 
  **mediaType** | **String** | The media type. | [optional] 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The create playlist payload. | [optional] 
+ **createPlaylistDto** | [**CreatePlaylistDto**](CreatePlaylistDto.md) | The create playlist payload. | [optional] 
 
 ### Return type
 

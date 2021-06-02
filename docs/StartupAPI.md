@@ -191,7 +191,7 @@ This endpoint does not need any parameter.
 
 # **setRemoteAccess**
 ```swift
-    open class func setRemoteAccess(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func setRemoteAccess(startupRemoteAccessDto: StartupRemoteAccessDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets remote access and UPnP.
@@ -201,10 +201,10 @@ Sets remote access and UPnP.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The startup remote access dto.
+let startupRemoteAccessDto = StartupRemoteAccessDto(enableRemoteAccess: false, enableAutomaticPortMapping: false) // StartupRemoteAccessDto | The startup remote access dto.
 
 // Sets remote access and UPnP.
-StartupAPI.setRemoteAccess(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+StartupAPI.setRemoteAccess(startupRemoteAccessDto: startupRemoteAccessDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -220,7 +220,7 @@ StartupAPI.setRemoteAccess(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, er
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The startup remote access dto. | 
+ **startupRemoteAccessDto** | [**StartupRemoteAccessDto**](StartupRemoteAccessDto.md) | The startup remote access dto. | 
 
 ### Return type
 
@@ -239,7 +239,7 @@ Void (empty response body)
 
 # **updateInitialConfiguration**
 ```swift
-    open class func updateInitialConfiguration(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateInitialConfiguration(startupConfigurationDto: StartupConfigurationDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the initial startup wizard configuration.
@@ -249,10 +249,10 @@ Sets the initial startup wizard configuration.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The updated startup configuration.
+let startupConfigurationDto = StartupConfigurationDto(uICulture: "uICulture_example", metadataCountryCode: "metadataCountryCode_example", preferredMetadataLanguage: "preferredMetadataLanguage_example") // StartupConfigurationDto | The updated startup configuration.
 
 // Sets the initial startup wizard configuration.
-StartupAPI.updateInitialConfiguration(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+StartupAPI.updateInitialConfiguration(startupConfigurationDto: startupConfigurationDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -268,7 +268,7 @@ StartupAPI.updateInitialConfiguration(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (r
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The updated startup configuration. | 
+ **startupConfigurationDto** | [**StartupConfigurationDto**](StartupConfigurationDto.md) | The updated startup configuration. | 
 
 ### Return type
 
@@ -287,7 +287,7 @@ Void (empty response body)
 
 # **updateStartupUser**
 ```swift
-    open class func updateStartupUser(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateStartupUser(startupUserDto: StartupUserDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the user name and password.
@@ -297,10 +297,10 @@ Sets the user name and password.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The DTO containing username and password. (optional)
+let startupUserDto = StartupUserDto(name: "name_example", password: "password_example") // StartupUserDto | The DTO containing username and password. (optional)
 
 // Sets the user name and password.
-StartupAPI.updateStartupUser(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+StartupAPI.updateStartupUser(startupUserDto: startupUserDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -316,7 +316,7 @@ StartupAPI.updateStartupUser(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The DTO containing username and password. | [optional] 
+ **startupUserDto** | [**StartupUserDto**](StartupUserDto.md) | The DTO containing username and password. | [optional] 
 
 ### Return type
 

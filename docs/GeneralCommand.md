@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | [**GeneralCommandType**](GeneralCommandType.md) | This exists simply to identify a set of known commands. | [optional] 
+**name** | [**GeneralCommandType**](GeneralCommandType.md) |  | [optional] 
 **controllingUserId** | **UUID** |  | [optional] 
 **arguments** | **[String: String]** |  | [optional] 
 

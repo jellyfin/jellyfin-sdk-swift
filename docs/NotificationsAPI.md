@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 # **createAdminNotification**
 ```swift
-    open class func createAdminNotification(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func createAdminNotification(url: String? = nil, level: NotificationLevel? = nil, name: String? = nil, description: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sends a notification to all admins.
@@ -25,10 +25,13 @@ Sends a notification to all admins.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The notification request.
+let url = "url_example" // String | The URL of the notification. (optional)
+let level = NotificationLevel() // NotificationLevel | The level of the notification. (optional)
+let name = "name_example" // String | The name of the notification. (optional) (default to "")
+let description = "description_example" // String | The description of the notification. (optional) (default to "")
 
 // Sends a notification to all admins.
-NotificationsAPI.createAdminNotification(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+NotificationsAPI.createAdminNotification(url: url, level: level, name: name, description: description) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -44,7 +47,10 @@ NotificationsAPI.createAdminNotification(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The notification request. | 
+ **url** | **String** | The URL of the notification. | [optional] 
+ **level** | [**NotificationLevel**](.md) | The level of the notification. | [optional] 
+ **name** | **String** | The name of the notification. | [optional] [default to &quot;&quot;]
+ **description** | **String** | The description of the notification. | [optional] [default to &quot;&quot;]
 
 ### Return type
 
@@ -56,7 +62,7 @@ Void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/_*+json
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **date** | **Date** | Gets or sets the date. | [optional] 
 **userId** | **UUID** | Gets or sets the user identifier. | [optional] 
 **userPrimaryImageTag** | **String** | Gets or sets the user primary image tag. | [optional] 
-**severity** | [**LogLevel**](LogLevel.md) | Gets or sets the log severity. | [optional] 
+**severity** | [**LogLevel**](LogLevel.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

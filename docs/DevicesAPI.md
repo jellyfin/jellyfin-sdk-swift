@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 
 # **updateDeviceOptions**
 ```swift
-    open class func updateDeviceOptions(id: String, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateDeviceOptions(id: String, deviceOptions: DeviceOptions, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Update device options.
@@ -218,10 +218,10 @@ Update device options.
 import OpenAPIClient
 
 let id = "id_example" // String | Device Id.
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Device Options.
+let deviceOptions = DeviceOptions(customName: "customName_example") // DeviceOptions | Device Options.
 
 // Update device options.
-DevicesAPI.updateDeviceOptions(id: id, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+DevicesAPI.updateDeviceOptions(id: id, deviceOptions: deviceOptions) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -238,7 +238,7 @@ DevicesAPI.updateDeviceOptions(id: id, UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String** | Device Id. | 
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Device Options. | 
+ **deviceOptions** | [**DeviceOptions**](DeviceOptions.md) | Device Options. | 
 
 ### Return type
 

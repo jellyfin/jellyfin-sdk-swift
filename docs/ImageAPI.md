@@ -254,7 +254,7 @@ Void (empty response body)
 
 # **getArtistImage**
 ```swift
-    open class func getArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get artist image by name.
@@ -276,8 +276,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -285,7 +283,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get artist image by name.
-ImageAPI.getArtistImage(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.getArtistImage(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -313,8 +311,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -338,7 +334,7 @@ No authorization required
 
 # **getGenreImage**
 ```swift
-    open class func getGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get genre image by name.
@@ -359,8 +355,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -369,7 +363,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get genre image by name.
-ImageAPI.getGenreImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.getGenreImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -396,8 +390,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -422,7 +414,7 @@ No authorization required
 
 # **getGenreImageByIndex**
 ```swift
-    open class func getGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get genre image by name.
@@ -444,8 +436,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -453,7 +443,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get genre image by name.
-ImageAPI.getGenreImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.getGenreImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -481,8 +471,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -506,7 +494,7 @@ No authorization required
 
 # **getItemImage**
 ```swift
-    open class func getItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -523,8 +511,6 @@ let maxHeight = 987 // Int | The maximum image height to return. (optional)
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let tag = "tag_example" // String | Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let format = ImageFormat() // ImageFormat | Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -537,7 +523,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Gets the item's image.
-ImageAPI.getItemImage(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.getItemImage(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -560,8 +546,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **tag** | **String** | Optional. Supply the cache tag from the item object to receive strong caching headers. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **format** | [**ImageFormat**](.md) | Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. | [optional] 
@@ -590,7 +574,7 @@ No authorization required
 
 # **getItemImage2**
 ```swift
-    open class func getItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -612,8 +596,6 @@ let imageIndex = 987 // Int | Image index.
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -621,7 +603,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Gets the item's image.
-ImageAPI.getItemImage2(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.getItemImage2(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -649,8 +631,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -674,7 +654,7 @@ No authorization required
 
 # **getItemImageByIndex**
 ```swift
-    open class func getItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -692,8 +672,6 @@ let maxHeight = 987 // Int | The maximum image height to return. (optional)
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let tag = "tag_example" // String | Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let format = ImageFormat() // ImageFormat | Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -705,7 +683,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Gets the item's image.
-ImageAPI.getItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.getItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -729,8 +707,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **tag** | **String** | Optional. Supply the cache tag from the item object to receive strong caching headers. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **format** | [**ImageFormat**](.md) | Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. | [optional] 
@@ -806,7 +782,7 @@ Name | Type | Description  | Notes
 
 # **getMusicGenreImage**
 ```swift
-    open class func getMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get music genre image by name.
@@ -827,8 +803,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -837,7 +811,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get music genre image by name.
-ImageAPI.getMusicGenreImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.getMusicGenreImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -864,8 +838,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -890,7 +862,7 @@ No authorization required
 
 # **getMusicGenreImageByIndex**
 ```swift
-    open class func getMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get music genre image by name.
@@ -912,8 +884,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -921,7 +891,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get music genre image by name.
-ImageAPI.getMusicGenreImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.getMusicGenreImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -949,8 +919,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -974,7 +942,7 @@ No authorization required
 
 # **getPersonImage**
 ```swift
-    open class func getPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get person image by name.
@@ -995,8 +963,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1005,7 +971,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get person image by name.
-ImageAPI.getPersonImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.getPersonImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1032,8 +998,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1058,7 +1022,7 @@ No authorization required
 
 # **getPersonImageByIndex**
 ```swift
-    open class func getPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get person image by name.
@@ -1080,8 +1044,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1089,7 +1051,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get person image by name.
-ImageAPI.getPersonImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.getPersonImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1117,8 +1079,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1142,7 +1102,7 @@ No authorization required
 
 # **getStudioImage**
 ```swift
-    open class func getStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get studio image by name.
@@ -1163,8 +1123,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1173,7 +1131,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get studio image by name.
-ImageAPI.getStudioImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.getStudioImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1200,8 +1158,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1226,7 +1182,7 @@ No authorization required
 
 # **getStudioImageByIndex**
 ```swift
-    open class func getStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get studio image by name.
@@ -1248,8 +1204,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1257,7 +1211,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get studio image by name.
-ImageAPI.getStudioImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.getStudioImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1285,8 +1239,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1310,7 +1262,7 @@ No authorization required
 
 # **getUserImage**
 ```swift
-    open class func getUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get user profile image.
@@ -1331,8 +1283,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1341,7 +1291,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get user profile image.
-ImageAPI.getUserImage(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.getUserImage(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1368,8 +1318,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1394,7 +1342,7 @@ No authorization required
 
 # **getUserImageByIndex**
 ```swift
-    open class func getUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get user profile image.
@@ -1416,8 +1364,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1425,7 +1371,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get user profile image.
-ImageAPI.getUserImageByIndex(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.getUserImageByIndex(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1453,8 +1399,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1478,7 +1422,7 @@ No authorization required
 
 # **headArtistImage**
 ```swift
-    open class func headArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get artist image by name.
@@ -1500,8 +1444,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1509,7 +1451,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get artist image by name.
-ImageAPI.headArtistImage(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.headArtistImage(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1537,8 +1479,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1562,7 +1502,7 @@ No authorization required
 
 # **headGenreImage**
 ```swift
-    open class func headGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get genre image by name.
@@ -1583,8 +1523,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1593,7 +1531,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get genre image by name.
-ImageAPI.headGenreImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.headGenreImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1620,8 +1558,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1646,7 +1582,7 @@ No authorization required
 
 # **headGenreImageByIndex**
 ```swift
-    open class func headGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get genre image by name.
@@ -1668,8 +1604,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1677,7 +1611,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get genre image by name.
-ImageAPI.headGenreImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.headGenreImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1705,8 +1639,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1730,7 +1662,7 @@ No authorization required
 
 # **headItemImage**
 ```swift
-    open class func headItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -1747,8 +1679,6 @@ let maxHeight = 987 // Int | The maximum image height to return. (optional)
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let tag = "tag_example" // String | Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let format = ImageFormat() // ImageFormat | Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -1761,7 +1691,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Gets the item's image.
-ImageAPI.headItemImage(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.headItemImage(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1784,8 +1714,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **tag** | **String** | Optional. Supply the cache tag from the item object to receive strong caching headers. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **format** | [**ImageFormat**](.md) | Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. | [optional] 
@@ -1814,7 +1742,7 @@ No authorization required
 
 # **headItemImage2**
 ```swift
-    open class func headItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -1836,8 +1764,6 @@ let imageIndex = 987 // Int | Image index.
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -1845,7 +1771,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Gets the item's image.
-ImageAPI.headItemImage2(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.headItemImage2(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1873,8 +1799,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -1898,7 +1822,7 @@ No authorization required
 
 # **headItemImageByIndex**
 ```swift
-    open class func headItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -1916,8 +1840,6 @@ let maxHeight = 987 // Int | The maximum image height to return. (optional)
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let tag = "tag_example" // String | Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let format = ImageFormat() // ImageFormat | Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -1929,7 +1851,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Gets the item's image.
-ImageAPI.headItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.headItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1953,8 +1875,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **tag** | **String** | Optional. Supply the cache tag from the item object to receive strong caching headers. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **format** | [**ImageFormat**](.md) | Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. | [optional] 
@@ -1982,7 +1902,7 @@ No authorization required
 
 # **headMusicGenreImage**
 ```swift
-    open class func headMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get music genre image by name.
@@ -2003,8 +1923,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -2013,7 +1931,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get music genre image by name.
-ImageAPI.headMusicGenreImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.headMusicGenreImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2040,8 +1958,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -2066,7 +1982,7 @@ No authorization required
 
 # **headMusicGenreImageByIndex**
 ```swift
-    open class func headMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get music genre image by name.
@@ -2088,8 +2004,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -2097,7 +2011,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get music genre image by name.
-ImageAPI.headMusicGenreImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.headMusicGenreImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2125,8 +2039,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -2150,7 +2062,7 @@ No authorization required
 
 # **headPersonImage**
 ```swift
-    open class func headPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get person image by name.
@@ -2171,8 +2083,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -2181,7 +2091,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get person image by name.
-ImageAPI.headPersonImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.headPersonImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2208,8 +2118,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -2234,7 +2142,7 @@ No authorization required
 
 # **headPersonImageByIndex**
 ```swift
-    open class func headPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get person image by name.
@@ -2256,8 +2164,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -2265,7 +2171,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get person image by name.
-ImageAPI.headPersonImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.headPersonImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2293,8 +2199,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -2318,7 +2222,7 @@ No authorization required
 
 # **headStudioImage**
 ```swift
-    open class func headStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get studio image by name.
@@ -2339,8 +2243,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -2349,7 +2251,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get studio image by name.
-ImageAPI.headStudioImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.headStudioImage(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2376,8 +2278,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -2402,7 +2302,7 @@ No authorization required
 
 # **headStudioImageByIndex**
 ```swift
-    open class func headStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get studio image by name.
@@ -2424,8 +2324,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -2433,7 +2331,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get studio image by name.
-ImageAPI.headStudioImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.headStudioImageByIndex(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2461,8 +2359,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -2486,7 +2382,7 @@ No authorization required
 
 # **headUserImage**
 ```swift
-    open class func headUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get user profile image.
@@ -2507,8 +2403,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -2517,7 +2411,7 @@ let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a fo
 let imageIndex = 987 // Int | Image index. (optional)
 
 // Get user profile image.
-ImageAPI.headUserImage(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
+ImageAPI.headUserImage(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2544,8 +2438,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -2570,7 +2462,7 @@ No authorization required
 
 # **headUserImageByIndex**
 ```swift
-    open class func headUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get user profile image.
@@ -2592,8 +2484,6 @@ let unplayedCount = 987 // Int | Optional. Unplayed count overlay to render. (op
 let width = 987 // Int | The fixed image width to return. (optional)
 let height = 987 // Int | The fixed image height to return. (optional)
 let quality = 987 // Int | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
-let fillWidth = 987 // Int | Width of box to fill. (optional)
-let fillHeight = 987 // Int | Height of box to fill. (optional)
 let cropWhitespace = true // Bool | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
 let addPlayedIndicator = true // Bool | Optional. Add a played indicator. (optional)
 let blur = 987 // Int | Optional. Blur image. (optional)
@@ -2601,7 +2491,7 @@ let backgroundColor = "backgroundColor_example" // String | Optional. Apply a ba
 let foregroundLayer = "foregroundLayer_example" // String | Optional. Apply a foreground layer on top of the image. (optional)
 
 // Get user profile image.
-ImageAPI.headUserImageByIndex(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
+ImageAPI.headUserImageByIndex(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2629,8 +2519,6 @@ Name | Type | Description  | Notes
  **width** | **Int** | The fixed image width to return. | [optional] 
  **height** | **Int** | The fixed image height to return. | [optional] 
  **quality** | **Int** | Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. | [optional] 
- **fillWidth** | **Int** | Width of box to fill. | [optional] 
- **fillHeight** | **Int** | Height of box to fill. | [optional] 
  **cropWhitespace** | **Bool** | Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. | [optional] 
  **addPlayedIndicator** | **Bool** | Optional. Add a played indicator. | [optional] 
  **blur** | **Int** | Optional. Blur image. | [optional] 
@@ -2654,7 +2542,7 @@ No authorization required
 
 # **postUserImage**
 ```swift
-    open class func postUserImage(userId: UUID, imageType: ImageType, index: Int? = nil, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func postUserImage(userId: UUID, imageType: ImageType, index: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the user image.
@@ -2667,10 +2555,9 @@ import OpenAPIClient
 let userId = 987 // UUID | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
 let index = 987 // Int | (Unused) Image index. (optional)
-let body = URL(string: "https://example.com")! // URL |  (optional)
 
 // Sets the user image.
-ImageAPI.postUserImage(userId: userId, imageType: imageType, index: index, body: body) { (response, error) in
+ImageAPI.postUserImage(userId: userId, imageType: imageType, index: index) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2689,7 +2576,6 @@ Name | Type | Description  | Notes
  **userId** | [**UUID**](.md) | User Id. | 
  **imageType** | [**ImageType**](.md) | (Unused) Image type. | 
  **index** | **Int** | (Unused) Image index. | [optional] 
- **body** | **URL** |  | [optional] 
 
 ### Return type
 
@@ -2701,14 +2587,14 @@ Void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: image/_*
+ - **Content-Type**: Not defined
  - **Accept**: application/json, application/json; profile=CamelCase, application/json; profile=PascalCase
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **postUserImageByIndex**
 ```swift
-    open class func postUserImageByIndex(userId: UUID, imageType: ImageType, index: Int, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func postUserImageByIndex(userId: UUID, imageType: ImageType, index: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the user image.
@@ -2721,10 +2607,9 @@ import OpenAPIClient
 let userId = 987 // UUID | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
 let index = 987 // Int | (Unused) Image index.
-let body = URL(string: "https://example.com")! // URL |  (optional)
 
 // Sets the user image.
-ImageAPI.postUserImageByIndex(userId: userId, imageType: imageType, index: index, body: body) { (response, error) in
+ImageAPI.postUserImageByIndex(userId: userId, imageType: imageType, index: index) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2743,7 +2628,6 @@ Name | Type | Description  | Notes
  **userId** | [**UUID**](.md) | User Id. | 
  **imageType** | [**ImageType**](.md) | (Unused) Image type. | 
  **index** | **Int** | (Unused) Image index. | 
- **body** | **URL** |  | [optional] 
 
 ### Return type
 
@@ -2755,14 +2639,14 @@ Void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: image/_*
+ - **Content-Type**: Not defined
  - **Accept**: application/json, application/json; profile=CamelCase, application/json; profile=PascalCase
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **setItemImage**
 ```swift
-    open class func setItemImage(itemId: UUID, imageType: ImageType, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func setItemImage(itemId: UUID, imageType: ImageType, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Set item image.
@@ -2774,10 +2658,9 @@ import OpenAPIClient
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
-let body = URL(string: "https://example.com")! // URL |  (optional)
 
 // Set item image.
-ImageAPI.setItemImage(itemId: itemId, imageType: imageType, body: body) { (response, error) in
+ImageAPI.setItemImage(itemId: itemId, imageType: imageType) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2795,7 +2678,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **itemId** | [**UUID**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
- **body** | **URL** |  | [optional] 
 
 ### Return type
 
@@ -2807,14 +2689,14 @@ Void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: image/_*
+ - **Content-Type**: Not defined
  - **Accept**: application/json, application/json; profile=CamelCase, application/json; profile=PascalCase
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **setItemImageByIndex**
 ```swift
-    open class func setItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func setItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Set item image.
@@ -2827,10 +2709,9 @@ import OpenAPIClient
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | (Unused) Image index.
-let body = URL(string: "https://example.com")! // URL |  (optional)
 
 // Set item image.
-ImageAPI.setItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: imageIndex, body: body) { (response, error) in
+ImageAPI.setItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: imageIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -2849,7 +2730,6 @@ Name | Type | Description  | Notes
  **itemId** | [**UUID**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | (Unused) Image index. | 
- **body** | **URL** |  | [optional] 
 
 ### Return type
 
@@ -2861,14 +2741,14 @@ Void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: image/_*
+ - **Content-Type**: Not defined
  - **Accept**: application/json, application/json; profile=CamelCase, application/json; profile=PascalCase
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updateItemImageIndex**
 ```swift
-    open class func updateItemImageIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateItemImageIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates the index for an item image.
@@ -2881,7 +2761,7 @@ import OpenAPIClient
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | Old image index.
-let newIndex = 987 // Int | New image index.
+let newIndex = 987 // Int | New image index. (optional)
 
 // Updates the index for an item image.
 ImageAPI.updateItemImageIndex(itemId: itemId, imageType: imageType, imageIndex: imageIndex, newIndex: newIndex) { (response, error) in
@@ -2903,7 +2783,7 @@ Name | Type | Description  | Notes
  **itemId** | [**UUID**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | Old image index. | 
- **newIndex** | **Int** | New image index. | 
+ **newIndex** | **Int** | New image index. | [optional] 
 
 ### Return type
 

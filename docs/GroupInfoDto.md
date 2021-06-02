@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **groupId** | **UUID** | Gets the group identifier. | [optional] [readonly] 
 **groupName** | **String** | Gets the group name. | [optional] [readonly] 
-**state** | [**GroupStateType**](GroupStateType.md) | Gets the group state. | [optional] [readonly] 
+**state** | [**GroupStateType**](GroupStateType.md) |  | [optional] 
 **participants** | **[String]** | Gets the participants. | [optional] [readonly] 
 **lastUpdatedAt** | **Date** | Gets the date when this DTO has been created. | [optional] [readonly] 
 

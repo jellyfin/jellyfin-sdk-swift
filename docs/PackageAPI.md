@@ -254,7 +254,7 @@ Void (empty response body)
 
 # **setRepositories**
 ```swift
-    open class func setRepositories(repositoryInfo: [RepositoryInfo], completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func setRepositories(repositoryInfo: [RepositoryInfo]? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the enabled and existing package repositories.
@@ -264,7 +264,7 @@ Sets the enabled and existing package repositories.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let repositoryInfo = [RepositoryInfo(name: "name_example", url: "url_example", enabled: false)] // [RepositoryInfo] | The list of package repositories.
+let repositoryInfo = [RepositoryInfo(name: "name_example", url: "url_example", enabled: false)] // [RepositoryInfo] | The list of package repositories. (optional)
 
 // Sets the enabled and existing package repositories.
 PackageAPI.setRepositories(repositoryInfo: repositoryInfo) { (response, error) in
@@ -283,7 +283,7 @@ PackageAPI.setRepositories(repositoryInfo: repositoryInfo) { (response, error) i
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repositoryInfo** | [**[RepositoryInfo]**](RepositoryInfo.md) | The list of package repositories. | 
+ **repositoryInfo** | [**[RepositoryInfo]**](RepositoryInfo.md) | The list of package repositories. | [optional] 
 
 ### Return type
 

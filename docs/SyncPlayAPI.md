@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 # **syncPlayBuffering**
 ```swift
-    open class func syncPlayBuffering(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayBuffering(bufferRequestDto: BufferRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Notify SyncPlay group that member is buffering.
@@ -39,10 +39,10 @@ Notify SyncPlay group that member is buffering.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The player status.
+let bufferRequestDto = BufferRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: 123) // BufferRequestDto | The player status.
 
 // Notify SyncPlay group that member is buffering.
-SyncPlayAPI.syncPlayBuffering(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayBuffering(bufferRequestDto: bufferRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -58,7 +58,7 @@ SyncPlayAPI.syncPlayBuffering(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The player status. | 
+ **bufferRequestDto** | [**BufferRequestDto**](BufferRequestDto.md) | The player status. | 
 
 ### Return type
 
@@ -77,7 +77,7 @@ Void (empty response body)
 
 # **syncPlayCreateGroup**
 ```swift
-    open class func syncPlayCreateGroup(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayCreateGroup(newGroupRequestDto: NewGroupRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Create a new SyncPlay group.
@@ -87,10 +87,10 @@ Create a new SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The settings of the new group.
+let newGroupRequestDto = NewGroupRequestDto(groupName: "groupName_example") // NewGroupRequestDto | The settings of the new group.
 
 // Create a new SyncPlay group.
-SyncPlayAPI.syncPlayCreateGroup(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayCreateGroup(newGroupRequestDto: newGroupRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -106,7 +106,7 @@ SyncPlayAPI.syncPlayCreateGroup(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (respons
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The settings of the new group. | 
+ **newGroupRequestDto** | [**NewGroupRequestDto**](NewGroupRequestDto.md) | The settings of the new group. | 
 
 ### Return type
 
@@ -169,7 +169,7 @@ This endpoint does not need any parameter.
 
 # **syncPlayJoinGroup**
 ```swift
-    open class func syncPlayJoinGroup(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayJoinGroup(joinGroupRequestDto: JoinGroupRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Join an existing SyncPlay group.
@@ -179,10 +179,10 @@ Join an existing SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The group to join.
+let joinGroupRequestDto = JoinGroupRequestDto(groupId: 123) // JoinGroupRequestDto | The group to join.
 
 // Join an existing SyncPlay group.
-SyncPlayAPI.syncPlayJoinGroup(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayJoinGroup(joinGroupRequestDto: joinGroupRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -198,7 +198,7 @@ SyncPlayAPI.syncPlayJoinGroup(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The group to join. | 
+ **joinGroupRequestDto** | [**JoinGroupRequestDto**](JoinGroupRequestDto.md) | The group to join. | 
 
 ### Return type
 
@@ -261,7 +261,7 @@ Void (empty response body)
 
 # **syncPlayMovePlaylistItem**
 ```swift
-    open class func syncPlayMovePlaylistItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayMovePlaylistItem(movePlaylistItemRequestDto: MovePlaylistItemRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to move an item in the playlist in SyncPlay group.
@@ -271,10 +271,10 @@ Request to move an item in the playlist in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new position for the item.
+let movePlaylistItemRequestDto = MovePlaylistItemRequestDto(playlistItemId: 123, newIndex: 123) // MovePlaylistItemRequestDto | The new position for the item.
 
 // Request to move an item in the playlist in SyncPlay group.
-SyncPlayAPI.syncPlayMovePlaylistItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayMovePlaylistItem(movePlaylistItemRequestDto: movePlaylistItemRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -290,7 +290,7 @@ SyncPlayAPI.syncPlayMovePlaylistItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (re
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new position for the item. | 
+ **movePlaylistItemRequestDto** | [**MovePlaylistItemRequestDto**](MovePlaylistItemRequestDto.md) | The new position for the item. | 
 
 ### Return type
 
@@ -309,7 +309,7 @@ Void (empty response body)
 
 # **syncPlayNextItem**
 ```swift
-    open class func syncPlayNextItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayNextItem(nextItemRequestDto: NextItemRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request next item in SyncPlay group.
@@ -319,10 +319,10 @@ Request next item in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The current item information.
+let nextItemRequestDto = NextItemRequestDto(playlistItemId: 123) // NextItemRequestDto | The current item information.
 
 // Request next item in SyncPlay group.
-SyncPlayAPI.syncPlayNextItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayNextItem(nextItemRequestDto: nextItemRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -338,7 +338,7 @@ SyncPlayAPI.syncPlayNextItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The current item information. | 
+ **nextItemRequestDto** | [**NextItemRequestDto**](NextItemRequestDto.md) | The current item information. | 
 
 ### Return type
 
@@ -401,7 +401,7 @@ Void (empty response body)
 
 # **syncPlayPing**
 ```swift
-    open class func syncPlayPing(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayPing(pingRequestDto: PingRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Update session ping.
@@ -411,10 +411,10 @@ Update session ping.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new ping.
+let pingRequestDto = PingRequestDto(ping: 123) // PingRequestDto | The new ping.
 
 // Update session ping.
-SyncPlayAPI.syncPlayPing(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayPing(pingRequestDto: pingRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -430,7 +430,7 @@ SyncPlayAPI.syncPlayPing(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new ping. | 
+ **pingRequestDto** | [**PingRequestDto**](PingRequestDto.md) | The new ping. | 
 
 ### Return type
 
@@ -449,7 +449,7 @@ Void (empty response body)
 
 # **syncPlayPreviousItem**
 ```swift
-    open class func syncPlayPreviousItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayPreviousItem(previousItemRequestDto: PreviousItemRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request previous item in SyncPlay group.
@@ -459,10 +459,10 @@ Request previous item in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The current item information.
+let previousItemRequestDto = PreviousItemRequestDto(playlistItemId: 123) // PreviousItemRequestDto | The current item information.
 
 // Request previous item in SyncPlay group.
-SyncPlayAPI.syncPlayPreviousItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayPreviousItem(previousItemRequestDto: previousItemRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -478,7 +478,7 @@ SyncPlayAPI.syncPlayPreviousItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (respon
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The current item information. | 
+ **previousItemRequestDto** | [**PreviousItemRequestDto**](PreviousItemRequestDto.md) | The current item information. | 
 
 ### Return type
 
@@ -497,7 +497,7 @@ Void (empty response body)
 
 # **syncPlayQueue**
 ```swift
-    open class func syncPlayQueue(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayQueue(queueRequestDto: QueueRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to queue items to the playlist of a SyncPlay group.
@@ -507,10 +507,10 @@ Request to queue items to the playlist of a SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The items to add.
+let queueRequestDto = QueueRequestDto(itemIds: [123], mode: GroupQueueMode()) // QueueRequestDto | The items to add.
 
 // Request to queue items to the playlist of a SyncPlay group.
-SyncPlayAPI.syncPlayQueue(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayQueue(queueRequestDto: queueRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -526,7 +526,7 @@ SyncPlayAPI.syncPlayQueue(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, err
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The items to add. | 
+ **queueRequestDto** | [**QueueRequestDto**](QueueRequestDto.md) | The items to add. | 
 
 ### Return type
 
@@ -545,7 +545,7 @@ Void (empty response body)
 
 # **syncPlayReady**
 ```swift
-    open class func syncPlayReady(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayReady(readyRequestDto: ReadyRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Notify SyncPlay group that member is ready for playback.
@@ -555,10 +555,10 @@ Notify SyncPlay group that member is ready for playback.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The player status.
+let readyRequestDto = ReadyRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: 123) // ReadyRequestDto | The player status.
 
 // Notify SyncPlay group that member is ready for playback.
-SyncPlayAPI.syncPlayReady(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayReady(readyRequestDto: readyRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -574,7 +574,7 @@ SyncPlayAPI.syncPlayReady(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, err
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The player status. | 
+ **readyRequestDto** | [**ReadyRequestDto**](ReadyRequestDto.md) | The player status. | 
 
 ### Return type
 
@@ -593,7 +593,7 @@ Void (empty response body)
 
 # **syncPlayRemoveFromPlaylist**
 ```swift
-    open class func syncPlayRemoveFromPlaylist(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayRemoveFromPlaylist(removeFromPlaylistRequestDto: RemoveFromPlaylistRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to remove items from the playlist in SyncPlay group.
@@ -603,10 +603,10 @@ Request to remove items from the playlist in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The items to remove.
+let removeFromPlaylistRequestDto = RemoveFromPlaylistRequestDto(playlistItemIds: [123]) // RemoveFromPlaylistRequestDto | The items to remove.
 
 // Request to remove items from the playlist in SyncPlay group.
-SyncPlayAPI.syncPlayRemoveFromPlaylist(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlayRemoveFromPlaylist(removeFromPlaylistRequestDto: removeFromPlaylistRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -622,7 +622,7 @@ SyncPlayAPI.syncPlayRemoveFromPlaylist(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The items to remove. | 
+ **removeFromPlaylistRequestDto** | [**RemoveFromPlaylistRequestDto**](RemoveFromPlaylistRequestDto.md) | The items to remove. | 
 
 ### Return type
 
@@ -641,7 +641,7 @@ Void (empty response body)
 
 # **syncPlaySeek**
 ```swift
-    open class func syncPlaySeek(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySeek(seekRequestDto: SeekRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request seek in SyncPlay group.
@@ -651,10 +651,10 @@ Request seek in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new playback position.
+let seekRequestDto = SeekRequestDto(positionTicks: 123) // SeekRequestDto | The new playback position.
 
 // Request seek in SyncPlay group.
-SyncPlayAPI.syncPlaySeek(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlaySeek(seekRequestDto: seekRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -670,7 +670,7 @@ SyncPlayAPI.syncPlaySeek(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new playback position. | 
+ **seekRequestDto** | [**SeekRequestDto**](SeekRequestDto.md) | The new playback position. | 
 
 ### Return type
 
@@ -689,7 +689,7 @@ Void (empty response body)
 
 # **syncPlaySetIgnoreWait**
 ```swift
-    open class func syncPlaySetIgnoreWait(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetIgnoreWait(ignoreWaitRequestDto: IgnoreWaitRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request SyncPlay group to ignore member during group-wait.
@@ -699,10 +699,10 @@ Request SyncPlay group to ignore member during group-wait.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The settings to set.
+let ignoreWaitRequestDto = IgnoreWaitRequestDto(ignoreWait: false) // IgnoreWaitRequestDto | The settings to set.
 
 // Request SyncPlay group to ignore member during group-wait.
-SyncPlayAPI.syncPlaySetIgnoreWait(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlaySetIgnoreWait(ignoreWaitRequestDto: ignoreWaitRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -718,7 +718,7 @@ SyncPlayAPI.syncPlaySetIgnoreWait(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (respo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The settings to set. | 
+ **ignoreWaitRequestDto** | [**IgnoreWaitRequestDto**](IgnoreWaitRequestDto.md) | The settings to set. | 
 
 ### Return type
 
@@ -737,7 +737,7 @@ Void (empty response body)
 
 # **syncPlaySetNewQueue**
 ```swift
-    open class func syncPlaySetNewQueue(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetNewQueue(playRequestDto: PlayRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to set new playlist in SyncPlay group.
@@ -747,10 +747,10 @@ Request to set new playlist in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new playlist to play in the group.
+let playRequestDto = PlayRequestDto(playingQueue: [123], playingItemPosition: 123, startPositionTicks: 123) // PlayRequestDto | The new playlist to play in the group.
 
 // Request to set new playlist in SyncPlay group.
-SyncPlayAPI.syncPlaySetNewQueue(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlaySetNewQueue(playRequestDto: playRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -766,7 +766,7 @@ SyncPlayAPI.syncPlaySetNewQueue(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (respons
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new playlist to play in the group. | 
+ **playRequestDto** | [**PlayRequestDto**](PlayRequestDto.md) | The new playlist to play in the group. | 
 
 ### Return type
 
@@ -785,7 +785,7 @@ Void (empty response body)
 
 # **syncPlaySetPlaylistItem**
 ```swift
-    open class func syncPlaySetPlaylistItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetPlaylistItem(setPlaylistItemRequestDto: SetPlaylistItemRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to change playlist item in SyncPlay group.
@@ -795,10 +795,10 @@ Request to change playlist item in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new item to play.
+let setPlaylistItemRequestDto = SetPlaylistItemRequestDto(playlistItemId: 123) // SetPlaylistItemRequestDto | The new item to play.
 
 // Request to change playlist item in SyncPlay group.
-SyncPlayAPI.syncPlaySetPlaylistItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlaySetPlaylistItem(setPlaylistItemRequestDto: setPlaylistItemRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -814,7 +814,7 @@ SyncPlayAPI.syncPlaySetPlaylistItem(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (res
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new item to play. | 
+ **setPlaylistItemRequestDto** | [**SetPlaylistItemRequestDto**](SetPlaylistItemRequestDto.md) | The new item to play. | 
 
 ### Return type
 
@@ -833,7 +833,7 @@ Void (empty response body)
 
 # **syncPlaySetRepeatMode**
 ```swift
-    open class func syncPlaySetRepeatMode(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetRepeatMode(setRepeatModeRequestDto: SetRepeatModeRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to set repeat mode in SyncPlay group.
@@ -843,10 +843,10 @@ Request to set repeat mode in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new repeat mode.
+let setRepeatModeRequestDto = SetRepeatModeRequestDto(mode: GroupRepeatMode()) // SetRepeatModeRequestDto | The new repeat mode.
 
 // Request to set repeat mode in SyncPlay group.
-SyncPlayAPI.syncPlaySetRepeatMode(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlaySetRepeatMode(setRepeatModeRequestDto: setRepeatModeRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -862,7 +862,7 @@ SyncPlayAPI.syncPlaySetRepeatMode(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (respo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new repeat mode. | 
+ **setRepeatModeRequestDto** | [**SetRepeatModeRequestDto**](SetRepeatModeRequestDto.md) | The new repeat mode. | 
 
 ### Return type
 
@@ -881,7 +881,7 @@ Void (empty response body)
 
 # **syncPlaySetShuffleMode**
 ```swift
-    open class func syncPlaySetShuffleMode(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetShuffleMode(setShuffleModeRequestDto: SetShuffleModeRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to set shuffle mode in SyncPlay group.
@@ -891,10 +891,10 @@ Request to set shuffle mode in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | The new shuffle mode.
+let setShuffleModeRequestDto = SetShuffleModeRequestDto(mode: GroupShuffleMode()) // SetShuffleModeRequestDto | The new shuffle mode.
 
 // Request to set shuffle mode in SyncPlay group.
-SyncPlayAPI.syncPlaySetShuffleMode(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+SyncPlayAPI.syncPlaySetShuffleMode(setShuffleModeRequestDto: setShuffleModeRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -910,7 +910,7 @@ SyncPlayAPI.syncPlaySetShuffleMode(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (resp
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | The new shuffle mode. | 
+ **setShuffleModeRequestDto** | [**SetShuffleModeRequestDto**](SetShuffleModeRequestDto.md) | The new shuffle mode. | 
 
 ### Return type
 

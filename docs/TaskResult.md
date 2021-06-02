@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **startTimeUtc** | **Date** | Gets or sets the start time UTC. | [optional] 
 **endTimeUtc** | **Date** | Gets or sets the end time UTC. | [optional] 
-**status** | [**TaskCompletionStatus**](TaskCompletionStatus.md) | Gets or sets the status. | [optional] 
+**status** | [**TaskCompletionStatus**](TaskCompletionStatus.md) |  | [optional] 
 **name** | **String** | Gets or sets the name. | [optional] 
 **key** | **String** | Gets or sets the key. | [optional] 
 **id** | **String** | Gets or sets the id. | [optional] 

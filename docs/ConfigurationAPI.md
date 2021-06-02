@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 # **updateConfiguration**
 ```swift
-    open class func updateConfiguration(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateConfiguration(serverConfiguration: ServerConfiguration, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates application configuration.
@@ -160,10 +160,10 @@ Updates application configuration.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Configuration.
+let serverConfiguration = ServerConfiguration(logFileRetentionDays: 123, isStartupWizardCompleted: false, cachePath: "cachePath_example", previousVersion: Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123), previousVersionStr: "previousVersionStr_example", enableUPnP: false, enableMetrics: false, publicPort: 123, uPnPCreateHttpPortMap: false, uDPPortRange: "uDPPortRange_example", enableIPV6: false, enableIPV4: false, enableSSDPTracing: false, sSDPTracingFilter: "sSDPTracingFilter_example", uDPSendCount: 123, uDPSendDelay: 123, ignoreVirtualInterfaces: false, virtualInterfaceNames: "virtualInterfaceNames_example", gatewayMonitorPeriod: 123, enableMultiSocketBinding: false, trustAllIP6Interfaces: false, hDHomerunPortRange: "hDHomerunPortRange_example", publishedServerUriBySubnet: ["publishedServerUriBySubnet_example"], autoDiscoveryTracing: false, autoDiscovery: false, publicHttpsPort: 123, httpServerPortNumber: 123, httpsPortNumber: 123, enableHttps: false, enableNormalizedItemByNameIds: false, certificatePath: "certificatePath_example", certificatePassword: "certificatePassword_example", isPortAuthorized: false, quickConnectAvailable: false, enableRemoteAccess: false, enableCaseSensitiveItemIds: false, disableLiveTvChannelUserDataName: false, metadataPath: "metadataPath_example", metadataNetworkPath: "metadataNetworkPath_example", preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", sortReplaceCharacters: ["sortReplaceCharacters_example"], sortRemoveCharacters: ["sortRemoveCharacters_example"], sortRemoveWords: ["sortRemoveWords_example"], minResumePct: 123, maxResumePct: 123, minResumeDurationSeconds: 123, minAudiobookResume: 123, maxAudiobookResume: 123, libraryMonitorDelay: 123, enableDashboardResponseCaching: false, imageSavingConvention: ImageSavingConvention(), metadataOptions: [MetadataOptions(itemType: "itemType_example", disabledMetadataSavers: ["disabledMetadataSavers_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledMetadataFetchers: ["disabledMetadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], disabledImageFetchers: ["disabledImageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"])], skipDeserializationForBasicTypes: false, serverName: "serverName_example", baseUrl: "baseUrl_example", uICulture: "uICulture_example", saveMetadataHidden: false, contentTypes: [NameValuePair(name: "name_example", value: "value_example")], remoteClientBitrateLimit: 123, enableFolderView: false, enableGroupingIntoCollections: false, displaySpecialsWithinSeasons: false, localNetworkSubnets: ["localNetworkSubnets_example"], localNetworkAddresses: ["localNetworkAddresses_example"], codecsUsed: ["codecsUsed_example"], pluginRepositories: [RepositoryInfo(name: "name_example", url: "url_example", enabled: false)], enableExternalContentInSuggestions: false, requireHttps: false, enableNewOmdbSupport: false, remoteIPFilter: ["remoteIPFilter_example"], isRemoteIPFilterBlacklist: false, imageExtractionTimeoutMs: 123, pathSubstitutions: [PathSubstitution(from: "from_example", to: "to_example")], enableSimpleArtistDetection: false, uninstalledPlugins: ["uninstalledPlugins_example"], enableSlowResponseWarning: false, slowResponseThresholdMs: 123, corsHosts: ["corsHosts_example"], knownProxies: ["knownProxies_example"], activityLogRetentionDays: 123, libraryScanFanoutConcurrency: 123, libraryMetadataRefreshConcurrency: 123, removeOldPlugins: false, disablePluginImages: false) // ServerConfiguration | Configuration.
 
 // Updates application configuration.
-ConfigurationAPI.updateConfiguration(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ConfigurationAPI.updateConfiguration(serverConfiguration: serverConfiguration) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -179,7 +179,7 @@ ConfigurationAPI.updateConfiguration(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (re
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Configuration. | 
+ **serverConfiguration** | [**ServerConfiguration**](ServerConfiguration.md) | Configuration. | 
 
 ### Return type
 
@@ -198,7 +198,7 @@ Void (empty response body)
 
 # **updateMediaEncoderPath**
 ```swift
-    open class func updateMediaEncoderPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateMediaEncoderPath(mediaEncoderPathDto: MediaEncoderPathDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates the path to the media encoder.
@@ -208,10 +208,10 @@ Updates the path to the media encoder.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let UNKNOWN_BASE_TYPE = TODO // UNKNOWN_BASE_TYPE | Media encoder path form body.
+let mediaEncoderPathDto = MediaEncoderPathDto(path: "path_example", pathType: "pathType_example") // MediaEncoderPathDto | Media encoder path form body.
 
 // Updates the path to the media encoder.
-ConfigurationAPI.updateMediaEncoderPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { (response, error) in
+ConfigurationAPI.updateMediaEncoderPath(mediaEncoderPathDto: mediaEncoderPathDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -227,7 +227,7 @@ ConfigurationAPI.updateMediaEncoderPath(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE) { 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_BASE_TYPE** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | Media encoder path form body. | 
+ **mediaEncoderPathDto** | [**MediaEncoderPathDto**](MediaEncoderPathDto.md) | Media encoder path form body. | 
 
 ### Return type
 

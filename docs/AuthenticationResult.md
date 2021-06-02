@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user** | [**UserDto**](UserDto.md) | Class UserDto. | [optional] 
-**sessionInfo** | [**SessionInfo**](SessionInfo.md) | Class SessionInfo. | [optional] 
+**user** | [**UserDto**](UserDto.md) |  | [optional] 
+**sessionInfo** | [**SessionInfo**](SessionInfo.md) |  | [optional] 
 **accessToken** | **String** |  | [optional] 
 **serverId** | **String** |  | [optional] 
 
