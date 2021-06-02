@@ -13,20 +13,14 @@ jobs:
       with:
         ref: 'main'
 
-    - name: Download bow-openapi
-      run: |
-        curl -s https://api.github.com/repos/bow-swift/bow-openapi/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | xargs -I {} wget -O - https://github.com/bow-swift/bow-openapi/archive/{}.tar.gz | tar xz
-    
-    - name: Install bow-openapi
-      run: |
-        sudo make linux -C bow-openapi-*
-      
-    - name: Generate
-      uses: workflow/nix-shell-action@v1
+    - name: Generate	    
+      uses: docker://openapitools/openapi-generator-cli:latest-release
       with:
-        interpreter: bash
-        packages: bash
-        script: bow-openapi --name JellyfinOpenAPI --schema https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json --output /github/workspace/
+        args: >-
+          generate -i https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json
+          -g swift5
+          --enable-post-process-file
+          -o /github/workspace
 
     # "echo" in commit returns true so the build succeeds, even if no changed files
     - name: Commit new changes to the repo
