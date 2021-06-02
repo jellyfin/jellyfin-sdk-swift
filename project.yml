@@ -1,0 +1,15 @@
+name: OpenAPIClient
+targets:
+  OpenAPIClient:
+    type: framework
+    platform: iOS
+    deploymentTarget: "9.0"
+    sources: [Sources]
+    info:
+      path: ./Info.plist
+      version: 10.7.5
+    settings:
+      APPLICATION_EXTENSION_API_ONLY: true
+    scheme: {}
+    
+    - carthage: AnyCodable
