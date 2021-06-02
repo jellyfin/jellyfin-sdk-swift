@@ -199,7 +199,7 @@ open class LibraryStructureAPI {
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "name": name?.encodeToJSON(),
-            "path": path?.encodeToJSON(),
+            "path": path.encodeToJSON(),
             "refreshLibrary": refreshLibrary?.encodeToJSON(),
         ])
 
