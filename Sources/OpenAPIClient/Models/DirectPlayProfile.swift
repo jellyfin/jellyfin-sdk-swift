@@ -32,7 +32,7 @@ public struct DirectPlayProfile: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(container, forKey: .container)
+        //try container.encodeIfPresent(container, forKey: .container)
         try container.encodeIfPresent(audioCodec, forKey: .audioCodec)
         try container.encodeIfPresent(videoCodec, forKey: .videoCodec)
         try container.encodeIfPresent(type, forKey: .type)
