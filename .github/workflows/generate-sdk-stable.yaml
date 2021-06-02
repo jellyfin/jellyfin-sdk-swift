@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2.3.4
       with:
-        ref: 'master'
+        ref: 'main'
 
     - name: Generate	    
       uses: docker://openapitools/openapi-generator-cli:latest-release
