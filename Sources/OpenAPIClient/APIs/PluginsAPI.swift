@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AnyCodable
 
 open class PluginsAPI {
     /**
