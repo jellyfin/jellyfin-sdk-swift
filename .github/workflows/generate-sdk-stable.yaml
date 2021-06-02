@@ -13,17 +13,8 @@ jobs:
       with:
         ref: 'main'
 
-    - name: Nix Shell
-      # You may pin to the exact commit or the version.
-      # uses: workflow/nix-shell-action@469e057ef6ae645b60473cc006a5683ef0d6d5ce
-      uses: workflow/nix-shell-action@v1
-      with:
-        # Interpreter to use in the nix shell shebang
-        interpreter: bash
-        # Comma separated list of packages that are to be available in your shell
-        packages: bash
-        # The actual script to execute in the shell
-        script: |
+    - name: Install bow-openapi
+      run: |
           curl -s https://api.github.com/repos/bow-swift/bow-openapi/releases/latest
            | grep -oP '"tag_name": "\K(.*)(?=")' \
            | xargs -I {} wget -O - https://github.com/bow-swift/bow-openapi/archive/{}.tar.gz \
