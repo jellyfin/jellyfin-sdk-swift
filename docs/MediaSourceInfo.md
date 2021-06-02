@@ -1,0 +1,51 @@
+# MediaSourceInfo
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**_protocol** | [**MediaProtocol**](MediaProtocol.md) |  | [optional] 
+**id** | **String** |  | [optional] 
+**path** | **String** |  | [optional] 
+**encoderPath** | **String** |  | [optional] 
+**encoderProtocol** | [**MediaProtocol**](MediaProtocol.md) |  | [optional] 
+**type** | [**MediaSourceType**](MediaSourceType.md) |  | [optional] 
+**container** | **String** |  | [optional] 
+**size** | **Int64** |  | [optional] 
+**name** | **String** |  | [optional] 
+**isRemote** | **Bool** | Differentiate internet url vs local network. | [optional] 
+**eTag** | **String** |  | [optional] 
+**runTimeTicks** | **Int64** |  | [optional] 
+**readAtNativeFramerate** | **Bool** |  | [optional] 
+**ignoreDts** | **Bool** |  | [optional] 
+**ignoreIndex** | **Bool** |  | [optional] 
+**genPtsInput** | **Bool** |  | [optional] 
+**supportsTranscoding** | **Bool** |  | [optional] 
+**supportsDirectStream** | **Bool** |  | [optional] 
+**supportsDirectPlay** | **Bool** |  | [optional] 
+**isInfiniteStream** | **Bool** |  | [optional] 
+**requiresOpening** | **Bool** |  | [optional] 
+**openToken** | **String** |  | [optional] 
+**requiresClosing** | **Bool** |  | [optional] 
+**liveStreamId** | **String** |  | [optional] 
+**bufferMs** | **Int** |  | [optional] 
+**requiresLooping** | **Bool** |  | [optional] 
+**supportsProbing** | **Bool** |  | [optional] 
+**videoType** | [**VideoType**](VideoType.md) |  | [optional] 
+**isoType** | [**IsoType**](IsoType.md) |  | [optional] 
+**video3DFormat** | [**Video3DFormat**](Video3DFormat.md) |  | [optional] 
+**mediaStreams** | [MediaStream] |  | [optional] 
+**mediaAttachments** | [MediaAttachment] |  | [optional] 
+**formats** | **[String]** |  | [optional] 
+**bitrate** | **Int** |  | [optional] 
+**timestamp** | [**TransportStreamTimestamp**](TransportStreamTimestamp.md) |  | [optional] 
+**requiredHttpHeaders** | **[String: String]** |  | [optional] 
+**transcodingUrl** | **String** |  | [optional] 
+**transcodingSubProtocol** | **String** |  | [optional] 
+**transcodingContainer** | **String** |  | [optional] 
+**analyzeDurationMs** | **Int** |  | [optional] 
+**defaultAudioStreamIndex** | **Int** |  | [optional] 
+**defaultSubtitleStreamIndex** | **Int** |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
