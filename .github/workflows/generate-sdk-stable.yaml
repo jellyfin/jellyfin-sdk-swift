@@ -20,7 +20,7 @@ jobs:
       with:
         args: >-
           generate -i https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json
-          -g typescript-swift5
+          -g swift5
           --enable-post-process-file
           -o /github/workspace/stable
 
