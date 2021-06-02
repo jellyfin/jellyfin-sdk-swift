@@ -7,30 +7,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v2.3.4
       with:
         ref: 'main'
 
-    - name: Generate	    
-      uses: docker://openapitools/openapi-generator-cli:latest-release
-      with:
-        args: >-
-          generate -i https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json
-          -g swift5
-          --additional-properties=library=alamofire
-          --additional-properties=useSPMFileStructure=true
-          --enable-post-process-file
-          -o /github/workspace
-
-    # "echo" in commit returns true so the build succeeds, even if no changed files
-    - name: Commit new changes to the repo
-      if: ${{ steps.diff.outputs.count }} > 0
-      run: |
-        git config user.name jellyfin-bot
-        git config user.email team@jellyfin.org
-        git pull
-        git add .
-        git commit -m "Update stable OpenAPI client" || echo
-        git push
+    - name: Clone SwagGen
+      run: "git clone https://github.com/yonaskolb/SwagGen.git"
+      
+    - name: Run SwagGen
+      run: "cd SwagGen && swift run"
