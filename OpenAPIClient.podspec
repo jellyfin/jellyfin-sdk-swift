@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.license = 'Proprietary'
   s.homepage = 'https://github.com/OpenAPITools/openapi-generator'
   s.summary = 'OpenAPIClient Swift SDK'
-  s.source_files = 'OpenAPIClient/Classes/**/*.swift'
+  s.source_files = 'Sources/OpenAPIClient/**/*.swift'
   s.dependency 'AnyCodable-FlightSchool', '~> 0.4.0'
 end
