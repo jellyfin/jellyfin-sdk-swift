@@ -1,2 +1,3 @@
-# jellyfin-sdk-swift
-Jellyfin SDK for Swift 5 generated using the OpenAPI generator
+# Jellyfin Swift SDK
+Jellyfin SDK for Swift 5.
+Swift Package Manager URL: https://github.com/jellyfin/jellyfin-sdk-swift
