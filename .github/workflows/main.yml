@@ -1,0 +1,40 @@
+name: Generate stable API
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.3.4
+      with:
+        ref: 'master'
+
+    - name: Generate	    
+      uses: docker://openapitools/openapi-generator-cli:latest-release
+      env:
+        TS_POST_PROCESS_FILE: true
+      with:
+        args: >-
+          generate -i https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json
+          -g typescript-swift5
+          --enable-post-process-file
+          -o /github/workspace/stable
+
+    - name: Check if .swift files were modified
+      id: diff
+      run: echo "::set-output name=count::$(git status -s | grep swift | wc -l)"
+
+    # "echo" in commit returns true so the build succeeds, even if no changed files
+    - name: Commit new changes to the repo
+      if: ${{ steps.diff.outputs.count }} > 0
+      run: |
+        git config --global user.email "packaging@jellyfin.org"
+        git config --global user.name "Jellyfin Packaging Team"
+        git pull
+        git add .
+        git commit -m "Update stable OpenAPI client" || echo
+        git push
