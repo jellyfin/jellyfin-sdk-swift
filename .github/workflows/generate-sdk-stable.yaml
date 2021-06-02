@@ -41,8 +41,8 @@ jobs:
     - name: Commit new changes to the repo
       if: ${{ steps.diff.outputs.count }} > 0
       run: |
-        git config --global user.email "acvigue@me.com"
-        git config --global user.name "acvigue"
+        git config user.name jellyfin-bot
+        git config user.email team@jellyfin.org
         git pull
         git add .
         git commit -m "Update stable OpenAPI client" || echo
