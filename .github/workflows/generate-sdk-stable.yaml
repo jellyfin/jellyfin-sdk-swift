@@ -19,6 +19,8 @@ jobs:
         args: >-
           generate -i https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json
           -g swift5
+          --additional-properties=library=alamofire
+          --additional-properties=useSPMFileStructure=true
           --enable-post-process-file
           -o /github/workspace
 
