@@ -7,19 +7,24 @@ on:
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
       with:
         ref: 'main'
 
-    - name: Clone SwagGen
-      run: "git clone https://github.com/yonaskolb/SwagGen.git"
-      
-    - name: Run SwagGen
-      run: "cd SwagGen && swift run swaggen generate https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json --option name:SwiftFinAPI"
-      
+    - name: Generate	    
+      uses: docker://openapitools/openapi-generator-cli:latest-release
+      with:
+        args: >-
+          generate -i https://api.jellyfin.org/openapi/stable/jellyfin-openapi-10.7.0-rc2.json
+          -g swift5
+          --additional-properties=library=alamofire,useSPMFileStructure=true
+          -o /github/workspace
+
+    # "echo" in commit returns true so the build succeeds, even if no changed files
     - name: Commit new changes to the repo
+      if: ${{ steps.diff.outputs.count }} > 0
       run: |
         git config user.name jellyfin-bot
         git config user.email team@jellyfin.org
