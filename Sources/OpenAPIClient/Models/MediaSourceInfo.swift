@@ -153,7 +153,6 @@ public struct MediaSourceInfo: Codable, Hashable {
         try container.encodeIfPresent(encoderPath, forKey: .encoderPath)
         try container.encodeIfPresent(encoderProtocol, forKey: .encoderProtocol)
         try container.encodeIfPresent(type, forKey: .type)
-        try container.encodeIfPresent(container, forKey: .container)
         try container.encodeIfPresent(size, forKey: .size)
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(isRemote, forKey: .isRemote)
