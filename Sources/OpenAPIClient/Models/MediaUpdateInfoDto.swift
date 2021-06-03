@@ -11,26 +11,21 @@ import AnyCodable
 /** Media Update Info Dto. */
 public struct MediaUpdateInfoDto: Codable, Hashable {
 
-    /** Gets or sets media path. */
-    public var path: String?
-    /** Gets or sets media update type.  Created, Modified, Deleted. */
-    public var updateType: String?
+    /** Gets or sets the list of updates. */
+    public var updates: [MediaUpdateInfoPathDto]?
 
-    public init(path: String? = nil, updateType: String? = nil) {
-        self.path = path
-        self.updateType = updateType
+    public init(updates: [MediaUpdateInfoPathDto]? = nil) {
+        self.updates = updates
     }
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case path = "Path"
-        case updateType = "UpdateType"
+        case updates = "Updates"
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(path, forKey: .path)
-        try container.encodeIfPresent(updateType, forKey: .updateType)
+        try container.encodeIfPresent(updates, forKey: .updates)
     }
 
 

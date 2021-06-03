@@ -1,6 +1,6 @@
 # SessionAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 # **play**
 ```swift
-    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Instructs a session to play an item.
@@ -282,9 +282,13 @@ let sessionId = "sessionId_example" // String | The session id.
 let playCommand = PlayCommand() // PlayCommand | The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now.
 let itemIds = [123] // [UUID] | The ids of the items to play, comma delimited.
 let startPositionTicks = 987 // Int64 | The starting position of the first item. (optional)
+let mediaSourceId = "mediaSourceId_example" // String | Optional. The media source id. (optional)
+let audioStreamIndex = 987 // Int | Optional. The index of the audio stream to play. (optional)
+let subtitleStreamIndex = 987 // Int | Optional. The index of the subtitle stream to play. (optional)
+let startIndex = 987 // Int | Optional. The start index. (optional)
 
 // Instructs a session to play an item.
-SessionAPI.play(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks) { (response, error) in
+SessionAPI.play(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks, mediaSourceId: mediaSourceId, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, startIndex: startIndex) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -304,6 +308,10 @@ Name | Type | Description  | Notes
  **playCommand** | [**PlayCommand**](.md) | The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now. | 
  **itemIds** | [**[UUID]**](UUID.md) | The ids of the items to play, comma delimited. | 
  **startPositionTicks** | **Int64** | The starting position of the first item. | [optional] 
+ **mediaSourceId** | **String** | Optional. The media source id. | [optional] 
+ **audioStreamIndex** | **Int** | Optional. The index of the audio stream to play. | [optional] 
+ **subtitleStreamIndex** | **Int** | Optional. The index of the subtitle stream to play. | [optional] 
+ **startIndex** | **Int** | Optional. The start index. | [optional] 
 
 ### Return type
 
@@ -674,7 +682,7 @@ Void (empty response body)
 
 # **sendMessageCommand**
 ```swift
-    open class func sendMessageCommand(sessionId: String, text: String, header: String? = nil, timeoutMs: Int64? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func sendMessageCommand(sessionId: String, messageCommand: MessageCommand, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Issues a command to a client to display a message to the user.
@@ -685,12 +693,10 @@ Issues a command to a client to display a message to the user.
 import OpenAPIClient
 
 let sessionId = "sessionId_example" // String | The session id.
-let text = "text_example" // String | The message test.
-let header = "header_example" // String | The message header. (optional)
-let timeoutMs = 987 // Int64 | The message timeout. If omitted the user will have to confirm viewing the message. (optional)
+let messageCommand = MessageCommand(header: "header_example", text: "text_example", timeoutMs: 123) // MessageCommand | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs.
 
 // Issues a command to a client to display a message to the user.
-SessionAPI.sendMessageCommand(sessionId: sessionId, text: text, header: header, timeoutMs: timeoutMs) { (response, error) in
+SessionAPI.sendMessageCommand(sessionId: sessionId, messageCommand: messageCommand) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -707,9 +713,7 @@ SessionAPI.sendMessageCommand(sessionId: sessionId, text: text, header: header, 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **text** | **String** | The message test. | 
- **header** | **String** | The message header. | [optional] 
- **timeoutMs** | **Int64** | The message timeout. If omitted the user will have to confirm viewing the message. | [optional] 
+ **messageCommand** | [**MessageCommand**](MessageCommand.md) | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. | 
 
 ### Return type
 
@@ -721,7 +725,7 @@ Void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

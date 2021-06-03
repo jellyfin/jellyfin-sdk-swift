@@ -11,15 +11,12 @@ open class NotificationsAPI {
     /**
      Sends a notification to all admins.
      
-     - parameter url: (query) The URL of the notification. (optional)
-     - parameter level: (query) The level of the notification. (optional)
-     - parameter name: (query) The name of the notification. (optional, default to "")
-     - parameter description: (query) The description of the notification. (optional, default to "")
+     - parameter adminNotificationDto: (body) The notification request. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func createAdminNotification(url: String? = nil, level: NotificationLevel? = nil, name: String? = nil, description: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
-        createAdminNotificationWithRequestBuilder(url: url, level: level, name: name, description: description).execute(apiResponseQueue) { result -> Void in
+    open class func createAdminNotification(adminNotificationDto: AdminNotificationDto, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+        createAdminNotificationWithRequestBuilder(adminNotificationDto: adminNotificationDto).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
                 completion((), nil)
@@ -35,24 +32,15 @@ open class NotificationsAPI {
      - API Key:
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
-     - parameter url: (query) The URL of the notification. (optional)
-     - parameter level: (query) The level of the notification. (optional)
-     - parameter name: (query) The name of the notification. (optional, default to "")
-     - parameter description: (query) The description of the notification. (optional, default to "")
+     - parameter adminNotificationDto: (body) The notification request. 
      - returns: RequestBuilder<Void> 
      */
-    open class func createAdminNotificationWithRequestBuilder(url: String? = nil, level: NotificationLevel? = nil, name: String? = nil, description: String? = nil) -> RequestBuilder<Void> {
+    open class func createAdminNotificationWithRequestBuilder(adminNotificationDto: AdminNotificationDto) -> RequestBuilder<Void> {
         let path = "/Notifications/Admin"
         let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: adminNotificationDto)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "url": url?.encodeToJSON(),
-            "level": level?.encodeToJSON(),
-            "name": name?.encodeToJSON(),
-            "description": description?.encodeToJSON(),
-        ])
+        let urlComponents = URLComponents(string: URLString)
 
         let nillableHeaders: [String: Any?] = [
             :

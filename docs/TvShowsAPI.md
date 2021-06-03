@@ -1,6 +1,6 @@
 # TvShowsAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 # **getNextUp**
 ```swift
-    open class func getNextUp(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: UUID? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getNextUp(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: UUID? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets a list of next up episodes.
@@ -109,9 +109,10 @@ let imageTypeLimit = 987 // Int | Optional. The max number of images to return, 
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
 let enableUserData = true // Bool | Optional. Include user data. (optional)
 let enableTotalRecordCount = true // Bool | Whether to enable the total records count. Defaults to true. (optional) (default to true)
+let disableFirstEpisode = true // Bool | Whether to disable sending the first episode in a series as next up. (optional) (default to false)
 
 // Gets a list of next up episodes.
-TvShowsAPI.getNextUp(userId: userId, startIndex: startIndex, limit: limit, fields: fields, seriesId: seriesId, parentId: parentId, enableImges: enableImges, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount) { (response, error) in
+TvShowsAPI.getNextUp(userId: userId, startIndex: startIndex, limit: limit, fields: fields, seriesId: seriesId, parentId: parentId, enableImges: enableImges, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount, disableFirstEpisode: disableFirstEpisode) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -138,6 +139,7 @@ Name | Type | Description  | Notes
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
  **enableUserData** | **Bool** | Optional. Include user data. | [optional] 
  **enableTotalRecordCount** | **Bool** | Whether to enable the total records count. Defaults to true. | [optional] [default to true]
+ **disableFirstEpisode** | **Bool** | Whether to disable sending the first episode in a series as next up. | [optional] [default to false]
 
 ### Return type
 

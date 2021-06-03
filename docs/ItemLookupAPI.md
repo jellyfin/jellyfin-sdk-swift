@@ -1,6 +1,6 @@
 # ItemLookupAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -13,7 +13,6 @@ Method | HTTP request | Description
 [**getMusicArtistRemoteSearchResults**](ItemLookupAPI.md#getmusicartistremotesearchresults) | **POST** /Items/RemoteSearch/MusicArtist | Get music artist remote search.
 [**getMusicVideoRemoteSearchResults**](ItemLookupAPI.md#getmusicvideoremotesearchresults) | **POST** /Items/RemoteSearch/MusicVideo | Get music video remote search.
 [**getPersonRemoteSearchResults**](ItemLookupAPI.md#getpersonremotesearchresults) | **POST** /Items/RemoteSearch/Person | Get person remote search.
-[**getRemoteSearchImage**](ItemLookupAPI.md#getremotesearchimage) | **GET** /Items/RemoteSearch/Image | Gets a remote image.
 [**getSeriesRemoteSearchResults**](ItemLookupAPI.md#getseriesremotesearchresults) | **POST** /Items/RemoteSearch/Series | Get series remote search.
 [**getTrailerRemoteSearchResults**](ItemLookupAPI.md#gettrailerremotesearchresults) | **POST** /Items/RemoteSearch/Trailer | Get trailer remote search.
 
@@ -451,56 +450,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: application/json, application/json; profile=CamelCase, application/json; profile=PascalCase
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getRemoteSearchImage**
-```swift
-    open class func getRemoteSearchImage(imageUrl: String, providerName: String, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
-```
-
-Gets a remote image.
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
-
-let imageUrl = "imageUrl_example" // String | The image url.
-let providerName = "providerName_example" // String | The provider name.
-
-// Gets a remote image.
-ItemLookupAPI.getRemoteSearchImage(imageUrl: imageUrl, providerName: providerName) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **imageUrl** | **String** | The image url. | 
- **providerName** | **String** | The provider name. | 
-
-### Return type
-
-**URL**
-
-### Authorization
-
-[CustomAuthentication](../README.md#CustomAuthentication)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: image/_*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

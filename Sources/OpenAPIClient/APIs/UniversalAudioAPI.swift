@@ -27,7 +27,7 @@ open class UniversalAudioAPI {
      - parameter maxAudioSampleRate: (query) Optional. The maximum audio sample rate. (optional)
      - parameter maxAudioBitDepth: (query) Optional. The maximum audio bit depth. (optional)
      - parameter enableRemoteMedia: (query) Optional. Whether to enable remote media. (optional)
-     - parameter breakOnNonKeyFrames: (query) Optional. Whether to break on non key frames. (optional)
+     - parameter breakOnNonKeyFrames: (query) Optional. Whether to break on non key frames. (optional, default to false)
      - parameter enableRedirection: (query) Whether to enable redirection. Defaults to true. (optional, default to true)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
@@ -65,7 +65,7 @@ open class UniversalAudioAPI {
      - parameter maxAudioSampleRate: (query) Optional. The maximum audio sample rate. (optional)
      - parameter maxAudioBitDepth: (query) Optional. The maximum audio bit depth. (optional)
      - parameter enableRemoteMedia: (query) Optional. Whether to enable remote media. (optional)
-     - parameter breakOnNonKeyFrames: (query) Optional. Whether to break on non key frames. (optional)
+     - parameter breakOnNonKeyFrames: (query) Optional. Whether to break on non key frames. (optional, default to false)
      - parameter enableRedirection: (query) Whether to enable redirection. Defaults to true. (optional, default to true)
      - returns: RequestBuilder<URL> 
      */
@@ -128,7 +128,7 @@ open class UniversalAudioAPI {
      - parameter maxAudioSampleRate: (query) Optional. The maximum audio sample rate. (optional)
      - parameter maxAudioBitDepth: (query) Optional. The maximum audio bit depth. (optional)
      - parameter enableRemoteMedia: (query) Optional. Whether to enable remote media. (optional)
-     - parameter breakOnNonKeyFrames: (query) Optional. Whether to break on non key frames. (optional)
+     - parameter breakOnNonKeyFrames: (query) Optional. Whether to break on non key frames. (optional, default to false)
      - parameter enableRedirection: (query) Whether to enable redirection. Defaults to true. (optional, default to true)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
@@ -166,7 +166,7 @@ open class UniversalAudioAPI {
      - parameter maxAudioSampleRate: (query) Optional. The maximum audio sample rate. (optional)
      - parameter maxAudioBitDepth: (query) Optional. The maximum audio bit depth. (optional)
      - parameter enableRemoteMedia: (query) Optional. Whether to enable remote media. (optional)
-     - parameter breakOnNonKeyFrames: (query) Optional. Whether to break on non key frames. (optional)
+     - parameter breakOnNonKeyFrames: (query) Optional. Whether to break on non key frames. (optional, default to false)
      - parameter enableRedirection: (query) Whether to enable redirection. Defaults to true. (optional, default to true)
      - returns: RequestBuilder<URL> 
      */

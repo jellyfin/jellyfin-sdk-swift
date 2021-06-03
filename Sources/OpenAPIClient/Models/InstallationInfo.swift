@@ -22,14 +22,16 @@ public struct InstallationInfo: Codable, Hashable {
     public var sourceUrl: String?
     /** Gets or sets a checksum for the binary. */
     public var checksum: String?
+    public var packageInfo: PackageInfo?
 
-    public init(guid: UUID? = nil, name: String? = nil, version: Version? = nil, changelog: String? = nil, sourceUrl: String? = nil, checksum: String? = nil) {
+    public init(guid: UUID? = nil, name: String? = nil, version: Version? = nil, changelog: String? = nil, sourceUrl: String? = nil, checksum: String? = nil, packageInfo: PackageInfo? = nil) {
         self.guid = guid
         self.name = name
         self.version = version
         self.changelog = changelog
         self.sourceUrl = sourceUrl
         self.checksum = checksum
+        self.packageInfo = packageInfo
     }
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case guid = "Guid"
@@ -38,6 +40,7 @@ public struct InstallationInfo: Codable, Hashable {
         case changelog = "Changelog"
         case sourceUrl = "SourceUrl"
         case checksum = "Checksum"
+        case packageInfo = "PackageInfo"
     }
 
     // Encodable protocol methods
@@ -50,6 +53,7 @@ public struct InstallationInfo: Codable, Hashable {
         try container.encodeIfPresent(changelog, forKey: .changelog)
         try container.encodeIfPresent(sourceUrl, forKey: .sourceUrl)
         try container.encodeIfPresent(checksum, forKey: .checksum)
+        try container.encodeIfPresent(packageInfo, forKey: .packageInfo)
     }
 
 

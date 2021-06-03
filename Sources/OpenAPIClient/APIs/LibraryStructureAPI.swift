@@ -69,7 +69,7 @@ open class LibraryStructureAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func addVirtualFolder(name: String? = nil, collectionType: String? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+    open class func addVirtualFolder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
         addVirtualFolderWithRequestBuilder(name: name, collectionType: collectionType, paths: paths, refreshLibrary: refreshLibrary, addVirtualFolderDto: addVirtualFolderDto).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
@@ -93,7 +93,7 @@ open class LibraryStructureAPI {
      - parameter addVirtualFolderDto: (body) The library options. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func addVirtualFolderWithRequestBuilder(name: String? = nil, collectionType: String? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil) -> RequestBuilder<Void> {
+    open class func addVirtualFolderWithRequestBuilder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil) -> RequestBuilder<Void> {
         let path = "/Library/VirtualFolders"
         let URLString = OpenAPIClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: addVirtualFolderDto)
@@ -199,7 +199,7 @@ open class LibraryStructureAPI {
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "name": name?.encodeToJSON(),
-            "path": path.encodeToJSON(),
+            "path": path?.encodeToJSON(),
             "refreshLibrary": refreshLibrary?.encodeToJSON(),
         ])
 
@@ -367,13 +367,12 @@ open class LibraryStructureAPI {
     /**
      Updates a media path.
      
-     - parameter name: (query) The name of the library. (optional)
-     - parameter mediaPathInfo: (body) The path info. (optional)
+     - parameter updateMediaPathRequestDto: (body) The name of the library and path infos. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func updateMediaPath(name: String? = nil, mediaPathInfo: MediaPathInfo? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
-        updateMediaPathWithRequestBuilder(name: name, mediaPathInfo: mediaPathInfo).execute(apiResponseQueue) { result -> Void in
+    open class func updateMediaPath(updateMediaPathRequestDto: UpdateMediaPathRequestDto, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+        updateMediaPathWithRequestBuilder(updateMediaPathRequestDto: updateMediaPathRequestDto).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
                 completion((), nil)
@@ -389,19 +388,15 @@ open class LibraryStructureAPI {
      - API Key:
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
-     - parameter name: (query) The name of the library. (optional)
-     - parameter mediaPathInfo: (body) The path info. (optional)
+     - parameter updateMediaPathRequestDto: (body) The name of the library and path infos. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateMediaPathWithRequestBuilder(name: String? = nil, mediaPathInfo: MediaPathInfo? = nil) -> RequestBuilder<Void> {
+    open class func updateMediaPathWithRequestBuilder(updateMediaPathRequestDto: UpdateMediaPathRequestDto) -> RequestBuilder<Void> {
         let path = "/Library/VirtualFolders/Paths/Update"
         let URLString = OpenAPIClientAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: mediaPathInfo)
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateMediaPathRequestDto)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "name": name?.encodeToJSON(),
-        ])
+        let urlComponents = URLComponents(string: URLString)
 
         let nillableHeaders: [String: Any?] = [
             :

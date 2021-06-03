@@ -39,7 +39,7 @@ public struct CodecProfile: Codable, Hashable {
         try container.encodeIfPresent(conditions, forKey: .conditions)
         try container.encodeIfPresent(applyConditions, forKey: .applyConditions)
         try container.encodeIfPresent(codec, forKey: .codec)
-        //try container.encodeIfPresent(container, forKey: .container)
+        try container.encodeIfPresent(container, forKey: .container)
     }
 
 

@@ -42,9 +42,9 @@ public struct GetProgramsDto: Codable, Hashable {
     /** Gets or sets the maximum number of records to return.  Optional. */
     public var limit: Int?
     /** Gets or sets specify one or more sort orders, comma delimited. Options: Name, StartDate.  Optional. */
-    public var sortBy: String?
+    public var sortBy: [String]?
     /** Gets or sets sort Order - Ascending,Descending. */
-    public var sortOrder: String?
+    public var sortOrder: [SortOrder]?
     /** Gets or sets the genres to return guide information for. */
     public var genres: [String]?
     /** Gets or sets the genre ids to return guide information for. */
@@ -66,7 +66,7 @@ public struct GetProgramsDto: Codable, Hashable {
     /** Gets or sets specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines.  Optional. */
     public var fields: [ItemFields]?
 
-    public init(channelIds: [UUID]? = nil, userId: UUID? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: String? = nil, sortOrder: String? = nil, genres: [String]? = nil, genreIds: [UUID]? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: UUID? = nil, fields: [ItemFields]? = nil) {
+    public init(channelIds: [UUID]? = nil, userId: UUID? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, genres: [String]? = nil, genreIds: [UUID]? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: UUID? = nil, fields: [ItemFields]? = nil) {
         self.channelIds = channelIds
         self.userId = userId
         self.minStartDate = minStartDate

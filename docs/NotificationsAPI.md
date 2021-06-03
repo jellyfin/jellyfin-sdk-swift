@@ -1,6 +1,6 @@
 # NotificationsAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 # **createAdminNotification**
 ```swift
-    open class func createAdminNotification(url: String? = nil, level: NotificationLevel? = nil, name: String? = nil, description: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func createAdminNotification(adminNotificationDto: AdminNotificationDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sends a notification to all admins.
@@ -25,13 +25,10 @@ Sends a notification to all admins.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let url = "url_example" // String | The URL of the notification. (optional)
-let level = NotificationLevel() // NotificationLevel | The level of the notification. (optional)
-let name = "name_example" // String | The name of the notification. (optional) (default to "")
-let description = "description_example" // String | The description of the notification. (optional) (default to "")
+let adminNotificationDto = AdminNotificationDto(name: "name_example", description: "description_example", notificationLevel: NotificationLevel(), url: "url_example") // AdminNotificationDto | The notification request.
 
 // Sends a notification to all admins.
-NotificationsAPI.createAdminNotification(url: url, level: level, name: name, description: description) { (response, error) in
+NotificationsAPI.createAdminNotification(adminNotificationDto: adminNotificationDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -47,10 +44,7 @@ NotificationsAPI.createAdminNotification(url: url, level: level, name: name, des
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **url** | **String** | The URL of the notification. | [optional] 
- **level** | [**NotificationLevel**](.md) | The level of the notification. | [optional] 
- **name** | **String** | The name of the notification. | [optional] [default to &quot;&quot;]
- **description** | **String** | The description of the notification. | [optional] [default to &quot;&quot;]
+ **adminNotificationDto** | [**AdminNotificationDto**](AdminNotificationDto.md) | The notification request. | 
 
 ### Return type
 
@@ -62,7 +56,7 @@ Void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

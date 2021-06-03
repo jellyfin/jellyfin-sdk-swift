@@ -1,6 +1,6 @@
 # SubtitleAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,9 +9,9 @@ Method | HTTP request | Description
 [**getFallbackFont**](SubtitleAPI.md#getfallbackfont) | **GET** /FallbackFont/Fonts/{name} | Gets a fallback font file.
 [**getFallbackFontList**](SubtitleAPI.md#getfallbackfontlist) | **GET** /FallbackFont/Fonts | Gets a list of available fallback font files.
 [**getRemoteSubtitles**](SubtitleAPI.md#getremotesubtitles) | **GET** /Providers/Subtitles/Subtitles/{id} | Gets the remote subtitles.
-[**getSubtitle**](SubtitleAPI.md#getsubtitle) | **GET** /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/Stream.{format} | Gets subtitles in a specified format.
+[**getSubtitle**](SubtitleAPI.md#getsubtitle) | **GET** /Videos/{routeItemId}/routeMediaSourceId/Subtitles/{routeIndex}/Stream.{routeFormat} | Gets subtitles in a specified format.
 [**getSubtitlePlaylist**](SubtitleAPI.md#getsubtitleplaylist) | **GET** /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/subtitles.m3u8 | Gets an HLS subtitle playlist.
-[**getSubtitleWithTicks**](SubtitleAPI.md#getsubtitlewithticks) | **GET** /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/{startPositionTicks}/Stream.{format} | Gets subtitles in a specified format.
+[**getSubtitleWithTicks**](SubtitleAPI.md#getsubtitlewithticks) | **GET** /Videos/{routeItemId}/{routeMediaSourceId}/Subtitles/{routeIndex}/{routeStartPositionTicks}/Stream.{routeFormat} | Gets subtitles in a specified format.
 [**searchRemoteSubtitles**](SubtitleAPI.md#searchremotesubtitles) | **GET** /Items/{itemId}/RemoteSearch/Subtitles/{language} | Search remote subtitles.
 [**uploadSubtitle**](SubtitleAPI.md#uploadsubtitle) | **POST** /Videos/{itemId}/Subtitles | Upload an external subtitle file.
 
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 
 # **getSubtitle**
 ```swift
-    open class func getSubtitle(itemId: UUID, mediaSourceId: String, index: Int, format: String, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getSubtitle(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets subtitles in a specified format.
@@ -268,17 +268,21 @@ Gets subtitles in a specified format.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let itemId = 987 // UUID | The item id.
-let mediaSourceId = "mediaSourceId_example" // String | The media source id.
-let index = 987 // Int | The subtitle stream index.
-let format = "format_example" // String | The format of the returned subtitle.
+let routeItemId = 987 // UUID | The (route) item id.
+let routeMediaSourceId = "routeMediaSourceId_example" // String | The (route) media source id.
+let routeIndex = 987 // Int | The (route) subtitle stream index.
+let routeFormat = "routeFormat_example" // String | The (route) format of the returned subtitle.
+let itemId = 987 // UUID | The item id. (optional)
+let mediaSourceId = "mediaSourceId_example" // String | The media source id. (optional)
+let index = 987 // Int | The subtitle stream index. (optional)
+let format = "format_example" // String | The format of the returned subtitle. (optional)
 let endPositionTicks = 987 // Int64 | Optional. The end position of the subtitle in ticks. (optional)
 let copyTimestamps = true // Bool | Optional. Whether to copy the timestamps. (optional) (default to false)
 let addVttTimeMap = true // Bool | Optional. Whether to add a VTT time map. (optional) (default to false)
-let startPositionTicks = 987 // Int64 | Optional. The start position of the subtitle in ticks. (optional) (default to 0)
+let startPositionTicks = 987 // Int64 | The start position of the subtitle in ticks. (optional) (default to 0)
 
 // Gets subtitles in a specified format.
-SubtitleAPI.getSubtitle(itemId: itemId, mediaSourceId: mediaSourceId, index: index, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap, startPositionTicks: startPositionTicks) { (response, error) in
+SubtitleAPI.getSubtitle(routeItemId: routeItemId, routeMediaSourceId: routeMediaSourceId, routeIndex: routeIndex, routeFormat: routeFormat, itemId: itemId, mediaSourceId: mediaSourceId, index: index, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap, startPositionTicks: startPositionTicks) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -294,14 +298,18 @@ SubtitleAPI.getSubtitle(itemId: itemId, mediaSourceId: mediaSourceId, index: ind
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **mediaSourceId** | **String** | The media source id. | 
- **index** | **Int** | The subtitle stream index. | 
- **format** | **String** | The format of the returned subtitle. | 
+ **routeItemId** | [**UUID**](.md) | The (route) item id. | 
+ **routeMediaSourceId** | **String** | The (route) media source id. | 
+ **routeIndex** | **Int** | The (route) subtitle stream index. | 
+ **routeFormat** | **String** | The (route) format of the returned subtitle. | 
+ **itemId** | [**UUID**](.md) | The item id. | [optional] 
+ **mediaSourceId** | **String** | The media source id. | [optional] 
+ **index** | **Int** | The subtitle stream index. | [optional] 
+ **format** | **String** | The format of the returned subtitle. | [optional] 
  **endPositionTicks** | **Int64** | Optional. The end position of the subtitle in ticks. | [optional] 
  **copyTimestamps** | **Bool** | Optional. Whether to copy the timestamps. | [optional] [default to false]
  **addVttTimeMap** | **Bool** | Optional. Whether to add a VTT time map. | [optional] [default to false]
- **startPositionTicks** | **Int64** | Optional. The start position of the subtitle in ticks. | [optional] [default to 0]
+ **startPositionTicks** | **Int64** | The start position of the subtitle in ticks. | [optional] [default to 0]
 
 ### Return type
 
@@ -374,7 +382,7 @@ Name | Type | Description  | Notes
 
 # **getSubtitleWithTicks**
 ```swift
-    open class func getSubtitleWithTicks(itemId: UUID, mediaSourceId: String, index: Int, startPositionTicks: Int64, format: String, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getSubtitleWithTicks(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets subtitles in a specified format.
@@ -384,17 +392,22 @@ Gets subtitles in a specified format.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let itemId = 987 // UUID | The item id.
-let mediaSourceId = "mediaSourceId_example" // String | The media source id.
-let index = 987 // Int | The subtitle stream index.
-let startPositionTicks = 987 // Int64 | Optional. The start position of the subtitle in ticks.
-let format = "format_example" // String | The format of the returned subtitle.
+let routeItemId = 987 // UUID | The (route) item id.
+let routeMediaSourceId = "routeMediaSourceId_example" // String | The (route) media source id.
+let routeIndex = 987 // Int | The (route) subtitle stream index.
+let routeStartPositionTicks = 987 // Int64 | The (route) start position of the subtitle in ticks.
+let routeFormat = "routeFormat_example" // String | The (route) format of the returned subtitle.
+let itemId = 987 // UUID | The item id. (optional)
+let mediaSourceId = "mediaSourceId_example" // String | The media source id. (optional)
+let index = 987 // Int | The subtitle stream index. (optional)
+let startPositionTicks = 987 // Int64 | The start position of the subtitle in ticks. (optional)
+let format = "format_example" // String | The format of the returned subtitle. (optional)
 let endPositionTicks = 987 // Int64 | Optional. The end position of the subtitle in ticks. (optional)
 let copyTimestamps = true // Bool | Optional. Whether to copy the timestamps. (optional) (default to false)
 let addVttTimeMap = true // Bool | Optional. Whether to add a VTT time map. (optional) (default to false)
 
 // Gets subtitles in a specified format.
-SubtitleAPI.getSubtitleWithTicks(itemId: itemId, mediaSourceId: mediaSourceId, index: index, startPositionTicks: startPositionTicks, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap) { (response, error) in
+SubtitleAPI.getSubtitleWithTicks(routeItemId: routeItemId, routeMediaSourceId: routeMediaSourceId, routeIndex: routeIndex, routeStartPositionTicks: routeStartPositionTicks, routeFormat: routeFormat, itemId: itemId, mediaSourceId: mediaSourceId, index: index, startPositionTicks: startPositionTicks, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -410,11 +423,16 @@ SubtitleAPI.getSubtitleWithTicks(itemId: itemId, mediaSourceId: mediaSourceId, i
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **mediaSourceId** | **String** | The media source id. | 
- **index** | **Int** | The subtitle stream index. | 
- **startPositionTicks** | **Int64** | Optional. The start position of the subtitle in ticks. | 
- **format** | **String** | The format of the returned subtitle. | 
+ **routeItemId** | [**UUID**](.md) | The (route) item id. | 
+ **routeMediaSourceId** | **String** | The (route) media source id. | 
+ **routeIndex** | **Int** | The (route) subtitle stream index. | 
+ **routeStartPositionTicks** | **Int64** | The (route) start position of the subtitle in ticks. | 
+ **routeFormat** | **String** | The (route) format of the returned subtitle. | 
+ **itemId** | [**UUID**](.md) | The item id. | [optional] 
+ **mediaSourceId** | **String** | The media source id. | [optional] 
+ **index** | **Int** | The subtitle stream index. | [optional] 
+ **startPositionTicks** | **Int64** | The start position of the subtitle in ticks. | [optional] 
+ **format** | **String** | The format of the returned subtitle. | [optional] 
  **endPositionTicks** | **Int64** | Optional. The end position of the subtitle in ticks. | [optional] 
  **copyTimestamps** | **Bool** | Optional. Whether to copy the timestamps. | [optional] [default to false]
  **addVttTimeMap** | **Bool** | Optional. Whether to add a VTT time map. | [optional] [default to false]
@@ -527,7 +545,7 @@ Void (empty response body)
 
 ### Authorization
 
-No authorization required
+[CustomAuthentication](../README.md#CustomAuthentication)
 
 ### HTTP request headers
 

@@ -15,8 +15,7 @@ public struct VirtualFolderInfo: Codable, Hashable {
     public var name: String?
     /** Gets or sets the locations. */
     public var locations: [String]?
-    /** Gets or sets the type of the collection. */
-    public var collectionType: String?
+    public var collectionType: CollectionTypeOptions?
     public var libraryOptions: LibraryOptions?
     /** Gets or sets the item identifier. */
     public var itemId: String?
@@ -25,7 +24,7 @@ public struct VirtualFolderInfo: Codable, Hashable {
     public var refreshProgress: Double?
     public var refreshStatus: String?
 
-    public init(name: String? = nil, locations: [String]? = nil, collectionType: String? = nil, libraryOptions: LibraryOptions? = nil, itemId: String? = nil, primaryImageItemId: String? = nil, refreshProgress: Double? = nil, refreshStatus: String? = nil) {
+    public init(name: String? = nil, locations: [String]? = nil, collectionType: CollectionTypeOptions? = nil, libraryOptions: LibraryOptions? = nil, itemId: String? = nil, primaryImageItemId: String? = nil, refreshProgress: Double? = nil, refreshStatus: String? = nil) {
         self.name = name
         self.locations = locations
         self.collectionType = collectionType

@@ -9,7 +9,7 @@ import Foundation
 
 open class InstantMixAPI {
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given album.
      
      - parameter id: (path) The item id. 
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
@@ -34,7 +34,7 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given album.
      - GET /Albums/{id}/InstantMix
      - API Key:
        - type: apiKey X-Emby-Authorization 
@@ -80,7 +80,7 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given artist.
      
      - parameter id: (path) The item id. 
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
@@ -105,7 +105,7 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given artist.
      - GET /Artists/{id}/InstantMix
      - API Key:
        - type: apiKey X-Emby-Authorization 
@@ -151,7 +151,78 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given artist.
+     
+     - parameter id: (query) The item id. 
+     - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
+     - parameter limit: (query) Optional. The maximum number of records to return. (optional)
+     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
+     - parameter enableUserData: (query) Optional. Include user data. (optional)
+     - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
+     - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @available(*, deprecated, message: "This operation is deprecated.")
+    open class func getInstantMixFromArtists2(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
+        getInstantMixFromArtists2WithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Creates an instant playlist based on a given artist.
+     - GET /Artists/InstantMix
+     - API Key:
+       - type: apiKey X-Emby-Authorization 
+       - name: CustomAuthentication
+     - parameter id: (query) The item id. 
+     - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
+     - parameter limit: (query) Optional. The maximum number of records to return. (optional)
+     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
+     - parameter enableUserData: (query) Optional. Include user data. (optional)
+     - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
+     - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
+     - returns: RequestBuilder<BaseItemDtoQueryResult> 
+     */
+    @available(*, deprecated, message: "This operation is deprecated.")
+    open class func getInstantMixFromArtists2WithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let path = "/Artists/InstantMix"
+        let URLString = OpenAPIClientAPI.basePath + path
+        let parameters: [String: Any]? = nil
+
+        var urlComponents = URLComponents(string: URLString)
+        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "id": id.encodeToJSON(),
+            "userId": userId?.encodeToJSON(),
+            "limit": limit?.encodeToJSON(),
+            "fields": fields?.encodeToJSON(),
+            "enableImages": enableImages?.encodeToJSON(),
+            "enableUserData": enableUserData?.encodeToJSON(),
+            "imageTypeLimit": imageTypeLimit?.encodeToJSON(),
+            "enableImageTypes": enableImageTypes?.encodeToJSON(),
+        ])
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+    }
+
+    /**
+     Creates an instant playlist based on a given item.
      
      - parameter id: (path) The item id. 
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
@@ -176,7 +247,7 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given item.
      - GET /Items/{id}/InstantMix
      - API Key:
        - type: apiKey X-Emby-Authorization 
@@ -222,78 +293,7 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
-     
-     - parameter name: (path) The genre name. 
-     - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
-     - parameter limit: (query) Optional. The maximum number of records to return. (optional)
-     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
-     - parameter enableImages: (query) Optional. Include image information in output. (optional)
-     - parameter enableUserData: (query) Optional. Include user data. (optional)
-     - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
-     - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func getInstantMixFromMusicGenre(name: String, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
-        getInstantMixFromMusicGenreWithRequestBuilder(name: name, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
-            switch result {
-            case let .success(response):
-                completion(response.body, nil)
-            case let .failure(error):
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Creates an instant playlist based on a given song.
-     - GET /MusicGenres/{name}/InstantMix
-     - API Key:
-       - type: apiKey X-Emby-Authorization 
-       - name: CustomAuthentication
-     - parameter name: (path) The genre name. 
-     - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
-     - parameter limit: (query) Optional. The maximum number of records to return. (optional)
-     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
-     - parameter enableImages: (query) Optional. Include image information in output. (optional)
-     - parameter enableUserData: (query) Optional. Include user data. (optional)
-     - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
-     - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
-     - returns: RequestBuilder<BaseItemDtoQueryResult> 
-     */
-    open class func getInstantMixFromMusicGenreWithRequestBuilder(name: String, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        var path = "/MusicGenres/{name}/InstantMix"
-        let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
-        let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
-        let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
-
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "userId": userId?.encodeToJSON(),
-            "limit": limit?.encodeToJSON(),
-            "fields": fields?.encodeToJSON(),
-            "enableImages": enableImages?.encodeToJSON(),
-            "enableUserData": enableUserData?.encodeToJSON(),
-            "imageTypeLimit": imageTypeLimit?.encodeToJSON(),
-            "enableImageTypes": enableImageTypes?.encodeToJSON(),
-        ])
-
-        let nillableHeaders: [String: Any?] = [
-            :
-        ]
-
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
-    }
-
-    /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given genre.
      
      - parameter id: (path) The item id. 
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
@@ -306,8 +306,8 @@ open class InstantMixAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getInstantMixFromMusicGenres(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
-        getInstantMixFromMusicGenresWithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
+    open class func getInstantMixFromMusicGenreById(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
+        getInstantMixFromMusicGenreByIdWithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -318,7 +318,7 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given genre.
      - GET /MusicGenres/{id}/InstantMix
      - API Key:
        - type: apiKey X-Emby-Authorization 
@@ -333,7 +333,7 @@ open class InstantMixAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getInstantMixFromMusicGenresWithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromMusicGenreByIdWithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var path = "/MusicGenres/{id}/InstantMix"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -364,7 +364,149 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given genre.
+     
+     - parameter id: (query) The item id. 
+     - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
+     - parameter limit: (query) Optional. The maximum number of records to return. (optional)
+     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
+     - parameter enableUserData: (query) Optional. Include user data. (optional)
+     - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
+     - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @available(*, deprecated, message: "This operation is deprecated.")
+    open class func getInstantMixFromMusicGenreById2(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
+        getInstantMixFromMusicGenreById2WithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Creates an instant playlist based on a given genre.
+     - GET /MusicGenres/InstantMix
+     - API Key:
+       - type: apiKey X-Emby-Authorization 
+       - name: CustomAuthentication
+     - parameter id: (query) The item id. 
+     - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
+     - parameter limit: (query) Optional. The maximum number of records to return. (optional)
+     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
+     - parameter enableUserData: (query) Optional. Include user data. (optional)
+     - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
+     - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
+     - returns: RequestBuilder<BaseItemDtoQueryResult> 
+     */
+    @available(*, deprecated, message: "This operation is deprecated.")
+    open class func getInstantMixFromMusicGenreById2WithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let path = "/MusicGenres/InstantMix"
+        let URLString = OpenAPIClientAPI.basePath + path
+        let parameters: [String: Any]? = nil
+
+        var urlComponents = URLComponents(string: URLString)
+        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "id": id.encodeToJSON(),
+            "userId": userId?.encodeToJSON(),
+            "limit": limit?.encodeToJSON(),
+            "fields": fields?.encodeToJSON(),
+            "enableImages": enableImages?.encodeToJSON(),
+            "enableUserData": enableUserData?.encodeToJSON(),
+            "imageTypeLimit": imageTypeLimit?.encodeToJSON(),
+            "enableImageTypes": enableImageTypes?.encodeToJSON(),
+        ])
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+    }
+
+    /**
+     Creates an instant playlist based on a given genre.
+     
+     - parameter name: (path) The genre name. 
+     - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
+     - parameter limit: (query) Optional. The maximum number of records to return. (optional)
+     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
+     - parameter enableUserData: (query) Optional. Include user data. (optional)
+     - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
+     - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getInstantMixFromMusicGenreByName(name: String, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
+        getInstantMixFromMusicGenreByNameWithRequestBuilder(name: name, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Creates an instant playlist based on a given genre.
+     - GET /MusicGenres/{name}/InstantMix
+     - API Key:
+       - type: apiKey X-Emby-Authorization 
+       - name: CustomAuthentication
+     - parameter name: (path) The genre name. 
+     - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
+     - parameter limit: (query) Optional. The maximum number of records to return. (optional)
+     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
+     - parameter enableUserData: (query) Optional. Include user data. (optional)
+     - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
+     - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
+     - returns: RequestBuilder<BaseItemDtoQueryResult> 
+     */
+    open class func getInstantMixFromMusicGenreByNameWithRequestBuilder(name: String, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        var path = "/MusicGenres/{name}/InstantMix"
+        let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
+        let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        let URLString = OpenAPIClientAPI.basePath + path
+        let parameters: [String: Any]? = nil
+
+        var urlComponents = URLComponents(string: URLString)
+        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "userId": userId?.encodeToJSON(),
+            "limit": limit?.encodeToJSON(),
+            "fields": fields?.encodeToJSON(),
+            "enableImages": enableImages?.encodeToJSON(),
+            "enableUserData": enableUserData?.encodeToJSON(),
+            "imageTypeLimit": imageTypeLimit?.encodeToJSON(),
+            "enableImageTypes": enableImageTypes?.encodeToJSON(),
+        ])
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+    }
+
+    /**
+     Creates an instant playlist based on a given playlist.
      
      - parameter id: (path) The item id. 
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
@@ -389,7 +531,7 @@ open class InstantMixAPI {
     }
 
     /**
-     Creates an instant playlist based on a given song.
+     Creates an instant playlist based on a given playlist.
      - GET /Playlists/{id}/InstantMix
      - API Key:
        - type: apiKey X-Emby-Authorization 

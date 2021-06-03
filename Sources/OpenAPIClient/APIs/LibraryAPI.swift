@@ -358,7 +358,7 @@ open class LibraryAPI {
      Gets the library options info.
      
      - parameter libraryContentType: (query) Library content type. (optional)
-     - parameter isNewLibrary: (query) Whether this is a new library. (optional)
+     - parameter isNewLibrary: (query) Whether this is a new library. (optional, default to false)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -380,7 +380,7 @@ open class LibraryAPI {
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
      - parameter libraryContentType: (query) Library content type. (optional)
-     - parameter isNewLibrary: (query) Whether this is a new library. (optional)
+     - parameter isNewLibrary: (query) Whether this is a new library. (optional, default to false)
      - returns: RequestBuilder<LibraryOptionsResultDto> 
      */
     open class func getLibraryOptionsInfoWithRequestBuilder(libraryContentType: String? = nil, isNewLibrary: Bool? = nil) -> RequestBuilder<LibraryOptionsResultDto> {
@@ -1138,11 +1138,11 @@ open class LibraryAPI {
     /**
      Reports that new movies have been added by an external source.
      
-     - parameter mediaUpdateInfoDto: (body) A list of updated media paths. 
+     - parameter mediaUpdateInfoDto: (body) The update paths. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postUpdatedMedia(mediaUpdateInfoDto: [MediaUpdateInfoDto], apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+    open class func postUpdatedMedia(mediaUpdateInfoDto: MediaUpdateInfoDto, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
         postUpdatedMediaWithRequestBuilder(mediaUpdateInfoDto: mediaUpdateInfoDto).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
@@ -1159,10 +1159,10 @@ open class LibraryAPI {
      - API Key:
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
-     - parameter mediaUpdateInfoDto: (body) A list of updated media paths. 
+     - parameter mediaUpdateInfoDto: (body) The update paths. 
      - returns: RequestBuilder<Void> 
      */
-    open class func postUpdatedMediaWithRequestBuilder(mediaUpdateInfoDto: [MediaUpdateInfoDto]) -> RequestBuilder<Void> {
+    open class func postUpdatedMediaWithRequestBuilder(mediaUpdateInfoDto: MediaUpdateInfoDto) -> RequestBuilder<Void> {
         let path = "/Library/Media/Updated"
         let URLString = OpenAPIClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: mediaUpdateInfoDto)
@@ -1298,7 +1298,7 @@ open class LibraryAPI {
 
     /**
      Starts a library scan.
-     - GET /Library/Refresh
+     - POST /Library/Refresh
      - API Key:
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
@@ -1319,7 +1319,7 @@ open class LibraryAPI {
 
         let requestBuilder: RequestBuilder<Void>.Type = OpenAPIClientAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
     }
 
 }

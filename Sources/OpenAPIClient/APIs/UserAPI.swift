@@ -283,12 +283,12 @@ open class UserAPI {
     /**
      Redeems a forgot password pin.
      
-     - parameter body: (body) The pin. (optional)
+     - parameter forgotPasswordPinDto: (body) The forgot password pin request containing the entered pin. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func forgotPasswordPin(body: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: PinRedeemResult?, _ error: Error?) -> Void)) {
-        forgotPasswordPinWithRequestBuilder(body: body).execute(apiResponseQueue) { result -> Void in
+    open class func forgotPasswordPin(forgotPasswordPinDto: ForgotPasswordPinDto, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: PinRedeemResult?, _ error: Error?) -> Void)) {
+        forgotPasswordPinWithRequestBuilder(forgotPasswordPinDto: forgotPasswordPinDto).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -301,13 +301,13 @@ open class UserAPI {
     /**
      Redeems a forgot password pin.
      - POST /Users/ForgotPassword/Pin
-     - parameter body: (body) The pin. (optional)
+     - parameter forgotPasswordPinDto: (body) The forgot password pin request containing the entered pin. 
      - returns: RequestBuilder<PinRedeemResult> 
      */
-    open class func forgotPasswordPinWithRequestBuilder(body: String? = nil) -> RequestBuilder<PinRedeemResult> {
+    open class func forgotPasswordPinWithRequestBuilder(forgotPasswordPinDto: ForgotPasswordPinDto) -> RequestBuilder<PinRedeemResult> {
         let path = "/Users/ForgotPassword/Pin"
         let URLString = OpenAPIClientAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: forgotPasswordPinDto)
 
         let urlComponents = URLComponents(string: URLString)
 

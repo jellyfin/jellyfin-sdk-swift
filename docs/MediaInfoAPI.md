@@ -1,6 +1,6 @@
 # MediaInfoAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 Gets live playback media info for an item.
 
-For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.
+For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.  Query parameters are obsolete.
 
 ### Example 
 ```swift

@@ -1,6 +1,6 @@
 # LibraryStructureAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -66,7 +66,7 @@ Void (empty response body)
 
 # **addVirtualFolder**
 ```swift
-    open class func addVirtualFolder(name: String? = nil, collectionType: String? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func addVirtualFolder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Adds a virtual folder.
@@ -77,7 +77,7 @@ Adds a virtual folder.
 import OpenAPIClient
 
 let name = "name_example" // String | The name of the virtual folder. (optional)
-let collectionType = "collectionType_example" // String | The type of the collection. (optional)
+let collectionType = CollectionTypeOptions() // CollectionTypeOptions | The type of the collection. (optional)
 let paths = ["inner_example"] // [String] | The paths of the virtual folder. (optional)
 let refreshLibrary = true // Bool | Whether to refresh the library. (optional) (default to false)
 let addVirtualFolderDto = AddVirtualFolderDto(libraryOptions: LibraryOptions(enablePhotos: false, enableRealtimeMonitor: false, enableChapterImageExtraction: false, extractChapterImagesDuringLibraryScan: false, pathInfos: [MediaPathInfo(path: "path_example", networkPath: "networkPath_example")], saveLocalMetadata: false, enableInternetProviders: false, enableAutomaticSeriesGrouping: false, enableEmbeddedTitles: false, enableEmbeddedEpisodeInfos: false, automaticRefreshIntervalDays: 123, preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", seasonZeroDisplayName: "seasonZeroDisplayName_example", metadataSavers: ["metadataSavers_example"], disabledLocalMetadataReaders: ["disabledLocalMetadataReaders_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledSubtitleFetchers: ["disabledSubtitleFetchers_example"], subtitleFetcherOrder: ["subtitleFetcherOrder_example"], skipSubtitlesIfEmbeddedSubtitlesPresent: false, skipSubtitlesIfAudioTrackMatches: false, subtitleDownloadLanguages: ["subtitleDownloadLanguages_example"], requirePerfectSubtitleMatch: false, saveSubtitlesWithMedia: false, typeOptions: [TypeOptions(type: "type_example", metadataFetchers: ["metadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], imageFetchers: ["imageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"], imageOptions: [ImageOption(type: ImageType(), limit: 123, minWidth: 123)])])) // AddVirtualFolderDto | The library options. (optional)
@@ -100,7 +100,7 @@ LibraryStructureAPI.addVirtualFolder(name: name, collectionType: collectionType,
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | The name of the virtual folder. | [optional] 
- **collectionType** | **String** | The type of the collection. | [optional] 
+ **collectionType** | [**CollectionTypeOptions**](.md) | The type of the collection. | [optional] 
  **paths** | [**[String]**](String.md) | The paths of the virtual folder. | [optional] 
  **refreshLibrary** | **Bool** | Whether to refresh the library. | [optional] [default to false]
  **addVirtualFolderDto** | [**AddVirtualFolderDto**](AddVirtualFolderDto.md) | The library options. | [optional] 
@@ -368,7 +368,7 @@ Void (empty response body)
 
 # **updateMediaPath**
 ```swift
-    open class func updateMediaPath(name: String? = nil, mediaPathInfo: MediaPathInfo? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateMediaPath(updateMediaPathRequestDto: UpdateMediaPathRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a media path.
@@ -378,11 +378,10 @@ Updates a media path.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let name = "name_example" // String | The name of the library. (optional)
-let mediaPathInfo = MediaPathInfo(path: "path_example", networkPath: "networkPath_example") // MediaPathInfo | The path info. (optional)
+let updateMediaPathRequestDto = UpdateMediaPathRequestDto(name: "name_example", pathInfo: MediaPathInfo(path: "path_example", networkPath: "networkPath_example")) // UpdateMediaPathRequestDto | The name of the library and path infos.
 
 // Updates a media path.
-LibraryStructureAPI.updateMediaPath(name: name, mediaPathInfo: mediaPathInfo) { (response, error) in
+LibraryStructureAPI.updateMediaPath(updateMediaPathRequestDto: updateMediaPathRequestDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -398,8 +397,7 @@ LibraryStructureAPI.updateMediaPath(name: name, mediaPathInfo: mediaPathInfo) { 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **String** | The name of the library. | [optional] 
- **mediaPathInfo** | [**MediaPathInfo**](MediaPathInfo.md) | The path info. | [optional] 
+ **updateMediaPathRequestDto** | [**UpdateMediaPathRequestDto**](UpdateMediaPathRequestDto.md) | The name of the library and path infos. | 
 
 ### Return type
 

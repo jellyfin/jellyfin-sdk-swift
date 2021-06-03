@@ -7,7 +7,7 @@
 import Foundation
 
 open class OpenAPIClientAPI {
-    public static var basePath = "http://localhost"
+    public static var basePath = "http://localhost:8096"
     public static var credential: URLCredential?
     public static var customHeaders: [String: String] = [:]
     public static var requestBuilderFactory: RequestBuilderFactory = URLSessionRequestBuilderFactory()

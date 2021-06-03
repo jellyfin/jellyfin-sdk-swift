@@ -193,7 +193,7 @@ open class MediaInfoAPI {
     /**
      Gets live playback media info for an item.
      - POST /Items/{itemId}/PlaybackInfo
-     - For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.
+     - For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.  Query parameters are obsolete.
      - API Key:
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication

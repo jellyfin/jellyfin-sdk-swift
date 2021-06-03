@@ -356,11 +356,11 @@ open class PlaystateAPI {
     /**
      Pings a playback session.
      
-     - parameter playSessionId: (query) Playback session id. (optional)
+     - parameter playSessionId: (query) Playback session id. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func pingPlaybackSession(playSessionId: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+    open class func pingPlaybackSession(playSessionId: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
         pingPlaybackSessionWithRequestBuilder(playSessionId: playSessionId).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
@@ -377,17 +377,17 @@ open class PlaystateAPI {
      - API Key:
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
-     - parameter playSessionId: (query) Playback session id. (optional)
+     - parameter playSessionId: (query) Playback session id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func pingPlaybackSessionWithRequestBuilder(playSessionId: String? = nil) -> RequestBuilder<Void> {
+    open class func pingPlaybackSessionWithRequestBuilder(playSessionId: String) -> RequestBuilder<Void> {
         let path = "/Sessions/Playing/Ping"
         let URLString = OpenAPIClientAPI.basePath + path
         let parameters: [String: Any]? = nil
 
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "playSessionId": playSessionId?.encodeToJSON(),
+            "playSessionId": playSessionId.encodeToJSON(),
         ])
 
         let nillableHeaders: [String: Any?] = [

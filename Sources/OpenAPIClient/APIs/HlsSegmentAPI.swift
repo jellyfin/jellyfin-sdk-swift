@@ -224,12 +224,12 @@ open class HlsSegmentAPI {
     /**
      Stops an active encoding.
      
-     - parameter deviceId: (query) The device id of the client requesting. Used to stop encoding processes when needed. (optional)
-     - parameter playSessionId: (query) The play session id. (optional)
+     - parameter deviceId: (query) The device id of the client requesting. Used to stop encoding processes when needed. 
+     - parameter playSessionId: (query) The play session id. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func stopEncodingProcess(deviceId: String? = nil, playSessionId: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+    open class func stopEncodingProcess(deviceId: String, playSessionId: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
         stopEncodingProcessWithRequestBuilder(deviceId: deviceId, playSessionId: playSessionId).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
@@ -246,19 +246,19 @@ open class HlsSegmentAPI {
      - API Key:
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
-     - parameter deviceId: (query) The device id of the client requesting. Used to stop encoding processes when needed. (optional)
-     - parameter playSessionId: (query) The play session id. (optional)
+     - parameter deviceId: (query) The device id of the client requesting. Used to stop encoding processes when needed. 
+     - parameter playSessionId: (query) The play session id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func stopEncodingProcessWithRequestBuilder(deviceId: String? = nil, playSessionId: String? = nil) -> RequestBuilder<Void> {
+    open class func stopEncodingProcessWithRequestBuilder(deviceId: String, playSessionId: String) -> RequestBuilder<Void> {
         let path = "/Videos/ActiveEncodings"
         let URLString = OpenAPIClientAPI.basePath + path
         let parameters: [String: Any]? = nil
 
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "deviceId": deviceId?.encodeToJSON(),
-            "playSessionId": playSessionId?.encodeToJSON(),
+            "deviceId": deviceId.encodeToJSON(),
+            "playSessionId": playSessionId.encodeToJSON(),
         ])
 
         let nillableHeaders: [String: Any?] = [

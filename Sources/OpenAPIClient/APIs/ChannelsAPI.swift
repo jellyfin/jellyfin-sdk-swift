@@ -114,7 +114,7 @@ open class ChannelsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getChannelItems(channelId: UUID, folderId: UUID? = nil, userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: String? = nil, filters: [ItemFilter]? = nil, sortBy: String? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
+    open class func getChannelItems(channelId: UUID, folderId: UUID? = nil, userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
         getChannelItemsWithRequestBuilder(channelId: channelId, folderId: folderId, userId: userId, startIndex: startIndex, limit: limit, sortOrder: sortOrder, filters: filters, sortBy: sortBy, fields: fields).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -142,7 +142,7 @@ open class ChannelsAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getChannelItemsWithRequestBuilder(channelId: UUID, folderId: UUID? = nil, userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: String? = nil, filters: [ItemFilter]? = nil, sortBy: String? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getChannelItemsWithRequestBuilder(channelId: UUID, folderId: UUID? = nil, userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var path = "/Channels/{channelId}/Items"
         let channelIdPreEscape = "\(APIHelper.mapValueToPathItem(channelId))"
         let channelIdPostEscape = channelIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

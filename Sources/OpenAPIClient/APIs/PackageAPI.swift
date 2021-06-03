@@ -257,11 +257,11 @@ open class PackageAPI {
     /**
      Sets the enabled and existing package repositories.
      
-     - parameter repositoryInfo: (body) The list of package repositories. (optional)
+     - parameter repositoryInfo: (body) The list of package repositories. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func setRepositories(repositoryInfo: [RepositoryInfo]? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+    open class func setRepositories(repositoryInfo: [RepositoryInfo], apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
         setRepositoriesWithRequestBuilder(repositoryInfo: repositoryInfo).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
@@ -278,10 +278,10 @@ open class PackageAPI {
      - API Key:
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
-     - parameter repositoryInfo: (body) The list of package repositories. (optional)
+     - parameter repositoryInfo: (body) The list of package repositories. 
      - returns: RequestBuilder<Void> 
      */
-    open class func setRepositoriesWithRequestBuilder(repositoryInfo: [RepositoryInfo]? = nil) -> RequestBuilder<Void> {
+    open class func setRepositoriesWithRequestBuilder(repositoryInfo: [RepositoryInfo]) -> RequestBuilder<Void> {
         let path = "/Repositories"
         let URLString = OpenAPIClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: repositoryInfo)

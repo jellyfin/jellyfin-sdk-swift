@@ -65,51 +65,6 @@ open class RemoteImageAPI {
     }
 
     /**
-     Gets a remote image.
-     
-     - parameter imageUrl: (query) The image url. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func getRemoteImage(imageUrl: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getRemoteImageWithRequestBuilder(imageUrl: imageUrl).execute(apiResponseQueue) { result -> Void in
-            switch result {
-            case let .success(response):
-                completion(response.body, nil)
-            case let .failure(error):
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Gets a remote image.
-     - GET /Images/Remote
-     - parameter imageUrl: (query) The image url. 
-     - returns: RequestBuilder<URL> 
-     */
-    open class func getRemoteImageWithRequestBuilder(imageUrl: String) -> RequestBuilder<URL> {
-        let path = "/Images/Remote"
-        let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
-
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "imageUrl": imageUrl.encodeToJSON(),
-        ])
-
-        let nillableHeaders: [String: Any?] = [
-            :
-        ]
-
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-        let requestBuilder: RequestBuilder<URL>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
-    }
-
-    /**
      Gets available remote image providers for an item.
      
      - parameter itemId: (path) Item Id. 

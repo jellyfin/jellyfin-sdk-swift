@@ -1,11 +1,10 @@
 # RemoteImageAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**downloadRemoteImage**](RemoteImageAPI.md#downloadremoteimage) | **POST** /Items/{itemId}/RemoteImages/Download | Downloads a remote image for an item.
-[**getRemoteImage**](RemoteImageAPI.md#getremoteimage) | **GET** /Images/Remote | Gets a remote image.
 [**getRemoteImageProviders**](RemoteImageAPI.md#getremoteimageproviders) | **GET** /Items/{itemId}/RemoteImages/Providers | Gets available remote image providers for an item.
 [**getRemoteImages**](RemoteImageAPI.md#getremoteimages) | **GET** /Items/{itemId}/RemoteImages | Gets available remote images for an item.
 
@@ -59,54 +58,6 @@ Void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/json; profile=CamelCase, application/json; profile=PascalCase
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getRemoteImage**
-```swift
-    open class func getRemoteImage(imageUrl: String, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
-```
-
-Gets a remote image.
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
-
-let imageUrl = "imageUrl_example" // String | The image url.
-
-// Gets a remote image.
-RemoteImageAPI.getRemoteImage(imageUrl: imageUrl) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **imageUrl** | **String** | The image url. | 
-
-### Return type
-
-**URL**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: image/_*, application/octet-stream, application/json, application/json; profile=CamelCase, application/json; profile=PascalCase
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

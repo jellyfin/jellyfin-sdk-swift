@@ -255,6 +255,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -263,8 +265,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getArtistImageWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func getArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getArtistImageWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -289,6 +291,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -296,7 +300,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getArtistImageWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getArtistImageWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Artists/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -321,6 +325,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -353,6 +359,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -362,8 +370,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func getGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -387,6 +395,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -395,7 +405,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func getGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Genres/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -417,6 +427,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -451,6 +463,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -459,8 +473,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func getGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -485,6 +499,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -492,7 +508,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Genres/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -517,6 +533,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -545,6 +563,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter tag: (query) Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter format: (query) Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -558,8 +578,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func getItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -579,6 +599,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter tag: (query) Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter format: (query) Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -591,7 +613,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func getItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -609,6 +631,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "tag": tag?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "format": format?.encodeToJSON(),
@@ -647,6 +671,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -655,8 +681,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func getItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -681,6 +707,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -688,7 +716,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getItemImage2WithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getItemImage2WithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Items/{itemId}/Images/{imageType}/{imageIndex}/{tag}/{format}/{maxWidth}/{maxHeight}/{percentPlayed}/{unplayedCount}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -725,6 +753,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -754,6 +784,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter tag: (query) Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter format: (query) Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -766,8 +798,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func getItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -788,6 +820,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter tag: (query) Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter format: (query) Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -799,7 +833,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -820,6 +854,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "tag": tag?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "format": format?.encodeToJSON(),
@@ -904,6 +940,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -913,8 +951,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getMusicGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func getMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getMusicGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -938,6 +976,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -946,7 +986,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getMusicGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func getMusicGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/MusicGenres/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -968,6 +1008,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1002,6 +1044,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1010,8 +1054,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getMusicGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func getMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getMusicGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1036,6 +1080,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1043,7 +1089,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getMusicGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getMusicGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/MusicGenres/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1068,6 +1114,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1100,6 +1148,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1109,8 +1159,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getPersonImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func getPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getPersonImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1134,6 +1184,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1142,7 +1194,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getPersonImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func getPersonImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Persons/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1164,6 +1216,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1198,6 +1252,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1206,8 +1262,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getPersonImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func getPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getPersonImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1232,6 +1288,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1239,7 +1297,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getPersonImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getPersonImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Persons/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1264,6 +1322,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1296,6 +1356,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1305,8 +1367,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getStudioImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func getStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getStudioImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1330,6 +1392,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1338,7 +1402,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getStudioImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func getStudioImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Studios/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1360,6 +1424,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1394,6 +1460,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1402,8 +1470,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getStudioImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func getStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getStudioImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1428,6 +1496,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1435,7 +1505,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getStudioImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getStudioImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Studios/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1460,6 +1530,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1492,6 +1564,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1501,8 +1575,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func getUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1526,6 +1600,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1534,7 +1610,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func getUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1556,6 +1632,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1590,6 +1668,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1598,8 +1678,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func getUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1624,6 +1704,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1631,7 +1713,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Users/{userId}/Images/{imageType}/{imageIndex}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1656,6 +1738,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1689,6 +1773,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1697,8 +1783,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headArtistImageWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func headArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headArtistImageWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1723,6 +1809,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1730,7 +1818,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headArtistImageWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headArtistImageWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Artists/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1755,6 +1843,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1787,6 +1877,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1796,8 +1888,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func headGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1821,6 +1913,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1829,7 +1923,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func headGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Genres/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1851,6 +1945,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1885,6 +1981,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1893,8 +1991,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func headGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -1919,6 +2017,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -1926,7 +2026,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Genres/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1951,6 +2051,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -1979,6 +2081,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter tag: (query) Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter format: (query) Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -1992,8 +2096,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func headItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2013,6 +2117,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter tag: (query) Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter format: (query) Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -2025,7 +2131,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func headItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2043,6 +2149,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "tag": tag?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "format": format?.encodeToJSON(),
@@ -2081,6 +2189,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2089,8 +2199,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func headItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2115,6 +2225,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2122,7 +2234,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headItemImage2WithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headItemImage2WithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Items/{itemId}/Images/{imageType}/{imageIndex}/{tag}/{format}/{maxWidth}/{maxHeight}/{percentPlayed}/{unplayedCount}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2159,6 +2271,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -2188,6 +2302,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter tag: (query) Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter format: (query) Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -2200,8 +2316,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func headItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2222,6 +2338,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter tag: (query) Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter format: (query) Optional. The MediaBrowser.Model.Drawing.ImageFormat of the returned image. (optional)
@@ -2233,7 +2351,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2254,6 +2372,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "tag": tag?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "format": format?.encodeToJSON(),
@@ -2290,6 +2410,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2299,8 +2421,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headMusicGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func headMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headMusicGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2324,6 +2446,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2332,7 +2456,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headMusicGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func headMusicGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/MusicGenres/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2354,6 +2478,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -2388,6 +2514,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2396,8 +2524,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headMusicGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func headMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headMusicGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2422,6 +2550,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2429,7 +2559,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headMusicGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headMusicGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/MusicGenres/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2454,6 +2584,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -2486,6 +2618,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2495,8 +2629,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headPersonImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func headPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headPersonImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2520,6 +2654,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2528,7 +2664,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headPersonImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func headPersonImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Persons/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2550,6 +2686,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -2584,6 +2722,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2592,8 +2732,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headPersonImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func headPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headPersonImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2618,6 +2758,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2625,7 +2767,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headPersonImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headPersonImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Persons/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2650,6 +2792,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -2682,6 +2826,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2691,8 +2837,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headStudioImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func headStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headStudioImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2716,6 +2862,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2724,7 +2872,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headStudioImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func headStudioImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Studios/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2746,6 +2894,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -2780,6 +2930,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2788,8 +2940,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headStudioImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func headStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headStudioImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2814,6 +2966,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2821,7 +2975,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headStudioImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headStudioImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Studios/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2846,6 +3000,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -2878,6 +3034,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2887,8 +3045,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func headUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -2912,6 +3070,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2920,7 +3080,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func headUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var path = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2942,6 +3102,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -2976,6 +3138,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -2984,8 +3148,8 @@ open class ImageAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func headUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        headUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    open class func headUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        headUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -3010,6 +3174,8 @@ open class ImageAPI {
      - parameter width: (query) The fixed image width to return. (optional)
      - parameter height: (query) The fixed image height to return. (optional)
      - parameter quality: (query) Optional. Quality setting, from 0-100. Defaults to 90 and should suffice in most cases. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
      - parameter cropWhitespace: (query) Optional. Specify if whitespace should be cropped out of the image. True/False. If unspecified, whitespace will be cropped from logos and clear art. (optional)
      - parameter addPlayedIndicator: (query) Optional. Add a played indicator. (optional)
      - parameter blur: (query) Optional. Blur image. (optional)
@@ -3017,7 +3183,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var path = "/Users/{userId}/Images/{imageType}/{imageIndex}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3042,6 +3208,8 @@ open class ImageAPI {
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
             "cropWhitespace": cropWhitespace?.encodeToJSON(),
             "addPlayedIndicator": addPlayedIndicator?.encodeToJSON(),
             "blur": blur?.encodeToJSON(),
@@ -3066,11 +3234,12 @@ open class ImageAPI {
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
      - parameter index: (query) (Unused) Image index. (optional)
+     - parameter body: (body)  (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postUserImage(userId: UUID, imageType: ImageType, index: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
-        postUserImageWithRequestBuilder(userId: userId, imageType: imageType, index: index).execute(apiResponseQueue) { result -> Void in
+    open class func postUserImage(userId: UUID, imageType: ImageType, index: Int? = nil, body: URL? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+        postUserImageWithRequestBuilder(userId: userId, imageType: imageType, index: index, body: body).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
                 completion((), nil)
@@ -3089,9 +3258,10 @@ open class ImageAPI {
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
      - parameter index: (query) (Unused) Image index. (optional)
+     - parameter body: (body)  (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func postUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, index: Int? = nil) -> RequestBuilder<Void> {
+    open class func postUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, index: Int? = nil, body: URL? = nil) -> RequestBuilder<Void> {
         var path = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3100,7 +3270,7 @@ open class ImageAPI {
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
@@ -3124,11 +3294,12 @@ open class ImageAPI {
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
      - parameter index: (path) (Unused) Image index. 
+     - parameter body: (body)  (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postUserImageByIndex(userId: UUID, imageType: ImageType, index: Int, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
-        postUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, index: index).execute(apiResponseQueue) { result -> Void in
+    open class func postUserImageByIndex(userId: UUID, imageType: ImageType, index: Int, body: URL? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+        postUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, index: index, body: body).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
                 completion((), nil)
@@ -3147,9 +3318,10 @@ open class ImageAPI {
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
      - parameter index: (path) (Unused) Image index. 
+     - parameter body: (body)  (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func postUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, index: Int) -> RequestBuilder<Void> {
+    open class func postUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, index: Int, body: URL? = nil) -> RequestBuilder<Void> {
         var path = "/Users/{userId}/Images/{imageType}/{index}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3161,7 +3333,7 @@ open class ImageAPI {
         let indexPostEscape = indexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
         let urlComponents = URLComponents(string: URLString)
 
@@ -3181,11 +3353,12 @@ open class ImageAPI {
      
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
+     - parameter body: (body)  (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func setItemImage(itemId: UUID, imageType: ImageType, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
-        setItemImageWithRequestBuilder(itemId: itemId, imageType: imageType).execute(apiResponseQueue) { result -> Void in
+    open class func setItemImage(itemId: UUID, imageType: ImageType, body: URL? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+        setItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, body: body).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
                 completion((), nil)
@@ -3203,9 +3376,10 @@ open class ImageAPI {
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
+     - parameter body: (body)  (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func setItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType) -> RequestBuilder<Void> {
+    open class func setItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, body: URL? = nil) -> RequestBuilder<Void> {
         var path = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3214,7 +3388,7 @@ open class ImageAPI {
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
         let urlComponents = URLComponents(string: URLString)
 
@@ -3235,11 +3409,12 @@ open class ImageAPI {
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
      - parameter imageIndex: (path) (Unused) Image index. 
+     - parameter body: (body)  (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func setItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
-        setItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    open class func setItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, body: URL? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+        setItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, body: body).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
                 completion((), nil)
@@ -3258,9 +3433,10 @@ open class ImageAPI {
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
      - parameter imageIndex: (path) (Unused) Image index. 
+     - parameter body: (body)  (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func setItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int) -> RequestBuilder<Void> {
+    open class func setItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, body: URL? = nil) -> RequestBuilder<Void> {
         var path = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3272,7 +3448,7 @@ open class ImageAPI {
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
         let urlComponents = URLComponents(string: URLString)
 
@@ -3293,11 +3469,11 @@ open class ImageAPI {
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
      - parameter imageIndex: (path) Old image index. 
-     - parameter newIndex: (query) New image index. (optional)
+     - parameter newIndex: (query) New image index. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func updateItemImageIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+    open class func updateItemImageIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
         updateItemImageIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, newIndex: newIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
@@ -3317,10 +3493,10 @@ open class ImageAPI {
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
      - parameter imageIndex: (path) Old image index. 
-     - parameter newIndex: (query) New image index. (optional)
+     - parameter newIndex: (query) New image index. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateItemImageIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int? = nil) -> RequestBuilder<Void> {
+    open class func updateItemImageIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int) -> RequestBuilder<Void> {
         var path = "/Items/{itemId}/Images/{imageType}/{imageIndex}/Index"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3336,7 +3512,7 @@ open class ImageAPI {
 
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "newIndex": newIndex?.encodeToJSON(),
+            "newIndex": newIndex.encodeToJSON(),
         ])
 
         let nillableHeaders: [String: Any?] = [

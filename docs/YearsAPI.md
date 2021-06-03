@@ -1,6 +1,6 @@
 # YearsAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 # **getYears**
 ```swift
-    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: String? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: String? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: UUID? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: UUID? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Get years.
@@ -72,13 +72,13 @@ import OpenAPIClient
 
 let startIndex = 987 // Int | Skips over a given number of items within the results. Use for paging. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
-let sortOrder = "sortOrder_example" // String | Sort Order - Ascending,Descending. (optional)
+let sortOrder = [SortOrder()] // [SortOrder] | Sort Order - Ascending,Descending. (optional)
 let parentId = 987 // UUID | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let excludeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. (optional)
 let includeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be included based on item type. This allows multiple, comma delimited. (optional)
 let mediaTypes = ["inner_example"] // [String] | Optional. Filter by MediaType. Allows multiple, comma delimited. (optional)
-let sortBy = "sortBy_example" // String | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
+let sortBy = ["inner_example"] // [String] | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
 let enableUserData = true // Bool | Optional. Include user data. (optional)
 let imageTypeLimit = 987 // Int | Optional. The max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
@@ -105,13 +105,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **startIndex** | **Int** | Skips over a given number of items within the results. Use for paging. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
- **sortOrder** | **String** | Sort Order - Ascending,Descending. | [optional] 
+ **sortOrder** | [**[SortOrder]**](SortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
  **parentId** | [**UUID**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **excludeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. | [optional] 
  **includeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be included based on item type. This allows multiple, comma delimited. | [optional] 
  **mediaTypes** | [**[String]**](String.md) | Optional. Filter by MediaType. Allows multiple, comma delimited. | [optional] 
- **sortBy** | **String** | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. | [optional] 
+ **sortBy** | [**[String]**](String.md) | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. | [optional] 
  **enableUserData** | **Bool** | Optional. Include user data. | [optional] 
  **imageTypeLimit** | **Int** | Optional. The max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 

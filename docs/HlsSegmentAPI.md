@@ -1,6 +1,6 @@
 # HlsSegmentAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -217,7 +217,7 @@ No authorization required
 
 # **stopEncodingProcess**
 ```swift
-    open class func stopEncodingProcess(deviceId: String? = nil, playSessionId: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func stopEncodingProcess(deviceId: String, playSessionId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Stops an active encoding.
@@ -227,8 +227,8 @@ Stops an active encoding.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let deviceId = "deviceId_example" // String | The device id of the client requesting. Used to stop encoding processes when needed. (optional)
-let playSessionId = "playSessionId_example" // String | The play session id. (optional)
+let deviceId = "deviceId_example" // String | The device id of the client requesting. Used to stop encoding processes when needed.
+let playSessionId = "playSessionId_example" // String | The play session id.
 
 // Stops an active encoding.
 HlsSegmentAPI.stopEncodingProcess(deviceId: deviceId, playSessionId: playSessionId) { (response, error) in
@@ -247,8 +247,8 @@ HlsSegmentAPI.stopEncodingProcess(deviceId: deviceId, playSessionId: playSession
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deviceId** | **String** | The device id of the client requesting. Used to stop encoding processes when needed. | [optional] 
- **playSessionId** | **String** | The play session id. | [optional] 
+ **deviceId** | **String** | The device id of the client requesting. Used to stop encoding processes when needed. | 
+ **playSessionId** | **String** | The play session id. | 
 
 ### Return type
 

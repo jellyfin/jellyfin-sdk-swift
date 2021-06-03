@@ -256,19 +256,23 @@ open class SubtitleAPI {
     /**
      Gets subtitles in a specified format.
      
-     - parameter itemId: (path) The item id. 
-     - parameter mediaSourceId: (path) The media source id. 
-     - parameter index: (path) The subtitle stream index. 
-     - parameter format: (path) The format of the returned subtitle. 
+     - parameter routeItemId: (path) The (route) item id. 
+     - parameter routeMediaSourceId: (path) The (route) media source id. 
+     - parameter routeIndex: (path) The (route) subtitle stream index. 
+     - parameter routeFormat: (path) The (route) format of the returned subtitle. 
+     - parameter itemId: (query) The item id. (optional)
+     - parameter mediaSourceId: (query) The media source id. (optional)
+     - parameter index: (query) The subtitle stream index. (optional)
+     - parameter format: (query) The format of the returned subtitle. (optional)
      - parameter endPositionTicks: (query) Optional. The end position of the subtitle in ticks. (optional)
      - parameter copyTimestamps: (query) Optional. Whether to copy the timestamps. (optional, default to false)
      - parameter addVttTimeMap: (query) Optional. Whether to add a VTT time map. (optional, default to false)
-     - parameter startPositionTicks: (query) Optional. The start position of the subtitle in ticks. (optional, default to 0)
+     - parameter startPositionTicks: (query) The start position of the subtitle in ticks. (optional, default to 0)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSubtitle(itemId: UUID, mediaSourceId: String, index: Int, format: String, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getSubtitleWithRequestBuilder(itemId: itemId, mediaSourceId: mediaSourceId, index: index, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap, startPositionTicks: startPositionTicks).execute(apiResponseQueue) { result -> Void in
+    open class func getSubtitle(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getSubtitleWithRequestBuilder(routeItemId: routeItemId, routeMediaSourceId: routeMediaSourceId, routeIndex: routeIndex, routeFormat: routeFormat, itemId: itemId, mediaSourceId: mediaSourceId, index: index, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap, startPositionTicks: startPositionTicks).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -280,36 +284,44 @@ open class SubtitleAPI {
 
     /**
      Gets subtitles in a specified format.
-     - GET /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/Stream.{format}
-     - parameter itemId: (path) The item id. 
-     - parameter mediaSourceId: (path) The media source id. 
-     - parameter index: (path) The subtitle stream index. 
-     - parameter format: (path) The format of the returned subtitle. 
+     - GET /Videos/{routeItemId}/routeMediaSourceId/Subtitles/{routeIndex}/Stream.{routeFormat}
+     - parameter routeItemId: (path) The (route) item id. 
+     - parameter routeMediaSourceId: (path) The (route) media source id. 
+     - parameter routeIndex: (path) The (route) subtitle stream index. 
+     - parameter routeFormat: (path) The (route) format of the returned subtitle. 
+     - parameter itemId: (query) The item id. (optional)
+     - parameter mediaSourceId: (query) The media source id. (optional)
+     - parameter index: (query) The subtitle stream index. (optional)
+     - parameter format: (query) The format of the returned subtitle. (optional)
      - parameter endPositionTicks: (query) Optional. The end position of the subtitle in ticks. (optional)
      - parameter copyTimestamps: (query) Optional. Whether to copy the timestamps. (optional, default to false)
      - parameter addVttTimeMap: (query) Optional. Whether to add a VTT time map. (optional, default to false)
-     - parameter startPositionTicks: (query) Optional. The start position of the subtitle in ticks. (optional, default to 0)
+     - parameter startPositionTicks: (query) The start position of the subtitle in ticks. (optional, default to 0)
      - returns: RequestBuilder<URL> 
      */
-    open class func getSubtitleWithRequestBuilder(itemId: UUID, mediaSourceId: String, index: Int, format: String, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil) -> RequestBuilder<URL> {
-        var path = "/Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/Stream.{format}"
-        let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
-        let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
-        let mediaSourceIdPreEscape = "\(APIHelper.mapValueToPathItem(mediaSourceId))"
-        let mediaSourceIdPostEscape = mediaSourceIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{mediaSourceId}", with: mediaSourceIdPostEscape, options: .literal, range: nil)
-        let indexPreEscape = "\(APIHelper.mapValueToPathItem(index))"
-        let indexPostEscape = indexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
-        let formatPreEscape = "\(APIHelper.mapValueToPathItem(format))"
-        let formatPostEscape = formatPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{format}", with: formatPostEscape, options: .literal, range: nil)
+    open class func getSubtitleWithRequestBuilder(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil) -> RequestBuilder<URL> {
+        var path = "/Videos/{routeItemId}/routeMediaSourceId/Subtitles/{routeIndex}/Stream.{routeFormat}"
+        let routeItemIdPreEscape = "\(APIHelper.mapValueToPathItem(routeItemId))"
+        let routeItemIdPostEscape = routeItemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeItemId}", with: routeItemIdPostEscape, options: .literal, range: nil)
+        let routeMediaSourceIdPreEscape = "\(APIHelper.mapValueToPathItem(routeMediaSourceId))"
+        let routeMediaSourceIdPostEscape = routeMediaSourceIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeMediaSourceId}", with: routeMediaSourceIdPostEscape, options: .literal, range: nil)
+        let routeIndexPreEscape = "\(APIHelper.mapValueToPathItem(routeIndex))"
+        let routeIndexPostEscape = routeIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeIndex}", with: routeIndexPostEscape, options: .literal, range: nil)
+        let routeFormatPreEscape = "\(APIHelper.mapValueToPathItem(routeFormat))"
+        let routeFormatPostEscape = routeFormatPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeFormat}", with: routeFormatPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
         let parameters: [String: Any]? = nil
 
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "itemId": itemId?.encodeToJSON(),
+            "mediaSourceId": mediaSourceId?.encodeToJSON(),
+            "index": index?.encodeToJSON(),
+            "format": format?.encodeToJSON(),
             "endPositionTicks": endPositionTicks?.encodeToJSON(),
             "copyTimestamps": copyTimestamps?.encodeToJSON(),
             "addVttTimeMap": addVttTimeMap?.encodeToJSON(),
@@ -393,19 +405,24 @@ open class SubtitleAPI {
     /**
      Gets subtitles in a specified format.
      
-     - parameter itemId: (path) The item id. 
-     - parameter mediaSourceId: (path) The media source id. 
-     - parameter index: (path) The subtitle stream index. 
-     - parameter startPositionTicks: (path) Optional. The start position of the subtitle in ticks. 
-     - parameter format: (path) The format of the returned subtitle. 
+     - parameter routeItemId: (path) The (route) item id. 
+     - parameter routeMediaSourceId: (path) The (route) media source id. 
+     - parameter routeIndex: (path) The (route) subtitle stream index. 
+     - parameter routeStartPositionTicks: (path) The (route) start position of the subtitle in ticks. 
+     - parameter routeFormat: (path) The (route) format of the returned subtitle. 
+     - parameter itemId: (query) The item id. (optional)
+     - parameter mediaSourceId: (query) The media source id. (optional)
+     - parameter index: (query) The subtitle stream index. (optional)
+     - parameter startPositionTicks: (query) The start position of the subtitle in ticks. (optional)
+     - parameter format: (query) The format of the returned subtitle. (optional)
      - parameter endPositionTicks: (query) Optional. The end position of the subtitle in ticks. (optional)
      - parameter copyTimestamps: (query) Optional. Whether to copy the timestamps. (optional, default to false)
      - parameter addVttTimeMap: (query) Optional. Whether to add a VTT time map. (optional, default to false)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSubtitleWithTicks(itemId: UUID, mediaSourceId: String, index: Int, startPositionTicks: Int64, format: String, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getSubtitleWithTicksWithRequestBuilder(itemId: itemId, mediaSourceId: mediaSourceId, index: index, startPositionTicks: startPositionTicks, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap).execute(apiResponseQueue) { result -> Void in
+    open class func getSubtitleWithTicks(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
+        getSubtitleWithTicksWithRequestBuilder(routeItemId: routeItemId, routeMediaSourceId: routeMediaSourceId, routeIndex: routeIndex, routeStartPositionTicks: routeStartPositionTicks, routeFormat: routeFormat, itemId: itemId, mediaSourceId: mediaSourceId, index: index, startPositionTicks: startPositionTicks, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -417,39 +434,49 @@ open class SubtitleAPI {
 
     /**
      Gets subtitles in a specified format.
-     - GET /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/{startPositionTicks}/Stream.{format}
-     - parameter itemId: (path) The item id. 
-     - parameter mediaSourceId: (path) The media source id. 
-     - parameter index: (path) The subtitle stream index. 
-     - parameter startPositionTicks: (path) Optional. The start position of the subtitle in ticks. 
-     - parameter format: (path) The format of the returned subtitle. 
+     - GET /Videos/{routeItemId}/{routeMediaSourceId}/Subtitles/{routeIndex}/{routeStartPositionTicks}/Stream.{routeFormat}
+     - parameter routeItemId: (path) The (route) item id. 
+     - parameter routeMediaSourceId: (path) The (route) media source id. 
+     - parameter routeIndex: (path) The (route) subtitle stream index. 
+     - parameter routeStartPositionTicks: (path) The (route) start position of the subtitle in ticks. 
+     - parameter routeFormat: (path) The (route) format of the returned subtitle. 
+     - parameter itemId: (query) The item id. (optional)
+     - parameter mediaSourceId: (query) The media source id. (optional)
+     - parameter index: (query) The subtitle stream index. (optional)
+     - parameter startPositionTicks: (query) The start position of the subtitle in ticks. (optional)
+     - parameter format: (query) The format of the returned subtitle. (optional)
      - parameter endPositionTicks: (query) Optional. The end position of the subtitle in ticks. (optional)
      - parameter copyTimestamps: (query) Optional. Whether to copy the timestamps. (optional, default to false)
      - parameter addVttTimeMap: (query) Optional. Whether to add a VTT time map. (optional, default to false)
      - returns: RequestBuilder<URL> 
      */
-    open class func getSubtitleWithTicksWithRequestBuilder(itemId: UUID, mediaSourceId: String, index: Int, startPositionTicks: Int64, format: String, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil) -> RequestBuilder<URL> {
-        var path = "/Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/{startPositionTicks}/Stream.{format}"
-        let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
-        let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
-        let mediaSourceIdPreEscape = "\(APIHelper.mapValueToPathItem(mediaSourceId))"
-        let mediaSourceIdPostEscape = mediaSourceIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{mediaSourceId}", with: mediaSourceIdPostEscape, options: .literal, range: nil)
-        let indexPreEscape = "\(APIHelper.mapValueToPathItem(index))"
-        let indexPostEscape = indexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
-        let startPositionTicksPreEscape = "\(APIHelper.mapValueToPathItem(startPositionTicks))"
-        let startPositionTicksPostEscape = startPositionTicksPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{startPositionTicks}", with: startPositionTicksPostEscape, options: .literal, range: nil)
-        let formatPreEscape = "\(APIHelper.mapValueToPathItem(format))"
-        let formatPostEscape = formatPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{format}", with: formatPostEscape, options: .literal, range: nil)
+    open class func getSubtitleWithTicksWithRequestBuilder(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil) -> RequestBuilder<URL> {
+        var path = "/Videos/{routeItemId}/{routeMediaSourceId}/Subtitles/{routeIndex}/{routeStartPositionTicks}/Stream.{routeFormat}"
+        let routeItemIdPreEscape = "\(APIHelper.mapValueToPathItem(routeItemId))"
+        let routeItemIdPostEscape = routeItemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeItemId}", with: routeItemIdPostEscape, options: .literal, range: nil)
+        let routeMediaSourceIdPreEscape = "\(APIHelper.mapValueToPathItem(routeMediaSourceId))"
+        let routeMediaSourceIdPostEscape = routeMediaSourceIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeMediaSourceId}", with: routeMediaSourceIdPostEscape, options: .literal, range: nil)
+        let routeIndexPreEscape = "\(APIHelper.mapValueToPathItem(routeIndex))"
+        let routeIndexPostEscape = routeIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeIndex}", with: routeIndexPostEscape, options: .literal, range: nil)
+        let routeStartPositionTicksPreEscape = "\(APIHelper.mapValueToPathItem(routeStartPositionTicks))"
+        let routeStartPositionTicksPostEscape = routeStartPositionTicksPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeStartPositionTicks}", with: routeStartPositionTicksPostEscape, options: .literal, range: nil)
+        let routeFormatPreEscape = "\(APIHelper.mapValueToPathItem(routeFormat))"
+        let routeFormatPostEscape = routeFormatPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{routeFormat}", with: routeFormatPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
         let parameters: [String: Any]? = nil
 
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "itemId": itemId?.encodeToJSON(),
+            "mediaSourceId": mediaSourceId?.encodeToJSON(),
+            "index": index?.encodeToJSON(),
+            "startPositionTicks": startPositionTicks?.encodeToJSON(),
+            "format": format?.encodeToJSON(),
             "endPositionTicks": endPositionTicks?.encodeToJSON(),
             "copyTimestamps": copyTimestamps?.encodeToJSON(),
             "addVttTimeMap": addVttTimeMap?.encodeToJSON(),
@@ -546,6 +573,9 @@ open class SubtitleAPI {
     /**
      Upload an external subtitle file.
      - POST /Videos/{itemId}/Subtitles
+     - API Key:
+       - type: apiKey X-Emby-Authorization 
+       - name: CustomAuthentication
      - parameter itemId: (path) The item the subtitle belongs to. 
      - parameter uploadSubtitleDto: (body) The request body. 
      - returns: RequestBuilder<Void> 

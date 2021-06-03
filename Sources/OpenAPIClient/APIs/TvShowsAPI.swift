@@ -114,11 +114,12 @@ open class TvShowsAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
      - parameter enableTotalRecordCount: (query) Whether to enable the total records count. Defaults to true. (optional, default to true)
+     - parameter disableFirstEpisode: (query) Whether to disable sending the first episode in a series as next up. (optional, default to false)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNextUp(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: UUID? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
-        getNextUpWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, fields: fields, seriesId: seriesId, parentId: parentId, enableImges: enableImges, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount).execute(apiResponseQueue) { result -> Void in
+    open class func getNextUp(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: UUID? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)) {
+        getNextUpWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, fields: fields, seriesId: seriesId, parentId: parentId, enableImges: enableImges, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount, disableFirstEpisode: disableFirstEpisode).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -145,9 +146,10 @@ open class TvShowsAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
      - parameter enableTotalRecordCount: (query) Whether to enable the total records count. Defaults to true. (optional, default to true)
+     - parameter disableFirstEpisode: (query) Whether to disable sending the first episode in a series as next up. (optional, default to false)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getNextUpWithRequestBuilder(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: UUID? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getNextUpWithRequestBuilder(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: UUID? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let path = "/Shows/NextUp"
         let URLString = OpenAPIClientAPI.basePath + path
         let parameters: [String: Any]? = nil
@@ -165,6 +167,7 @@ open class TvShowsAPI {
             "enableImageTypes": enableImageTypes?.encodeToJSON(),
             "enableUserData": enableUserData?.encodeToJSON(),
             "enableTotalRecordCount": enableTotalRecordCount?.encodeToJSON(),
+            "disableFirstEpisode": disableFirstEpisode?.encodeToJSON(),
         ])
 
         let nillableHeaders: [String: Any?] = [

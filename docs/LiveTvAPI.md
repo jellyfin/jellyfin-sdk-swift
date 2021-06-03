@@ -1,6 +1,6 @@
 # LiveTvAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -1101,7 +1101,7 @@ This endpoint does not need any parameter.
 
 # **getLiveTvPrograms**
 ```swift
-    open class func getLiveTvPrograms(channelIds: [UUID]? = nil, userId: UUID? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: String? = nil, sortOrder: String? = nil, genres: [String]? = nil, genreIds: [UUID]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: UUID? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getLiveTvPrograms(channelIds: [UUID]? = nil, userId: UUID? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, genres: [String]? = nil, genreIds: [UUID]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: UUID? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets available live tv epgs.
@@ -1126,8 +1126,8 @@ let isKids = true // Bool | Optional. Filter for kids. (optional)
 let isSports = true // Bool | Optional. Filter for sports. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
-let sortBy = "sortBy_example" // String | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. (optional)
-let sortOrder = "sortOrder_example" // String | Sort Order - Ascending,Descending. (optional)
+let sortBy = ["inner_example"] // [String] | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. (optional)
+let sortOrder = [SortOrder()] // [SortOrder] | Sort Order - Ascending,Descending. (optional)
 let genres = ["inner_example"] // [String] | The genres to return guide information for. (optional)
 let genreIds = [123] // [UUID] | The genre ids to return guide information for. (optional)
 let enableImages = true // Bool | Optional. Include image information in output. (optional)
@@ -1171,8 +1171,8 @@ Name | Type | Description  | Notes
  **isSports** | **Bool** | Optional. Filter for sports. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
- **sortBy** | **String** | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. | [optional] 
- **sortOrder** | **String** | Sort Order - Ascending,Descending. | [optional] 
+ **sortBy** | [**[String]**](String.md) | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. | [optional] 
+ **sortOrder** | [**[SortOrder]**](SortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
  **genres** | [**[String]**](String.md) | The genres to return guide information for. | [optional] 
  **genreIds** | [**[UUID]**](UUID.md) | The genre ids to return guide information for. | [optional] 
  **enableImages** | **Bool** | Optional. Include image information in output. | [optional] 
@@ -1261,7 +1261,7 @@ Gets available live tv epgs.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let getProgramsDto = GetProgramsDto(channelIds: [123], userId: 123, minStartDate: Date(), hasAired: false, isAiring: false, maxStartDate: Date(), minEndDate: Date(), maxEndDate: Date(), isMovie: false, isSeries: false, isNews: false, isKids: false, isSports: false, startIndex: 123, limit: 123, sortBy: "sortBy_example", sortOrder: "sortOrder_example", genres: ["genres_example"], genreIds: [123], enableImages: false, enableTotalRecordCount: false, imageTypeLimit: 123, enableImageTypes: [ImageType()], enableUserData: false, seriesTimerId: "seriesTimerId_example", librarySeriesId: 123, fields: [ItemFields()]) // GetProgramsDto | Request body. (optional)
+let getProgramsDto = GetProgramsDto(channelIds: [123], userId: 123, minStartDate: Date(), hasAired: false, isAiring: false, maxStartDate: Date(), minEndDate: Date(), maxEndDate: Date(), isMovie: false, isSeries: false, isNews: false, isKids: false, isSports: false, startIndex: 123, limit: 123, sortBy: ["sortBy_example"], sortOrder: [SortOrder()], genres: ["genres_example"], genreIds: [123], enableImages: false, enableTotalRecordCount: false, imageTypeLimit: 123, enableImageTypes: [ImageType()], enableUserData: false, seriesTimerId: "seriesTimerId_example", librarySeriesId: 123, fields: [ItemFields()]) // GetProgramsDto | Request body. (optional)
 
 // Gets available live tv epgs.
 LiveTvAPI.getPrograms(getProgramsDto: getProgramsDto) { (response, error) in

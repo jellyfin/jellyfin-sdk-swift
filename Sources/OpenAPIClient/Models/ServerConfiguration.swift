@@ -137,7 +137,6 @@ public struct ServerConfiguration: Codable, Hashable {
     public var isRemoteIPFilterBlacklist: Bool?
     public var imageExtractionTimeoutMs: Int?
     public var pathSubstitutions: [PathSubstitution]?
-    public var enableSimpleArtistDetection: Bool?
     public var uninstalledPlugins: [String]?
     /** Gets or sets a value indicating whether slow server responses should be logged as a warning. */
     public var enableSlowResponseWarning: Bool?
@@ -155,10 +154,8 @@ public struct ServerConfiguration: Codable, Hashable {
     public var libraryMetadataRefreshConcurrency: Int?
     /** Gets or sets a value indicating whether older plugins should automatically be deleted from the plugin folder. */
     public var removeOldPlugins: Bool?
-    /** Gets or sets a value indicating whether plugin image should be disabled. */
-    public var disablePluginImages: Bool?
 
-    public init(logFileRetentionDays: Int? = nil, isStartupWizardCompleted: Bool? = nil, cachePath: String? = nil, previousVersion: Version? = nil, previousVersionStr: String? = nil, enableUPnP: Bool? = nil, enableMetrics: Bool? = nil, publicPort: Int? = nil, uPnPCreateHttpPortMap: Bool? = nil, uDPPortRange: String? = nil, enableIPV6: Bool? = nil, enableIPV4: Bool? = nil, enableSSDPTracing: Bool? = nil, sSDPTracingFilter: String? = nil, uDPSendCount: Int? = nil, uDPSendDelay: Int? = nil, ignoreVirtualInterfaces: Bool? = nil, virtualInterfaceNames: String? = nil, gatewayMonitorPeriod: Int? = nil, enableMultiSocketBinding: Bool? = nil, trustAllIP6Interfaces: Bool? = nil, hDHomerunPortRange: String? = nil, publishedServerUriBySubnet: [String]? = nil, autoDiscoveryTracing: Bool? = nil, autoDiscovery: Bool? = nil, publicHttpsPort: Int? = nil, httpServerPortNumber: Int? = nil, httpsPortNumber: Int? = nil, enableHttps: Bool? = nil, enableNormalizedItemByNameIds: Bool? = nil, certificatePath: String? = nil, certificatePassword: String? = nil, isPortAuthorized: Bool? = nil, quickConnectAvailable: Bool? = nil, enableRemoteAccess: Bool? = nil, enableCaseSensitiveItemIds: Bool? = nil, disableLiveTvChannelUserDataName: Bool? = nil, metadataPath: String? = nil, metadataNetworkPath: String? = nil, preferredMetadataLanguage: String? = nil, metadataCountryCode: String? = nil, sortReplaceCharacters: [String]? = nil, sortRemoveCharacters: [String]? = nil, sortRemoveWords: [String]? = nil, minResumePct: Int? = nil, maxResumePct: Int? = nil, minResumeDurationSeconds: Int? = nil, minAudiobookResume: Int? = nil, maxAudiobookResume: Int? = nil, libraryMonitorDelay: Int? = nil, enableDashboardResponseCaching: Bool? = nil, imageSavingConvention: ImageSavingConvention? = nil, metadataOptions: [MetadataOptions]? = nil, skipDeserializationForBasicTypes: Bool? = nil, serverName: String? = nil, baseUrl: String? = nil, uICulture: String? = nil, saveMetadataHidden: Bool? = nil, contentTypes: [NameValuePair]? = nil, remoteClientBitrateLimit: Int? = nil, enableFolderView: Bool? = nil, enableGroupingIntoCollections: Bool? = nil, displaySpecialsWithinSeasons: Bool? = nil, localNetworkSubnets: [String]? = nil, localNetworkAddresses: [String]? = nil, codecsUsed: [String]? = nil, pluginRepositories: [RepositoryInfo]? = nil, enableExternalContentInSuggestions: Bool? = nil, requireHttps: Bool? = nil, enableNewOmdbSupport: Bool? = nil, remoteIPFilter: [String]? = nil, isRemoteIPFilterBlacklist: Bool? = nil, imageExtractionTimeoutMs: Int? = nil, pathSubstitutions: [PathSubstitution]? = nil, enableSimpleArtistDetection: Bool? = nil, uninstalledPlugins: [String]? = nil, enableSlowResponseWarning: Bool? = nil, slowResponseThresholdMs: Int64? = nil, corsHosts: [String]? = nil, knownProxies: [String]? = nil, activityLogRetentionDays: Int? = nil, libraryScanFanoutConcurrency: Int? = nil, libraryMetadataRefreshConcurrency: Int? = nil, removeOldPlugins: Bool? = nil, disablePluginImages: Bool? = nil) {
+    public init(logFileRetentionDays: Int? = nil, isStartupWizardCompleted: Bool? = nil, cachePath: String? = nil, previousVersion: Version? = nil, previousVersionStr: String? = nil, enableUPnP: Bool? = nil, enableMetrics: Bool? = nil, publicPort: Int? = nil, uPnPCreateHttpPortMap: Bool? = nil, uDPPortRange: String? = nil, enableIPV6: Bool? = nil, enableIPV4: Bool? = nil, enableSSDPTracing: Bool? = nil, sSDPTracingFilter: String? = nil, uDPSendCount: Int? = nil, uDPSendDelay: Int? = nil, ignoreVirtualInterfaces: Bool? = nil, virtualInterfaceNames: String? = nil, gatewayMonitorPeriod: Int? = nil, enableMultiSocketBinding: Bool? = nil, trustAllIP6Interfaces: Bool? = nil, hDHomerunPortRange: String? = nil, publishedServerUriBySubnet: [String]? = nil, autoDiscoveryTracing: Bool? = nil, autoDiscovery: Bool? = nil, publicHttpsPort: Int? = nil, httpServerPortNumber: Int? = nil, httpsPortNumber: Int? = nil, enableHttps: Bool? = nil, enableNormalizedItemByNameIds: Bool? = nil, certificatePath: String? = nil, certificatePassword: String? = nil, isPortAuthorized: Bool? = nil, quickConnectAvailable: Bool? = nil, enableRemoteAccess: Bool? = nil, enableCaseSensitiveItemIds: Bool? = nil, disableLiveTvChannelUserDataName: Bool? = nil, metadataPath: String? = nil, metadataNetworkPath: String? = nil, preferredMetadataLanguage: String? = nil, metadataCountryCode: String? = nil, sortReplaceCharacters: [String]? = nil, sortRemoveCharacters: [String]? = nil, sortRemoveWords: [String]? = nil, minResumePct: Int? = nil, maxResumePct: Int? = nil, minResumeDurationSeconds: Int? = nil, minAudiobookResume: Int? = nil, maxAudiobookResume: Int? = nil, libraryMonitorDelay: Int? = nil, enableDashboardResponseCaching: Bool? = nil, imageSavingConvention: ImageSavingConvention? = nil, metadataOptions: [MetadataOptions]? = nil, skipDeserializationForBasicTypes: Bool? = nil, serverName: String? = nil, baseUrl: String? = nil, uICulture: String? = nil, saveMetadataHidden: Bool? = nil, contentTypes: [NameValuePair]? = nil, remoteClientBitrateLimit: Int? = nil, enableFolderView: Bool? = nil, enableGroupingIntoCollections: Bool? = nil, displaySpecialsWithinSeasons: Bool? = nil, localNetworkSubnets: [String]? = nil, localNetworkAddresses: [String]? = nil, codecsUsed: [String]? = nil, pluginRepositories: [RepositoryInfo]? = nil, enableExternalContentInSuggestions: Bool? = nil, requireHttps: Bool? = nil, enableNewOmdbSupport: Bool? = nil, remoteIPFilter: [String]? = nil, isRemoteIPFilterBlacklist: Bool? = nil, imageExtractionTimeoutMs: Int? = nil, pathSubstitutions: [PathSubstitution]? = nil, uninstalledPlugins: [String]? = nil, enableSlowResponseWarning: Bool? = nil, slowResponseThresholdMs: Int64? = nil, corsHosts: [String]? = nil, knownProxies: [String]? = nil, activityLogRetentionDays: Int? = nil, libraryScanFanoutConcurrency: Int? = nil, libraryMetadataRefreshConcurrency: Int? = nil, removeOldPlugins: Bool? = nil) {
         self.logFileRetentionDays = logFileRetentionDays
         self.isStartupWizardCompleted = isStartupWizardCompleted
         self.cachePath = cachePath
@@ -233,7 +230,6 @@ public struct ServerConfiguration: Codable, Hashable {
         self.isRemoteIPFilterBlacklist = isRemoteIPFilterBlacklist
         self.imageExtractionTimeoutMs = imageExtractionTimeoutMs
         self.pathSubstitutions = pathSubstitutions
-        self.enableSimpleArtistDetection = enableSimpleArtistDetection
         self.uninstalledPlugins = uninstalledPlugins
         self.enableSlowResponseWarning = enableSlowResponseWarning
         self.slowResponseThresholdMs = slowResponseThresholdMs
@@ -243,7 +239,6 @@ public struct ServerConfiguration: Codable, Hashable {
         self.libraryScanFanoutConcurrency = libraryScanFanoutConcurrency
         self.libraryMetadataRefreshConcurrency = libraryMetadataRefreshConcurrency
         self.removeOldPlugins = removeOldPlugins
-        self.disablePluginImages = disablePluginImages
     }
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case logFileRetentionDays = "LogFileRetentionDays"
@@ -320,7 +315,6 @@ public struct ServerConfiguration: Codable, Hashable {
         case isRemoteIPFilterBlacklist = "IsRemoteIPFilterBlacklist"
         case imageExtractionTimeoutMs = "ImageExtractionTimeoutMs"
         case pathSubstitutions = "PathSubstitutions"
-        case enableSimpleArtistDetection = "EnableSimpleArtistDetection"
         case uninstalledPlugins = "UninstalledPlugins"
         case enableSlowResponseWarning = "EnableSlowResponseWarning"
         case slowResponseThresholdMs = "SlowResponseThresholdMs"
@@ -330,7 +324,6 @@ public struct ServerConfiguration: Codable, Hashable {
         case libraryScanFanoutConcurrency = "LibraryScanFanoutConcurrency"
         case libraryMetadataRefreshConcurrency = "LibraryMetadataRefreshConcurrency"
         case removeOldPlugins = "RemoveOldPlugins"
-        case disablePluginImages = "DisablePluginImages"
     }
 
     // Encodable protocol methods
@@ -411,7 +404,6 @@ public struct ServerConfiguration: Codable, Hashable {
         try container.encodeIfPresent(isRemoteIPFilterBlacklist, forKey: .isRemoteIPFilterBlacklist)
         try container.encodeIfPresent(imageExtractionTimeoutMs, forKey: .imageExtractionTimeoutMs)
         try container.encodeIfPresent(pathSubstitutions, forKey: .pathSubstitutions)
-        try container.encodeIfPresent(enableSimpleArtistDetection, forKey: .enableSimpleArtistDetection)
         try container.encodeIfPresent(uninstalledPlugins, forKey: .uninstalledPlugins)
         try container.encodeIfPresent(enableSlowResponseWarning, forKey: .enableSlowResponseWarning)
         try container.encodeIfPresent(slowResponseThresholdMs, forKey: .slowResponseThresholdMs)
@@ -421,7 +413,6 @@ public struct ServerConfiguration: Codable, Hashable {
         try container.encodeIfPresent(libraryScanFanoutConcurrency, forKey: .libraryScanFanoutConcurrency)
         try container.encodeIfPresent(libraryMetadataRefreshConcurrency, forKey: .libraryMetadataRefreshConcurrency)
         try container.encodeIfPresent(removeOldPlugins, forKey: .removeOldPlugins)
-        try container.encodeIfPresent(disablePluginImages, forKey: .disablePluginImages)
     }
 
 

@@ -1,6 +1,6 @@
 # PlaystateAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -315,7 +315,7 @@ Void (empty response body)
 
 # **pingPlaybackSession**
 ```swift
-    open class func pingPlaybackSession(playSessionId: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func pingPlaybackSession(playSessionId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Pings a playback session.
@@ -325,7 +325,7 @@ Pings a playback session.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let playSessionId = "playSessionId_example" // String | Playback session id. (optional)
+let playSessionId = "playSessionId_example" // String | Playback session id.
 
 // Pings a playback session.
 PlaystateAPI.pingPlaybackSession(playSessionId: playSessionId) { (response, error) in
@@ -344,7 +344,7 @@ PlaystateAPI.pingPlaybackSession(playSessionId: playSessionId) { (response, erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playSessionId** | **String** | Playback session id. | [optional] 
+ **playSessionId** | **String** | Playback session id. | 
 
 ### Return type
 

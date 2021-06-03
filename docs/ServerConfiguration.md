@@ -77,7 +77,6 @@ Name | Type | Description | Notes
 **isRemoteIPFilterBlacklist** | **Bool** | Gets or sets a value indicating whether &lt;seealso cref&#x3D;\&quot;P:MediaBrowser.Model.Configuration.ServerConfiguration.RemoteIPFilter\&quot; /&gt; contains a blacklist or a whitelist. Default is a whitelist. | [optional] 
 **imageExtractionTimeoutMs** | **Int** |  | [optional] 
 **pathSubstitutions** | [PathSubstitution] |  | [optional] 
-**enableSimpleArtistDetection** | **Bool** |  | [optional] 
 **uninstalledPlugins** | **[String]** |  | [optional] 
 **enableSlowResponseWarning** | **Bool** | Gets or sets a value indicating whether slow server responses should be logged as a warning. | [optional] 
 **slowResponseThresholdMs** | **Int64** | Gets or sets the threshold for the slow response time warning in ms. | [optional] 
@@ -87,7 +86,6 @@ Name | Type | Description | Notes
 **libraryScanFanoutConcurrency** | **Int** | Gets or sets the how the library scan fans out. | [optional] 
 **libraryMetadataRefreshConcurrency** | **Int** | Gets or sets the how many metadata refreshes can run concurrently. | [optional] 
 **removeOldPlugins** | **Bool** | Gets or sets a value indicating whether older plugins should automatically be deleted from the plugin folder. | [optional] 
-**disablePluginImages** | **Bool** | Gets or sets a value indicating whether plugin image should be disabled. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

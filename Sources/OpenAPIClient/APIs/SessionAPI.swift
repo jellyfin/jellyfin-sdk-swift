@@ -267,11 +267,15 @@ open class SessionAPI {
      - parameter playCommand: (query) The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now. 
      - parameter itemIds: (query) The ids of the items to play, comma delimited. 
      - parameter startPositionTicks: (query) The starting position of the first item. (optional)
+     - parameter mediaSourceId: (query) Optional. The media source id. (optional)
+     - parameter audioStreamIndex: (query) Optional. The index of the audio stream to play. (optional)
+     - parameter subtitleStreamIndex: (query) Optional. The index of the subtitle stream to play. (optional)
+     - parameter startIndex: (query) Optional. The start index. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
-        playWithRequestBuilder(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks).execute(apiResponseQueue) { result -> Void in
+    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+        playWithRequestBuilder(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks, mediaSourceId: mediaSourceId, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, startIndex: startIndex).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
                 completion((), nil)
@@ -291,9 +295,13 @@ open class SessionAPI {
      - parameter playCommand: (query) The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now. 
      - parameter itemIds: (query) The ids of the items to play, comma delimited. 
      - parameter startPositionTicks: (query) The starting position of the first item. (optional)
+     - parameter mediaSourceId: (query) Optional. The media source id. (optional)
+     - parameter audioStreamIndex: (query) Optional. The index of the audio stream to play. (optional)
+     - parameter subtitleStreamIndex: (query) Optional. The index of the subtitle stream to play. (optional)
+     - parameter startIndex: (query) Optional. The start index. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func playWithRequestBuilder(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil) -> RequestBuilder<Void> {
+    open class func playWithRequestBuilder(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil) -> RequestBuilder<Void> {
         var path = "/Sessions/{sessionId}/Playing"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -306,6 +314,10 @@ open class SessionAPI {
             "playCommand": playCommand.encodeToJSON(),
             "itemIds": itemIds.encodeToJSON(),
             "startPositionTicks": startPositionTicks?.encodeToJSON(),
+            "mediaSourceId": mediaSourceId?.encodeToJSON(),
+            "audioStreamIndex": audioStreamIndex?.encodeToJSON(),
+            "subtitleStreamIndex": subtitleStreamIndex?.encodeToJSON(),
+            "startIndex": startIndex?.encodeToJSON(),
         ])
 
         let nillableHeaders: [String: Any?] = [
@@ -686,14 +698,12 @@ open class SessionAPI {
      Issues a command to a client to display a message to the user.
      
      - parameter sessionId: (path) The session id. 
-     - parameter text: (query) The message test. 
-     - parameter header: (query) The message header. (optional)
-     - parameter timeoutMs: (query) The message timeout. If omitted the user will have to confirm viewing the message. (optional)
+     - parameter messageCommand: (body) The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func sendMessageCommand(sessionId: String, text: String, header: String? = nil, timeoutMs: Int64? = nil, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
-        sendMessageCommandWithRequestBuilder(sessionId: sessionId, text: text, header: header, timeoutMs: timeoutMs).execute(apiResponseQueue) { result -> Void in
+    open class func sendMessageCommand(sessionId: String, messageCommand: MessageCommand, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) {
+        sendMessageCommandWithRequestBuilder(sessionId: sessionId, messageCommand: messageCommand).execute(apiResponseQueue) { result -> Void in
             switch result {
             case .success:
                 completion((), nil)
@@ -710,25 +720,18 @@ open class SessionAPI {
        - type: apiKey X-Emby-Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
-     - parameter text: (query) The message test. 
-     - parameter header: (query) The message header. (optional)
-     - parameter timeoutMs: (query) The message timeout. If omitted the user will have to confirm viewing the message. (optional)
+     - parameter messageCommand: (body) The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. 
      - returns: RequestBuilder<Void> 
      */
-    open class func sendMessageCommandWithRequestBuilder(sessionId: String, text: String, header: String? = nil, timeoutMs: Int64? = nil) -> RequestBuilder<Void> {
+    open class func sendMessageCommandWithRequestBuilder(sessionId: String, messageCommand: MessageCommand) -> RequestBuilder<Void> {
         var path = "/Sessions/{sessionId}/Message"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
         let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: messageCommand)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "text": text.encodeToJSON(),
-            "header": header?.encodeToJSON(),
-            "timeoutMs": timeoutMs?.encodeToJSON(),
-        ])
+        let urlComponents = URLComponents(string: URLString)
 
         let nillableHeaders: [String: Any?] = [
             :

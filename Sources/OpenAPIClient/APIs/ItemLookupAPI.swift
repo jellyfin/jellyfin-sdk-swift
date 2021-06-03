@@ -427,57 +427,6 @@ open class ItemLookupAPI {
     }
 
     /**
-     Gets a remote image.
-     
-     - parameter imageUrl: (query) The image url. 
-     - parameter providerName: (query) The provider name. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func getRemoteSearchImage(imageUrl: String, providerName: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        getRemoteSearchImageWithRequestBuilder(imageUrl: imageUrl, providerName: providerName).execute(apiResponseQueue) { result -> Void in
-            switch result {
-            case let .success(response):
-                completion(response.body, nil)
-            case let .failure(error):
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Gets a remote image.
-     - GET /Items/RemoteSearch/Image
-     - API Key:
-       - type: apiKey X-Emby-Authorization 
-       - name: CustomAuthentication
-     - parameter imageUrl: (query) The image url. 
-     - parameter providerName: (query) The provider name. 
-     - returns: RequestBuilder<URL> 
-     */
-    open class func getRemoteSearchImageWithRequestBuilder(imageUrl: String, providerName: String) -> RequestBuilder<URL> {
-        let path = "/Items/RemoteSearch/Image"
-        let URLString = OpenAPIClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
-
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "imageUrl": imageUrl.encodeToJSON(),
-            "providerName": providerName.encodeToJSON(),
-        ])
-
-        let nillableHeaders: [String: Any?] = [
-            :
-        ]
-
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-        let requestBuilder: RequestBuilder<URL>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
-    }
-
-    /**
      Get series remote search.
      
      - parameter seriesInfoRemoteSearchQuery: (body) Remote search query. 

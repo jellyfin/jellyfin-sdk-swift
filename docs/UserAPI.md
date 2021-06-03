@@ -1,6 +1,6 @@
 # UserAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8096*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -316,7 +316,7 @@ No authorization required
 
 # **forgotPasswordPin**
 ```swift
-    open class func forgotPasswordPin(body: String? = nil, completion: @escaping (_ data: PinRedeemResult?, _ error: Error?) -> Void)
+    open class func forgotPasswordPin(forgotPasswordPinDto: ForgotPasswordPinDto, completion: @escaping (_ data: PinRedeemResult?, _ error: Error?) -> Void)
 ```
 
 Redeems a forgot password pin.
@@ -326,10 +326,10 @@ Redeems a forgot password pin.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OpenAPIClient
 
-let body = "body_example" // String | The pin. (optional)
+let forgotPasswordPinDto = ForgotPasswordPinDto(pin: "pin_example") // ForgotPasswordPinDto | The forgot password pin request containing the entered pin.
 
 // Redeems a forgot password pin.
-UserAPI.forgotPasswordPin(body: body) { (response, error) in
+UserAPI.forgotPasswordPin(forgotPasswordPinDto: forgotPasswordPinDto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -345,7 +345,7 @@ UserAPI.forgotPasswordPin(body: body) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **String** | The pin. | [optional] 
+ **forgotPasswordPinDto** | [**ForgotPasswordPinDto**](ForgotPasswordPinDto.md) | The forgot password pin request containing the entered pin. | 
 
 ### Return type
 
