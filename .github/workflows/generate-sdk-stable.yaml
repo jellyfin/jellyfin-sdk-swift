@@ -15,7 +15,7 @@ jobs:
       uses: docker://openapitools/openapi-generator-cli:latest-release
       with:
         args: >-
-          generate -i https://api.jellyfin.org/openapi/stable/jellyfin-openapi-10.7.0-rc2.json
+          generate -i https://matrix-client.matrix.org/_matrix/media/r0/download/matrix.org/HNpQuMfIXMGlbdZVKjRucsFO
           -g swift5
           --additional-properties=library=alamofire,useSPMFileStructure=true
           -o /github/workspace
