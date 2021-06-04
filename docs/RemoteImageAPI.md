@@ -19,7 +19,7 @@ Downloads a remote image for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item Id.
 let type = ImageType() // ImageType | The image type.
@@ -71,7 +71,7 @@ Gets available remote image providers for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item Id.
 
@@ -119,7 +119,7 @@ Gets available remote images for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item Id.
 let type = ImageType() // ImageType | The image type. (optional)

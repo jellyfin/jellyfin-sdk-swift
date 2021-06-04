@@ -17,7 +17,7 @@ Get video attachment.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let videoId = 987 // UUID | Video ID.
 let mediaSourceId = "mediaSourceId_example" // String | Media Source ID.

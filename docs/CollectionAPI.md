@@ -19,7 +19,7 @@ Adds items to a collection.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let collectionId = 987 // UUID | The collection id.
 let ids = [123] // [UUID] | Item ids, comma delimited.
@@ -69,7 +69,7 @@ Creates a new collection.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the collection. (optional)
 let ids = ["inner_example"] // [String] | Item Ids to add to the collection. (optional)
@@ -123,7 +123,7 @@ Removes items from a collection.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let collectionId = 987 // UUID | The collection id.
 let ids = [123] // [UUID] | Item ids, comma delimited.

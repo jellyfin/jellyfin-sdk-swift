@@ -153,7 +153,6 @@ Name | Type | Description | Notes
 **isKids** | **Bool** | Gets or sets a value indicating whether this instance is kids. | [optional] 
 **isPremiere** | **Bool** | Gets or sets a value indicating whether this instance is premiere. | [optional] 
 **timerId** | **String** | Gets or sets the timer identifier. | [optional] 
-**currentProgram** | [**BaseItemDto**](BaseItemDto.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -12,13 +12,14 @@ jobs:
         ref: 'main'
 
     - name: Generate	    
-      uses: docker://openapitools/openapi-generator-cli:latest-release
+      uses: docker://openapitools/openapi-generator-cli:latest
       with:
         args: >-
-          generate -i https://matrix-client.matrix.org/_matrix/media/r0/download/matrix.org/HNpQuMfIXMGlbdZVKjRucsFO
-          -g swift5
-          --additional-properties=library=alamofire,useSPMFileStructure=true
+          generate -i api.json
+          -g swift5 
+          --additional-properties=projectName=JellyfinAPI,responseAs=Combine,library=alamofire,useSPMFileStructure=true 
           -o /github/workspace
+          -t templates/swift5/
 
     # "echo" in commit returns true so the build succeeds, even if no changed files
     - name: Commit new changes to the repo

@@ -26,7 +26,7 @@ Disable a plugin.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginId = 987 // UUID | Plugin id.
 let version = Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123) // Version | Plugin version.
@@ -76,7 +76,7 @@ Enables a disabled plugin.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginId = 987 // UUID | Plugin id.
 let version = Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123) // Version | Plugin version.
@@ -126,7 +126,7 @@ Gets plugin configuration.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginId = 987 // UUID | Plugin id.
 
@@ -174,7 +174,7 @@ Gets a plugin's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginId = 987 // UUID | Plugin id.
 let version = Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123) // Version | Plugin version.
@@ -224,7 +224,7 @@ Gets a plugin's manifest.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginId = 987 // UUID | Plugin id.
 
@@ -272,7 +272,7 @@ Gets a list of currently installed plugins.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets a list of currently installed plugins.
@@ -316,7 +316,7 @@ Uninstalls a plugin.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginId = 987 // UUID | Plugin id.
 
@@ -364,7 +364,7 @@ Uninstalls a plugin by version.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginId = 987 // UUID | Plugin id.
 let version = Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123) // Version | Plugin version.
@@ -416,7 +416,7 @@ Accepts plugin configuration as JSON body.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginId = 987 // UUID | Plugin id.
 
@@ -464,7 +464,7 @@ Updates plugin security info.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginSecurityInfo = PluginSecurityInfo(supporterKey: "supporterKey_example", isMbSupporter: false) // PluginSecurityInfo | Plugin security info.
 

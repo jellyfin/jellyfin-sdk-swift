@@ -21,7 +21,7 @@ Closes a media source.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let liveStreamId = "liveStreamId_example" // String | The livestream id.
 
@@ -69,7 +69,7 @@ Tests the network with a request with the size of the bitrate.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let size = 987 // Int | The bitrate. Defaults to 102400. (optional) (default to 102400)
 
@@ -117,7 +117,7 @@ Gets live playback media info for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let userId = 987 // UUID | The user id.
@@ -169,7 +169,7 @@ For backwards compatibility parameters can be sent via Query or Body, with Query
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let userId = 987 // UUID | The user id. (optional)
@@ -247,7 +247,7 @@ Opens a media source.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let openToken = "openToken_example" // String | The open token. (optional)
 let userId = 987 // UUID | The user id. (optional)

@@ -54,7 +54,7 @@ Delete an item's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -106,7 +106,7 @@ Delete an item's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -158,7 +158,7 @@ Delete the user's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
@@ -210,7 +210,7 @@ Delete the user's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
@@ -262,7 +262,7 @@ Get artist image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Artist name.
 let imageType = ImageType() // ImageType | Image type.
@@ -346,7 +346,7 @@ Get genre image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Genre name.
 let imageType = ImageType() // ImageType | Image type.
@@ -430,7 +430,7 @@ Get genre image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Genre name.
 let imageType = ImageType() // ImageType | Image type.
@@ -514,7 +514,7 @@ Gets the item's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -598,7 +598,7 @@ Gets the item's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -682,7 +682,7 @@ Gets the item's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -766,7 +766,7 @@ Get item image infos.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 
@@ -814,7 +814,7 @@ Get music genre image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Music genre name.
 let imageType = ImageType() // ImageType | Image type.
@@ -898,7 +898,7 @@ Get music genre image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Music genre name.
 let imageType = ImageType() // ImageType | Image type.
@@ -982,7 +982,7 @@ Get person image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Person name.
 let imageType = ImageType() // ImageType | Image type.
@@ -1066,7 +1066,7 @@ Get person image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Person name.
 let imageType = ImageType() // ImageType | Image type.
@@ -1150,7 +1150,7 @@ Get studio image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Studio name.
 let imageType = ImageType() // ImageType | Image type.
@@ -1234,7 +1234,7 @@ Get studio image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Studio name.
 let imageType = ImageType() // ImageType | Image type.
@@ -1318,7 +1318,7 @@ Get user profile image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User id.
 let imageType = ImageType() // ImageType | Image type.
@@ -1402,7 +1402,7 @@ Get user profile image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User id.
 let imageType = ImageType() // ImageType | Image type.
@@ -1486,7 +1486,7 @@ Get artist image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Artist name.
 let imageType = ImageType() // ImageType | Image type.
@@ -1570,7 +1570,7 @@ Get genre image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Genre name.
 let imageType = ImageType() // ImageType | Image type.
@@ -1654,7 +1654,7 @@ Get genre image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Genre name.
 let imageType = ImageType() // ImageType | Image type.
@@ -1738,7 +1738,7 @@ Gets the item's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -1822,7 +1822,7 @@ Gets the item's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -1906,7 +1906,7 @@ Gets the item's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -1990,7 +1990,7 @@ Get music genre image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Music genre name.
 let imageType = ImageType() // ImageType | Image type.
@@ -2074,7 +2074,7 @@ Get music genre image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Music genre name.
 let imageType = ImageType() // ImageType | Image type.
@@ -2158,7 +2158,7 @@ Get person image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Person name.
 let imageType = ImageType() // ImageType | Image type.
@@ -2242,7 +2242,7 @@ Get person image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Person name.
 let imageType = ImageType() // ImageType | Image type.
@@ -2326,7 +2326,7 @@ Get studio image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Studio name.
 let imageType = ImageType() // ImageType | Image type.
@@ -2410,7 +2410,7 @@ Get studio image by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Studio name.
 let imageType = ImageType() // ImageType | Image type.
@@ -2494,7 +2494,7 @@ Get user profile image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User id.
 let imageType = ImageType() // ImageType | Image type.
@@ -2578,7 +2578,7 @@ Get user profile image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User id.
 let imageType = ImageType() // ImageType | Image type.
@@ -2662,7 +2662,7 @@ Sets the user image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
@@ -2716,7 +2716,7 @@ Sets the user image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
@@ -2770,7 +2770,7 @@ Set item image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -2822,7 +2822,7 @@ Set item image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.
@@ -2876,7 +2876,7 @@ Updates the index for an item image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let imageType = ImageType() // ImageType | Image type.

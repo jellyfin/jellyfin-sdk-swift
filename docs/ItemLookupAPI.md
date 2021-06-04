@@ -27,10 +27,10 @@ Applies search criteria to an item and refreshes metadata.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
-let remoteSearchResult = RemoteSearchResult(name: "name_example", providerIds: "TODO", productionYear: 123, indexNumber: 123, indexNumberEnd: 123, parentIndexNumber: 123, premiereDate: Date(), imageUrl: "imageUrl_example", searchProviderName: "searchProviderName_example", overview: "overview_example", albumArtist: nil, artists: [nil]) // RemoteSearchResult | The remote search result.
+let remoteSearchResult = RemoteSearchResult(name: "name_example", providerIds: "TODO", productionYear: 123, indexNumber: 123, indexNumberEnd: 123, parentIndexNumber: 123, premiereDate: Date(), imageUrl: "imageUrl_example", searchProviderName: "searchProviderName_example", overview: "overview_example", artists: [nil]) // RemoteSearchResult | The remote search result.
 let replaceAllImages = true // Bool | Optional. Whether or not to replace all images. Default: True. (optional) (default to true)
 
 // Applies search criteria to an item and refreshes metadata.
@@ -79,7 +79,7 @@ Get book remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let bookInfoRemoteSearchQuery = BookInfoRemoteSearchQuery(searchInfo: BookInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, seriesName: "seriesName_example"), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // BookInfoRemoteSearchQuery | Remote search query.
 
@@ -127,7 +127,7 @@ Get box set remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let boxSetInfoRemoteSearchQuery = BoxSetInfoRemoteSearchQuery(searchInfo: BoxSetInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // BoxSetInfoRemoteSearchQuery | Remote search query.
 
@@ -175,7 +175,7 @@ Get the item's external id info.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 
@@ -223,7 +223,7 @@ Get movie remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let movieInfoRemoteSearchQuery = MovieInfoRemoteSearchQuery(searchInfo: MovieInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // MovieInfoRemoteSearchQuery | Remote search query.
 
@@ -271,7 +271,7 @@ Get music album remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let albumInfoRemoteSearchQuery = AlbumInfoRemoteSearchQuery(searchInfo: AlbumInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], artistProviderIds: "TODO", songInfos: [SongInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], album: "album_example", artists: ["artists_example"])]), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // AlbumInfoRemoteSearchQuery | Remote search query.
 
@@ -319,7 +319,7 @@ Get music artist remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let artistInfoRemoteSearchQuery = ArtistInfoRemoteSearchQuery(searchInfo: ArtistInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, songInfos: [SongInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], album: "album_example", artists: ["artists_example"])]), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // ArtistInfoRemoteSearchQuery | Remote search query.
 
@@ -367,7 +367,7 @@ Get music video remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let musicVideoInfoRemoteSearchQuery = MusicVideoInfoRemoteSearchQuery(searchInfo: MusicVideoInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, artists: ["artists_example"]), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // MusicVideoInfoRemoteSearchQuery | Remote search query.
 
@@ -415,7 +415,7 @@ Get person remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let personLookupInfoRemoteSearchQuery = PersonLookupInfoRemoteSearchQuery(searchInfo: PersonLookupInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // PersonLookupInfoRemoteSearchQuery | Remote search query.
 
@@ -463,7 +463,7 @@ Get series remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let seriesInfoRemoteSearchQuery = SeriesInfoRemoteSearchQuery(searchInfo: SeriesInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // SeriesInfoRemoteSearchQuery | Remote search query.
 
@@ -511,7 +511,7 @@ Get trailer remote search.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let trailerInfoRemoteSearchQuery = TrailerInfoRemoteSearchQuery(searchInfo: TrailerInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: 123, searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // TrailerInfoRemoteSearchQuery | Remote search query.
 

@@ -41,7 +41,7 @@ Deletes an item from the library and filesystem.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 
@@ -89,7 +89,7 @@ Deletes items from the library and filesystem.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let ids = [123] // [UUID] | The item ids. (optional)
 
@@ -137,7 +137,7 @@ Gets all parents of an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -187,7 +187,7 @@ Gets critic review for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = "itemId_example" // String | 
 
@@ -235,7 +235,7 @@ Downloads item media.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 
@@ -283,7 +283,7 @@ Get the original file of an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 
@@ -331,7 +331,7 @@ Get item counts.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | Optional. Get counts from a specific user's library. (optional)
 let isFavorite = true // Bool | Optional. Get counts of favorite items. (optional)
@@ -381,7 +381,7 @@ Gets the library options info.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let libraryContentType = "libraryContentType_example" // String | Library content type. (optional)
 let isNewLibrary = true // Bool | Whether this is a new library. (optional) (default to false)
@@ -431,7 +431,7 @@ Gets all user media folders.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let isHidden = true // Bool | Optional. Filter by folders that are marked hidden, or not. (optional)
 
@@ -479,7 +479,7 @@ Gets a list of physical paths from virtual folders.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets a list of physical paths from virtual folders.
@@ -523,7 +523,7 @@ Gets similar items.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
@@ -579,7 +579,7 @@ Gets similar items.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
@@ -635,7 +635,7 @@ Gets similar items.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
@@ -691,7 +691,7 @@ Gets similar items.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
@@ -747,7 +747,7 @@ Gets similar items.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
@@ -803,7 +803,7 @@ Gets similar items.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
@@ -859,7 +859,7 @@ Get theme songs and videos for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -911,7 +911,7 @@ Get theme songs for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -963,7 +963,7 @@ Get theme videos for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -1015,7 +1015,7 @@ Reports that new movies have been added by an external source.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let tmdbId = "tmdbId_example" // String | The tmdbId. (optional)
 let imdbId = "imdbId_example" // String | The imdbId. (optional)
@@ -1065,7 +1065,7 @@ Reports that new episodes of a series have been added by an external source.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let tvdbId = "tvdbId_example" // String | The tvdbId. (optional)
 
@@ -1113,7 +1113,7 @@ Reports that new movies have been added by an external source.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let mediaUpdateInfoDto = MediaUpdateInfoDto(updates: [MediaUpdateInfoPathDto(path: "path_example", updateType: "updateType_example")]) // MediaUpdateInfoDto | The update paths.
 
@@ -1161,7 +1161,7 @@ Reports that new movies have been added by an external source.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let tmdbId = "tmdbId_example" // String | The tmdbId. (optional)
 let imdbId = "imdbId_example" // String | The imdbId. (optional)
@@ -1211,7 +1211,7 @@ Reports that new episodes of a series have been added by an external source.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let tvdbId = "tvdbId_example" // String | The tvdbId. (optional)
 
@@ -1259,7 +1259,7 @@ Starts a library scan.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Starts a library scan.

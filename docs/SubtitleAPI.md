@@ -26,7 +26,7 @@ Deletes an external subtitle file.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let index = 987 // Int | The index of the subtitle file.
@@ -76,7 +76,7 @@ Downloads a remote subtitle.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let subtitleId = "subtitleId_example" // String | The subtitle id.
@@ -126,7 +126,7 @@ Gets a fallback font file.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the fallback font file to get.
 
@@ -174,7 +174,7 @@ Gets a list of available fallback font files.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets a list of available fallback font files.
@@ -218,7 +218,7 @@ Gets the remote subtitles.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = "id_example" // String | The item id.
 
@@ -266,7 +266,7 @@ Gets subtitles in a specified format.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let routeItemId = 987 // UUID | The (route) item id.
 let routeMediaSourceId = "routeMediaSourceId_example" // String | The (route) media source id.
@@ -336,7 +336,7 @@ Gets an HLS subtitle playlist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let index = 987 // Int | The subtitle stream index.
@@ -390,7 +390,7 @@ Gets subtitles in a specified format.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let routeItemId = 987 // UUID | The (route) item id.
 let routeMediaSourceId = "routeMediaSourceId_example" // String | The (route) media source id.
@@ -462,7 +462,7 @@ Search remote subtitles.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let language = "language_example" // String | The language of the subtitles.
@@ -514,7 +514,7 @@ Upload an external subtitle file.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item the subtitle belongs to.
 let uploadSubtitleDto = UploadSubtitleDto(language: "language_example", format: "format_example", isForced: false, data: "data_example") // UploadSubtitleDto | The request body.

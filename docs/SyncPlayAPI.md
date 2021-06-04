@@ -37,7 +37,7 @@ Notify SyncPlay group that member is buffering.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let bufferRequestDto = BufferRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: 123) // BufferRequestDto | The player status.
 
@@ -85,7 +85,7 @@ Create a new SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let newGroupRequestDto = NewGroupRequestDto(groupName: "groupName_example") // NewGroupRequestDto | The settings of the new group.
 
@@ -133,7 +133,7 @@ Gets all SyncPlay groups.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets all SyncPlay groups.
@@ -177,7 +177,7 @@ Join an existing SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let joinGroupRequestDto = JoinGroupRequestDto(groupId: 123) // JoinGroupRequestDto | The group to join.
 
@@ -225,7 +225,7 @@ Leave the joined SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Leave the joined SyncPlay group.
@@ -269,7 +269,7 @@ Request to move an item in the playlist in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let movePlaylistItemRequestDto = MovePlaylistItemRequestDto(playlistItemId: 123, newIndex: 123) // MovePlaylistItemRequestDto | The new position for the item.
 
@@ -317,7 +317,7 @@ Request next item in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let nextItemRequestDto = NextItemRequestDto(playlistItemId: 123) // NextItemRequestDto | The current item information.
 
@@ -365,7 +365,7 @@ Request pause in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Request pause in SyncPlay group.
@@ -409,7 +409,7 @@ Update session ping.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pingRequestDto = PingRequestDto(ping: 123) // PingRequestDto | The new ping.
 
@@ -457,7 +457,7 @@ Request previous item in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let previousItemRequestDto = PreviousItemRequestDto(playlistItemId: 123) // PreviousItemRequestDto | The current item information.
 
@@ -505,7 +505,7 @@ Request to queue items to the playlist of a SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let queueRequestDto = QueueRequestDto(itemIds: [123], mode: GroupQueueMode()) // QueueRequestDto | The items to add.
 
@@ -553,7 +553,7 @@ Notify SyncPlay group that member is ready for playback.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let readyRequestDto = ReadyRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: 123) // ReadyRequestDto | The player status.
 
@@ -601,7 +601,7 @@ Request to remove items from the playlist in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let removeFromPlaylistRequestDto = RemoveFromPlaylistRequestDto(playlistItemIds: [123]) // RemoveFromPlaylistRequestDto | The items to remove.
 
@@ -649,7 +649,7 @@ Request seek in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let seekRequestDto = SeekRequestDto(positionTicks: 123) // SeekRequestDto | The new playback position.
 
@@ -697,7 +697,7 @@ Request SyncPlay group to ignore member during group-wait.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let ignoreWaitRequestDto = IgnoreWaitRequestDto(ignoreWait: false) // IgnoreWaitRequestDto | The settings to set.
 
@@ -745,7 +745,7 @@ Request to set new playlist in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let playRequestDto = PlayRequestDto(playingQueue: [123], playingItemPosition: 123, startPositionTicks: 123) // PlayRequestDto | The new playlist to play in the group.
 
@@ -793,7 +793,7 @@ Request to change playlist item in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let setPlaylistItemRequestDto = SetPlaylistItemRequestDto(playlistItemId: 123) // SetPlaylistItemRequestDto | The new item to play.
 
@@ -841,7 +841,7 @@ Request to set repeat mode in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let setRepeatModeRequestDto = SetRepeatModeRequestDto(mode: GroupRepeatMode()) // SetRepeatModeRequestDto | The new repeat mode.
 
@@ -889,7 +889,7 @@ Request to set shuffle mode in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let setShuffleModeRequestDto = SetShuffleModeRequestDto(mode: GroupShuffleMode()) // SetShuffleModeRequestDto | The new shuffle mode.
 
@@ -937,7 +937,7 @@ Request stop in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Request stop in SyncPlay group.
@@ -981,7 +981,7 @@ Request unpause in SyncPlay group.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Request unpause in SyncPlay group.

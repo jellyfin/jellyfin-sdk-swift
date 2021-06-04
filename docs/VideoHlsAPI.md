@@ -17,7 +17,7 @@ Gets a hls live stream.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let container = "container_example" // String | The audio container. (optional)

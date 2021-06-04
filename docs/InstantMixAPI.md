@@ -25,7 +25,7 @@ Creates an instant playlist based on a given album.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -87,7 +87,7 @@ Creates an instant playlist based on a given artist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -149,7 +149,7 @@ Creates an instant playlist based on a given artist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -211,7 +211,7 @@ Creates an instant playlist based on a given item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -273,7 +273,7 @@ Creates an instant playlist based on a given genre.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -335,7 +335,7 @@ Creates an instant playlist based on a given genre.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -397,7 +397,7 @@ Creates an instant playlist based on a given genre.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The genre name.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -459,7 +459,7 @@ Creates an instant playlist based on a given playlist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -521,7 +521,7 @@ Creates an instant playlist based on a given song.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = 987 // UUID | The item id.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)

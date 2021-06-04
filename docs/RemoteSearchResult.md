@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **imageUrl** | **String** |  | [optional] 
 **searchProviderName** | **String** |  | [optional] 
 **overview** | **String** |  | [optional] 
-**albumArtist** | [**RemoteSearchResult**](RemoteSearchResult.md) |  | [optional] 
 **artists** | [RemoteSearchResult] |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

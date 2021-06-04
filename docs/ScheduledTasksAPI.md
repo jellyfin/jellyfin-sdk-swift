@@ -21,7 +21,7 @@ Get task by id.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let taskId = "taskId_example" // String | Task Id.
 
@@ -69,7 +69,7 @@ Get tasks.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let isHidden = true // Bool | Optional filter tasks that are hidden, or not. (optional)
 let isEnabled = true // Bool | Optional filter tasks that are enabled, or not. (optional)
@@ -119,7 +119,7 @@ Start specified task.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let taskId = "taskId_example" // String | Task Id.
 
@@ -167,7 +167,7 @@ Stop specified task.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let taskId = "taskId_example" // String | Task Id.
 
@@ -215,7 +215,7 @@ Update specified task triggers.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let taskId = "taskId_example" // String | Task Id.
 let taskTriggerInfo = [TaskTriggerInfo(type: "type_example", timeOfDayTicks: 123, intervalTicks: 123, dayOfWeek: DayOfWeek(), maxRuntimeTicks: 123)] // [TaskTriggerInfo] | Triggers.

@@ -18,7 +18,7 @@ Gets query filters.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | Optional. User id. (optional)
 let parentId = 987 // UUID | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
@@ -84,7 +84,7 @@ Gets legacy query filters.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | Optional. User id. (optional)
 let parentId = 987 // UUID | Optional. Parent id. (optional)

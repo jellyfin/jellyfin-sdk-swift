@@ -22,7 +22,7 @@ Get Default directory browser.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Get Default directory browser.
@@ -66,7 +66,7 @@ Gets the contents of a given directory in the file system.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let path = "path_example" // String | The path.
 let includeFiles = true // Bool | An optional filter to include or exclude files from the results. true/false. (optional) (default to false)
@@ -118,7 +118,7 @@ Gets available drives from the server's file system.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets available drives from the server's file system.
@@ -162,7 +162,7 @@ Gets network paths.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets network paths.
@@ -206,7 +206,7 @@ Gets the parent path of a given path.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let path = "path_example" // String | The path.
 
@@ -254,7 +254,7 @@ Validates path.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let validatePathDto = ValidatePathDto(validateWritable: false, path: "path_example", isFile: false) // ValidatePathDto | Validate request object.
 

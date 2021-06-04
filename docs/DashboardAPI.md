@@ -18,7 +18,7 @@ Gets the configuration pages.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let enableInMainMenu = true // Bool | Whether to enable in the main menu. (optional)
 let pageType = ConfigurationPageType() // ConfigurationPageType | The Jellyfin.Api.Models.ConfigurationPageInfo. (optional)
@@ -68,7 +68,7 @@ Gets a dashboard configuration page.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the page. (optional)
 

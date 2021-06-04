@@ -21,7 +21,7 @@ Deletes a device.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = "id_example" // String | Device Id.
 
@@ -69,7 +69,7 @@ Get info for a device.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = "id_example" // String | Device Id.
 
@@ -117,7 +117,7 @@ Get options for a device.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = "id_example" // String | Device Id.
 
@@ -165,7 +165,7 @@ Get Devices.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let supportsSync = true // Bool | Gets or sets a value indicating whether [supports synchronize]. (optional)
 let userId = 987 // UUID | Gets or sets the user identifier. (optional)
@@ -215,7 +215,7 @@ Update device options.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = "id_example" // String | Device Id.
 let deviceOptions = DeviceOptions(customName: "customName_example") // DeviceOptions | Device Options.

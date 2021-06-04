@@ -21,7 +21,7 @@ Get all channel features.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Get all channel features.
@@ -65,7 +65,7 @@ Get channel features.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let channelId = 987 // UUID | Channel id.
 
@@ -113,7 +113,7 @@ Get channel items.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let channelId = 987 // UUID | Channel Id.
 let folderId = 987 // UUID | Optional. Folder Id. (optional)
@@ -177,7 +177,7 @@ Gets available channels.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | User Id to filter by. Use System.Guid.Empty to not filter by user. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
@@ -235,7 +235,7 @@ Gets latest channel items.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | Optional. User Id. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)

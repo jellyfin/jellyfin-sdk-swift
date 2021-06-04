@@ -23,7 +23,7 @@ Completes the startup wizard.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Completes the startup wizard.
@@ -67,7 +67,7 @@ Gets the first user.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets the first user.
@@ -111,7 +111,7 @@ Gets the first user.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets the first user.
@@ -155,7 +155,7 @@ Gets the initial startup wizard configuration.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets the initial startup wizard configuration.
@@ -199,7 +199,7 @@ Sets remote access and UPnP.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let startupRemoteAccessDto = StartupRemoteAccessDto(enableRemoteAccess: false, enableAutomaticPortMapping: false) // StartupRemoteAccessDto | The startup remote access dto.
 
@@ -247,7 +247,7 @@ Sets the initial startup wizard configuration.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let startupConfigurationDto = StartupConfigurationDto(uICulture: "uICulture_example", metadataCountryCode: "metadataCountryCode_example", preferredMetadataLanguage: "preferredMetadataLanguage_example") // StartupConfigurationDto | The updated startup configuration.
 
@@ -295,7 +295,7 @@ Sets the user name and password.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let startupUserDto = StartupUserDto(name: "name_example", password: "password_example") // StartupUserDto | The DTO containing username and password. (optional)
 

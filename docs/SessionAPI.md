@@ -32,7 +32,7 @@ Adds an additional user to a session.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let userId = 987 // UUID | The user id.
@@ -82,7 +82,7 @@ Instructs a session to browse to an item or view.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session Id.
 let itemType = "itemType_example" // String | The type of item to browse to.
@@ -136,7 +136,7 @@ Get all auth providers.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Get all auth providers.
@@ -180,7 +180,7 @@ Get all password reset providers.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Get all password reset providers.
@@ -224,7 +224,7 @@ Gets a list of sessions.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let controllableByUserId = 987 // UUID | Filter by sessions that a given user is allowed to remote control. (optional)
 let deviceId = "deviceId_example" // String | Filter by device Id. (optional)
@@ -276,7 +276,7 @@ Instructs a session to play an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let playCommand = PlayCommand() // PlayCommand | The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now.
@@ -338,7 +338,7 @@ Updates capabilities for a device.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = "id_example" // String | The session id. (optional)
 let playableMediaTypes = ["inner_example"] // [String] | A list of playable media types, comma delimited. Audio, Video, Book, Photo. (optional)
@@ -396,7 +396,7 @@ Updates capabilities for a device.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let clientCapabilitiesDto = ClientCapabilitiesDto(playableMediaTypes: ["playableMediaTypes_example"], supportedCommands: [GeneralCommandType()], supportsMediaControl: false, supportsContentUploading: false, messageCallbackUrl: "messageCallbackUrl_example", supportsPersistentIdentifier: false, supportsSync: false, deviceProfile: DeviceProfile(name: "name_example", id: "id_example", identification: DeviceIdentification(friendlyName: "friendlyName_example", modelNumber: "modelNumber_example", serialNumber: "serialNumber_example", modelName: "modelName_example", modelDescription: "modelDescription_example", modelUrl: "modelUrl_example", manufacturer: "manufacturer_example", manufacturerUrl: "manufacturerUrl_example", headers: [HttpHeaderInfo(name: "name_example", value: "value_example", match: HeaderMatchType())]), friendlyName: "friendlyName_example", manufacturer: "manufacturer_example", manufacturerUrl: "manufacturerUrl_example", modelName: "modelName_example", modelDescription: "modelDescription_example", modelNumber: "modelNumber_example", modelUrl: "modelUrl_example", serialNumber: "serialNumber_example", enableAlbumArtInDidl: false, enableSingleAlbumArtLimit: false, enableSingleSubtitleLimit: false, supportedMediaTypes: "supportedMediaTypes_example", userId: "userId_example", albumArtPn: "albumArtPn_example", maxAlbumArtWidth: 123, maxAlbumArtHeight: 123, maxIconWidth: 123, maxIconHeight: 123, maxStreamingBitrate: 123, maxStaticBitrate: 123, musicStreamingTranscodingBitrate: 123, maxStaticMusicBitrate: 123, sonyAggregationFlags: "sonyAggregationFlags_example", protocolInfo: "protocolInfo_example", timelineOffsetSeconds: 123, requiresPlainVideoItems: false, requiresPlainFolders: false, enableMSMediaReceiverRegistrar: false, ignoreTranscodeByteRangeRequests: false, xmlRootAttributes: [XmlAttribute(name: "name_example", value: "value_example")], directPlayProfiles: [DirectPlayProfile(container: "container_example", audioCodec: "audioCodec_example", videoCodec: "videoCodec_example", type: DlnaProfileType())], transcodingProfiles: [TranscodingProfile(container: "container_example", type: nil, videoCodec: "videoCodec_example", audioCodec: "audioCodec_example", _protocol: "_protocol_example", estimateContentLength: false, enableMpegtsM2TsMode: false, transcodeSeekInfo: TranscodeSeekInfo(), copyTimestamps: false, context: EncodingContext(), enableSubtitlesInManifest: false, maxAudioChannels: "maxAudioChannels_example", minSegments: 123, segmentLength: 123, breakOnNonKeyFrames: false)], containerProfiles: [ContainerProfile(type: nil, conditions: [ProfileCondition(condition: ProfileConditionType(), property: ProfileConditionValue(), value: "value_example", isRequired: false)], container: "container_example")], codecProfiles: [CodecProfile(type: CodecType(), conditions: [nil], applyConditions: [nil], codec: "codec_example", container: "container_example")], responseProfiles: [ResponseProfile(container: "container_example", audioCodec: "audioCodec_example", videoCodec: "videoCodec_example", type: nil, orgPn: "orgPn_example", mimeType: "mimeType_example", conditions: [nil])], subtitleProfiles: [SubtitleProfile(format: "format_example", method: SubtitleDeliveryMethod(), didlMode: "didlMode_example", language: "language_example", container: "container_example")]), appStoreUrl: "appStoreUrl_example", iconUrl: "iconUrl_example") // ClientCapabilitiesDto | The MediaBrowser.Model.Session.ClientCapabilities.
 let id = "id_example" // String | The session id. (optional)
@@ -446,7 +446,7 @@ Removes an additional user from a session.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let userId = 987 // UUID | The user id.
@@ -496,7 +496,7 @@ Reports that a session has ended.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Reports that a session has ended.
@@ -540,7 +540,7 @@ Reports that a session is viewing an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = "itemId_example" // String | The item id.
 let sessionId = "sessionId_example" // String | The session id. (optional)
@@ -590,7 +590,7 @@ Issues a full general command to a client.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let generalCommand = GeneralCommand(name: GeneralCommandType(), controllingUserId: 123, arguments: "TODO") // GeneralCommand | The MediaBrowser.Model.Session.GeneralCommand.
@@ -640,7 +640,7 @@ Issues a general command to a client.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let command = GeneralCommandType() // GeneralCommandType | The command to send.
@@ -690,7 +690,7 @@ Issues a command to a client to display a message to the user.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let messageCommand = MessageCommand(header: "header_example", text: "text_example", timeoutMs: 123) // MessageCommand | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs.
@@ -740,7 +740,7 @@ Issues a playstate command to a client.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let command = PlaystateCommand() // PlaystateCommand | The MediaBrowser.Model.Session.PlaystateCommand.
@@ -794,7 +794,7 @@ Issues a system command to a client.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let command = GeneralCommandType() // GeneralCommandType | The command to send.

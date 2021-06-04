@@ -32,7 +32,7 @@ Gets Dlna media receiver registrar xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -80,7 +80,7 @@ Gets Dlna media receiver registrar xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -128,7 +128,7 @@ Gets Dlna media receiver registrar xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -176,7 +176,7 @@ Gets Dlna content directory xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -224,7 +224,7 @@ Gets Dlna content directory xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -272,7 +272,7 @@ Gets Dlna content directory xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -320,7 +320,7 @@ Get Description Xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -368,7 +368,7 @@ Get Description Xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -416,7 +416,7 @@ Gets a server icon.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let fileName = "fileName_example" // String | The icon filename.
 
@@ -464,7 +464,7 @@ Gets a server icon.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 let fileName = "fileName_example" // String | The icon filename.
@@ -514,7 +514,7 @@ Gets Dlna media receiver registrar xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -562,7 +562,7 @@ Gets Dlna media receiver registrar xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -610,7 +610,7 @@ Gets Dlna media receiver registrar xml.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -658,7 +658,7 @@ Process a connection manager control request.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -706,7 +706,7 @@ Process a content directory control request.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 
@@ -754,7 +754,7 @@ Process a media receiver registrar control request.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverId = "serverId_example" // String | Server UUID.
 

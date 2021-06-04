@@ -24,7 +24,7 @@ Gets a video stream using HTTP live streaming.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let playlistId = "playlistId_example" // String | The playlist id.
@@ -174,7 +174,7 @@ Gets a video stream using HTTP live streaming.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let playlistId = "playlistId_example" // String | The playlist id.
@@ -322,7 +322,7 @@ Gets an audio hls playlist stream.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version.
@@ -468,7 +468,7 @@ Gets a video hls playlist stream.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version.
@@ -612,7 +612,7 @@ Gets an audio stream using HTTP live streaming.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
@@ -756,7 +756,7 @@ Gets a video stream using HTTP live streaming.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
@@ -898,7 +898,7 @@ Gets an audio hls playlist stream.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version.
@@ -1044,7 +1044,7 @@ Gets a video hls playlist stream.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | The item id.
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version.

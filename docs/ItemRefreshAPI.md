@@ -17,7 +17,7 @@ Refreshes metadata for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = 987 // UUID | Item id.
 let metadataRefreshMode = MetadataRefreshMode() // MetadataRefreshMode | (Optional) Specifies the metadata refresh mode. (optional)

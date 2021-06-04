@@ -18,7 +18,7 @@ Gets a year.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let year = 987 // Int | The year.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -68,7 +68,7 @@ Get years.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let startIndex = 987 // Int | Skips over a given number of items within the results. Use for paging. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)

@@ -19,7 +19,7 @@ Gets all album artists from a given item, folder, or the entire library.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let minCommunityRating = 987 // Double | Optional filter by minimum community rating. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
@@ -125,7 +125,7 @@ Gets an artist by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Studio name.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -175,7 +175,7 @@ Gets all artists from a given item, folder, or the entire library.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let minCommunityRating = 987 // Double | Optional filter by minimum community rating. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)

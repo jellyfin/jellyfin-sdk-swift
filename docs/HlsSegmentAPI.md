@@ -21,7 +21,7 @@ Gets the specified audio segment for an audio item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = "itemId_example" // String | The item id.
 let segmentId = "segmentId_example" // String | The segment id.
@@ -71,7 +71,7 @@ Gets the specified audio segment for an audio item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = "itemId_example" // String | The item id.
 let segmentId = "segmentId_example" // String | The segment id.
@@ -121,7 +121,7 @@ Gets a hls video playlist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = "itemId_example" // String | The video id.
 let playlistId = "playlistId_example" // String | The playlist id.
@@ -171,7 +171,7 @@ Gets a hls video segment.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let itemId = "itemId_example" // String | The item id.
 let playlistId = "playlistId_example" // String | The playlist id.
@@ -225,7 +225,7 @@ Stops an active encoding.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let deviceId = "deviceId_example" // String | The device id of the client requesting. Used to stop encoding processes when needed.
 let playSessionId = "playSessionId_example" // String | The play session id.

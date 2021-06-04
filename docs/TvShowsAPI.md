@@ -20,7 +20,7 @@ Gets episodes for a tv season.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let seriesId = 987 // UUID | The series id.
 let userId = 987 // UUID | The user id. (optional)
@@ -96,7 +96,7 @@ Gets a list of next up episodes.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | The user id of the user to get the next up episodes for. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
@@ -166,7 +166,7 @@ Gets seasons for a tv series.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let seriesId = 987 // UUID | The series id.
 let userId = 987 // UUID | The user id. (optional)
@@ -232,7 +232,7 @@ Gets a list of upcoming episodes.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | The user id of the user to get the upcoming episodes for. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)

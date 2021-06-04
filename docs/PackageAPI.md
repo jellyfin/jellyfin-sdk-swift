@@ -22,7 +22,7 @@ Cancels a package installation.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let packageId = 987 // UUID | Installation Id.
 
@@ -70,7 +70,7 @@ Gets a package by name or assembly GUID.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the package.
 let assemblyGuid = 987 // UUID | The GUID of the associated assembly. (optional)
@@ -120,7 +120,7 @@ Gets available packages.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets available packages.
@@ -164,7 +164,7 @@ Gets all package repositories.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets all package repositories.
@@ -208,7 +208,7 @@ Installs a package.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Package name.
 let assemblyGuid = 987 // UUID | GUID of the associated assembly. (optional)
@@ -262,7 +262,7 @@ Sets the enabled and existing package repositories.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let repositoryInfo = [RepositoryInfo(name: "name_example", url: "url_example", enabled: false)] // [RepositoryInfo] | The list of package repositories.
 

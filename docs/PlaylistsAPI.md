@@ -21,7 +21,7 @@ Adds items to a playlist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let playlistId = 987 // UUID | The playlist id.
 let ids = [123] // [UUID] | Item id, comma delimited. (optional)
@@ -75,7 +75,7 @@ For backwards compatibility parameters can be sent via Query or Body, with Query
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The playlist name. (optional)
 let ids = [123] // [UUID] | The item ids. (optional)
@@ -131,7 +131,7 @@ Gets the original items of a playlist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let playlistId = 987 // UUID | The playlist id.
 let userId = 987 // UUID | User id.
@@ -195,7 +195,7 @@ Moves a playlist item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let playlistId = "playlistId_example" // String | The playlist id.
 let itemId = "itemId_example" // String | The item id.
@@ -247,7 +247,7 @@ Removes items from a playlist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let playlistId = "playlistId_example" // String | The playlist id.
 let entryIds = ["inner_example"] // [String] | The item ids, comma delimited. (optional)

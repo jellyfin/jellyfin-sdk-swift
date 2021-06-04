@@ -24,7 +24,7 @@ Add a media path to a library.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let mediaPathDto = MediaPathDto(name: "name_example", path: "path_example", pathInfo: MediaPathInfo(path: "path_example", networkPath: "networkPath_example")) // MediaPathDto | The media path dto.
 let refreshLibrary = true // Bool | Whether to refresh the library. (optional) (default to false)
@@ -74,7 +74,7 @@ Adds a virtual folder.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the virtual folder. (optional)
 let collectionType = CollectionTypeOptions() // CollectionTypeOptions | The type of the collection. (optional)
@@ -130,7 +130,7 @@ Gets all virtual folders.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets all virtual folders.
@@ -174,7 +174,7 @@ Remove a media path.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the library. (optional)
 let path = "path_example" // String | The path to remove. (optional)
@@ -226,7 +226,7 @@ Removes a virtual folder.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the folder. (optional)
 let refreshLibrary = true // Bool | Whether to refresh the library. (optional) (default to false)
@@ -276,7 +276,7 @@ Renames a virtual folder.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the virtual folder. (optional)
 let newName = "newName_example" // String | The new name. (optional)
@@ -328,7 +328,7 @@ Update library options.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let updateLibraryOptionsDto = UpdateLibraryOptionsDto(id: 123, libraryOptions: LibraryOptions(enablePhotos: false, enableRealtimeMonitor: false, enableChapterImageExtraction: false, extractChapterImagesDuringLibraryScan: false, pathInfos: [MediaPathInfo(path: "path_example", networkPath: "networkPath_example")], saveLocalMetadata: false, enableInternetProviders: false, enableAutomaticSeriesGrouping: false, enableEmbeddedTitles: false, enableEmbeddedEpisodeInfos: false, automaticRefreshIntervalDays: 123, preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", seasonZeroDisplayName: "seasonZeroDisplayName_example", metadataSavers: ["metadataSavers_example"], disabledLocalMetadataReaders: ["disabledLocalMetadataReaders_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledSubtitleFetchers: ["disabledSubtitleFetchers_example"], subtitleFetcherOrder: ["subtitleFetcherOrder_example"], skipSubtitlesIfEmbeddedSubtitlesPresent: false, skipSubtitlesIfAudioTrackMatches: false, subtitleDownloadLanguages: ["subtitleDownloadLanguages_example"], requirePerfectSubtitleMatch: false, saveSubtitlesWithMedia: false, typeOptions: [TypeOptions(type: "type_example", metadataFetchers: ["metadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], imageFetchers: ["imageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"], imageOptions: [ImageOption(type: ImageType(), limit: 123, minWidth: 123)])])) // UpdateLibraryOptionsDto | The library name and options. (optional)
 
@@ -376,7 +376,7 @@ Updates a media path.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let updateMediaPathRequestDto = UpdateMediaPathRequestDto(name: "name_example", pathInfo: MediaPathInfo(path: "path_example", networkPath: "networkPath_example")) // UpdateMediaPathRequestDto | The name of the library and path infos.
 

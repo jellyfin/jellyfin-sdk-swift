@@ -17,7 +17,7 @@ Gets suggestions.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = 987 // UUID | The user id.
 let mediaType = ["inner_example"] // [String] | The media types. (optional)

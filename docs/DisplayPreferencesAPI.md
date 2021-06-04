@@ -18,7 +18,7 @@ Get Display Preferences.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let displayPreferencesId = "displayPreferencesId_example" // String | Display preferences id.
 let userId = 987 // UUID | User id.
@@ -70,7 +70,7 @@ Update Display Preferences.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let displayPreferencesId = "displayPreferencesId_example" // String | Display preferences id.
 let userId = 987 // UUID | User Id.

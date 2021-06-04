@@ -18,7 +18,7 @@ Get person by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Person name.
 let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
@@ -68,7 +68,7 @@ Gets all persons.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let searchTerm = "searchTerm_example" // String | The search term. (optional)

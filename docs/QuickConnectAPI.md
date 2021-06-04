@@ -23,7 +23,7 @@ Temporarily activates quick connect for five minutes.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Temporarily activates quick connect for five minutes.
@@ -67,7 +67,7 @@ Authorizes a pending quick connect request.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let code = "code_example" // String | Quick connect code to authorize.
 
@@ -115,7 +115,7 @@ Enables or disables quick connect.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let status = QuickConnectState() // QuickConnectState | New MediaBrowser.Model.QuickConnect.QuickConnectState. (optional)
 
@@ -163,7 +163,7 @@ Attempts to retrieve authentication information.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let secret = "secret_example" // String | Secret previously returned from the Initiate endpoint.
 
@@ -211,7 +211,7 @@ Deauthorize all quick connect devices for the current user.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Deauthorize all quick connect devices for the current user.
@@ -255,7 +255,7 @@ Gets the current quick connect state.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets the current quick connect state.
@@ -299,7 +299,7 @@ Initiate a new quick connect request.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Initiate a new quick connect request.

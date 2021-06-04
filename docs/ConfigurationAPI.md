@@ -22,7 +22,7 @@ Gets application configuration.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets application configuration.
@@ -66,7 +66,7 @@ Gets a default MetadataOptions object.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets a default MetadataOptions object.
@@ -110,7 +110,7 @@ Gets a named configuration.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let key = "key_example" // String | Configuration key.
 
@@ -158,7 +158,7 @@ Updates application configuration.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let serverConfiguration = ServerConfiguration(logFileRetentionDays: 123, isStartupWizardCompleted: false, cachePath: "cachePath_example", previousVersion: Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123), previousVersionStr: "previousVersionStr_example", enableUPnP: false, enableMetrics: false, publicPort: 123, uPnPCreateHttpPortMap: false, uDPPortRange: "uDPPortRange_example", enableIPV6: false, enableIPV4: false, enableSSDPTracing: false, sSDPTracingFilter: "sSDPTracingFilter_example", uDPSendCount: 123, uDPSendDelay: 123, ignoreVirtualInterfaces: false, virtualInterfaceNames: "virtualInterfaceNames_example", gatewayMonitorPeriod: 123, enableMultiSocketBinding: false, trustAllIP6Interfaces: false, hDHomerunPortRange: "hDHomerunPortRange_example", publishedServerUriBySubnet: ["publishedServerUriBySubnet_example"], autoDiscoveryTracing: false, autoDiscovery: false, publicHttpsPort: 123, httpServerPortNumber: 123, httpsPortNumber: 123, enableHttps: false, enableNormalizedItemByNameIds: false, certificatePath: "certificatePath_example", certificatePassword: "certificatePassword_example", isPortAuthorized: false, quickConnectAvailable: false, enableRemoteAccess: false, enableCaseSensitiveItemIds: false, disableLiveTvChannelUserDataName: false, metadataPath: "metadataPath_example", metadataNetworkPath: "metadataNetworkPath_example", preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", sortReplaceCharacters: ["sortReplaceCharacters_example"], sortRemoveCharacters: ["sortRemoveCharacters_example"], sortRemoveWords: ["sortRemoveWords_example"], minResumePct: 123, maxResumePct: 123, minResumeDurationSeconds: 123, minAudiobookResume: 123, maxAudiobookResume: 123, libraryMonitorDelay: 123, enableDashboardResponseCaching: false, imageSavingConvention: ImageSavingConvention(), metadataOptions: [MetadataOptions(itemType: "itemType_example", disabledMetadataSavers: ["disabledMetadataSavers_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledMetadataFetchers: ["disabledMetadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], disabledImageFetchers: ["disabledImageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"])], skipDeserializationForBasicTypes: false, serverName: "serverName_example", baseUrl: "baseUrl_example", uICulture: "uICulture_example", saveMetadataHidden: false, contentTypes: [NameValuePair(name: "name_example", value: "value_example")], remoteClientBitrateLimit: 123, enableFolderView: false, enableGroupingIntoCollections: false, displaySpecialsWithinSeasons: false, localNetworkSubnets: ["localNetworkSubnets_example"], localNetworkAddresses: ["localNetworkAddresses_example"], codecsUsed: ["codecsUsed_example"], pluginRepositories: [RepositoryInfo(name: "name_example", url: "url_example", enabled: false)], enableExternalContentInSuggestions: false, requireHttps: false, enableNewOmdbSupport: false, remoteIPFilter: ["remoteIPFilter_example"], isRemoteIPFilterBlacklist: false, imageExtractionTimeoutMs: 123, pathSubstitutions: [PathSubstitution(from: "from_example", to: "to_example")], uninstalledPlugins: ["uninstalledPlugins_example"], enableSlowResponseWarning: false, slowResponseThresholdMs: 123, corsHosts: ["corsHosts_example"], knownProxies: ["knownProxies_example"], activityLogRetentionDays: 123, libraryScanFanoutConcurrency: 123, libraryMetadataRefreshConcurrency: 123, removeOldPlugins: false) // ServerConfiguration | Configuration.
 
@@ -206,7 +206,7 @@ Updates the path to the media encoder.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let mediaEncoderPathDto = MediaEncoderPathDto(path: "path_example", pathType: "pathType_example") // MediaEncoderPathDto | Media encoder path form body.
 
@@ -254,7 +254,7 @@ Updates named configuration.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let key = "key_example" // String | Configuration key.
 
