@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 # **getMusicGenre**
 ```swift
-    open class func getMusicGenre(genreName: String, userId: UUID? = nil, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
+    open class func getMusicGenre(genreName: String, userId: String? = nil, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
 ```
 
 Gets a music genre, by name.
@@ -21,7 +21,7 @@ Gets a music genre, by name.
 import JellyfinAPI
 
 let genreName = "genreName_example" // String | The genre name.
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 
 // Gets a music genre, by name.
 MusicGenresAPI.getMusicGenre(genreName: genreName, userId: userId) { (response, error) in
@@ -41,7 +41,7 @@ MusicGenresAPI.getMusicGenre(genreName: genreName, userId: userId) { (response, 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **genreName** | **String** | The genre name. | 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
 
 ### Return type
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 # **getMusicGenres**
 ```swift
-    open class func getMusicGenres(startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, isFavorite: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: UUID? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getMusicGenres(startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, isFavorite: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets all music genres from a given item, folder, or the entire library.
@@ -73,14 +73,14 @@ import JellyfinAPI
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let searchTerm = "searchTerm_example" // String | The search term. (optional)
-let parentId = 987 // UUID | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
+let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let excludeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be filtered out based on item type. This allows multiple, comma delimited. (optional)
 let includeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be filtered in based on item type. This allows multiple, comma delimited. (optional)
 let isFavorite = true // Bool | Optional filter by items that are marked as favorite, or not. (optional)
 let imageTypeLimit = 987 // Int | Optional, the max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
-let userId = 987 // UUID | User id. (optional)
+let userId = "userId_example" // String | User id. (optional)
 let nameStartsWithOrGreater = "nameStartsWithOrGreater_example" // String | Optional filter by items whose name is sorted equally or greater than a given input string. (optional)
 let nameStartsWith = "nameStartsWith_example" // String | Optional filter by items whose name is sorted equally than a given input string. (optional)
 let nameLessThan = "nameLessThan_example" // String | Optional filter by items whose name is equally or lesser than a given input string. (optional)
@@ -107,14 +107,14 @@ Name | Type | Description  | Notes
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **searchTerm** | **String** | The search term. | [optional] 
- **parentId** | [**UUID**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **excludeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be filtered out based on item type. This allows multiple, comma delimited. | [optional] 
  **includeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be filtered in based on item type. This allows multiple, comma delimited. | [optional] 
  **isFavorite** | **Bool** | Optional filter by items that are marked as favorite, or not. | [optional] 
  **imageTypeLimit** | **Int** | Optional, the max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
- **userId** | [**UUID**](.md) | User id. | [optional] 
+ **userId** | [**String**](.md) | User id. | [optional] 
  **nameStartsWithOrGreater** | **String** | Optional filter by items whose name is sorted equally or greater than a given input string. | [optional] 
  **nameStartsWith** | **String** | Optional filter by items whose name is sorted equally than a given input string. | [optional] 
  **nameLessThan** | **String** | Optional filter by items whose name is equally or lesser than a given input string. | [optional] 

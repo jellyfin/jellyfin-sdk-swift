@@ -22,7 +22,7 @@ open class CollectionAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func addToCollection(collectionId: UUID, ids: [UUID], apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func addToCollection(collectionId: String, ids: [String], apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             addToCollectionWithRequestBuilder(collectionId: collectionId, ids: ids).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -46,7 +46,7 @@ open class CollectionAPI {
      - parameter ids: (query) Item ids, comma delimited. 
      - returns: RequestBuilder<Void> 
      */
-    open class func addToCollectionWithRequestBuilder(collectionId: UUID, ids: [UUID]) -> RequestBuilder<Void> {
+    open class func addToCollectionWithRequestBuilder(collectionId: String, ids: [String]) -> RequestBuilder<Void> {
         var urlPath = "/Collections/{collectionId}/Items"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -82,7 +82,7 @@ open class CollectionAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func createCollection(name: String? = nil, ids: [String]? = nil, parentId: UUID? = nil, isLocked: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<CollectionCreationResult, Error> {
+    open class func createCollection(name: String? = nil, ids: [String]? = nil, parentId: String? = nil, isLocked: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<CollectionCreationResult, Error> {
         return Future<CollectionCreationResult, Error>.init { promise in
             createCollectionWithRequestBuilder(name: name, ids: ids, parentId: parentId, isLocked: isLocked).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -108,7 +108,7 @@ open class CollectionAPI {
      - parameter isLocked: (query) Whether or not to lock the new collection. (optional, default to false)
      - returns: RequestBuilder<CollectionCreationResult> 
      */
-    open class func createCollectionWithRequestBuilder(name: String? = nil, ids: [String]? = nil, parentId: UUID? = nil, isLocked: Bool? = nil) -> RequestBuilder<CollectionCreationResult> {
+    open class func createCollectionWithRequestBuilder(name: String? = nil, ids: [String]? = nil, parentId: String? = nil, isLocked: Bool? = nil) -> RequestBuilder<CollectionCreationResult> {
         let urlPath = "/Collections"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -142,7 +142,7 @@ open class CollectionAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func removeFromCollection(collectionId: UUID, ids: [UUID], apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func removeFromCollection(collectionId: String, ids: [String], apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             removeFromCollectionWithRequestBuilder(collectionId: collectionId, ids: ids).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -166,7 +166,7 @@ open class CollectionAPI {
      - parameter ids: (query) Item ids, comma delimited. 
      - returns: RequestBuilder<Void> 
      */
-    open class func removeFromCollectionWithRequestBuilder(collectionId: UUID, ids: [UUID]) -> RequestBuilder<Void> {
+    open class func removeFromCollectionWithRequestBuilder(collectionId: String, ids: [String]) -> RequestBuilder<Void> {
         var urlPath = "/Collections/{collectionId}/Items"
         let collectionIdPreEscape = "\(APIHelper.mapValueToPathItem(collectionId))"
         let collectionIdPostEscape = collectionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

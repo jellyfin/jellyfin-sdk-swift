@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 # **addUserToSession**
 ```swift
-    open class func addUserToSession(sessionId: String, userId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func addUserToSession(sessionId: String, userId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Adds an additional user to a session.
@@ -35,7 +35,7 @@ Adds an additional user to a session.
 import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 
 // Adds an additional user to a session.
 SessionAPI.addUserToSession(sessionId: sessionId, userId: userId) { (response, error) in
@@ -55,7 +55,7 @@ SessionAPI.addUserToSession(sessionId: sessionId, userId: userId) { (response, e
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
 
 ### Return type
 
@@ -216,7 +216,7 @@ This endpoint does not need any parameter.
 
 # **getSessions**
 ```swift
-    open class func getSessions(controllableByUserId: UUID? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil, completion: @escaping (_ data: [SessionInfo]?, _ error: Error?) -> Void)
+    open class func getSessions(controllableByUserId: String? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil, completion: @escaping (_ data: [SessionInfo]?, _ error: Error?) -> Void)
 ```
 
 Gets a list of sessions.
@@ -226,7 +226,7 @@ Gets a list of sessions.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let controllableByUserId = 987 // UUID | Filter by sessions that a given user is allowed to remote control. (optional)
+let controllableByUserId = "controllableByUserId_example" // String | Filter by sessions that a given user is allowed to remote control. (optional)
 let deviceId = "deviceId_example" // String | Filter by device Id. (optional)
 let activeWithinSeconds = 987 // Int | Optional. Filter by sessions that were active in the last n seconds. (optional)
 
@@ -247,7 +247,7 @@ SessionAPI.getSessions(controllableByUserId: controllableByUserId, deviceId: dev
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **controllableByUserId** | [**UUID**](.md) | Filter by sessions that a given user is allowed to remote control. | [optional] 
+ **controllableByUserId** | [**String**](.md) | Filter by sessions that a given user is allowed to remote control. | [optional] 
  **deviceId** | **String** | Filter by device Id. | [optional] 
  **activeWithinSeconds** | **Int** | Optional. Filter by sessions that were active in the last n seconds. | [optional] 
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 # **play**
 ```swift
-    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [String], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Instructs a session to play an item.
@@ -280,7 +280,7 @@ import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
 let playCommand = PlayCommand() // PlayCommand | The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now.
-let itemIds = [123] // [UUID] | The ids of the items to play, comma delimited.
+let itemIds = ["inner_example"] // [String] | The ids of the items to play, comma delimited.
 let startPositionTicks = 987 // Int64 | The starting position of the first item. (optional)
 let mediaSourceId = "mediaSourceId_example" // String | Optional. The media source id. (optional)
 let audioStreamIndex = 987 // Int | Optional. The index of the audio stream to play. (optional)
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
  **playCommand** | [**PlayCommand**](.md) | The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now. | 
- **itemIds** | [**[UUID]**](UUID.md) | The ids of the items to play, comma delimited. | 
+ **itemIds** | [**[String]**](String.md) | The ids of the items to play, comma delimited. | 
  **startPositionTicks** | **Int64** | The starting position of the first item. | [optional] 
  **mediaSourceId** | **String** | Optional. The media source id. | [optional] 
  **audioStreamIndex** | **Int** | Optional. The index of the audio stream to play. | [optional] 
@@ -438,7 +438,7 @@ Void (empty response body)
 
 # **removeUserFromSession**
 ```swift
-    open class func removeUserFromSession(sessionId: String, userId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func removeUserFromSession(sessionId: String, userId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Removes an additional user from a session.
@@ -449,7 +449,7 @@ Removes an additional user from a session.
 import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 
 // Removes an additional user from a session.
 SessionAPI.removeUserFromSession(sessionId: sessionId, userId: userId) { (response, error) in
@@ -469,7 +469,7 @@ SessionAPI.removeUserFromSession(sessionId: sessionId, userId: userId) { (respon
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
 
 ### Return type
 
@@ -593,7 +593,7 @@ Issues a full general command to a client.
 import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
-let generalCommand = GeneralCommand(name: GeneralCommandType(), controllingUserId: 123, arguments: "TODO") // GeneralCommand | The MediaBrowser.Model.Session.GeneralCommand.
+let generalCommand = GeneralCommand(name: GeneralCommandType(), controllingUserId: "controllingUserId_example", arguments: "TODO") // GeneralCommand | The MediaBrowser.Model.Session.GeneralCommand.
 
 // Issues a full general command to a client.
 SessionAPI.sendFullGeneralCommand(sessionId: sessionId, generalCommand: generalCommand) { (response, error) in

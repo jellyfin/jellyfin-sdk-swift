@@ -12,10 +12,10 @@ import AnyCodable
 
 public struct QueueItem: Codable, Hashable {
 
-    public var id: UUID?
+    public var id: String?
     public var playlistItemId: String?
 
-    public init(id: UUID? = nil, playlistItemId: String? = nil) {
+    public init(id: String? = nil, playlistItemId: String? = nil) {
         self.id = id
         self.playlistItemId = playlistItemId
     }

@@ -16,13 +16,13 @@ public struct CreatePlaylistDto: Codable, Hashable {
     /** Gets or sets the name of the new playlist. */
     public var name: String?
     /** Gets or sets item ids to add to the playlist. */
-    public var ids: [UUID]?
+    public var ids: [String]?
     /** Gets or sets the user id. */
-    public var userId: UUID?
+    public var userId: String?
     /** Gets or sets the media type. */
     public var mediaType: String?
 
-    public init(name: String? = nil, ids: [UUID]? = nil, userId: UUID? = nil, mediaType: String? = nil) {
+    public init(name: String? = nil, ids: [String]? = nil, userId: String? = nil, mediaType: String? = nil) {
         self.name = name
         self.ids = ids
         self.userId = userId

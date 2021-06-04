@@ -16,14 +16,14 @@ public struct AccessSchedule: Codable, Hashable {
     /** Gets or sets the id of this instance. */
     public var id: Int
     /** Gets or sets the id of the associated user. */
-    public var userId: UUID
+    public var userId: String
     public var dayOfWeek: DynamicDayOfWeek
     /** Gets or sets the start hour. */
     public var startHour: Double
     /** Gets or sets the end hour. */
     public var endHour: Double
 
-    public init(id: Int, userId: UUID, dayOfWeek: DynamicDayOfWeek, startHour: Double, endHour: Double) {
+    public init(id: Int, userId: String, dayOfWeek: DynamicDayOfWeek, startHour: Double, endHour: Double) {
         self.id = id
         self.userId = userId
         self.dayOfWeek = dayOfWeek

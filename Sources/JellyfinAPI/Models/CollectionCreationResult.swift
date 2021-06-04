@@ -12,9 +12,9 @@ import AnyCodable
 
 public struct CollectionCreationResult: Codable, Hashable {
 
-    public var id: UUID?
+    public var id: String?
 
-    public init(id: UUID? = nil) {
+    public init(id: String? = nil) {
         self.id = id
     }
 

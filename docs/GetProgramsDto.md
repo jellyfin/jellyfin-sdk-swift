@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**channelIds** | **[UUID]** | Gets or sets the channels to return guide information for. | [optional] 
-**userId** | **UUID** | Gets or sets optional. Filter by user id. | [optional] 
+**channelIds** | **[String]** | Gets or sets the channels to return guide information for. | [optional] 
+**userId** | **String** | Gets or sets optional. Filter by user id. | [optional] 
 **minStartDate** | **Date** | Gets or sets the minimum premiere start date.  Optional. | [optional] 
 **hasAired** | **Bool** | Gets or sets filter by programs that have completed airing, or not.  Optional. | [optional] 
 **isAiring** | **Bool** | Gets or sets filter by programs that are currently airing, or not.  Optional. | [optional] 
@@ -21,14 +21,14 @@ Name | Type | Description | Notes
 **sortBy** | **[String]** | Gets or sets specify one or more sort orders, comma delimited. Options: Name, StartDate.  Optional. | [optional] 
 **sortOrder** | [SortOrder] | Gets or sets sort Order - Ascending,Descending. | [optional] 
 **genres** | **[String]** | Gets or sets the genres to return guide information for. | [optional] 
-**genreIds** | **[UUID]** | Gets or sets the genre ids to return guide information for. | [optional] 
+**genreIds** | **[String]** | Gets or sets the genre ids to return guide information for. | [optional] 
 **enableImages** | **Bool** | Gets or sets include image information in output.  Optional. | [optional] 
 **enableTotalRecordCount** | **Bool** | Gets or sets a value indicating whether retrieve total record count. | [optional] 
 **imageTypeLimit** | **Int** | Gets or sets the max number of images to return, per image type.  Optional. | [optional] 
 **enableImageTypes** | [ImageType] | Gets or sets the image types to include in the output.  Optional. | [optional] 
 **enableUserData** | **Bool** | Gets or sets include user data.  Optional. | [optional] 
 **seriesTimerId** | **String** | Gets or sets filter by series timer id.  Optional. | [optional] 
-**librarySeriesId** | **UUID** | Gets or sets filter by library series id.  Optional. | [optional] 
+**librarySeriesId** | **String** | Gets or sets filter by library series id.  Optional. | [optional] 
 **fields** | [ItemFields] | Gets or sets specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines.  Optional. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

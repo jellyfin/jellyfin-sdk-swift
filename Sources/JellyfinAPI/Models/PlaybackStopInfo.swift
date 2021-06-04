@@ -15,7 +15,7 @@ public struct PlaybackStopInfo: Codable, Hashable {
 
     public var item: BaseItemDto?
     /** Gets or sets the item identifier. */
-    public var itemId: UUID?
+    public var itemId: String?
     /** Gets or sets the session id. */
     public var sessionId: String?
     /** Gets or sets the media version identifier. */
@@ -32,7 +32,7 @@ public struct PlaybackStopInfo: Codable, Hashable {
     public var playlistItemId: String?
     public var nowPlayingQueue: [QueueItem]?
 
-    public init(item: BaseItemDto? = nil, itemId: UUID? = nil, sessionId: String? = nil, mediaSourceId: String? = nil, positionTicks: Int64? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, failed: Bool? = nil, nextMediaType: String? = nil, playlistItemId: String? = nil, nowPlayingQueue: [QueueItem]? = nil) {
+    public init(item: BaseItemDto? = nil, itemId: String? = nil, sessionId: String? = nil, mediaSourceId: String? = nil, positionTicks: Int64? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, failed: Bool? = nil, nextMediaType: String? = nil, playlistItemId: String? = nil, nowPlayingQueue: [QueueItem]? = nil) {
         self.item = item
         self.itemId = itemId
         self.sessionId = sessionId

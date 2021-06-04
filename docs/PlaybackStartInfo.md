@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **canSeek** | **Bool** | Gets or sets a value indicating whether this instance can seek. | [optional] 
 **item** | [**BaseItemDto**](BaseItemDto.md) |  | [optional] 
-**itemId** | **UUID** | Gets or sets the item identifier. | [optional] 
+**itemId** | **String** | Gets or sets the item identifier. | [optional] 
 **sessionId** | **String** | Gets or sets the session id. | [optional] 
 **mediaSourceId** | **String** | Gets or sets the media version identifier. | [optional] 
 **audioStreamIndex** | **Int** | Gets or sets the index of the audio stream. | [optional] 

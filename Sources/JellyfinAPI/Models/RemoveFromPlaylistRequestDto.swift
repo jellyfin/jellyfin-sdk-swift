@@ -14,9 +14,9 @@ import AnyCodable
 public struct RemoveFromPlaylistRequestDto: Codable, Hashable {
 
     /** Gets or sets the playlist identifiers ot the items. */
-    public var playlistItemIds: [UUID]?
+    public var playlistItemIds: [String]?
 
-    public init(playlistItemIds: [UUID]? = nil) {
+    public init(playlistItemIds: [String]? = nil) {
         self.playlistItemIds = playlistItemIds
     }
 

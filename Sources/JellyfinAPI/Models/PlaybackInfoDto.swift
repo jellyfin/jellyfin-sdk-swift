@@ -14,7 +14,7 @@ import AnyCodable
 public struct PlaybackInfoDto: Codable, Hashable {
 
     /** Gets or sets the playback userId. */
-    public var userId: UUID?
+    public var userId: String?
     /** Gets or sets the max streaming bitrate. */
     public var maxStreamingBitrate: Int?
     /** Gets or sets the start time in ticks. */
@@ -43,7 +43,7 @@ public struct PlaybackInfoDto: Codable, Hashable {
     /** Gets or sets a value indicating whether to auto open the live stream. */
     public var autoOpenLiveStream: Bool?
 
-    public init(userId: UUID? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, mediaSourceId: String? = nil, liveStreamId: String? = nil, deviceProfile: DeviceProfile? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, autoOpenLiveStream: Bool? = nil) {
+    public init(userId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, mediaSourceId: String? = nil, liveStreamId: String? = nil, deviceProfile: DeviceProfile? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, autoOpenLiveStream: Bool? = nil) {
         self.userId = userId
         self.maxStreamingBitrate = maxStreamingBitrate
         self.startTimeTicks = startTimeTicks

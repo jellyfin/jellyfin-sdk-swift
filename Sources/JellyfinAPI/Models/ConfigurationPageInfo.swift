@@ -25,9 +25,9 @@ public struct ConfigurationPageInfo: Codable, Hashable {
     public var displayName: String?
     public var configurationPageType: ConfigurationPageType?
     /** Gets or sets the plugin id. */
-    public var pluginId: UUID?
+    public var pluginId: String?
 
-    public init(name: String? = nil, enableInMainMenu: Bool? = nil, menuSection: String? = nil, menuIcon: String? = nil, displayName: String? = nil, configurationPageType: ConfigurationPageType? = nil, pluginId: UUID? = nil) {
+    public init(name: String? = nil, enableInMainMenu: Bool? = nil, menuSection: String? = nil, menuIcon: String? = nil, displayName: String? = nil, configurationPageType: ConfigurationPageType? = nil, pluginId: String? = nil) {
         self.name = name
         self.enableInMainMenu = enableInMainMenu
         self.menuSection = menuSection

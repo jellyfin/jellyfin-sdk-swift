@@ -14,13 +14,13 @@ import AnyCodable
 public struct PlayRequestDto: Codable, Hashable {
 
     /** Gets or sets the playing queue. */
-    public var playingQueue: [UUID]?
+    public var playingQueue: [String]?
     /** Gets or sets the position of the playing item in the queue. */
     public var playingItemPosition: Int?
     /** Gets or sets the start position ticks. */
     public var startPositionTicks: Int64?
 
-    public init(playingQueue: [UUID]? = nil, playingItemPosition: Int? = nil, startPositionTicks: Int64? = nil) {
+    public init(playingQueue: [String]? = nil, playingItemPosition: Int? = nil, startPositionTicks: Int64? = nil) {
         self.playingQueue = playingQueue
         self.playingItemPosition = playingItemPosition
         self.startPositionTicks = startPositionTicks

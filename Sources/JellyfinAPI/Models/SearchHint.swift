@@ -14,8 +14,8 @@ import AnyCodable
 public struct SearchHint: Codable, Hashable {
 
     /** Gets or sets the item id. */
-    public var itemId: UUID?
-    public var id: UUID?
+    public var itemId: String?
+    public var id: String?
     /** Gets or sets the name. */
     public var name: String?
     /** Gets or sets the matched term. */
@@ -50,7 +50,7 @@ public struct SearchHint: Codable, Hashable {
     public var status: String?
     /** Gets or sets the album. */
     public var album: String?
-    public var albumId: UUID?
+    public var albumId: String?
     /** Gets or sets the album artist. */
     public var albumArtist: String?
     /** Gets or sets the artists. */
@@ -60,13 +60,13 @@ public struct SearchHint: Codable, Hashable {
     /** Gets or sets the episode count. */
     public var episodeCount: Int?
     /** Gets or sets the channel identifier. */
-    public var channelId: UUID?
+    public var channelId: String?
     /** Gets or sets the name of the channel. */
     public var channelName: String?
     /** Gets or sets the primary image aspect ratio. */
     public var primaryImageAspectRatio: Double?
 
-    public init(itemId: UUID? = nil, id: UUID? = nil, name: String? = nil, matchedTerm: String? = nil, indexNumber: Int? = nil, productionYear: Int? = nil, parentIndexNumber: Int? = nil, primaryImageTag: String? = nil, thumbImageTag: String? = nil, thumbImageItemId: String? = nil, backdropImageTag: String? = nil, backdropImageItemId: String? = nil, type: String? = nil, isFolder: Bool? = nil, runTimeTicks: Int64? = nil, mediaType: String? = nil, startDate: Date? = nil, endDate: Date? = nil, series: String? = nil, status: String? = nil, album: String? = nil, albumId: UUID? = nil, albumArtist: String? = nil, artists: [String]? = nil, songCount: Int? = nil, episodeCount: Int? = nil, channelId: UUID? = nil, channelName: String? = nil, primaryImageAspectRatio: Double? = nil) {
+    public init(itemId: String? = nil, id: String? = nil, name: String? = nil, matchedTerm: String? = nil, indexNumber: Int? = nil, productionYear: Int? = nil, parentIndexNumber: Int? = nil, primaryImageTag: String? = nil, thumbImageTag: String? = nil, thumbImageItemId: String? = nil, backdropImageTag: String? = nil, backdropImageItemId: String? = nil, type: String? = nil, isFolder: Bool? = nil, runTimeTicks: Int64? = nil, mediaType: String? = nil, startDate: Date? = nil, endDate: Date? = nil, series: String? = nil, status: String? = nil, album: String? = nil, albumId: String? = nil, albumArtist: String? = nil, artists: [String]? = nil, songCount: Int? = nil, episodeCount: Int? = nil, channelId: String? = nil, channelName: String? = nil, primaryImageAspectRatio: Double? = nil) {
         self.itemId = itemId
         self.id = id
         self.name = name

@@ -14,7 +14,7 @@ import AnyCodable
 public struct InstallationInfo: Codable, Hashable {
 
     /** Gets or sets the Id. */
-    public var guid: UUID?
+    public var guid: String?
     /** Gets or sets the name. */
     public var name: String?
     public var version: Version?
@@ -26,7 +26,7 @@ public struct InstallationInfo: Codable, Hashable {
     public var checksum: String?
     public var packageInfo: PackageInfo?
 
-    public init(guid: UUID? = nil, name: String? = nil, version: Version? = nil, changelog: String? = nil, sourceUrl: String? = nil, checksum: String? = nil, packageInfo: PackageInfo? = nil) {
+    public init(guid: String? = nil, name: String? = nil, version: Version? = nil, changelog: String? = nil, sourceUrl: String? = nil, checksum: String? = nil, packageInfo: PackageInfo? = nil) {
         self.guid = guid
         self.name = name
         self.version = version

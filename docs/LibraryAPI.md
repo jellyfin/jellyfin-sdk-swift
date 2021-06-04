@@ -33,7 +33,7 @@ Method | HTTP request | Description
 
 # **deleteItem**
 ```swift
-    open class func deleteItem(itemId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteItem(itemId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Deletes an item from the library and filesystem.
@@ -43,7 +43,7 @@ Deletes an item from the library and filesystem.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 
 // Deletes an item from the library and filesystem.
 LibraryAPI.deleteItem(itemId: itemId) { (response, error) in
@@ -62,7 +62,7 @@ LibraryAPI.deleteItem(itemId: itemId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
 
 ### Return type
 
@@ -81,7 +81,7 @@ Void (empty response body)
 
 # **deleteItems**
 ```swift
-    open class func deleteItems(ids: [UUID]? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteItems(ids: [String]? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Deletes items from the library and filesystem.
@@ -91,7 +91,7 @@ Deletes items from the library and filesystem.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let ids = [123] // [UUID] | The item ids. (optional)
+let ids = ["inner_example"] // [String] | The item ids. (optional)
 
 // Deletes items from the library and filesystem.
 LibraryAPI.deleteItems(ids: ids) { (response, error) in
@@ -110,7 +110,7 @@ LibraryAPI.deleteItems(ids: ids) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ids** | [**[UUID]**](UUID.md) | The item ids. | [optional] 
+ **ids** | [**[String]**](String.md) | The item ids. | [optional] 
 
 ### Return type
 
@@ -129,7 +129,7 @@ Void (empty response body)
 
 # **getAncestors**
 ```swift
-    open class func getAncestors(itemId: UUID, userId: UUID? = nil, completion: @escaping (_ data: [BaseItemDto]?, _ error: Error?) -> Void)
+    open class func getAncestors(itemId: String, userId: String? = nil, completion: @escaping (_ data: [BaseItemDto]?, _ error: Error?) -> Void)
 ```
 
 Gets all parents of an item.
@@ -139,8 +139,8 @@ Gets all parents of an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 
 // Gets all parents of an item.
 LibraryAPI.getAncestors(itemId: itemId, userId: userId) { (response, error) in
@@ -159,8 +159,8 @@ LibraryAPI.getAncestors(itemId: itemId, userId: userId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
 
 ### Return type
 
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 
 # **getDownload**
 ```swift
-    open class func getDownload(itemId: UUID, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getDownload(itemId: String, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Downloads item media.
@@ -237,7 +237,7 @@ Downloads item media.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 
 // Downloads item media.
 LibraryAPI.getDownload(itemId: itemId) { (response, error) in
@@ -256,7 +256,7 @@ LibraryAPI.getDownload(itemId: itemId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
 
 ### Return type
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 
 # **getFile**
 ```swift
-    open class func getFile(itemId: UUID, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getFile(itemId: String, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get the original file of an item.
@@ -285,7 +285,7 @@ Get the original file of an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 
 // Get the original file of an item.
 LibraryAPI.getFile(itemId: itemId) { (response, error) in
@@ -304,7 +304,7 @@ LibraryAPI.getFile(itemId: itemId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
 
 ### Return type
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 
 # **getItemCounts**
 ```swift
-    open class func getItemCounts(userId: UUID? = nil, isFavorite: Bool? = nil, completion: @escaping (_ data: ItemCounts?, _ error: Error?) -> Void)
+    open class func getItemCounts(userId: String? = nil, isFavorite: Bool? = nil, completion: @escaping (_ data: ItemCounts?, _ error: Error?) -> Void)
 ```
 
 Get item counts.
@@ -333,7 +333,7 @@ Get item counts.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | Optional. Get counts from a specific user's library. (optional)
+let userId = "userId_example" // String | Optional. Get counts from a specific user's library. (optional)
 let isFavorite = true // Bool | Optional. Get counts of favorite items. (optional)
 
 // Get item counts.
@@ -353,7 +353,7 @@ LibraryAPI.getItemCounts(userId: userId, isFavorite: isFavorite) { (response, er
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | Optional. Get counts from a specific user&#39;s library. | [optional] 
+ **userId** | [**String**](.md) | Optional. Get counts from a specific user&#39;s library. | [optional] 
  **isFavorite** | **Bool** | Optional. Get counts of favorite items. | [optional] 
 
 ### Return type
@@ -515,7 +515,7 @@ This endpoint does not need any parameter.
 
 # **getSimilarAlbums**
 ```swift
-    open class func getSimilarAlbums(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSimilarAlbums(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets similar items.
@@ -525,9 +525,9 @@ Gets similar items.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let excludeArtistIds = ["inner_example"] // [String] | Exclude artist ids. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
 
@@ -548,9 +548,9 @@ LibraryAPI.getSimilarAlbums(itemId: itemId, excludeArtistIds: excludeArtistIds, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **excludeArtistIds** | [**[UUID]**](UUID.md) | Exclude artist ids. | [optional] 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **excludeArtistIds** | [**[String]**](String.md) | Exclude artist ids. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
 
@@ -571,7 +571,7 @@ Name | Type | Description  | Notes
 
 # **getSimilarArtists**
 ```swift
-    open class func getSimilarArtists(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSimilarArtists(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets similar items.
@@ -581,9 +581,9 @@ Gets similar items.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let excludeArtistIds = ["inner_example"] // [String] | Exclude artist ids. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
 
@@ -604,9 +604,9 @@ LibraryAPI.getSimilarArtists(itemId: itemId, excludeArtistIds: excludeArtistIds,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **excludeArtistIds** | [**[UUID]**](UUID.md) | Exclude artist ids. | [optional] 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **excludeArtistIds** | [**[String]**](String.md) | Exclude artist ids. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
 
@@ -627,7 +627,7 @@ Name | Type | Description  | Notes
 
 # **getSimilarItems**
 ```swift
-    open class func getSimilarItems(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSimilarItems(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets similar items.
@@ -637,9 +637,9 @@ Gets similar items.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let excludeArtistIds = ["inner_example"] // [String] | Exclude artist ids. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
 
@@ -660,9 +660,9 @@ LibraryAPI.getSimilarItems(itemId: itemId, excludeArtistIds: excludeArtistIds, u
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **excludeArtistIds** | [**[UUID]**](UUID.md) | Exclude artist ids. | [optional] 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **excludeArtistIds** | [**[String]**](String.md) | Exclude artist ids. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
 
@@ -683,7 +683,7 @@ Name | Type | Description  | Notes
 
 # **getSimilarMovies**
 ```swift
-    open class func getSimilarMovies(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSimilarMovies(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets similar items.
@@ -693,9 +693,9 @@ Gets similar items.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let excludeArtistIds = ["inner_example"] // [String] | Exclude artist ids. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
 
@@ -716,9 +716,9 @@ LibraryAPI.getSimilarMovies(itemId: itemId, excludeArtistIds: excludeArtistIds, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **excludeArtistIds** | [**[UUID]**](UUID.md) | Exclude artist ids. | [optional] 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **excludeArtistIds** | [**[String]**](String.md) | Exclude artist ids. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
 
@@ -739,7 +739,7 @@ Name | Type | Description  | Notes
 
 # **getSimilarShows**
 ```swift
-    open class func getSimilarShows(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSimilarShows(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets similar items.
@@ -749,9 +749,9 @@ Gets similar items.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let excludeArtistIds = ["inner_example"] // [String] | Exclude artist ids. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
 
@@ -772,9 +772,9 @@ LibraryAPI.getSimilarShows(itemId: itemId, excludeArtistIds: excludeArtistIds, u
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **excludeArtistIds** | [**[UUID]**](UUID.md) | Exclude artist ids. | [optional] 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **excludeArtistIds** | [**[String]**](String.md) | Exclude artist ids. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
 
@@ -795,7 +795,7 @@ Name | Type | Description  | Notes
 
 # **getSimilarTrailers**
 ```swift
-    open class func getSimilarTrailers(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSimilarTrailers(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets similar items.
@@ -805,9 +805,9 @@ Gets similar items.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let excludeArtistIds = [123] // [UUID] | Exclude artist ids. (optional)
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let excludeArtistIds = ["inner_example"] // [String] | Exclude artist ids. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
 
@@ -828,9 +828,9 @@ LibraryAPI.getSimilarTrailers(itemId: itemId, excludeArtistIds: excludeArtistIds
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **excludeArtistIds** | [**[UUID]**](UUID.md) | Exclude artist ids. | [optional] 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **excludeArtistIds** | [**[String]**](String.md) | Exclude artist ids. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
 
@@ -851,7 +851,7 @@ Name | Type | Description  | Notes
 
 # **getThemeMedia**
 ```swift
-    open class func getThemeMedia(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil, completion: @escaping (_ data: AllThemeMediaResult?, _ error: Error?) -> Void)
+    open class func getThemeMedia(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil, completion: @escaping (_ data: AllThemeMediaResult?, _ error: Error?) -> Void)
 ```
 
 Get theme songs and videos for an item.
@@ -861,8 +861,8 @@ Get theme songs and videos for an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let inheritFromParent = true // Bool | Optional. Determines whether or not parent items should be searched for theme media. (optional) (default to false)
 
 // Get theme songs and videos for an item.
@@ -882,8 +882,8 @@ LibraryAPI.getThemeMedia(itemId: itemId, userId: userId, inheritFromParent: inhe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **inheritFromParent** | **Bool** | Optional. Determines whether or not parent items should be searched for theme media. | [optional] [default to false]
 
 ### Return type
@@ -903,7 +903,7 @@ Name | Type | Description  | Notes
 
 # **getThemeSongs**
 ```swift
-    open class func getThemeSongs(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil, completion: @escaping (_ data: ThemeMediaResult?, _ error: Error?) -> Void)
+    open class func getThemeSongs(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil, completion: @escaping (_ data: ThemeMediaResult?, _ error: Error?) -> Void)
 ```
 
 Get theme songs for an item.
@@ -913,8 +913,8 @@ Get theme songs for an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let inheritFromParent = true // Bool | Optional. Determines whether or not parent items should be searched for theme media. (optional) (default to false)
 
 // Get theme songs for an item.
@@ -934,8 +934,8 @@ LibraryAPI.getThemeSongs(itemId: itemId, userId: userId, inheritFromParent: inhe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **inheritFromParent** | **Bool** | Optional. Determines whether or not parent items should be searched for theme media. | [optional] [default to false]
 
 ### Return type
@@ -955,7 +955,7 @@ Name | Type | Description  | Notes
 
 # **getThemeVideos**
 ```swift
-    open class func getThemeVideos(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil, completion: @escaping (_ data: ThemeMediaResult?, _ error: Error?) -> Void)
+    open class func getThemeVideos(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil, completion: @escaping (_ data: ThemeMediaResult?, _ error: Error?) -> Void)
 ```
 
 Get theme videos for an item.
@@ -965,8 +965,8 @@ Get theme videos for an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 let inheritFromParent = true // Bool | Optional. Determines whether or not parent items should be searched for theme media. (optional) (default to false)
 
 // Get theme videos for an item.
@@ -986,8 +986,8 @@ LibraryAPI.getThemeVideos(itemId: itemId, userId: userId, inheritFromParent: inh
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
  **inheritFromParent** | **Bool** | Optional. Determines whether or not parent items should be searched for theme media. | [optional] [default to false]
 
 ### Return type

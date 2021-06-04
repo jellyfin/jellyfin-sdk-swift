@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**groupId** | **UUID** | Gets the group identifier. | [optional] [readonly] 
-**playlistItemId** | **UUID** | Gets the playlist identifier of the playing item. | [optional] [readonly] 
+**groupId** | **String** | Gets the group identifier. | [optional] [readonly] 
+**playlistItemId** | **String** | Gets the playlist identifier of the playing item. | [optional] [readonly] 
 **when** | **Date** | Gets or sets the UTC time when to execute the command. | [optional] 
 **positionTicks** | **Int64** | Gets the position ticks. | [optional] [readonly] 
 **command** | [**SendCommandType**](SendCommandType.md) |  | [optional] 

@@ -21,14 +21,14 @@ public struct PluginInfo: Codable, Hashable {
     /** Gets or sets the description. */
     public var description: String?
     /** Gets or sets the unique id. */
-    public var id: UUID?
+    public var id: String?
     /** Gets or sets a value indicating whether the plugin can be uninstalled. */
     public var canUninstall: Bool?
     /** Gets or sets a value indicating whether this plugin has a valid image. */
     public var hasImage: Bool?
     public var status: PluginStatus?
 
-    public init(name: String? = nil, version: Version? = nil, configurationFileName: String? = nil, description: String? = nil, id: UUID? = nil, canUninstall: Bool? = nil, hasImage: Bool? = nil, status: PluginStatus? = nil) {
+    public init(name: String? = nil, version: Version? = nil, configurationFileName: String? = nil, description: String? = nil, id: String? = nil, canUninstall: Bool? = nil, hasImage: Bool? = nil, status: PluginStatus? = nil) {
         self.name = name
         self.version = version
         self.configurationFileName = configurationFileName

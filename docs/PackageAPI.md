@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 # **cancelPackageInstallation**
 ```swift
-    open class func cancelPackageInstallation(packageId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func cancelPackageInstallation(packageId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Cancels a package installation.
@@ -24,7 +24,7 @@ Cancels a package installation.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let packageId = 987 // UUID | Installation Id.
+let packageId = "packageId_example" // String | Installation Id.
 
 // Cancels a package installation.
 PackageAPI.cancelPackageInstallation(packageId: packageId) { (response, error) in
@@ -43,7 +43,7 @@ PackageAPI.cancelPackageInstallation(packageId: packageId) { (response, error) i
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **packageId** | [**UUID**](.md) | Installation Id. | 
+ **packageId** | [**String**](.md) | Installation Id. | 
 
 ### Return type
 
@@ -62,7 +62,7 @@ Void (empty response body)
 
 # **getPackageInfo**
 ```swift
-    open class func getPackageInfo(name: String, assemblyGuid: UUID? = nil, completion: @escaping (_ data: PackageInfo?, _ error: Error?) -> Void)
+    open class func getPackageInfo(name: String, assemblyGuid: String? = nil, completion: @escaping (_ data: PackageInfo?, _ error: Error?) -> Void)
 ```
 
 Gets a package by name or assembly GUID.
@@ -73,7 +73,7 @@ Gets a package by name or assembly GUID.
 import JellyfinAPI
 
 let name = "name_example" // String | The name of the package.
-let assemblyGuid = 987 // UUID | The GUID of the associated assembly. (optional)
+let assemblyGuid = "assemblyGuid_example" // String | The GUID of the associated assembly. (optional)
 
 // Gets a package by name or assembly GUID.
 PackageAPI.getPackageInfo(name: name, assemblyGuid: assemblyGuid) { (response, error) in
@@ -93,7 +93,7 @@ PackageAPI.getPackageInfo(name: name, assemblyGuid: assemblyGuid) { (response, e
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | The name of the package. | 
- **assemblyGuid** | [**UUID**](.md) | The GUID of the associated assembly. | [optional] 
+ **assemblyGuid** | [**String**](.md) | The GUID of the associated assembly. | [optional] 
 
 ### Return type
 
@@ -200,7 +200,7 @@ This endpoint does not need any parameter.
 
 # **installPackage**
 ```swift
-    open class func installPackage(name: String, assemblyGuid: UUID? = nil, version: String? = nil, repositoryUrl: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func installPackage(name: String, assemblyGuid: String? = nil, version: String? = nil, repositoryUrl: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Installs a package.
@@ -211,7 +211,7 @@ Installs a package.
 import JellyfinAPI
 
 let name = "name_example" // String | Package name.
-let assemblyGuid = 987 // UUID | GUID of the associated assembly. (optional)
+let assemblyGuid = "assemblyGuid_example" // String | GUID of the associated assembly. (optional)
 let version = "version_example" // String | Optional version. Defaults to latest version. (optional)
 let repositoryUrl = "repositoryUrl_example" // String | Optional. Specify the repository to install from. (optional)
 
@@ -233,7 +233,7 @@ PackageAPI.installPackage(name: name, assemblyGuid: assemblyGuid, version: versi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | Package name. | 
- **assemblyGuid** | [**UUID**](.md) | GUID of the associated assembly. | [optional] 
+ **assemblyGuid** | [**String**](.md) | GUID of the associated assembly. | [optional] 
  **version** | **String** | Optional version. Defaults to latest version. | [optional] 
  **repositoryUrl** | **String** | Optional. Specify the repository to install from. | [optional] 
 

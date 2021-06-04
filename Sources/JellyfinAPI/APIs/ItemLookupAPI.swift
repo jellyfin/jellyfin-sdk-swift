@@ -23,7 +23,7 @@ open class ItemLookupAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func applySearchCriteria(itemId: UUID, remoteSearchResult: RemoteSearchResult, replaceAllImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func applySearchCriteria(itemId: String, remoteSearchResult: RemoteSearchResult, replaceAllImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             applySearchCriteriaWithRequestBuilder(itemId: itemId, remoteSearchResult: remoteSearchResult, replaceAllImages: replaceAllImages).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -48,7 +48,7 @@ open class ItemLookupAPI {
      - parameter replaceAllImages: (query) Optional. Whether or not to replace all images. Default: True. (optional, default to true)
      - returns: RequestBuilder<Void> 
      */
-    open class func applySearchCriteriaWithRequestBuilder(itemId: UUID, remoteSearchResult: RemoteSearchResult, replaceAllImages: Bool? = nil) -> RequestBuilder<Void> {
+    open class func applySearchCriteriaWithRequestBuilder(itemId: String, remoteSearchResult: RemoteSearchResult, replaceAllImages: Bool? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Items/RemoteSearch/Apply/{itemId}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -181,7 +181,7 @@ open class ItemLookupAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getExternalIdInfos(itemId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ExternalIdInfo], Error> {
+    open class func getExternalIdInfos(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ExternalIdInfo], Error> {
         return Future<[ExternalIdInfo], Error>.init { promise in
             getExternalIdInfosWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -204,7 +204,7 @@ open class ItemLookupAPI {
      - parameter itemId: (path) Item id. 
      - returns: RequestBuilder<[ExternalIdInfo]> 
      */
-    open class func getExternalIdInfosWithRequestBuilder(itemId: UUID) -> RequestBuilder<[ExternalIdInfo]> {
+    open class func getExternalIdInfosWithRequestBuilder(itemId: String) -> RequestBuilder<[ExternalIdInfo]> {
         var urlPath = "/Items/{itemId}/ExternalIdInfos"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

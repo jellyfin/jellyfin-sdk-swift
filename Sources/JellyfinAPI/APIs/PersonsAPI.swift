@@ -22,7 +22,7 @@ open class PersonsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPerson(name: String, userId: UUID? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDto, Error> {
+    open class func getPerson(name: String, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDto, Error> {
         return Future<BaseItemDto, Error>.init { promise in
             getPersonWithRequestBuilder(name: name, userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -46,7 +46,7 @@ open class PersonsAPI {
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
      - returns: RequestBuilder<BaseItemDto> 
      */
-    open class func getPersonWithRequestBuilder(name: String, userId: UUID? = nil) -> RequestBuilder<BaseItemDto> {
+    open class func getPersonWithRequestBuilder(name: String, userId: String? = nil) -> RequestBuilder<BaseItemDto> {
         var urlPath = "/Persons/{name}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -91,7 +91,7 @@ open class PersonsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPersons(limit: Int? = nil, searchTerm: String? = nil, fields: [ItemFields]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, excludePersonTypes: [String]? = nil, personTypes: [String]? = nil, appearsInItemId: UUID? = nil, userId: UUID? = nil, enableImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getPersons(limit: Int? = nil, searchTerm: String? = nil, fields: [ItemFields]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, excludePersonTypes: [String]? = nil, personTypes: [String]? = nil, appearsInItemId: String? = nil, userId: String? = nil, enableImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getPersonsWithRequestBuilder(limit: limit, searchTerm: searchTerm, fields: fields, filters: filters, isFavorite: isFavorite, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, excludePersonTypes: excludePersonTypes, personTypes: personTypes, appearsInItemId: appearsInItemId, userId: userId, enableImages: enableImages).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -126,7 +126,7 @@ open class PersonsAPI {
      - parameter enableImages: (query) Optional, include image information in output. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getPersonsWithRequestBuilder(limit: Int? = nil, searchTerm: String? = nil, fields: [ItemFields]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, excludePersonTypes: [String]? = nil, personTypes: [String]? = nil, appearsInItemId: UUID? = nil, userId: UUID? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getPersonsWithRequestBuilder(limit: Int? = nil, searchTerm: String? = nil, fields: [ItemFields]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, excludePersonTypes: [String]? = nil, personTypes: [String]? = nil, appearsInItemId: String? = nil, userId: String? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let urlPath = "/Persons"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil

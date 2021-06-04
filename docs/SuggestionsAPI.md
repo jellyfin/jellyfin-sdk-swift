@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 # **getSuggestions**
 ```swift
-    open class func getSuggestions(userId: UUID, mediaType: [String]? = nil, type: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSuggestions(userId: String, mediaType: [String]? = nil, type: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets suggestions.
@@ -19,7 +19,7 @@ Gets suggestions.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 let mediaType = ["inner_example"] // [String] | The media types. (optional)
 let type = ["inner_example"] // [String] | The type. (optional)
 let startIndex = 987 // Int | Optional. The start index. (optional)
@@ -43,7 +43,7 @@ SuggestionsAPI.getSuggestions(userId: userId, mediaType: mediaType, type: type, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
  **mediaType** | [**[String]**](String.md) | The media types. | [optional] 
  **type** | [**[String]**](String.md) | The type. | [optional] 
  **startIndex** | **Int** | Optional. The start index. | [optional] 

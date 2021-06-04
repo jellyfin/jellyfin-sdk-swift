@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 # **getUniversalAudioStream**
 ```swift
-    open class func getUniversalAudioStream(itemId: UUID, container: [String]? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, userId: UUID? = nil, audioCodec: String? = nil, maxAudioChannels: Int? = nil, transcodingAudioChannels: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, startTimeTicks: Int64? = nil, transcodingContainer: String? = nil, transcodingProtocol: String? = nil, maxAudioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, enableRemoteMedia: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, enableRedirection: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getUniversalAudioStream(itemId: String, container: [String]? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, userId: String? = nil, audioCodec: String? = nil, maxAudioChannels: Int? = nil, transcodingAudioChannels: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, startTimeTicks: Int64? = nil, transcodingContainer: String? = nil, transcodingProtocol: String? = nil, maxAudioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, enableRemoteMedia: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, enableRedirection: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets an audio stream.
@@ -20,11 +20,11 @@ Gets an audio stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let container = ["inner_example"] // [String] | Optional. The audio container. (optional)
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version. (optional)
 let deviceId = "deviceId_example" // String | The device id of the client requesting. Used to stop encoding processes when needed. (optional)
-let userId = 987 // UUID | Optional. The user id. (optional)
+let userId = "userId_example" // String | Optional. The user id. (optional)
 let audioCodec = "audioCodec_example" // String | Optional. The audio codec to transcode to. (optional)
 let maxAudioChannels = 987 // Int | Optional. The maximum number of audio channels. (optional)
 let transcodingAudioChannels = 987 // Int | Optional. The number of how many audio channels to transcode to. (optional)
@@ -56,11 +56,11 @@ UniversalAudioAPI.getUniversalAudioStream(itemId: itemId, container: container, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **container** | [**[String]**](String.md) | Optional. The audio container. | [optional] 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | [optional] 
  **deviceId** | **String** | The device id of the client requesting. Used to stop encoding processes when needed. | [optional] 
- **userId** | [**UUID**](.md) | Optional. The user id. | [optional] 
+ **userId** | [**String**](.md) | Optional. The user id. | [optional] 
  **audioCodec** | **String** | Optional. The audio codec to transcode to. | [optional] 
  **maxAudioChannels** | **Int** | Optional. The maximum number of audio channels. | [optional] 
  **transcodingAudioChannels** | **Int** | Optional. The number of how many audio channels to transcode to. | [optional] 
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 # **headUniversalAudioStream**
 ```swift
-    open class func headUniversalAudioStream(itemId: UUID, container: [String]? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, userId: UUID? = nil, audioCodec: String? = nil, maxAudioChannels: Int? = nil, transcodingAudioChannels: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, startTimeTicks: Int64? = nil, transcodingContainer: String? = nil, transcodingProtocol: String? = nil, maxAudioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, enableRemoteMedia: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, enableRedirection: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headUniversalAudioStream(itemId: String, container: [String]? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, userId: String? = nil, audioCodec: String? = nil, maxAudioChannels: Int? = nil, transcodingAudioChannels: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, startTimeTicks: Int64? = nil, transcodingContainer: String? = nil, transcodingProtocol: String? = nil, maxAudioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, enableRemoteMedia: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, enableRedirection: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets an audio stream.
@@ -102,11 +102,11 @@ Gets an audio stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let container = ["inner_example"] // [String] | Optional. The audio container. (optional)
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version. (optional)
 let deviceId = "deviceId_example" // String | The device id of the client requesting. Used to stop encoding processes when needed. (optional)
-let userId = 987 // UUID | Optional. The user id. (optional)
+let userId = "userId_example" // String | Optional. The user id. (optional)
 let audioCodec = "audioCodec_example" // String | Optional. The audio codec to transcode to. (optional)
 let maxAudioChannels = 987 // Int | Optional. The maximum number of audio channels. (optional)
 let transcodingAudioChannels = 987 // Int | Optional. The number of how many audio channels to transcode to. (optional)
@@ -138,11 +138,11 @@ UniversalAudioAPI.headUniversalAudioStream(itemId: itemId, container: container,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **container** | [**[String]**](String.md) | Optional. The audio container. | [optional] 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | [optional] 
  **deviceId** | **String** | The device id of the client requesting. Used to stop encoding processes when needed. | [optional] 
- **userId** | [**UUID**](.md) | Optional. The user id. | [optional] 
+ **userId** | [**String**](.md) | Optional. The user id. | [optional] 
  **audioCodec** | **String** | Optional. The audio codec to transcode to. | [optional] 
  **maxAudioChannels** | **Int** | Optional. The maximum number of audio channels. | [optional] 
  **transcodingAudioChannels** | **Int** | Optional. The number of how many audio channels to transcode to. | [optional] 

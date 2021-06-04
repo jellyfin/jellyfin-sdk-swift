@@ -27,13 +27,13 @@ public struct ActivityLogEntry: Codable, Hashable {
     /** Gets or sets the date. */
     public var date: Date?
     /** Gets or sets the user identifier. */
-    public var userId: UUID?
+    public var userId: String?
     /** Gets or sets the user primary image tag. */
     @available(*, deprecated, message: "This property is deprecated.")
     public var userPrimaryImageTag: String?
     public var severity: LogLevel?
 
-    public init(id: Int64? = nil, name: String? = nil, overview: String? = nil, shortOverview: String? = nil, type: String? = nil, itemId: String? = nil, date: Date? = nil, userId: UUID? = nil, userPrimaryImageTag: String? = nil, severity: LogLevel? = nil) {
+    public init(id: Int64? = nil, name: String? = nil, overview: String? = nil, shortOverview: String? = nil, type: String? = nil, itemId: String? = nil, date: Date? = nil, userId: String? = nil, userPrimaryImageTag: String? = nil, severity: LogLevel? = nil) {
         self.id = id
         self.name = name
         self.overview = overview

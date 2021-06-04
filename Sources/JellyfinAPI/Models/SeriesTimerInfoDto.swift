@@ -21,7 +21,7 @@ public struct SeriesTimerInfoDto: Codable, Hashable {
     /** Gets or sets the external identifier. */
     public var externalId: String?
     /** ChannelId of the recording. */
-    public var channelId: UUID?
+    public var channelId: String?
     /** Gets or sets the external channel identifier. */
     public var externalChannelId: String?
     /** ChannelName of the recording. */
@@ -78,7 +78,7 @@ public struct SeriesTimerInfoDto: Codable, Hashable {
     /** Gets or sets the parent primary image tag. */
     public var parentPrimaryImageTag: String?
 
-    public init(id: String? = nil, type: String? = nil, serverId: String? = nil, externalId: String? = nil, channelId: UUID? = nil, externalChannelId: String? = nil, channelName: String? = nil, channelPrimaryImageTag: String? = nil, programId: String? = nil, externalProgramId: String? = nil, name: String? = nil, overview: String? = nil, startDate: Date? = nil, endDate: Date? = nil, serviceName: String? = nil, priority: Int? = nil, prePaddingSeconds: Int? = nil, postPaddingSeconds: Int? = nil, isPrePaddingRequired: Bool? = nil, parentBackdropItemId: String? = nil, parentBackdropImageTags: [String]? = nil, isPostPaddingRequired: Bool? = nil, keepUntil: KeepUntil? = nil, recordAnyTime: Bool? = nil, skipEpisodesInLibrary: Bool? = nil, recordAnyChannel: Bool? = nil, keepUpTo: Int? = nil, recordNewOnly: Bool? = nil, days: [DayOfWeek]? = nil, dayPattern: DayPattern? = nil, imageTags: [String: String]? = nil, parentThumbItemId: String? = nil, parentThumbImageTag: String? = nil, parentPrimaryImageItemId: String? = nil, parentPrimaryImageTag: String? = nil) {
+    public init(id: String? = nil, type: String? = nil, serverId: String? = nil, externalId: String? = nil, channelId: String? = nil, externalChannelId: String? = nil, channelName: String? = nil, channelPrimaryImageTag: String? = nil, programId: String? = nil, externalProgramId: String? = nil, name: String? = nil, overview: String? = nil, startDate: Date? = nil, endDate: Date? = nil, serviceName: String? = nil, priority: Int? = nil, prePaddingSeconds: Int? = nil, postPaddingSeconds: Int? = nil, isPrePaddingRequired: Bool? = nil, parentBackdropItemId: String? = nil, parentBackdropImageTags: [String]? = nil, isPostPaddingRequired: Bool? = nil, keepUntil: KeepUntil? = nil, recordAnyTime: Bool? = nil, skipEpisodesInLibrary: Bool? = nil, recordAnyChannel: Bool? = nil, keepUpTo: Int? = nil, recordNewOnly: Bool? = nil, days: [DayOfWeek]? = nil, dayPattern: DayPattern? = nil, imageTags: [String: String]? = nil, parentThumbItemId: String? = nil, parentThumbImageTag: String? = nil, parentPrimaryImageItemId: String? = nil, parentPrimaryImageTag: String? = nil) {
         self.id = id
         self.type = type
         self.serverId = serverId

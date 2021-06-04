@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**playingQueue** | **[UUID]** | Gets or sets the playing queue. | [optional] 
+**playingQueue** | **[String]** | Gets or sets the playing queue. | [optional] 
 **playingItemPosition** | **Int** | Gets or sets the position of the playing item in the queue. | [optional] 
 **startPositionTicks** | **Int64** | Gets or sets the start position ticks. | [optional] 
 

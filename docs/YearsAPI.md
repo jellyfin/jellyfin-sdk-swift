@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 # **getYear**
 ```swift
-    open class func getYear(year: Int, userId: UUID? = nil, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
+    open class func getYear(year: Int, userId: String? = nil, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
 ```
 
 Gets a year.
@@ -21,7 +21,7 @@ Gets a year.
 import JellyfinAPI
 
 let year = 987 // Int | The year.
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 
 // Gets a year.
 YearsAPI.getYear(year: year, userId: userId) { (response, error) in
@@ -41,7 +41,7 @@ YearsAPI.getYear(year: year, userId: userId) { (response, error) in
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **year** | **Int** | The year. | 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
 
 ### Return type
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 # **getYears**
 ```swift
-    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: UUID? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Get years.
@@ -73,7 +73,7 @@ import JellyfinAPI
 let startIndex = 987 // Int | Skips over a given number of items within the results. Use for paging. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let sortOrder = [SortOrder()] // [SortOrder] | Sort Order - Ascending,Descending. (optional)
-let parentId = 987 // UUID | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
+let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let excludeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. (optional)
 let includeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be included based on item type. This allows multiple, comma delimited. (optional)
@@ -82,7 +82,7 @@ let sortBy = ["inner_example"] // [String] | Optional. Specify one or more sort 
 let enableUserData = true // Bool | Optional. Include user data. (optional)
 let imageTypeLimit = 987 // Int | Optional. The max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
-let userId = 987 // UUID | User Id. (optional)
+let userId = "userId_example" // String | User Id. (optional)
 let recursive = true // Bool | Search recursively. (optional) (default to true)
 let enableImages = true // Bool | Optional. Include image information in output. (optional) (default to true)
 
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes
  **startIndex** | **Int** | Skips over a given number of items within the results. Use for paging. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **sortOrder** | [**[SortOrder]**](SortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
- **parentId** | [**UUID**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **excludeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. | [optional] 
  **includeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be included based on item type. This allows multiple, comma delimited. | [optional] 
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
  **enableUserData** | **Bool** | Optional. Include user data. | [optional] 
  **imageTypeLimit** | **Int** | Optional. The max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
- **userId** | [**UUID**](.md) | User Id. | [optional] 
+ **userId** | [**String**](.md) | User Id. | [optional] 
  **recursive** | **Bool** | Search recursively. | [optional] [default to true]
  **enableImages** | **Bool** | Optional. Include image information in output. | [optional] [default to true]
 

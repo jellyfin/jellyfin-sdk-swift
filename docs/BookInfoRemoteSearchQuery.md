@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **searchInfo** | [**BookInfo**](BookInfo.md) |  | [optional] 
-**itemId** | **UUID** |  | [optional] 
+**itemId** | **String** |  | [optional] 
 **searchProviderName** | **String** | Will only search within the given provider when set. | [optional] 
 **includeDisabledProviders** | **Bool** | Gets or sets a value indicating whether disabled providers should be included. | [optional] 
 

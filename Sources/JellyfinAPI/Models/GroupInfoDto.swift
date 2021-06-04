@@ -14,7 +14,7 @@ import AnyCodable
 public struct GroupInfoDto: Codable, Hashable {
 
     /** Gets the group identifier. */
-    public var groupId: UUID?
+    public var groupId: String?
     /** Gets the group name. */
     public var groupName: String?
     public var state: GroupStateType?
@@ -23,7 +23,7 @@ public struct GroupInfoDto: Codable, Hashable {
     /** Gets the date when this DTO has been created. */
     public var lastUpdatedAt: Date?
 
-    public init(groupId: UUID? = nil, groupName: String? = nil, state: GroupStateType? = nil, participants: [String]? = nil, lastUpdatedAt: Date? = nil) {
+    public init(groupId: String? = nil, groupName: String? = nil, state: GroupStateType? = nil, participants: [String]? = nil, lastUpdatedAt: Date? = nil) {
         self.groupId = groupId
         self.groupName = groupName
         self.state = state

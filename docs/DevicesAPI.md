@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 # **getDevices**
 ```swift
-    open class func getDevices(supportsSync: Bool? = nil, userId: UUID? = nil, completion: @escaping (_ data: DeviceInfoQueryResult?, _ error: Error?) -> Void)
+    open class func getDevices(supportsSync: Bool? = nil, userId: String? = nil, completion: @escaping (_ data: DeviceInfoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Get Devices.
@@ -168,7 +168,7 @@ Get Devices.
 import JellyfinAPI
 
 let supportsSync = true // Bool | Gets or sets a value indicating whether [supports synchronize]. (optional)
-let userId = 987 // UUID | Gets or sets the user identifier. (optional)
+let userId = "userId_example" // String | Gets or sets the user identifier. (optional)
 
 // Get Devices.
 DevicesAPI.getDevices(supportsSync: supportsSync, userId: userId) { (response, error) in
@@ -188,7 +188,7 @@ DevicesAPI.getDevices(supportsSync: supportsSync, userId: userId) { (response, e
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supportsSync** | **Bool** | Gets or sets a value indicating whether [supports synchronize]. | [optional] 
- **userId** | [**UUID**](.md) | Gets or sets the user identifier. | [optional] 
+ **userId** | [**String**](.md) | Gets or sets the user identifier. | [optional] 
 
 ### Return type
 

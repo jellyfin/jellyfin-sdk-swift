@@ -14,11 +14,11 @@ import AnyCodable
 public struct SessionUserInfo: Codable, Hashable {
 
     /** Gets or sets the user identifier. */
-    public var userId: UUID?
+    public var userId: String?
     /** Gets or sets the name of the user. */
     public var userName: String?
 
-    public init(userId: UUID? = nil, userName: String? = nil) {
+    public init(userId: String? = nil, userName: String? = nil) {
         self.userId = userId
         self.userName = userName
     }

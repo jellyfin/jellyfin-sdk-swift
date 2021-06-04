@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 # **deleteUserItemRating**
 ```swift
-    open class func deleteUserItemRating(userId: UUID, itemId: UUID, completion: @escaping (_ data: UserItemDataDto?, _ error: Error?) -> Void)
+    open class func deleteUserItemRating(userId: String, itemId: String, completion: @escaping (_ data: UserItemDataDto?, _ error: Error?) -> Void)
 ```
 
 Deletes a user's saved personal rating for an item.
@@ -28,8 +28,8 @@ Deletes a user's saved personal rating for an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let itemId = 987 // UUID | Item id.
+let userId = "userId_example" // String | User id.
+let itemId = "itemId_example" // String | Item id.
 
 // Deletes a user's saved personal rating for an item.
 UserLibraryAPI.deleteUserItemRating(userId: userId, itemId: itemId) { (response, error) in
@@ -48,8 +48,8 @@ UserLibraryAPI.deleteUserItemRating(userId: userId, itemId: itemId) { (response,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **itemId** | [**UUID**](.md) | Item id. | 
+ **userId** | [**String**](.md) | User id. | 
+ **itemId** | [**String**](.md) | Item id. | 
 
 ### Return type
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 # **getIntros**
 ```swift
-    open class func getIntros(userId: UUID, itemId: UUID, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getIntros(userId: String, itemId: String, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets intros to play before the main media item plays.
@@ -78,8 +78,8 @@ Gets intros to play before the main media item plays.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let itemId = 987 // UUID | Item id.
+let userId = "userId_example" // String | User id.
+let itemId = "itemId_example" // String | Item id.
 
 // Gets intros to play before the main media item plays.
 UserLibraryAPI.getIntros(userId: userId, itemId: itemId) { (response, error) in
@@ -98,8 +98,8 @@ UserLibraryAPI.getIntros(userId: userId, itemId: itemId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **itemId** | [**UUID**](.md) | Item id. | 
+ **userId** | [**String**](.md) | User id. | 
+ **itemId** | [**String**](.md) | Item id. | 
 
 ### Return type
 
@@ -118,7 +118,7 @@ Name | Type | Description  | Notes
 
 # **getItem**
 ```swift
-    open class func getItem(userId: UUID, itemId: UUID, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
+    open class func getItem(userId: String, itemId: String, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
 ```
 
 Gets an item from a user's library.
@@ -128,8 +128,8 @@ Gets an item from a user's library.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let itemId = 987 // UUID | Item id.
+let userId = "userId_example" // String | User id.
+let itemId = "itemId_example" // String | Item id.
 
 // Gets an item from a user's library.
 UserLibraryAPI.getItem(userId: userId, itemId: itemId) { (response, error) in
@@ -148,8 +148,8 @@ UserLibraryAPI.getItem(userId: userId, itemId: itemId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **itemId** | [**UUID**](.md) | Item id. | 
+ **userId** | [**String**](.md) | User id. | 
+ **itemId** | [**String**](.md) | Item id. | 
 
 ### Return type
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 # **getLatestMedia**
 ```swift
-    open class func getLatestMedia(userId: UUID, parentId: UUID? = nil, fields: [ItemFields]? = nil, includeItemTypes: [String]? = nil, isPlayed: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, limit: Int? = nil, groupItems: Bool? = nil, completion: @escaping (_ data: [BaseItemDto]?, _ error: Error?) -> Void)
+    open class func getLatestMedia(userId: String, parentId: String? = nil, fields: [ItemFields]? = nil, includeItemTypes: [String]? = nil, isPlayed: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, limit: Int? = nil, groupItems: Bool? = nil, completion: @escaping (_ data: [BaseItemDto]?, _ error: Error?) -> Void)
 ```
 
 Gets latest media.
@@ -178,8 +178,8 @@ Gets latest media.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let parentId = 987 // UUID | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
+let userId = "userId_example" // String | User id.
+let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let includeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. (optional)
 let isPlayed = true // Bool | Filter by items that are played, or not. (optional)
@@ -207,8 +207,8 @@ UserLibraryAPI.getLatestMedia(userId: userId, parentId: parentId, fields: fields
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **parentId** | [**UUID**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **userId** | [**String**](.md) | User id. | 
+ **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **includeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. | [optional] 
  **isPlayed** | **Bool** | Filter by items that are played, or not. | [optional] 
@@ -236,7 +236,7 @@ Name | Type | Description  | Notes
 
 # **getLocalTrailers**
 ```swift
-    open class func getLocalTrailers(userId: UUID, itemId: UUID, completion: @escaping (_ data: [BaseItemDto]?, _ error: Error?) -> Void)
+    open class func getLocalTrailers(userId: String, itemId: String, completion: @escaping (_ data: [BaseItemDto]?, _ error: Error?) -> Void)
 ```
 
 Gets local trailers for an item.
@@ -246,8 +246,8 @@ Gets local trailers for an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let itemId = 987 // UUID | Item id.
+let userId = "userId_example" // String | User id.
+let itemId = "itemId_example" // String | Item id.
 
 // Gets local trailers for an item.
 UserLibraryAPI.getLocalTrailers(userId: userId, itemId: itemId) { (response, error) in
@@ -266,8 +266,8 @@ UserLibraryAPI.getLocalTrailers(userId: userId, itemId: itemId) { (response, err
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **itemId** | [**UUID**](.md) | Item id. | 
+ **userId** | [**String**](.md) | User id. | 
+ **itemId** | [**String**](.md) | Item id. | 
 
 ### Return type
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 # **getRootFolder**
 ```swift
-    open class func getRootFolder(userId: UUID, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
+    open class func getRootFolder(userId: String, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
 ```
 
 Gets the root folder from a user's library.
@@ -296,7 +296,7 @@ Gets the root folder from a user's library.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
+let userId = "userId_example" // String | User id.
 
 // Gets the root folder from a user's library.
 UserLibraryAPI.getRootFolder(userId: userId) { (response, error) in
@@ -315,7 +315,7 @@ UserLibraryAPI.getRootFolder(userId: userId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
+ **userId** | [**String**](.md) | User id. | 
 
 ### Return type
 
@@ -334,7 +334,7 @@ Name | Type | Description  | Notes
 
 # **getSpecialFeatures**
 ```swift
-    open class func getSpecialFeatures(userId: UUID, itemId: UUID, completion: @escaping (_ data: [BaseItemDto]?, _ error: Error?) -> Void)
+    open class func getSpecialFeatures(userId: String, itemId: String, completion: @escaping (_ data: [BaseItemDto]?, _ error: Error?) -> Void)
 ```
 
 Gets special features for an item.
@@ -344,8 +344,8 @@ Gets special features for an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let itemId = 987 // UUID | Item id.
+let userId = "userId_example" // String | User id.
+let itemId = "itemId_example" // String | Item id.
 
 // Gets special features for an item.
 UserLibraryAPI.getSpecialFeatures(userId: userId, itemId: itemId) { (response, error) in
@@ -364,8 +364,8 @@ UserLibraryAPI.getSpecialFeatures(userId: userId, itemId: itemId) { (response, e
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **itemId** | [**UUID**](.md) | Item id. | 
+ **userId** | [**String**](.md) | User id. | 
+ **itemId** | [**String**](.md) | Item id. | 
 
 ### Return type
 
@@ -384,7 +384,7 @@ Name | Type | Description  | Notes
 
 # **markFavoriteItem**
 ```swift
-    open class func markFavoriteItem(userId: UUID, itemId: UUID, completion: @escaping (_ data: UserItemDataDto?, _ error: Error?) -> Void)
+    open class func markFavoriteItem(userId: String, itemId: String, completion: @escaping (_ data: UserItemDataDto?, _ error: Error?) -> Void)
 ```
 
 Marks an item as a favorite.
@@ -394,8 +394,8 @@ Marks an item as a favorite.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let itemId = 987 // UUID | Item id.
+let userId = "userId_example" // String | User id.
+let itemId = "itemId_example" // String | Item id.
 
 // Marks an item as a favorite.
 UserLibraryAPI.markFavoriteItem(userId: userId, itemId: itemId) { (response, error) in
@@ -414,8 +414,8 @@ UserLibraryAPI.markFavoriteItem(userId: userId, itemId: itemId) { (response, err
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **itemId** | [**UUID**](.md) | Item id. | 
+ **userId** | [**String**](.md) | User id. | 
+ **itemId** | [**String**](.md) | Item id. | 
 
 ### Return type
 
@@ -434,7 +434,7 @@ Name | Type | Description  | Notes
 
 # **unmarkFavoriteItem**
 ```swift
-    open class func unmarkFavoriteItem(userId: UUID, itemId: UUID, completion: @escaping (_ data: UserItemDataDto?, _ error: Error?) -> Void)
+    open class func unmarkFavoriteItem(userId: String, itemId: String, completion: @escaping (_ data: UserItemDataDto?, _ error: Error?) -> Void)
 ```
 
 Unmarks item as a favorite.
@@ -444,8 +444,8 @@ Unmarks item as a favorite.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let itemId = 987 // UUID | Item id.
+let userId = "userId_example" // String | User id.
+let itemId = "itemId_example" // String | Item id.
 
 // Unmarks item as a favorite.
 UserLibraryAPI.unmarkFavoriteItem(userId: userId, itemId: itemId) { (response, error) in
@@ -464,8 +464,8 @@ UserLibraryAPI.unmarkFavoriteItem(userId: userId, itemId: itemId) { (response, e
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **itemId** | [**UUID**](.md) | Item id. | 
+ **userId** | [**String**](.md) | User id. | 
+ **itemId** | [**String**](.md) | Item id. | 
 
 ### Return type
 
@@ -484,7 +484,7 @@ Name | Type | Description  | Notes
 
 # **updateUserItemRating**
 ```swift
-    open class func updateUserItemRating(userId: UUID, itemId: UUID, likes: Bool? = nil, completion: @escaping (_ data: UserItemDataDto?, _ error: Error?) -> Void)
+    open class func updateUserItemRating(userId: String, itemId: String, likes: Bool? = nil, completion: @escaping (_ data: UserItemDataDto?, _ error: Error?) -> Void)
 ```
 
 Updates a user's rating for an item.
@@ -494,8 +494,8 @@ Updates a user's rating for an item.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
-let itemId = 987 // UUID | Item id.
+let userId = "userId_example" // String | User id.
+let itemId = "itemId_example" // String | Item id.
 let likes = true // Bool | Whether this M:Jellyfin.Api.Controllers.UserLibraryController.UpdateUserItemRating(System.Guid,System.Guid,System.Nullable{System.Boolean}) is likes. (optional)
 
 // Updates a user's rating for an item.
@@ -515,8 +515,8 @@ UserLibraryAPI.updateUserItemRating(userId: userId, itemId: itemId, likes: likes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
- **itemId** | [**UUID**](.md) | Item id. | 
+ **userId** | [**String**](.md) | User id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **likes** | **Bool** | Whether this M:Jellyfin.Api.Controllers.UserLibraryController.UpdateUserItemRating(System.Guid,System.Guid,System.Nullable{System.Boolean}) is likes. | [optional] 
 
 ### Return type

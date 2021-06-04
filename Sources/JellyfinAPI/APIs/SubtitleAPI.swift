@@ -22,7 +22,7 @@ open class SubtitleAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteSubtitle(itemId: UUID, index: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func deleteSubtitle(itemId: String, index: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             deleteSubtitleWithRequestBuilder(itemId: itemId, index: index).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -46,7 +46,7 @@ open class SubtitleAPI {
      - parameter index: (path) The index of the subtitle file. 
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteSubtitleWithRequestBuilder(itemId: UUID, index: Int) -> RequestBuilder<Void> {
+    open class func deleteSubtitleWithRequestBuilder(itemId: String, index: Int) -> RequestBuilder<Void> {
         var urlPath = "/Videos/{itemId}/Subtitles/{index}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -80,7 +80,7 @@ open class SubtitleAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func downloadRemoteSubtitles(itemId: UUID, subtitleId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func downloadRemoteSubtitles(itemId: String, subtitleId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             downloadRemoteSubtitlesWithRequestBuilder(itemId: itemId, subtitleId: subtitleId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -104,7 +104,7 @@ open class SubtitleAPI {
      - parameter subtitleId: (path) The subtitle id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func downloadRemoteSubtitlesWithRequestBuilder(itemId: UUID, subtitleId: String) -> RequestBuilder<Void> {
+    open class func downloadRemoteSubtitlesWithRequestBuilder(itemId: String, subtitleId: String) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/RemoteSearch/Subtitles/{subtitleId}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -302,7 +302,7 @@ open class SubtitleAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSubtitle(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getSubtitle(routeItemId: String, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: String? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getSubtitleWithRequestBuilder(routeItemId: routeItemId, routeMediaSourceId: routeMediaSourceId, routeIndex: routeIndex, routeFormat: routeFormat, itemId: itemId, mediaSourceId: mediaSourceId, index: index, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap, startPositionTicks: startPositionTicks).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -333,7 +333,7 @@ open class SubtitleAPI {
      - parameter startPositionTicks: (query) The start position of the subtitle in ticks. (optional, default to 0)
      - returns: RequestBuilder<URL> 
      */
-    open class func getSubtitleWithRequestBuilder(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil) -> RequestBuilder<URL> {
+    open class func getSubtitleWithRequestBuilder(routeItemId: String, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: String? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Videos/{routeItemId}/routeMediaSourceId/Subtitles/{routeIndex}/Stream.{routeFormat}"
         let routeItemIdPreEscape = "\(APIHelper.mapValueToPathItem(routeItemId))"
         let routeItemIdPostEscape = routeItemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -385,7 +385,7 @@ open class SubtitleAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSubtitlePlaylist(itemId: UUID, index: Int, mediaSourceId: String, segmentLength: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getSubtitlePlaylist(itemId: String, index: Int, mediaSourceId: String, segmentLength: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getSubtitlePlaylistWithRequestBuilder(itemId: itemId, index: index, mediaSourceId: mediaSourceId, segmentLength: segmentLength).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -411,7 +411,7 @@ open class SubtitleAPI {
      - parameter segmentLength: (query) The subtitle segment length. 
      - returns: RequestBuilder<URL> 
      */
-    open class func getSubtitlePlaylistWithRequestBuilder(itemId: UUID, index: Int, mediaSourceId: String, segmentLength: Int) -> RequestBuilder<URL> {
+    open class func getSubtitlePlaylistWithRequestBuilder(itemId: String, index: Int, mediaSourceId: String, segmentLength: Int) -> RequestBuilder<URL> {
         var urlPath = "/Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/subtitles.m3u8"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -462,7 +462,7 @@ open class SubtitleAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSubtitleWithTicks(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getSubtitleWithTicks(routeItemId: String, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: String? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getSubtitleWithTicksWithRequestBuilder(routeItemId: routeItemId, routeMediaSourceId: routeMediaSourceId, routeIndex: routeIndex, routeStartPositionTicks: routeStartPositionTicks, routeFormat: routeFormat, itemId: itemId, mediaSourceId: mediaSourceId, index: index, startPositionTicks: startPositionTicks, format: format, endPositionTicks: endPositionTicks, copyTimestamps: copyTimestamps, addVttTimeMap: addVttTimeMap).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -494,7 +494,7 @@ open class SubtitleAPI {
      - parameter addVttTimeMap: (query) Optional. Whether to add a VTT time map. (optional, default to false)
      - returns: RequestBuilder<URL> 
      */
-    open class func getSubtitleWithTicksWithRequestBuilder(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil) -> RequestBuilder<URL> {
+    open class func getSubtitleWithTicksWithRequestBuilder(routeItemId: String, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: String? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Videos/{routeItemId}/{routeMediaSourceId}/Subtitles/{routeIndex}/{routeStartPositionTicks}/Stream.{routeFormat}"
         let routeItemIdPreEscape = "\(APIHelper.mapValueToPathItem(routeItemId))"
         let routeItemIdPostEscape = routeItemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -548,7 +548,7 @@ open class SubtitleAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func searchRemoteSubtitles(itemId: UUID, language: String, isPerfectMatch: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSubtitleInfo], Error> {
+    open class func searchRemoteSubtitles(itemId: String, language: String, isPerfectMatch: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSubtitleInfo], Error> {
         return Future<[RemoteSubtitleInfo], Error>.init { promise in
             searchRemoteSubtitlesWithRequestBuilder(itemId: itemId, language: language, isPerfectMatch: isPerfectMatch).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -573,7 +573,7 @@ open class SubtitleAPI {
      - parameter isPerfectMatch: (query) Optional. Only show subtitles which are a perfect match. (optional)
      - returns: RequestBuilder<[RemoteSubtitleInfo]> 
      */
-    open class func searchRemoteSubtitlesWithRequestBuilder(itemId: UUID, language: String, isPerfectMatch: Bool? = nil) -> RequestBuilder<[RemoteSubtitleInfo]> {
+    open class func searchRemoteSubtitlesWithRequestBuilder(itemId: String, language: String, isPerfectMatch: Bool? = nil) -> RequestBuilder<[RemoteSubtitleInfo]> {
         var urlPath = "/Items/{itemId}/RemoteSearch/Subtitles/{language}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -610,7 +610,7 @@ open class SubtitleAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func uploadSubtitle(itemId: UUID, uploadSubtitleDto: UploadSubtitleDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func uploadSubtitle(itemId: String, uploadSubtitleDto: UploadSubtitleDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             uploadSubtitleWithRequestBuilder(itemId: itemId, uploadSubtitleDto: uploadSubtitleDto).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -634,7 +634,7 @@ open class SubtitleAPI {
      - parameter uploadSubtitleDto: (body) The request body. 
      - returns: RequestBuilder<Void> 
      */
-    open class func uploadSubtitleWithRequestBuilder(itemId: UUID, uploadSubtitleDto: UploadSubtitleDto) -> RequestBuilder<Void> {
+    open class func uploadSubtitleWithRequestBuilder(itemId: String, uploadSubtitleDto: UploadSubtitleDto) -> RequestBuilder<Void> {
         var urlPath = "/Videos/{itemId}/Subtitles"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

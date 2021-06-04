@@ -13,9 +13,9 @@ import AnyCodable
 public struct TimerEventInfo: Codable, Hashable {
 
     public var id: String?
-    public var programId: UUID?
+    public var programId: String?
 
-    public init(id: String? = nil, programId: UUID? = nil) {
+    public init(id: String? = nil, programId: String? = nil) {
         self.id = id
         self.programId = programId
     }

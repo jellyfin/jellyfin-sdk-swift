@@ -23,7 +23,7 @@ open class RemoteImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func downloadRemoteImage(itemId: UUID, type: ImageType, imageUrl: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func downloadRemoteImage(itemId: String, type: ImageType, imageUrl: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             downloadRemoteImageWithRequestBuilder(itemId: itemId, type: type, imageUrl: imageUrl).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -48,7 +48,7 @@ open class RemoteImageAPI {
      - parameter imageUrl: (query) The image url. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func downloadRemoteImageWithRequestBuilder(itemId: UUID, type: ImageType, imageUrl: String? = nil) -> RequestBuilder<Void> {
+    open class func downloadRemoteImageWithRequestBuilder(itemId: String, type: ImageType, imageUrl: String? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/RemoteImages/Download"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -82,7 +82,7 @@ open class RemoteImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRemoteImageProviders(itemId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ImageProviderInfo], Error> {
+    open class func getRemoteImageProviders(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ImageProviderInfo], Error> {
         return Future<[ImageProviderInfo], Error>.init { promise in
             getRemoteImageProvidersWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -105,7 +105,7 @@ open class RemoteImageAPI {
      - parameter itemId: (path) Item Id. 
      - returns: RequestBuilder<[ImageProviderInfo]> 
      */
-    open class func getRemoteImageProvidersWithRequestBuilder(itemId: UUID) -> RequestBuilder<[ImageProviderInfo]> {
+    open class func getRemoteImageProvidersWithRequestBuilder(itemId: String) -> RequestBuilder<[ImageProviderInfo]> {
         var urlPath = "/Items/{itemId}/RemoteImages/Providers"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -140,7 +140,7 @@ open class RemoteImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRemoteImages(itemId: UUID, type: ImageType? = nil, startIndex: Int? = nil, limit: Int? = nil, providerName: String? = nil, includeAllLanguages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<RemoteImageResult, Error> {
+    open class func getRemoteImages(itemId: String, type: ImageType? = nil, startIndex: Int? = nil, limit: Int? = nil, providerName: String? = nil, includeAllLanguages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<RemoteImageResult, Error> {
         return Future<RemoteImageResult, Error>.init { promise in
             getRemoteImagesWithRequestBuilder(itemId: itemId, type: type, startIndex: startIndex, limit: limit, providerName: providerName, includeAllLanguages: includeAllLanguages).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -168,7 +168,7 @@ open class RemoteImageAPI {
      - parameter includeAllLanguages: (query) Optional. Include all languages. (optional, default to false)
      - returns: RequestBuilder<RemoteImageResult> 
      */
-    open class func getRemoteImagesWithRequestBuilder(itemId: UUID, type: ImageType? = nil, startIndex: Int? = nil, limit: Int? = nil, providerName: String? = nil, includeAllLanguages: Bool? = nil) -> RequestBuilder<RemoteImageResult> {
+    open class func getRemoteImagesWithRequestBuilder(itemId: String, type: ImageType? = nil, startIndex: Int? = nil, limit: Int? = nil, providerName: String? = nil, includeAllLanguages: Bool? = nil) -> RequestBuilder<RemoteImageResult> {
         var urlPath = "/Items/{itemId}/RemoteImages"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

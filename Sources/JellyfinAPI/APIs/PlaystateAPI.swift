@@ -23,7 +23,7 @@ open class PlaystateAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func markPlayedItem(userId: UUID, itemId: UUID, datePlayed: Date? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<UserItemDataDto, Error> {
+    open class func markPlayedItem(userId: String, itemId: String, datePlayed: Date? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<UserItemDataDto, Error> {
         return Future<UserItemDataDto, Error>.init { promise in
             markPlayedItemWithRequestBuilder(userId: userId, itemId: itemId, datePlayed: datePlayed).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -48,7 +48,7 @@ open class PlaystateAPI {
      - parameter datePlayed: (query) Optional. The date the item was played. (optional)
      - returns: RequestBuilder<UserItemDataDto> 
      */
-    open class func markPlayedItemWithRequestBuilder(userId: UUID, itemId: UUID, datePlayed: Date? = nil) -> RequestBuilder<UserItemDataDto> {
+    open class func markPlayedItemWithRequestBuilder(userId: String, itemId: String, datePlayed: Date? = nil) -> RequestBuilder<UserItemDataDto> {
         var urlPath = "/Users/{userId}/PlayedItems/{itemId}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -85,7 +85,7 @@ open class PlaystateAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func markUnplayedItem(userId: UUID, itemId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<UserItemDataDto, Error> {
+    open class func markUnplayedItem(userId: String, itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<UserItemDataDto, Error> {
         return Future<UserItemDataDto, Error>.init { promise in
             markUnplayedItemWithRequestBuilder(userId: userId, itemId: itemId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -109,7 +109,7 @@ open class PlaystateAPI {
      - parameter itemId: (path) Item id. 
      - returns: RequestBuilder<UserItemDataDto> 
      */
-    open class func markUnplayedItemWithRequestBuilder(userId: UUID, itemId: UUID) -> RequestBuilder<UserItemDataDto> {
+    open class func markUnplayedItemWithRequestBuilder(userId: String, itemId: String) -> RequestBuilder<UserItemDataDto> {
         var urlPath = "/Users/{userId}/PlayedItems/{itemId}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -154,7 +154,7 @@ open class PlaystateAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func onPlaybackProgress(userId: UUID, itemId: UUID, mediaSourceId: String? = nil, positionTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, volumeLevel: Int? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, repeatMode: RepeatMode? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func onPlaybackProgress(userId: String, itemId: String, mediaSourceId: String? = nil, positionTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, volumeLevel: Int? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, repeatMode: RepeatMode? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             onPlaybackProgressWithRequestBuilder(userId: userId, itemId: itemId, mediaSourceId: mediaSourceId, positionTicks: positionTicks, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, volumeLevel: volumeLevel, playMethod: playMethod, liveStreamId: liveStreamId, playSessionId: playSessionId, repeatMode: repeatMode, isPaused: isPaused, isMuted: isMuted).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -189,7 +189,7 @@ open class PlaystateAPI {
      - parameter isMuted: (query) Indicates if the player is muted. (optional, default to false)
      - returns: RequestBuilder<Void> 
      */
-    open class func onPlaybackProgressWithRequestBuilder(userId: UUID, itemId: UUID, mediaSourceId: String? = nil, positionTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, volumeLevel: Int? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, repeatMode: RepeatMode? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil) -> RequestBuilder<Void> {
+    open class func onPlaybackProgressWithRequestBuilder(userId: String, itemId: String, mediaSourceId: String? = nil, positionTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, volumeLevel: Int? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, repeatMode: RepeatMode? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/PlayingItems/{itemId}/Progress"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -243,7 +243,7 @@ open class PlaystateAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func onPlaybackStart(userId: UUID, itemId: UUID, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, canSeek: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func onPlaybackStart(userId: String, itemId: String, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, canSeek: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             onPlaybackStartWithRequestBuilder(userId: userId, itemId: itemId, mediaSourceId: mediaSourceId, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, playMethod: playMethod, liveStreamId: liveStreamId, playSessionId: playSessionId, canSeek: canSeek).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -274,7 +274,7 @@ open class PlaystateAPI {
      - parameter canSeek: (query) Indicates if the client can seek. (optional, default to false)
      - returns: RequestBuilder<Void> 
      */
-    open class func onPlaybackStartWithRequestBuilder(userId: UUID, itemId: UUID, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, canSeek: Bool? = nil) -> RequestBuilder<Void> {
+    open class func onPlaybackStartWithRequestBuilder(userId: String, itemId: String, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, canSeek: Bool? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/PlayingItems/{itemId}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -322,7 +322,7 @@ open class PlaystateAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func onPlaybackStopped(userId: UUID, itemId: UUID, mediaSourceId: String? = nil, nextMediaType: String? = nil, positionTicks: Int64? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func onPlaybackStopped(userId: String, itemId: String, mediaSourceId: String? = nil, nextMediaType: String? = nil, positionTicks: Int64? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             onPlaybackStoppedWithRequestBuilder(userId: userId, itemId: itemId, mediaSourceId: mediaSourceId, nextMediaType: nextMediaType, positionTicks: positionTicks, liveStreamId: liveStreamId, playSessionId: playSessionId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -351,7 +351,7 @@ open class PlaystateAPI {
      - parameter playSessionId: (query) The play session id. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func onPlaybackStoppedWithRequestBuilder(userId: UUID, itemId: UUID, mediaSourceId: String? = nil, nextMediaType: String? = nil, positionTicks: Int64? = nil, liveStreamId: String? = nil, playSessionId: String? = nil) -> RequestBuilder<Void> {
+    open class func onPlaybackStoppedWithRequestBuilder(userId: String, itemId: String, mediaSourceId: String? = nil, nextMediaType: String? = nil, positionTicks: Int64? = nil, liveStreamId: String? = nil, playSessionId: String? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/PlayingItems/{itemId}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

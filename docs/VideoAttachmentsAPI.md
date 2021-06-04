@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 # **getAttachment**
 ```swift
-    open class func getAttachment(videoId: UUID, mediaSourceId: String, index: Int, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getAttachment(videoId: String, mediaSourceId: String, index: Int, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get video attachment.
@@ -19,7 +19,7 @@ Get video attachment.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let videoId = 987 // UUID | Video ID.
+let videoId = "videoId_example" // String | Video ID.
 let mediaSourceId = "mediaSourceId_example" // String | Media Source ID.
 let index = 987 // Int | Attachment Index.
 
@@ -40,7 +40,7 @@ VideoAttachmentsAPI.getAttachment(videoId: videoId, mediaSourceId: mediaSourceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **videoId** | [**UUID**](.md) | Video ID. | 
+ **videoId** | [**String**](.md) | Video ID. | 
  **mediaSourceId** | **String** | Media Source ID. | 
  **index** | **Int** | Attachment Index. | 
 

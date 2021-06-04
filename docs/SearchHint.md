@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**itemId** | **UUID** | Gets or sets the item id. | [optional] 
-**id** | **UUID** |  | [optional] 
+**itemId** | **String** | Gets or sets the item id. | [optional] 
+**id** | **String** |  | [optional] 
 **name** | **String** | Gets or sets the name. | [optional] 
 **matchedTerm** | **String** | Gets or sets the matched term. | [optional] 
 **indexNumber** | **Int** | Gets or sets the index number. | [optional] 
@@ -24,12 +24,12 @@ Name | Type | Description | Notes
 **series** | **String** | Gets or sets the series. | [optional] 
 **status** | **String** |  | [optional] 
 **album** | **String** | Gets or sets the album. | [optional] 
-**albumId** | **UUID** |  | [optional] 
+**albumId** | **String** |  | [optional] 
 **albumArtist** | **String** | Gets or sets the album artist. | [optional] 
 **artists** | **[String]** | Gets or sets the artists. | [optional] 
 **songCount** | **Int** | Gets or sets the song count. | [optional] 
 **episodeCount** | **Int** | Gets or sets the episode count. | [optional] 
-**channelId** | **UUID** | Gets or sets the channel identifier. | [optional] 
+**channelId** | **String** | Gets or sets the channel identifier. | [optional] 
 **channelName** | **String** | Gets or sets the name of the channel. | [optional] 
 **primaryImageAspectRatio** | **Double** | Gets or sets the primary image aspect ratio. | [optional] 
 

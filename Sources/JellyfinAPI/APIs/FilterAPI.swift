@@ -30,7 +30,7 @@ open class FilterAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getQueryFilters(userId: UUID? = nil, parentId: UUID? = nil, includeItemTypes: [String]? = nil, isAiring: Bool? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isKids: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, recursive: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<QueryFilters, Error> {
+    open class func getQueryFilters(userId: String? = nil, parentId: String? = nil, includeItemTypes: [String]? = nil, isAiring: Bool? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isKids: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, recursive: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<QueryFilters, Error> {
         return Future<QueryFilters, Error>.init { promise in
             getQueryFiltersWithRequestBuilder(userId: userId, parentId: parentId, includeItemTypes: includeItemTypes, isAiring: isAiring, isMovie: isMovie, isSports: isSports, isKids: isKids, isNews: isNews, isSeries: isSeries, recursive: recursive).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -62,7 +62,7 @@ open class FilterAPI {
      - parameter recursive: (query) Optional. Search recursive. (optional)
      - returns: RequestBuilder<QueryFilters> 
      */
-    open class func getQueryFiltersWithRequestBuilder(userId: UUID? = nil, parentId: UUID? = nil, includeItemTypes: [String]? = nil, isAiring: Bool? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isKids: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, recursive: Bool? = nil) -> RequestBuilder<QueryFilters> {
+    open class func getQueryFiltersWithRequestBuilder(userId: String? = nil, parentId: String? = nil, includeItemTypes: [String]? = nil, isAiring: Bool? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isKids: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, recursive: Bool? = nil) -> RequestBuilder<QueryFilters> {
         let urlPath = "/Items/Filters2"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -104,7 +104,7 @@ open class FilterAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getQueryFiltersLegacy(userId: UUID? = nil, parentId: UUID? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<QueryFiltersLegacy, Error> {
+    open class func getQueryFiltersLegacy(userId: String? = nil, parentId: String? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<QueryFiltersLegacy, Error> {
         return Future<QueryFiltersLegacy, Error>.init { promise in
             getQueryFiltersLegacyWithRequestBuilder(userId: userId, parentId: parentId, includeItemTypes: includeItemTypes, mediaTypes: mediaTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -130,7 +130,7 @@ open class FilterAPI {
      - parameter mediaTypes: (query) Optional. Filter by MediaType. Allows multiple, comma delimited. (optional)
      - returns: RequestBuilder<QueryFiltersLegacy> 
      */
-    open class func getQueryFiltersLegacyWithRequestBuilder(userId: UUID? = nil, parentId: UUID? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil) -> RequestBuilder<QueryFiltersLegacy> {
+    open class func getQueryFiltersLegacyWithRequestBuilder(userId: String? = nil, parentId: String? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil) -> RequestBuilder<QueryFiltersLegacy> {
         let urlPath = "/Items/Filters"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil

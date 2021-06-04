@@ -23,7 +23,7 @@ open class UserAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func authenticateUser(userId: UUID, pw: String, password: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<AuthenticationResult, Error> {
+    open class func authenticateUser(userId: String, pw: String, password: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<AuthenticationResult, Error> {
         return Future<AuthenticationResult, Error>.init { promise in
             authenticateUserWithRequestBuilder(userId: userId, pw: pw, password: password).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -45,7 +45,7 @@ open class UserAPI {
      - parameter password: (query) The password sha1-hash. (optional)
      - returns: RequestBuilder<AuthenticationResult> 
      */
-    open class func authenticateUserWithRequestBuilder(userId: UUID, pw: String, password: String? = nil) -> RequestBuilder<AuthenticationResult> {
+    open class func authenticateUserWithRequestBuilder(userId: String, pw: String, password: String? = nil) -> RequestBuilder<AuthenticationResult> {
         var urlPath = "/Users/{userId}/Authenticate"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -223,7 +223,7 @@ open class UserAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteUser(userId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func deleteUser(userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             deleteUserWithRequestBuilder(userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -246,7 +246,7 @@ open class UserAPI {
      - parameter userId: (path) The user id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteUserWithRequestBuilder(userId: UUID) -> RequestBuilder<Void> {
+    open class func deleteUserWithRequestBuilder(userId: String) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -463,7 +463,7 @@ open class UserAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUserById(userId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<UserDto, Error> {
+    open class func getUserById(userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<UserDto, Error> {
         return Future<UserDto, Error>.init { promise in
             getUserByIdWithRequestBuilder(userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -486,7 +486,7 @@ open class UserAPI {
      - parameter userId: (path) The user id. 
      - returns: RequestBuilder<UserDto> 
      */
-    open class func getUserByIdWithRequestBuilder(userId: UUID) -> RequestBuilder<UserDto> {
+    open class func getUserByIdWithRequestBuilder(userId: String) -> RequestBuilder<UserDto> {
         var urlPath = "/Users/{userId}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -573,7 +573,7 @@ open class UserAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateUser(userId: UUID, userDto: UserDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateUser(userId: String, userDto: UserDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateUserWithRequestBuilder(userId: userId, userDto: userDto).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -597,7 +597,7 @@ open class UserAPI {
      - parameter userDto: (body) The updated user model. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateUserWithRequestBuilder(userId: UUID, userDto: UserDto) -> RequestBuilder<Void> {
+    open class func updateUserWithRequestBuilder(userId: String, userDto: UserDto) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -628,7 +628,7 @@ open class UserAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateUserConfiguration(userId: UUID, userConfiguration: UserConfiguration, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateUserConfiguration(userId: String, userConfiguration: UserConfiguration, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateUserConfigurationWithRequestBuilder(userId: userId, userConfiguration: userConfiguration).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -652,7 +652,7 @@ open class UserAPI {
      - parameter userConfiguration: (body) The new user configuration. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateUserConfigurationWithRequestBuilder(userId: UUID, userConfiguration: UserConfiguration) -> RequestBuilder<Void> {
+    open class func updateUserConfigurationWithRequestBuilder(userId: String, userConfiguration: UserConfiguration) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/Configuration"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -683,7 +683,7 @@ open class UserAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateUserEasyPassword(userId: UUID, updateUserEasyPassword: UpdateUserEasyPassword, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateUserEasyPassword(userId: String, updateUserEasyPassword: UpdateUserEasyPassword, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateUserEasyPasswordWithRequestBuilder(userId: userId, updateUserEasyPassword: updateUserEasyPassword).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -707,7 +707,7 @@ open class UserAPI {
      - parameter updateUserEasyPassword: (body) The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateUserEasyPasswordWithRequestBuilder(userId: UUID, updateUserEasyPassword: UpdateUserEasyPassword) -> RequestBuilder<Void> {
+    open class func updateUserEasyPasswordWithRequestBuilder(userId: String, updateUserEasyPassword: UpdateUserEasyPassword) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/EasyPassword"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -738,7 +738,7 @@ open class UserAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateUserPassword(userId: UUID, updateUserPassword: UpdateUserPassword, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateUserPassword(userId: String, updateUserPassword: UpdateUserPassword, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateUserPasswordWithRequestBuilder(userId: userId, updateUserPassword: updateUserPassword).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -762,7 +762,7 @@ open class UserAPI {
      - parameter updateUserPassword: (body) The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateUserPasswordWithRequestBuilder(userId: UUID, updateUserPassword: UpdateUserPassword) -> RequestBuilder<Void> {
+    open class func updateUserPasswordWithRequestBuilder(userId: String, updateUserPassword: UpdateUserPassword) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/Password"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -793,7 +793,7 @@ open class UserAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateUserPolicy(userId: UUID, userPolicy: UserPolicy, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateUserPolicy(userId: String, userPolicy: UserPolicy, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateUserPolicyWithRequestBuilder(userId: userId, userPolicy: userPolicy).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -817,7 +817,7 @@ open class UserAPI {
      - parameter userPolicy: (body) The new user policy. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateUserPolicyWithRequestBuilder(userId: UUID, userPolicy: UserPolicy) -> RequestBuilder<Void> {
+    open class func updateUserPolicyWithRequestBuilder(userId: String, userPolicy: UserPolicy) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/Policy"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

@@ -28,7 +28,7 @@ open class InstantMixAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromAlbum(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromAlbum(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromAlbumWithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -58,7 +58,7 @@ open class InstantMixAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getInstantMixFromAlbumWithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromAlbumWithRequestBuilder(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Albums/{id}/InstantMix"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -104,7 +104,7 @@ open class InstantMixAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromArtists(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromArtists(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromArtistsWithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -134,7 +134,7 @@ open class InstantMixAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getInstantMixFromArtistsWithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromArtistsWithRequestBuilder(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Artists/{id}/InstantMix"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -181,7 +181,7 @@ open class InstantMixAPI {
     #if canImport(Combine)
     @available(*, deprecated, message: "This operation is deprecated.")
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromArtists2(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromArtists2(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromArtists2WithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -212,7 +212,7 @@ open class InstantMixAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     @available(*, deprecated, message: "This operation is deprecated.")
-    open class func getInstantMixFromArtists2WithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromArtists2WithRequestBuilder(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let urlPath = "/Artists/InstantMix"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -256,7 +256,7 @@ open class InstantMixAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromItem(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromItem(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromItemWithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -286,7 +286,7 @@ open class InstantMixAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getInstantMixFromItemWithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromItemWithRequestBuilder(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Items/{id}/InstantMix"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -332,7 +332,7 @@ open class InstantMixAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromMusicGenreById(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromMusicGenreById(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromMusicGenreByIdWithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -362,7 +362,7 @@ open class InstantMixAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getInstantMixFromMusicGenreByIdWithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromMusicGenreByIdWithRequestBuilder(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/MusicGenres/{id}/InstantMix"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -409,7 +409,7 @@ open class InstantMixAPI {
     #if canImport(Combine)
     @available(*, deprecated, message: "This operation is deprecated.")
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromMusicGenreById2(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromMusicGenreById2(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromMusicGenreById2WithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -440,7 +440,7 @@ open class InstantMixAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     @available(*, deprecated, message: "This operation is deprecated.")
-    open class func getInstantMixFromMusicGenreById2WithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromMusicGenreById2WithRequestBuilder(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let urlPath = "/MusicGenres/InstantMix"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -484,7 +484,7 @@ open class InstantMixAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromMusicGenreByName(name: String, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromMusicGenreByName(name: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromMusicGenreByNameWithRequestBuilder(name: name, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -514,7 +514,7 @@ open class InstantMixAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getInstantMixFromMusicGenreByNameWithRequestBuilder(name: String, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromMusicGenreByNameWithRequestBuilder(name: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/MusicGenres/{name}/InstantMix"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -560,7 +560,7 @@ open class InstantMixAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromPlaylist(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromPlaylist(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromPlaylistWithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -590,7 +590,7 @@ open class InstantMixAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getInstantMixFromPlaylistWithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromPlaylistWithRequestBuilder(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Playlists/{id}/InstantMix"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -636,7 +636,7 @@ open class InstantMixAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getInstantMixFromSong(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getInstantMixFromSong(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getInstantMixFromSongWithRequestBuilder(id: id, userId: userId, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -666,7 +666,7 @@ open class InstantMixAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getInstantMixFromSongWithRequestBuilder(id: UUID, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getInstantMixFromSongWithRequestBuilder(id: String, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Songs/{id}/InstantMix"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

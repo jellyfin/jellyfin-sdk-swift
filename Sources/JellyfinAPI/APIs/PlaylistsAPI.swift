@@ -23,7 +23,7 @@ open class PlaylistsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func addToPlaylist(playlistId: UUID, ids: [UUID]? = nil, userId: UUID? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func addToPlaylist(playlistId: String, ids: [String]? = nil, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             addToPlaylistWithRequestBuilder(playlistId: playlistId, ids: ids, userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -48,7 +48,7 @@ open class PlaylistsAPI {
      - parameter userId: (query) The userId. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func addToPlaylistWithRequestBuilder(playlistId: UUID, ids: [UUID]? = nil, userId: UUID? = nil) -> RequestBuilder<Void> {
+    open class func addToPlaylistWithRequestBuilder(playlistId: String, ids: [String]? = nil, userId: String? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Playlists/{playlistId}/Items"
         let playlistIdPreEscape = "\(APIHelper.mapValueToPathItem(playlistId))"
         let playlistIdPostEscape = playlistIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -86,7 +86,7 @@ open class PlaylistsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func createPlaylist(name: String? = nil, ids: [UUID]? = nil, userId: UUID? = nil, mediaType: String? = nil, createPlaylistDto: CreatePlaylistDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<PlaylistCreationResult, Error> {
+    open class func createPlaylist(name: String? = nil, ids: [String]? = nil, userId: String? = nil, mediaType: String? = nil, createPlaylistDto: CreatePlaylistDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<PlaylistCreationResult, Error> {
         return Future<PlaylistCreationResult, Error>.init { promise in
             createPlaylistWithRequestBuilder(name: name, ids: ids, userId: userId, mediaType: mediaType, createPlaylistDto: createPlaylistDto).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -114,7 +114,7 @@ open class PlaylistsAPI {
      - parameter createPlaylistDto: (body) The create playlist payload. (optional)
      - returns: RequestBuilder<PlaylistCreationResult> 
      */
-    open class func createPlaylistWithRequestBuilder(name: String? = nil, ids: [UUID]? = nil, userId: UUID? = nil, mediaType: String? = nil, createPlaylistDto: CreatePlaylistDto? = nil) -> RequestBuilder<PlaylistCreationResult> {
+    open class func createPlaylistWithRequestBuilder(name: String? = nil, ids: [String]? = nil, userId: String? = nil, mediaType: String? = nil, createPlaylistDto: CreatePlaylistDto? = nil) -> RequestBuilder<PlaylistCreationResult> {
         let urlPath = "/Playlists"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createPlaylistDto)
@@ -155,7 +155,7 @@ open class PlaylistsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPlaylistItems(playlistId: UUID, userId: UUID, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getPlaylistItems(playlistId: String, userId: String, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getPlaylistItemsWithRequestBuilder(playlistId: playlistId, userId: userId, startIndex: startIndex, limit: limit, fields: fields, enableImages: enableImages, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -186,7 +186,7 @@ open class PlaylistsAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getPlaylistItemsWithRequestBuilder(playlistId: UUID, userId: UUID, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getPlaylistItemsWithRequestBuilder(playlistId: String, userId: String, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Playlists/{playlistId}/Items"
         let playlistIdPreEscape = "\(APIHelper.mapValueToPathItem(playlistId))"
         let playlistIdPostEscape = playlistIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

@@ -23,10 +23,10 @@ public struct BaseItem: Codable, Hashable {
     public var shortcutPath: String?
     public var width: Int?
     public var height: Int?
-    public var extraIds: [UUID]?
+    public var extraIds: [String]?
     public var supportsExternalTransfer: Bool?
 
-    public init(size: Int64? = nil, container: String? = nil, dateLastSaved: Date? = nil, remoteTrailers: [MediaUrl]? = nil, isHD: Bool? = nil, isShortcut: Bool? = nil, shortcutPath: String? = nil, width: Int? = nil, height: Int? = nil, extraIds: [UUID]? = nil, supportsExternalTransfer: Bool? = nil) {
+    public init(size: Int64? = nil, container: String? = nil, dateLastSaved: Date? = nil, remoteTrailers: [MediaUrl]? = nil, isHD: Bool? = nil, isShortcut: Bool? = nil, shortcutPath: String? = nil, width: Int? = nil, height: Int? = nil, extraIds: [String]? = nil, supportsExternalTransfer: Bool? = nil) {
         self.size = size
         self.container = container
         self.dateLastSaved = dateLastSaved

@@ -42,22 +42,22 @@ public struct UserPolicy: Codable, Hashable {
     public var enableMediaConversion: Bool?
     public var enabledDevices: [String]?
     public var enableAllDevices: Bool?
-    public var enabledChannels: [UUID]?
+    public var enabledChannels: [String]?
     public var enableAllChannels: Bool?
-    public var enabledFolders: [UUID]?
+    public var enabledFolders: [String]?
     public var enableAllFolders: Bool?
     public var invalidLoginAttemptCount: Int?
     public var loginAttemptsBeforeLockout: Int?
     public var maxActiveSessions: Int?
     public var enablePublicSharing: Bool?
-    public var blockedMediaFolders: [UUID]?
-    public var blockedChannels: [UUID]?
+    public var blockedMediaFolders: [String]?
+    public var blockedChannels: [String]?
     public var remoteClientBitrateLimit: Int?
     public var authenticationProviderId: String?
     public var passwordResetProviderId: String?
     public var syncPlayAccess: SyncPlayUserAccessType?
 
-    public init(isAdministrator: Bool? = nil, isHidden: Bool? = nil, isDisabled: Bool? = nil, maxParentalRating: Int? = nil, blockedTags: [String]? = nil, enableUserPreferenceAccess: Bool? = nil, accessSchedules: [AccessSchedule]? = nil, blockUnratedItems: [UnratedItem]? = nil, enableRemoteControlOfOtherUsers: Bool? = nil, enableSharedDeviceControl: Bool? = nil, enableRemoteAccess: Bool? = nil, enableLiveTvManagement: Bool? = nil, enableLiveTvAccess: Bool? = nil, enableMediaPlayback: Bool? = nil, enableAudioPlaybackTranscoding: Bool? = nil, enableVideoPlaybackTranscoding: Bool? = nil, enablePlaybackRemuxing: Bool? = nil, forceRemoteSourceTranscoding: Bool? = nil, enableContentDeletion: Bool? = nil, enableContentDeletionFromFolders: [String]? = nil, enableContentDownloading: Bool? = nil, enableSyncTranscoding: Bool? = nil, enableMediaConversion: Bool? = nil, enabledDevices: [String]? = nil, enableAllDevices: Bool? = nil, enabledChannels: [UUID]? = nil, enableAllChannels: Bool? = nil, enabledFolders: [UUID]? = nil, enableAllFolders: Bool? = nil, invalidLoginAttemptCount: Int? = nil, loginAttemptsBeforeLockout: Int? = nil, maxActiveSessions: Int? = nil, enablePublicSharing: Bool? = nil, blockedMediaFolders: [UUID]? = nil, blockedChannels: [UUID]? = nil, remoteClientBitrateLimit: Int? = nil, authenticationProviderId: String? = nil, passwordResetProviderId: String? = nil, syncPlayAccess: SyncPlayUserAccessType? = nil) {
+    public init(isAdministrator: Bool? = nil, isHidden: Bool? = nil, isDisabled: Bool? = nil, maxParentalRating: Int? = nil, blockedTags: [String]? = nil, enableUserPreferenceAccess: Bool? = nil, accessSchedules: [AccessSchedule]? = nil, blockUnratedItems: [UnratedItem]? = nil, enableRemoteControlOfOtherUsers: Bool? = nil, enableSharedDeviceControl: Bool? = nil, enableRemoteAccess: Bool? = nil, enableLiveTvManagement: Bool? = nil, enableLiveTvAccess: Bool? = nil, enableMediaPlayback: Bool? = nil, enableAudioPlaybackTranscoding: Bool? = nil, enableVideoPlaybackTranscoding: Bool? = nil, enablePlaybackRemuxing: Bool? = nil, forceRemoteSourceTranscoding: Bool? = nil, enableContentDeletion: Bool? = nil, enableContentDeletionFromFolders: [String]? = nil, enableContentDownloading: Bool? = nil, enableSyncTranscoding: Bool? = nil, enableMediaConversion: Bool? = nil, enabledDevices: [String]? = nil, enableAllDevices: Bool? = nil, enabledChannels: [String]? = nil, enableAllChannels: Bool? = nil, enabledFolders: [String]? = nil, enableAllFolders: Bool? = nil, invalidLoginAttemptCount: Int? = nil, loginAttemptsBeforeLockout: Int? = nil, maxActiveSessions: Int? = nil, enablePublicSharing: Bool? = nil, blockedMediaFolders: [String]? = nil, blockedChannels: [String]? = nil, remoteClientBitrateLimit: Int? = nil, authenticationProviderId: String? = nil, passwordResetProviderId: String? = nil, syncPlayAccess: SyncPlayUserAccessType? = nil) {
         self.isAdministrator = isAdministrator
         self.isHidden = isHidden
         self.isDisabled = isDisabled

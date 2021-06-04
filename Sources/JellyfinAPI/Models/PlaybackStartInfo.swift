@@ -17,7 +17,7 @@ public struct PlaybackStartInfo: Codable, Hashable {
     public var canSeek: Bool?
     public var item: BaseItemDto?
     /** Gets or sets the item identifier. */
-    public var itemId: UUID?
+    public var itemId: String?
     /** Gets or sets the session id. */
     public var sessionId: String?
     /** Gets or sets the media version identifier. */
@@ -46,7 +46,7 @@ public struct PlaybackStartInfo: Codable, Hashable {
     public var nowPlayingQueue: [QueueItem]?
     public var playlistItemId: String?
 
-    public init(canSeek: Bool? = nil, item: BaseItemDto? = nil, itemId: UUID? = nil, sessionId: String? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil, positionTicks: Int64? = nil, playbackStartTimeTicks: Int64? = nil, volumeLevel: Int? = nil, brightness: Int? = nil, aspectRatio: String? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, repeatMode: RepeatMode? = nil, nowPlayingQueue: [QueueItem]? = nil, playlistItemId: String? = nil) {
+    public init(canSeek: Bool? = nil, item: BaseItemDto? = nil, itemId: String? = nil, sessionId: String? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil, positionTicks: Int64? = nil, playbackStartTimeTicks: Int64? = nil, volumeLevel: Int? = nil, brightness: Int? = nil, aspectRatio: String? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, repeatMode: RepeatMode? = nil, nowPlayingQueue: [QueueItem]? = nil, playlistItemId: String? = nil) {
         self.canSeek = canSeek
         self.item = item
         self.itemId = itemId

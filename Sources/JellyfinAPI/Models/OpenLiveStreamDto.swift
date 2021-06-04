@@ -16,7 +16,7 @@ public struct OpenLiveStreamDto: Codable, Hashable {
     /** Gets or sets the open token. */
     public var openToken: String?
     /** Gets or sets the user id. */
-    public var userId: UUID?
+    public var userId: String?
     /** Gets or sets the play session id. */
     public var playSessionId: String?
     /** Gets or sets the max streaming bitrate. */
@@ -30,7 +30,7 @@ public struct OpenLiveStreamDto: Codable, Hashable {
     /** Gets or sets the max audio channels. */
     public var maxAudioChannels: Int?
     /** Gets or sets the item id. */
-    public var itemId: UUID?
+    public var itemId: String?
     /** Gets or sets a value indicating whether to enable direct play. */
     public var enableDirectPlay: Bool?
     /** Gets or sets a value indicating whether to enale direct stream. */
@@ -39,7 +39,7 @@ public struct OpenLiveStreamDto: Codable, Hashable {
     /** Gets or sets the device play protocols. */
     public var directPlayProtocols: [MediaProtocol]?
 
-    public init(openToken: String? = nil, userId: UUID? = nil, playSessionId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, itemId: UUID? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, deviceProfile: DeviceProfile? = nil, directPlayProtocols: [MediaProtocol]? = nil) {
+    public init(openToken: String? = nil, userId: String? = nil, playSessionId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, itemId: String? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, deviceProfile: DeviceProfile? = nil, directPlayProtocols: [MediaProtocol]? = nil) {
         self.openToken = openToken
         self.userId = userId
         self.playSessionId = playSessionId

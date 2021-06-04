@@ -128,7 +128,7 @@ open class MediaInfoAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPlaybackInfo(itemId: UUID, userId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<PlaybackInfoResponse, Error> {
+    open class func getPlaybackInfo(itemId: String, userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<PlaybackInfoResponse, Error> {
         return Future<PlaybackInfoResponse, Error>.init { promise in
             getPlaybackInfoWithRequestBuilder(itemId: itemId, userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -152,7 +152,7 @@ open class MediaInfoAPI {
      - parameter userId: (query) The user id. 
      - returns: RequestBuilder<PlaybackInfoResponse> 
      */
-    open class func getPlaybackInfoWithRequestBuilder(itemId: UUID, userId: UUID) -> RequestBuilder<PlaybackInfoResponse> {
+    open class func getPlaybackInfoWithRequestBuilder(itemId: String, userId: String) -> RequestBuilder<PlaybackInfoResponse> {
         var urlPath = "/Items/{itemId}/PlaybackInfo"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -200,7 +200,7 @@ open class MediaInfoAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPostedPlaybackInfo(itemId: UUID, userId: UUID? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, mediaSourceId: String? = nil, liveStreamId: String? = nil, autoOpenLiveStream: Bool? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, playbackInfoDto: PlaybackInfoDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<PlaybackInfoResponse, Error> {
+    open class func getPostedPlaybackInfo(itemId: String, userId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, mediaSourceId: String? = nil, liveStreamId: String? = nil, autoOpenLiveStream: Bool? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, playbackInfoDto: PlaybackInfoDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<PlaybackInfoResponse, Error> {
         return Future<PlaybackInfoResponse, Error>.init { promise in
             getPostedPlaybackInfoWithRequestBuilder(itemId: itemId, userId: userId, maxStreamingBitrate: maxStreamingBitrate, startTimeTicks: startTimeTicks, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, maxAudioChannels: maxAudioChannels, mediaSourceId: mediaSourceId, liveStreamId: liveStreamId, autoOpenLiveStream: autoOpenLiveStream, enableDirectPlay: enableDirectPlay, enableDirectStream: enableDirectStream, enableTranscoding: enableTranscoding, allowVideoStreamCopy: allowVideoStreamCopy, allowAudioStreamCopy: allowAudioStreamCopy, playbackInfoDto: playbackInfoDto).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -239,7 +239,7 @@ open class MediaInfoAPI {
      - parameter playbackInfoDto: (body) The playback info. (optional)
      - returns: RequestBuilder<PlaybackInfoResponse> 
      */
-    open class func getPostedPlaybackInfoWithRequestBuilder(itemId: UUID, userId: UUID? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, mediaSourceId: String? = nil, liveStreamId: String? = nil, autoOpenLiveStream: Bool? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, playbackInfoDto: PlaybackInfoDto? = nil) -> RequestBuilder<PlaybackInfoResponse> {
+    open class func getPostedPlaybackInfoWithRequestBuilder(itemId: String, userId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, mediaSourceId: String? = nil, liveStreamId: String? = nil, autoOpenLiveStream: Bool? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, playbackInfoDto: PlaybackInfoDto? = nil) -> RequestBuilder<PlaybackInfoResponse> {
         var urlPath = "/Items/{itemId}/PlaybackInfo"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -296,7 +296,7 @@ open class MediaInfoAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func openLiveStream(openToken: String? = nil, userId: UUID? = nil, playSessionId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, itemId: UUID? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, openLiveStreamDto: OpenLiveStreamDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<LiveStreamResponse, Error> {
+    open class func openLiveStream(openToken: String? = nil, userId: String? = nil, playSessionId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, itemId: String? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, openLiveStreamDto: OpenLiveStreamDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<LiveStreamResponse, Error> {
         return Future<LiveStreamResponse, Error>.init { promise in
             openLiveStreamWithRequestBuilder(openToken: openToken, userId: userId, playSessionId: playSessionId, maxStreamingBitrate: maxStreamingBitrate, startTimeTicks: startTimeTicks, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, maxAudioChannels: maxAudioChannels, itemId: itemId, enableDirectPlay: enableDirectPlay, enableDirectStream: enableDirectStream, openLiveStreamDto: openLiveStreamDto).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -330,7 +330,7 @@ open class MediaInfoAPI {
      - parameter openLiveStreamDto: (body) The open live stream dto. (optional)
      - returns: RequestBuilder<LiveStreamResponse> 
      */
-    open class func openLiveStreamWithRequestBuilder(openToken: String? = nil, userId: UUID? = nil, playSessionId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, itemId: UUID? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, openLiveStreamDto: OpenLiveStreamDto? = nil) -> RequestBuilder<LiveStreamResponse> {
+    open class func openLiveStreamWithRequestBuilder(openToken: String? = nil, userId: String? = nil, playSessionId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, itemId: String? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, openLiveStreamDto: OpenLiveStreamDto? = nil) -> RequestBuilder<LiveStreamResponse> {
         let urlPath = "/LiveStreams/Open"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: openLiveStreamDto)

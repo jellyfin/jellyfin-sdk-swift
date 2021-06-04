@@ -181,7 +181,7 @@ open class DevicesAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getDevices(supportsSync: Bool? = nil, userId: UUID? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<DeviceInfoQueryResult, Error> {
+    open class func getDevices(supportsSync: Bool? = nil, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<DeviceInfoQueryResult, Error> {
         return Future<DeviceInfoQueryResult, Error>.init { promise in
             getDevicesWithRequestBuilder(supportsSync: supportsSync, userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -205,7 +205,7 @@ open class DevicesAPI {
      - parameter userId: (query) Gets or sets the user identifier. (optional)
      - returns: RequestBuilder<DeviceInfoQueryResult> 
      */
-    open class func getDevicesWithRequestBuilder(supportsSync: Bool? = nil, userId: UUID? = nil) -> RequestBuilder<DeviceInfoQueryResult> {
+    open class func getDevicesWithRequestBuilder(supportsSync: Bool? = nil, userId: String? = nil) -> RequestBuilder<DeviceInfoQueryResult> {
         let urlPath = "/Devices"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil

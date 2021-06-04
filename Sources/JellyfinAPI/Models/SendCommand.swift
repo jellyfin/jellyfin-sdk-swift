@@ -14,9 +14,9 @@ import AnyCodable
 public struct SendCommand: Codable, Hashable {
 
     /** Gets the group identifier. */
-    public var groupId: UUID?
+    public var groupId: String?
     /** Gets the playlist identifier of the playing item. */
-    public var playlistItemId: UUID?
+    public var playlistItemId: String?
     /** Gets or sets the UTC time when to execute the command. */
     public var when: Date?
     /** Gets the position ticks. */
@@ -25,7 +25,7 @@ public struct SendCommand: Codable, Hashable {
     /** Gets the UTC time when this command has been emitted. */
     public var emittedAt: Date?
 
-    public init(groupId: UUID? = nil, playlistItemId: UUID? = nil, when: Date? = nil, positionTicks: Int64? = nil, command: SendCommandType? = nil, emittedAt: Date? = nil) {
+    public init(groupId: String? = nil, playlistItemId: String? = nil, when: Date? = nil, positionTicks: Int64? = nil, command: SendCommandType? = nil, emittedAt: Date? = nil) {
         self.groupId = groupId
         self.playlistItemId = playlistItemId
         self.when = when

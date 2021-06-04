@@ -13,10 +13,10 @@ import AnyCodable
 public struct GeneralCommand: Codable, Hashable {
 
     public var name: GeneralCommandType?
-    public var controllingUserId: UUID?
+    public var controllingUserId: String?
     public var arguments: [String: String]?
 
-    public init(name: GeneralCommandType? = nil, controllingUserId: UUID? = nil, arguments: [String: String]? = nil) {
+    public init(name: GeneralCommandType? = nil, controllingUserId: String? = nil, arguments: [String: String]? = nil) {
         self.name = name
         self.controllingUserId = controllingUserId
         self.arguments = arguments

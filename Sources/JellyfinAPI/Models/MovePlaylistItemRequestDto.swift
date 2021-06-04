@@ -14,11 +14,11 @@ import AnyCodable
 public struct MovePlaylistItemRequestDto: Codable, Hashable {
 
     /** Gets or sets the playlist identifier of the item. */
-    public var playlistItemId: UUID?
+    public var playlistItemId: String?
     /** Gets or sets the new position. */
     public var newIndex: Int?
 
-    public init(playlistItemId: UUID? = nil, newIndex: Int? = nil) {
+    public init(playlistItemId: String? = nil, newIndex: Int? = nil) {
         self.playlistItemId = playlistItemId
         self.newIndex = newIndex
     }

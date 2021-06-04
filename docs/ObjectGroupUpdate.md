@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**groupId** | **UUID** | Gets the group identifier. | [optional] [readonly] 
+**groupId** | **String** | Gets the group identifier. | [optional] [readonly] 
 **type** | [**GroupUpdateType**](GroupUpdateType.md) |  | [optional] 
 **data** | [**AnyCodable**](.md) | Gets the update data. | [optional] [readonly] 
 

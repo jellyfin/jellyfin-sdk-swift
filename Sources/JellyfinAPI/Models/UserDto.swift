@@ -20,7 +20,7 @@ public struct UserDto: Codable, Hashable {
     /** Gets or sets the name of the server.  This is not used by the server and is for client-side usage only. */
     public var serverName: String?
     /** Gets or sets the id. */
-    public var id: UUID?
+    public var id: String?
     /** Gets or sets the primary image tag. */
     public var primaryImageTag: String?
     /** Gets or sets a value indicating whether this instance has password. */
@@ -40,7 +40,7 @@ public struct UserDto: Codable, Hashable {
     /** Gets or sets the primary image aspect ratio. */
     public var primaryImageAspectRatio: Double?
 
-    public init(name: String? = nil, serverId: String? = nil, serverName: String? = nil, id: UUID? = nil, primaryImageTag: String? = nil, hasPassword: Bool? = nil, hasConfiguredPassword: Bool? = nil, hasConfiguredEasyPassword: Bool? = nil, enableAutoLogin: Bool? = nil, lastLoginDate: Date? = nil, lastActivityDate: Date? = nil, configuration: UserConfiguration? = nil, policy: UserPolicy? = nil, primaryImageAspectRatio: Double? = nil) {
+    public init(name: String? = nil, serverId: String? = nil, serverName: String? = nil, id: String? = nil, primaryImageTag: String? = nil, hasPassword: Bool? = nil, hasConfiguredPassword: Bool? = nil, hasConfiguredEasyPassword: Bool? = nil, enableAutoLogin: Bool? = nil, lastLoginDate: Date? = nil, lastActivityDate: Date? = nil, configuration: UserConfiguration? = nil, policy: UserPolicy? = nil, primaryImageAspectRatio: Double? = nil) {
         self.name = name
         self.serverId = serverId
         self.serverName = serverName

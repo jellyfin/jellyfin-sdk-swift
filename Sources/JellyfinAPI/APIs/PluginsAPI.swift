@@ -22,7 +22,7 @@ open class PluginsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func disablePlugin(pluginId: UUID, version: Version, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func disablePlugin(pluginId: String, version: Version, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             disablePluginWithRequestBuilder(pluginId: pluginId, version: version).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -46,7 +46,7 @@ open class PluginsAPI {
      - parameter version: (path) Plugin version. 
      - returns: RequestBuilder<Void> 
      */
-    open class func disablePluginWithRequestBuilder(pluginId: UUID, version: Version) -> RequestBuilder<Void> {
+    open class func disablePluginWithRequestBuilder(pluginId: String, version: Version) -> RequestBuilder<Void> {
         var urlPath = "/Plugins/{pluginId}/{version}/Disable"
         let pluginIdPreEscape = "\(APIHelper.mapValueToPathItem(pluginId))"
         let pluginIdPostEscape = pluginIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -80,7 +80,7 @@ open class PluginsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func enablePlugin(pluginId: UUID, version: Version, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func enablePlugin(pluginId: String, version: Version, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             enablePluginWithRequestBuilder(pluginId: pluginId, version: version).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -104,7 +104,7 @@ open class PluginsAPI {
      - parameter version: (path) Plugin version. 
      - returns: RequestBuilder<Void> 
      */
-    open class func enablePluginWithRequestBuilder(pluginId: UUID, version: Version) -> RequestBuilder<Void> {
+    open class func enablePluginWithRequestBuilder(pluginId: String, version: Version) -> RequestBuilder<Void> {
         var urlPath = "/Plugins/{pluginId}/{version}/Enable"
         let pluginIdPreEscape = "\(APIHelper.mapValueToPathItem(pluginId))"
         let pluginIdPostEscape = pluginIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -137,7 +137,7 @@ open class PluginsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPluginConfiguration(pluginId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<AnyCodable, Error> {
+    open class func getPluginConfiguration(pluginId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<AnyCodable, Error> {
         return Future<AnyCodable, Error>.init { promise in
             getPluginConfigurationWithRequestBuilder(pluginId: pluginId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -160,7 +160,7 @@ open class PluginsAPI {
      - parameter pluginId: (path) Plugin id. 
      - returns: RequestBuilder<AnyCodable> 
      */
-    open class func getPluginConfigurationWithRequestBuilder(pluginId: UUID) -> RequestBuilder<AnyCodable> {
+    open class func getPluginConfigurationWithRequestBuilder(pluginId: String) -> RequestBuilder<AnyCodable> {
         var urlPath = "/Plugins/{pluginId}/Configuration"
         let pluginIdPreEscape = "\(APIHelper.mapValueToPathItem(pluginId))"
         let pluginIdPostEscape = pluginIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -191,7 +191,7 @@ open class PluginsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPluginImage(pluginId: UUID, version: Version, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getPluginImage(pluginId: String, version: Version, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getPluginImageWithRequestBuilder(pluginId: pluginId, version: version).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -215,7 +215,7 @@ open class PluginsAPI {
      - parameter version: (path) Plugin version. 
      - returns: RequestBuilder<URL> 
      */
-    open class func getPluginImageWithRequestBuilder(pluginId: UUID, version: Version) -> RequestBuilder<URL> {
+    open class func getPluginImageWithRequestBuilder(pluginId: String, version: Version) -> RequestBuilder<URL> {
         var urlPath = "/Plugins/{pluginId}/{version}/Image"
         let pluginIdPreEscape = "\(APIHelper.mapValueToPathItem(pluginId))"
         let pluginIdPostEscape = pluginIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -248,7 +248,7 @@ open class PluginsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPluginManifest(pluginId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func getPluginManifest(pluginId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             getPluginManifestWithRequestBuilder(pluginId: pluginId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -271,7 +271,7 @@ open class PluginsAPI {
      - parameter pluginId: (path) Plugin id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func getPluginManifestWithRequestBuilder(pluginId: UUID) -> RequestBuilder<Void> {
+    open class func getPluginManifestWithRequestBuilder(pluginId: String) -> RequestBuilder<Void> {
         var urlPath = "/Plugins/{pluginId}/Manifest"
         let pluginIdPreEscape = "\(APIHelper.mapValueToPathItem(pluginId))"
         let pluginIdPostEscape = pluginIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -350,7 +350,7 @@ open class PluginsAPI {
     #if canImport(Combine)
     @available(*, deprecated, message: "This operation is deprecated.")
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func uninstallPlugin(pluginId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func uninstallPlugin(pluginId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             uninstallPluginWithRequestBuilder(pluginId: pluginId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -374,7 +374,7 @@ open class PluginsAPI {
      - returns: RequestBuilder<Void> 
      */
     @available(*, deprecated, message: "This operation is deprecated.")
-    open class func uninstallPluginWithRequestBuilder(pluginId: UUID) -> RequestBuilder<Void> {
+    open class func uninstallPluginWithRequestBuilder(pluginId: String) -> RequestBuilder<Void> {
         var urlPath = "/Plugins/{pluginId}"
         let pluginIdPreEscape = "\(APIHelper.mapValueToPathItem(pluginId))"
         let pluginIdPostEscape = pluginIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -405,7 +405,7 @@ open class PluginsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func uninstallPluginByVersion(pluginId: UUID, version: Version, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func uninstallPluginByVersion(pluginId: String, version: Version, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             uninstallPluginByVersionWithRequestBuilder(pluginId: pluginId, version: version).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -429,7 +429,7 @@ open class PluginsAPI {
      - parameter version: (path) Plugin version. 
      - returns: RequestBuilder<Void> 
      */
-    open class func uninstallPluginByVersionWithRequestBuilder(pluginId: UUID, version: Version) -> RequestBuilder<Void> {
+    open class func uninstallPluginByVersionWithRequestBuilder(pluginId: String, version: Version) -> RequestBuilder<Void> {
         var urlPath = "/Plugins/{pluginId}/{version}"
         let pluginIdPreEscape = "\(APIHelper.mapValueToPathItem(pluginId))"
         let pluginIdPostEscape = pluginIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -462,7 +462,7 @@ open class PluginsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updatePluginConfiguration(pluginId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updatePluginConfiguration(pluginId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updatePluginConfigurationWithRequestBuilder(pluginId: pluginId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -486,7 +486,7 @@ open class PluginsAPI {
      - parameter pluginId: (path) Plugin id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updatePluginConfigurationWithRequestBuilder(pluginId: UUID) -> RequestBuilder<Void> {
+    open class func updatePluginConfigurationWithRequestBuilder(pluginId: String) -> RequestBuilder<Void> {
         var urlPath = "/Plugins/{pluginId}/Configuration"
         let pluginIdPreEscape = "\(APIHelper.mapValueToPathItem(pluginId))"
         let pluginIdPostEscape = pluginIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

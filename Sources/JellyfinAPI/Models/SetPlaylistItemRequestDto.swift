@@ -14,9 +14,9 @@ import AnyCodable
 public struct SetPlaylistItemRequestDto: Codable, Hashable {
 
     /** Gets or sets the playlist identifier of the playing item. */
-    public var playlistItemId: UUID?
+    public var playlistItemId: String?
 
-    public init(playlistItemId: UUID? = nil) {
+    public init(playlistItemId: String? = nil) {
         self.playlistItemId = playlistItemId
     }
 

@@ -26,7 +26,7 @@ open class SuggestionsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSuggestions(userId: UUID, mediaType: [String]? = nil, type: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getSuggestions(userId: String, mediaType: [String]? = nil, type: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getSuggestionsWithRequestBuilder(userId: userId, mediaType: mediaType, type: type, startIndex: startIndex, limit: limit, enableTotalRecordCount: enableTotalRecordCount).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -54,7 +54,7 @@ open class SuggestionsAPI {
      - parameter enableTotalRecordCount: (query) Whether to enable the total record count. (optional, default to false)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getSuggestionsWithRequestBuilder(userId: UUID, mediaType: [String]? = nil, type: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getSuggestionsWithRequestBuilder(userId: String, mediaType: [String]? = nil, type: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Users/{userId}/Suggestions"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

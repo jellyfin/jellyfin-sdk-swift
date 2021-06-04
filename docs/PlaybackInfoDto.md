@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **UUID** | Gets or sets the playback userId. | [optional] 
+**userId** | **String** | Gets or sets the playback userId. | [optional] 
 **maxStreamingBitrate** | **Int** | Gets or sets the max streaming bitrate. | [optional] 
 **startTimeTicks** | **Int64** | Gets or sets the start time in ticks. | [optional] 
 **audioStreamIndex** | **Int** | Gets or sets the audio stream index. | [optional] 

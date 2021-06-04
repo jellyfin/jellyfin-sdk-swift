@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **remoteEndPoint** | **String** | Gets or sets the remote end point. | [optional] 
 **playableMediaTypes** | **[String]** | Gets or sets the playable media types. | [optional] [readonly] 
 **id** | **String** | Gets or sets the id. | [optional] 
-**userId** | **UUID** | Gets or sets the user id. | [optional] 
+**userId** | **String** | Gets or sets the user id. | [optional] 
 **userName** | **String** | Gets or sets the username. | [optional] 
 **client** | **String** | Gets or sets the type of the client. | [optional] 
 **lastActivityDate** | **Date** | Gets or sets the last activity date. | [optional] 

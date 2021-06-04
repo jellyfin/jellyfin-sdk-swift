@@ -14,10 +14,10 @@ import AnyCodable
 public struct QueueRequestDto: Codable, Hashable {
 
     /** Gets or sets the items to enqueue. */
-    public var itemIds: [UUID]?
+    public var itemIds: [String]?
     public var mode: GroupQueueMode?
 
-    public init(itemIds: [UUID]? = nil, mode: GroupQueueMode? = nil) {
+    public init(itemIds: [String]? = nil, mode: GroupQueueMode? = nil) {
         self.itemIds = itemIds
         self.mode = mode
     }

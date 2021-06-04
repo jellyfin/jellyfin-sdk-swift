@@ -14,18 +14,18 @@ import AnyCodable
 public struct PlayRequest: Codable, Hashable {
 
     /** Gets or sets the item ids. */
-    public var itemIds: [UUID]?
+    public var itemIds: [String]?
     /** Gets or sets the start position ticks that the first item should be played at. */
     public var startPositionTicks: Int64?
     public var playCommand: PlayCommand?
     /** Gets or sets the controlling user identifier. */
-    public var controllingUserId: UUID?
+    public var controllingUserId: String?
     public var subtitleStreamIndex: Int?
     public var audioStreamIndex: Int?
     public var mediaSourceId: String?
     public var startIndex: Int?
 
-    public init(itemIds: [UUID]? = nil, startPositionTicks: Int64? = nil, playCommand: PlayCommand? = nil, controllingUserId: UUID? = nil, subtitleStreamIndex: Int? = nil, audioStreamIndex: Int? = nil, mediaSourceId: String? = nil, startIndex: Int? = nil) {
+    public init(itemIds: [String]? = nil, startPositionTicks: Int64? = nil, playCommand: PlayCommand? = nil, controllingUserId: String? = nil, subtitleStreamIndex: Int? = nil, audioStreamIndex: Int? = nil, mediaSourceId: String? = nil, startIndex: Int? = nil) {
         self.itemIds = itemIds
         self.startPositionTicks = startPositionTicks
         self.playCommand = playCommand

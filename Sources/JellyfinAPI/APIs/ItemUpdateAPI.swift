@@ -21,7 +21,7 @@ open class ItemUpdateAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMetadataEditorInfo(itemId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<MetadataEditorInfo, Error> {
+    open class func getMetadataEditorInfo(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<MetadataEditorInfo, Error> {
         return Future<MetadataEditorInfo, Error>.init { promise in
             getMetadataEditorInfoWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -44,7 +44,7 @@ open class ItemUpdateAPI {
      - parameter itemId: (path) The item id. 
      - returns: RequestBuilder<MetadataEditorInfo> 
      */
-    open class func getMetadataEditorInfoWithRequestBuilder(itemId: UUID) -> RequestBuilder<MetadataEditorInfo> {
+    open class func getMetadataEditorInfoWithRequestBuilder(itemId: String) -> RequestBuilder<MetadataEditorInfo> {
         var urlPath = "/Items/{itemId}/MetadataEditor"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -75,7 +75,7 @@ open class ItemUpdateAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateItem(itemId: UUID, baseItemDto: BaseItemDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateItem(itemId: String, baseItemDto: BaseItemDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateItemWithRequestBuilder(itemId: itemId, baseItemDto: baseItemDto).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -99,7 +99,7 @@ open class ItemUpdateAPI {
      - parameter baseItemDto: (body) The new item properties. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateItemWithRequestBuilder(itemId: UUID, baseItemDto: BaseItemDto) -> RequestBuilder<Void> {
+    open class func updateItemWithRequestBuilder(itemId: String, baseItemDto: BaseItemDto) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -130,7 +130,7 @@ open class ItemUpdateAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateItemContentType(itemId: UUID, contentType: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateItemContentType(itemId: String, contentType: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateItemContentTypeWithRequestBuilder(itemId: itemId, contentType: contentType).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -154,7 +154,7 @@ open class ItemUpdateAPI {
      - parameter contentType: (query) The content type of the item. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func updateItemContentTypeWithRequestBuilder(itemId: UUID, contentType: String? = nil) -> RequestBuilder<Void> {
+    open class func updateItemContentTypeWithRequestBuilder(itemId: String, contentType: String? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/ContentType"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

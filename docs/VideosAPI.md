@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 # **deleteAlternateSources**
 ```swift
-    open class func deleteAlternateSources(itemId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteAlternateSources(itemId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Removes alternate video sources.
@@ -25,7 +25,7 @@ Removes alternate video sources.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 
 // Removes alternate video sources.
 VideosAPI.deleteAlternateSources(itemId: itemId) { (response, error) in
@@ -44,7 +44,7 @@ VideosAPI.deleteAlternateSources(itemId: itemId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
 
 ### Return type
 
@@ -63,7 +63,7 @@ Void (empty response body)
 
 # **getAdditionalPart**
 ```swift
-    open class func getAdditionalPart(itemId: UUID, userId: UUID? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getAdditionalPart(itemId: String, userId: String? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets additional parts for a video.
@@ -73,8 +73,8 @@ Gets additional parts for a video.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let itemId = "itemId_example" // String | The item id.
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 
 // Gets additional parts for a video.
 VideosAPI.getAdditionalPart(itemId: itemId, userId: userId) { (response, error) in
@@ -93,8 +93,8 @@ VideosAPI.getAdditionalPart(itemId: itemId, userId: userId) { (response, error) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
 
 ### Return type
 
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 
 # **getVideoStream**
 ```swift
-    open class func getVideoStream(itemId: UUID, container: String? = nil, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getVideoStream(itemId: String, container: String? = nil, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream.
@@ -123,7 +123,7 @@ Gets a video stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let container = "container_example" // String | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. (optional)
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
@@ -190,7 +190,7 @@ VideosAPI.getVideoStream(itemId: itemId, container: container, _static: _static,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **container** | **String** | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. | [optional] 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -257,7 +257,7 @@ No authorization required
 
 # **getVideoStreamByContainer**
 ```swift
-    open class func getVideoStreamByContainer(itemId: UUID, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getVideoStreamByContainer(itemId: String, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream.
@@ -267,7 +267,7 @@ Gets a video stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let container = "container_example" // String | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
@@ -334,7 +334,7 @@ VideosAPI.getVideoStreamByContainer(itemId: itemId, container: container, _stati
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **container** | **String** | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -401,7 +401,7 @@ No authorization required
 
 # **headVideoStream**
 ```swift
-    open class func headVideoStream(itemId: UUID, container: String? = nil, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headVideoStream(itemId: String, container: String? = nil, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream.
@@ -411,7 +411,7 @@ Gets a video stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let container = "container_example" // String | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. (optional)
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
@@ -478,7 +478,7 @@ VideosAPI.headVideoStream(itemId: itemId, container: container, _static: _static
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **container** | **String** | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. | [optional] 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -545,7 +545,7 @@ No authorization required
 
 # **headVideoStreamByContainer**
 ```swift
-    open class func headVideoStreamByContainer(itemId: UUID, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headVideoStreamByContainer(itemId: String, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream.
@@ -555,7 +555,7 @@ Gets a video stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let container = "container_example" // String | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
@@ -622,7 +622,7 @@ VideosAPI.headVideoStreamByContainer(itemId: itemId, container: container, _stat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **container** | **String** | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -689,7 +689,7 @@ No authorization required
 
 # **mergeVersions**
 ```swift
-    open class func mergeVersions(ids: [UUID], completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func mergeVersions(ids: [String], completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Merges videos into a single record.
@@ -699,7 +699,7 @@ Merges videos into a single record.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let ids = [123] // [UUID] | Item id list. This allows multiple, comma delimited.
+let ids = ["inner_example"] // [String] | Item id list. This allows multiple, comma delimited.
 
 // Merges videos into a single record.
 VideosAPI.mergeVersions(ids: ids) { (response, error) in
@@ -718,7 +718,7 @@ VideosAPI.mergeVersions(ids: ids) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ids** | [**[UUID]**](UUID.md) | Item id list. This allows multiple, comma delimited. | 
+ **ids** | [**[String]**](String.md) | Item id list. This allows multiple, comma delimited. | 
 
 ### Return type
 

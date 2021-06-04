@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **shortcutPath** | **String** |  | [optional] 
 **width** | **Int** |  | [optional] 
 **height** | **Int** |  | [optional] 
-**extraIds** | **[UUID]** |  | [optional] 
+**extraIds** | **[String]** |  | [optional] 
 **supportsExternalTransfer** | **Bool** |  | [optional] [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

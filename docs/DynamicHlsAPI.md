@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 # **getHlsAudioSegment**
 ```swift
-    open class func getHlsAudioSegment(itemId: UUID, playlistId: String, segmentId: Int, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getHlsAudioSegment(itemId: String, playlistId: String, segmentId: Int, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream using HTTP live streaming.
@@ -26,7 +26,7 @@ Gets a video stream using HTTP live streaming.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let playlistId = "playlistId_example" // String | The playlist id.
 let segmentId = 987 // Int | The segment id.
 let container = "container_example" // String | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.
@@ -96,7 +96,7 @@ DynamicHlsAPI.getHlsAudioSegment(itemId: itemId, playlistId: playlistId, segment
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **playlistId** | **String** | The playlist id. | 
  **segmentId** | **Int** | The segment id. | 
  **container** | **String** | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. | 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 # **getHlsVideoSegment**
 ```swift
-    open class func getHlsVideoSegment(itemId: UUID, playlistId: String, segmentId: Int, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getHlsVideoSegment(itemId: String, playlistId: String, segmentId: Int, container: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream using HTTP live streaming.
@@ -176,7 +176,7 @@ Gets a video stream using HTTP live streaming.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let playlistId = "playlistId_example" // String | The playlist id.
 let segmentId = 987 // Int | The segment id.
 let container = "container_example" // String | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.
@@ -245,7 +245,7 @@ DynamicHlsAPI.getHlsVideoSegment(itemId: itemId, playlistId: playlistId, segment
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **playlistId** | **String** | The playlist id. | 
  **segmentId** | **Int** | The segment id. | 
  **container** | **String** | The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv. | 
@@ -314,7 +314,7 @@ Name | Type | Description  | Notes
 
 # **getMasterHlsAudioPlaylist**
 ```swift
-    open class func getMasterHlsAudioPlaylist(itemId: UUID, mediaSourceId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, enableAdaptiveBitrateStreaming: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getMasterHlsAudioPlaylist(itemId: String, mediaSourceId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, enableAdaptiveBitrateStreaming: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets an audio hls playlist stream.
@@ -324,7 +324,7 @@ Gets an audio hls playlist stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
@@ -392,7 +392,7 @@ DynamicHlsAPI.getMasterHlsAudioPlaylist(itemId: itemId, mediaSourceId: mediaSour
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -460,7 +460,7 @@ Name | Type | Description  | Notes
 
 # **getMasterHlsVideoPlaylist**
 ```swift
-    open class func getMasterHlsVideoPlaylist(itemId: UUID, mediaSourceId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, enableAdaptiveBitrateStreaming: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getMasterHlsVideoPlaylist(itemId: String, mediaSourceId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, enableAdaptiveBitrateStreaming: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video hls playlist stream.
@@ -470,7 +470,7 @@ Gets a video hls playlist stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
@@ -537,7 +537,7 @@ DynamicHlsAPI.getMasterHlsVideoPlaylist(itemId: itemId, mediaSourceId: mediaSour
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -604,7 +604,7 @@ Name | Type | Description  | Notes
 
 # **getVariantHlsAudioPlaylist**
 ```swift
-    open class func getVariantHlsAudioPlaylist(itemId: UUID, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getVariantHlsAudioPlaylist(itemId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets an audio stream using HTTP live streaming.
@@ -614,7 +614,7 @@ Gets an audio stream using HTTP live streaming.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
 let tag = "tag_example" // String | The tag. (optional)
@@ -681,7 +681,7 @@ DynamicHlsAPI.getVariantHlsAudioPlaylist(itemId: itemId, _static: _static, param
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
  **tag** | **String** | The tag. | [optional] 
@@ -748,7 +748,7 @@ Name | Type | Description  | Notes
 
 # **getVariantHlsVideoPlaylist**
 ```swift
-    open class func getVariantHlsVideoPlaylist(itemId: UUID, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getVariantHlsVideoPlaylist(itemId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, mediaSourceId: String? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video stream using HTTP live streaming.
@@ -758,7 +758,7 @@ Gets a video stream using HTTP live streaming.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
 let tag = "tag_example" // String | The tag. (optional)
@@ -824,7 +824,7 @@ DynamicHlsAPI.getVariantHlsVideoPlaylist(itemId: itemId, _static: _static, param
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
  **tag** | **String** | The tag. | [optional] 
@@ -890,7 +890,7 @@ Name | Type | Description  | Notes
 
 # **headMasterHlsAudioPlaylist**
 ```swift
-    open class func headMasterHlsAudioPlaylist(itemId: UUID, mediaSourceId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, enableAdaptiveBitrateStreaming: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headMasterHlsAudioPlaylist(itemId: String, mediaSourceId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, maxStreamingBitrate: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, enableAdaptiveBitrateStreaming: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets an audio hls playlist stream.
@@ -900,7 +900,7 @@ Gets an audio hls playlist stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
@@ -968,7 +968,7 @@ DynamicHlsAPI.headMasterHlsAudioPlaylist(itemId: itemId, mediaSourceId: mediaSou
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -1036,7 +1036,7 @@ Name | Type | Description  | Notes
 
 # **headMasterHlsVideoPlaylist**
 ```swift
-    open class func headMasterHlsVideoPlaylist(itemId: UUID, mediaSourceId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, enableAdaptiveBitrateStreaming: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headMasterHlsVideoPlaylist(itemId: String, mediaSourceId: String, _static: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileId: String? = nil, playSessionId: String? = nil, segmentContainer: String? = nil, segmentLength: Int? = nil, minSegments: Int? = nil, deviceId: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, breakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int? = nil, maxAudioBitDepth: Int? = nil, audioBitRate: Int? = nil, audioChannels: Int? = nil, maxAudioChannels: Int? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, copyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int? = nil, height: Int? = nil, videoBitRate: Int? = nil, subtitleStreamIndex: Int? = nil, subtitleMethod: SubtitleDeliveryMethod? = nil, maxRefFrames: Int? = nil, maxVideoBitDepth: Int? = nil, requireAvc: Bool? = nil, deInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int? = nil, cpuCoreLimit: Int? = nil, liveStreamId: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int? = nil, videoStreamIndex: Int? = nil, context: EncodingContext? = nil, streamOptions: [String: String]? = nil, enableAdaptiveBitrateStreaming: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a video hls playlist stream.
@@ -1046,7 +1046,7 @@ Gets a video hls playlist stream.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let mediaSourceId = "mediaSourceId_example" // String | The media version id, if playing an alternate version.
 let _static = true // Bool | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. (optional)
 let params = "params_example" // String | The streaming parameters. (optional)
@@ -1113,7 +1113,7 @@ DynamicHlsAPI.headMasterHlsVideoPlaylist(itemId: itemId, mediaSourceId: mediaSou
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 

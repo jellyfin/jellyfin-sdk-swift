@@ -20,9 +20,9 @@ public struct ThemeMediaResult: Codable, Hashable {
     /** The index of the first record in Items. */
     public var startIndex: Int?
     /** Gets or sets the owner id. */
-    public var ownerId: UUID?
+    public var ownerId: String?
 
-    public init(items: [BaseItemDto]? = nil, totalRecordCount: Int? = nil, startIndex: Int? = nil, ownerId: UUID? = nil) {
+    public init(items: [BaseItemDto]? = nil, totalRecordCount: Int? = nil, startIndex: Int? = nil, ownerId: String? = nil) {
         self.items = items
         self.totalRecordCount = totalRecordCount
         self.startIndex = startIndex

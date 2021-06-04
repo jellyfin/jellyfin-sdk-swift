@@ -23,7 +23,7 @@ public struct SessionInfo: Codable, Hashable {
     /** Gets or sets the id. */
     public var id: String?
     /** Gets or sets the user id. */
-    public var userId: UUID?
+    public var userId: String?
     /** Gets or sets the username. */
     public var userName: String?
     /** Gets or sets the type of the client. */
@@ -56,7 +56,7 @@ public struct SessionInfo: Codable, Hashable {
     /** Gets or sets the supported commands. */
     public var supportedCommands: [GeneralCommandType]?
 
-    public init(playState: PlayerStateInfo? = nil, additionalUsers: [SessionUserInfo]? = nil, capabilities: ClientCapabilities? = nil, remoteEndPoint: String? = nil, playableMediaTypes: [String]? = nil, id: String? = nil, userId: UUID? = nil, userName: String? = nil, client: String? = nil, lastActivityDate: Date? = nil, lastPlaybackCheckIn: Date? = nil, deviceName: String? = nil, deviceType: String? = nil, nowPlayingItem: BaseItemDto? = nil, fullNowPlayingItem: BaseItem? = nil, nowViewingItem: BaseItemDto? = nil, deviceId: String? = nil, applicationVersion: String? = nil, transcodingInfo: TranscodingInfo? = nil, isActive: Bool? = nil, supportsMediaControl: Bool? = nil, supportsRemoteControl: Bool? = nil, nowPlayingQueue: [QueueItem]? = nil, hasCustomDeviceName: Bool? = nil, playlistItemId: String? = nil, serverId: String? = nil, userPrimaryImageTag: String? = nil, supportedCommands: [GeneralCommandType]? = nil) {
+    public init(playState: PlayerStateInfo? = nil, additionalUsers: [SessionUserInfo]? = nil, capabilities: ClientCapabilities? = nil, remoteEndPoint: String? = nil, playableMediaTypes: [String]? = nil, id: String? = nil, userId: String? = nil, userName: String? = nil, client: String? = nil, lastActivityDate: Date? = nil, lastPlaybackCheckIn: Date? = nil, deviceName: String? = nil, deviceType: String? = nil, nowPlayingItem: BaseItemDto? = nil, fullNowPlayingItem: BaseItem? = nil, nowViewingItem: BaseItemDto? = nil, deviceId: String? = nil, applicationVersion: String? = nil, transcodingInfo: TranscodingInfo? = nil, isActive: Bool? = nil, supportsMediaControl: Bool? = nil, supportsRemoteControl: Bool? = nil, nowPlayingQueue: [QueueItem]? = nil, hasCustomDeviceName: Bool? = nil, playlistItemId: String? = nil, serverId: String? = nil, userPrimaryImageTag: String? = nil, supportedCommands: [GeneralCommandType]? = nil) {
         self.playState = playState
         self.additionalUsers = additionalUsers
         self.capabilities = capabilities

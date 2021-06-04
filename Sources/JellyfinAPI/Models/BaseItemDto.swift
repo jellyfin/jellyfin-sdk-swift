@@ -19,7 +19,7 @@ public struct BaseItemDto: Codable, Hashable {
     /** Gets or sets the server identifier. */
     public var serverId: String?
     /** Gets or sets the id. */
-    public var id: UUID?
+    public var id: String?
     /** Gets or sets the etag. */
     public var etag: String?
     /** Gets or sets the type of the source. */
@@ -62,7 +62,7 @@ public struct BaseItemDto: Codable, Hashable {
     /** Gets or sets the custom rating. */
     public var customRating: String?
     /** Gets or sets the channel identifier. */
-    public var channelId: UUID?
+    public var channelId: String?
     public var channelName: String?
     /** Gets or sets the overview. */
     public var overview: String?
@@ -101,7 +101,7 @@ public struct BaseItemDto: Codable, Hashable {
     /** Gets or sets a value indicating whether this instance is folder. */
     public var isFolder: Bool?
     /** Gets or sets the parent id. */
-    public var parentId: UUID?
+    public var parentId: String?
     /** Gets or sets the type. */
     public var type: String?
     /** Gets or sets the people. */
@@ -125,9 +125,9 @@ public struct BaseItemDto: Codable, Hashable {
     /** Gets or sets the name of the series. */
     public var seriesName: String?
     /** Gets or sets the series id. */
-    public var seriesId: UUID?
+    public var seriesId: String?
     /** Gets or sets the season identifier. */
-    public var seasonId: UUID?
+    public var seasonId: String?
     /** Gets or sets the special feature count. */
     public var specialFeatureCount: Int?
     /** Gets or sets the display preferences id. */
@@ -153,7 +153,7 @@ public struct BaseItemDto: Codable, Hashable {
     /** Gets or sets the display order. */
     public var displayOrder: String?
     /** Gets or sets the album id. */
-    public var albumId: UUID?
+    public var albumId: String?
     /** Gets or sets the album image tag. */
     public var albumPrimaryImageTag: String?
     /** Gets or sets the series primary image tag. */
@@ -270,7 +270,7 @@ public struct BaseItemDto: Codable, Hashable {
     /** Gets or sets the timer identifier. */
     public var timerId: String?
 
-    public init(name: String? = nil, originalTitle: String? = nil, serverId: String? = nil, id: UUID? = nil, etag: String? = nil, sourceType: String? = nil, playlistItemId: String? = nil, dateCreated: Date? = nil, dateLastMediaAdded: Date? = nil, extraType: String? = nil, airsBeforeSeasonNumber: Int? = nil, airsAfterSeasonNumber: Int? = nil, airsBeforeEpisodeNumber: Int? = nil, canDelete: Bool? = nil, canDownload: Bool? = nil, hasSubtitles: Bool? = nil, preferredMetadataLanguage: String? = nil, preferredMetadataCountryCode: String? = nil, supportsSync: Bool? = nil, container: String? = nil, sortName: String? = nil, forcedSortName: String? = nil, video3DFormat: Video3DFormat? = nil, premiereDate: Date? = nil, externalUrls: [ExternalUrl]? = nil, mediaSources: [MediaSourceInfo]? = nil, criticRating: Float? = nil, productionLocations: [String]? = nil, path: String? = nil, enableMediaSourceDisplay: Bool? = nil, officialRating: String? = nil, customRating: String? = nil, channelId: UUID? = nil, channelName: String? = nil, overview: String? = nil, taglines: [String]? = nil, genres: [String]? = nil, communityRating: Float? = nil, cumulativeRunTimeTicks: Int64? = nil, runTimeTicks: Int64? = nil, playAccess: PlayAccess? = nil, aspectRatio: String? = nil, productionYear: Int? = nil, isPlaceHolder: Bool? = nil, number: String? = nil, channelNumber: String? = nil, indexNumber: Int? = nil, indexNumberEnd: Int? = nil, parentIndexNumber: Int? = nil, remoteTrailers: [MediaUrl]? = nil, providerIds: [String: String]? = nil, isHD: Bool? = nil, isFolder: Bool? = nil, parentId: UUID? = nil, type: String? = nil, people: [BaseItemPerson]? = nil, studios: [NameGuidPair]? = nil, genreItems: [NameGuidPair]? = nil, parentLogoItemId: String? = nil, parentBackdropItemId: String? = nil, parentBackdropImageTags: [String]? = nil, localTrailerCount: Int? = nil, userData: UserItemDataDto? = nil, recursiveItemCount: Int? = nil, childCount: Int? = nil, seriesName: String? = nil, seriesId: UUID? = nil, seasonId: UUID? = nil, specialFeatureCount: Int? = nil, displayPreferencesId: String? = nil, status: String? = nil, airTime: String? = nil, airDays: [DayOfWeek]? = nil, tags: [String]? = nil, primaryImageAspectRatio: Double? = nil, artists: [String]? = nil, artistItems: [NameGuidPair]? = nil, album: String? = nil, collectionType: String? = nil, displayOrder: String? = nil, albumId: UUID? = nil, albumPrimaryImageTag: String? = nil, seriesPrimaryImageTag: String? = nil, albumArtist: String? = nil, albumArtists: [NameGuidPair]? = nil, seasonName: String? = nil, mediaStreams: [MediaStream]? = nil, videoType: VideoType? = nil, partCount: Int? = nil, mediaSourceCount: Int? = nil, imageTags: [String: String]? = nil, backdropImageTags: [String]? = nil, screenshotImageTags: [String]? = nil, parentLogoImageTag: String? = nil, parentArtItemId: String? = nil, parentArtImageTag: String? = nil, seriesThumbImageTag: String? = nil, imageBlurHashes: BaseItemDtoImageBlurHashes? = nil, seriesStudio: String? = nil, parentThumbItemId: String? = nil, parentThumbImageTag: String? = nil, parentPrimaryImageItemId: String? = nil, parentPrimaryImageTag: String? = nil, chapters: [ChapterInfo]? = nil, locationType: LocationType? = nil, isoType: IsoType? = nil, mediaType: String? = nil, endDate: Date? = nil, lockedFields: [MetadataField]? = nil, trailerCount: Int? = nil, movieCount: Int? = nil, seriesCount: Int? = nil, programCount: Int? = nil, episodeCount: Int? = nil, songCount: Int? = nil, albumCount: Int? = nil, artistCount: Int? = nil, musicVideoCount: Int? = nil, lockData: Bool? = nil, width: Int? = nil, height: Int? = nil, cameraMake: String? = nil, cameraModel: String? = nil, software: String? = nil, exposureTime: Double? = nil, focalLength: Double? = nil, imageOrientation: ImageOrientation? = nil, aperture: Double? = nil, shutterSpeed: Double? = nil, latitude: Double? = nil, longitude: Double? = nil, altitude: Double? = nil, isoSpeedRating: Int? = nil, seriesTimerId: String? = nil, programId: String? = nil, channelPrimaryImageTag: String? = nil, startDate: Date? = nil, completionPercentage: Double? = nil, isRepeat: Bool? = nil, episodeTitle: String? = nil, channelType: ChannelType? = nil, audio: ProgramAudio? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isSeries: Bool? = nil, isLive: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isPremiere: Bool? = nil, timerId: String? = nil) {
+    public init(name: String? = nil, originalTitle: String? = nil, serverId: String? = nil, id: String? = nil, etag: String? = nil, sourceType: String? = nil, playlistItemId: String? = nil, dateCreated: Date? = nil, dateLastMediaAdded: Date? = nil, extraType: String? = nil, airsBeforeSeasonNumber: Int? = nil, airsAfterSeasonNumber: Int? = nil, airsBeforeEpisodeNumber: Int? = nil, canDelete: Bool? = nil, canDownload: Bool? = nil, hasSubtitles: Bool? = nil, preferredMetadataLanguage: String? = nil, preferredMetadataCountryCode: String? = nil, supportsSync: Bool? = nil, container: String? = nil, sortName: String? = nil, forcedSortName: String? = nil, video3DFormat: Video3DFormat? = nil, premiereDate: Date? = nil, externalUrls: [ExternalUrl]? = nil, mediaSources: [MediaSourceInfo]? = nil, criticRating: Float? = nil, productionLocations: [String]? = nil, path: String? = nil, enableMediaSourceDisplay: Bool? = nil, officialRating: String? = nil, customRating: String? = nil, channelId: String? = nil, channelName: String? = nil, overview: String? = nil, taglines: [String]? = nil, genres: [String]? = nil, communityRating: Float? = nil, cumulativeRunTimeTicks: Int64? = nil, runTimeTicks: Int64? = nil, playAccess: PlayAccess? = nil, aspectRatio: String? = nil, productionYear: Int? = nil, isPlaceHolder: Bool? = nil, number: String? = nil, channelNumber: String? = nil, indexNumber: Int? = nil, indexNumberEnd: Int? = nil, parentIndexNumber: Int? = nil, remoteTrailers: [MediaUrl]? = nil, providerIds: [String: String]? = nil, isHD: Bool? = nil, isFolder: Bool? = nil, parentId: String? = nil, type: String? = nil, people: [BaseItemPerson]? = nil, studios: [NameGuidPair]? = nil, genreItems: [NameGuidPair]? = nil, parentLogoItemId: String? = nil, parentBackdropItemId: String? = nil, parentBackdropImageTags: [String]? = nil, localTrailerCount: Int? = nil, userData: UserItemDataDto? = nil, recursiveItemCount: Int? = nil, childCount: Int? = nil, seriesName: String? = nil, seriesId: String? = nil, seasonId: String? = nil, specialFeatureCount: Int? = nil, displayPreferencesId: String? = nil, status: String? = nil, airTime: String? = nil, airDays: [DayOfWeek]? = nil, tags: [String]? = nil, primaryImageAspectRatio: Double? = nil, artists: [String]? = nil, artistItems: [NameGuidPair]? = nil, album: String? = nil, collectionType: String? = nil, displayOrder: String? = nil, albumId: String? = nil, albumPrimaryImageTag: String? = nil, seriesPrimaryImageTag: String? = nil, albumArtist: String? = nil, albumArtists: [NameGuidPair]? = nil, seasonName: String? = nil, mediaStreams: [MediaStream]? = nil, videoType: VideoType? = nil, partCount: Int? = nil, mediaSourceCount: Int? = nil, imageTags: [String: String]? = nil, backdropImageTags: [String]? = nil, screenshotImageTags: [String]? = nil, parentLogoImageTag: String? = nil, parentArtItemId: String? = nil, parentArtImageTag: String? = nil, seriesThumbImageTag: String? = nil, imageBlurHashes: BaseItemDtoImageBlurHashes? = nil, seriesStudio: String? = nil, parentThumbItemId: String? = nil, parentThumbImageTag: String? = nil, parentPrimaryImageItemId: String? = nil, parentPrimaryImageTag: String? = nil, chapters: [ChapterInfo]? = nil, locationType: LocationType? = nil, isoType: IsoType? = nil, mediaType: String? = nil, endDate: Date? = nil, lockedFields: [MetadataField]? = nil, trailerCount: Int? = nil, movieCount: Int? = nil, seriesCount: Int? = nil, programCount: Int? = nil, episodeCount: Int? = nil, songCount: Int? = nil, albumCount: Int? = nil, artistCount: Int? = nil, musicVideoCount: Int? = nil, lockData: Bool? = nil, width: Int? = nil, height: Int? = nil, cameraMake: String? = nil, cameraModel: String? = nil, software: String? = nil, exposureTime: Double? = nil, focalLength: Double? = nil, imageOrientation: ImageOrientation? = nil, aperture: Double? = nil, shutterSpeed: Double? = nil, latitude: Double? = nil, longitude: Double? = nil, altitude: Double? = nil, isoSpeedRating: Int? = nil, seriesTimerId: String? = nil, programId: String? = nil, channelPrimaryImageTag: String? = nil, startDate: Date? = nil, completionPercentage: Double? = nil, isRepeat: Bool? = nil, episodeTitle: String? = nil, channelType: ChannelType? = nil, audio: ProgramAudio? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isSeries: Bool? = nil, isLive: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isPremiere: Bool? = nil, timerId: String? = nil) {
         self.name = name
         self.originalTitle = originalTitle
         self.serverId = serverId

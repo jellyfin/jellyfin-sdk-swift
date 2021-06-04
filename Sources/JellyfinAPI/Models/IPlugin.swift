@@ -18,7 +18,7 @@ public struct IPlugin: Codable, Hashable {
     /** Gets the Description. */
     public var description: String?
     /** Gets the unique id. */
-    public var id: UUID?
+    public var id: String?
     public var version: Version?
     /** Gets the path to the assembly file. */
     public var assemblyFilePath: String?
@@ -27,7 +27,7 @@ public struct IPlugin: Codable, Hashable {
     /** Gets the full path to the data folder, where the plugin can store any miscellaneous files needed. */
     public var dataFolderPath: String?
 
-    public init(name: String? = nil, description: String? = nil, id: UUID? = nil, version: Version? = nil, assemblyFilePath: String? = nil, canUninstall: Bool? = nil, dataFolderPath: String? = nil) {
+    public init(name: String? = nil, description: String? = nil, id: String? = nil, version: Version? = nil, assemblyFilePath: String? = nil, canUninstall: Bool? = nil, dataFolderPath: String? = nil) {
         self.name = name
         self.description = description
         self.id = id

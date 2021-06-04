@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 # **getEpisodes**
 ```swift
-    open class func getEpisodes(seriesId: UUID, userId: UUID? = nil, fields: [ItemFields]? = nil, season: Int? = nil, seasonId: UUID? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, startItemId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, sortBy: String? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getEpisodes(seriesId: String, userId: String? = nil, fields: [ItemFields]? = nil, season: Int? = nil, seasonId: String? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, startItemId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, sortBy: String? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets episodes for a tv season.
@@ -22,14 +22,14 @@ Gets episodes for a tv season.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let seriesId = 987 // UUID | The series id.
-let userId = 987 // UUID | The user id. (optional)
+let seriesId = "seriesId_example" // String | The series id.
+let userId = "userId_example" // String | The user id. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
 let season = 987 // Int | Optional filter by season number. (optional)
-let seasonId = 987 // UUID | Optional. Filter by season id. (optional)
+let seasonId = "seasonId_example" // String | Optional. Filter by season id. (optional)
 let isMissing = true // Bool | Optional. Filter by items that are missing episodes or not. (optional)
 let adjacentTo = "adjacentTo_example" // String | Optional. Return items that are siblings of a supplied item. (optional)
-let startItemId = 987 // UUID | Optional. Skip through the list until a given item is found. (optional)
+let startItemId = "startItemId_example" // String | Optional. Skip through the list until a given item is found. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let enableImages = true // Bool | Optional, include image information in output. (optional)
@@ -55,14 +55,14 @@ TvShowsAPI.getEpisodes(seriesId: seriesId, userId: userId, fields: fields, seaso
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seriesId** | [**UUID**](.md) | The series id. | 
- **userId** | [**UUID**](.md) | The user id. | [optional] 
+ **seriesId** | [**String**](.md) | The series id. | 
+ **userId** | [**String**](.md) | The user id. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
  **season** | **Int** | Optional filter by season number. | [optional] 
- **seasonId** | [**UUID**](.md) | Optional. Filter by season id. | [optional] 
+ **seasonId** | [**String**](.md) | Optional. Filter by season id. | [optional] 
  **isMissing** | **Bool** | Optional. Filter by items that are missing episodes or not. | [optional] 
  **adjacentTo** | **String** | Optional. Return items that are siblings of a supplied item. | [optional] 
- **startItemId** | [**UUID**](.md) | Optional. Skip through the list until a given item is found. | [optional] 
+ **startItemId** | [**String**](.md) | Optional. Skip through the list until a given item is found. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **enableImages** | **Bool** | Optional, include image information in output. | [optional] 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 # **getNextUp**
 ```swift
-    open class func getNextUp(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: UUID? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getNextUp(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: String? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets a list of next up episodes.
@@ -98,12 +98,12 @@ Gets a list of next up episodes.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id of the user to get the next up episodes for. (optional)
+let userId = "userId_example" // String | The user id of the user to get the next up episodes for. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let seriesId = "seriesId_example" // String | Optional. Filter by series id. (optional)
-let parentId = 987 // UUID | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
+let parentId = "parentId_example" // String | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let enableImges = true // Bool | Optional. Include image information in output. (optional)
 let imageTypeLimit = 987 // Int | Optional. The max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
@@ -128,12 +128,12 @@ TvShowsAPI.getNextUp(userId: userId, startIndex: startIndex, limit: limit, field
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id of the user to get the next up episodes for. | [optional] 
+ **userId** | [**String**](.md) | The user id of the user to get the next up episodes for. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **seriesId** | **String** | Optional. Filter by series id. | [optional] 
- **parentId** | [**UUID**](.md) | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **parentId** | [**String**](.md) | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **enableImges** | **Bool** | Optional. Include image information in output. | [optional] 
  **imageTypeLimit** | **Int** | Optional. The max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 # **getSeasons**
 ```swift
-    open class func getSeasons(seriesId: UUID, userId: UUID? = nil, fields: [ItemFields]? = nil, isSpecialSeason: Bool? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSeasons(seriesId: String, userId: String? = nil, fields: [ItemFields]? = nil, isSpecialSeason: Bool? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets seasons for a tv series.
@@ -168,8 +168,8 @@ Gets seasons for a tv series.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let seriesId = 987 // UUID | The series id.
-let userId = 987 // UUID | The user id. (optional)
+let seriesId = "seriesId_example" // String | The series id.
+let userId = "userId_example" // String | The user id. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
 let isSpecialSeason = true // Bool | Optional. Filter by special season. (optional)
 let isMissing = true // Bool | Optional. Filter by items that are missing episodes or not. (optional)
@@ -196,8 +196,8 @@ TvShowsAPI.getSeasons(seriesId: seriesId, userId: userId, fields: fields, isSpec
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seriesId** | [**UUID**](.md) | The series id. | 
- **userId** | [**UUID**](.md) | The user id. | [optional] 
+ **seriesId** | [**String**](.md) | The series id. | 
+ **userId** | [**String**](.md) | The user id. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
  **isSpecialSeason** | **Bool** | Optional. Filter by special season. | [optional] 
  **isMissing** | **Bool** | Optional. Filter by items that are missing episodes or not. | [optional] 
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 # **getUpcomingEpisodes**
 ```swift
-    open class func getUpcomingEpisodes(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, parentId: UUID? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getUpcomingEpisodes(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, parentId: String? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets a list of upcoming episodes.
@@ -234,11 +234,11 @@ Gets a list of upcoming episodes.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id of the user to get the upcoming episodes for. (optional)
+let userId = "userId_example" // String | The user id of the user to get the upcoming episodes for. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
-let parentId = 987 // UUID | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
+let parentId = "parentId_example" // String | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let enableImges = true // Bool | Optional. Include image information in output. (optional)
 let imageTypeLimit = 987 // Int | Optional. The max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
@@ -261,11 +261,11 @@ TvShowsAPI.getUpcomingEpisodes(userId: userId, startIndex: startIndex, limit: li
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id of the user to get the upcoming episodes for. | [optional] 
+ **userId** | [**String**](.md) | The user id of the user to get the upcoming episodes for. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
- **parentId** | [**UUID**](.md) | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **parentId** | [**String**](.md) | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **enableImges** | **Bool** | Optional. Include image information in output. | [optional] 
  **imageTypeLimit** | **Int** | Optional. The max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 

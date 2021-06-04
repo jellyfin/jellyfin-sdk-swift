@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **version** | [**Version**](Version.md) |  | [optional] 
 **configurationFileName** | **String** | Gets or sets the name of the configuration file. | [optional] 
 **description** | **String** | Gets or sets the description. | [optional] 
-**id** | **UUID** | Gets or sets the unique id. | [optional] 
+**id** | **String** | Gets or sets the unique id. | [optional] 
 **canUninstall** | **Bool** | Gets or sets a value indicating whether the plugin can be uninstalled. | [optional] 
 **hasImage** | **Bool** | Gets or sets a value indicating whether this plugin has a valid image. | [optional] 
 **status** | [**PluginStatus**](PluginStatus.md) |  | [optional] 

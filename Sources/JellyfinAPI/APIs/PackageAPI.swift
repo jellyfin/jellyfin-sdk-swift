@@ -21,7 +21,7 @@ open class PackageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func cancelPackageInstallation(packageId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func cancelPackageInstallation(packageId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             cancelPackageInstallationWithRequestBuilder(packageId: packageId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -44,7 +44,7 @@ open class PackageAPI {
      - parameter packageId: (path) Installation Id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func cancelPackageInstallationWithRequestBuilder(packageId: UUID) -> RequestBuilder<Void> {
+    open class func cancelPackageInstallationWithRequestBuilder(packageId: String) -> RequestBuilder<Void> {
         var urlPath = "/Packages/Installing/{packageId}"
         let packageIdPreEscape = "\(APIHelper.mapValueToPathItem(packageId))"
         let packageIdPostEscape = packageIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -75,7 +75,7 @@ open class PackageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPackageInfo(name: String, assemblyGuid: UUID? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<PackageInfo, Error> {
+    open class func getPackageInfo(name: String, assemblyGuid: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<PackageInfo, Error> {
         return Future<PackageInfo, Error>.init { promise in
             getPackageInfoWithRequestBuilder(name: name, assemblyGuid: assemblyGuid).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -99,7 +99,7 @@ open class PackageAPI {
      - parameter assemblyGuid: (query) The GUID of the associated assembly. (optional)
      - returns: RequestBuilder<PackageInfo> 
      */
-    open class func getPackageInfoWithRequestBuilder(name: String, assemblyGuid: UUID? = nil) -> RequestBuilder<PackageInfo> {
+    open class func getPackageInfoWithRequestBuilder(name: String, assemblyGuid: String? = nil) -> RequestBuilder<PackageInfo> {
         var urlPath = "/Packages/{name}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -231,7 +231,7 @@ open class PackageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func installPackage(name: String, assemblyGuid: UUID? = nil, version: String? = nil, repositoryUrl: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func installPackage(name: String, assemblyGuid: String? = nil, version: String? = nil, repositoryUrl: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             installPackageWithRequestBuilder(name: name, assemblyGuid: assemblyGuid, version: version, repositoryUrl: repositoryUrl).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -257,7 +257,7 @@ open class PackageAPI {
      - parameter repositoryUrl: (query) Optional. Specify the repository to install from. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func installPackageWithRequestBuilder(name: String, assemblyGuid: UUID? = nil, version: String? = nil, repositoryUrl: String? = nil) -> RequestBuilder<Void> {
+    open class func installPackageWithRequestBuilder(name: String, assemblyGuid: String? = nil, version: String? = nil, repositoryUrl: String? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Packages/Installed/{name}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

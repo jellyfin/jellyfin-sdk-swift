@@ -14,9 +14,9 @@ import AnyCodable
 public struct JoinGroupRequestDto: Codable, Hashable {
 
     /** Gets or sets the group identifier. */
-    public var groupId: UUID?
+    public var groupId: String?
 
-    public init(groupId: UUID? = nil) {
+    public init(groupId: String? = nil) {
         self.groupId = groupId
     }
 

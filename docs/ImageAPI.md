@@ -46,7 +46,7 @@ Method | HTTP request | Description
 
 # **deleteItemImage**
 ```swift
-    open class func deleteItemImage(itemId: UUID, imageType: ImageType, imageIndex: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteItemImage(itemId: String, imageType: ImageType, imageIndex: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Delete an item's image.
@@ -56,7 +56,7 @@ Delete an item's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | The image index. (optional)
 
@@ -77,7 +77,7 @@ ImageAPI.deleteItemImage(itemId: itemId, imageType: imageType, imageIndex: image
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | The image index. | [optional] 
 
@@ -98,7 +98,7 @@ Void (empty response body)
 
 # **deleteItemImageByIndex**
 ```swift
-    open class func deleteItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Delete an item's image.
@@ -108,7 +108,7 @@ Delete an item's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | The image index.
 
@@ -129,7 +129,7 @@ ImageAPI.deleteItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | The image index. | 
 
@@ -150,7 +150,7 @@ Void (empty response body)
 
 # **deleteUserImage**
 ```swift
-    open class func deleteUserImage(userId: UUID, imageType: ImageType, index: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteUserImage(userId: String, imageType: ImageType, index: Int? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Delete the user's image.
@@ -160,7 +160,7 @@ Delete the user's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User Id.
+let userId = "userId_example" // String | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
 let index = 987 // Int | (Unused) Image index. (optional)
 
@@ -181,7 +181,7 @@ ImageAPI.deleteUserImage(userId: userId, imageType: imageType, index: index) { (
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User Id. | 
+ **userId** | [**String**](.md) | User Id. | 
  **imageType** | [**ImageType**](.md) | (Unused) Image type. | 
  **index** | **Int** | (Unused) Image index. | [optional] 
 
@@ -202,7 +202,7 @@ Void (empty response body)
 
 # **deleteUserImageByIndex**
 ```swift
-    open class func deleteUserImageByIndex(userId: UUID, imageType: ImageType, index: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteUserImageByIndex(userId: String, imageType: ImageType, index: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Delete the user's image.
@@ -212,7 +212,7 @@ Delete the user's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User Id.
+let userId = "userId_example" // String | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
 let index = 987 // Int | (Unused) Image index.
 
@@ -233,7 +233,7 @@ ImageAPI.deleteUserImageByIndex(userId: userId, imageType: imageType, index: ind
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User Id. | 
+ **userId** | [**String**](.md) | User Id. | 
  **imageType** | [**ImageType**](.md) | (Unused) Image type. | 
  **index** | **Int** | (Unused) Image index. | 
 
@@ -506,7 +506,7 @@ No authorization required
 
 # **getItemImage**
 ```swift
-    open class func getItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getItemImage(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -516,7 +516,7 @@ Gets the item's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let maxWidth = 987 // Int | The maximum image width to return. (optional)
 let maxHeight = 987 // Int | The maximum image height to return. (optional)
@@ -553,7 +553,7 @@ ImageAPI.getItemImage(itemId: itemId, imageType: imageType, maxWidth: maxWidth, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **maxWidth** | **Int** | The maximum image width to return. | [optional] 
  **maxHeight** | **Int** | The maximum image height to return. | [optional] 
@@ -590,7 +590,7 @@ No authorization required
 
 # **getItemImage2**
 ```swift
-    open class func getItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getItemImage2(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -600,7 +600,7 @@ Gets the item's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let maxWidth = 987 // Int | The maximum image width to return.
 let maxHeight = 987 // Int | The maximum image height to return.
@@ -637,7 +637,7 @@ ImageAPI.getItemImage2(itemId: itemId, imageType: imageType, maxWidth: maxWidth,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **maxWidth** | **Int** | The maximum image width to return. | 
  **maxHeight** | **Int** | The maximum image height to return. | 
@@ -674,7 +674,7 @@ No authorization required
 
 # **getItemImageByIndex**
 ```swift
-    open class func getItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -684,7 +684,7 @@ Gets the item's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | Image index.
 let maxWidth = 987 // Int | The maximum image width to return. (optional)
@@ -721,7 +721,7 @@ ImageAPI.getItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: i
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | Image index. | 
  **maxWidth** | **Int** | The maximum image width to return. | [optional] 
@@ -758,7 +758,7 @@ No authorization required
 
 # **getItemImageInfos**
 ```swift
-    open class func getItemImageInfos(itemId: UUID, completion: @escaping (_ data: [ImageInfo]?, _ error: Error?) -> Void)
+    open class func getItemImageInfos(itemId: String, completion: @escaping (_ data: [ImageInfo]?, _ error: Error?) -> Void)
 ```
 
 Get item image infos.
@@ -768,7 +768,7 @@ Get item image infos.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 
 // Get item image infos.
 ImageAPI.getItemImageInfos(itemId: itemId) { (response, error) in
@@ -787,7 +787,7 @@ ImageAPI.getItemImageInfos(itemId: itemId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
 
 ### Return type
 
@@ -1310,7 +1310,7 @@ No authorization required
 
 # **getUserImage**
 ```swift
-    open class func getUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getUserImage(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get user profile image.
@@ -1320,7 +1320,7 @@ Get user profile image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
+let userId = "userId_example" // String | User id.
 let imageType = ImageType() // ImageType | Image type.
 let tag = "tag_example" // String | Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
 let format = ImageFormat() // ImageFormat | Determines the output format of the image - original,gif,jpg,png. (optional)
@@ -1357,7 +1357,7 @@ ImageAPI.getUserImage(userId: userId, imageType: imageType, tag: tag, format: fo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
+ **userId** | [**String**](.md) | User id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **tag** | **String** | Optional. Supply the cache tag from the item object to receive strong caching headers. | [optional] 
  **format** | [**ImageFormat**](.md) | Determines the output format of the image - original,gif,jpg,png. | [optional] 
@@ -1394,7 +1394,7 @@ No authorization required
 
 # **getUserImageByIndex**
 ```swift
-    open class func getUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getUserImageByIndex(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get user profile image.
@@ -1404,7 +1404,7 @@ Get user profile image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
+let userId = "userId_example" // String | User id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | Image index.
 let tag = "tag_example" // String | Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
@@ -1441,7 +1441,7 @@ ImageAPI.getUserImageByIndex(userId: userId, imageType: imageType, imageIndex: i
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
+ **userId** | [**String**](.md) | User id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | Image index. | 
  **tag** | **String** | Optional. Supply the cache tag from the item object to receive strong caching headers. | [optional] 
@@ -1730,7 +1730,7 @@ No authorization required
 
 # **headItemImage**
 ```swift
-    open class func headItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headItemImage(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -1740,7 +1740,7 @@ Gets the item's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let maxWidth = 987 // Int | The maximum image width to return. (optional)
 let maxHeight = 987 // Int | The maximum image height to return. (optional)
@@ -1777,7 +1777,7 @@ ImageAPI.headItemImage(itemId: itemId, imageType: imageType, maxWidth: maxWidth,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **maxWidth** | **Int** | The maximum image width to return. | [optional] 
  **maxHeight** | **Int** | The maximum image height to return. | [optional] 
@@ -1814,7 +1814,7 @@ No authorization required
 
 # **headItemImage2**
 ```swift
-    open class func headItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headItemImage2(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -1824,7 +1824,7 @@ Gets the item's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let maxWidth = 987 // Int | The maximum image width to return.
 let maxHeight = 987 // Int | The maximum image height to return.
@@ -1861,7 +1861,7 @@ ImageAPI.headItemImage2(itemId: itemId, imageType: imageType, maxWidth: maxWidth
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **maxWidth** | **Int** | The maximum image width to return. | 
  **maxHeight** | **Int** | The maximum image height to return. | 
@@ -1898,7 +1898,7 @@ No authorization required
 
 # **headItemImageByIndex**
 ```swift
-    open class func headItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets the item's image.
@@ -1908,7 +1908,7 @@ Gets the item's image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | Image index.
 let maxWidth = 987 // Int | The maximum image width to return. (optional)
@@ -1945,7 +1945,7 @@ ImageAPI.headItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | Image index. | 
  **maxWidth** | **Int** | The maximum image width to return. | [optional] 
@@ -2486,7 +2486,7 @@ No authorization required
 
 # **headUserImage**
 ```swift
-    open class func headUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headUserImage(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get user profile image.
@@ -2496,7 +2496,7 @@ Get user profile image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
+let userId = "userId_example" // String | User id.
 let imageType = ImageType() // ImageType | Image type.
 let tag = "tag_example" // String | Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
 let format = ImageFormat() // ImageFormat | Determines the output format of the image - original,gif,jpg,png. (optional)
@@ -2533,7 +2533,7 @@ ImageAPI.headUserImage(userId: userId, imageType: imageType, tag: tag, format: f
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
+ **userId** | [**String**](.md) | User id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **tag** | **String** | Optional. Supply the cache tag from the item object to receive strong caching headers. | [optional] 
  **format** | [**ImageFormat**](.md) | Determines the output format of the image - original,gif,jpg,png. | [optional] 
@@ -2570,7 +2570,7 @@ No authorization required
 
 # **headUserImageByIndex**
 ```swift
-    open class func headUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func headUserImageByIndex(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Get user profile image.
@@ -2580,7 +2580,7 @@ Get user profile image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User id.
+let userId = "userId_example" // String | User id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | Image index.
 let tag = "tag_example" // String | Optional. Supply the cache tag from the item object to receive strong caching headers. (optional)
@@ -2617,7 +2617,7 @@ ImageAPI.headUserImageByIndex(userId: userId, imageType: imageType, imageIndex: 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
+ **userId** | [**String**](.md) | User id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | Image index. | 
  **tag** | **String** | Optional. Supply the cache tag from the item object to receive strong caching headers. | [optional] 
@@ -2654,7 +2654,7 @@ No authorization required
 
 # **postUserImage**
 ```swift
-    open class func postUserImage(userId: UUID, imageType: ImageType, index: Int? = nil, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func postUserImage(userId: String, imageType: ImageType, index: Int? = nil, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the user image.
@@ -2664,7 +2664,7 @@ Sets the user image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User Id.
+let userId = "userId_example" // String | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
 let index = 987 // Int | (Unused) Image index. (optional)
 let body = URL(string: "https://example.com")! // URL |  (optional)
@@ -2686,7 +2686,7 @@ ImageAPI.postUserImage(userId: userId, imageType: imageType, index: index, body:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User Id. | 
+ **userId** | [**String**](.md) | User Id. | 
  **imageType** | [**ImageType**](.md) | (Unused) Image type. | 
  **index** | **Int** | (Unused) Image index. | [optional] 
  **body** | **URL** |  | [optional] 
@@ -2708,7 +2708,7 @@ Void (empty response body)
 
 # **postUserImageByIndex**
 ```swift
-    open class func postUserImageByIndex(userId: UUID, imageType: ImageType, index: Int, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func postUserImageByIndex(userId: String, imageType: ImageType, index: Int, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the user image.
@@ -2718,7 +2718,7 @@ Sets the user image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | User Id.
+let userId = "userId_example" // String | User Id.
 let imageType = ImageType() // ImageType | (Unused) Image type.
 let index = 987 // Int | (Unused) Image index.
 let body = URL(string: "https://example.com")! // URL |  (optional)
@@ -2740,7 +2740,7 @@ ImageAPI.postUserImageByIndex(userId: userId, imageType: imageType, index: index
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User Id. | 
+ **userId** | [**String**](.md) | User Id. | 
  **imageType** | [**ImageType**](.md) | (Unused) Image type. | 
  **index** | **Int** | (Unused) Image index. | 
  **body** | **URL** |  | [optional] 
@@ -2762,7 +2762,7 @@ Void (empty response body)
 
 # **setItemImage**
 ```swift
-    open class func setItemImage(itemId: UUID, imageType: ImageType, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func setItemImage(itemId: String, imageType: ImageType, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Set item image.
@@ -2772,7 +2772,7 @@ Set item image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let body = URL(string: "https://example.com")! // URL |  (optional)
 
@@ -2793,7 +2793,7 @@ ImageAPI.setItemImage(itemId: itemId, imageType: imageType, body: body) { (respo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **body** | **URL** |  | [optional] 
 
@@ -2814,7 +2814,7 @@ Void (empty response body)
 
 # **setItemImageByIndex**
 ```swift
-    open class func setItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func setItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, body: URL? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Set item image.
@@ -2824,7 +2824,7 @@ Set item image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | (Unused) Image index.
 let body = URL(string: "https://example.com")! // URL |  (optional)
@@ -2846,7 +2846,7 @@ ImageAPI.setItemImageByIndex(itemId: itemId, imageType: imageType, imageIndex: i
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | (Unused) Image index. | 
  **body** | **URL** |  | [optional] 
@@ -2868,7 +2868,7 @@ Void (empty response body)
 
 # **updateItemImageIndex**
 ```swift
-    open class func updateItemImageIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateItemImageIndex(itemId: String, imageType: ImageType, imageIndex: Int, newIndex: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates the index for an item image.
@@ -2878,7 +2878,7 @@ Updates the index for an item image.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let imageType = ImageType() // ImageType | Image type.
 let imageIndex = 987 // Int | Old image index.
 let newIndex = 987 // Int | New image index.
@@ -2900,7 +2900,7 @@ ImageAPI.updateItemImageIndex(itemId: itemId, imageType: imageType, imageIndex: 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **imageType** | [**ImageType**](.md) | Image type. | 
  **imageIndex** | **Int** | Old image index. | 
  **newIndex** | **Int** | New image index. | 

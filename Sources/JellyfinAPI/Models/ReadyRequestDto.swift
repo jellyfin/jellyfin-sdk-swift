@@ -20,9 +20,9 @@ public struct ReadyRequestDto: Codable, Hashable {
     /** Gets or sets a value indicating whether the client playback is unpaused. */
     public var isPlaying: Bool?
     /** Gets or sets the playlist item identifier of the playing item. */
-    public var playlistItemId: UUID?
+    public var playlistItemId: String?
 
-    public init(when: Date? = nil, positionTicks: Int64? = nil, isPlaying: Bool? = nil, playlistItemId: UUID? = nil) {
+    public init(when: Date? = nil, positionTicks: Int64? = nil, isPlaying: Bool? = nil, playlistItemId: String? = nil) {
         self.when = when
         self.positionTicks = positionTicks
         self.isPlaying = isPlaying

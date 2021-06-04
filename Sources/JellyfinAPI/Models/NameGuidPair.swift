@@ -13,9 +13,9 @@ import AnyCodable
 public struct NameGuidPair: Codable, Hashable {
 
     public var name: String?
-    public var id: UUID?
+    public var id: String?
 
-    public init(name: String? = nil, id: UUID? = nil) {
+    public init(name: String? = nil, id: String? = nil) {
         self.name = name
         self.id = id
     }

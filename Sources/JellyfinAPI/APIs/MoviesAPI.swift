@@ -25,7 +25,7 @@ open class MoviesAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMovieRecommendations(userId: UUID? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RecommendationDto], Error> {
+    open class func getMovieRecommendations(userId: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RecommendationDto], Error> {
         return Future<[RecommendationDto], Error>.init { promise in
             getMovieRecommendationsWithRequestBuilder(userId: userId, parentId: parentId, fields: fields, categoryLimit: categoryLimit, itemLimit: itemLimit).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -52,7 +52,7 @@ open class MoviesAPI {
      - parameter itemLimit: (query) The max number of items to return per category. (optional, default to 8)
      - returns: RequestBuilder<[RecommendationDto]> 
      */
-    open class func getMovieRecommendationsWithRequestBuilder(userId: UUID? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil) -> RequestBuilder<[RecommendationDto]> {
+    open class func getMovieRecommendationsWithRequestBuilder(userId: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil) -> RequestBuilder<[RecommendationDto]> {
         let urlPath = "/Movies/Recommendations"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil

@@ -22,7 +22,7 @@ open class SessionAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func addUserToSession(sessionId: String, userId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func addUserToSession(sessionId: String, userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             addUserToSessionWithRequestBuilder(sessionId: sessionId, userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -46,7 +46,7 @@ open class SessionAPI {
      - parameter userId: (path) The user id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func addUserToSessionWithRequestBuilder(sessionId: String, userId: UUID) -> RequestBuilder<Void> {
+    open class func addUserToSessionWithRequestBuilder(sessionId: String, userId: String) -> RequestBuilder<Void> {
         var urlPath = "/Sessions/{sessionId}/User/{userId}"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -241,7 +241,7 @@ open class SessionAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSessions(controllableByUserId: UUID? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[SessionInfo], Error> {
+    open class func getSessions(controllableByUserId: String? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[SessionInfo], Error> {
         return Future<[SessionInfo], Error>.init { promise in
             getSessionsWithRequestBuilder(controllableByUserId: controllableByUserId, deviceId: deviceId, activeWithinSeconds: activeWithinSeconds).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -266,7 +266,7 @@ open class SessionAPI {
      - parameter activeWithinSeconds: (query) Optional. Filter by sessions that were active in the last n seconds. (optional)
      - returns: RequestBuilder<[SessionInfo]> 
      */
-    open class func getSessionsWithRequestBuilder(controllableByUserId: UUID? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil) -> RequestBuilder<[SessionInfo]> {
+    open class func getSessionsWithRequestBuilder(controllableByUserId: String? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil) -> RequestBuilder<[SessionInfo]> {
         let urlPath = "/Sessions"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -305,7 +305,7 @@ open class SessionAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [String], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             playWithRequestBuilder(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks, mediaSourceId: mediaSourceId, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, startIndex: startIndex).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -335,7 +335,7 @@ open class SessionAPI {
      - parameter startIndex: (query) Optional. The start index. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func playWithRequestBuilder(sessionId: String, playCommand: PlayCommand, itemIds: [UUID], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil) -> RequestBuilder<Void> {
+    open class func playWithRequestBuilder(sessionId: String, playCommand: PlayCommand, itemIds: [String], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Sessions/{sessionId}/Playing"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -498,7 +498,7 @@ open class SessionAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func removeUserFromSession(sessionId: String, userId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func removeUserFromSession(sessionId: String, userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             removeUserFromSessionWithRequestBuilder(sessionId: sessionId, userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -522,7 +522,7 @@ open class SessionAPI {
      - parameter userId: (path) The user id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func removeUserFromSessionWithRequestBuilder(sessionId: String, userId: UUID) -> RequestBuilder<Void> {
+    open class func removeUserFromSessionWithRequestBuilder(sessionId: String, userId: String) -> RequestBuilder<Void> {
         var urlPath = "/Sessions/{sessionId}/User/{userId}"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

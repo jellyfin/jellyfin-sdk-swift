@@ -25,7 +25,7 @@ open class ItemRefreshAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func post(itemId: UUID, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func post(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             postWithRequestBuilder(itemId: itemId, metadataRefreshMode: metadataRefreshMode, imageRefreshMode: imageRefreshMode, replaceAllMetadata: replaceAllMetadata, replaceAllImages: replaceAllImages).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -52,7 +52,7 @@ open class ItemRefreshAPI {
      - parameter replaceAllImages: (query) (Optional) Determines if images should be replaced. Only applicable if mode is FullRefresh. (optional, default to false)
      - returns: RequestBuilder<Void> 
      */
-    open class func postWithRequestBuilder(itemId: UUID, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil) -> RequestBuilder<Void> {
+    open class func postWithRequestBuilder(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/Refresh"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

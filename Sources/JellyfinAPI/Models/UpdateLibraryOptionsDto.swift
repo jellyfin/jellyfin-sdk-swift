@@ -14,10 +14,10 @@ import AnyCodable
 public struct UpdateLibraryOptionsDto: Codable, Hashable {
 
     /** Gets or sets the library item id. */
-    public var id: UUID?
+    public var id: String?
     public var libraryOptions: LibraryOptions?
 
-    public init(id: UUID? = nil, libraryOptions: LibraryOptions? = nil) {
+    public init(id: String? = nil, libraryOptions: LibraryOptions? = nil) {
         self.id = id
         self.libraryOptions = libraryOptions
     }

@@ -23,7 +23,7 @@ open class VideoAttachmentsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getAttachment(videoId: UUID, mediaSourceId: String, index: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getAttachment(videoId: String, mediaSourceId: String, index: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getAttachmentWithRequestBuilder(videoId: videoId, mediaSourceId: mediaSourceId, index: index).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -45,7 +45,7 @@ open class VideoAttachmentsAPI {
      - parameter index: (path) Attachment Index. 
      - returns: RequestBuilder<URL> 
      */
-    open class func getAttachmentWithRequestBuilder(videoId: UUID, mediaSourceId: String, index: Int) -> RequestBuilder<URL> {
+    open class func getAttachmentWithRequestBuilder(videoId: String, mediaSourceId: String, index: Int) -> RequestBuilder<URL> {
         var urlPath = "/Videos/{videoId}/{mediaSourceId}/Attachments/{index}"
         let videoIdPreEscape = "\(APIHelper.mapValueToPathItem(videoId))"
         let videoIdPostEscape = videoIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

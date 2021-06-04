@@ -38,7 +38,7 @@ open class SearchAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func callGet(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: UUID? = nil, includeItemTypes: [String]? = nil, excludeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, parentId: UUID? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<SearchHintResult, Error> {
+    open class func callGet(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: String? = nil, includeItemTypes: [String]? = nil, excludeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, parentId: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<SearchHintResult, Error> {
         return Future<SearchHintResult, Error>.init { promise in
             callGetWithRequestBuilder(searchTerm: searchTerm, startIndex: startIndex, limit: limit, userId: userId, includeItemTypes: includeItemTypes, excludeItemTypes: excludeItemTypes, mediaTypes: mediaTypes, parentId: parentId, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, includePeople: includePeople, includeMedia: includeMedia, includeGenres: includeGenres, includeStudios: includeStudios, includeArtists: includeArtists).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -78,7 +78,7 @@ open class SearchAPI {
      - parameter includeArtists: (query) Optional filter whether to include artists. (optional, default to true)
      - returns: RequestBuilder<SearchHintResult> 
      */
-    open class func callGetWithRequestBuilder(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: UUID? = nil, includeItemTypes: [String]? = nil, excludeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, parentId: UUID? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil) -> RequestBuilder<SearchHintResult> {
+    open class func callGetWithRequestBuilder(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: String? = nil, includeItemTypes: [String]? = nil, excludeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, parentId: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil) -> RequestBuilder<SearchHintResult> {
         let urlPath = "/Search/Hints"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil

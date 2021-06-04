@@ -23,7 +23,7 @@ open class DisplayPreferencesAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getDisplayPreferences(displayPreferencesId: String, userId: UUID, client: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<DisplayPreferencesDto, Error> {
+    open class func getDisplayPreferences(displayPreferencesId: String, userId: String, client: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<DisplayPreferencesDto, Error> {
         return Future<DisplayPreferencesDto, Error>.init { promise in
             getDisplayPreferencesWithRequestBuilder(displayPreferencesId: displayPreferencesId, userId: userId, client: client).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -48,7 +48,7 @@ open class DisplayPreferencesAPI {
      - parameter client: (query) Client. 
      - returns: RequestBuilder<DisplayPreferencesDto> 
      */
-    open class func getDisplayPreferencesWithRequestBuilder(displayPreferencesId: String, userId: UUID, client: String) -> RequestBuilder<DisplayPreferencesDto> {
+    open class func getDisplayPreferencesWithRequestBuilder(displayPreferencesId: String, userId: String, client: String) -> RequestBuilder<DisplayPreferencesDto> {
         var urlPath = "/DisplayPreferences/{displayPreferencesId}"
         let displayPreferencesIdPreEscape = "\(APIHelper.mapValueToPathItem(displayPreferencesId))"
         let displayPreferencesIdPostEscape = displayPreferencesIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -85,7 +85,7 @@ open class DisplayPreferencesAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateDisplayPreferences(displayPreferencesId: String, userId: UUID, client: String, displayPreferencesDto: DisplayPreferencesDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateDisplayPreferences(displayPreferencesId: String, userId: String, client: String, displayPreferencesDto: DisplayPreferencesDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateDisplayPreferencesWithRequestBuilder(displayPreferencesId: displayPreferencesId, userId: userId, client: client, displayPreferencesDto: displayPreferencesDto).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -111,7 +111,7 @@ open class DisplayPreferencesAPI {
      - parameter displayPreferencesDto: (body) New Display Preferences object. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateDisplayPreferencesWithRequestBuilder(displayPreferencesId: String, userId: UUID, client: String, displayPreferencesDto: DisplayPreferencesDto) -> RequestBuilder<Void> {
+    open class func updateDisplayPreferencesWithRequestBuilder(displayPreferencesId: String, userId: String, client: String, displayPreferencesDto: DisplayPreferencesDto) -> RequestBuilder<Void> {
         var urlPath = "/DisplayPreferences/{displayPreferencesId}"
         let displayPreferencesIdPreEscape = "\(APIHelper.mapValueToPathItem(displayPreferencesId))"
         let displayPreferencesIdPostEscape = displayPreferencesIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 # **authenticateUser**
 ```swift
-    open class func authenticateUser(userId: UUID, pw: String, password: String? = nil, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
+    open class func authenticateUser(userId: String, pw: String, password: String? = nil, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
 ```
 
 Authenticates a user.
@@ -34,7 +34,7 @@ Authenticates a user.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 let pw = "pw_example" // String | The password as plain text.
 let password = "password_example" // String | The password sha1-hash. (optional)
 
@@ -55,7 +55,7 @@ UserAPI.authenticateUser(userId: userId, pw: pw, password: password) { (response
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
  **pw** | **String** | The password as plain text. | 
  **password** | **String** | The password sha1-hash. | [optional] 
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 # **deleteUser**
 ```swift
-    open class func deleteUser(userId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteUser(userId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Deletes a user.
@@ -230,7 +230,7 @@ Deletes a user.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 
 // Deletes a user.
 UserAPI.deleteUser(userId: userId) { (response, error) in
@@ -249,7 +249,7 @@ UserAPI.deleteUser(userId: userId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
 
 ### Return type
 
@@ -452,7 +452,7 @@ No authorization required
 
 # **getUserById**
 ```swift
-    open class func getUserById(userId: UUID, completion: @escaping (_ data: UserDto?, _ error: Error?) -> Void)
+    open class func getUserById(userId: String, completion: @escaping (_ data: UserDto?, _ error: Error?) -> Void)
 ```
 
 Gets a user by Id.
@@ -462,7 +462,7 @@ Gets a user by Id.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 
 // Gets a user by Id.
 UserAPI.getUserById(userId: userId) { (response, error) in
@@ -481,7 +481,7 @@ UserAPI.getUserById(userId: userId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
 
 ### Return type
 
@@ -550,7 +550,7 @@ Name | Type | Description  | Notes
 
 # **updateUser**
 ```swift
-    open class func updateUser(userId: UUID, userDto: UserDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUser(userId: String, userDto: UserDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user.
@@ -560,8 +560,8 @@ Updates a user.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
-let userDto = UserDto(name: "name_example", serverId: "serverId_example", serverName: "serverName_example", id: 123, primaryImageTag: "primaryImageTag_example", hasPassword: false, hasConfiguredPassword: false, hasConfiguredEasyPassword: false, enableAutoLogin: false, lastLoginDate: Date(), lastActivityDate: Date(), configuration: UserConfiguration(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false), policy: UserPolicy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: 123, dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: [123], enableAllChannels: false, enabledFolders: [123], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: [123], blockedChannels: [123], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()), primaryImageAspectRatio: 123) // UserDto | The updated user model.
+let userId = "userId_example" // String | The user id.
+let userDto = UserDto(name: "name_example", serverId: "serverId_example", serverName: "serverName_example", id: "id_example", primaryImageTag: "primaryImageTag_example", hasPassword: false, hasConfiguredPassword: false, hasConfiguredEasyPassword: false, enableAutoLogin: false, lastLoginDate: Date(), lastActivityDate: Date(), configuration: UserConfiguration(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false), policy: UserPolicy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: "userId_example", dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: ["enabledChannels_example"], enableAllChannels: false, enabledFolders: ["enabledFolders_example"], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: ["blockedMediaFolders_example"], blockedChannels: ["blockedChannels_example"], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()), primaryImageAspectRatio: 123) // UserDto | The updated user model.
 
 // Updates a user.
 UserAPI.updateUser(userId: userId, userDto: userDto) { (response, error) in
@@ -580,7 +580,7 @@ UserAPI.updateUser(userId: userId, userDto: userDto) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
  **userDto** | [**UserDto**](UserDto.md) | The updated user model. | 
 
 ### Return type
@@ -600,7 +600,7 @@ Void (empty response body)
 
 # **updateUserConfiguration**
 ```swift
-    open class func updateUserConfiguration(userId: UUID, userConfiguration: UserConfiguration, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserConfiguration(userId: String, userConfiguration: UserConfiguration, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user configuration.
@@ -610,7 +610,7 @@ Updates a user configuration.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 let userConfiguration = UserConfiguration(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false) // UserConfiguration | The new user configuration.
 
 // Updates a user configuration.
@@ -630,7 +630,7 @@ UserAPI.updateUserConfiguration(userId: userId, userConfiguration: userConfigura
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
  **userConfiguration** | [**UserConfiguration**](UserConfiguration.md) | The new user configuration. | 
 
 ### Return type
@@ -650,7 +650,7 @@ Void (empty response body)
 
 # **updateUserEasyPassword**
 ```swift
-    open class func updateUserEasyPassword(userId: UUID, updateUserEasyPassword: UpdateUserEasyPassword, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserEasyPassword(userId: String, updateUserEasyPassword: UpdateUserEasyPassword, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user's easy password.
@@ -660,7 +660,7 @@ Updates a user's easy password.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 let updateUserEasyPassword = UpdateUserEasyPassword(newPassword: "newPassword_example", newPw: "newPw_example", resetPassword: false) // UpdateUserEasyPassword | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request.
 
 // Updates a user's easy password.
@@ -680,7 +680,7 @@ UserAPI.updateUserEasyPassword(userId: userId, updateUserEasyPassword: updateUse
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
  **updateUserEasyPassword** | [**UpdateUserEasyPassword**](UpdateUserEasyPassword.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request. | 
 
 ### Return type
@@ -700,7 +700,7 @@ Void (empty response body)
 
 # **updateUserPassword**
 ```swift
-    open class func updateUserPassword(userId: UUID, updateUserPassword: UpdateUserPassword, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserPassword(userId: String, updateUserPassword: UpdateUserPassword, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user's password.
@@ -710,7 +710,7 @@ Updates a user's password.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
+let userId = "userId_example" // String | The user id.
 let updateUserPassword = UpdateUserPassword(currentPassword: "currentPassword_example", currentPw: "currentPw_example", newPw: "newPw_example", resetPassword: false) // UpdateUserPassword | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request.
 
 // Updates a user's password.
@@ -730,7 +730,7 @@ UserAPI.updateUserPassword(userId: userId, updateUserPassword: updateUserPasswor
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
  **updateUserPassword** | [**UpdateUserPassword**](UpdateUserPassword.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request. | 
 
 ### Return type
@@ -750,7 +750,7 @@ Void (empty response body)
 
 # **updateUserPolicy**
 ```swift
-    open class func updateUserPolicy(userId: UUID, userPolicy: UserPolicy, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserPolicy(userId: String, userPolicy: UserPolicy, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user policy.
@@ -760,8 +760,8 @@ Updates a user policy.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let userId = 987 // UUID | The user id.
-let userPolicy = UserPolicy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: 123, dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: [123], enableAllChannels: false, enabledFolders: [123], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: [123], blockedChannels: [123], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()) // UserPolicy | The new user policy.
+let userId = "userId_example" // String | The user id.
+let userPolicy = UserPolicy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: "userId_example", dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: ["enabledChannels_example"], enableAllChannels: false, enabledFolders: ["enabledFolders_example"], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: ["blockedMediaFolders_example"], blockedChannels: ["blockedChannels_example"], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()) // UserPolicy | The new user policy.
 
 // Updates a user policy.
 UserAPI.updateUserPolicy(userId: userId, userPolicy: userPolicy) { (response, error) in
@@ -780,7 +780,7 @@ UserAPI.updateUserPolicy(userId: userId, userPolicy: userPolicy) { (response, er
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | The user id. | 
+ **userId** | [**String**](.md) | The user id. | 
  **userPolicy** | [**UserPolicy**](UserPolicy.md) | The new user policy. | 
 
 ### Return type

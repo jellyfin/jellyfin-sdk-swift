@@ -25,7 +25,7 @@ public struct AuthenticationInfo: Codable, Hashable {
     /** Gets or sets the name of the device. */
     public var deviceName: String?
     /** Gets or sets the user identifier. */
-    public var userId: UUID?
+    public var userId: String?
     /** Gets or sets a value indicating whether this instance is active. */
     public var isActive: Bool?
     /** Gets or sets the date created. */
@@ -35,7 +35,7 @@ public struct AuthenticationInfo: Codable, Hashable {
     public var dateLastActivity: Date?
     public var userName: String?
 
-    public init(id: Int64? = nil, accessToken: String? = nil, deviceId: String? = nil, appName: String? = nil, appVersion: String? = nil, deviceName: String? = nil, userId: UUID? = nil, isActive: Bool? = nil, dateCreated: Date? = nil, dateRevoked: Date? = nil, dateLastActivity: Date? = nil, userName: String? = nil) {
+    public init(id: Int64? = nil, accessToken: String? = nil, deviceId: String? = nil, appName: String? = nil, appVersion: String? = nil, deviceName: String? = nil, userId: String? = nil, isActive: Bool? = nil, dateCreated: Date? = nil, dateRevoked: Date? = nil, dateLastActivity: Date? = nil, userName: String? = nil) {
         self.id = id
         self.accessToken = accessToken
         self.deviceId = deviceId

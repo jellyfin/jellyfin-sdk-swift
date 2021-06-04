@@ -69,7 +69,7 @@ open class ChannelsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getChannelFeatures(channelId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ChannelFeatures, Error> {
+    open class func getChannelFeatures(channelId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ChannelFeatures, Error> {
         return Future<ChannelFeatures, Error>.init { promise in
             getChannelFeaturesWithRequestBuilder(channelId: channelId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -92,7 +92,7 @@ open class ChannelsAPI {
      - parameter channelId: (path) Channel id. 
      - returns: RequestBuilder<ChannelFeatures> 
      */
-    open class func getChannelFeaturesWithRequestBuilder(channelId: UUID) -> RequestBuilder<ChannelFeatures> {
+    open class func getChannelFeaturesWithRequestBuilder(channelId: String) -> RequestBuilder<ChannelFeatures> {
         var urlPath = "/Channels/{channelId}/Features"
         let channelIdPreEscape = "\(APIHelper.mapValueToPathItem(channelId))"
         let channelIdPostEscape = channelIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -130,7 +130,7 @@ open class ChannelsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getChannelItems(channelId: UUID, folderId: UUID? = nil, userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getChannelItems(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getChannelItemsWithRequestBuilder(channelId: channelId, folderId: folderId, userId: userId, startIndex: startIndex, limit: limit, sortOrder: sortOrder, filters: filters, sortBy: sortBy, fields: fields).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -161,7 +161,7 @@ open class ChannelsAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getChannelItemsWithRequestBuilder(channelId: UUID, folderId: UUID? = nil, userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getChannelItemsWithRequestBuilder(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Channels/{channelId}/Items"
         let channelIdPreEscape = "\(APIHelper.mapValueToPathItem(channelId))"
         let channelIdPostEscape = channelIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -206,7 +206,7 @@ open class ChannelsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getChannels(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, supportsLatestItems: Bool? = nil, supportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getChannels(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, supportsLatestItems: Bool? = nil, supportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getChannelsWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, supportsLatestItems: supportsLatestItems, supportsMediaDeletion: supportsMediaDeletion, isFavorite: isFavorite).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -234,7 +234,7 @@ open class ChannelsAPI {
      - parameter isFavorite: (query) Optional. Filter by channels that are favorite. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getChannelsWithRequestBuilder(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, supportsLatestItems: Bool? = nil, supportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getChannelsWithRequestBuilder(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, supportsLatestItems: Bool? = nil, supportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let urlPath = "/Channels"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -274,7 +274,7 @@ open class ChannelsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLatestChannelItems(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, filters: [ItemFilter]? = nil, fields: [ItemFields]? = nil, channelIds: [UUID]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getLatestChannelItems(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, filters: [ItemFilter]? = nil, fields: [ItemFields]? = nil, channelIds: [String]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getLatestChannelItemsWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, filters: filters, fields: fields, channelIds: channelIds).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -302,7 +302,7 @@ open class ChannelsAPI {
      - parameter channelIds: (query) Optional. Specify one or more channel id&#39;s, comma delimited. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getLatestChannelItemsWithRequestBuilder(userId: UUID? = nil, startIndex: Int? = nil, limit: Int? = nil, filters: [ItemFilter]? = nil, fields: [ItemFields]? = nil, channelIds: [UUID]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getLatestChannelItemsWithRequestBuilder(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, filters: [ItemFilter]? = nil, fields: [ItemFields]? = nil, channelIds: [String]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let urlPath = "/Channels/Items/Latest"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil

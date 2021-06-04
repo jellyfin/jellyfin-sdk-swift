@@ -22,13 +22,13 @@ public struct DeviceInfo: Codable, Hashable {
     /** Gets or sets the application version. */
     public var appVersion: String?
     /** Gets or sets the last user identifier. */
-    public var lastUserId: UUID?
+    public var lastUserId: String?
     /** Gets or sets the date last modified. */
     public var dateLastActivity: Date?
     public var capabilities: ClientCapabilities?
     public var iconUrl: String?
 
-    public init(name: String? = nil, id: String? = nil, lastUserName: String? = nil, appName: String? = nil, appVersion: String? = nil, lastUserId: UUID? = nil, dateLastActivity: Date? = nil, capabilities: ClientCapabilities? = nil, iconUrl: String? = nil) {
+    public init(name: String? = nil, id: String? = nil, lastUserName: String? = nil, appName: String? = nil, appVersion: String? = nil, lastUserId: String? = nil, dateLastActivity: Date? = nil, capabilities: ClientCapabilities? = nil, iconUrl: String? = nil) {
         self.name = name
         self.id = id
         self.lastUserName = lastUserName

@@ -21,7 +21,7 @@ open class UserViewsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getGroupingOptions(userId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[SpecialViewOptionDto], Error> {
+    open class func getGroupingOptions(userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[SpecialViewOptionDto], Error> {
         return Future<[SpecialViewOptionDto], Error>.init { promise in
             getGroupingOptionsWithRequestBuilder(userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -41,7 +41,7 @@ open class UserViewsAPI {
      - parameter userId: (path) User id. 
      - returns: RequestBuilder<[SpecialViewOptionDto]> 
      */
-    open class func getGroupingOptionsWithRequestBuilder(userId: UUID) -> RequestBuilder<[SpecialViewOptionDto]> {
+    open class func getGroupingOptionsWithRequestBuilder(userId: String) -> RequestBuilder<[SpecialViewOptionDto]> {
         var urlPath = "/Users/{userId}/GroupingOptions"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -74,7 +74,7 @@ open class UserViewsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUserViews(userId: UUID, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getUserViews(userId: String, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getUserViewsWithRequestBuilder(userId: userId, includeExternalContent: includeExternalContent, presetViews: presetViews, includeHidden: includeHidden).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -97,7 +97,7 @@ open class UserViewsAPI {
      - parameter includeHidden: (query) Whether or not to include hidden content. (optional, default to false)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getUserViewsWithRequestBuilder(userId: UUID, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getUserViewsWithRequestBuilder(userId: String, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Users/{userId}/Views"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

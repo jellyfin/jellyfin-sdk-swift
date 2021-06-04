@@ -23,7 +23,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteItemImage(itemId: UUID, imageType: ImageType, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func deleteItemImage(itemId: String, imageType: ImageType, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             deleteItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -48,7 +48,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) The image index. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int? = nil) -> RequestBuilder<Void> {
+    open class func deleteItemImageWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -86,7 +86,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func deleteItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             deleteItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -111,7 +111,7 @@ open class ImageAPI {
      - parameter imageIndex: (path) The image index. 
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int) -> RequestBuilder<Void> {
+    open class func deleteItemImageByIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -149,7 +149,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteUserImage(userId: UUID, imageType: ImageType, index: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func deleteUserImage(userId: String, imageType: ImageType, index: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             deleteUserImageWithRequestBuilder(userId: userId, imageType: imageType, index: index).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -174,7 +174,7 @@ open class ImageAPI {
      - parameter index: (query) (Unused) Image index. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, index: Int? = nil) -> RequestBuilder<Void> {
+    open class func deleteUserImageWithRequestBuilder(userId: String, imageType: ImageType, index: Int? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -212,7 +212,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteUserImageByIndex(userId: UUID, imageType: ImageType, index: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func deleteUserImageByIndex(userId: String, imageType: ImageType, index: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             deleteUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, index: index).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -237,7 +237,7 @@ open class ImageAPI {
      - parameter index: (path) (Unused) Image index. 
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, index: Int) -> RequestBuilder<Void> {
+    open class func deleteUserImageByIndexWithRequestBuilder(userId: String, imageType: ImageType, index: Int) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/Images/{imageType}/{index}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -619,7 +619,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getItemImage(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -657,7 +657,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func getItemImageWithRequestBuilder(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -727,7 +727,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getItemImage2(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -765,7 +765,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getItemImage2WithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getItemImage2WithRequestBuilder(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/{tag}/{format}/{maxWidth}/{maxHeight}/{percentPlayed}/{unplayedCount}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -849,7 +849,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -887,7 +887,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getItemImageByIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -941,7 +941,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemImageInfos(itemId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ImageInfo], Error> {
+    open class func getItemImageInfos(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ImageInfo], Error> {
         return Future<[ImageInfo], Error>.init { promise in
             getItemImageInfosWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -964,7 +964,7 @@ open class ImageAPI {
      - parameter itemId: (path) Item id. 
      - returns: RequestBuilder<[ImageInfo]> 
      */
-    open class func getItemImageInfosWithRequestBuilder(itemId: UUID) -> RequestBuilder<[ImageInfo]> {
+    open class func getItemImageInfosWithRequestBuilder(itemId: String) -> RequestBuilder<[ImageInfo]> {
         var urlPath = "/Items/{itemId}/Images"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1666,7 +1666,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getUserImage(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -1704,7 +1704,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func getUserImageWithRequestBuilder(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1774,7 +1774,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getUserImageByIndex(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -1812,7 +1812,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func getUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func getUserImageByIndexWithRequestBuilder(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Users/{userId}/Images/{imageType}/{imageIndex}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2212,7 +2212,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headItemImage(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func headItemImage(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             headItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -2250,7 +2250,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func headItemImageWithRequestBuilder(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2320,7 +2320,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headItemImage2(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func headItemImage2(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             headItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -2358,7 +2358,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headItemImage2WithRequestBuilder(itemId: UUID, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headItemImage2WithRequestBuilder(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/{tag}/{format}/{maxWidth}/{maxHeight}/{percentPlayed}/{unplayedCount}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -2442,7 +2442,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func headItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             headItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -2480,7 +2480,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headItemImageByIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3206,7 +3206,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headUserImage(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func headUserImage(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             headUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -3244,7 +3244,7 @@ open class ImageAPI {
      - parameter imageIndex: (query) Image index. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
+    open class func headUserImageWithRequestBuilder(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3314,7 +3314,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headUserImageByIndex(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func headUserImageByIndex(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             headUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -3352,7 +3352,7 @@ open class ImageAPI {
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - returns: RequestBuilder<URL> 
      */
-    open class func headUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
+    open class func headUserImageByIndexWithRequestBuilder(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
         var urlPath = "/Users/{userId}/Images/{imageType}/{imageIndex}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3409,7 +3409,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func postUserImage(userId: UUID, imageType: ImageType, index: Int? = nil, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func postUserImage(userId: String, imageType: ImageType, index: Int? = nil, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             postUserImageWithRequestBuilder(userId: userId, imageType: imageType, index: index, body: body).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -3435,7 +3435,7 @@ open class ImageAPI {
      - parameter body: (body)  (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func postUserImageWithRequestBuilder(userId: UUID, imageType: ImageType, index: Int? = nil, body: URL? = nil) -> RequestBuilder<Void> {
+    open class func postUserImageWithRequestBuilder(userId: String, imageType: ImageType, index: Int? = nil, body: URL? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3474,7 +3474,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func postUserImageByIndex(userId: UUID, imageType: ImageType, index: Int, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func postUserImageByIndex(userId: String, imageType: ImageType, index: Int, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             postUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, index: index, body: body).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -3500,7 +3500,7 @@ open class ImageAPI {
      - parameter body: (body)  (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func postUserImageByIndexWithRequestBuilder(userId: UUID, imageType: ImageType, index: Int, body: URL? = nil) -> RequestBuilder<Void> {
+    open class func postUserImageByIndexWithRequestBuilder(userId: String, imageType: ImageType, index: Int, body: URL? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Users/{userId}/Images/{imageType}/{index}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3538,7 +3538,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func setItemImage(itemId: UUID, imageType: ImageType, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func setItemImage(itemId: String, imageType: ImageType, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             setItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, body: body).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -3563,7 +3563,7 @@ open class ImageAPI {
      - parameter body: (body)  (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func setItemImageWithRequestBuilder(itemId: UUID, imageType: ImageType, body: URL? = nil) -> RequestBuilder<Void> {
+    open class func setItemImageWithRequestBuilder(itemId: String, imageType: ImageType, body: URL? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3599,7 +3599,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func setItemImageByIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func setItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             setItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, body: body).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -3625,7 +3625,7 @@ open class ImageAPI {
      - parameter body: (body)  (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func setItemImageByIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, body: URL? = nil) -> RequestBuilder<Void> {
+    open class func setItemImageByIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int, body: URL? = nil) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -3664,7 +3664,7 @@ open class ImageAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateItemImageIndex(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func updateItemImageIndex(itemId: String, imageType: ImageType, imageIndex: Int, newIndex: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             updateItemImageIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, newIndex: newIndex).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -3690,7 +3690,7 @@ open class ImageAPI {
      - parameter newIndex: (query) New image index. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateItemImageIndexWithRequestBuilder(itemId: UUID, imageType: ImageType, imageIndex: Int, newIndex: Int) -> RequestBuilder<Void> {
+    open class func updateItemImageIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int, newIndex: Int) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/Index"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

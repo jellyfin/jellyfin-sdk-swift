@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **type** | **String** |  | [optional] 
 **serverId** | **String** | Gets or sets the server identifier. | [optional] 
 **externalId** | **String** | Gets or sets the external identifier. | [optional] 
-**channelId** | **UUID** | ChannelId of the recording. | [optional] 
+**channelId** | **String** | ChannelId of the recording. | [optional] 
 **externalChannelId** | **String** | Gets or sets the external channel identifier. | [optional] 
 **channelName** | **String** | ChannelName of the recording. | [optional] 
 **channelPrimaryImageTag** | **String** |  | [optional] 

@@ -20,6 +20,7 @@ jobs:
           --additional-properties=projectName=JellyfinAPI,responseAs=Combine,library=alamofire,useSPMFileStructure=true 
           -o /github/workspace
           -t templates/swift5/
+          --type-mappings UUID=String
 
     # "echo" in commit returns true so the build succeeds, even if no changed files
     - name: Commit new changes to the repo

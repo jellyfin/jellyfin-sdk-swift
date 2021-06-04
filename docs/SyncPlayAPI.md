@@ -39,7 +39,7 @@ Notify SyncPlay group that member is buffering.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let bufferRequestDto = BufferRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: 123) // BufferRequestDto | The player status.
+let bufferRequestDto = BufferRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: "playlistItemId_example") // BufferRequestDto | The player status.
 
 // Notify SyncPlay group that member is buffering.
 SyncPlayAPI.syncPlayBuffering(bufferRequestDto: bufferRequestDto) { (response, error) in
@@ -179,7 +179,7 @@ Join an existing SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let joinGroupRequestDto = JoinGroupRequestDto(groupId: 123) // JoinGroupRequestDto | The group to join.
+let joinGroupRequestDto = JoinGroupRequestDto(groupId: "groupId_example") // JoinGroupRequestDto | The group to join.
 
 // Join an existing SyncPlay group.
 SyncPlayAPI.syncPlayJoinGroup(joinGroupRequestDto: joinGroupRequestDto) { (response, error) in
@@ -271,7 +271,7 @@ Request to move an item in the playlist in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let movePlaylistItemRequestDto = MovePlaylistItemRequestDto(playlistItemId: 123, newIndex: 123) // MovePlaylistItemRequestDto | The new position for the item.
+let movePlaylistItemRequestDto = MovePlaylistItemRequestDto(playlistItemId: "playlistItemId_example", newIndex: 123) // MovePlaylistItemRequestDto | The new position for the item.
 
 // Request to move an item in the playlist in SyncPlay group.
 SyncPlayAPI.syncPlayMovePlaylistItem(movePlaylistItemRequestDto: movePlaylistItemRequestDto) { (response, error) in
@@ -319,7 +319,7 @@ Request next item in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let nextItemRequestDto = NextItemRequestDto(playlistItemId: 123) // NextItemRequestDto | The current item information.
+let nextItemRequestDto = NextItemRequestDto(playlistItemId: "playlistItemId_example") // NextItemRequestDto | The current item information.
 
 // Request next item in SyncPlay group.
 SyncPlayAPI.syncPlayNextItem(nextItemRequestDto: nextItemRequestDto) { (response, error) in
@@ -459,7 +459,7 @@ Request previous item in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let previousItemRequestDto = PreviousItemRequestDto(playlistItemId: 123) // PreviousItemRequestDto | The current item information.
+let previousItemRequestDto = PreviousItemRequestDto(playlistItemId: "playlistItemId_example") // PreviousItemRequestDto | The current item information.
 
 // Request previous item in SyncPlay group.
 SyncPlayAPI.syncPlayPreviousItem(previousItemRequestDto: previousItemRequestDto) { (response, error) in
@@ -507,7 +507,7 @@ Request to queue items to the playlist of a SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let queueRequestDto = QueueRequestDto(itemIds: [123], mode: GroupQueueMode()) // QueueRequestDto | The items to add.
+let queueRequestDto = QueueRequestDto(itemIds: ["itemIds_example"], mode: GroupQueueMode()) // QueueRequestDto | The items to add.
 
 // Request to queue items to the playlist of a SyncPlay group.
 SyncPlayAPI.syncPlayQueue(queueRequestDto: queueRequestDto) { (response, error) in
@@ -555,7 +555,7 @@ Notify SyncPlay group that member is ready for playback.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let readyRequestDto = ReadyRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: 123) // ReadyRequestDto | The player status.
+let readyRequestDto = ReadyRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: "playlistItemId_example") // ReadyRequestDto | The player status.
 
 // Notify SyncPlay group that member is ready for playback.
 SyncPlayAPI.syncPlayReady(readyRequestDto: readyRequestDto) { (response, error) in
@@ -603,7 +603,7 @@ Request to remove items from the playlist in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let removeFromPlaylistRequestDto = RemoveFromPlaylistRequestDto(playlistItemIds: [123]) // RemoveFromPlaylistRequestDto | The items to remove.
+let removeFromPlaylistRequestDto = RemoveFromPlaylistRequestDto(playlistItemIds: ["playlistItemIds_example"]) // RemoveFromPlaylistRequestDto | The items to remove.
 
 // Request to remove items from the playlist in SyncPlay group.
 SyncPlayAPI.syncPlayRemoveFromPlaylist(removeFromPlaylistRequestDto: removeFromPlaylistRequestDto) { (response, error) in
@@ -747,7 +747,7 @@ Request to set new playlist in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let playRequestDto = PlayRequestDto(playingQueue: [123], playingItemPosition: 123, startPositionTicks: 123) // PlayRequestDto | The new playlist to play in the group.
+let playRequestDto = PlayRequestDto(playingQueue: ["playingQueue_example"], playingItemPosition: 123, startPositionTicks: 123) // PlayRequestDto | The new playlist to play in the group.
 
 // Request to set new playlist in SyncPlay group.
 SyncPlayAPI.syncPlaySetNewQueue(playRequestDto: playRequestDto) { (response, error) in
@@ -795,7 +795,7 @@ Request to change playlist item in SyncPlay group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let setPlaylistItemRequestDto = SetPlaylistItemRequestDto(playlistItemId: 123) // SetPlaylistItemRequestDto | The new item to play.
+let setPlaylistItemRequestDto = SetPlaylistItemRequestDto(playlistItemId: "playlistItemId_example") // SetPlaylistItemRequestDto | The new item to play.
 
 // Request to change playlist item in SyncPlay group.
 SyncPlayAPI.syncPlaySetPlaylistItem(setPlaylistItemRequestDto: setPlaylistItemRequestDto) { (response, error) in

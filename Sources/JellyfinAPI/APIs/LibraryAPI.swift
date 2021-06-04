@@ -21,7 +21,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteItem(itemId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func deleteItem(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             deleteItemWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -44,7 +44,7 @@ open class LibraryAPI {
      - parameter itemId: (path) The item id. 
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteItemWithRequestBuilder(itemId: UUID) -> RequestBuilder<Void> {
+    open class func deleteItemWithRequestBuilder(itemId: String) -> RequestBuilder<Void> {
         var urlPath = "/Items/{itemId}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -74,7 +74,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteItems(ids: [UUID]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
+    open class func deleteItems(ids: [String]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
         return Future<Void, Error>.init { promise in
             deleteItemsWithRequestBuilder(ids: ids).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -97,7 +97,7 @@ open class LibraryAPI {
      - parameter ids: (query) The item ids. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteItemsWithRequestBuilder(ids: [UUID]? = nil) -> RequestBuilder<Void> {
+    open class func deleteItemsWithRequestBuilder(ids: [String]? = nil) -> RequestBuilder<Void> {
         let urlPath = "/Items"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -128,7 +128,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getAncestors(itemId: UUID, userId: UUID? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[BaseItemDto], Error> {
+    open class func getAncestors(itemId: String, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[BaseItemDto], Error> {
         return Future<[BaseItemDto], Error>.init { promise in
             getAncestorsWithRequestBuilder(itemId: itemId, userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -152,7 +152,7 @@ open class LibraryAPI {
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
      - returns: RequestBuilder<[BaseItemDto]> 
      */
-    open class func getAncestorsWithRequestBuilder(itemId: UUID, userId: UUID? = nil) -> RequestBuilder<[BaseItemDto]> {
+    open class func getAncestorsWithRequestBuilder(itemId: String, userId: String? = nil) -> RequestBuilder<[BaseItemDto]> {
         var urlPath = "/Items/{itemId}/Ancestors"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -240,7 +240,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getDownload(itemId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getDownload(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getDownloadWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -263,7 +263,7 @@ open class LibraryAPI {
      - parameter itemId: (path) The item id. 
      - returns: RequestBuilder<URL> 
      */
-    open class func getDownloadWithRequestBuilder(itemId: UUID) -> RequestBuilder<URL> {
+    open class func getDownloadWithRequestBuilder(itemId: String) -> RequestBuilder<URL> {
         var urlPath = "/Items/{itemId}/Download"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -293,7 +293,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getFile(itemId: UUID, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
+    open class func getFile(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
         return Future<URL, Error>.init { promise in
             getFileWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -316,7 +316,7 @@ open class LibraryAPI {
      - parameter itemId: (path) The item id. 
      - returns: RequestBuilder<URL> 
      */
-    open class func getFileWithRequestBuilder(itemId: UUID) -> RequestBuilder<URL> {
+    open class func getFileWithRequestBuilder(itemId: String) -> RequestBuilder<URL> {
         var urlPath = "/Items/{itemId}/File"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -347,7 +347,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemCounts(userId: UUID? = nil, isFavorite: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ItemCounts, Error> {
+    open class func getItemCounts(userId: String? = nil, isFavorite: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ItemCounts, Error> {
         return Future<ItemCounts, Error>.init { promise in
             getItemCountsWithRequestBuilder(userId: userId, isFavorite: isFavorite).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -371,7 +371,7 @@ open class LibraryAPI {
      - parameter isFavorite: (query) Optional. Get counts of favorite items. (optional)
      - returns: RequestBuilder<ItemCounts> 
      */
-    open class func getItemCountsWithRequestBuilder(userId: UUID? = nil, isFavorite: Bool? = nil) -> RequestBuilder<ItemCounts> {
+    open class func getItemCountsWithRequestBuilder(userId: String? = nil, isFavorite: Bool? = nil) -> RequestBuilder<ItemCounts> {
         let urlPath = "/Items/Counts"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -563,7 +563,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSimilarAlbums(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getSimilarAlbums(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getSimilarAlbumsWithRequestBuilder(itemId: itemId, excludeArtistIds: excludeArtistIds, userId: userId, limit: limit, fields: fields).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -590,7 +590,7 @@ open class LibraryAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getSimilarAlbumsWithRequestBuilder(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getSimilarAlbumsWithRequestBuilder(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Albums/{itemId}/Similar"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -630,7 +630,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSimilarArtists(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getSimilarArtists(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getSimilarArtistsWithRequestBuilder(itemId: itemId, excludeArtistIds: excludeArtistIds, userId: userId, limit: limit, fields: fields).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -657,7 +657,7 @@ open class LibraryAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getSimilarArtistsWithRequestBuilder(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getSimilarArtistsWithRequestBuilder(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Artists/{itemId}/Similar"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -697,7 +697,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSimilarItems(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getSimilarItems(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getSimilarItemsWithRequestBuilder(itemId: itemId, excludeArtistIds: excludeArtistIds, userId: userId, limit: limit, fields: fields).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -724,7 +724,7 @@ open class LibraryAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getSimilarItemsWithRequestBuilder(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getSimilarItemsWithRequestBuilder(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Items/{itemId}/Similar"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -764,7 +764,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSimilarMovies(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getSimilarMovies(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getSimilarMoviesWithRequestBuilder(itemId: itemId, excludeArtistIds: excludeArtistIds, userId: userId, limit: limit, fields: fields).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -791,7 +791,7 @@ open class LibraryAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getSimilarMoviesWithRequestBuilder(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getSimilarMoviesWithRequestBuilder(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Movies/{itemId}/Similar"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -831,7 +831,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSimilarShows(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getSimilarShows(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getSimilarShowsWithRequestBuilder(itemId: itemId, excludeArtistIds: excludeArtistIds, userId: userId, limit: limit, fields: fields).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -858,7 +858,7 @@ open class LibraryAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getSimilarShowsWithRequestBuilder(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getSimilarShowsWithRequestBuilder(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Shows/{itemId}/Similar"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -898,7 +898,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSimilarTrailers(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getSimilarTrailers(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getSimilarTrailersWithRequestBuilder(itemId: itemId, excludeArtistIds: excludeArtistIds, userId: userId, limit: limit, fields: fields).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -925,7 +925,7 @@ open class LibraryAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getSimilarTrailersWithRequestBuilder(itemId: UUID, excludeArtistIds: [UUID]? = nil, userId: UUID? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getSimilarTrailersWithRequestBuilder(itemId: String, excludeArtistIds: [String]? = nil, userId: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         var urlPath = "/Trailers/{itemId}/Similar"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -963,7 +963,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getThemeMedia(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<AllThemeMediaResult, Error> {
+    open class func getThemeMedia(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<AllThemeMediaResult, Error> {
         return Future<AllThemeMediaResult, Error>.init { promise in
             getThemeMediaWithRequestBuilder(itemId: itemId, userId: userId, inheritFromParent: inheritFromParent).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -988,7 +988,7 @@ open class LibraryAPI {
      - parameter inheritFromParent: (query) Optional. Determines whether or not parent items should be searched for theme media. (optional, default to false)
      - returns: RequestBuilder<AllThemeMediaResult> 
      */
-    open class func getThemeMediaWithRequestBuilder(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil) -> RequestBuilder<AllThemeMediaResult> {
+    open class func getThemeMediaWithRequestBuilder(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil) -> RequestBuilder<AllThemeMediaResult> {
         var urlPath = "/Items/{itemId}/ThemeMedia"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1024,7 +1024,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getThemeSongs(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ThemeMediaResult, Error> {
+    open class func getThemeSongs(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ThemeMediaResult, Error> {
         return Future<ThemeMediaResult, Error>.init { promise in
             getThemeSongsWithRequestBuilder(itemId: itemId, userId: userId, inheritFromParent: inheritFromParent).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -1049,7 +1049,7 @@ open class LibraryAPI {
      - parameter inheritFromParent: (query) Optional. Determines whether or not parent items should be searched for theme media. (optional, default to false)
      - returns: RequestBuilder<ThemeMediaResult> 
      */
-    open class func getThemeSongsWithRequestBuilder(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil) -> RequestBuilder<ThemeMediaResult> {
+    open class func getThemeSongsWithRequestBuilder(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil) -> RequestBuilder<ThemeMediaResult> {
         var urlPath = "/Items/{itemId}/ThemeSongs"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1085,7 +1085,7 @@ open class LibraryAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getThemeVideos(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ThemeMediaResult, Error> {
+    open class func getThemeVideos(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ThemeMediaResult, Error> {
         return Future<ThemeMediaResult, Error>.init { promise in
             getThemeVideosWithRequestBuilder(itemId: itemId, userId: userId, inheritFromParent: inheritFromParent).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -1110,7 +1110,7 @@ open class LibraryAPI {
      - parameter inheritFromParent: (query) Optional. Determines whether or not parent items should be searched for theme media. (optional, default to false)
      - returns: RequestBuilder<ThemeMediaResult> 
      */
-    open class func getThemeVideosWithRequestBuilder(itemId: UUID, userId: UUID? = nil, inheritFromParent: Bool? = nil) -> RequestBuilder<ThemeMediaResult> {
+    open class func getThemeVideosWithRequestBuilder(itemId: String, userId: String? = nil, inheritFromParent: Bool? = nil) -> RequestBuilder<ThemeMediaResult> {
         var urlPath = "/Items/{itemId}/ThemeVideos"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

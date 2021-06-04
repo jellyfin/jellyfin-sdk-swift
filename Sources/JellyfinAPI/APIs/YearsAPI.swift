@@ -22,7 +22,7 @@ open class YearsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getYear(year: Int, userId: UUID? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDto, Error> {
+    open class func getYear(year: Int, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDto, Error> {
         return Future<BaseItemDto, Error>.init { promise in
             getYearWithRequestBuilder(year: year, userId: userId).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -46,7 +46,7 @@ open class YearsAPI {
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
      - returns: RequestBuilder<BaseItemDto> 
      */
-    open class func getYearWithRequestBuilder(year: Int, userId: UUID? = nil) -> RequestBuilder<BaseItemDto> {
+    open class func getYearWithRequestBuilder(year: Int, userId: String? = nil) -> RequestBuilder<BaseItemDto> {
         var urlPath = "/Years/{year}"
         let yearPreEscape = "\(APIHelper.mapValueToPathItem(year))"
         let yearPostEscape = yearPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -93,7 +93,7 @@ open class YearsAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: UUID? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getYearsWithRequestBuilder(startIndex: startIndex, limit: limit, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, mediaTypes: mediaTypes, sortBy: sortBy, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, userId: userId, recursive: recursive, enableImages: enableImages).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -130,7 +130,7 @@ open class YearsAPI {
      - parameter enableImages: (query) Optional. Include image information in output. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getYearsWithRequestBuilder(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: UUID? = nil, recursive: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getYearsWithRequestBuilder(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, recursive: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let urlPath = "/Years"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil

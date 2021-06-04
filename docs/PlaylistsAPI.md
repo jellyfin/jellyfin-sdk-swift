@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 # **addToPlaylist**
 ```swift
-    open class func addToPlaylist(playlistId: UUID, ids: [UUID]? = nil, userId: UUID? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func addToPlaylist(playlistId: String, ids: [String]? = nil, userId: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Adds items to a playlist.
@@ -23,9 +23,9 @@ Adds items to a playlist.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let playlistId = 987 // UUID | The playlist id.
-let ids = [123] // [UUID] | Item id, comma delimited. (optional)
-let userId = 987 // UUID | The userId. (optional)
+let playlistId = "playlistId_example" // String | The playlist id.
+let ids = ["inner_example"] // [String] | Item id, comma delimited. (optional)
+let userId = "userId_example" // String | The userId. (optional)
 
 // Adds items to a playlist.
 PlaylistsAPI.addToPlaylist(playlistId: playlistId, ids: ids, userId: userId) { (response, error) in
@@ -44,9 +44,9 @@ PlaylistsAPI.addToPlaylist(playlistId: playlistId, ids: ids, userId: userId) { (
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playlistId** | [**UUID**](.md) | The playlist id. | 
- **ids** | [**[UUID]**](UUID.md) | Item id, comma delimited. | [optional] 
- **userId** | [**UUID**](.md) | The userId. | [optional] 
+ **playlistId** | [**String**](.md) | The playlist id. | 
+ **ids** | [**[String]**](String.md) | Item id, comma delimited. | [optional] 
+ **userId** | [**String**](.md) | The userId. | [optional] 
 
 ### Return type
 
@@ -65,7 +65,7 @@ Void (empty response body)
 
 # **createPlaylist**
 ```swift
-    open class func createPlaylist(name: String? = nil, ids: [UUID]? = nil, userId: UUID? = nil, mediaType: String? = nil, createPlaylistDto: CreatePlaylistDto? = nil, completion: @escaping (_ data: PlaylistCreationResult?, _ error: Error?) -> Void)
+    open class func createPlaylist(name: String? = nil, ids: [String]? = nil, userId: String? = nil, mediaType: String? = nil, createPlaylistDto: CreatePlaylistDto? = nil, completion: @escaping (_ data: PlaylistCreationResult?, _ error: Error?) -> Void)
 ```
 
 Creates a new playlist.
@@ -78,10 +78,10 @@ For backwards compatibility parameters can be sent via Query or Body, with Query
 import JellyfinAPI
 
 let name = "name_example" // String | The playlist name. (optional)
-let ids = [123] // [UUID] | The item ids. (optional)
-let userId = 987 // UUID | The user id. (optional)
+let ids = ["inner_example"] // [String] | The item ids. (optional)
+let userId = "userId_example" // String | The user id. (optional)
 let mediaType = "mediaType_example" // String | The media type. (optional)
-let createPlaylistDto = CreatePlaylistDto(name: "name_example", ids: [123], userId: 123, mediaType: "mediaType_example") // CreatePlaylistDto | The create playlist payload. (optional)
+let createPlaylistDto = CreatePlaylistDto(name: "name_example", ids: ["ids_example"], userId: "userId_example", mediaType: "mediaType_example") // CreatePlaylistDto | The create playlist payload. (optional)
 
 // Creates a new playlist.
 PlaylistsAPI.createPlaylist(name: name, ids: ids, userId: userId, mediaType: mediaType, createPlaylistDto: createPlaylistDto) { (response, error) in
@@ -101,8 +101,8 @@ PlaylistsAPI.createPlaylist(name: name, ids: ids, userId: userId, mediaType: med
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | The playlist name. | [optional] 
- **ids** | [**[UUID]**](UUID.md) | The item ids. | [optional] 
- **userId** | [**UUID**](.md) | The user id. | [optional] 
+ **ids** | [**[String]**](String.md) | The item ids. | [optional] 
+ **userId** | [**String**](.md) | The user id. | [optional] 
  **mediaType** | **String** | The media type. | [optional] 
  **createPlaylistDto** | [**CreatePlaylistDto**](CreatePlaylistDto.md) | The create playlist payload. | [optional] 
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 # **getPlaylistItems**
 ```swift
-    open class func getPlaylistItems(playlistId: UUID, userId: UUID, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getPlaylistItems(playlistId: String, userId: String, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets the original items of a playlist.
@@ -133,8 +133,8 @@ Gets the original items of a playlist.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let playlistId = 987 // UUID | The playlist id.
-let userId = 987 // UUID | User id.
+let playlistId = "playlistId_example" // String | The playlist id.
+let userId = "userId_example" // String | User id.
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
@@ -160,8 +160,8 @@ PlaylistsAPI.getPlaylistItems(playlistId: playlistId, userId: userId, startIndex
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playlistId** | [**UUID**](.md) | The playlist id. | 
- **userId** | [**UUID**](.md) | User id. | 
+ **playlistId** | [**String**](.md) | The playlist id. | 
+ **userId** | [**String**](.md) | User id. | 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
