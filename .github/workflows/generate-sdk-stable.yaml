@@ -24,7 +24,6 @@ jobs:
 
     # "echo" in commit returns true so the build succeeds, even if no changed files
     - name: Commit new changes to the repo
-      if: ${{ steps.diff.outputs.count }} > 0
       run: |
         git config user.name jellyfin-bot
         git config user.email team@jellyfin.org
