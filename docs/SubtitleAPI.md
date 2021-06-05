@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 # **deleteSubtitle**
 ```swift
-    open class func deleteSubtitle(itemId: UUID, index: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteSubtitle(itemId: String, index: Int, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Deletes an external subtitle file.
@@ -26,9 +26,9 @@ Deletes an external subtitle file.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let index = 987 // Int | The index of the subtitle file.
 
 // Deletes an external subtitle file.
@@ -48,7 +48,7 @@ SubtitleAPI.deleteSubtitle(itemId: itemId, index: index) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **index** | **Int** | The index of the subtitle file. | 
 
 ### Return type
@@ -68,7 +68,7 @@ Void (empty response body)
 
 # **downloadRemoteSubtitles**
 ```swift
-    open class func downloadRemoteSubtitles(itemId: UUID, subtitleId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func downloadRemoteSubtitles(itemId: String, subtitleId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Downloads a remote subtitle.
@@ -76,9 +76,9 @@ Downloads a remote subtitle.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let subtitleId = "subtitleId_example" // String | The subtitle id.
 
 // Downloads a remote subtitle.
@@ -98,7 +98,7 @@ SubtitleAPI.downloadRemoteSubtitles(itemId: itemId, subtitleId: subtitleId) { (r
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **subtitleId** | **String** | The subtitle id. | 
 
 ### Return type
@@ -126,7 +126,7 @@ Gets a fallback font file.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the fallback font file to get.
 
@@ -174,7 +174,7 @@ Gets a list of available fallback font files.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets a list of available fallback font files.
@@ -218,7 +218,7 @@ Gets the remote subtitles.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let id = "id_example" // String | The item id.
 
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 
 # **getSubtitle**
 ```swift
-    open class func getSubtitle(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getSubtitle(routeItemId: String, routeMediaSourceId: String, routeIndex: Int, routeFormat: String, itemId: String? = nil, mediaSourceId: String? = nil, index: Int? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, startPositionTicks: Int64? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets subtitles in a specified format.
@@ -266,13 +266,13 @@ Gets subtitles in a specified format.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let routeItemId = 987 // UUID | The (route) item id.
+let routeItemId = "routeItemId_example" // String | The (route) item id.
 let routeMediaSourceId = "routeMediaSourceId_example" // String | The (route) media source id.
 let routeIndex = 987 // Int | The (route) subtitle stream index.
 let routeFormat = "routeFormat_example" // String | The (route) format of the returned subtitle.
-let itemId = 987 // UUID | The item id. (optional)
+let itemId = "itemId_example" // String | The item id. (optional)
 let mediaSourceId = "mediaSourceId_example" // String | The media source id. (optional)
 let index = 987 // Int | The subtitle stream index. (optional)
 let format = "format_example" // String | The format of the returned subtitle. (optional)
@@ -298,11 +298,11 @@ SubtitleAPI.getSubtitle(routeItemId: routeItemId, routeMediaSourceId: routeMedia
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **routeItemId** | [**UUID**](.md) | The (route) item id. | 
+ **routeItemId** | [**String**](.md) | The (route) item id. | 
  **routeMediaSourceId** | **String** | The (route) media source id. | 
  **routeIndex** | **Int** | The (route) subtitle stream index. | 
  **routeFormat** | **String** | The (route) format of the returned subtitle. | 
- **itemId** | [**UUID**](.md) | The item id. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | [optional] 
  **mediaSourceId** | **String** | The media source id. | [optional] 
  **index** | **Int** | The subtitle stream index. | [optional] 
  **format** | **String** | The format of the returned subtitle. | [optional] 
@@ -328,7 +328,7 @@ No authorization required
 
 # **getSubtitlePlaylist**
 ```swift
-    open class func getSubtitlePlaylist(itemId: UUID, index: Int, mediaSourceId: String, segmentLength: Int, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getSubtitlePlaylist(itemId: String, index: Int, mediaSourceId: String, segmentLength: Int, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets an HLS subtitle playlist.
@@ -336,9 +336,9 @@ Gets an HLS subtitle playlist.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let index = 987 // Int | The subtitle stream index.
 let mediaSourceId = "mediaSourceId_example" // String | The media source id.
 let segmentLength = 987 // Int | The subtitle segment length.
@@ -360,7 +360,7 @@ SubtitleAPI.getSubtitlePlaylist(itemId: itemId, index: index, mediaSourceId: med
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **index** | **Int** | The subtitle stream index. | 
  **mediaSourceId** | **String** | The media source id. | 
  **segmentLength** | **Int** | The subtitle segment length. | 
@@ -382,7 +382,7 @@ Name | Type | Description  | Notes
 
 # **getSubtitleWithTicks**
 ```swift
-    open class func getSubtitleWithTicks(routeItemId: UUID, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: UUID? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getSubtitleWithTicks(routeItemId: String, routeMediaSourceId: String, routeIndex: Int, routeStartPositionTicks: Int64, routeFormat: String, itemId: String? = nil, mediaSourceId: String? = nil, index: Int? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, copyTimestamps: Bool? = nil, addVttTimeMap: Bool? = nil, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets subtitles in a specified format.
@@ -390,14 +390,14 @@ Gets subtitles in a specified format.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let routeItemId = 987 // UUID | The (route) item id.
+let routeItemId = "routeItemId_example" // String | The (route) item id.
 let routeMediaSourceId = "routeMediaSourceId_example" // String | The (route) media source id.
 let routeIndex = 987 // Int | The (route) subtitle stream index.
 let routeStartPositionTicks = 987 // Int64 | The (route) start position of the subtitle in ticks.
 let routeFormat = "routeFormat_example" // String | The (route) format of the returned subtitle.
-let itemId = 987 // UUID | The item id. (optional)
+let itemId = "itemId_example" // String | The item id. (optional)
 let mediaSourceId = "mediaSourceId_example" // String | The media source id. (optional)
 let index = 987 // Int | The subtitle stream index. (optional)
 let startPositionTicks = 987 // Int64 | The start position of the subtitle in ticks. (optional)
@@ -423,12 +423,12 @@ SubtitleAPI.getSubtitleWithTicks(routeItemId: routeItemId, routeMediaSourceId: r
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **routeItemId** | [**UUID**](.md) | The (route) item id. | 
+ **routeItemId** | [**String**](.md) | The (route) item id. | 
  **routeMediaSourceId** | **String** | The (route) media source id. | 
  **routeIndex** | **Int** | The (route) subtitle stream index. | 
  **routeStartPositionTicks** | **Int64** | The (route) start position of the subtitle in ticks. | 
  **routeFormat** | **String** | The (route) format of the returned subtitle. | 
- **itemId** | [**UUID**](.md) | The item id. | [optional] 
+ **itemId** | [**String**](.md) | The item id. | [optional] 
  **mediaSourceId** | **String** | The media source id. | [optional] 
  **index** | **Int** | The subtitle stream index. | [optional] 
  **startPositionTicks** | **Int64** | The start position of the subtitle in ticks. | [optional] 
@@ -454,7 +454,7 @@ No authorization required
 
 # **searchRemoteSubtitles**
 ```swift
-    open class func searchRemoteSubtitles(itemId: UUID, language: String, isPerfectMatch: Bool? = nil, completion: @escaping (_ data: [RemoteSubtitleInfo]?, _ error: Error?) -> Void)
+    open class func searchRemoteSubtitles(itemId: String, language: String, isPerfectMatch: Bool? = nil, completion: @escaping (_ data: [RemoteSubtitleInfo]?, _ error: Error?) -> Void)
 ```
 
 Search remote subtitles.
@@ -462,9 +462,9 @@ Search remote subtitles.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let itemId = 987 // UUID | The item id.
+let itemId = "itemId_example" // String | The item id.
 let language = "language_example" // String | The language of the subtitles.
 let isPerfectMatch = true // Bool | Optional. Only show subtitles which are a perfect match. (optional)
 
@@ -485,7 +485,7 @@ SubtitleAPI.searchRemoteSubtitles(itemId: itemId, language: language, isPerfectM
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item id. | 
+ **itemId** | [**String**](.md) | The item id. | 
  **language** | **String** | The language of the subtitles. | 
  **isPerfectMatch** | **Bool** | Optional. Only show subtitles which are a perfect match. | [optional] 
 
@@ -506,7 +506,7 @@ Name | Type | Description  | Notes
 
 # **uploadSubtitle**
 ```swift
-    open class func uploadSubtitle(itemId: UUID, uploadSubtitleDto: UploadSubtitleDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func uploadSubtitle(itemId: String, uploadSubtitleDto: UploadSubtitleDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Upload an external subtitle file.
@@ -514,9 +514,9 @@ Upload an external subtitle file.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let itemId = 987 // UUID | The item the subtitle belongs to.
+let itemId = "itemId_example" // String | The item the subtitle belongs to.
 let uploadSubtitleDto = UploadSubtitleDto(language: "language_example", format: "format_example", isForced: false, data: "data_example") // UploadSubtitleDto | The request body.
 
 // Upload an external subtitle file.
@@ -536,7 +536,7 @@ SubtitleAPI.uploadSubtitle(itemId: itemId, uploadSubtitleDto: uploadSubtitleDto)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | The item the subtitle belongs to. | 
+ **itemId** | [**String**](.md) | The item the subtitle belongs to. | 
  **uploadSubtitleDto** | [**UploadSubtitleDto**](UploadSubtitleDto.md) | The request body. | 
 
 ### Return type

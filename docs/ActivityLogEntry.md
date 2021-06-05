@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **type** | **String** | Gets or sets the type. | [optional] 
 **itemId** | **String** | Gets or sets the item identifier. | [optional] 
 **date** | **Date** | Gets or sets the date. | [optional] 
-**userId** | **UUID** | Gets or sets the user identifier. | [optional] 
+**userId** | **String** | Gets or sets the user identifier. | [optional] 
 **userPrimaryImageTag** | **String** | Gets or sets the user primary image tag. | [optional] 
 **severity** | [**LogLevel**](LogLevel.md) |  | [optional] 
 

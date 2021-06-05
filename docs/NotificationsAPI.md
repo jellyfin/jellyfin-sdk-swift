@@ -23,7 +23,7 @@ Sends a notification to all admins.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let adminNotificationDto = AdminNotificationDto(name: "name_example", description: "description_example", notificationLevel: NotificationLevel(), url: "url_example") // AdminNotificationDto | The notification request.
 
@@ -71,7 +71,7 @@ Gets notification services.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets notification services.
@@ -115,7 +115,7 @@ Gets notification types.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets notification types.
@@ -159,7 +159,7 @@ Gets a user's notifications.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = "userId_example" // String | 
 
@@ -207,7 +207,7 @@ Gets a user's notification summary.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = "userId_example" // String | 
 
@@ -255,7 +255,7 @@ Sets notifications as read.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = "userId_example" // String | 
 
@@ -303,7 +303,7 @@ Sets notifications as unread.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let userId = "userId_example" // String | 
 

@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 # **disablePlugin**
 ```swift
-    open class func disablePlugin(pluginId: UUID, version: Version, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func disablePlugin(pluginId: String, version: Version, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Disable a plugin.
@@ -26,9 +26,9 @@ Disable a plugin.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let pluginId = 987 // UUID | Plugin id.
+let pluginId = "pluginId_example" // String | Plugin id.
 let version = Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123) // Version | Plugin version.
 
 // Disable a plugin.
@@ -48,7 +48,7 @@ PluginsAPI.disablePlugin(pluginId: pluginId, version: version) { (response, erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pluginId** | [**UUID**](.md) | Plugin id. | 
+ **pluginId** | [**String**](.md) | Plugin id. | 
  **version** | [**Version**](.md) | Plugin version. | 
 
 ### Return type
@@ -68,7 +68,7 @@ Void (empty response body)
 
 # **enablePlugin**
 ```swift
-    open class func enablePlugin(pluginId: UUID, version: Version, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func enablePlugin(pluginId: String, version: Version, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Enables a disabled plugin.
@@ -76,9 +76,9 @@ Enables a disabled plugin.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let pluginId = 987 // UUID | Plugin id.
+let pluginId = "pluginId_example" // String | Plugin id.
 let version = Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123) // Version | Plugin version.
 
 // Enables a disabled plugin.
@@ -98,7 +98,7 @@ PluginsAPI.enablePlugin(pluginId: pluginId, version: version) { (response, error
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pluginId** | [**UUID**](.md) | Plugin id. | 
+ **pluginId** | [**String**](.md) | Plugin id. | 
  **version** | [**Version**](.md) | Plugin version. | 
 
 ### Return type
@@ -118,7 +118,7 @@ Void (empty response body)
 
 # **getPluginConfiguration**
 ```swift
-    open class func getPluginConfiguration(pluginId: UUID, completion: @escaping (_ data: AnyCodable?, _ error: Error?) -> Void)
+    open class func getPluginConfiguration(pluginId: String, completion: @escaping (_ data: AnyCodable?, _ error: Error?) -> Void)
 ```
 
 Gets plugin configuration.
@@ -126,9 +126,9 @@ Gets plugin configuration.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let pluginId = 987 // UUID | Plugin id.
+let pluginId = "pluginId_example" // String | Plugin id.
 
 // Gets plugin configuration.
 PluginsAPI.getPluginConfiguration(pluginId: pluginId) { (response, error) in
@@ -147,7 +147,7 @@ PluginsAPI.getPluginConfiguration(pluginId: pluginId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pluginId** | [**UUID**](.md) | Plugin id. | 
+ **pluginId** | [**String**](.md) | Plugin id. | 
 
 ### Return type
 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 # **getPluginImage**
 ```swift
-    open class func getPluginImage(pluginId: UUID, version: Version, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+    open class func getPluginImage(pluginId: String, version: Version, completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
 ```
 
 Gets a plugin's image.
@@ -174,9 +174,9 @@ Gets a plugin's image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let pluginId = 987 // UUID | Plugin id.
+let pluginId = "pluginId_example" // String | Plugin id.
 let version = Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123) // Version | Plugin version.
 
 // Gets a plugin's image.
@@ -196,7 +196,7 @@ PluginsAPI.getPluginImage(pluginId: pluginId, version: version) { (response, err
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pluginId** | [**UUID**](.md) | Plugin id. | 
+ **pluginId** | [**String**](.md) | Plugin id. | 
  **version** | [**Version**](.md) | Plugin version. | 
 
 ### Return type
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 # **getPluginManifest**
 ```swift
-    open class func getPluginManifest(pluginId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func getPluginManifest(pluginId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Gets a plugin's manifest.
@@ -224,9 +224,9 @@ Gets a plugin's manifest.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let pluginId = 987 // UUID | Plugin id.
+let pluginId = "pluginId_example" // String | Plugin id.
 
 // Gets a plugin's manifest.
 PluginsAPI.getPluginManifest(pluginId: pluginId) { (response, error) in
@@ -245,7 +245,7 @@ PluginsAPI.getPluginManifest(pluginId: pluginId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pluginId** | [**UUID**](.md) | Plugin id. | 
+ **pluginId** | [**String**](.md) | Plugin id. | 
 
 ### Return type
 
@@ -272,7 +272,7 @@ Gets a list of currently installed plugins.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Gets a list of currently installed plugins.
@@ -308,7 +308,7 @@ This endpoint does not need any parameter.
 
 # **uninstallPlugin**
 ```swift
-    open class func uninstallPlugin(pluginId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func uninstallPlugin(pluginId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Uninstalls a plugin.
@@ -316,9 +316,9 @@ Uninstalls a plugin.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let pluginId = 987 // UUID | Plugin id.
+let pluginId = "pluginId_example" // String | Plugin id.
 
 // Uninstalls a plugin.
 PluginsAPI.uninstallPlugin(pluginId: pluginId) { (response, error) in
@@ -337,7 +337,7 @@ PluginsAPI.uninstallPlugin(pluginId: pluginId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pluginId** | [**UUID**](.md) | Plugin id. | 
+ **pluginId** | [**String**](.md) | Plugin id. | 
 
 ### Return type
 
@@ -356,7 +356,7 @@ Void (empty response body)
 
 # **uninstallPluginByVersion**
 ```swift
-    open class func uninstallPluginByVersion(pluginId: UUID, version: Version, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func uninstallPluginByVersion(pluginId: String, version: Version, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Uninstalls a plugin by version.
@@ -364,9 +364,9 @@ Uninstalls a plugin by version.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let pluginId = 987 // UUID | Plugin id.
+let pluginId = "pluginId_example" // String | Plugin id.
 let version = Version(major: 123, minor: 123, build: 123, revision: 123, majorRevision: 123, minorRevision: 123) // Version | Plugin version.
 
 // Uninstalls a plugin by version.
@@ -386,7 +386,7 @@ PluginsAPI.uninstallPluginByVersion(pluginId: pluginId, version: version) { (res
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pluginId** | [**UUID**](.md) | Plugin id. | 
+ **pluginId** | [**String**](.md) | Plugin id. | 
  **version** | [**Version**](.md) | Plugin version. | 
 
 ### Return type
@@ -406,7 +406,7 @@ Void (empty response body)
 
 # **updatePluginConfiguration**
 ```swift
-    open class func updatePluginConfiguration(pluginId: UUID, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updatePluginConfiguration(pluginId: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates plugin configuration.
@@ -416,9 +416,9 @@ Accepts plugin configuration as JSON body.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let pluginId = 987 // UUID | Plugin id.
+let pluginId = "pluginId_example" // String | Plugin id.
 
 // Updates plugin configuration.
 PluginsAPI.updatePluginConfiguration(pluginId: pluginId) { (response, error) in
@@ -437,7 +437,7 @@ PluginsAPI.updatePluginConfiguration(pluginId: pluginId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pluginId** | [**UUID**](.md) | Plugin id. | 
+ **pluginId** | [**String**](.md) | Plugin id. | 
 
 ### Return type
 
@@ -464,7 +464,7 @@ Updates plugin security info.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let pluginSecurityInfo = PluginSecurityInfo(supporterKey: "supporterKey_example", isMbSupporter: false) // PluginSecurityInfo | Plugin security info.
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 # **getGroupingOptions**
 ```swift
-    open class func getGroupingOptions(userId: UUID, completion: @escaping (_ data: [SpecialViewOptionDto]?, _ error: Error?) -> Void)
+    open class func getGroupingOptions(userId: String, completion: @escaping (_ data: [SpecialViewOptionDto]?, _ error: Error?) -> Void)
 ```
 
 Get user view grouping options.
@@ -18,9 +18,9 @@ Get user view grouping options.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let userId = 987 // UUID | User id.
+let userId = "userId_example" // String | User id.
 
 // Get user view grouping options.
 UserViewsAPI.getGroupingOptions(userId: userId) { (response, error) in
@@ -39,7 +39,7 @@ UserViewsAPI.getGroupingOptions(userId: userId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
+ **userId** | [**String**](.md) | User id. | 
 
 ### Return type
 
@@ -58,7 +58,7 @@ No authorization required
 
 # **getUserViews**
 ```swift
-    open class func getUserViews(userId: UUID, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getUserViews(userId: String, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Get user views.
@@ -66,9 +66,9 @@ Get user views.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let userId = 987 // UUID | User id.
+let userId = "userId_example" // String | User id.
 let includeExternalContent = true // Bool | Whether or not to include external views such as channels or live tv. (optional)
 let presetViews = ["inner_example"] // [String] | Preset views. (optional)
 let includeHidden = true // Bool | Whether or not to include hidden content. (optional) (default to false)
@@ -90,7 +90,7 @@ UserViewsAPI.getUserViews(userId: userId, includeExternalContent: includeExterna
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | User id. | 
+ **userId** | [**String**](.md) | User id. | 
  **includeExternalContent** | **Bool** | Whether or not to include external views such as channels or live tv. | [optional] 
  **presetViews** | [**[String]**](String.md) | Preset views. | [optional] 
  **includeHidden** | **Bool** | Whether or not to include hidden content. | [optional] [default to false]

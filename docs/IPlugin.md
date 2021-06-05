@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** | Gets the name of the plugin. | [optional] [readonly] 
 **description** | **String** | Gets the Description. | [optional] [readonly] 
-**id** | **UUID** | Gets the unique id. | [optional] [readonly] 
+**id** | **String** | Gets the unique id. | [optional] [readonly] 
 **version** | [**Version**](Version.md) |  | [optional] 
 **assemblyFilePath** | **String** | Gets the path to the assembly file. | [optional] [readonly] 
 **canUninstall** | **Bool** | Gets a value indicating whether the plugin can be uninstalled. | [optional] [readonly] 

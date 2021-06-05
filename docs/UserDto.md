@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **name** | **String** | Gets or sets the name. | [optional] 
 **serverId** | **String** | Gets or sets the server identifier. | [optional] 
 **serverName** | **String** | Gets or sets the name of the server.  This is not used by the server and is for client-side usage only. | [optional] 
-**id** | **UUID** | Gets or sets the id. | [optional] 
+**id** | **String** | Gets or sets the id. | [optional] 
 **primaryImageTag** | **String** | Gets or sets the primary image tag. | [optional] 
 **hasPassword** | **Bool** | Gets or sets a value indicating whether this instance has password. | [optional] 
 **hasConfiguredPassword** | **Bool** | Gets or sets a value indicating whether this instance has configured password. | [optional] 

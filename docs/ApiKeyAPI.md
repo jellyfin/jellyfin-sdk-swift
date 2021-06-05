@@ -19,7 +19,7 @@ Create a new api key.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let app = "app_example" // String | Name of the app using the authentication key.
 
@@ -67,7 +67,7 @@ Get all keys.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Get all keys.
@@ -111,7 +111,7 @@ Remove an api key.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let key = "key_example" // String | The access token to delete.
 

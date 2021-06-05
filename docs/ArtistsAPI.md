@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 # **getAlbumArtists**
 ```swift
-    open class func getAlbumArtists(minCommunityRating: Double? = nil, startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, genres: [String]? = nil, genreIds: [UUID]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [UUID]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, studioIds: [UUID]? = nil, userId: UUID? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getAlbumArtists(minCommunityRating: Double? = nil, startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, studioIds: [String]? = nil, userId: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets all album artists from a given item, folder, or the entire library.
@@ -19,13 +19,13 @@ Gets all album artists from a given item, folder, or the entire library.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let minCommunityRating = 987 // Double | Optional filter by minimum community rating. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let searchTerm = "searchTerm_example" // String | Optional. Search term. (optional)
-let parentId = 987 // UUID | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
+let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let excludeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be filtered out based on item type. This allows multiple, comma delimited. (optional)
 let includeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. (optional)
@@ -33,7 +33,7 @@ let filters = [ItemFilter()] // [ItemFilter] | Optional. Specify additional filt
 let isFavorite = true // Bool | Optional filter by items that are marked as favorite, or not. (optional)
 let mediaTypes = ["inner_example"] // [String] | Optional filter by MediaType. Allows multiple, comma delimited. (optional)
 let genres = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on genre. This allows multiple, pipe delimited. (optional)
-let genreIds = [123] // [UUID] | Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. (optional)
+let genreIds = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. (optional)
 let officialRatings = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on OfficialRating. This allows multiple, pipe delimited. (optional)
 let tags = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on tag. This allows multiple, pipe delimited. (optional)
 let years = [123] // [Int] | Optional. If specified, results will be filtered based on production year. This allows multiple, comma delimited. (optional)
@@ -41,11 +41,11 @@ let enableUserData = true // Bool | Optional, include user data. (optional)
 let imageTypeLimit = 987 // Int | Optional, the max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
 let person = "person_example" // String | Optional. If specified, results will be filtered to include only those containing the specified person. (optional)
-let personIds = [123] // [UUID] | Optional. If specified, results will be filtered to include only those containing the specified person ids. (optional)
+let personIds = ["inner_example"] // [String] | Optional. If specified, results will be filtered to include only those containing the specified person ids. (optional)
 let personTypes = ["inner_example"] // [String] | Optional. If specified, along with Person, results will be filtered to include only those containing the specified person and PersonType. Allows multiple, comma-delimited. (optional)
 let studios = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on studio. This allows multiple, pipe delimited. (optional)
-let studioIds = [123] // [UUID] | Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. (optional)
-let userId = 987 // UUID | User id. (optional)
+let studioIds = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. (optional)
+let userId = "userId_example" // String | User id. (optional)
 let nameStartsWithOrGreater = "nameStartsWithOrGreater_example" // String | Optional filter by items whose name is sorted equally or greater than a given input string. (optional)
 let nameStartsWith = "nameStartsWith_example" // String | Optional filter by items whose name is sorted equally than a given input string. (optional)
 let nameLessThan = "nameLessThan_example" // String | Optional filter by items whose name is equally or lesser than a given input string. (optional)
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **searchTerm** | **String** | Optional. Search term. | [optional] 
- **parentId** | [**UUID**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **excludeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be filtered out based on item type. This allows multiple, comma delimited. | [optional] 
  **includeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. | [optional] 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
  **isFavorite** | **Bool** | Optional filter by items that are marked as favorite, or not. | [optional] 
  **mediaTypes** | [**[String]**](String.md) | Optional filter by MediaType. Allows multiple, comma delimited. | [optional] 
  **genres** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on genre. This allows multiple, pipe delimited. | [optional] 
- **genreIds** | [**[UUID]**](UUID.md) | Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. | [optional] 
+ **genreIds** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. | [optional] 
  **officialRatings** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on OfficialRating. This allows multiple, pipe delimited. | [optional] 
  **tags** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on tag. This allows multiple, pipe delimited. | [optional] 
  **years** | [**[Int]**](Int.md) | Optional. If specified, results will be filtered based on production year. This allows multiple, comma delimited. | [optional] 
@@ -89,11 +89,11 @@ Name | Type | Description  | Notes
  **imageTypeLimit** | **Int** | Optional, the max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
  **person** | **String** | Optional. If specified, results will be filtered to include only those containing the specified person. | [optional] 
- **personIds** | [**[UUID]**](UUID.md) | Optional. If specified, results will be filtered to include only those containing the specified person ids. | [optional] 
+ **personIds** | [**[String]**](String.md) | Optional. If specified, results will be filtered to include only those containing the specified person ids. | [optional] 
  **personTypes** | [**[String]**](String.md) | Optional. If specified, along with Person, results will be filtered to include only those containing the specified person and PersonType. Allows multiple, comma-delimited. | [optional] 
  **studios** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on studio. This allows multiple, pipe delimited. | [optional] 
- **studioIds** | [**[UUID]**](UUID.md) | Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. | [optional] 
- **userId** | [**UUID**](.md) | User id. | [optional] 
+ **studioIds** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. | [optional] 
+ **userId** | [**String**](.md) | User id. | [optional] 
  **nameStartsWithOrGreater** | **String** | Optional filter by items whose name is sorted equally or greater than a given input string. | [optional] 
  **nameStartsWith** | **String** | Optional filter by items whose name is sorted equally than a given input string. | [optional] 
  **nameLessThan** | **String** | Optional filter by items whose name is equally or lesser than a given input string. | [optional] 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 # **getArtistByName**
 ```swift
-    open class func getArtistByName(name: String, userId: UUID? = nil, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
+    open class func getArtistByName(name: String, userId: String? = nil, completion: @escaping (_ data: BaseItemDto?, _ error: Error?) -> Void)
 ```
 
 Gets an artist by name.
@@ -125,10 +125,10 @@ Gets an artist by name.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | Studio name.
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
 
 // Gets an artist by name.
 ArtistsAPI.getArtistByName(name: name, userId: userId) { (response, error) in
@@ -148,7 +148,7 @@ ArtistsAPI.getArtistByName(name: name, userId: userId) { (response, error) in
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | Studio name. | 
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
 
 ### Return type
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 # **getArtists**
 ```swift
-    open class func getArtists(minCommunityRating: Double? = nil, startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, genres: [String]? = nil, genreIds: [UUID]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [UUID]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, studioIds: [UUID]? = nil, userId: UUID? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getArtists(minCommunityRating: Double? = nil, startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, studioIds: [String]? = nil, userId: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets all artists from a given item, folder, or the entire library.
@@ -175,13 +175,13 @@ Gets all artists from a given item, folder, or the entire library.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let minCommunityRating = 987 // Double | Optional filter by minimum community rating. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let searchTerm = "searchTerm_example" // String | Optional. Search term. (optional)
-let parentId = 987 // UUID | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
+let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let excludeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be filtered out based on item type. This allows multiple, comma delimited. (optional)
 let includeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. (optional)
@@ -189,7 +189,7 @@ let filters = [ItemFilter()] // [ItemFilter] | Optional. Specify additional filt
 let isFavorite = true // Bool | Optional filter by items that are marked as favorite, or not. (optional)
 let mediaTypes = ["inner_example"] // [String] | Optional filter by MediaType. Allows multiple, comma delimited. (optional)
 let genres = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on genre. This allows multiple, pipe delimited. (optional)
-let genreIds = [123] // [UUID] | Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. (optional)
+let genreIds = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. (optional)
 let officialRatings = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on OfficialRating. This allows multiple, pipe delimited. (optional)
 let tags = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on tag. This allows multiple, pipe delimited. (optional)
 let years = [123] // [Int] | Optional. If specified, results will be filtered based on production year. This allows multiple, comma delimited. (optional)
@@ -197,11 +197,11 @@ let enableUserData = true // Bool | Optional, include user data. (optional)
 let imageTypeLimit = 987 // Int | Optional, the max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
 let person = "person_example" // String | Optional. If specified, results will be filtered to include only those containing the specified person. (optional)
-let personIds = [123] // [UUID] | Optional. If specified, results will be filtered to include only those containing the specified person ids. (optional)
+let personIds = ["inner_example"] // [String] | Optional. If specified, results will be filtered to include only those containing the specified person ids. (optional)
 let personTypes = ["inner_example"] // [String] | Optional. If specified, along with Person, results will be filtered to include only those containing the specified person and PersonType. Allows multiple, comma-delimited. (optional)
 let studios = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on studio. This allows multiple, pipe delimited. (optional)
-let studioIds = [123] // [UUID] | Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. (optional)
-let userId = 987 // UUID | User id. (optional)
+let studioIds = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. (optional)
+let userId = "userId_example" // String | User id. (optional)
 let nameStartsWithOrGreater = "nameStartsWithOrGreater_example" // String | Optional filter by items whose name is sorted equally or greater than a given input string. (optional)
 let nameStartsWith = "nameStartsWith_example" // String | Optional filter by items whose name is sorted equally than a given input string. (optional)
 let nameLessThan = "nameLessThan_example" // String | Optional filter by items whose name is equally or lesser than a given input string. (optional)
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **searchTerm** | **String** | Optional. Search term. | [optional] 
- **parentId** | [**UUID**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **excludeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be filtered out based on item type. This allows multiple, comma delimited. | [optional] 
  **includeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. | [optional] 
@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
  **isFavorite** | **Bool** | Optional filter by items that are marked as favorite, or not. | [optional] 
  **mediaTypes** | [**[String]**](String.md) | Optional filter by MediaType. Allows multiple, comma delimited. | [optional] 
  **genres** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on genre. This allows multiple, pipe delimited. | [optional] 
- **genreIds** | [**[UUID]**](UUID.md) | Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. | [optional] 
+ **genreIds** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. | [optional] 
  **officialRatings** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on OfficialRating. This allows multiple, pipe delimited. | [optional] 
  **tags** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on tag. This allows multiple, pipe delimited. | [optional] 
  **years** | [**[Int]**](Int.md) | Optional. If specified, results will be filtered based on production year. This allows multiple, comma delimited. | [optional] 
@@ -245,11 +245,11 @@ Name | Type | Description  | Notes
  **imageTypeLimit** | **Int** | Optional, the max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
  **person** | **String** | Optional. If specified, results will be filtered to include only those containing the specified person. | [optional] 
- **personIds** | [**[UUID]**](UUID.md) | Optional. If specified, results will be filtered to include only those containing the specified person ids. | [optional] 
+ **personIds** | [**[String]**](String.md) | Optional. If specified, results will be filtered to include only those containing the specified person ids. | [optional] 
  **personTypes** | [**[String]**](String.md) | Optional. If specified, along with Person, results will be filtered to include only those containing the specified person and PersonType. Allows multiple, comma-delimited. | [optional] 
  **studios** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on studio. This allows multiple, pipe delimited. | [optional] 
- **studioIds** | [**[UUID]**](UUID.md) | Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. | [optional] 
- **userId** | [**UUID**](.md) | User id. | [optional] 
+ **studioIds** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. | [optional] 
+ **userId** | [**String**](.md) | User id. | [optional] 
  **nameStartsWithOrGreater** | **String** | Optional filter by items whose name is sorted equally or greater than a given input string. | [optional] 
  **nameStartsWith** | **String** | Optional filter by items whose name is sorted equally than a given input string. | [optional] 
  **nameLessThan** | **String** | Optional filter by items whose name is equally or lesser than a given input string. | [optional] 

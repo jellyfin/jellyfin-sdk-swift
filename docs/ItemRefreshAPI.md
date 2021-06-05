@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 # **post**
 ```swift
-    open class func post(itemId: UUID, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func post(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Refreshes metadata for an item.
@@ -17,9 +17,9 @@ Refreshes metadata for an item.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let itemId = 987 // UUID | Item id.
+let itemId = "itemId_example" // String | Item id.
 let metadataRefreshMode = MetadataRefreshMode() // MetadataRefreshMode | (Optional) Specifies the metadata refresh mode. (optional)
 let imageRefreshMode = MetadataRefreshMode() // MetadataRefreshMode | (Optional) Specifies the image refresh mode. (optional)
 let replaceAllMetadata = true // Bool | (Optional) Determines if metadata should be replaced. Only applicable if mode is FullRefresh. (optional) (default to false)
@@ -42,7 +42,7 @@ ItemRefreshAPI.post(itemId: itemId, metadataRefreshMode: metadataRefreshMode, im
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**UUID**](.md) | Item id. | 
+ **itemId** | [**String**](.md) | Item id. | 
  **metadataRefreshMode** | [**MetadataRefreshMode**](.md) | (Optional) Specifies the metadata refresh mode. | [optional] 
  **imageRefreshMode** | [**MetadataRefreshMode**](.md) | (Optional) Specifies the image refresh mode. | [optional] 
  **replaceAllMetadata** | **Bool** | (Optional) Determines if metadata should be replaced. Only applicable if mode is FullRefresh. | [optional] [default to false]

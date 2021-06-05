@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 # **addToCollection**
 ```swift
-    open class func addToCollection(collectionId: UUID, ids: [UUID], completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func addToCollection(collectionId: String, ids: [String], completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Adds items to a collection.
@@ -19,10 +19,10 @@ Adds items to a collection.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let collectionId = 987 // UUID | The collection id.
-let ids = [123] // [UUID] | Item ids, comma delimited.
+let collectionId = "collectionId_example" // String | The collection id.
+let ids = ["inner_example"] // [String] | Item ids, comma delimited.
 
 // Adds items to a collection.
 CollectionAPI.addToCollection(collectionId: collectionId, ids: ids) { (response, error) in
@@ -41,8 +41,8 @@ CollectionAPI.addToCollection(collectionId: collectionId, ids: ids) { (response,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | [**UUID**](.md) | The collection id. | 
- **ids** | [**[UUID]**](UUID.md) | Item ids, comma delimited. | 
+ **collectionId** | [**String**](.md) | The collection id. | 
+ **ids** | [**[String]**](String.md) | Item ids, comma delimited. | 
 
 ### Return type
 
@@ -61,7 +61,7 @@ Void (empty response body)
 
 # **createCollection**
 ```swift
-    open class func createCollection(name: String? = nil, ids: [String]? = nil, parentId: UUID? = nil, isLocked: Bool? = nil, completion: @escaping (_ data: CollectionCreationResult?, _ error: Error?) -> Void)
+    open class func createCollection(name: String? = nil, ids: [String]? = nil, parentId: String? = nil, isLocked: Bool? = nil, completion: @escaping (_ data: CollectionCreationResult?, _ error: Error?) -> Void)
 ```
 
 Creates a new collection.
@@ -69,11 +69,11 @@ Creates a new collection.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the collection. (optional)
 let ids = ["inner_example"] // [String] | Item Ids to add to the collection. (optional)
-let parentId = 987 // UUID | Optional. Create the collection within a specific folder. (optional)
+let parentId = "parentId_example" // String | Optional. Create the collection within a specific folder. (optional)
 let isLocked = true // Bool | Whether or not to lock the new collection. (optional) (default to false)
 
 // Creates a new collection.
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | The name of the collection. | [optional] 
  **ids** | [**[String]**](String.md) | Item Ids to add to the collection. | [optional] 
- **parentId** | [**UUID**](.md) | Optional. Create the collection within a specific folder. | [optional] 
+ **parentId** | [**String**](.md) | Optional. Create the collection within a specific folder. | [optional] 
  **isLocked** | **Bool** | Whether or not to lock the new collection. | [optional] [default to false]
 
 ### Return type
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 
 # **removeFromCollection**
 ```swift
-    open class func removeFromCollection(collectionId: UUID, ids: [UUID], completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func removeFromCollection(collectionId: String, ids: [String], completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Removes items from a collection.
@@ -123,10 +123,10 @@ Removes items from a collection.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let collectionId = 987 // UUID | The collection id.
-let ids = [123] // [UUID] | Item ids, comma delimited.
+let collectionId = "collectionId_example" // String | The collection id.
+let ids = ["inner_example"] // [String] | Item ids, comma delimited.
 
 // Removes items from a collection.
 CollectionAPI.removeFromCollection(collectionId: collectionId, ids: ids) { (response, error) in
@@ -145,8 +145,8 @@ CollectionAPI.removeFromCollection(collectionId: collectionId, ids: ids) { (resp
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | [**UUID**](.md) | The collection id. | 
- **ids** | [**[UUID]**](UUID.md) | Item ids, comma delimited. | 
+ **collectionId** | [**String**](.md) | The collection id. | 
+ **ids** | [**[String]**](String.md) | Item ids, comma delimited. | 
 
 ### Return type
 

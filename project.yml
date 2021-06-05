@@ -1,6 +1,6 @@
-name: OpenAPIClient
+name: JellyfinAPI
 targets:
-  OpenAPIClient:
+  JellyfinAPI:
     type: framework
     platform: iOS
     deploymentTarget: "9.0"
@@ -11,5 +11,5 @@ targets:
     settings:
       APPLICATION_EXTENSION_API_ONLY: true
     scheme: {}
-    
+    dependencies:
     - carthage: AnyCodable

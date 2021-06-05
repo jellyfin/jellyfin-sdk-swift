@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **appName** | **String** | Gets or sets the name of the application. | [optional] 
 **appVersion** | **String** | Gets or sets the application version. | [optional] 
 **deviceName** | **String** | Gets or sets the name of the device. | [optional] 
-**userId** | **UUID** | Gets or sets the user identifier. | [optional] 
+**userId** | **String** | Gets or sets the user identifier. | [optional] 
 **isActive** | **Bool** | Gets or sets a value indicating whether this instance is active. | [optional] 
 **dateCreated** | **Date** | Gets or sets the date created. | [optional] 
 **dateRevoked** | **Date** | Gets or sets the date revoked. | [optional] 

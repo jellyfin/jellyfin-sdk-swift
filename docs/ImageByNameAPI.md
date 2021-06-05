@@ -22,7 +22,7 @@ Get General Image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let name = "name_example" // String | The name of the image.
 let type = "type_example" // String | Image Type (primary, backdrop, logo, etc).
@@ -72,7 +72,7 @@ Get all general images.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Get all general images.
@@ -116,7 +116,7 @@ Get media info image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let theme = "theme_example" // String | The theme to get the image from.
 let name = "name_example" // String | The name of the image.
@@ -166,7 +166,7 @@ Get all media info images.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Get all media info images.
@@ -210,7 +210,7 @@ Get rating image.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 let theme = "theme_example" // String | The theme to get the image from.
 let name = "name_example" // String | The name of the image.
@@ -260,7 +260,7 @@ Get all general images.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
 
 // Get all general images.

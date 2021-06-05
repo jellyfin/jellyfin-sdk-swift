@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 # **getMovieRecommendations**
 ```swift
-    open class func getMovieRecommendations(userId: UUID? = nil, parentId: UUID? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil, completion: @escaping (_ data: [RecommendationDto]?, _ error: Error?) -> Void)
+    open class func getMovieRecommendations(userId: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil, completion: @escaping (_ data: [RecommendationDto]?, _ error: Error?) -> Void)
 ```
 
 Gets movie recommendations.
@@ -17,10 +17,10 @@ Gets movie recommendations.
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import JellyfinAPI
 
-let userId = 987 // UUID | Optional. Filter by user id, and attach user data. (optional)
-let parentId = 987 // UUID | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
+let userId = "userId_example" // String | Optional. Filter by user id, and attach user data. (optional)
+let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. The fields to return. (optional)
 let categoryLimit = 987 // Int | The max number of categories to return. (optional) (default to 5)
 let itemLimit = 987 // Int | The max number of items to return per category. (optional) (default to 8)
@@ -42,8 +42,8 @@ MoviesAPI.getMovieRecommendations(userId: userId, parentId: parentId, fields: fi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**UUID**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
- **parentId** | [**UUID**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. The fields to return. | [optional] 
  **categoryLimit** | **Int** | The max number of categories to return. | [optional] [default to 5]
  **itemLimit** | **Int** | The max number of items to return per category. | [optional] [default to 8]

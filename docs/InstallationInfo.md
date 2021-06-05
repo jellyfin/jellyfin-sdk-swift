@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **UUID** | Gets or sets the Id. | [optional] 
+**guid** | **String** | Gets or sets the Id. | [optional] 
 **name** | **String** | Gets or sets the name. | [optional] 
 **version** | [**Version**](Version.md) |  | [optional] 
 **changelog** | **String** | Gets or sets the changelog for this version. | [optional] 
