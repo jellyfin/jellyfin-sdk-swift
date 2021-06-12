@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **maxPageSize** | **Int** | Represents the maximum number of records the channel allows retrieving at a time. | [optional] 
 **autoRefreshLevels** | **Int** | Gets or sets the automatic refresh levels. | [optional] 
 **defaultSortFields** | [ChannelItemSortField] | Gets or sets the default sort orders. | [optional] 
-**supportsSortOrderToggle** | **Bool** | Indicates if a sort ascending/descending toggle is supported or not. | [optional] 
+**supportsAPISortOrderToggle** | **Bool** | Indicates if a sort ascending/descending toggle is supported or not. | [optional] 
 **supportsLatestMedia** | **Bool** | Gets or sets a value indicating whether [supports latest media]. | [optional] 
 **canFilter** | **Bool** | Gets or sets a value indicating whether this instance can filter. | [optional] 
 **supportsContentDownloading** | **Bool** | Gets or sets a value indicating whether [supports content downloading]. | [optional] 

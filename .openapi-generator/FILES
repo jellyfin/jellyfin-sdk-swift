@@ -71,6 +71,7 @@ Sources/JellyfinAPI/Extensions.swift
 Sources/JellyfinAPI/JSONDataEncoding.swift
 Sources/JellyfinAPI/JSONEncodingHelper.swift
 Sources/JellyfinAPI/Models.swift
+Sources/JellyfinAPI/Models/APISortOrder.swift
 Sources/JellyfinAPI/Models/AccessSchedule.swift
 Sources/JellyfinAPI/Models/ActivityLogEntry.swift
 Sources/JellyfinAPI/Models/ActivityLogEntryQueryResult.swift
@@ -296,7 +297,6 @@ Sources/JellyfinAPI/Models/SetPlaylistItemRequestDto.swift
 Sources/JellyfinAPI/Models/SetRepeatModeRequestDto.swift
 Sources/JellyfinAPI/Models/SetShuffleModeRequestDto.swift
 Sources/JellyfinAPI/Models/SongInfo.swift
-Sources/JellyfinAPI/Models/SortOrder.swift
 Sources/JellyfinAPI/Models/SpecialViewOptionDto.swift
 Sources/JellyfinAPI/Models/StartupConfigurationDto.swift
 Sources/JellyfinAPI/Models/StartupRemoteAccessDto.swift
@@ -347,6 +347,7 @@ Sources/JellyfinAPI/Models/XmlAttribute.swift
 Sources/JellyfinAPI/OpenISO8601DateFormatter.swift
 Sources/JellyfinAPI/SynchronizedDictionary.swift
 Sources/JellyfinAPI/URLSessionImplementations.swift
+docs/APISortOrder.md
 docs/AccessSchedule.md
 docs/ActivityLogAPI.md
 docs/ActivityLogEntry.md
@@ -615,7 +616,6 @@ docs/SetPlaylistItemRequestDto.md
 docs/SetRepeatModeRequestDto.md
 docs/SetShuffleModeRequestDto.md
 docs/SongInfo.md
-docs/SortOrder.md
 docs/SpecialViewOptionDto.md
 docs/StartupAPI.md
 docs/StartupConfigurationDto.md

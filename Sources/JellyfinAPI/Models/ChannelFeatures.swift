@@ -29,7 +29,7 @@ public struct ChannelFeatures: Codable, Hashable {
     /** Gets or sets the default sort orders. */
     public var defaultSortFields: [ChannelItemSortField]?
     /** Indicates if a sort ascending/descending toggle is supported or not. */
-    public var supportsSortOrderToggle: Bool?
+    public var supportsAPISortOrderToggle: Bool?
     /** Gets or sets a value indicating whether [supports latest media]. */
     public var supportsLatestMedia: Bool?
     /** Gets or sets a value indicating whether this instance can filter. */
@@ -37,7 +37,7 @@ public struct ChannelFeatures: Codable, Hashable {
     /** Gets or sets a value indicating whether [supports content downloading]. */
     public var supportsContentDownloading: Bool?
 
-    public init(name: String? = nil, id: String? = nil, canSearch: Bool? = nil, mediaTypes: [ChannelMediaType]? = nil, contentTypes: [ChannelMediaContentType]? = nil, maxPageSize: Int? = nil, autoRefreshLevels: Int? = nil, defaultSortFields: [ChannelItemSortField]? = nil, supportsSortOrderToggle: Bool? = nil, supportsLatestMedia: Bool? = nil, canFilter: Bool? = nil, supportsContentDownloading: Bool? = nil) {
+    public init(name: String? = nil, id: String? = nil, canSearch: Bool? = nil, mediaTypes: [ChannelMediaType]? = nil, contentTypes: [ChannelMediaContentType]? = nil, maxPageSize: Int? = nil, autoRefreshLevels: Int? = nil, defaultSortFields: [ChannelItemSortField]? = nil, supportsAPISortOrderToggle: Bool? = nil, supportsLatestMedia: Bool? = nil, canFilter: Bool? = nil, supportsContentDownloading: Bool? = nil) {
         self.name = name
         self.id = id
         self.canSearch = canSearch
@@ -46,7 +46,7 @@ public struct ChannelFeatures: Codable, Hashable {
         self.maxPageSize = maxPageSize
         self.autoRefreshLevels = autoRefreshLevels
         self.defaultSortFields = defaultSortFields
-        self.supportsSortOrderToggle = supportsSortOrderToggle
+        self.supportsAPISortOrderToggle = supportsAPISortOrderToggle
         self.supportsLatestMedia = supportsLatestMedia
         self.canFilter = canFilter
         self.supportsContentDownloading = supportsContentDownloading
@@ -61,7 +61,7 @@ public struct ChannelFeatures: Codable, Hashable {
         case maxPageSize = "MaxPageSize"
         case autoRefreshLevels = "AutoRefreshLevels"
         case defaultSortFields = "DefaultSortFields"
-        case supportsSortOrderToggle = "SupportsSortOrderToggle"
+        case supportsAPISortOrderToggle = "SupportsAPISortOrderToggle"
         case supportsLatestMedia = "SupportsLatestMedia"
         case canFilter = "CanFilter"
         case supportsContentDownloading = "SupportsContentDownloading"
@@ -79,7 +79,7 @@ public struct ChannelFeatures: Codable, Hashable {
         try encoderContainer.encodeIfPresent(maxPageSize, forKey: .maxPageSize)
         try encoderContainer.encodeIfPresent(autoRefreshLevels, forKey: .autoRefreshLevels)
         try encoderContainer.encodeIfPresent(defaultSortFields, forKey: .defaultSortFields)
-        try encoderContainer.encodeIfPresent(supportsSortOrderToggle, forKey: .supportsSortOrderToggle)
+        try encoderContainer.encodeIfPresent(supportsAPISortOrderToggle, forKey: .supportsAPISortOrderToggle)
         try encoderContainer.encodeIfPresent(supportsLatestMedia, forKey: .supportsLatestMedia)
         try encoderContainer.encodeIfPresent(canFilter, forKey: .canFilter)
         try encoderContainer.encodeIfPresent(supportsContentDownloading, forKey: .supportsContentDownloading)

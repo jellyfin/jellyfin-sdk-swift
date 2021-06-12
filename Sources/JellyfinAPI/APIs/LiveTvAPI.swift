@@ -1050,7 +1050,7 @@ open class LiveTvAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLiveTvChannels(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getLiveTvChannels(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: APISortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getLiveTvChannelsWithRequestBuilder(type: type, userId: userId, startIndex: startIndex, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, limit: limit, isFavorite: isFavorite, isLiked: isLiked, isDisliked: isDisliked, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, fields: fields, enableUserData: enableUserData, sortBy: sortBy, sortOrder: sortOrder, enableFavoriteSorting: enableFavoriteSorting, addCurrentProgram: addCurrentProgram).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -1093,7 +1093,7 @@ open class LiveTvAPI {
      - parameter addCurrentProgram: (query) Optional. Adds current program info to each channel. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getLiveTvChannelsWithRequestBuilder(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getLiveTvChannelsWithRequestBuilder(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: APISortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let urlPath = "/LiveTv/Channels"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -1217,7 +1217,7 @@ open class LiveTvAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLiveTvPrograms(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+    open class func getLiveTvPrograms(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [APISortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
         return Future<BaseItemDtoQueryResult, Error>.init { promise in
             getLiveTvProgramsWithRequestBuilder(channelIds: channelIds, userId: userId, minStartDate: minStartDate, hasAired: hasAired, isAiring: isAiring, maxStartDate: maxStartDate, minEndDate: minEndDate, maxEndDate: maxEndDate, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, startIndex: startIndex, limit: limit, sortBy: sortBy, sortOrder: sortOrder, genres: genres, genreIds: genreIds, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, seriesTimerId: seriesTimerId, librarySeriesId: librarySeriesId, fields: fields, enableTotalRecordCount: enableTotalRecordCount).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -1266,7 +1266,7 @@ open class LiveTvAPI {
      - parameter enableTotalRecordCount: (query) Retrieve total record count. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getLiveTvProgramsWithRequestBuilder(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+    open class func getLiveTvProgramsWithRequestBuilder(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [APISortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
         let urlPath = "/LiveTv/Programs"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil
@@ -2052,7 +2052,7 @@ open class LiveTvAPI {
      */
     #if canImport(Combine)
     @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSeriesTimers(sortBy: String? = nil, sortOrder: SortOrder? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<SeriesTimerInfoDtoQueryResult, Error> {
+    open class func getSeriesTimers(sortBy: String? = nil, sortOrder: APISortOrder? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<SeriesTimerInfoDtoQueryResult, Error> {
         return Future<SeriesTimerInfoDtoQueryResult, Error>.init { promise in
             getSeriesTimersWithRequestBuilder(sortBy: sortBy, sortOrder: sortOrder).execute(apiResponseQueue) { result -> Void in
                 switch result {
@@ -2076,7 +2076,7 @@ open class LiveTvAPI {
      - parameter sortOrder: (query) Optional. Sort in Ascending or Descending order. (optional)
      - returns: RequestBuilder<SeriesTimerInfoDtoQueryResult> 
      */
-    open class func getSeriesTimersWithRequestBuilder(sortBy: String? = nil, sortOrder: SortOrder? = nil) -> RequestBuilder<SeriesTimerInfoDtoQueryResult> {
+    open class func getSeriesTimersWithRequestBuilder(sortBy: String? = nil, sortOrder: APISortOrder? = nil) -> RequestBuilder<SeriesTimerInfoDtoQueryResult> {
         let urlPath = "/LiveTv/SeriesTimers"
         let URLString = JellyfinAPI.basePath + urlPath
         let parameters: [String: Any]? = nil

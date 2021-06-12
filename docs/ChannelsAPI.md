@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 # **getChannelItems**
 ```swift
-    open class func getChannelItems(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getChannelItems(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [APISortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Get channel items.
@@ -120,7 +120,7 @@ let folderId = "folderId_example" // String | Optional. Folder Id. (optional)
 let userId = "userId_example" // String | Optional. User Id. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
-let sortOrder = [SortOrder()] // [SortOrder] | Optional. Sort Order - Ascending,Descending. (optional)
+let sortOrder = [APISortOrder()] // [APISortOrder] | Optional. Sort Order - Ascending,Descending. (optional)
 let filters = [ItemFilter()] // [ItemFilter] | Optional. Specify additional filters to apply. (optional)
 let sortBy = ["inner_example"] // [String] | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
  **userId** | [**String**](.md) | Optional. User Id. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
- **sortOrder** | [**[SortOrder]**](SortOrder.md) | Optional. Sort Order - Ascending,Descending. | [optional] 
+ **sortOrder** | [**[APISortOrder]**](APISortOrder.md) | Optional. Sort Order - Ascending,Descending. | [optional] 
  **filters** | [**[ItemFilter]**](ItemFilter.md) | Optional. Specify additional filters to apply. | [optional] 
  **sortBy** | [**[String]**](String.md) | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 

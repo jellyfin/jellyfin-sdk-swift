@@ -75,7 +75,7 @@ import JellyfinAPI
 let displayPreferencesId = "displayPreferencesId_example" // String | Display preferences id.
 let userId = "userId_example" // String | User Id.
 let client = "client_example" // String | Client.
-let displayPreferencesDto = DisplayPreferencesDto(id: "id_example", viewType: "viewType_example", sortBy: "sortBy_example", indexBy: "indexBy_example", rememberIndexing: false, primaryImageHeight: 123, primaryImageWidth: 123, customPrefs: "TODO", scrollDirection: ScrollDirection(), showBackdrop: false, rememberSorting: false, sortOrder: SortOrder(), showSidebar: false, client: "client_example") // DisplayPreferencesDto | New Display Preferences object.
+let displayPreferencesDto = DisplayPreferencesDto(id: "id_example", viewType: "viewType_example", sortBy: "sortBy_example", indexBy: "indexBy_example", rememberIndexing: false, primaryImageHeight: 123, primaryImageWidth: 123, customPrefs: "TODO", scrollDirection: ScrollDirection(), showBackdrop: false, rememberSorting: false, aPISortOrder: APISortOrder(), showSidebar: false, client: "client_example") // DisplayPreferencesDto | New Display Preferences object.
 
 // Update Display Preferences.
 DisplayPreferencesAPI.updateDisplayPreferences(displayPreferencesId: displayPreferencesId, userId: userId, client: client, displayPreferencesDto: displayPreferencesDto) { (response, error) in

@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 # **getYears**
 ```swift
-    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Get years.
@@ -72,7 +72,7 @@ import JellyfinAPI
 
 let startIndex = 987 // Int | Skips over a given number of items within the results. Use for paging. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
-let sortOrder = [SortOrder()] // [SortOrder] | Sort Order - Ascending,Descending. (optional)
+let sortOrder = [APISortOrder()] // [APISortOrder] | Sort Order - Ascending,Descending. (optional)
 let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let excludeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. (optional)
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **startIndex** | **Int** | Skips over a given number of items within the results. Use for paging. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
- **sortOrder** | [**[SortOrder]**](SortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
+ **sortOrder** | [**[APISortOrder]**](APISortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
  **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **excludeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. | [optional] 

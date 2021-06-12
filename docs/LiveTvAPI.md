@@ -969,7 +969,7 @@ No authorization required
 
 # **getLiveTvChannels**
 ```swift
-    open class func getLiveTvChannels(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getLiveTvChannels(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: APISortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets available live tv channels.
@@ -997,7 +997,7 @@ let enableImageTypes = [ImageType()] // [ImageType] | \"Optional. The image type
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let enableUserData = true // Bool | Optional. Include user data. (optional)
 let sortBy = ["inner_example"] // [String] | Optional. Key to sort by. (optional)
-let sortOrder = SortOrder() // SortOrder | Optional. Sort order. (optional)
+let sortOrder = APISortOrder() // APISortOrder | Optional. Sort order. (optional)
 let enableFavoriteSorting = true // Bool | Optional. Incorporate favorite and like status into channel sorting. (optional) (default to false)
 let addCurrentProgram = true // Bool | Optional. Adds current program info to each channel. (optional) (default to true)
 
@@ -1036,7 +1036,7 @@ Name | Type | Description  | Notes
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **enableUserData** | **Bool** | Optional. Include user data. | [optional] 
  **sortBy** | [**[String]**](String.md) | Optional. Key to sort by. | [optional] 
- **sortOrder** | [**SortOrder**](.md) | Optional. Sort order. | [optional] 
+ **sortOrder** | [**APISortOrder**](.md) | Optional. Sort order. | [optional] 
  **enableFavoriteSorting** | **Bool** | Optional. Incorporate favorite and like status into channel sorting. | [optional] [default to false]
  **addCurrentProgram** | **Bool** | Optional. Adds current program info to each channel. | [optional] [default to true]
 
@@ -1101,7 +1101,7 @@ This endpoint does not need any parameter.
 
 # **getLiveTvPrograms**
 ```swift
-    open class func getLiveTvPrograms(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getLiveTvPrograms(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [APISortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets available live tv epgs.
@@ -1127,7 +1127,7 @@ let isSports = true // Bool | Optional. Filter for sports. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let sortBy = ["inner_example"] // [String] | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. (optional)
-let sortOrder = [SortOrder()] // [SortOrder] | Sort Order - Ascending,Descending. (optional)
+let sortOrder = [APISortOrder()] // [APISortOrder] | Sort Order - Ascending,Descending. (optional)
 let genres = ["inner_example"] // [String] | The genres to return guide information for. (optional)
 let genreIds = ["inner_example"] // [String] | The genre ids to return guide information for. (optional)
 let enableImages = true // Bool | Optional. Include image information in output. (optional)
@@ -1172,7 +1172,7 @@ Name | Type | Description  | Notes
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **sortBy** | [**[String]**](String.md) | Optional. Specify one or more sort orders, comma delimited. Options: Name, StartDate. | [optional] 
- **sortOrder** | [**[SortOrder]**](SortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
+ **sortOrder** | [**[APISortOrder]**](APISortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
  **genres** | [**[String]**](String.md) | The genres to return guide information for. | [optional] 
  **genreIds** | [**[String]**](String.md) | The genre ids to return guide information for. | [optional] 
  **enableImages** | **Bool** | Optional. Include image information in output. | [optional] 
@@ -1261,7 +1261,7 @@ Gets available live tv epgs.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let getProgramsDto = GetProgramsDto(channelIds: ["channelIds_example"], userId: "userId_example", minStartDate: Date(), hasAired: false, isAiring: false, maxStartDate: Date(), minEndDate: Date(), maxEndDate: Date(), isMovie: false, isSeries: false, isNews: false, isKids: false, isSports: false, startIndex: 123, limit: 123, sortBy: ["sortBy_example"], sortOrder: [SortOrder()], genres: ["genres_example"], genreIds: ["genreIds_example"], enableImages: false, enableTotalRecordCount: false, imageTypeLimit: 123, enableImageTypes: [ImageType()], enableUserData: false, seriesTimerId: "seriesTimerId_example", librarySeriesId: "librarySeriesId_example", fields: [ItemFields()]) // GetProgramsDto | Request body. (optional)
+let getProgramsDto = GetProgramsDto(channelIds: ["channelIds_example"], userId: "userId_example", minStartDate: Date(), hasAired: false, isAiring: false, maxStartDate: Date(), minEndDate: Date(), maxEndDate: Date(), isMovie: false, isSeries: false, isNews: false, isKids: false, isSports: false, startIndex: 123, limit: 123, sortBy: ["sortBy_example"], aPISortOrder: [APISortOrder()], genres: ["genres_example"], genreIds: ["genreIds_example"], enableImages: false, enableTotalRecordCount: false, imageTypeLimit: 123, enableImageTypes: [ImageType()], enableUserData: false, seriesTimerId: "seriesTimerId_example", librarySeriesId: "librarySeriesId_example", fields: [ItemFields()]) // GetProgramsDto | Request body. (optional)
 
 // Gets available live tv epgs.
 LiveTvAPI.getPrograms(getProgramsDto: getProgramsDto) { (response, error) in
@@ -1821,7 +1821,7 @@ Name | Type | Description  | Notes
 
 # **getSeriesTimers**
 ```swift
-    open class func getSeriesTimers(sortBy: String? = nil, sortOrder: SortOrder? = nil, completion: @escaping (_ data: SeriesTimerInfoDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getSeriesTimers(sortBy: String? = nil, sortOrder: APISortOrder? = nil, completion: @escaping (_ data: SeriesTimerInfoDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets live tv series timers.
@@ -1832,7 +1832,7 @@ Gets live tv series timers.
 import JellyfinAPI
 
 let sortBy = "sortBy_example" // String | Optional. Sort by SortName or Priority. (optional)
-let sortOrder = SortOrder() // SortOrder | Optional. Sort in Ascending or Descending order. (optional)
+let sortOrder = APISortOrder() // APISortOrder | Optional. Sort in Ascending or Descending order. (optional)
 
 // Gets live tv series timers.
 LiveTvAPI.getSeriesTimers(sortBy: sortBy, sortOrder: sortOrder) { (response, error) in
@@ -1852,7 +1852,7 @@ LiveTvAPI.getSeriesTimers(sortBy: sortBy, sortOrder: sortOrder) { (response, err
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sortBy** | **String** | Optional. Sort by SortName or Priority. | [optional] 
- **sortOrder** | [**SortOrder**](.md) | Optional. Sort in Ascending or Descending order. | [optional] 
+ **sortOrder** | [**APISortOrder**](.md) | Optional. Sort in Ascending or Descending order. | [optional] 
 
 ### Return type
 

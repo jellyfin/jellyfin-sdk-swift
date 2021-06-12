@@ -437,6 +437,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [APISortOrder](docs/APISortOrder.md)
  - [AccessSchedule](docs/AccessSchedule.md)
  - [ActivityLogEntry](docs/ActivityLogEntry.md)
  - [ActivityLogEntryQueryResult](docs/ActivityLogEntryQueryResult.md)
@@ -662,7 +663,6 @@ Class | Method | HTTP request | Description
  - [SetRepeatModeRequestDto](docs/SetRepeatModeRequestDto.md)
  - [SetShuffleModeRequestDto](docs/SetShuffleModeRequestDto.md)
  - [SongInfo](docs/SongInfo.md)
- - [SortOrder](docs/SortOrder.md)
  - [SpecialViewOptionDto](docs/SpecialViewOptionDto.md)
  - [StartupConfigurationDto](docs/StartupConfigurationDto.md)
  - [StartupRemoteAccessDto](docs/StartupRemoteAccessDto.md)
