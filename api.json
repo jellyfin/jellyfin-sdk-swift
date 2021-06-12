@@ -3045,7 +3045,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/SortOrder"
+                "$ref": "#/components/schemas/APISortOrder"
               }
             }
           },
@@ -19442,7 +19442,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/SortOrder"
+                "$ref": "#/components/schemas/APISortOrder"
               }
             }
           },
@@ -20307,7 +20307,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/SortOrder"
+                "$ref": "#/components/schemas/APISortOrder"
               }
             }
           },
@@ -23673,7 +23673,7 @@
             "in": "query",
             "description": "Optional. Sort order.",
             "schema": {
-              "$ref": "#/components/schemas/SortOrder"
+              "$ref": "#/components/schemas/APISortOrder"
             }
           },
           {
@@ -24450,7 +24450,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/SortOrder"
+                "$ref": "#/components/schemas/APISortOrder"
               }
             }
           },
@@ -25592,7 +25592,7 @@
             "in": "query",
             "description": "Optional. Sort in Ascending or Descending order.",
             "schema": {
-              "$ref": "#/components/schemas/SortOrder"
+              "$ref": "#/components/schemas/APISortOrder"
             }
           }
         ],
@@ -35432,7 +35432,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/SortOrder"
+                "$ref": "#/components/schemas/APISortOrder"
               }
             }
           },
@@ -41572,7 +41572,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/SortOrder"
+                "$ref": "#/components/schemas/APISortOrder"
               }
             }
           },
@@ -43682,7 +43682,7 @@
             "description": "Gets or sets the default sort orders.",
             "nullable": true
           },
-          "SupportsSortOrderToggle": {
+          "SupportsAPISortOrderToggle": {
             "type": "boolean",
             "description": "Indicates if a sort ascending/descending toggle is supported or not."
           },
@@ -44657,8 +44657,8 @@
             "type": "boolean",
             "description": "Gets or sets a value indicating whether [remember sorting]."
           },
-          "SortOrder": {
-            "$ref": "#/components/schemas/SortOrder"
+          "APISortOrder": {
+            "$ref": "#/components/schemas/APISortOrder"
           },
           "ShowSidebar": {
             "type": "boolean",
@@ -45059,10 +45059,10 @@
             },
             "description": "Gets or sets specify one or more sort orders, comma delimited. Options: Name, StartDate.\r\nOptional."
           },
-          "SortOrder": {
+          "APISortOrder": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/SortOrder"
+              "$ref": "#/components/schemas/APISortOrder"
             },
             "description": "Gets or sets sort Order - Ascending,Descending."
           },
@@ -50148,7 +50148,7 @@
         },
         "additionalProperties": false
       },
-      "SortOrder": {
+      "APISortOrder": {
         "enum": [
           "Ascending",
           "Descending"
