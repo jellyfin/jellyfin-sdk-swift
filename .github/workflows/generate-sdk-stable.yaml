@@ -17,7 +17,7 @@ jobs:
         args: >-
           generate -i api.json
           -g swift5 
-          --additional-properties=projectName=JellyfinAPI,responseAs=Combine,library=alamofire,useSPMFileStructure=true 
+          --additional-properties=projectName=JellyfinAPI,responseAs=Combine,library=vapor,useSPMFileStructure=true 
           -o /github/workspace
           -t templates/swift5/
           --type-mappings UUID=String
