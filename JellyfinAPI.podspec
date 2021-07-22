@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/OpenAPITools/openapi-generator'
   s.summary = 'JellyfinAPI Swift SDK'
   s.source_files = 'Sources/JellyfinAPI/**/*.swift'
-  s.dependency 'AnyCodable-FlightSchool', '~> 0.6.0'
+  s.dependency 'AnyCodable-FlightSchool', '~> 0.6.1'
 end
