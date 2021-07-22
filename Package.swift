@@ -5,9 +5,9 @@ import PackageDescription
 let package = Package(
     name: "JellyfinAPI",
     platforms: [
-        .iOS(.v9),
+        .iOS(.v12),
         .macOS(.v10_11),
-        .tvOS(.v9),
+        .tvOS(.v12),
         .watchOS(.v3),
     ],
     products: [
