@@ -5,32 +5,39 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class TimeSyncAPI {
+
     /**
      Gets the current UTC time.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<UtcTimeResponse, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUtcTime(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<UtcTimeResponse, Error> {
-        return Future<UtcTimeResponse, Error>.init { promise in
-            getUtcTimeWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getUtcTime() -> AnyPublisher<UtcTimeResponse, Error> {
+        var requestTask: RequestTask?
+        return Future<UtcTimeResponse, Error> { promise in
+            requestTask = getUtcTimeWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -40,21 +47,20 @@ open class TimeSyncAPI {
      - returns: RequestBuilder<UtcTimeResponse> 
      */
     open class func getUtcTimeWithRequestBuilder() -> RequestBuilder<UtcTimeResponse> {
-        let urlPath = "/GetUtcTime"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/GetUtcTime"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<UtcTimeResponse>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<UtcTimeResponse>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class ReadyRequest. */
-public struct ReadyRequestDto: Codable, Hashable {
+public struct ReadyRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets when the request has been made by the client. */
     public var when: Date?

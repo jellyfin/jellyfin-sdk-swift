@@ -1,6 +1,6 @@
 # PlaylistsAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Adds items to a playlist.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -44,9 +44,9 @@ PlaylistsAPI.addToPlaylist(playlistId: playlistId, ids: ids, userId: userId) { (
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playlistId** | [**String**](.md) | The playlist id. | 
+ **playlistId** | **String** | The playlist id. | 
  **ids** | [**[String]**](String.md) | Item id, comma delimited. | [optional] 
- **userId** | [**String**](.md) | The userId. | [optional] 
+ **userId** | **String** | The userId. | [optional] 
 
 ### Return type
 
@@ -65,14 +65,14 @@ Void (empty response body)
 
 # **createPlaylist**
 ```swift
-    open class func createPlaylist(name: String? = nil, ids: [String]? = nil, userId: String? = nil, mediaType: String? = nil, createPlaylistDto: CreatePlaylistDto? = nil, completion: @escaping (_ data: PlaylistCreationResult?, _ error: Error?) -> Void)
+    open class func createPlaylist(name: String? = nil, ids: [String]? = nil, userId: String? = nil, mediaType: String? = nil, createPlaylistRequest: CreatePlaylistRequest? = nil, completion: @escaping (_ data: PlaylistCreationResult?, _ error: Error?) -> Void)
 ```
 
 Creates a new playlist.
 
 For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.  Query parameters are obsolete.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -81,10 +81,10 @@ let name = "name_example" // String | The playlist name. (optional)
 let ids = ["inner_example"] // [String] | The item ids. (optional)
 let userId = "userId_example" // String | The user id. (optional)
 let mediaType = "mediaType_example" // String | The media type. (optional)
-let createPlaylistDto = CreatePlaylistDto(name: "name_example", ids: ["ids_example"], userId: "userId_example", mediaType: "mediaType_example") // CreatePlaylistDto | The create playlist payload. (optional)
+let createPlaylistRequest = CreatePlaylist_request(name: "name_example", ids: ["ids_example"], userId: "userId_example", mediaType: "mediaType_example") // CreatePlaylistRequest | The create playlist payload. (optional)
 
 // Creates a new playlist.
-PlaylistsAPI.createPlaylist(name: name, ids: ids, userId: userId, mediaType: mediaType, createPlaylistDto: createPlaylistDto) { (response, error) in
+PlaylistsAPI.createPlaylist(name: name, ids: ids, userId: userId, mediaType: mediaType, createPlaylistRequest: createPlaylistRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -102,9 +102,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | The playlist name. | [optional] 
  **ids** | [**[String]**](String.md) | The item ids. | [optional] 
- **userId** | [**String**](.md) | The user id. | [optional] 
+ **userId** | **String** | The user id. | [optional] 
  **mediaType** | **String** | The media type. | [optional] 
- **createPlaylistDto** | [**CreatePlaylistDto**](CreatePlaylistDto.md) | The create playlist payload. | [optional] 
+ **createPlaylistRequest** | [**CreatePlaylistRequest**](CreatePlaylistRequest.md) | The create playlist payload. | [optional] 
 
 ### Return type
 
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 
 Gets the original items of a playlist.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -160,8 +160,8 @@ PlaylistsAPI.getPlaylistItems(playlistId: playlistId, userId: userId, startIndex
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playlistId** | [**String**](.md) | The playlist id. | 
- **userId** | [**String**](.md) | User id. | 
+ **playlistId** | **String** | The playlist id. | 
+ **userId** | **String** | User id. | 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 
 Moves a playlist item.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -244,7 +244,7 @@ Void (empty response body)
 
 Removes items from a playlist.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI

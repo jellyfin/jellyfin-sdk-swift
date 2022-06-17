@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct CodecProfile: Codable, Hashable {
+public struct CodecProfile: Codable, JSONEncodable, Hashable {
 
     public var type: CodecType?
     public var conditions: [ProfileCondition]?

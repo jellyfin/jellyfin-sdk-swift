@@ -5,34 +5,41 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class StudiosAPI {
+
     /**
      Gets a studio by name.
      
      - parameter name: (path) Studio name. 
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getStudio(name: String, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDto, Error> {
-        return Future<BaseItemDto, Error>.init { promise in
-            getStudioWithRequestBuilder(name: name, userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getStudio(name: String, userId: String? = nil) -> AnyPublisher<BaseItemDto, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDto, Error> { promise in
+            requestTask = getStudioWithRequestBuilder(name: name, userId: userId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -40,34 +47,34 @@ open class StudiosAPI {
      Gets a studio by name.
      - GET /Studios/{name}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter name: (path) Studio name. 
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
      - returns: RequestBuilder<BaseItemDto> 
      */
     open class func getStudioWithRequestBuilder(name: String, userId: String? = nil) -> RequestBuilder<BaseItemDto> {
-        var urlPath = "/Studios/{name}"
+        var localVariablePath = "/Studios/{name}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -90,22 +97,26 @@ open class StudiosAPI {
      - parameter nameLessThan: (query) Optional filter by items whose name is equally or lesser than a given input string. (optional)
      - parameter enableImages: (query) Optional, include image information in output. (optional, default to true)
      - parameter enableTotalRecordCount: (query) Total record count. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getStudios(startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getStudiosWithRequestBuilder(startIndex: startIndex, limit: limit, searchTerm: searchTerm, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, isFavorite: isFavorite, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, userId: userId, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, enableImages: enableImages, enableTotalRecordCount: enableTotalRecordCount).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getStudios(startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getStudiosWithRequestBuilder(startIndex: startIndex, limit: limit, searchTerm: searchTerm, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, isFavorite: isFavorite, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, userId: userId, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, enableImages: enableImages, enableTotalRecordCount: enableTotalRecordCount).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -113,7 +124,7 @@ open class StudiosAPI {
      Gets all studios from a given item, folder, or the entire library.
      - GET /Studios
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
@@ -134,13 +145,13 @@ open class StudiosAPI {
      - parameter enableTotalRecordCount: (query) Total record count. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getStudiosWithRequestBuilder(startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/Studios"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func getStudiosWithRequestBuilder(startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let localVariablePath = "/Studios"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
             "searchTerm": searchTerm?.encodeToJSON(),
@@ -160,15 +171,14 @@ open class StudiosAPI {
             "enableTotalRecordCount": enableTotalRecordCount?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

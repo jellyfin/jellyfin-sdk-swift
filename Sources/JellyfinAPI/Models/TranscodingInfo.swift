@@ -10,8 +10,34 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct TranscodingInfo: Codable, Hashable {
+public struct TranscodingInfo: Codable, JSONEncodable, Hashable {
 
+    public enum TranscodeReasons: String, Codable, CaseIterable {
+        case containerNotSupported = "ContainerNotSupported"
+        case videoCodecNotSupported = "VideoCodecNotSupported"
+        case audioCodecNotSupported = "AudioCodecNotSupported"
+        case subtitleCodecNotSupported = "SubtitleCodecNotSupported"
+        case audioIsExternal = "AudioIsExternal"
+        case secondaryAudioNotSupported = "SecondaryAudioNotSupported"
+        case videoProfileNotSupported = "VideoProfileNotSupported"
+        case videoLevelNotSupported = "VideoLevelNotSupported"
+        case videoResolutionNotSupported = "VideoResolutionNotSupported"
+        case videoBitDepthNotSupported = "VideoBitDepthNotSupported"
+        case videoFramerateNotSupported = "VideoFramerateNotSupported"
+        case refFramesNotSupported = "RefFramesNotSupported"
+        case anamorphicVideoNotSupported = "AnamorphicVideoNotSupported"
+        case interlacedVideoNotSupported = "InterlacedVideoNotSupported"
+        case audioChannelsNotSupported = "AudioChannelsNotSupported"
+        case audioProfileNotSupported = "AudioProfileNotSupported"
+        case audioSampleRateNotSupported = "AudioSampleRateNotSupported"
+        case audioBitDepthNotSupported = "AudioBitDepthNotSupported"
+        case containerBitrateExceedsLimit = "ContainerBitrateExceedsLimit"
+        case videoBitrateNotSupported = "VideoBitrateNotSupported"
+        case audioBitrateNotSupported = "AudioBitrateNotSupported"
+        case unknownVideoStreamInfo = "UnknownVideoStreamInfo"
+        case unknownAudioStreamInfo = "UnknownAudioStreamInfo"
+        case directPlayError = "DirectPlayError"
+    }
     public var audioCodec: String?
     public var videoCodec: String?
     public var container: String?
@@ -23,9 +49,10 @@ public struct TranscodingInfo: Codable, Hashable {
     public var width: Int?
     public var height: Int?
     public var audioChannels: Int?
-    public var transcodeReasons: [TranscodeReason]?
+    public var hardwareAccelerationType: HardwareEncodingType?
+    public var transcodeReasons: TranscodeReasons?
 
-    public init(audioCodec: String? = nil, videoCodec: String? = nil, container: String? = nil, isVideoDirect: Bool? = nil, isAudioDirect: Bool? = nil, bitrate: Int? = nil, framerate: Float? = nil, completionPercentage: Double? = nil, width: Int? = nil, height: Int? = nil, audioChannels: Int? = nil, transcodeReasons: [TranscodeReason]? = nil) {
+    public init(audioCodec: String? = nil, videoCodec: String? = nil, container: String? = nil, isVideoDirect: Bool? = nil, isAudioDirect: Bool? = nil, bitrate: Int? = nil, framerate: Float? = nil, completionPercentage: Double? = nil, width: Int? = nil, height: Int? = nil, audioChannels: Int? = nil, hardwareAccelerationType: HardwareEncodingType? = nil, transcodeReasons: TranscodeReasons? = nil) {
         self.audioCodec = audioCodec
         self.videoCodec = videoCodec
         self.container = container
@@ -37,6 +64,7 @@ public struct TranscodingInfo: Codable, Hashable {
         self.width = width
         self.height = height
         self.audioChannels = audioChannels
+        self.hardwareAccelerationType = hardwareAccelerationType
         self.transcodeReasons = transcodeReasons
     }
 
@@ -52,6 +80,7 @@ public struct TranscodingInfo: Codable, Hashable {
         case width = "Width"
         case height = "Height"
         case audioChannels = "AudioChannels"
+        case hardwareAccelerationType = "HardwareAccelerationType"
         case transcodeReasons = "TranscodeReasons"
     }
 
@@ -70,6 +99,7 @@ public struct TranscodingInfo: Codable, Hashable {
         try encoderContainer.encodeIfPresent(width, forKey: .width)
         try encoderContainer.encodeIfPresent(height, forKey: .height)
         try encoderContainer.encodeIfPresent(audioChannels, forKey: .audioChannels)
+        try encoderContainer.encodeIfPresent(hardwareAccelerationType, forKey: .hardwareAccelerationType)
         try encoderContainer.encodeIfPresent(transcodeReasons, forKey: .transcodeReasons)
     }
 }

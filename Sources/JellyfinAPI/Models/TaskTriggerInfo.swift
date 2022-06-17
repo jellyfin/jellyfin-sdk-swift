@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class TaskTriggerInfo. */
-public struct TaskTriggerInfo: Codable, Hashable {
+public struct TaskTriggerInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the type. */
     public var type: String?
@@ -19,6 +19,7 @@ public struct TaskTriggerInfo: Codable, Hashable {
     public var timeOfDayTicks: Int64?
     /** Gets or sets the interval. */
     public var intervalTicks: Int64?
+    /** Gets or sets the day of week. */
     public var dayOfWeek: DayOfWeek?
     /** Gets or sets the maximum runtime ticks. */
     public var maxRuntimeTicks: Int64?

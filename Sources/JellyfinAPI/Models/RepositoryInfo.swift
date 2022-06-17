@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class RepositoryInfo. */
-public struct RepositoryInfo: Codable, Hashable {
+public struct RepositoryInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?

@@ -1,6 +1,6 @@
 # DevicesAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Deletes a device.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -66,7 +66,7 @@ Void (empty response body)
 
 Get info for a device.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 Get options for a device.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 Get Devices.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -188,7 +188,7 @@ DevicesAPI.getDevices(supportsSync: supportsSync, userId: userId) { (response, e
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supportsSync** | **Bool** | Gets or sets a value indicating whether [supports synchronize]. | [optional] 
- **userId** | [**String**](.md) | Gets or sets the user identifier. | [optional] 
+ **userId** | **String** | Gets or sets the user identifier. | [optional] 
 
 ### Return type
 
@@ -207,21 +207,21 @@ Name | Type | Description  | Notes
 
 # **updateDeviceOptions**
 ```swift
-    open class func updateDeviceOptions(id: String, deviceOptions: DeviceOptions, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateDeviceOptions(id: String, updateDeviceOptionsRequest: UpdateDeviceOptionsRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Update device options.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let id = "id_example" // String | Device Id.
-let deviceOptions = DeviceOptions(customName: "customName_example") // DeviceOptions | Device Options.
+let updateDeviceOptionsRequest = UpdateDeviceOptions_request(id: 123, deviceId: "deviceId_example", customName: "customName_example") // UpdateDeviceOptionsRequest | Device Options.
 
 // Update device options.
-DevicesAPI.updateDeviceOptions(id: id, deviceOptions: deviceOptions) { (response, error) in
+DevicesAPI.updateDeviceOptions(id: id, updateDeviceOptionsRequest: updateDeviceOptionsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -238,7 +238,7 @@ DevicesAPI.updateDeviceOptions(id: id, deviceOptions: deviceOptions) { (response
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String** | Device Id. | 
- **deviceOptions** | [**DeviceOptions**](DeviceOptions.md) | Device Options. | 
+ **updateDeviceOptionsRequest** | [**UpdateDeviceOptionsRequest**](UpdateDeviceOptionsRequest.md) | Device Options. | 
 
 ### Return type
 
@@ -251,7 +251,7 @@ Void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
- - **Accept**: application/json, application/json; profile=CamelCase, application/json; profile=PascalCase
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

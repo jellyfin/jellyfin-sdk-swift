@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** The create user by name request body. */
-public struct CreateUserByName: Codable, Hashable {
+public struct CreateUserByName: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the username. */
     public var name: String?

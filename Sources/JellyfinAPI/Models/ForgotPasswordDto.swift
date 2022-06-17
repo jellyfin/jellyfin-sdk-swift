@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Forgot Password request body DTO. */
-public struct ForgotPasswordDto: Codable, Hashable {
+public struct ForgotPasswordDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the entered username to have its password reset. */
     public var enteredUsername: String

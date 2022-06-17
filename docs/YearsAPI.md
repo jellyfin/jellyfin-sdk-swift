@@ -1,6 +1,6 @@
 # YearsAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Gets a year.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -41,7 +41,7 @@ YearsAPI.getYear(year: year, userId: userId) { (response, error) in
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **year** | **Int** | The year. | 
- **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **userId** | **String** | Optional. Filter by user id, and attach user data. | [optional] 
 
 ### Return type
 
@@ -60,23 +60,23 @@ Name | Type | Description  | Notes
 
 # **getYears**
 ```swift
-    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getYears(startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, userId: String? = nil, recursive: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Get years.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let startIndex = 987 // Int | Skips over a given number of items within the results. Use for paging. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
-let sortOrder = [APISortOrder()] // [APISortOrder] | Sort Order - Ascending,Descending. (optional)
+let sortOrder = [SortOrder()] // [SortOrder] | Sort Order - Ascending,Descending. (optional)
 let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
-let excludeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. (optional)
-let includeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be included based on item type. This allows multiple, comma delimited. (optional)
+let excludeItemTypes = [BaseItemKind()] // [BaseItemKind] | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. (optional)
+let includeItemTypes = [BaseItemKind()] // [BaseItemKind] | Optional. If specified, results will be included based on item type. This allows multiple, comma delimited. (optional)
 let mediaTypes = ["inner_example"] // [String] | Optional. Filter by MediaType. Allows multiple, comma delimited. (optional)
 let sortBy = ["inner_example"] // [String] | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
 let enableUserData = true // Bool | Optional. Include user data. (optional)
@@ -105,17 +105,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **startIndex** | **Int** | Skips over a given number of items within the results. Use for paging. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
- **sortOrder** | [**[APISortOrder]**](APISortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
- **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **sortOrder** | [**[SortOrder]**](SortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
+ **parentId** | **String** | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
- **excludeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. | [optional] 
- **includeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be included based on item type. This allows multiple, comma delimited. | [optional] 
+ **excludeItemTypes** | [**[BaseItemKind]**](BaseItemKind.md) | Optional. If specified, results will be excluded based on item type. This allows multiple, comma delimited. | [optional] 
+ **includeItemTypes** | [**[BaseItemKind]**](BaseItemKind.md) | Optional. If specified, results will be included based on item type. This allows multiple, comma delimited. | [optional] 
  **mediaTypes** | [**[String]**](String.md) | Optional. Filter by MediaType. Allows multiple, comma delimited. | [optional] 
  **sortBy** | [**[String]**](String.md) | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. | [optional] 
  **enableUserData** | **Bool** | Optional. Include user data. | [optional] 
  **imageTypeLimit** | **Int** | Optional. The max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
- **userId** | [**String**](.md) | User Id. | [optional] 
+ **userId** | **String** | User Id. | [optional] 
  **recursive** | **Bool** | Search recursively. | [optional] [default to true]
  **enableImages** | **Bool** | Optional. Include image information in output. | [optional] [default to true]
 

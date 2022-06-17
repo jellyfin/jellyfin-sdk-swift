@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class MetadataOptions. */
-public struct MetadataOptions: Codable, Hashable {
+public struct MetadataOptions: Codable, JSONEncodable, Hashable {
 
     public var itemType: String?
     public var disabledMetadataSavers: [String]?

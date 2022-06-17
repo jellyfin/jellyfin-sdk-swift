@@ -11,11 +11,11 @@ import AnyCodable
 #endif
 
 /** Class PlaybackStartInfo. */
-public struct PlaybackStartInfo: Codable, Hashable {
+public struct PlaybackStartInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets a value indicating whether this instance can seek. */
     public var canSeek: Bool?
-    public var item: BaseItemDto?
+    public var item: PlaybackProgressInfoItem?
     /** Gets or sets the item identifier. */
     public var itemId: String?
     /** Gets or sets the session id. */
@@ -37,16 +37,18 @@ public struct PlaybackStartInfo: Codable, Hashable {
     public var volumeLevel: Int?
     public var brightness: Int?
     public var aspectRatio: String?
+    /** Gets or sets the play method. */
     public var playMethod: PlayMethod?
     /** Gets or sets the live stream identifier. */
     public var liveStreamId: String?
     /** Gets or sets the play session identifier. */
     public var playSessionId: String?
+    /** Gets or sets the repeat mode. */
     public var repeatMode: RepeatMode?
     public var nowPlayingQueue: [QueueItem]?
     public var playlistItemId: String?
 
-    public init(canSeek: Bool? = nil, item: BaseItemDto? = nil, itemId: String? = nil, sessionId: String? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil, positionTicks: Int64? = nil, playbackStartTimeTicks: Int64? = nil, volumeLevel: Int? = nil, brightness: Int? = nil, aspectRatio: String? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, repeatMode: RepeatMode? = nil, nowPlayingQueue: [QueueItem]? = nil, playlistItemId: String? = nil) {
+    public init(canSeek: Bool? = nil, item: PlaybackProgressInfoItem? = nil, itemId: String? = nil, sessionId: String? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil, positionTicks: Int64? = nil, playbackStartTimeTicks: Int64? = nil, volumeLevel: Int? = nil, brightness: Int? = nil, aspectRatio: String? = nil, playMethod: PlayMethod? = nil, liveStreamId: String? = nil, playSessionId: String? = nil, repeatMode: RepeatMode? = nil, nowPlayingQueue: [QueueItem]? = nil, playlistItemId: String? = nil) {
         self.canSeek = canSeek
         self.item = item
         self.itemId = itemId

@@ -1,6 +1,6 @@
 # UserViewsAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Get user view grouping options.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -39,7 +39,7 @@ UserViewsAPI.getGroupingOptions(userId: userId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | User id. | 
+ **userId** | **String** | User id. | 
 
 ### Return type
 
@@ -47,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[CustomAuthentication](../README.md#CustomAuthentication)
 
 ### HTTP request headers
 
@@ -63,7 +63,7 @@ No authorization required
 
 Get user views.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -90,7 +90,7 @@ UserViewsAPI.getUserViews(userId: userId, includeExternalContent: includeExterna
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | User id. | 
+ **userId** | **String** | User id. | 
  **includeExternalContent** | **Bool** | Whether or not to include external views such as channels or live tv. | [optional] 
  **presetViews** | [**[String]**](String.md) | Preset views. | [optional] 
  **includeHidden** | **Bool** | Whether or not to include hidden content. | [optional] [default to false]
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[CustomAuthentication](../README.md#CustomAuthentication)
 
 ### HTTP request headers
 

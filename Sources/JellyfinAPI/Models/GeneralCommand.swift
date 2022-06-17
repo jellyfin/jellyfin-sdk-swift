@@ -10,8 +10,9 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct GeneralCommand: Codable, Hashable {
+public struct GeneralCommand: Codable, JSONEncodable, Hashable {
 
+    /** This exists simply to identify a set of known commands. */
     public var name: GeneralCommandType?
     public var controllingUserId: String?
     public var arguments: [String: String]?

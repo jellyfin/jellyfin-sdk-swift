@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Special view option dto. */
-public struct SpecialViewOptionDto: Codable, Hashable {
+public struct SpecialViewOptionDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets view option name. */
     public var name: String?

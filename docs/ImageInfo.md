@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**imageType** | [**ImageType**](ImageType.md) |  | [optional] 
+**imageType** | [**ImageType**](ImageType.md) | Gets or sets the type of the image. | [optional] 
 **imageIndex** | **Int** | Gets or sets the index of the image. | [optional] 
 **imageTag** | **String** | Gets or sets the image tag. | [optional] 
 **path** | **String** | Gets or sets the path. | [optional] 

@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct QueryFiltersLegacy: Codable, Hashable {
+public struct QueryFiltersLegacy: Codable, JSONEncodable, Hashable {
 
     public var genres: [String]?
     public var tags: [String]?

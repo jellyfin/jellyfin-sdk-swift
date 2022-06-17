@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class PlayRequestDto. */
-public struct PlayRequestDto: Codable, Hashable {
+public struct PlayRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the playing queue. */
     public var playingQueue: [String]?

@@ -1,6 +1,6 @@
 # UniversalAudioAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Gets an audio stream.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -56,11 +56,11 @@ UniversalAudioAPI.getUniversalAudioStream(itemId: itemId, container: container, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | The item id. | 
+ **itemId** | **String** | The item id. | 
  **container** | [**[String]**](String.md) | Optional. The audio container. | [optional] 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | [optional] 
  **deviceId** | **String** | The device id of the client requesting. Used to stop encoding processes when needed. | [optional] 
- **userId** | [**String**](.md) | Optional. The user id. | [optional] 
+ **userId** | **String** | Optional. The user id. | [optional] 
  **audioCodec** | **String** | Optional. The audio codec to transcode to. | [optional] 
  **maxAudioChannels** | **Int** | Optional. The maximum number of audio channels. | [optional] 
  **transcodingAudioChannels** | **Int** | Optional. The number of how many audio channels to transcode to. | [optional] 
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 
 Gets an audio stream.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -138,11 +138,11 @@ UniversalAudioAPI.headUniversalAudioStream(itemId: itemId, container: container,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | The item id. | 
+ **itemId** | **String** | The item id. | 
  **container** | [**[String]**](String.md) | Optional. The audio container. | [optional] 
  **mediaSourceId** | **String** | The media version id, if playing an alternate version. | [optional] 
  **deviceId** | **String** | The device id of the client requesting. Used to stop encoding processes when needed. | [optional] 
- **userId** | [**String**](.md) | Optional. The user id. | [optional] 
+ **userId** | **String** | Optional. The user id. | [optional] 
  **audioCodec** | **String** | Optional. The audio codec to transcode to. | [optional] 
  **maxAudioChannels** | **Int** | Optional. The maximum number of audio channels. | [optional] 
  **transcodingAudioChannels** | **Int** | Optional. The number of how many audio channels to transcode to. | [optional] 

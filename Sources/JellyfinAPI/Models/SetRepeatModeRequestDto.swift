@@ -11,8 +11,9 @@ import AnyCodable
 #endif
 
 /** Class SetRepeatModeRequestDto. */
-public struct SetRepeatModeRequestDto: Codable, Hashable {
+public struct SetRepeatModeRequestDto: Codable, JSONEncodable, Hashable {
 
+    /** Enum GroupRepeatMode. */
     public var mode: GroupRepeatMode?
 
     public init(mode: GroupRepeatMode? = nil) {

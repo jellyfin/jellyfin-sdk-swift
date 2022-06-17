@@ -5,36 +5,43 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class LiveTvAPI {
+
     /**
      Adds a listings provider.
      
      - parameter pw: (query) Password. (optional)
      - parameter validateListings: (query) Validate listings. (optional, default to false)
      - parameter validateLogin: (query) Validate login. (optional, default to false)
-     - parameter listingsProviderInfo: (body) New listings info. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter addListingProviderRequest: (body) New listings info. (optional)
      - returns: AnyPublisher<ListingsProviderInfo, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func addListingProvider(pw: String? = nil, validateListings: Bool? = nil, validateLogin: Bool? = nil, listingsProviderInfo: ListingsProviderInfo? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ListingsProviderInfo, Error> {
-        return Future<ListingsProviderInfo, Error>.init { promise in
-            addListingProviderWithRequestBuilder(pw: pw, validateListings: validateListings, validateLogin: validateLogin, listingsProviderInfo: listingsProviderInfo).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func addListingProvider(pw: String? = nil, validateListings: Bool? = nil, validateLogin: Bool? = nil, addListingProviderRequest: AddListingProviderRequest? = nil) -> AnyPublisher<ListingsProviderInfo, Error> {
+        var requestTask: RequestTask?
+        return Future<ListingsProviderInfo, Error> { promise in
+            requestTask = addListingProviderWithRequestBuilder(pw: pw, validateListings: validateListings, validateLogin: validateLogin, addListingProviderRequest: addListingProviderRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -42,57 +49,61 @@ open class LiveTvAPI {
      Adds a listings provider.
      - POST /LiveTv/ListingProviders
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter pw: (query) Password. (optional)
      - parameter validateListings: (query) Validate listings. (optional, default to false)
      - parameter validateLogin: (query) Validate login. (optional, default to false)
-     - parameter listingsProviderInfo: (body) New listings info. (optional)
+     - parameter addListingProviderRequest: (body) New listings info. (optional)
      - returns: RequestBuilder<ListingsProviderInfo> 
      */
-    open class func addListingProviderWithRequestBuilder(pw: String? = nil, validateListings: Bool? = nil, validateLogin: Bool? = nil, listingsProviderInfo: ListingsProviderInfo? = nil) -> RequestBuilder<ListingsProviderInfo> {
-        let urlPath = "/LiveTv/ListingProviders"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: listingsProviderInfo)
+    open class func addListingProviderWithRequestBuilder(pw: String? = nil, validateListings: Bool? = nil, validateLogin: Bool? = nil, addListingProviderRequest: AddListingProviderRequest? = nil) -> RequestBuilder<ListingsProviderInfo> {
+        let localVariablePath = "/LiveTv/ListingProviders"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: addListingProviderRequest)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "pw": pw?.encodeToJSON(),
             "validateListings": validateListings?.encodeToJSON(),
             "validateLogin": validateLogin?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<ListingsProviderInfo>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ListingsProviderInfo>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Adds a tuner host.
      
-     - parameter tunerHostInfo: (body) New tuner host. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter addTunerHostRequest: (body) New tuner host. (optional)
      - returns: AnyPublisher<TunerHostInfo, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func addTunerHost(tunerHostInfo: TunerHostInfo? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<TunerHostInfo, Error> {
-        return Future<TunerHostInfo, Error>.init { promise in
-            addTunerHostWithRequestBuilder(tunerHostInfo: tunerHostInfo).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func addTunerHost(addTunerHostRequest: AddTunerHostRequest? = nil) -> AnyPublisher<TunerHostInfo, Error> {
+        var requestTask: RequestTask?
+        return Future<TunerHostInfo, Error> { promise in
+            requestTask = addTunerHostWithRequestBuilder(addTunerHostRequest: addTunerHostRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -100,41 +111,41 @@ open class LiveTvAPI {
      Adds a tuner host.
      - POST /LiveTv/TunerHosts
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter tunerHostInfo: (body) New tuner host. (optional)
+     - parameter addTunerHostRequest: (body) New tuner host. (optional)
      - returns: RequestBuilder<TunerHostInfo> 
      */
-    open class func addTunerHostWithRequestBuilder(tunerHostInfo: TunerHostInfo? = nil) -> RequestBuilder<TunerHostInfo> {
-        let urlPath = "/LiveTv/TunerHosts"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: tunerHostInfo)
+    open class func addTunerHostWithRequestBuilder(addTunerHostRequest: AddTunerHostRequest? = nil) -> RequestBuilder<TunerHostInfo> {
+        let localVariablePath = "/LiveTv/TunerHosts"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: addTunerHostRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<TunerHostInfo>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TunerHostInfo>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Cancels a live tv series timer.
      
      - parameter timerId: (path) Timer id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func cancelSeriesTimer(timerId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            cancelSeriesTimerWithRequestBuilder(timerId: timerId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func cancelSeriesTimer(timerId: String) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = cancelSeriesTimerWithRequestBuilder(timerId: timerId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -142,7 +153,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -150,44 +165,44 @@ open class LiveTvAPI {
      Cancels a live tv series timer.
      - DELETE /LiveTv/SeriesTimers/{timerId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter timerId: (path) Timer id. 
      - returns: RequestBuilder<Void> 
      */
     open class func cancelSeriesTimerWithRequestBuilder(timerId: String) -> RequestBuilder<Void> {
-        var urlPath = "/LiveTv/SeriesTimers/{timerId}"
+        var localVariablePath = "/LiveTv/SeriesTimers/{timerId}"
         let timerIdPreEscape = "\(APIHelper.mapValueToPathItem(timerId))"
         let timerIdPostEscape = timerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Cancels a live tv timer.
      
      - parameter timerId: (path) Timer id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func cancelTimer(timerId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            cancelTimerWithRequestBuilder(timerId: timerId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func cancelTimer(timerId: String) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = cancelTimerWithRequestBuilder(timerId: timerId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -195,7 +210,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -203,44 +222,44 @@ open class LiveTvAPI {
      Cancels a live tv timer.
      - DELETE /LiveTv/Timers/{timerId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter timerId: (path) Timer id. 
      - returns: RequestBuilder<Void> 
      */
     open class func cancelTimerWithRequestBuilder(timerId: String) -> RequestBuilder<Void> {
-        var urlPath = "/LiveTv/Timers/{timerId}"
+        var localVariablePath = "/LiveTv/Timers/{timerId}"
         let timerIdPreEscape = "\(APIHelper.mapValueToPathItem(timerId))"
         let timerIdPostEscape = timerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Creates a live tv series timer.
      
-     - parameter seriesTimerInfoDto: (body) New series timer info. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter createSeriesTimerRequest: (body) New series timer info. (optional)
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func createSeriesTimer(seriesTimerInfoDto: SeriesTimerInfoDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            createSeriesTimerWithRequestBuilder(seriesTimerInfoDto: seriesTimerInfoDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func createSeriesTimer(createSeriesTimerRequest: CreateSeriesTimerRequest? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = createSeriesTimerWithRequestBuilder(createSeriesTimerRequest: createSeriesTimerRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -248,7 +267,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -256,41 +279,41 @@ open class LiveTvAPI {
      Creates a live tv series timer.
      - POST /LiveTv/SeriesTimers
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter seriesTimerInfoDto: (body) New series timer info. (optional)
+     - parameter createSeriesTimerRequest: (body) New series timer info. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func createSeriesTimerWithRequestBuilder(seriesTimerInfoDto: SeriesTimerInfoDto? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/LiveTv/SeriesTimers"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: seriesTimerInfoDto)
+    open class func createSeriesTimerWithRequestBuilder(createSeriesTimerRequest: CreateSeriesTimerRequest? = nil) -> RequestBuilder<Void> {
+        let localVariablePath = "/LiveTv/SeriesTimers"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createSeriesTimerRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Creates a live tv timer.
      
-     - parameter timerInfoDto: (body) New timer info. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter createTimerRequest: (body) New timer info. (optional)
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func createTimer(timerInfoDto: TimerInfoDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            createTimerWithRequestBuilder(timerInfoDto: timerInfoDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func createTimer(createTimerRequest: CreateTimerRequest? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = createTimerWithRequestBuilder(createTimerRequest: createTimerRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -298,7 +321,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -306,41 +333,41 @@ open class LiveTvAPI {
      Creates a live tv timer.
      - POST /LiveTv/Timers
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter timerInfoDto: (body) New timer info. (optional)
+     - parameter createTimerRequest: (body) New timer info. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func createTimerWithRequestBuilder(timerInfoDto: TimerInfoDto? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/LiveTv/Timers"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: timerInfoDto)
+    open class func createTimerWithRequestBuilder(createTimerRequest: CreateTimerRequest? = nil) -> RequestBuilder<Void> {
+        let localVariablePath = "/LiveTv/Timers"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createTimerRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Delete listing provider.
      
      - parameter id: (query) Listing provider id. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteListingProvider(id: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            deleteListingProviderWithRequestBuilder(id: id).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func deleteListingProvider(id: String? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = deleteListingProviderWithRequestBuilder(id: id).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -348,7 +375,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -356,44 +387,44 @@ open class LiveTvAPI {
      Delete listing provider.
      - DELETE /LiveTv/ListingProviders
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter id: (query) Listing provider id. (optional)
      - returns: RequestBuilder<Void> 
      */
     open class func deleteListingProviderWithRequestBuilder(id: String? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/LiveTv/ListingProviders"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/ListingProviders"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "id": id?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Deletes a live tv recording.
      
      - parameter recordingId: (path) Recording id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteRecording(recordingId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            deleteRecordingWithRequestBuilder(recordingId: recordingId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func deleteRecording(recordingId: String) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = deleteRecordingWithRequestBuilder(recordingId: recordingId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -401,7 +432,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -409,44 +444,44 @@ open class LiveTvAPI {
      Deletes a live tv recording.
      - DELETE /LiveTv/Recordings/{recordingId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter recordingId: (path) Recording id. 
      - returns: RequestBuilder<Void> 
      */
     open class func deleteRecordingWithRequestBuilder(recordingId: String) -> RequestBuilder<Void> {
-        var urlPath = "/LiveTv/Recordings/{recordingId}"
+        var localVariablePath = "/LiveTv/Recordings/{recordingId}"
         let recordingIdPreEscape = "\(APIHelper.mapValueToPathItem(recordingId))"
         let recordingIdPostEscape = recordingIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{recordingId}", with: recordingIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{recordingId}", with: recordingIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Deletes a tuner host.
      
      - parameter id: (query) Tuner host id. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteTunerHost(id: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            deleteTunerHostWithRequestBuilder(id: id).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func deleteTunerHost(id: String? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = deleteTunerHostWithRequestBuilder(id: id).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -454,7 +489,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -462,52 +501,56 @@ open class LiveTvAPI {
      Deletes a tuner host.
      - DELETE /LiveTv/TunerHosts
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter id: (query) Tuner host id. (optional)
      - returns: RequestBuilder<Void> 
      */
     open class func deleteTunerHostWithRequestBuilder(id: String? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/LiveTv/TunerHosts"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/TunerHosts"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "id": id?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Discover tuners.
      
      - parameter newDevicesOnly: (query) Only discover new tuners. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[TunerHostInfo], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func discoverTuners(newDevicesOnly: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[TunerHostInfo], Error> {
-        return Future<[TunerHostInfo], Error>.init { promise in
-            discoverTunersWithRequestBuilder(newDevicesOnly: newDevicesOnly).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func discoverTuners(newDevicesOnly: Bool? = nil) -> AnyPublisher<[TunerHostInfo], Error> {
+        var requestTask: RequestTask?
+        return Future<[TunerHostInfo], Error> { promise in
+            requestTask = discoverTunersWithRequestBuilder(newDevicesOnly: newDevicesOnly).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -515,52 +558,56 @@ open class LiveTvAPI {
      Discover tuners.
      - GET /LiveTv/Tuners/Discover
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter newDevicesOnly: (query) Only discover new tuners. (optional, default to false)
      - returns: RequestBuilder<[TunerHostInfo]> 
      */
     open class func discoverTunersWithRequestBuilder(newDevicesOnly: Bool? = nil) -> RequestBuilder<[TunerHostInfo]> {
-        let urlPath = "/LiveTv/Tuners/Discover"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Tuners/Discover"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "newDevicesOnly": newDevicesOnly?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[TunerHostInfo]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[TunerHostInfo]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Discover tuners.
      
      - parameter newDevicesOnly: (query) Only discover new tuners. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[TunerHostInfo], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func discvoverTuners(newDevicesOnly: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[TunerHostInfo], Error> {
-        return Future<[TunerHostInfo], Error>.init { promise in
-            discvoverTunersWithRequestBuilder(newDevicesOnly: newDevicesOnly).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func discvoverTuners(newDevicesOnly: Bool? = nil) -> AnyPublisher<[TunerHostInfo], Error> {
+        var requestTask: RequestTask?
+        return Future<[TunerHostInfo], Error> { promise in
+            requestTask = discvoverTunersWithRequestBuilder(newDevicesOnly: newDevicesOnly).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -568,30 +615,30 @@ open class LiveTvAPI {
      Discover tuners.
      - GET /LiveTv/Tuners/Discvover
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter newDevicesOnly: (query) Only discover new tuners. (optional, default to false)
      - returns: RequestBuilder<[TunerHostInfo]> 
      */
     open class func discvoverTunersWithRequestBuilder(newDevicesOnly: Bool? = nil) -> RequestBuilder<[TunerHostInfo]> {
-        let urlPath = "/LiveTv/Tuners/Discvover"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Tuners/Discvover"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "newDevicesOnly": newDevicesOnly?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[TunerHostInfo]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[TunerHostInfo]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -599,22 +646,26 @@ open class LiveTvAPI {
      
      - parameter channelId: (path) Channel id. 
      - parameter userId: (query) Optional. Attach user data. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getChannel(channelId: String, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDto, Error> {
-        return Future<BaseItemDto, Error>.init { promise in
-            getChannelWithRequestBuilder(channelId: channelId, userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getChannel(channelId: String, userId: String? = nil) -> AnyPublisher<BaseItemDto, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDto, Error> { promise in
+            requestTask = getChannelWithRequestBuilder(channelId: channelId, userId: userId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -622,56 +673,60 @@ open class LiveTvAPI {
      Gets a live tv channel.
      - GET /LiveTv/Channels/{channelId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter channelId: (path) Channel id. 
      - parameter userId: (query) Optional. Attach user data. (optional)
      - returns: RequestBuilder<BaseItemDto> 
      */
     open class func getChannelWithRequestBuilder(channelId: String, userId: String? = nil) -> RequestBuilder<BaseItemDto> {
-        var urlPath = "/LiveTv/Channels/{channelId}"
+        var localVariablePath = "/LiveTv/Channels/{channelId}"
         let channelIdPreEscape = "\(APIHelper.mapValueToPathItem(channelId))"
         let channelIdPostEscape = channelIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{channelId}", with: channelIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{channelId}", with: channelIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get channel mapping options.
      
      - parameter providerId: (query) Provider id. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<ChannelMappingOptionsDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getChannelMappingOptions(providerId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ChannelMappingOptionsDto, Error> {
-        return Future<ChannelMappingOptionsDto, Error>.init { promise in
-            getChannelMappingOptionsWithRequestBuilder(providerId: providerId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getChannelMappingOptions(providerId: String? = nil) -> AnyPublisher<ChannelMappingOptionsDto, Error> {
+        var requestTask: RequestTask?
+        return Future<ChannelMappingOptionsDto, Error> { promise in
+            requestTask = getChannelMappingOptionsWithRequestBuilder(providerId: providerId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -679,51 +734,55 @@ open class LiveTvAPI {
      Get channel mapping options.
      - GET /LiveTv/ChannelMappingOptions
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter providerId: (query) Provider id. (optional)
      - returns: RequestBuilder<ChannelMappingOptionsDto> 
      */
     open class func getChannelMappingOptionsWithRequestBuilder(providerId: String? = nil) -> RequestBuilder<ChannelMappingOptionsDto> {
-        let urlPath = "/LiveTv/ChannelMappingOptions"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/ChannelMappingOptions"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "providerId": providerId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<ChannelMappingOptionsDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ChannelMappingOptionsDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets default listings provider info.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<ListingsProviderInfo, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getDefaultListingProvider(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ListingsProviderInfo, Error> {
-        return Future<ListingsProviderInfo, Error>.init { promise in
-            getDefaultListingProviderWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getDefaultListingProvider() -> AnyPublisher<ListingsProviderInfo, Error> {
+        var requestTask: RequestTask?
+        return Future<ListingsProviderInfo, Error> { promise in
+            requestTask = getDefaultListingProviderWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -731,48 +790,52 @@ open class LiveTvAPI {
      Gets default listings provider info.
      - GET /LiveTv/ListingProviders/Default
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<ListingsProviderInfo> 
      */
     open class func getDefaultListingProviderWithRequestBuilder() -> RequestBuilder<ListingsProviderInfo> {
-        let urlPath = "/LiveTv/ListingProviders/Default"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/ListingProviders/Default"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<ListingsProviderInfo>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ListingsProviderInfo>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets the default values for a new timer.
      
      - parameter programId: (query) Optional. To attach default values based on a program. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<SeriesTimerInfoDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getDefaultTimer(programId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<SeriesTimerInfoDto, Error> {
-        return Future<SeriesTimerInfoDto, Error>.init { promise in
-            getDefaultTimerWithRequestBuilder(programId: programId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getDefaultTimer(programId: String? = nil) -> AnyPublisher<SeriesTimerInfoDto, Error> {
+        var requestTask: RequestTask?
+        return Future<SeriesTimerInfoDto, Error> { promise in
+            requestTask = getDefaultTimerWithRequestBuilder(programId: programId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -780,51 +843,55 @@ open class LiveTvAPI {
      Gets the default values for a new timer.
      - GET /LiveTv/Timers/Defaults
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter programId: (query) Optional. To attach default values based on a program. (optional)
      - returns: RequestBuilder<SeriesTimerInfoDto> 
      */
     open class func getDefaultTimerWithRequestBuilder(programId: String? = nil) -> RequestBuilder<SeriesTimerInfoDto> {
-        let urlPath = "/LiveTv/Timers/Defaults"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Timers/Defaults"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "programId": programId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<SeriesTimerInfoDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<SeriesTimerInfoDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get guid info.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<GuideInfo, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getGuideInfo(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<GuideInfo, Error> {
-        return Future<GuideInfo, Error>.init { promise in
-            getGuideInfoWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getGuideInfo() -> AnyPublisher<GuideInfo, Error> {
+        var requestTask: RequestTask?
+        return Future<GuideInfo, Error> { promise in
+            requestTask = getGuideInfoWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -832,26 +899,26 @@ open class LiveTvAPI {
      Get guid info.
      - GET /LiveTv/GuideInfo
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<GuideInfo> 
      */
     open class func getGuideInfoWithRequestBuilder() -> RequestBuilder<GuideInfo> {
-        let urlPath = "/LiveTv/GuideInfo"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/GuideInfo"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<GuideInfo>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GuideInfo>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -861,22 +928,26 @@ open class LiveTvAPI {
      - parameter type: (query) Provider type. (optional)
      - parameter location: (query) Location. (optional)
      - parameter country: (query) Country. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[NameIdPair], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLineups(id: String? = nil, type: String? = nil, location: String? = nil, country: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[NameIdPair], Error> {
-        return Future<[NameIdPair], Error>.init { promise in
-            getLineupsWithRequestBuilder(id: id, type: type, location: location, country: country).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getLineups(id: String? = nil, type: String? = nil, location: String? = nil, country: String? = nil) -> AnyPublisher<[NameIdPair], Error> {
+        var requestTask: RequestTask?
+        return Future<[NameIdPair], Error> { promise in
+            requestTask = getLineupsWithRequestBuilder(id: id, type: type, location: location, country: country).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -884,7 +955,7 @@ open class LiveTvAPI {
      Gets available lineups.
      - GET /LiveTv/ListingProviders/Lineups
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter id: (query) Provider id. (optional)
      - parameter type: (query) Provider type. (optional)
@@ -893,49 +964,53 @@ open class LiveTvAPI {
      - returns: RequestBuilder<[NameIdPair]> 
      */
     open class func getLineupsWithRequestBuilder(id: String? = nil, type: String? = nil, location: String? = nil, country: String? = nil) -> RequestBuilder<[NameIdPair]> {
-        let urlPath = "/LiveTv/ListingProviders/Lineups"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/ListingProviders/Lineups"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "id": id?.encodeToJSON(),
             "type": type?.encodeToJSON(),
             "location": location?.encodeToJSON(),
             "country": country?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[NameIdPair]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[NameIdPair]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets a live tv recording stream.
      
      - parameter recordingId: (path) Recording id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLiveRecordingFile(recordingId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getLiveRecordingFileWithRequestBuilder(recordingId: recordingId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getLiveRecordingFile(recordingId: String) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getLiveRecordingFileWithRequestBuilder(recordingId: recordingId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -946,24 +1021,24 @@ open class LiveTvAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getLiveRecordingFileWithRequestBuilder(recordingId: String) -> RequestBuilder<URL> {
-        var urlPath = "/LiveTv/LiveRecordings/{recordingId}/stream"
+        var localVariablePath = "/LiveTv/LiveRecordings/{recordingId}/stream"
         let recordingIdPreEscape = "\(APIHelper.mapValueToPathItem(recordingId))"
         let recordingIdPostEscape = recordingIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{recordingId}", with: recordingIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{recordingId}", with: recordingIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -971,22 +1046,26 @@ open class LiveTvAPI {
      
      - parameter streamId: (path) Stream id. 
      - parameter container: (path) Container type. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLiveStreamFile(streamId: String, container: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getLiveStreamFileWithRequestBuilder(streamId: streamId, container: container).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getLiveStreamFile(streamId: String, container: String) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getLiveStreamFileWithRequestBuilder(streamId: streamId, container: container).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -998,27 +1077,27 @@ open class LiveTvAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getLiveStreamFileWithRequestBuilder(streamId: String, container: String) -> RequestBuilder<URL> {
-        var urlPath = "/LiveTv/LiveStreamFiles/{streamId}/stream.{container}"
+        var localVariablePath = "/LiveTv/LiveStreamFiles/{streamId}/stream.{container}"
         let streamIdPreEscape = "\(APIHelper.mapValueToPathItem(streamId))"
         let streamIdPostEscape = streamIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{streamId}", with: streamIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{streamId}", with: streamIdPostEscape, options: .literal, range: nil)
         let containerPreEscape = "\(APIHelper.mapValueToPathItem(container))"
         let containerPostEscape = containerPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{container}", with: containerPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{container}", with: containerPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1045,22 +1124,26 @@ open class LiveTvAPI {
      - parameter sortOrder: (query) Optional. Sort order. (optional)
      - parameter enableFavoriteSorting: (query) Optional. Incorporate favorite and like status into channel sorting. (optional, default to false)
      - parameter addCurrentProgram: (query) Optional. Adds current program info to each channel. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLiveTvChannels(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: APISortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getLiveTvChannelsWithRequestBuilder(type: type, userId: userId, startIndex: startIndex, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, limit: limit, isFavorite: isFavorite, isLiked: isLiked, isDisliked: isDisliked, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, fields: fields, enableUserData: enableUserData, sortBy: sortBy, sortOrder: sortOrder, enableFavoriteSorting: enableFavoriteSorting, addCurrentProgram: addCurrentProgram).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getLiveTvChannels(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getLiveTvChannelsWithRequestBuilder(type: type, userId: userId, startIndex: startIndex, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, limit: limit, isFavorite: isFavorite, isLiked: isLiked, isDisliked: isDisliked, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, fields: fields, enableUserData: enableUserData, sortBy: sortBy, sortOrder: sortOrder, enableFavoriteSorting: enableFavoriteSorting, addCurrentProgram: addCurrentProgram).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1068,7 +1151,7 @@ open class LiveTvAPI {
      Gets available live tv channels.
      - GET /LiveTv/Channels
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter type: (query) Optional. Filter by channel type. (optional)
      - parameter userId: (query) Optional. Filter by user and attach user data. (optional)
@@ -1093,13 +1176,13 @@ open class LiveTvAPI {
      - parameter addCurrentProgram: (query) Optional. Adds current program info to each channel. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getLiveTvChannelsWithRequestBuilder(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: APISortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/LiveTv/Channels"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func getLiveTvChannelsWithRequestBuilder(type: ChannelType? = nil, userId: String? = nil, startIndex: Int? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, addCurrentProgram: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let localVariablePath = "/LiveTv/Channels"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "type": type?.encodeToJSON(),
             "userId": userId?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
@@ -1123,36 +1206,40 @@ open class LiveTvAPI {
             "addCurrentProgram": addCurrentProgram?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets available live tv services.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<LiveTvInfo, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLiveTvInfo(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<LiveTvInfo, Error> {
-        return Future<LiveTvInfo, Error>.init { promise in
-            getLiveTvInfoWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getLiveTvInfo() -> AnyPublisher<LiveTvInfo, Error> {
+        var requestTask: RequestTask?
+        return Future<LiveTvInfo, Error> { promise in
+            requestTask = getLiveTvInfoWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1160,26 +1247,26 @@ open class LiveTvAPI {
      Gets available live tv services.
      - GET /LiveTv/Info
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<LiveTvInfo> 
      */
     open class func getLiveTvInfoWithRequestBuilder() -> RequestBuilder<LiveTvInfo> {
-        let urlPath = "/LiveTv/Info"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Info"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<LiveTvInfo>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<LiveTvInfo>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1212,22 +1299,26 @@ open class LiveTvAPI {
      - parameter librarySeriesId: (query) Optional. Filter by library series id. (optional)
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - parameter enableTotalRecordCount: (query) Retrieve total record count. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLiveTvPrograms(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [APISortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getLiveTvProgramsWithRequestBuilder(channelIds: channelIds, userId: userId, minStartDate: minStartDate, hasAired: hasAired, isAiring: isAiring, maxStartDate: maxStartDate, minEndDate: minEndDate, maxEndDate: maxEndDate, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, startIndex: startIndex, limit: limit, sortBy: sortBy, sortOrder: sortOrder, genres: genres, genreIds: genreIds, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, seriesTimerId: seriesTimerId, librarySeriesId: librarySeriesId, fields: fields, enableTotalRecordCount: enableTotalRecordCount).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getLiveTvPrograms(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getLiveTvProgramsWithRequestBuilder(channelIds: channelIds, userId: userId, minStartDate: minStartDate, hasAired: hasAired, isAiring: isAiring, maxStartDate: maxStartDate, minEndDate: minEndDate, maxEndDate: maxEndDate, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, startIndex: startIndex, limit: limit, sortBy: sortBy, sortOrder: sortOrder, genres: genres, genreIds: genreIds, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, seriesTimerId: seriesTimerId, librarySeriesId: librarySeriesId, fields: fields, enableTotalRecordCount: enableTotalRecordCount).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1235,7 +1326,7 @@ open class LiveTvAPI {
      Gets available live tv epgs.
      - GET /LiveTv/Programs
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter channelIds: (query) The channels to return guide information for. (optional)
      - parameter userId: (query) Optional. Filter by user id. (optional)
@@ -1266,13 +1357,13 @@ open class LiveTvAPI {
      - parameter enableTotalRecordCount: (query) Retrieve total record count. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getLiveTvProgramsWithRequestBuilder(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [APISortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/LiveTv/Programs"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func getLiveTvProgramsWithRequestBuilder(channelIds: [String]? = nil, userId: String? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int? = nil, limit: Int? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, genres: [String]? = nil, genreIds: [String]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerId: String? = nil, librarySeriesId: String? = nil, fields: [ItemFields]? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let localVariablePath = "/LiveTv/Programs"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "channelIds": channelIds?.encodeToJSON(),
             "userId": userId?.encodeToJSON(),
             "minStartDate": minStartDate?.encodeToJSON(),
@@ -1302,15 +1393,15 @@ open class LiveTvAPI {
             "enableTotalRecordCount": enableTotalRecordCount?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1318,22 +1409,26 @@ open class LiveTvAPI {
      
      - parameter programId: (path) Program id. 
      - parameter userId: (query) Optional. Attach user data. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getProgram(programId: String, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDto, Error> {
-        return Future<BaseItemDto, Error>.init { promise in
-            getProgramWithRequestBuilder(programId: programId, userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getProgram(programId: String, userId: String? = nil) -> AnyPublisher<BaseItemDto, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDto, Error> { promise in
+            requestTask = getProgramWithRequestBuilder(programId: programId, userId: userId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1341,56 +1436,60 @@ open class LiveTvAPI {
      Gets a live tv program.
      - GET /LiveTv/Programs/{programId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter programId: (path) Program id. 
      - parameter userId: (query) Optional. Attach user data. (optional)
      - returns: RequestBuilder<BaseItemDto> 
      */
     open class func getProgramWithRequestBuilder(programId: String, userId: String? = nil) -> RequestBuilder<BaseItemDto> {
-        var urlPath = "/LiveTv/Programs/{programId}"
+        var localVariablePath = "/LiveTv/Programs/{programId}"
         let programIdPreEscape = "\(APIHelper.mapValueToPathItem(programId))"
         let programIdPostEscape = programIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{programId}", with: programIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{programId}", with: programIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets available live tv epgs.
      
-     - parameter getProgramsDto: (body) Request body. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getProgramsRequest: (body) Request body. (optional)
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPrograms(getProgramsDto: GetProgramsDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getProgramsWithRequestBuilder(getProgramsDto: getProgramsDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getPrograms(getProgramsRequest: GetProgramsRequest? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getProgramsWithRequestBuilder(getProgramsRequest: getProgramsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1398,27 +1497,27 @@ open class LiveTvAPI {
      Gets available live tv epgs.
      - POST /LiveTv/Programs
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter getProgramsDto: (body) Request body. (optional)
+     - parameter getProgramsRequest: (body) Request body. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getProgramsWithRequestBuilder(getProgramsDto: GetProgramsDto? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/LiveTv/Programs"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getProgramsDto)
+    open class func getProgramsWithRequestBuilder(getProgramsRequest: GetProgramsRequest? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let localVariablePath = "/LiveTv/Programs"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getProgramsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1440,22 +1539,26 @@ open class LiveTvAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - parameter enableUserData: (query) Optional. include user data. (optional)
      - parameter enableTotalRecordCount: (query) Retrieve total record count. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRecommendedPrograms(userId: String? = nil, limit: Int? = nil, isAiring: Bool? = nil, hasAired: Bool? = nil, isSeries: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, genreIds: [String]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getRecommendedProgramsWithRequestBuilder(userId: userId, limit: limit, isAiring: isAiring, hasAired: hasAired, isSeries: isSeries, isMovie: isMovie, isNews: isNews, isKids: isKids, isSports: isSports, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, genreIds: genreIds, fields: fields, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getRecommendedPrograms(userId: String? = nil, limit: Int? = nil, isAiring: Bool? = nil, hasAired: Bool? = nil, isSeries: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, genreIds: [String]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getRecommendedProgramsWithRequestBuilder(userId: userId, limit: limit, isAiring: isAiring, hasAired: hasAired, isSeries: isSeries, isMovie: isMovie, isNews: isNews, isKids: isKids, isSports: isSports, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, genreIds: genreIds, fields: fields, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1463,7 +1566,7 @@ open class LiveTvAPI {
      Gets recommended live tv epgs.
      - GET /LiveTv/Programs/Recommended
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) Optional. filter by user id. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
@@ -1484,12 +1587,12 @@ open class LiveTvAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     open class func getRecommendedProgramsWithRequestBuilder(userId: String? = nil, limit: Int? = nil, isAiring: Bool? = nil, hasAired: Bool? = nil, isSeries: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, genreIds: [String]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/LiveTv/Programs/Recommended"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Programs/Recommended"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
             "isAiring": isAiring?.encodeToJSON(),
@@ -1508,15 +1611,15 @@ open class LiveTvAPI {
             "enableTotalRecordCount": enableTotalRecordCount?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1524,22 +1627,26 @@ open class LiveTvAPI {
      
      - parameter recordingId: (path) Recording id. 
      - parameter userId: (query) Optional. Attach user data. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRecording(recordingId: String, userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDto, Error> {
-        return Future<BaseItemDto, Error>.init { promise in
-            getRecordingWithRequestBuilder(recordingId: recordingId, userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getRecording(recordingId: String, userId: String? = nil) -> AnyPublisher<BaseItemDto, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDto, Error> { promise in
+            requestTask = getRecordingWithRequestBuilder(recordingId: recordingId, userId: userId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1547,56 +1654,60 @@ open class LiveTvAPI {
      Gets a live tv recording.
      - GET /LiveTv/Recordings/{recordingId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter recordingId: (path) Recording id. 
      - parameter userId: (query) Optional. Attach user data. (optional)
      - returns: RequestBuilder<BaseItemDto> 
      */
     open class func getRecordingWithRequestBuilder(recordingId: String, userId: String? = nil) -> RequestBuilder<BaseItemDto> {
-        var urlPath = "/LiveTv/Recordings/{recordingId}"
+        var localVariablePath = "/LiveTv/Recordings/{recordingId}"
         let recordingIdPreEscape = "\(APIHelper.mapValueToPathItem(recordingId))"
         let recordingIdPostEscape = recordingIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{recordingId}", with: recordingIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{recordingId}", with: recordingIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets recording folders.
      
      - parameter userId: (query) Optional. Filter by user and attach user data. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRecordingFolders(userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getRecordingFoldersWithRequestBuilder(userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getRecordingFolders(userId: String? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getRecordingFoldersWithRequestBuilder(userId: userId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1604,45 +1715,45 @@ open class LiveTvAPI {
      Gets recording folders.
      - GET /LiveTv/Recordings/Folders
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) Optional. Filter by user and attach user data. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     open class func getRecordingFoldersWithRequestBuilder(userId: String? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/LiveTv/Recordings/Folders"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Recordings/Folders"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get recording group.
      
      - parameter groupId: (path) Group id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
     @available(*, deprecated, message: "This operation is deprecated.")
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRecordingGroup(groupId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            getRecordingGroupWithRequestBuilder(groupId: groupId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getRecordingGroup(groupId: String) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = getRecordingGroupWithRequestBuilder(groupId: groupId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -1650,7 +1761,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1658,54 +1773,58 @@ open class LiveTvAPI {
      Get recording group.
      - GET /LiveTv/Recordings/Groups/{groupId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter groupId: (path) Group id. 
      - returns: RequestBuilder<Void> 
      */
     @available(*, deprecated, message: "This operation is deprecated.")
     open class func getRecordingGroupWithRequestBuilder(groupId: String) -> RequestBuilder<Void> {
-        var urlPath = "/LiveTv/Recordings/Groups/{groupId}"
+        var localVariablePath = "/LiveTv/Recordings/Groups/{groupId}"
         let groupIdPreEscape = "\(APIHelper.mapValueToPathItem(groupId))"
         let groupIdPostEscape = groupIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{groupId}", with: groupIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{groupId}", with: groupIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets live tv recording groups.
      
      - parameter userId: (query) Optional. Filter by user and attach user data. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
     @available(*, deprecated, message: "This operation is deprecated.")
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRecordingGroups(userId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getRecordingGroupsWithRequestBuilder(userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getRecordingGroups(userId: String? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getRecordingGroupsWithRequestBuilder(userId: userId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1713,31 +1832,31 @@ open class LiveTvAPI {
      Gets live tv recording groups.
      - GET /LiveTv/Recordings/Groups
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) Optional. Filter by user and attach user data. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     @available(*, deprecated, message: "This operation is deprecated.")
     open class func getRecordingGroupsWithRequestBuilder(userId: String? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/LiveTv/Recordings/Groups"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Recordings/Groups"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1762,22 +1881,26 @@ open class LiveTvAPI {
      - parameter isNews: (query) Optional. Filter for news. (optional)
      - parameter isLibraryItem: (query) Optional. Filter for is library item. (optional)
      - parameter enableTotalRecordCount: (query) Optional. Return total record count. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRecordings(channelId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, status: RecordingStatus? = nil, isInProgress: Bool? = nil, seriesTimerId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isNews: Bool? = nil, isLibraryItem: Bool? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getRecordingsWithRequestBuilder(channelId: channelId, userId: userId, startIndex: startIndex, limit: limit, status: status, isInProgress: isInProgress, seriesTimerId: seriesTimerId, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, fields: fields, enableUserData: enableUserData, isMovie: isMovie, isSeries: isSeries, isKids: isKids, isSports: isSports, isNews: isNews, isLibraryItem: isLibraryItem, enableTotalRecordCount: enableTotalRecordCount).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getRecordings(channelId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, status: RecordingStatus? = nil, isInProgress: Bool? = nil, seriesTimerId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isNews: Bool? = nil, isLibraryItem: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getRecordingsWithRequestBuilder(channelId: channelId, userId: userId, startIndex: startIndex, limit: limit, status: status, isInProgress: isInProgress, seriesTimerId: seriesTimerId, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, fields: fields, enableUserData: enableUserData, isMovie: isMovie, isSeries: isSeries, isKids: isKids, isSports: isSports, isNews: isNews, isLibraryItem: isLibraryItem, enableTotalRecordCount: enableTotalRecordCount).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1785,7 +1908,7 @@ open class LiveTvAPI {
      Gets live tv recordings.
      - GET /LiveTv/Recordings
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter channelId: (query) Optional. Filter by channel id. (optional)
      - parameter userId: (query) Optional. Filter by user and attach user data. (optional)
@@ -1809,12 +1932,12 @@ open class LiveTvAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     open class func getRecordingsWithRequestBuilder(channelId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, status: RecordingStatus? = nil, isInProgress: Bool? = nil, seriesTimerId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isNews: Bool? = nil, isLibraryItem: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/LiveTv/Recordings"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Recordings"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "channelId": channelId?.encodeToJSON(),
             "userId": userId?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
@@ -1836,15 +1959,15 @@ open class LiveTvAPI {
             "enableTotalRecordCount": enableTotalRecordCount?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1864,23 +1987,27 @@ open class LiveTvAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
      - parameter enableTotalRecordCount: (query) Optional. Return total record count. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
     @available(*, deprecated, message: "This operation is deprecated.")
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getRecordingsSeries(channelId: String? = nil, userId: String? = nil, groupId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, status: RecordingStatus? = nil, isInProgress: Bool? = nil, seriesTimerId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getRecordingsSeriesWithRequestBuilder(channelId: channelId, userId: userId, groupId: groupId, startIndex: startIndex, limit: limit, status: status, isInProgress: isInProgress, seriesTimerId: seriesTimerId, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, fields: fields, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getRecordingsSeries(channelId: String? = nil, userId: String? = nil, groupId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, status: RecordingStatus? = nil, isInProgress: Bool? = nil, seriesTimerId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getRecordingsSeriesWithRequestBuilder(channelId: channelId, userId: userId, groupId: groupId, startIndex: startIndex, limit: limit, status: status, isInProgress: isInProgress, seriesTimerId: seriesTimerId, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, fields: fields, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1888,7 +2015,7 @@ open class LiveTvAPI {
      Gets live tv recording series.
      - GET /LiveTv/Recordings/Series
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter channelId: (query) Optional. Filter by channel id. (optional)
      - parameter userId: (query) Optional. Filter by user and attach user data. (optional)
@@ -1908,12 +2035,12 @@ open class LiveTvAPI {
      */
     @available(*, deprecated, message: "This operation is deprecated.")
     open class func getRecordingsSeriesWithRequestBuilder(channelId: String? = nil, userId: String? = nil, groupId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, status: RecordingStatus? = nil, isInProgress: Bool? = nil, seriesTimerId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, fields: [ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/LiveTv/Recordings/Series"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Recordings/Series"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "channelId": channelId?.encodeToJSON(),
             "userId": userId?.encodeToJSON(),
             "groupId": groupId?.encodeToJSON(),
@@ -1930,36 +2057,40 @@ open class LiveTvAPI {
             "enableTotalRecordCount": enableTotalRecordCount?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets available countries.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSchedulesDirectCountries(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getSchedulesDirectCountriesWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getSchedulesDirectCountries() -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getSchedulesDirectCountriesWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1967,48 +2098,52 @@ open class LiveTvAPI {
      Gets available countries.
      - GET /LiveTv/ListingProviders/SchedulesDirect/Countries
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<URL> 
      */
     open class func getSchedulesDirectCountriesWithRequestBuilder() -> RequestBuilder<URL> {
-        let urlPath = "/LiveTv/ListingProviders/SchedulesDirect/Countries"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/ListingProviders/SchedulesDirect/Countries"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets a live tv series timer.
      
      - parameter timerId: (path) Timer id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<SeriesTimerInfoDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSeriesTimer(timerId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<SeriesTimerInfoDto, Error> {
-        return Future<SeriesTimerInfoDto, Error>.init { promise in
-            getSeriesTimerWithRequestBuilder(timerId: timerId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getSeriesTimer(timerId: String) -> AnyPublisher<SeriesTimerInfoDto, Error> {
+        var requestTask: RequestTask?
+        return Future<SeriesTimerInfoDto, Error> { promise in
+            requestTask = getSeriesTimerWithRequestBuilder(timerId: timerId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2016,30 +2151,30 @@ open class LiveTvAPI {
      Gets a live tv series timer.
      - GET /LiveTv/SeriesTimers/{timerId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter timerId: (path) Timer id. 
      - returns: RequestBuilder<SeriesTimerInfoDto> 
      */
     open class func getSeriesTimerWithRequestBuilder(timerId: String) -> RequestBuilder<SeriesTimerInfoDto> {
-        var urlPath = "/LiveTv/SeriesTimers/{timerId}"
+        var localVariablePath = "/LiveTv/SeriesTimers/{timerId}"
         let timerIdPreEscape = "\(APIHelper.mapValueToPathItem(timerId))"
         let timerIdPostEscape = timerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<SeriesTimerInfoDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<SeriesTimerInfoDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2047,22 +2182,26 @@ open class LiveTvAPI {
      
      - parameter sortBy: (query) Optional. Sort by SortName or Priority. (optional)
      - parameter sortOrder: (query) Optional. Sort in Ascending or Descending order. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<SeriesTimerInfoDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSeriesTimers(sortBy: String? = nil, sortOrder: APISortOrder? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<SeriesTimerInfoDtoQueryResult, Error> {
-        return Future<SeriesTimerInfoDtoQueryResult, Error>.init { promise in
-            getSeriesTimersWithRequestBuilder(sortBy: sortBy, sortOrder: sortOrder).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getSeriesTimers(sortBy: String? = nil, sortOrder: SortOrder? = nil) -> AnyPublisher<SeriesTimerInfoDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<SeriesTimerInfoDtoQueryResult, Error> { promise in
+            requestTask = getSeriesTimersWithRequestBuilder(sortBy: sortBy, sortOrder: sortOrder).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2070,54 +2209,58 @@ open class LiveTvAPI {
      Gets live tv series timers.
      - GET /LiveTv/SeriesTimers
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sortBy: (query) Optional. Sort by SortName or Priority. (optional)
      - parameter sortOrder: (query) Optional. Sort in Ascending or Descending order. (optional)
      - returns: RequestBuilder<SeriesTimerInfoDtoQueryResult> 
      */
-    open class func getSeriesTimersWithRequestBuilder(sortBy: String? = nil, sortOrder: APISortOrder? = nil) -> RequestBuilder<SeriesTimerInfoDtoQueryResult> {
-        let urlPath = "/LiveTv/SeriesTimers"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func getSeriesTimersWithRequestBuilder(sortBy: String? = nil, sortOrder: SortOrder? = nil) -> RequestBuilder<SeriesTimerInfoDtoQueryResult> {
+        let localVariablePath = "/LiveTv/SeriesTimers"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "sortBy": sortBy?.encodeToJSON(),
             "sortOrder": sortOrder?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<SeriesTimerInfoDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<SeriesTimerInfoDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets a timer.
      
      - parameter timerId: (path) Timer id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<TimerInfoDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getTimer(timerId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<TimerInfoDto, Error> {
-        return Future<TimerInfoDto, Error>.init { promise in
-            getTimerWithRequestBuilder(timerId: timerId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getTimer(timerId: String) -> AnyPublisher<TimerInfoDto, Error> {
+        var requestTask: RequestTask?
+        return Future<TimerInfoDto, Error> { promise in
+            requestTask = getTimerWithRequestBuilder(timerId: timerId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2125,30 +2268,30 @@ open class LiveTvAPI {
      Gets a timer.
      - GET /LiveTv/Timers/{timerId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter timerId: (path) Timer id. 
      - returns: RequestBuilder<TimerInfoDto> 
      */
     open class func getTimerWithRequestBuilder(timerId: String) -> RequestBuilder<TimerInfoDto> {
-        var urlPath = "/LiveTv/Timers/{timerId}"
+        var localVariablePath = "/LiveTv/Timers/{timerId}"
         let timerIdPreEscape = "\(APIHelper.mapValueToPathItem(timerId))"
         let timerIdPostEscape = timerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<TimerInfoDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TimerInfoDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2158,22 +2301,26 @@ open class LiveTvAPI {
      - parameter seriesTimerId: (query) Optional. Filter by timers belonging to a series timer. (optional)
      - parameter isActive: (query) Optional. Filter by timers that are active. (optional)
      - parameter isScheduled: (query) Optional. Filter by timers that are scheduled. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<TimerInfoDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getTimers(channelId: String? = nil, seriesTimerId: String? = nil, isActive: Bool? = nil, isScheduled: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<TimerInfoDtoQueryResult, Error> {
-        return Future<TimerInfoDtoQueryResult, Error>.init { promise in
-            getTimersWithRequestBuilder(channelId: channelId, seriesTimerId: seriesTimerId, isActive: isActive, isScheduled: isScheduled).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getTimers(channelId: String? = nil, seriesTimerId: String? = nil, isActive: Bool? = nil, isScheduled: Bool? = nil) -> AnyPublisher<TimerInfoDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<TimerInfoDtoQueryResult, Error> { promise in
+            requestTask = getTimersWithRequestBuilder(channelId: channelId, seriesTimerId: seriesTimerId, isActive: isActive, isScheduled: isScheduled).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2181,7 +2328,7 @@ open class LiveTvAPI {
      Gets the live tv timers.
      - GET /LiveTv/Timers
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter channelId: (query) Optional. Filter by channel id. (optional)
      - parameter seriesTimerId: (query) Optional. Filter by timers belonging to a series timer. (optional)
@@ -2190,48 +2337,52 @@ open class LiveTvAPI {
      - returns: RequestBuilder<TimerInfoDtoQueryResult> 
      */
     open class func getTimersWithRequestBuilder(channelId: String? = nil, seriesTimerId: String? = nil, isActive: Bool? = nil, isScheduled: Bool? = nil) -> RequestBuilder<TimerInfoDtoQueryResult> {
-        let urlPath = "/LiveTv/Timers"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/Timers"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "channelId": channelId?.encodeToJSON(),
             "seriesTimerId": seriesTimerId?.encodeToJSON(),
             "isActive": isActive?.encodeToJSON(),
             "isScheduled": isScheduled?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<TimerInfoDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TimerInfoDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get tuner host types.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[NameIdPair], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getTunerHostTypes(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[NameIdPair], Error> {
-        return Future<[NameIdPair], Error>.init { promise in
-            getTunerHostTypesWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getTunerHostTypes() -> AnyPublisher<[NameIdPair], Error> {
+        var requestTask: RequestTask?
+        return Future<[NameIdPair], Error> { promise in
+            requestTask = getTunerHostTypesWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2239,40 +2390,40 @@ open class LiveTvAPI {
      Get tuner host types.
      - GET /LiveTv/TunerHosts/Types
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[NameIdPair]> 
      */
     open class func getTunerHostTypesWithRequestBuilder() -> RequestBuilder<[NameIdPair]> {
-        let urlPath = "/LiveTv/TunerHosts/Types"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/LiveTv/TunerHosts/Types"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[NameIdPair]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[NameIdPair]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Resets a tv tuner.
      
      - parameter tunerId: (path) Tuner id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func resetTuner(tunerId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            resetTunerWithRequestBuilder(tunerId: tunerId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func resetTuner(tunerId: String) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = resetTunerWithRequestBuilder(tunerId: tunerId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -2280,7 +2431,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2288,52 +2443,56 @@ open class LiveTvAPI {
      Resets a tv tuner.
      - POST /LiveTv/Tuners/{tunerId}/Reset
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter tunerId: (path) Tuner id. 
      - returns: RequestBuilder<Void> 
      */
     open class func resetTunerWithRequestBuilder(tunerId: String) -> RequestBuilder<Void> {
-        var urlPath = "/LiveTv/Tuners/{tunerId}/Reset"
+        var localVariablePath = "/LiveTv/Tuners/{tunerId}/Reset"
         let tunerIdPreEscape = "\(APIHelper.mapValueToPathItem(tunerId))"
         let tunerIdPostEscape = tunerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{tunerId}", with: tunerIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{tunerId}", with: tunerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Set channel mappings.
      
-     - parameter setChannelMappingDto: (body) The set channel mapping dto. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter setChannelMappingRequest: (body) The set channel mapping dto. 
      - returns: AnyPublisher<TunerChannelMapping, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func setChannelMapping(setChannelMappingDto: SetChannelMappingDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<TunerChannelMapping, Error> {
-        return Future<TunerChannelMapping, Error>.init { promise in
-            setChannelMappingWithRequestBuilder(setChannelMappingDto: setChannelMappingDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func setChannelMapping(setChannelMappingRequest: SetChannelMappingRequest) -> AnyPublisher<TunerChannelMapping, Error> {
+        var requestTask: RequestTask?
+        return Future<TunerChannelMapping, Error> { promise in
+            requestTask = setChannelMappingWithRequestBuilder(setChannelMappingRequest: setChannelMappingRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2341,42 +2500,42 @@ open class LiveTvAPI {
      Set channel mappings.
      - POST /LiveTv/ChannelMappings
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter setChannelMappingDto: (body) The set channel mapping dto. 
+     - parameter setChannelMappingRequest: (body) The set channel mapping dto. 
      - returns: RequestBuilder<TunerChannelMapping> 
      */
-    open class func setChannelMappingWithRequestBuilder(setChannelMappingDto: SetChannelMappingDto) -> RequestBuilder<TunerChannelMapping> {
-        let urlPath = "/LiveTv/ChannelMappings"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: setChannelMappingDto)
+    open class func setChannelMappingWithRequestBuilder(setChannelMappingRequest: SetChannelMappingRequest) -> RequestBuilder<TunerChannelMapping> {
+        let localVariablePath = "/LiveTv/ChannelMappings"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: setChannelMappingRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<TunerChannelMapping>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<TunerChannelMapping>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Updates a live tv series timer.
      
      - parameter timerId: (path) Timer id. 
-     - parameter seriesTimerInfoDto: (body) New series timer info. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter createSeriesTimerRequest: (body) New series timer info. (optional)
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateSeriesTimer(timerId: String, seriesTimerInfoDto: SeriesTimerInfoDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            updateSeriesTimerWithRequestBuilder(timerId: timerId, seriesTimerInfoDto: seriesTimerInfoDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func updateSeriesTimer(timerId: String, createSeriesTimerRequest: CreateSeriesTimerRequest? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = updateSeriesTimerWithRequestBuilder(timerId: timerId, createSeriesTimerRequest: createSeriesTimerRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -2384,7 +2543,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2392,46 +2555,46 @@ open class LiveTvAPI {
      Updates a live tv series timer.
      - POST /LiveTv/SeriesTimers/{timerId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter timerId: (path) Timer id. 
-     - parameter seriesTimerInfoDto: (body) New series timer info. (optional)
+     - parameter createSeriesTimerRequest: (body) New series timer info. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func updateSeriesTimerWithRequestBuilder(timerId: String, seriesTimerInfoDto: SeriesTimerInfoDto? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/LiveTv/SeriesTimers/{timerId}"
+    open class func updateSeriesTimerWithRequestBuilder(timerId: String, createSeriesTimerRequest: CreateSeriesTimerRequest? = nil) -> RequestBuilder<Void> {
+        var localVariablePath = "/LiveTv/SeriesTimers/{timerId}"
         let timerIdPreEscape = "\(APIHelper.mapValueToPathItem(timerId))"
         let timerIdPostEscape = timerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: seriesTimerInfoDto)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createSeriesTimerRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Updates a live tv timer.
      
      - parameter timerId: (path) Timer id. 
-     - parameter timerInfoDto: (body) New timer info. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter createTimerRequest: (body) New timer info. (optional)
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateTimer(timerId: String, timerInfoDto: TimerInfoDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            updateTimerWithRequestBuilder(timerId: timerId, timerInfoDto: timerInfoDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func updateTimer(timerId: String, createTimerRequest: CreateTimerRequest? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = updateTimerWithRequestBuilder(timerId: timerId, createTimerRequest: createTimerRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -2439,7 +2602,11 @@ open class LiveTvAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2447,31 +2614,30 @@ open class LiveTvAPI {
      Updates a live tv timer.
      - POST /LiveTv/Timers/{timerId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter timerId: (path) Timer id. 
-     - parameter timerInfoDto: (body) New timer info. (optional)
+     - parameter createTimerRequest: (body) New timer info. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func updateTimerWithRequestBuilder(timerId: String, timerInfoDto: TimerInfoDto? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/LiveTv/Timers/{timerId}"
+    open class func updateTimerWithRequestBuilder(timerId: String, createTimerRequest: CreateTimerRequest? = nil) -> RequestBuilder<Void> {
+        var localVariablePath = "/LiveTv/Timers/{timerId}"
         let timerIdPreEscape = "\(APIHelper.mapValueToPathItem(timerId))"
         let timerIdPostEscape = timerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: timerInfoDto)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{timerId}", with: timerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: createTimerRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

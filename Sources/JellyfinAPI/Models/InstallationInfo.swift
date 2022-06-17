@@ -11,22 +11,23 @@ import AnyCodable
 #endif
 
 /** Class InstallationInfo. */
-public struct InstallationInfo: Codable, Hashable {
+public struct InstallationInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the Id. */
     public var guid: String?
     /** Gets or sets the name. */
     public var name: String?
-    public var version: Version?
+    /** Gets or sets the version. */
+    public var version: String?
     /** Gets or sets the changelog for this version. */
     public var changelog: String?
     /** Gets or sets the source URL. */
     public var sourceUrl: String?
     /** Gets or sets a checksum for the binary. */
     public var checksum: String?
-    public var packageInfo: PackageInfo?
+    public var packageInfo: InstallationInfoPackageInfo?
 
-    public init(guid: String? = nil, name: String? = nil, version: Version? = nil, changelog: String? = nil, sourceUrl: String? = nil, checksum: String? = nil, packageInfo: PackageInfo? = nil) {
+    public init(guid: String? = nil, name: String? = nil, version: String? = nil, changelog: String? = nil, sourceUrl: String? = nil, checksum: String? = nil, packageInfo: InstallationInfoPackageInfo? = nil) {
         self.guid = guid
         self.name = name
         self.version = version

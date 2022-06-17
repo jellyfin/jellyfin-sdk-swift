@@ -5,32 +5,39 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class LocalizationAPI {
+
     /**
      Gets known countries.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[CountryInfo], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getCountries(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[CountryInfo], Error> {
-        return Future<[CountryInfo], Error>.init { promise in
-            getCountriesWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getCountries() -> AnyPublisher<[CountryInfo], Error> {
+        var requestTask: RequestTask?
+        return Future<[CountryInfo], Error> { promise in
+            requestTask = getCountriesWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -38,47 +45,51 @@ open class LocalizationAPI {
      Gets known countries.
      - GET /Localization/Countries
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[CountryInfo]> 
      */
     open class func getCountriesWithRequestBuilder() -> RequestBuilder<[CountryInfo]> {
-        let urlPath = "/Localization/Countries"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Localization/Countries"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[CountryInfo]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[CountryInfo]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets known cultures.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[CultureDto], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getCultures(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[CultureDto], Error> {
-        return Future<[CultureDto], Error>.init { promise in
-            getCulturesWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getCultures() -> AnyPublisher<[CultureDto], Error> {
+        var requestTask: RequestTask?
+        return Future<[CultureDto], Error> { promise in
+            requestTask = getCulturesWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -86,47 +97,51 @@ open class LocalizationAPI {
      Gets known cultures.
      - GET /Localization/Cultures
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[CultureDto]> 
      */
     open class func getCulturesWithRequestBuilder() -> RequestBuilder<[CultureDto]> {
-        let urlPath = "/Localization/Cultures"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Localization/Cultures"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[CultureDto]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[CultureDto]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets localization options.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[LocalizationOption], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLocalizationOptions(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[LocalizationOption], Error> {
-        return Future<[LocalizationOption], Error>.init { promise in
-            getLocalizationOptionsWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getLocalizationOptions() -> AnyPublisher<[LocalizationOption], Error> {
+        var requestTask: RequestTask?
+        return Future<[LocalizationOption], Error> { promise in
+            requestTask = getLocalizationOptionsWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -134,47 +149,51 @@ open class LocalizationAPI {
      Gets localization options.
      - GET /Localization/Options
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[LocalizationOption]> 
      */
     open class func getLocalizationOptionsWithRequestBuilder() -> RequestBuilder<[LocalizationOption]> {
-        let urlPath = "/Localization/Options"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Localization/Options"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[LocalizationOption]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[LocalizationOption]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets known parental ratings.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[ParentalRating], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getParentalRatings(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ParentalRating], Error> {
-        return Future<[ParentalRating], Error>.init { promise in
-            getParentalRatingsWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getParentalRatings() -> AnyPublisher<[ParentalRating], Error> {
+        var requestTask: RequestTask?
+        return Future<[ParentalRating], Error> { promise in
+            requestTask = getParentalRatingsWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -182,26 +201,25 @@ open class LocalizationAPI {
      Gets known parental ratings.
      - GET /Localization/ParentalRatings
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[ParentalRating]> 
      */
     open class func getParentalRatingsWithRequestBuilder() -> RequestBuilder<[ParentalRating]> {
-        let urlPath = "/Localization/ParentalRatings"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Localization/ParentalRatings"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[ParentalRating]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[ParentalRating]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

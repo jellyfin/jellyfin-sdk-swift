@@ -5,32 +5,39 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class ChannelsAPI {
+
     /**
      Get all channel features.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[ChannelFeatures], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getAllChannelFeatures(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ChannelFeatures], Error> {
-        return Future<[ChannelFeatures], Error>.init { promise in
-            getAllChannelFeaturesWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getAllChannelFeatures() -> AnyPublisher<[ChannelFeatures], Error> {
+        var requestTask: RequestTask?
+        return Future<[ChannelFeatures], Error> { promise in
+            requestTask = getAllChannelFeaturesWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -38,48 +45,52 @@ open class ChannelsAPI {
      Get all channel features.
      - GET /Channels/Features
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[ChannelFeatures]> 
      */
     open class func getAllChannelFeaturesWithRequestBuilder() -> RequestBuilder<[ChannelFeatures]> {
-        let urlPath = "/Channels/Features"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Channels/Features"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[ChannelFeatures]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[ChannelFeatures]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get channel features.
      
      - parameter channelId: (path) Channel id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<ChannelFeatures, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getChannelFeatures(channelId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<ChannelFeatures, Error> {
-        return Future<ChannelFeatures, Error>.init { promise in
-            getChannelFeaturesWithRequestBuilder(channelId: channelId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getChannelFeatures(channelId: String) -> AnyPublisher<ChannelFeatures, Error> {
+        var requestTask: RequestTask?
+        return Future<ChannelFeatures, Error> { promise in
+            requestTask = getChannelFeaturesWithRequestBuilder(channelId: channelId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -87,30 +98,30 @@ open class ChannelsAPI {
      Get channel features.
      - GET /Channels/{channelId}/Features
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter channelId: (path) Channel id. 
      - returns: RequestBuilder<ChannelFeatures> 
      */
     open class func getChannelFeaturesWithRequestBuilder(channelId: String) -> RequestBuilder<ChannelFeatures> {
-        var urlPath = "/Channels/{channelId}/Features"
+        var localVariablePath = "/Channels/{channelId}/Features"
         let channelIdPreEscape = "\(APIHelper.mapValueToPathItem(channelId))"
         let channelIdPostEscape = channelIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{channelId}", with: channelIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{channelId}", with: channelIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<ChannelFeatures>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ChannelFeatures>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -125,22 +136,26 @@ open class ChannelsAPI {
      - parameter filters: (query) Optional. Specify additional filters to apply. (optional)
      - parameter sortBy: (query) Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getChannelItems(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [APISortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getChannelItemsWithRequestBuilder(channelId: channelId, folderId: folderId, userId: userId, startIndex: startIndex, limit: limit, sortOrder: sortOrder, filters: filters, sortBy: sortBy, fields: fields).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getChannelItems(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getChannelItemsWithRequestBuilder(channelId: channelId, folderId: folderId, userId: userId, startIndex: startIndex, limit: limit, sortOrder: sortOrder, filters: filters, sortBy: sortBy, fields: fields).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -148,7 +163,7 @@ open class ChannelsAPI {
      Get channel items.
      - GET /Channels/{channelId}/Items
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter channelId: (path) Channel Id. 
      - parameter folderId: (query) Optional. Folder Id. (optional)
@@ -161,16 +176,16 @@ open class ChannelsAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getChannelItemsWithRequestBuilder(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [APISortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        var urlPath = "/Channels/{channelId}/Items"
+    open class func getChannelItemsWithRequestBuilder(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        var localVariablePath = "/Channels/{channelId}/Items"
         let channelIdPreEscape = "\(APIHelper.mapValueToPathItem(channelId))"
         let channelIdPostEscape = channelIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{channelId}", with: channelIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{channelId}", with: channelIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "folderId": folderId?.encodeToJSON(),
             "userId": userId?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
@@ -181,15 +196,15 @@ open class ChannelsAPI {
             "fields": fields?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -201,22 +216,26 @@ open class ChannelsAPI {
      - parameter supportsLatestItems: (query) Optional. Filter by channels that support getting latest items. (optional)
      - parameter supportsMediaDeletion: (query) Optional. Filter by channels that support media deletion. (optional)
      - parameter isFavorite: (query) Optional. Filter by channels that are favorite. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getChannels(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, supportsLatestItems: Bool? = nil, supportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getChannelsWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, supportsLatestItems: supportsLatestItems, supportsMediaDeletion: supportsMediaDeletion, isFavorite: isFavorite).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getChannels(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, supportsLatestItems: Bool? = nil, supportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getChannelsWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, supportsLatestItems: supportsLatestItems, supportsMediaDeletion: supportsMediaDeletion, isFavorite: isFavorite).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -224,7 +243,7 @@ open class ChannelsAPI {
      Gets available channels.
      - GET /Channels
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) User Id to filter by. Use System.Guid.Empty to not filter by user. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
@@ -235,12 +254,12 @@ open class ChannelsAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     open class func getChannelsWithRequestBuilder(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, supportsLatestItems: Bool? = nil, supportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/Channels"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Channels"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
@@ -249,15 +268,15 @@ open class ChannelsAPI {
             "isFavorite": isFavorite?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -269,22 +288,26 @@ open class ChannelsAPI {
      - parameter filters: (query) Optional. Specify additional filters to apply. (optional)
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - parameter channelIds: (query) Optional. Specify one or more channel id&#39;s, comma delimited. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getLatestChannelItems(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, filters: [ItemFilter]? = nil, fields: [ItemFields]? = nil, channelIds: [String]? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getLatestChannelItemsWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, filters: filters, fields: fields, channelIds: channelIds).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getLatestChannelItems(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, filters: [ItemFilter]? = nil, fields: [ItemFields]? = nil, channelIds: [String]? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getLatestChannelItemsWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, filters: filters, fields: fields, channelIds: channelIds).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -292,7 +315,7 @@ open class ChannelsAPI {
      Gets latest channel items.
      - GET /Channels/Items/Latest
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) Optional. User Id. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
@@ -303,12 +326,12 @@ open class ChannelsAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     open class func getLatestChannelItemsWithRequestBuilder(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, filters: [ItemFilter]? = nil, fields: [ItemFields]? = nil, channelIds: [String]? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/Channels/Items/Latest"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Channels/Items/Latest"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
@@ -317,15 +340,14 @@ open class ChannelsAPI {
             "channelIds": channelIds?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

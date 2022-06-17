@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class SystemInfo. */
-public struct SystemInfo: Codable, Hashable {
+public struct SystemInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the local address. */
     public var localAddress: String?
@@ -29,7 +29,7 @@ public struct SystemInfo: Codable, Hashable {
     public var startupWizardCompleted: Bool?
     /** Gets or sets the display name of the operating system. */
     public var operatingSystemDisplayName: String?
-    /** Get or sets the package name. */
+    /** Gets or sets the package name. */
     public var packageName: String?
     /** Gets or sets a value indicating whether this instance has pending restart. */
     public var hasPendingRestart: Bool?
@@ -58,7 +58,10 @@ public struct SystemInfo: Codable, Hashable {
     /** Gets or sets the transcode path. */
     public var transcodingTempPath: String?
     /** Gets or sets a value indicating whether this instance has update available. */
+    @available(*, deprecated, message: "This property is deprecated.")
     public var hasUpdateAvailable: Bool?
+    /** Enum describing the location of the FFmpeg tool. */
+    @available(*, deprecated, message: "This property is deprecated.")
     public var encoderLocation: FFmpegLocation?
     public var systemArchitecture: Architecture?
 

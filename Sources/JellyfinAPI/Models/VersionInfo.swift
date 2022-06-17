@@ -11,11 +11,12 @@ import AnyCodable
 #endif
 
 /** Defines the MediaBrowser.Model.Updates.VersionInfo class. */
-public struct VersionInfo: Codable, Hashable {
+public struct VersionInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the version. */
     public var version: String?
-    public var versionNumber: Version?
+    /** Gets the version as a System.Version. */
+    public var versionNumber: String?
     /** Gets or sets the changelog for this version. */
     public var changelog: String?
     /** Gets or sets the ABI that this version was built against. */
@@ -31,7 +32,7 @@ public struct VersionInfo: Codable, Hashable {
     /** Gets or sets the repository url. */
     public var repositoryUrl: String?
 
-    public init(version: String? = nil, versionNumber: Version? = nil, changelog: String? = nil, targetAbi: String? = nil, sourceUrl: String? = nil, checksum: String? = nil, timestamp: String? = nil, repositoryName: String? = nil, repositoryUrl: String? = nil) {
+    public init(version: String? = nil, versionNumber: String? = nil, changelog: String? = nil, targetAbi: String? = nil, sourceUrl: String? = nil, checksum: String? = nil, timestamp: String? = nil, repositoryName: String? = nil, repositoryUrl: String? = nil) {
         self.version = version
         self.versionNumber = versionNumber
         self.changelog = changelog

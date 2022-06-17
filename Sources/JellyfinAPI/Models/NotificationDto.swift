@@ -11,22 +11,23 @@ import AnyCodable
 #endif
 
 /** The notification DTO. */
-public struct NotificationDto: Codable, Hashable {
+public struct NotificationDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the notification ID. Defaults to an empty string. */
     public var id: String?
-    /** Gets or sets the notification&#39;s user ID. Defaults to an empty string. */
+    /** Gets or sets the notification's user ID. Defaults to an empty string. */
     public var userId: String?
     /** Gets or sets the notification date. */
     public var date: Date?
     /** Gets or sets a value indicating whether the notification has been read. Defaults to false. */
     public var isRead: Bool?
-    /** Gets or sets the notification&#39;s name. Defaults to an empty string. */
+    /** Gets or sets the notification's name. Defaults to an empty string. */
     public var name: String?
-    /** Gets or sets the notification&#39;s description. Defaults to an empty string. */
+    /** Gets or sets the notification's description. Defaults to an empty string. */
     public var description: String?
-    /** Gets or sets the notification&#39;s URL. Defaults to an empty string. */
+    /** Gets or sets the notification's URL. Defaults to an empty string. */
     public var url: String?
+    /** Gets or sets the notification level. */
     public var level: NotificationLevel?
 
     public init(id: String? = nil, userId: String? = nil, date: Date? = nil, isRead: Bool? = nil, name: String? = nil, description: String? = nil, url: String? = nil, level: NotificationLevel? = nil) {

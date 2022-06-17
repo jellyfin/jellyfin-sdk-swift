@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct TunerChannelMapping: Codable, Hashable {
+public struct TunerChannelMapping: Codable, JSONEncodable, Hashable {
 
     public var name: String?
     public var providerChannelName: String?

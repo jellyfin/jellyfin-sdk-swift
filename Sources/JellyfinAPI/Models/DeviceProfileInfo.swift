@@ -10,12 +10,13 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct DeviceProfileInfo: Codable, Hashable {
+public struct DeviceProfileInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the identifier. */
     public var id: String?
     /** Gets or sets the name. */
     public var name: String?
+    /** Gets or sets the type. */
     public var type: DeviceProfileType?
 
     public init(id: String? = nil, name: String? = nil, type: DeviceProfileType? = nil) {

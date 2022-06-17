@@ -5,61 +5,71 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class UserViewsAPI {
+
     /**
      Get user view grouping options.
      
      - parameter userId: (path) User id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[SpecialViewOptionDto], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getGroupingOptions(userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[SpecialViewOptionDto], Error> {
-        return Future<[SpecialViewOptionDto], Error>.init { promise in
-            getGroupingOptionsWithRequestBuilder(userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getGroupingOptions(userId: String) -> AnyPublisher<[SpecialViewOptionDto], Error> {
+        var requestTask: RequestTask?
+        return Future<[SpecialViewOptionDto], Error> { promise in
+            requestTask = getGroupingOptionsWithRequestBuilder(userId: userId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
     /**
      Get user view grouping options.
      - GET /Users/{userId}/GroupingOptions
+     - API Key:
+       - type: apiKey Authorization 
+       - name: CustomAuthentication
      - parameter userId: (path) User id. 
      - returns: RequestBuilder<[SpecialViewOptionDto]> 
      */
     open class func getGroupingOptionsWithRequestBuilder(userId: String) -> RequestBuilder<[SpecialViewOptionDto]> {
-        var urlPath = "/Users/{userId}/GroupingOptions"
+        var localVariablePath = "/Users/{userId}/GroupingOptions"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[SpecialViewOptionDto]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[SpecialViewOptionDto]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -69,28 +79,35 @@ open class UserViewsAPI {
      - parameter includeExternalContent: (query) Whether or not to include external views such as channels or live tv. (optional)
      - parameter presetViews: (query) Preset views. (optional)
      - parameter includeHidden: (query) Whether or not to include hidden content. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUserViews(userId: String, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getUserViewsWithRequestBuilder(userId: userId, includeExternalContent: includeExternalContent, presetViews: presetViews, includeHidden: includeHidden).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getUserViews(userId: String, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getUserViewsWithRequestBuilder(userId: userId, includeExternalContent: includeExternalContent, presetViews: presetViews, includeHidden: includeHidden).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
     /**
      Get user views.
      - GET /Users/{userId}/Views
+     - API Key:
+       - type: apiKey Authorization 
+       - name: CustomAuthentication
      - parameter userId: (path) User id. 
      - parameter includeExternalContent: (query) Whether or not to include external views such as channels or live tv. (optional)
      - parameter presetViews: (query) Preset views. (optional)
@@ -98,29 +115,28 @@ open class UserViewsAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     open class func getUserViewsWithRequestBuilder(userId: String, includeExternalContent: Bool? = nil, presetViews: [String]? = nil, includeHidden: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        var urlPath = "/Users/{userId}/Views"
+        var localVariablePath = "/Users/{userId}/Views"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "includeExternalContent": includeExternalContent?.encodeToJSON(),
             "presetViews": presetViews?.encodeToJSON(),
             "includeHidden": includeHidden?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

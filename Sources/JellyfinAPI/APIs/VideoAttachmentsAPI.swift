@@ -5,35 +5,42 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class VideoAttachmentsAPI {
+
     /**
      Get video attachment.
      
      - parameter videoId: (path) Video ID. 
      - parameter mediaSourceId: (path) Media Source ID. 
      - parameter index: (path) Attachment Index. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getAttachment(videoId: String, mediaSourceId: String, index: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getAttachmentWithRequestBuilder(videoId: videoId, mediaSourceId: mediaSourceId, index: index).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getAttachment(videoId: String, mediaSourceId: String, index: Int) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getAttachmentWithRequestBuilder(videoId: videoId, mediaSourceId: mediaSourceId, index: index).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -46,30 +53,29 @@ open class VideoAttachmentsAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getAttachmentWithRequestBuilder(videoId: String, mediaSourceId: String, index: Int) -> RequestBuilder<URL> {
-        var urlPath = "/Videos/{videoId}/{mediaSourceId}/Attachments/{index}"
+        var localVariablePath = "/Videos/{videoId}/{mediaSourceId}/Attachments/{index}"
         let videoIdPreEscape = "\(APIHelper.mapValueToPathItem(videoId))"
         let videoIdPostEscape = videoIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{videoId}", with: videoIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{videoId}", with: videoIdPostEscape, options: .literal, range: nil)
         let mediaSourceIdPreEscape = "\(APIHelper.mapValueToPathItem(mediaSourceId))"
         let mediaSourceIdPostEscape = mediaSourceIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{mediaSourceId}", with: mediaSourceIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{mediaSourceId}", with: mediaSourceIdPostEscape, options: .literal, range: nil)
         let indexPreEscape = "\(APIHelper.mapValueToPathItem(index))"
         let indexPostEscape = indexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

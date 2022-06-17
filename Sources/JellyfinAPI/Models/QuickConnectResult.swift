@@ -10,28 +10,34 @@ import Foundation
 import AnyCodable
 #endif
 
-/** Stores the result of an incoming quick connect request. */
-public struct QuickConnectResult: Codable, Hashable {
+/** Stores the state of an quick connect request. */
+public struct QuickConnectResult: Codable, JSONEncodable, Hashable {
 
-    /** Gets a value indicating whether this request is authorized. */
+    /** Gets or sets a value indicating whether this request is authorized. */
     public var authenticated: Bool?
-    /** Gets or sets the secret value used to uniquely identify this request. Can be used to retrieve authentication information. */
+    /** Gets the secret value used to uniquely identify this request. Can be used to retrieve authentication information. */
     public var secret: String?
-    /** Gets or sets the user facing code used so the user can quickly differentiate this request from others. */
+    /** Gets the user facing code used so the user can quickly differentiate this request from others. */
     public var code: String?
-    /** Gets or sets the private access token. */
-    public var authentication: String?
-    /** Gets or sets an error message. */
-    public var error: String?
+    /** Gets the requesting device id. */
+    public var deviceId: String?
+    /** Gets the requesting device name. */
+    public var deviceName: String?
+    /** Gets the requesting app name. */
+    public var appName: String?
+    /** Gets the requesting app version. */
+    public var appVersion: String?
     /** Gets or sets the DateTime that this request was created. */
     public var dateAdded: Date?
 
-    public init(authenticated: Bool? = nil, secret: String? = nil, code: String? = nil, authentication: String? = nil, error: String? = nil, dateAdded: Date? = nil) {
+    public init(authenticated: Bool? = nil, secret: String? = nil, code: String? = nil, deviceId: String? = nil, deviceName: String? = nil, appName: String? = nil, appVersion: String? = nil, dateAdded: Date? = nil) {
         self.authenticated = authenticated
         self.secret = secret
         self.code = code
-        self.authentication = authentication
-        self.error = error
+        self.deviceId = deviceId
+        self.deviceName = deviceName
+        self.appName = appName
+        self.appVersion = appVersion
         self.dateAdded = dateAdded
     }
 
@@ -39,8 +45,10 @@ public struct QuickConnectResult: Codable, Hashable {
         case authenticated = "Authenticated"
         case secret = "Secret"
         case code = "Code"
-        case authentication = "Authentication"
-        case error = "Error"
+        case deviceId = "DeviceId"
+        case deviceName = "DeviceName"
+        case appName = "AppName"
+        case appVersion = "AppVersion"
         case dateAdded = "DateAdded"
     }
 
@@ -51,8 +59,10 @@ public struct QuickConnectResult: Codable, Hashable {
         try encoderContainer.encodeIfPresent(authenticated, forKey: .authenticated)
         try encoderContainer.encodeIfPresent(secret, forKey: .secret)
         try encoderContainer.encodeIfPresent(code, forKey: .code)
-        try encoderContainer.encodeIfPresent(authentication, forKey: .authentication)
-        try encoderContainer.encodeIfPresent(error, forKey: .error)
+        try encoderContainer.encodeIfPresent(deviceId, forKey: .deviceId)
+        try encoderContainer.encodeIfPresent(deviceName, forKey: .deviceName)
+        try encoderContainer.encodeIfPresent(appName, forKey: .appName)
+        try encoderContainer.encodeIfPresent(appVersion, forKey: .appVersion)
         try encoderContainer.encodeIfPresent(dateAdded, forKey: .dateAdded)
     }
 }

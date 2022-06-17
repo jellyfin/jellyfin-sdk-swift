@@ -5,13 +5,16 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class TvShowsAPI {
+
     /**
      Gets episodes for a tv season.
      
@@ -30,22 +33,26 @@ open class TvShowsAPI {
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
      - parameter sortBy: (query) Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getEpisodes(seriesId: String, userId: String? = nil, fields: [ItemFields]? = nil, season: Int? = nil, seasonId: String? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, startItemId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, sortBy: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getEpisodesWithRequestBuilder(seriesId: seriesId, userId: userId, fields: fields, season: season, seasonId: seasonId, isMissing: isMissing, adjacentTo: adjacentTo, startItemId: startItemId, startIndex: startIndex, limit: limit, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, sortBy: sortBy).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getEpisodes(seriesId: String, userId: String? = nil, fields: [ItemFields]? = nil, season: Int? = nil, seasonId: String? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, startItemId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, sortBy: String? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getEpisodesWithRequestBuilder(seriesId: seriesId, userId: userId, fields: fields, season: season, seasonId: seasonId, isMissing: isMissing, adjacentTo: adjacentTo, startItemId: startItemId, startIndex: startIndex, limit: limit, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, sortBy: sortBy).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -53,7 +60,7 @@ open class TvShowsAPI {
      Gets episodes for a tv season.
      - GET /Shows/{seriesId}/Episodes
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter seriesId: (path) The series id. 
      - parameter userId: (query) The user id. (optional)
@@ -73,15 +80,15 @@ open class TvShowsAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     open class func getEpisodesWithRequestBuilder(seriesId: String, userId: String? = nil, fields: [ItemFields]? = nil, season: Int? = nil, seasonId: String? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, startItemId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, sortBy: String? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        var urlPath = "/Shows/{seriesId}/Episodes"
+        var localVariablePath = "/Shows/{seriesId}/Episodes"
         let seriesIdPreEscape = "\(APIHelper.mapValueToPathItem(seriesId))"
         let seriesIdPostEscape = seriesIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{seriesId}", with: seriesIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{seriesId}", with: seriesIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "fields": fields?.encodeToJSON(),
             "season": season?.encodeToJSON(),
@@ -98,15 +105,15 @@ open class TvShowsAPI {
             "sortBy": sortBy?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -118,28 +125,34 @@ open class TvShowsAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - parameter seriesId: (query) Optional. Filter by series id. (optional)
      - parameter parentId: (query) Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
-     - parameter enableImges: (query) Optional. Include image information in output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
      - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
+     - parameter nextUpDateCutoff: (query) Optional. Starting date of shows to show in Next Up section. (optional)
      - parameter enableTotalRecordCount: (query) Whether to enable the total records count. Defaults to true. (optional, default to true)
      - parameter disableFirstEpisode: (query) Whether to disable sending the first episode in a series as next up. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter enableRewatching: (query) Whether to include watched episode in next up results. (optional, default to false)
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getNextUp(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: String? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getNextUpWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, fields: fields, seriesId: seriesId, parentId: parentId, enableImges: enableImges, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount, disableFirstEpisode: disableFirstEpisode).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getNextUp(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, nextUpDateCutoff: Date? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, enableRewatching: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getNextUpWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, fields: fields, seriesId: seriesId, parentId: parentId, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, nextUpDateCutoff: nextUpDateCutoff, enableTotalRecordCount: enableTotalRecordCount, disableFirstEpisode: disableFirstEpisode, enableRewatching: enableRewatching).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -147,7 +160,7 @@ open class TvShowsAPI {
      Gets a list of next up episodes.
      - GET /Shows/NextUp
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) The user id of the user to get the next up episodes for. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
@@ -155,44 +168,48 @@ open class TvShowsAPI {
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - parameter seriesId: (query) Optional. Filter by series id. (optional)
      - parameter parentId: (query) Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
-     - parameter enableImges: (query) Optional. Include image information in output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
      - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
+     - parameter nextUpDateCutoff: (query) Optional. Starting date of shows to show in Next Up section. (optional)
      - parameter enableTotalRecordCount: (query) Whether to enable the total records count. Defaults to true. (optional, default to true)
      - parameter disableFirstEpisode: (query) Whether to disable sending the first episode in a series as next up. (optional, default to false)
+     - parameter enableRewatching: (query) Whether to include watched episode in next up results. (optional, default to false)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getNextUpWithRequestBuilder(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: String? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/Shows/NextUp"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func getNextUpWithRequestBuilder(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, nextUpDateCutoff: Date? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, enableRewatching: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let localVariablePath = "/Shows/NextUp"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
             "fields": fields?.encodeToJSON(),
             "seriesId": seriesId?.encodeToJSON(),
             "parentId": parentId?.encodeToJSON(),
-            "enableImges": enableImges?.encodeToJSON(),
+            "enableImages": enableImages?.encodeToJSON(),
             "imageTypeLimit": imageTypeLimit?.encodeToJSON(),
             "enableImageTypes": enableImageTypes?.encodeToJSON(),
             "enableUserData": enableUserData?.encodeToJSON(),
+            "nextUpDateCutoff": nextUpDateCutoff?.encodeToJSON(),
             "enableTotalRecordCount": enableTotalRecordCount?.encodeToJSON(),
             "disableFirstEpisode": disableFirstEpisode?.encodeToJSON(),
+            "enableRewatching": enableRewatching?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -208,22 +225,26 @@ open class TvShowsAPI {
      - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSeasons(seriesId: String, userId: String? = nil, fields: [ItemFields]? = nil, isSpecialSeason: Bool? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getSeasonsWithRequestBuilder(seriesId: seriesId, userId: userId, fields: fields, isSpecialSeason: isSpecialSeason, isMissing: isMissing, adjacentTo: adjacentTo, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getSeasons(seriesId: String, userId: String? = nil, fields: [ItemFields]? = nil, isSpecialSeason: Bool? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getSeasonsWithRequestBuilder(seriesId: seriesId, userId: userId, fields: fields, isSpecialSeason: isSpecialSeason, isMissing: isMissing, adjacentTo: adjacentTo, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -231,7 +252,7 @@ open class TvShowsAPI {
      Gets seasons for a tv series.
      - GET /Shows/{seriesId}/Seasons
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter seriesId: (path) The series id. 
      - parameter userId: (query) The user id. (optional)
@@ -246,15 +267,15 @@ open class TvShowsAPI {
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
     open class func getSeasonsWithRequestBuilder(seriesId: String, userId: String? = nil, fields: [ItemFields]? = nil, isSpecialSeason: Bool? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        var urlPath = "/Shows/{seriesId}/Seasons"
+        var localVariablePath = "/Shows/{seriesId}/Seasons"
         let seriesIdPreEscape = "\(APIHelper.mapValueToPathItem(seriesId))"
         let seriesIdPostEscape = seriesIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{seriesId}", with: seriesIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{seriesId}", with: seriesIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "fields": fields?.encodeToJSON(),
             "isSpecialSeason": isSpecialSeason?.encodeToJSON(),
@@ -266,15 +287,15 @@ open class TvShowsAPI {
             "enableUserData": enableUserData?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -285,26 +306,30 @@ open class TvShowsAPI {
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - parameter parentId: (query) Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
-     - parameter enableImges: (query) Optional. Include image information in output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
      - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUpcomingEpisodes(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, parentId: String? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getUpcomingEpisodesWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, fields: fields, parentId: parentId, enableImges: enableImges, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getUpcomingEpisodes(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, parentId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getUpcomingEpisodesWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, fields: fields, parentId: parentId, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -312,46 +337,45 @@ open class TvShowsAPI {
      Gets a list of upcoming episodes.
      - GET /Shows/Upcoming
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) The user id of the user to get the upcoming episodes for. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
      - parameter fields: (query) Optional. Specify additional fields of information to return in the output. (optional)
      - parameter parentId: (query) Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
-     - parameter enableImges: (query) Optional. Include image information in output. (optional)
+     - parameter enableImages: (query) Optional. Include image information in output. (optional)
      - parameter imageTypeLimit: (query) Optional. The max number of images to return, per image type. (optional)
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter enableUserData: (query) Optional. Include user data. (optional)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getUpcomingEpisodesWithRequestBuilder(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, parentId: String? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/Shows/Upcoming"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func getUpcomingEpisodesWithRequestBuilder(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, parentId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let localVariablePath = "/Shows/Upcoming"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
             "fields": fields?.encodeToJSON(),
             "parentId": parentId?.encodeToJSON(),
-            "enableImges": enableImges?.encodeToJSON(),
+            "enableImages": enableImages?.encodeToJSON(),
             "imageTypeLimit": imageTypeLimit?.encodeToJSON(),
             "enableImageTypes": enableImageTypes?.encodeToJSON(),
             "enableUserData": enableUserData?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

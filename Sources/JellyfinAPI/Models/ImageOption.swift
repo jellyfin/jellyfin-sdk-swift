@@ -10,8 +10,9 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ImageOption: Codable, Hashable {
+public struct ImageOption: Codable, JSONEncodable, Hashable {
 
+    /** Gets or sets the type. */
     public var type: ImageType?
     /** Gets or sets the limit. */
     public var limit: Int?

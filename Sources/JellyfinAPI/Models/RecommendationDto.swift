@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct RecommendationDto: Codable, Hashable {
+public struct RecommendationDto: Codable, JSONEncodable, Hashable {
 
     public var items: [BaseItemDto]?
     public var recommendationType: RecommendationType?

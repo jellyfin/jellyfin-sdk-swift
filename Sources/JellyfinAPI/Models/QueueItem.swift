@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct QueueItem: Codable, Hashable {
+public struct QueueItem: Codable, JSONEncodable, Hashable {
 
     public var id: String?
     public var playlistItemId: String?

@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct MediaUrl: Codable, Hashable {
+public struct MediaUrl: Codable, JSONEncodable, Hashable {
 
     public var url: String?
     public var name: String?

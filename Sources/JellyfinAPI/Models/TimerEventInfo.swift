@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct TimerEventInfo: Codable, Hashable {
+public struct TimerEventInfo: Codable, JSONEncodable, Hashable {
 
     public var id: String?
     public var programId: String?

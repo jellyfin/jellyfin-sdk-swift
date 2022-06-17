@@ -5,13 +5,16 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class TrailersAPI {
+
     /**
      Finds movies and trailers similar to a given trailer.
      
@@ -41,6 +44,11 @@ open class TrailersAPI {
      - parameter hasImdbId: (query) Optional filter by items that have an imdb id or not. (optional)
      - parameter hasTmdbId: (query) Optional filter by items that have a tmdb id or not. (optional)
      - parameter hasTvdbId: (query) Optional filter by items that have a tvdb id or not. (optional)
+     - parameter isMovie: (query) Optional filter for live tv movies. (optional)
+     - parameter isSeries: (query) Optional filter for live tv series. (optional)
+     - parameter isNews: (query) Optional filter for live tv news. (optional)
+     - parameter isKids: (query) Optional filter for live tv kids. (optional)
+     - parameter isSports: (query) Optional filter for live tv sports. (optional)
      - parameter excludeItemIds: (query) Optional. If specified, results will be filtered by excluding item ids. This allows multiple, comma delimited. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
@@ -94,22 +102,26 @@ open class TrailersAPI {
      - parameter genreIds: (query) Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. (optional)
      - parameter enableTotalRecordCount: (query) Optional. Enable the total record count. (optional, default to true)
      - parameter enableImages: (query) Optional, include image information in output. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getTrailers(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getTrailersWithRequestBuilder(userId: userId, maxOfficialRating: maxOfficialRating, hasThemeSong: hasThemeSong, hasThemeVideo: hasThemeVideo, hasSubtitles: hasSubtitles, hasSpecialFeature: hasSpecialFeature, hasTrailer: hasTrailer, adjacentTo: adjacentTo, parentIndexNumber: parentIndexNumber, hasParentalRating: hasParentalRating, isHd: isHd, is4K: is4K, locationTypes: locationTypes, excludeLocationTypes: excludeLocationTypes, isMissing: isMissing, isUnaired: isUnaired, minCommunityRating: minCommunityRating, minCriticRating: minCriticRating, minPremiereDate: minPremiereDate, minDateLastSaved: minDateLastSaved, minDateLastSavedForUser: minDateLastSavedForUser, maxPremiereDate: maxPremiereDate, hasOverview: hasOverview, hasImdbId: hasImdbId, hasTmdbId: hasTmdbId, hasTvdbId: hasTvdbId, excludeItemIds: excludeItemIds, startIndex: startIndex, limit: limit, recursive: recursive, searchTerm: searchTerm, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, filters: filters, isFavorite: isFavorite, mediaTypes: mediaTypes, imageTypes: imageTypes, sortBy: sortBy, isPlayed: isPlayed, genres: genres, officialRatings: officialRatings, tags: tags, years: years, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, person: person, personIds: personIds, personTypes: personTypes, studios: studios, artists: artists, excludeArtistIds: excludeArtistIds, artistIds: artistIds, albumArtistIds: albumArtistIds, contributingArtistIds: contributingArtistIds, albums: albums, albumIds: albumIds, ids: ids, videoTypes: videoTypes, minOfficialRating: minOfficialRating, isLocked: isLocked, isPlaceHolder: isPlaceHolder, hasOfficialRating: hasOfficialRating, collapseBoxSetItems: collapseBoxSetItems, minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight, is3D: is3D, seriesStatus: seriesStatus, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, studioIds: studioIds, genreIds: genreIds, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getTrailers(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getTrailersWithRequestBuilder(userId: userId, maxOfficialRating: maxOfficialRating, hasThemeSong: hasThemeSong, hasThemeVideo: hasThemeVideo, hasSubtitles: hasSubtitles, hasSpecialFeature: hasSpecialFeature, hasTrailer: hasTrailer, adjacentTo: adjacentTo, parentIndexNumber: parentIndexNumber, hasParentalRating: hasParentalRating, isHd: isHd, is4K: is4K, locationTypes: locationTypes, excludeLocationTypes: excludeLocationTypes, isMissing: isMissing, isUnaired: isUnaired, minCommunityRating: minCommunityRating, minCriticRating: minCriticRating, minPremiereDate: minPremiereDate, minDateLastSaved: minDateLastSaved, minDateLastSavedForUser: minDateLastSavedForUser, maxPremiereDate: maxPremiereDate, hasOverview: hasOverview, hasImdbId: hasImdbId, hasTmdbId: hasTmdbId, hasTvdbId: hasTvdbId, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, excludeItemIds: excludeItemIds, startIndex: startIndex, limit: limit, recursive: recursive, searchTerm: searchTerm, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, filters: filters, isFavorite: isFavorite, mediaTypes: mediaTypes, imageTypes: imageTypes, sortBy: sortBy, isPlayed: isPlayed, genres: genres, officialRatings: officialRatings, tags: tags, years: years, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, person: person, personIds: personIds, personTypes: personTypes, studios: studios, artists: artists, excludeArtistIds: excludeArtistIds, artistIds: artistIds, albumArtistIds: albumArtistIds, contributingArtistIds: contributingArtistIds, albums: albums, albumIds: albumIds, ids: ids, videoTypes: videoTypes, minOfficialRating: minOfficialRating, isLocked: isLocked, isPlaceHolder: isPlaceHolder, hasOfficialRating: hasOfficialRating, collapseBoxSetItems: collapseBoxSetItems, minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight, is3D: is3D, seriesStatus: seriesStatus, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, studioIds: studioIds, genreIds: genreIds, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -117,7 +129,7 @@ open class TrailersAPI {
      Finds movies and trailers similar to a given trailer.
      - GET /Trailers
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) The user id. (optional)
      - parameter maxOfficialRating: (query) Optional filter by maximum official rating (PG, PG-13, TV-MA, etc). (optional)
@@ -145,6 +157,11 @@ open class TrailersAPI {
      - parameter hasImdbId: (query) Optional filter by items that have an imdb id or not. (optional)
      - parameter hasTmdbId: (query) Optional filter by items that have a tmdb id or not. (optional)
      - parameter hasTvdbId: (query) Optional filter by items that have a tvdb id or not. (optional)
+     - parameter isMovie: (query) Optional filter for live tv movies. (optional)
+     - parameter isSeries: (query) Optional filter for live tv series. (optional)
+     - parameter isNews: (query) Optional filter for live tv news. (optional)
+     - parameter isKids: (query) Optional filter for live tv kids. (optional)
+     - parameter isSports: (query) Optional filter for live tv sports. (optional)
      - parameter excludeItemIds: (query) Optional. If specified, results will be filtered by excluding item ids. This allows multiple, comma delimited. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
@@ -200,13 +217,13 @@ open class TrailersAPI {
      - parameter enableImages: (query) Optional, include image information in output. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getTrailersWithRequestBuilder(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/Trailers"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func getTrailersWithRequestBuilder(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let localVariablePath = "/Trailers"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "maxOfficialRating": maxOfficialRating?.encodeToJSON(),
             "hasThemeSong": hasThemeSong?.encodeToJSON(),
@@ -233,6 +250,11 @@ open class TrailersAPI {
             "hasImdbId": hasImdbId?.encodeToJSON(),
             "hasTmdbId": hasTmdbId?.encodeToJSON(),
             "hasTvdbId": hasTvdbId?.encodeToJSON(),
+            "isMovie": isMovie?.encodeToJSON(),
+            "isSeries": isSeries?.encodeToJSON(),
+            "isNews": isNews?.encodeToJSON(),
+            "isKids": isKids?.encodeToJSON(),
+            "isSports": isSports?.encodeToJSON(),
             "excludeItemIds": excludeItemIds?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
@@ -288,15 +310,14 @@ open class TrailersAPI {
             "enableImages": enableImages?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

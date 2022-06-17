@@ -41,7 +41,7 @@ Name | Type | Description | Notes
 **remoteClientBitrateLimit** | **Int** |  | [optional] 
 **authenticationProviderId** | **String** |  | [optional] 
 **passwordResetProviderId** | **String** |  | [optional] 
-**syncPlayAccess** | [**SyncPlayUserAccessType**](SyncPlayUserAccessType.md) |  | [optional] 
+**syncPlayAccess** | [**SyncPlayUserAccessType**](SyncPlayUserAccessType.md) | Enum SyncPlayUserAccessType. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

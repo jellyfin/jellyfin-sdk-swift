@@ -1,6 +1,6 @@
 # CollectionAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Adds items to a collection.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -41,7 +41,7 @@ CollectionAPI.addToCollection(collectionId: collectionId, ids: ids) { (response,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | [**String**](.md) | The collection id. | 
+ **collectionId** | **String** | The collection id. | 
  **ids** | [**[String]**](String.md) | Item ids, comma delimited. | 
 
 ### Return type
@@ -66,7 +66,7 @@ Void (empty response body)
 
 Creates a new collection.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | The name of the collection. | [optional] 
  **ids** | [**[String]**](String.md) | Item Ids to add to the collection. | [optional] 
- **parentId** | [**String**](.md) | Optional. Create the collection within a specific folder. | [optional] 
+ **parentId** | **String** | Optional. Create the collection within a specific folder. | [optional] 
  **isLocked** | **Bool** | Whether or not to lock the new collection. | [optional] [default to false]
 
 ### Return type
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 Removes items from a collection.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -145,7 +145,7 @@ CollectionAPI.removeFromCollection(collectionId: collectionId, ids: ids) { (resp
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionId** | [**String**](.md) | The collection id. | 
+ **collectionId** | **String** | The collection id. | 
  **ids** | [**[String]**](String.md) | Item ids, comma delimited. | 
 
 ### Return type

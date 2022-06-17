@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class IgnoreWaitRequestDto. */
-public struct IgnoreWaitRequestDto: Codable, Hashable {
+public struct IgnoreWaitRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets a value indicating whether the client should be ignored. */
     public var ignoreWait: Bool?

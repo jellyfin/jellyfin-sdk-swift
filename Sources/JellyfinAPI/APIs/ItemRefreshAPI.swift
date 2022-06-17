@@ -5,13 +5,16 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class ItemRefreshAPI {
+
     /**
      Refreshes metadata for an item.
      
@@ -20,14 +23,14 @@ open class ItemRefreshAPI {
      - parameter imageRefreshMode: (query) (Optional) Specifies the image refresh mode. (optional)
      - parameter replaceAllMetadata: (query) (Optional) Determines if metadata should be replaced. Only applicable if mode is FullRefresh. (optional, default to false)
      - parameter replaceAllImages: (query) (Optional) Determines if images should be replaced. Only applicable if mode is FullRefresh. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func post(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            postWithRequestBuilder(itemId: itemId, metadataRefreshMode: metadataRefreshMode, imageRefreshMode: imageRefreshMode, replaceAllMetadata: replaceAllMetadata, replaceAllImages: replaceAllImages).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func refreshItem(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = refreshItemWithRequestBuilder(itemId: itemId, metadataRefreshMode: metadataRefreshMode, imageRefreshMode: imageRefreshMode, replaceAllMetadata: replaceAllMetadata, replaceAllImages: replaceAllImages).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -35,7 +38,11 @@ open class ItemRefreshAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -43,7 +50,7 @@ open class ItemRefreshAPI {
      Refreshes metadata for an item.
      - POST /Items/{itemId}/Refresh
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - parameter metadataRefreshMode: (query) (Optional) Specifies the metadata refresh mode. (optional)
@@ -52,31 +59,30 @@ open class ItemRefreshAPI {
      - parameter replaceAllImages: (query) (Optional) Determines if images should be replaced. Only applicable if mode is FullRefresh. (optional, default to false)
      - returns: RequestBuilder<Void> 
      */
-    open class func postWithRequestBuilder(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Items/{itemId}/Refresh"
+    open class func refreshItemWithRequestBuilder(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil) -> RequestBuilder<Void> {
+        var localVariablePath = "/Items/{itemId}/Refresh"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "metadataRefreshMode": metadataRefreshMode?.encodeToJSON(),
             "imageRefreshMode": imageRefreshMode?.encodeToJSON(),
             "replaceAllMetadata": replaceAllMetadata?.encodeToJSON(),
             "replaceAllImages": replaceAllImages?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

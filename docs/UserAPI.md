@@ -1,6 +1,6 @@
 # UserAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 Authenticates a user.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -55,7 +55,7 @@ UserAPI.authenticateUser(userId: userId, pw: pw, password: password) { (response
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | 
+ **userId** | **String** | The user id. | 
  **pw** | **String** | The password as plain text. | 
  **password** | **String** | The password sha1-hash. | [optional] 
 
@@ -76,20 +76,20 @@ No authorization required
 
 # **authenticateUserByName**
 ```swift
-    open class func authenticateUserByName(authenticateUserByName: AuthenticateUserByName, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
+    open class func authenticateUserByName(authenticateUserByNameRequest: AuthenticateUserByNameRequest, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
 ```
 
 Authenticates a user by name.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let authenticateUserByName = AuthenticateUserByName(username: "username_example", pw: "pw_example", password: "password_example") // AuthenticateUserByName | The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request.
+let authenticateUserByNameRequest = AuthenticateUserByName_request(username: "username_example", pw: "pw_example", password: "password_example") // AuthenticateUserByNameRequest | The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request.
 
 // Authenticates a user by name.
-UserAPI.authenticateUserByName(authenticateUserByName: authenticateUserByName) { (response, error) in
+UserAPI.authenticateUserByName(authenticateUserByNameRequest: authenticateUserByNameRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -105,7 +105,7 @@ UserAPI.authenticateUserByName(authenticateUserByName: authenticateUserByName) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authenticateUserByName** | [**AuthenticateUserByName**](AuthenticateUserByName.md) | The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request. | 
+ **authenticateUserByNameRequest** | [**AuthenticateUserByNameRequest**](AuthenticateUserByNameRequest.md) | The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request. | 
 
 ### Return type
 
@@ -124,20 +124,20 @@ No authorization required
 
 # **authenticateWithQuickConnect**
 ```swift
-    open class func authenticateWithQuickConnect(quickConnectDto: QuickConnectDto, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
+    open class func authenticateWithQuickConnect(authenticateWithQuickConnectRequest: AuthenticateWithQuickConnectRequest, completion: @escaping (_ data: AuthenticationResult?, _ error: Error?) -> Void)
 ```
 
 Authenticates a user with quick connect.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let quickConnectDto = QuickConnectDto(token: "token_example") // QuickConnectDto | The Jellyfin.Api.Models.UserDtos.QuickConnectDto request.
+let authenticateWithQuickConnectRequest = AuthenticateWithQuickConnect_request(secret: "secret_example") // AuthenticateWithQuickConnectRequest | The Jellyfin.Api.Models.UserDtos.QuickConnectDto request.
 
 // Authenticates a user with quick connect.
-UserAPI.authenticateWithQuickConnect(quickConnectDto: quickConnectDto) { (response, error) in
+UserAPI.authenticateWithQuickConnect(authenticateWithQuickConnectRequest: authenticateWithQuickConnectRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -153,7 +153,7 @@ UserAPI.authenticateWithQuickConnect(quickConnectDto: quickConnectDto) { (respon
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **quickConnectDto** | [**QuickConnectDto**](QuickConnectDto.md) | The Jellyfin.Api.Models.UserDtos.QuickConnectDto request. | 
+ **authenticateWithQuickConnectRequest** | [**AuthenticateWithQuickConnectRequest**](AuthenticateWithQuickConnectRequest.md) | The Jellyfin.Api.Models.UserDtos.QuickConnectDto request. | 
 
 ### Return type
 
@@ -172,20 +172,20 @@ No authorization required
 
 # **createUserByName**
 ```swift
-    open class func createUserByName(createUserByName: CreateUserByName, completion: @escaping (_ data: UserDto?, _ error: Error?) -> Void)
+    open class func createUserByName(createUserByNameRequest: CreateUserByNameRequest, completion: @escaping (_ data: UserDto?, _ error: Error?) -> Void)
 ```
 
 Creates a user.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let createUserByName = CreateUserByName(name: "name_example", password: "password_example") // CreateUserByName | The create user by name request body.
+let createUserByNameRequest = CreateUserByName_request(name: "name_example", password: "password_example") // CreateUserByNameRequest | The create user by name request body.
 
 // Creates a user.
-UserAPI.createUserByName(createUserByName: createUserByName) { (response, error) in
+UserAPI.createUserByName(createUserByNameRequest: createUserByNameRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -201,7 +201,7 @@ UserAPI.createUserByName(createUserByName: createUserByName) { (response, error)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createUserByName** | [**CreateUserByName**](CreateUserByName.md) | The create user by name request body. | 
+ **createUserByNameRequest** | [**CreateUserByNameRequest**](CreateUserByNameRequest.md) | The create user by name request body. | 
 
 ### Return type
 
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 
 Deletes a user.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -249,7 +249,7 @@ UserAPI.deleteUser(userId: userId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | 
+ **userId** | **String** | The user id. | 
 
 ### Return type
 
@@ -268,20 +268,20 @@ Void (empty response body)
 
 # **forgotPassword**
 ```swift
-    open class func forgotPassword(forgotPasswordDto: ForgotPasswordDto, completion: @escaping (_ data: ForgotPasswordResult?, _ error: Error?) -> Void)
+    open class func forgotPassword(forgotPasswordRequest: ForgotPasswordRequest, completion: @escaping (_ data: ForgotPasswordResult?, _ error: Error?) -> Void)
 ```
 
 Initiates the forgot password process for a local user.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let forgotPasswordDto = ForgotPasswordDto(enteredUsername: "enteredUsername_example") // ForgotPasswordDto | The forgot password request containing the entered username.
+let forgotPasswordRequest = ForgotPassword_request(enteredUsername: "enteredUsername_example") // ForgotPasswordRequest | The forgot password request containing the entered username.
 
 // Initiates the forgot password process for a local user.
-UserAPI.forgotPassword(forgotPasswordDto: forgotPasswordDto) { (response, error) in
+UserAPI.forgotPassword(forgotPasswordRequest: forgotPasswordRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -297,7 +297,7 @@ UserAPI.forgotPassword(forgotPasswordDto: forgotPasswordDto) { (response, error)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **forgotPasswordDto** | [**ForgotPasswordDto**](ForgotPasswordDto.md) | The forgot password request containing the entered username. | 
+ **forgotPasswordRequest** | [**ForgotPasswordRequest**](ForgotPasswordRequest.md) | The forgot password request containing the entered username. | 
 
 ### Return type
 
@@ -316,20 +316,20 @@ No authorization required
 
 # **forgotPasswordPin**
 ```swift
-    open class func forgotPasswordPin(forgotPasswordPinDto: ForgotPasswordPinDto, completion: @escaping (_ data: PinRedeemResult?, _ error: Error?) -> Void)
+    open class func forgotPasswordPin(forgotPasswordPinRequest: ForgotPasswordPinRequest, completion: @escaping (_ data: PinRedeemResult?, _ error: Error?) -> Void)
 ```
 
 Redeems a forgot password pin.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let forgotPasswordPinDto = ForgotPasswordPinDto(pin: "pin_example") // ForgotPasswordPinDto | The forgot password pin request containing the entered pin.
+let forgotPasswordPinRequest = ForgotPasswordPin_request(pin: "pin_example") // ForgotPasswordPinRequest | The forgot password pin request containing the entered pin.
 
 // Redeems a forgot password pin.
-UserAPI.forgotPasswordPin(forgotPasswordPinDto: forgotPasswordPinDto) { (response, error) in
+UserAPI.forgotPasswordPin(forgotPasswordPinRequest: forgotPasswordPinRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -345,7 +345,7 @@ UserAPI.forgotPasswordPin(forgotPasswordPinDto: forgotPasswordPinDto) { (respons
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **forgotPasswordPinDto** | [**ForgotPasswordPinDto**](ForgotPasswordPinDto.md) | The forgot password pin request containing the entered pin. | 
+ **forgotPasswordPinRequest** | [**ForgotPasswordPinRequest**](ForgotPasswordPinRequest.md) | The forgot password pin request containing the entered pin. | 
 
 ### Return type
 
@@ -369,7 +369,7 @@ No authorization required
 
 Gets the user based on auth token.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -413,7 +413,7 @@ This endpoint does not need any parameter.
 
 Gets a list of publicly visible users for display on a login screen.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -457,7 +457,7 @@ No authorization required
 
 Gets a user by Id.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -481,7 +481,7 @@ UserAPI.getUserById(userId: userId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | 
+ **userId** | **String** | The user id. | 
 
 ### Return type
 
@@ -505,7 +505,7 @@ Name | Type | Description  | Notes
 
 Gets a list of users.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -550,21 +550,21 @@ Name | Type | Description  | Notes
 
 # **updateUser**
 ```swift
-    open class func updateUser(userId: String, userDto: UserDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUser(userId: String, updateUserRequest: UpdateUserRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let userId = "userId_example" // String | The user id.
-let userDto = UserDto(name: "name_example", serverId: "serverId_example", serverName: "serverName_example", id: "id_example", primaryImageTag: "primaryImageTag_example", hasPassword: false, hasConfiguredPassword: false, hasConfiguredEasyPassword: false, enableAutoLogin: false, lastLoginDate: Date(), lastActivityDate: Date(), configuration: UserConfiguration(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false), policy: UserPolicy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: "userId_example", dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: ["enabledChannels_example"], enableAllChannels: false, enabledFolders: ["enabledFolders_example"], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: ["blockedMediaFolders_example"], blockedChannels: ["blockedChannels_example"], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()), primaryImageAspectRatio: 123) // UserDto | The updated user model.
+let updateUserRequest = UpdateUser_request(name: "name_example", serverId: "serverId_example", serverName: "serverName_example", id: "id_example", primaryImageTag: "primaryImageTag_example", hasPassword: false, hasConfiguredPassword: false, hasConfiguredEasyPassword: false, enableAutoLogin: false, lastLoginDate: Date(), lastActivityDate: Date(), configuration: UserDto_Configuration(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false), policy: UserDto_Policy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: "userId_example", dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: ["enabledChannels_example"], enableAllChannels: false, enabledFolders: ["enabledFolders_example"], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: ["blockedMediaFolders_example"], blockedChannels: ["blockedChannels_example"], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()), primaryImageAspectRatio: 123) // UpdateUserRequest | The updated user model.
 
 // Updates a user.
-UserAPI.updateUser(userId: userId, userDto: userDto) { (response, error) in
+UserAPI.updateUser(userId: userId, updateUserRequest: updateUserRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -580,8 +580,8 @@ UserAPI.updateUser(userId: userId, userDto: userDto) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | 
- **userDto** | [**UserDto**](UserDto.md) | The updated user model. | 
+ **userId** | **String** | The user id. | 
+ **updateUserRequest** | [**UpdateUserRequest**](UpdateUserRequest.md) | The updated user model. | 
 
 ### Return type
 
@@ -600,21 +600,21 @@ Void (empty response body)
 
 # **updateUserConfiguration**
 ```swift
-    open class func updateUserConfiguration(userId: String, userConfiguration: UserConfiguration, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserConfiguration(userId: String, updateUserConfigurationRequest: UpdateUserConfigurationRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user configuration.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let userId = "userId_example" // String | The user id.
-let userConfiguration = UserConfiguration(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false) // UserConfiguration | The new user configuration.
+let updateUserConfigurationRequest = UpdateUserConfiguration_request(audioLanguagePreference: "audioLanguagePreference_example", playDefaultAudioTrack: false, subtitleLanguagePreference: "subtitleLanguagePreference_example", displayMissingEpisodes: false, groupedFolders: ["groupedFolders_example"], subtitleMode: SubtitlePlaybackMode(), displayCollectionsView: false, enableLocalPassword: false, orderedViews: ["orderedViews_example"], latestItemsExcludes: ["latestItemsExcludes_example"], myMediaExcludes: ["myMediaExcludes_example"], hidePlayedInLatest: false, rememberAudioSelections: false, rememberSubtitleSelections: false, enableNextEpisodeAutoPlay: false) // UpdateUserConfigurationRequest | The new user configuration.
 
 // Updates a user configuration.
-UserAPI.updateUserConfiguration(userId: userId, userConfiguration: userConfiguration) { (response, error) in
+UserAPI.updateUserConfiguration(userId: userId, updateUserConfigurationRequest: updateUserConfigurationRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -630,8 +630,8 @@ UserAPI.updateUserConfiguration(userId: userId, userConfiguration: userConfigura
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | 
- **userConfiguration** | [**UserConfiguration**](UserConfiguration.md) | The new user configuration. | 
+ **userId** | **String** | The user id. | 
+ **updateUserConfigurationRequest** | [**UpdateUserConfigurationRequest**](UpdateUserConfigurationRequest.md) | The new user configuration. | 
 
 ### Return type
 
@@ -650,21 +650,21 @@ Void (empty response body)
 
 # **updateUserEasyPassword**
 ```swift
-    open class func updateUserEasyPassword(userId: String, updateUserEasyPassword: UpdateUserEasyPassword, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserEasyPassword(userId: String, updateUserEasyPasswordRequest: UpdateUserEasyPasswordRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user's easy password.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let userId = "userId_example" // String | The user id.
-let updateUserEasyPassword = UpdateUserEasyPassword(newPassword: "newPassword_example", newPw: "newPw_example", resetPassword: false) // UpdateUserEasyPassword | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request.
+let updateUserEasyPasswordRequest = UpdateUserEasyPassword_request(newPassword: "newPassword_example", newPw: "newPw_example", resetPassword: false) // UpdateUserEasyPasswordRequest | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request.
 
 // Updates a user's easy password.
-UserAPI.updateUserEasyPassword(userId: userId, updateUserEasyPassword: updateUserEasyPassword) { (response, error) in
+UserAPI.updateUserEasyPassword(userId: userId, updateUserEasyPasswordRequest: updateUserEasyPasswordRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -680,8 +680,8 @@ UserAPI.updateUserEasyPassword(userId: userId, updateUserEasyPassword: updateUse
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | 
- **updateUserEasyPassword** | [**UpdateUserEasyPassword**](UpdateUserEasyPassword.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request. | 
+ **userId** | **String** | The user id. | 
+ **updateUserEasyPasswordRequest** | [**UpdateUserEasyPasswordRequest**](UpdateUserEasyPasswordRequest.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserEasyPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserEasyPassword) request. | 
 
 ### Return type
 
@@ -700,21 +700,21 @@ Void (empty response body)
 
 # **updateUserPassword**
 ```swift
-    open class func updateUserPassword(userId: String, updateUserPassword: UpdateUserPassword, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserPassword(userId: String, updateUserPasswordRequest: UpdateUserPasswordRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user's password.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let userId = "userId_example" // String | The user id.
-let updateUserPassword = UpdateUserPassword(currentPassword: "currentPassword_example", currentPw: "currentPw_example", newPw: "newPw_example", resetPassword: false) // UpdateUserPassword | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request.
+let updateUserPasswordRequest = UpdateUserPassword_request(currentPassword: "currentPassword_example", currentPw: "currentPw_example", newPw: "newPw_example", resetPassword: false) // UpdateUserPasswordRequest | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request.
 
 // Updates a user's password.
-UserAPI.updateUserPassword(userId: userId, updateUserPassword: updateUserPassword) { (response, error) in
+UserAPI.updateUserPassword(userId: userId, updateUserPasswordRequest: updateUserPasswordRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -730,8 +730,8 @@ UserAPI.updateUserPassword(userId: userId, updateUserPassword: updateUserPasswor
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | 
- **updateUserPassword** | [**UpdateUserPassword**](UpdateUserPassword.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request. | 
+ **userId** | **String** | The user id. | 
+ **updateUserPasswordRequest** | [**UpdateUserPasswordRequest**](UpdateUserPasswordRequest.md) | The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Guid,Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request. | 
 
 ### Return type
 
@@ -750,21 +750,21 @@ Void (empty response body)
 
 # **updateUserPolicy**
 ```swift
-    open class func updateUserPolicy(userId: String, userPolicy: UserPolicy, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateUserPolicy(userId: String, updateUserPolicyRequest: UpdateUserPolicyRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a user policy.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let userId = "userId_example" // String | The user id.
-let userPolicy = UserPolicy(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: "userId_example", dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: ["enabledChannels_example"], enableAllChannels: false, enabledFolders: ["enabledFolders_example"], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: ["blockedMediaFolders_example"], blockedChannels: ["blockedChannels_example"], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()) // UserPolicy | The new user policy.
+let updateUserPolicyRequest = UpdateUserPolicy_request(isAdministrator: false, isHidden: false, isDisabled: false, maxParentalRating: 123, blockedTags: ["blockedTags_example"], enableUserPreferenceAccess: false, accessSchedules: [AccessSchedule(id: 123, userId: "userId_example", dayOfWeek: DynamicDayOfWeek(), startHour: 123, endHour: 123)], blockUnratedItems: [UnratedItem()], enableRemoteControlOfOtherUsers: false, enableSharedDeviceControl: false, enableRemoteAccess: false, enableLiveTvManagement: false, enableLiveTvAccess: false, enableMediaPlayback: false, enableAudioPlaybackTranscoding: false, enableVideoPlaybackTranscoding: false, enablePlaybackRemuxing: false, forceRemoteSourceTranscoding: false, enableContentDeletion: false, enableContentDeletionFromFolders: ["enableContentDeletionFromFolders_example"], enableContentDownloading: false, enableSyncTranscoding: false, enableMediaConversion: false, enabledDevices: ["enabledDevices_example"], enableAllDevices: false, enabledChannels: ["enabledChannels_example"], enableAllChannels: false, enabledFolders: ["enabledFolders_example"], enableAllFolders: false, invalidLoginAttemptCount: 123, loginAttemptsBeforeLockout: 123, maxActiveSessions: 123, enablePublicSharing: false, blockedMediaFolders: ["blockedMediaFolders_example"], blockedChannels: ["blockedChannels_example"], remoteClientBitrateLimit: 123, authenticationProviderId: "authenticationProviderId_example", passwordResetProviderId: "passwordResetProviderId_example", syncPlayAccess: SyncPlayUserAccessType()) // UpdateUserPolicyRequest | The new user policy.
 
 // Updates a user policy.
-UserAPI.updateUserPolicy(userId: userId, userPolicy: userPolicy) { (response, error) in
+UserAPI.updateUserPolicy(userId: userId, updateUserPolicyRequest: updateUserPolicyRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -780,8 +780,8 @@ UserAPI.updateUserPolicy(userId: userId, userPolicy: userPolicy) { (response, er
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | 
- **userPolicy** | [**UserPolicy**](UserPolicy.md) | The new user policy. | 
+ **userId** | **String** | The user id. | 
+ **updateUserPolicyRequest** | [**UpdateUserPolicyRequest**](UpdateUserPolicyRequest.md) | The new user policy. | 
 
 ### Return type
 

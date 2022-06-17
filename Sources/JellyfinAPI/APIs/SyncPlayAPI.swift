@@ -5,25 +5,28 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class SyncPlayAPI {
+
     /**
      Notify SyncPlay group that member is buffering.
      
-     - parameter bufferRequestDto: (body) The player status. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayBufferingRequest: (body) The player status. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayBuffering(bufferRequestDto: BufferRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayBufferingWithRequestBuilder(bufferRequestDto: bufferRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayBuffering(syncPlayBufferingRequest: SyncPlayBufferingRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayBufferingWithRequestBuilder(syncPlayBufferingRequest: syncPlayBufferingRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -31,7 +34,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -39,41 +46,41 @@ open class SyncPlayAPI {
      Notify SyncPlay group that member is buffering.
      - POST /SyncPlay/Buffering
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter bufferRequestDto: (body) The player status. 
+     - parameter syncPlayBufferingRequest: (body) The player status. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayBufferingWithRequestBuilder(bufferRequestDto: BufferRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Buffering"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: bufferRequestDto)
+    open class func syncPlayBufferingWithRequestBuilder(syncPlayBufferingRequest: SyncPlayBufferingRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/Buffering"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayBufferingRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Create a new SyncPlay group.
      
-     - parameter newGroupRequestDto: (body) The settings of the new group. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayCreateGroupRequest: (body) The settings of the new group. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayCreateGroup(newGroupRequestDto: NewGroupRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayCreateGroupWithRequestBuilder(newGroupRequestDto: newGroupRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayCreateGroup(syncPlayCreateGroupRequest: SyncPlayCreateGroupRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayCreateGroupWithRequestBuilder(syncPlayCreateGroupRequest: syncPlayCreateGroupRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -81,7 +88,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -89,48 +100,52 @@ open class SyncPlayAPI {
      Create a new SyncPlay group.
      - POST /SyncPlay/New
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter newGroupRequestDto: (body) The settings of the new group. 
+     - parameter syncPlayCreateGroupRequest: (body) The settings of the new group. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayCreateGroupWithRequestBuilder(newGroupRequestDto: NewGroupRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/New"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: newGroupRequestDto)
+    open class func syncPlayCreateGroupWithRequestBuilder(syncPlayCreateGroupRequest: SyncPlayCreateGroupRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/New"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayCreateGroupRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets all SyncPlay groups.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[GroupInfoDto], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayGetGroups(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[GroupInfoDto], Error> {
-        return Future<[GroupInfoDto], Error>.init { promise in
-            syncPlayGetGroupsWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayGetGroups() -> AnyPublisher<[GroupInfoDto], Error> {
+        var requestTask: RequestTask?
+        return Future<[GroupInfoDto], Error> { promise in
+            requestTask = syncPlayGetGroupsWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -138,40 +153,40 @@ open class SyncPlayAPI {
      Gets all SyncPlay groups.
      - GET /SyncPlay/List
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[GroupInfoDto]> 
      */
     open class func syncPlayGetGroupsWithRequestBuilder() -> RequestBuilder<[GroupInfoDto]> {
-        let urlPath = "/SyncPlay/List"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/SyncPlay/List"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[GroupInfoDto]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[GroupInfoDto]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Join an existing SyncPlay group.
      
-     - parameter joinGroupRequestDto: (body) The group to join. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayJoinGroupRequest: (body) The group to join. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayJoinGroup(joinGroupRequestDto: JoinGroupRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayJoinGroupWithRequestBuilder(joinGroupRequestDto: joinGroupRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayJoinGroup(syncPlayJoinGroupRequest: SyncPlayJoinGroupRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayJoinGroupWithRequestBuilder(syncPlayJoinGroupRequest: syncPlayJoinGroupRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -179,7 +194,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -187,40 +206,40 @@ open class SyncPlayAPI {
      Join an existing SyncPlay group.
      - POST /SyncPlay/Join
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter joinGroupRequestDto: (body) The group to join. 
+     - parameter syncPlayJoinGroupRequest: (body) The group to join. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayJoinGroupWithRequestBuilder(joinGroupRequestDto: JoinGroupRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Join"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: joinGroupRequestDto)
+    open class func syncPlayJoinGroupWithRequestBuilder(syncPlayJoinGroupRequest: SyncPlayJoinGroupRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/Join"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayJoinGroupRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Leave the joined SyncPlay group.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayLeaveGroup(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayLeaveGroupWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayLeaveGroup() -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayLeaveGroupWithRequestBuilder().execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -228,7 +247,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -236,40 +259,40 @@ open class SyncPlayAPI {
      Leave the joined SyncPlay group.
      - POST /SyncPlay/Leave
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<Void> 
      */
     open class func syncPlayLeaveGroupWithRequestBuilder() -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Leave"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/SyncPlay/Leave"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request to move an item in the playlist in SyncPlay group.
      
-     - parameter movePlaylistItemRequestDto: (body) The new position for the item. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayMovePlaylistItemRequest: (body) The new position for the item. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayMovePlaylistItem(movePlaylistItemRequestDto: MovePlaylistItemRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayMovePlaylistItemWithRequestBuilder(movePlaylistItemRequestDto: movePlaylistItemRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayMovePlaylistItem(syncPlayMovePlaylistItemRequest: SyncPlayMovePlaylistItemRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayMovePlaylistItemWithRequestBuilder(syncPlayMovePlaylistItemRequest: syncPlayMovePlaylistItemRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -277,7 +300,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -285,41 +312,41 @@ open class SyncPlayAPI {
      Request to move an item in the playlist in SyncPlay group.
      - POST /SyncPlay/MovePlaylistItem
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter movePlaylistItemRequestDto: (body) The new position for the item. 
+     - parameter syncPlayMovePlaylistItemRequest: (body) The new position for the item. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayMovePlaylistItemWithRequestBuilder(movePlaylistItemRequestDto: MovePlaylistItemRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/MovePlaylistItem"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: movePlaylistItemRequestDto)
+    open class func syncPlayMovePlaylistItemWithRequestBuilder(syncPlayMovePlaylistItemRequest: SyncPlayMovePlaylistItemRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/MovePlaylistItem"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayMovePlaylistItemRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request next item in SyncPlay group.
      
-     - parameter nextItemRequestDto: (body) The current item information. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayNextItemRequest: (body) The current item information. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayNextItem(nextItemRequestDto: NextItemRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayNextItemWithRequestBuilder(nextItemRequestDto: nextItemRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayNextItem(syncPlayNextItemRequest: SyncPlayNextItemRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayNextItemWithRequestBuilder(syncPlayNextItemRequest: syncPlayNextItemRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -327,7 +354,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -335,40 +366,40 @@ open class SyncPlayAPI {
      Request next item in SyncPlay group.
      - POST /SyncPlay/NextItem
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter nextItemRequestDto: (body) The current item information. 
+     - parameter syncPlayNextItemRequest: (body) The current item information. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayNextItemWithRequestBuilder(nextItemRequestDto: NextItemRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/NextItem"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: nextItemRequestDto)
+    open class func syncPlayNextItemWithRequestBuilder(syncPlayNextItemRequest: SyncPlayNextItemRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/NextItem"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayNextItemRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request pause in SyncPlay group.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayPause(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayPauseWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayPause() -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayPauseWithRequestBuilder().execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -376,7 +407,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -384,40 +419,40 @@ open class SyncPlayAPI {
      Request pause in SyncPlay group.
      - POST /SyncPlay/Pause
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<Void> 
      */
     open class func syncPlayPauseWithRequestBuilder() -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Pause"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/SyncPlay/Pause"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Update session ping.
      
-     - parameter pingRequestDto: (body) The new ping. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayPingRequest: (body) The new ping. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayPing(pingRequestDto: PingRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayPingWithRequestBuilder(pingRequestDto: pingRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayPing(syncPlayPingRequest: SyncPlayPingRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayPingWithRequestBuilder(syncPlayPingRequest: syncPlayPingRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -425,7 +460,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -433,41 +472,41 @@ open class SyncPlayAPI {
      Update session ping.
      - POST /SyncPlay/Ping
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter pingRequestDto: (body) The new ping. 
+     - parameter syncPlayPingRequest: (body) The new ping. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayPingWithRequestBuilder(pingRequestDto: PingRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Ping"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: pingRequestDto)
+    open class func syncPlayPingWithRequestBuilder(syncPlayPingRequest: SyncPlayPingRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/Ping"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayPingRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request previous item in SyncPlay group.
      
-     - parameter previousItemRequestDto: (body) The current item information. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayPreviousItemRequest: (body) The current item information. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayPreviousItem(previousItemRequestDto: PreviousItemRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayPreviousItemWithRequestBuilder(previousItemRequestDto: previousItemRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayPreviousItem(syncPlayPreviousItemRequest: SyncPlayPreviousItemRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayPreviousItemWithRequestBuilder(syncPlayPreviousItemRequest: syncPlayPreviousItemRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -475,7 +514,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -483,41 +526,41 @@ open class SyncPlayAPI {
      Request previous item in SyncPlay group.
      - POST /SyncPlay/PreviousItem
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter previousItemRequestDto: (body) The current item information. 
+     - parameter syncPlayPreviousItemRequest: (body) The current item information. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayPreviousItemWithRequestBuilder(previousItemRequestDto: PreviousItemRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/PreviousItem"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: previousItemRequestDto)
+    open class func syncPlayPreviousItemWithRequestBuilder(syncPlayPreviousItemRequest: SyncPlayPreviousItemRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/PreviousItem"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayPreviousItemRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request to queue items to the playlist of a SyncPlay group.
      
-     - parameter queueRequestDto: (body) The items to add. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayQueueRequest: (body) The items to add. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayQueue(queueRequestDto: QueueRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayQueueWithRequestBuilder(queueRequestDto: queueRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayQueue(syncPlayQueueRequest: SyncPlayQueueRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayQueueWithRequestBuilder(syncPlayQueueRequest: syncPlayQueueRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -525,7 +568,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -533,41 +580,41 @@ open class SyncPlayAPI {
      Request to queue items to the playlist of a SyncPlay group.
      - POST /SyncPlay/Queue
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter queueRequestDto: (body) The items to add. 
+     - parameter syncPlayQueueRequest: (body) The items to add. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayQueueWithRequestBuilder(queueRequestDto: QueueRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Queue"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: queueRequestDto)
+    open class func syncPlayQueueWithRequestBuilder(syncPlayQueueRequest: SyncPlayQueueRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/Queue"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayQueueRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Notify SyncPlay group that member is ready for playback.
      
-     - parameter readyRequestDto: (body) The player status. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayReadyRequest: (body) The player status. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayReady(readyRequestDto: ReadyRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayReadyWithRequestBuilder(readyRequestDto: readyRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayReady(syncPlayReadyRequest: SyncPlayReadyRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayReadyWithRequestBuilder(syncPlayReadyRequest: syncPlayReadyRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -575,7 +622,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -583,41 +634,41 @@ open class SyncPlayAPI {
      Notify SyncPlay group that member is ready for playback.
      - POST /SyncPlay/Ready
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter readyRequestDto: (body) The player status. 
+     - parameter syncPlayReadyRequest: (body) The player status. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayReadyWithRequestBuilder(readyRequestDto: ReadyRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Ready"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: readyRequestDto)
+    open class func syncPlayReadyWithRequestBuilder(syncPlayReadyRequest: SyncPlayReadyRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/Ready"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayReadyRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request to remove items from the playlist in SyncPlay group.
      
-     - parameter removeFromPlaylistRequestDto: (body) The items to remove. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlayRemoveFromPlaylistRequest: (body) The items to remove. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayRemoveFromPlaylist(removeFromPlaylistRequestDto: RemoveFromPlaylistRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayRemoveFromPlaylistWithRequestBuilder(removeFromPlaylistRequestDto: removeFromPlaylistRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayRemoveFromPlaylist(syncPlayRemoveFromPlaylistRequest: SyncPlayRemoveFromPlaylistRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayRemoveFromPlaylistWithRequestBuilder(syncPlayRemoveFromPlaylistRequest: syncPlayRemoveFromPlaylistRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -625,7 +676,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -633,41 +688,41 @@ open class SyncPlayAPI {
      Request to remove items from the playlist in SyncPlay group.
      - POST /SyncPlay/RemoveFromPlaylist
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter removeFromPlaylistRequestDto: (body) The items to remove. 
+     - parameter syncPlayRemoveFromPlaylistRequest: (body) The items to remove. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlayRemoveFromPlaylistWithRequestBuilder(removeFromPlaylistRequestDto: RemoveFromPlaylistRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/RemoveFromPlaylist"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: removeFromPlaylistRequestDto)
+    open class func syncPlayRemoveFromPlaylistWithRequestBuilder(syncPlayRemoveFromPlaylistRequest: SyncPlayRemoveFromPlaylistRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/RemoveFromPlaylist"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlayRemoveFromPlaylistRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request seek in SyncPlay group.
      
-     - parameter seekRequestDto: (body) The new playback position. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlaySeekRequest: (body) The new playback position. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlaySeek(seekRequestDto: SeekRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlaySeekWithRequestBuilder(seekRequestDto: seekRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlaySeek(syncPlaySeekRequest: SyncPlaySeekRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlaySeekWithRequestBuilder(syncPlaySeekRequest: syncPlaySeekRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -675,7 +730,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -683,41 +742,41 @@ open class SyncPlayAPI {
      Request seek in SyncPlay group.
      - POST /SyncPlay/Seek
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter seekRequestDto: (body) The new playback position. 
+     - parameter syncPlaySeekRequest: (body) The new playback position. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlaySeekWithRequestBuilder(seekRequestDto: SeekRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Seek"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: seekRequestDto)
+    open class func syncPlaySeekWithRequestBuilder(syncPlaySeekRequest: SyncPlaySeekRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/Seek"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlaySeekRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request SyncPlay group to ignore member during group-wait.
      
-     - parameter ignoreWaitRequestDto: (body) The settings to set. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlaySetIgnoreWaitRequest: (body) The settings to set. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlaySetIgnoreWait(ignoreWaitRequestDto: IgnoreWaitRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlaySetIgnoreWaitWithRequestBuilder(ignoreWaitRequestDto: ignoreWaitRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlaySetIgnoreWait(syncPlaySetIgnoreWaitRequest: SyncPlaySetIgnoreWaitRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlaySetIgnoreWaitWithRequestBuilder(syncPlaySetIgnoreWaitRequest: syncPlaySetIgnoreWaitRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -725,7 +784,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -733,41 +796,41 @@ open class SyncPlayAPI {
      Request SyncPlay group to ignore member during group-wait.
      - POST /SyncPlay/SetIgnoreWait
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter ignoreWaitRequestDto: (body) The settings to set. 
+     - parameter syncPlaySetIgnoreWaitRequest: (body) The settings to set. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlaySetIgnoreWaitWithRequestBuilder(ignoreWaitRequestDto: IgnoreWaitRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/SetIgnoreWait"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: ignoreWaitRequestDto)
+    open class func syncPlaySetIgnoreWaitWithRequestBuilder(syncPlaySetIgnoreWaitRequest: SyncPlaySetIgnoreWaitRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/SetIgnoreWait"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlaySetIgnoreWaitRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request to set new playlist in SyncPlay group.
      
-     - parameter playRequestDto: (body) The new playlist to play in the group. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlaySetNewQueueRequest: (body) The new playlist to play in the group. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlaySetNewQueue(playRequestDto: PlayRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlaySetNewQueueWithRequestBuilder(playRequestDto: playRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlaySetNewQueue(syncPlaySetNewQueueRequest: SyncPlaySetNewQueueRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlaySetNewQueueWithRequestBuilder(syncPlaySetNewQueueRequest: syncPlaySetNewQueueRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -775,7 +838,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -783,41 +850,41 @@ open class SyncPlayAPI {
      Request to set new playlist in SyncPlay group.
      - POST /SyncPlay/SetNewQueue
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter playRequestDto: (body) The new playlist to play in the group. 
+     - parameter syncPlaySetNewQueueRequest: (body) The new playlist to play in the group. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlaySetNewQueueWithRequestBuilder(playRequestDto: PlayRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/SetNewQueue"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: playRequestDto)
+    open class func syncPlaySetNewQueueWithRequestBuilder(syncPlaySetNewQueueRequest: SyncPlaySetNewQueueRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/SetNewQueue"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlaySetNewQueueRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request to change playlist item in SyncPlay group.
      
-     - parameter setPlaylistItemRequestDto: (body) The new item to play. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlaySetPlaylistItemRequest: (body) The new item to play. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlaySetPlaylistItem(setPlaylistItemRequestDto: SetPlaylistItemRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlaySetPlaylistItemWithRequestBuilder(setPlaylistItemRequestDto: setPlaylistItemRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlaySetPlaylistItem(syncPlaySetPlaylistItemRequest: SyncPlaySetPlaylistItemRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlaySetPlaylistItemWithRequestBuilder(syncPlaySetPlaylistItemRequest: syncPlaySetPlaylistItemRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -825,7 +892,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -833,41 +904,41 @@ open class SyncPlayAPI {
      Request to change playlist item in SyncPlay group.
      - POST /SyncPlay/SetPlaylistItem
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter setPlaylistItemRequestDto: (body) The new item to play. 
+     - parameter syncPlaySetPlaylistItemRequest: (body) The new item to play. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlaySetPlaylistItemWithRequestBuilder(setPlaylistItemRequestDto: SetPlaylistItemRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/SetPlaylistItem"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: setPlaylistItemRequestDto)
+    open class func syncPlaySetPlaylistItemWithRequestBuilder(syncPlaySetPlaylistItemRequest: SyncPlaySetPlaylistItemRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/SetPlaylistItem"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlaySetPlaylistItemRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request to set repeat mode in SyncPlay group.
      
-     - parameter setRepeatModeRequestDto: (body) The new repeat mode. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlaySetRepeatModeRequest: (body) The new repeat mode. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlaySetRepeatMode(setRepeatModeRequestDto: SetRepeatModeRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlaySetRepeatModeWithRequestBuilder(setRepeatModeRequestDto: setRepeatModeRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlaySetRepeatMode(syncPlaySetRepeatModeRequest: SyncPlaySetRepeatModeRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlaySetRepeatModeWithRequestBuilder(syncPlaySetRepeatModeRequest: syncPlaySetRepeatModeRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -875,7 +946,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -883,41 +958,41 @@ open class SyncPlayAPI {
      Request to set repeat mode in SyncPlay group.
      - POST /SyncPlay/SetRepeatMode
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter setRepeatModeRequestDto: (body) The new repeat mode. 
+     - parameter syncPlaySetRepeatModeRequest: (body) The new repeat mode. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlaySetRepeatModeWithRequestBuilder(setRepeatModeRequestDto: SetRepeatModeRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/SetRepeatMode"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: setRepeatModeRequestDto)
+    open class func syncPlaySetRepeatModeWithRequestBuilder(syncPlaySetRepeatModeRequest: SyncPlaySetRepeatModeRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/SetRepeatMode"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlaySetRepeatModeRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request to set shuffle mode in SyncPlay group.
      
-     - parameter setShuffleModeRequestDto: (body) The new shuffle mode. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter syncPlaySetShuffleModeRequest: (body) The new shuffle mode. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlaySetShuffleMode(setShuffleModeRequestDto: SetShuffleModeRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlaySetShuffleModeWithRequestBuilder(setShuffleModeRequestDto: setShuffleModeRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlaySetShuffleMode(syncPlaySetShuffleModeRequest: SyncPlaySetShuffleModeRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlaySetShuffleModeWithRequestBuilder(syncPlaySetShuffleModeRequest: syncPlaySetShuffleModeRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -925,7 +1000,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -933,40 +1012,40 @@ open class SyncPlayAPI {
      Request to set shuffle mode in SyncPlay group.
      - POST /SyncPlay/SetShuffleMode
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter setShuffleModeRequestDto: (body) The new shuffle mode. 
+     - parameter syncPlaySetShuffleModeRequest: (body) The new shuffle mode. 
      - returns: RequestBuilder<Void> 
      */
-    open class func syncPlaySetShuffleModeWithRequestBuilder(setShuffleModeRequestDto: SetShuffleModeRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/SetShuffleMode"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: setShuffleModeRequestDto)
+    open class func syncPlaySetShuffleModeWithRequestBuilder(syncPlaySetShuffleModeRequest: SyncPlaySetShuffleModeRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/SyncPlay/SetShuffleMode"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: syncPlaySetShuffleModeRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request stop in SyncPlay group.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayStop(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayStopWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayStop() -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayStopWithRequestBuilder().execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -974,7 +1053,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -982,39 +1065,39 @@ open class SyncPlayAPI {
      Request stop in SyncPlay group.
      - POST /SyncPlay/Stop
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<Void> 
      */
     open class func syncPlayStopWithRequestBuilder() -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Stop"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/SyncPlay/Stop"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Request unpause in SyncPlay group.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func syncPlayUnpause(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            syncPlayUnpauseWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func syncPlayUnpause() -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = syncPlayUnpauseWithRequestBuilder().execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -1022,7 +1105,11 @@ open class SyncPlayAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1030,26 +1117,25 @@ open class SyncPlayAPI {
      Request unpause in SyncPlay group.
      - POST /SyncPlay/Unpause
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<Void> 
      */
     open class func syncPlayUnpauseWithRequestBuilder() -> RequestBuilder<Void> {
-        let urlPath = "/SyncPlay/Unpause"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/SyncPlay/Unpause"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

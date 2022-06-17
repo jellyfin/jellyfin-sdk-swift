@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Defines the MediaBrowser.Model.Dlna.XmlAttribute. */
-public struct XmlAttribute: Codable, Hashable {
+public struct XmlAttribute: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name of the attribute. */
     public var name: String?

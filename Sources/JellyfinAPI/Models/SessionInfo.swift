@@ -11,14 +11,14 @@ import AnyCodable
 #endif
 
 /** Class SessionInfo. */
-public struct SessionInfo: Codable, Hashable {
+public struct SessionInfo: Codable, JSONEncodable, Hashable {
 
-    public var playState: PlayerStateInfo?
+    public var playState: SessionInfoPlayState?
     public var additionalUsers: [SessionUserInfo]?
-    public var capabilities: ClientCapabilities?
+    public var capabilities: SessionInfoCapabilities?
     /** Gets or sets the remote end point. */
     public var remoteEndPoint: String?
-    /** Gets or sets the playable media types. */
+    /** Gets the playable media types. */
     public var playableMediaTypes: [String]?
     /** Gets or sets the id. */
     public var id: String?
@@ -36,27 +36,28 @@ public struct SessionInfo: Codable, Hashable {
     public var deviceName: String?
     /** Gets or sets the type of the device. */
     public var deviceType: String?
-    public var nowPlayingItem: BaseItemDto?
-    public var fullNowPlayingItem: BaseItem?
-    public var nowViewingItem: BaseItemDto?
+    public var nowPlayingItem: SessionInfoNowPlayingItem?
+    public var fullNowPlayingItem: SessionInfoFullNowPlayingItem?
+    public var nowViewingItem: SessionInfoNowViewingItem?
     /** Gets or sets the device id. */
     public var deviceId: String?
     /** Gets or sets the application version. */
     public var applicationVersion: String?
-    public var transcodingInfo: TranscodingInfo?
+    public var transcodingInfo: SessionInfoTranscodingInfo?
     /** Gets a value indicating whether this instance is active. */
     public var isActive: Bool?
     public var supportsMediaControl: Bool?
     public var supportsRemoteControl: Bool?
     public var nowPlayingQueue: [QueueItem]?
+    public var nowPlayingQueueFullItems: [BaseItemDto]?
     public var hasCustomDeviceName: Bool?
     public var playlistItemId: String?
     public var serverId: String?
     public var userPrimaryImageTag: String?
-    /** Gets or sets the supported commands. */
+    /** Gets the supported commands. */
     public var supportedCommands: [GeneralCommandType]?
 
-    public init(playState: PlayerStateInfo? = nil, additionalUsers: [SessionUserInfo]? = nil, capabilities: ClientCapabilities? = nil, remoteEndPoint: String? = nil, playableMediaTypes: [String]? = nil, id: String? = nil, userId: String? = nil, userName: String? = nil, client: String? = nil, lastActivityDate: Date? = nil, lastPlaybackCheckIn: Date? = nil, deviceName: String? = nil, deviceType: String? = nil, nowPlayingItem: BaseItemDto? = nil, fullNowPlayingItem: BaseItem? = nil, nowViewingItem: BaseItemDto? = nil, deviceId: String? = nil, applicationVersion: String? = nil, transcodingInfo: TranscodingInfo? = nil, isActive: Bool? = nil, supportsMediaControl: Bool? = nil, supportsRemoteControl: Bool? = nil, nowPlayingQueue: [QueueItem]? = nil, hasCustomDeviceName: Bool? = nil, playlistItemId: String? = nil, serverId: String? = nil, userPrimaryImageTag: String? = nil, supportedCommands: [GeneralCommandType]? = nil) {
+    public init(playState: SessionInfoPlayState? = nil, additionalUsers: [SessionUserInfo]? = nil, capabilities: SessionInfoCapabilities? = nil, remoteEndPoint: String? = nil, playableMediaTypes: [String]? = nil, id: String? = nil, userId: String? = nil, userName: String? = nil, client: String? = nil, lastActivityDate: Date? = nil, lastPlaybackCheckIn: Date? = nil, deviceName: String? = nil, deviceType: String? = nil, nowPlayingItem: SessionInfoNowPlayingItem? = nil, fullNowPlayingItem: SessionInfoFullNowPlayingItem? = nil, nowViewingItem: SessionInfoNowViewingItem? = nil, deviceId: String? = nil, applicationVersion: String? = nil, transcodingInfo: SessionInfoTranscodingInfo? = nil, isActive: Bool? = nil, supportsMediaControl: Bool? = nil, supportsRemoteControl: Bool? = nil, nowPlayingQueue: [QueueItem]? = nil, nowPlayingQueueFullItems: [BaseItemDto]? = nil, hasCustomDeviceName: Bool? = nil, playlistItemId: String? = nil, serverId: String? = nil, userPrimaryImageTag: String? = nil, supportedCommands: [GeneralCommandType]? = nil) {
         self.playState = playState
         self.additionalUsers = additionalUsers
         self.capabilities = capabilities
@@ -80,6 +81,7 @@ public struct SessionInfo: Codable, Hashable {
         self.supportsMediaControl = supportsMediaControl
         self.supportsRemoteControl = supportsRemoteControl
         self.nowPlayingQueue = nowPlayingQueue
+        self.nowPlayingQueueFullItems = nowPlayingQueueFullItems
         self.hasCustomDeviceName = hasCustomDeviceName
         self.playlistItemId = playlistItemId
         self.serverId = serverId
@@ -111,6 +113,7 @@ public struct SessionInfo: Codable, Hashable {
         case supportsMediaControl = "SupportsMediaControl"
         case supportsRemoteControl = "SupportsRemoteControl"
         case nowPlayingQueue = "NowPlayingQueue"
+        case nowPlayingQueueFullItems = "NowPlayingQueueFullItems"
         case hasCustomDeviceName = "HasCustomDeviceName"
         case playlistItemId = "PlaylistItemId"
         case serverId = "ServerId"
@@ -145,6 +148,7 @@ public struct SessionInfo: Codable, Hashable {
         try encoderContainer.encodeIfPresent(supportsMediaControl, forKey: .supportsMediaControl)
         try encoderContainer.encodeIfPresent(supportsRemoteControl, forKey: .supportsRemoteControl)
         try encoderContainer.encodeIfPresent(nowPlayingQueue, forKey: .nowPlayingQueue)
+        try encoderContainer.encodeIfPresent(nowPlayingQueueFullItems, forKey: .nowPlayingQueueFullItems)
         try encoderContainer.encodeIfPresent(hasCustomDeviceName, forKey: .hasCustomDeviceName)
         try encoderContainer.encodeIfPresent(playlistItemId, forKey: .playlistItemId)
         try encoderContainer.encodeIfPresent(serverId, forKey: .serverId)

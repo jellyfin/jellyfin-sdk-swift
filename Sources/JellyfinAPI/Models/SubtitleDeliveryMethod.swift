@@ -10,9 +10,11 @@ import Foundation
 import AnyCodable
 #endif
 
+/** Delivery method to use during playback of a specific subtitle format. */
 public enum SubtitleDeliveryMethod: String, Codable, CaseIterable {
     case encode = "Encode"
     case embed = "Embed"
     case external = "External"
     case hls = "Hls"
+    case drop = "Drop"
 }

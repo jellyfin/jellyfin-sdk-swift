@@ -5,26 +5,29 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class SessionAPI {
+
     /**
      Adds an additional user to a session.
      
      - parameter sessionId: (path) The session id. 
      - parameter userId: (path) The user id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func addUserToSession(sessionId: String, userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            addUserToSessionWithRequestBuilder(sessionId: sessionId, userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func addUserToSession(sessionId: String, userId: String) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = addUserToSessionWithRequestBuilder(sessionId: sessionId, userId: userId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -32,7 +35,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -40,34 +47,34 @@ open class SessionAPI {
      Adds an additional user to a session.
      - POST /Sessions/{sessionId}/User/{userId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
      - parameter userId: (path) The user id. 
      - returns: RequestBuilder<Void> 
      */
     open class func addUserToSessionWithRequestBuilder(sessionId: String, userId: String) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/User/{userId}"
+        var localVariablePath = "/Sessions/{sessionId}/User/{userId}"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -77,14 +84,14 @@ open class SessionAPI {
      - parameter itemType: (query) The type of item to browse to. 
      - parameter itemId: (query) The Id of the item. 
      - parameter itemName: (query) The name of the item. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func displayContent(sessionId: String, itemType: String, itemId: String, itemName: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            displayContentWithRequestBuilder(sessionId: sessionId, itemType: itemType, itemId: itemId, itemName: itemName).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func displayContent(sessionId: String, itemType: BaseItemKind, itemId: String, itemName: String) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = displayContentWithRequestBuilder(sessionId: sessionId, itemType: itemType, itemId: itemId, itemName: itemName).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -92,7 +99,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -100,7 +111,7 @@ open class SessionAPI {
      Instructs a session to browse to an item or view.
      - POST /Sessions/{sessionId}/Viewing
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session Id. 
      - parameter itemType: (query) The type of item to browse to. 
@@ -108,51 +119,55 @@ open class SessionAPI {
      - parameter itemName: (query) The name of the item. 
      - returns: RequestBuilder<Void> 
      */
-    open class func displayContentWithRequestBuilder(sessionId: String, itemType: String, itemId: String, itemName: String) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/Viewing"
+    open class func displayContentWithRequestBuilder(sessionId: String, itemType: BaseItemKind, itemId: String, itemName: String) -> RequestBuilder<Void> {
+        var localVariablePath = "/Sessions/{sessionId}/Viewing"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "itemType": itemType.encodeToJSON(),
             "itemId": itemId.encodeToJSON(),
             "itemName": itemName.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get all auth providers.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[NameIdPair], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getAuthProviders(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[NameIdPair], Error> {
-        return Future<[NameIdPair], Error>.init { promise in
-            getAuthProvidersWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getAuthProviders() -> AnyPublisher<[NameIdPair], Error> {
+        var requestTask: RequestTask?
+        return Future<[NameIdPair], Error> { promise in
+            requestTask = getAuthProvidersWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -160,47 +175,51 @@ open class SessionAPI {
      Get all auth providers.
      - GET /Auth/Providers
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[NameIdPair]> 
      */
     open class func getAuthProvidersWithRequestBuilder() -> RequestBuilder<[NameIdPair]> {
-        let urlPath = "/Auth/Providers"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Auth/Providers"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[NameIdPair]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[NameIdPair]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get all password reset providers.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[NameIdPair], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPasswordResetProviders(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[NameIdPair], Error> {
-        return Future<[NameIdPair], Error>.init { promise in
-            getPasswordResetProvidersWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getPasswordResetProviders() -> AnyPublisher<[NameIdPair], Error> {
+        var requestTask: RequestTask?
+        return Future<[NameIdPair], Error> { promise in
+            requestTask = getPasswordResetProvidersWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -208,26 +227,26 @@ open class SessionAPI {
      Get all password reset providers.
      - GET /Auth/PasswordResetProviders
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[NameIdPair]> 
      */
     open class func getPasswordResetProvidersWithRequestBuilder() -> RequestBuilder<[NameIdPair]> {
-        let urlPath = "/Auth/PasswordResetProviders"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Auth/PasswordResetProviders"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[NameIdPair]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[NameIdPair]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -236,22 +255,26 @@ open class SessionAPI {
      - parameter controllableByUserId: (query) Filter by sessions that a given user is allowed to remote control. (optional)
      - parameter deviceId: (query) Filter by device Id. (optional)
      - parameter activeWithinSeconds: (query) Optional. Filter by sessions that were active in the last n seconds. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[SessionInfo], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSessions(controllableByUserId: String? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[SessionInfo], Error> {
-        return Future<[SessionInfo], Error>.init { promise in
-            getSessionsWithRequestBuilder(controllableByUserId: controllableByUserId, deviceId: deviceId, activeWithinSeconds: activeWithinSeconds).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getSessions(controllableByUserId: String? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil) -> AnyPublisher<[SessionInfo], Error> {
+        var requestTask: RequestTask?
+        return Future<[SessionInfo], Error> { promise in
+            requestTask = getSessionsWithRequestBuilder(controllableByUserId: controllableByUserId, deviceId: deviceId, activeWithinSeconds: activeWithinSeconds).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -259,7 +282,7 @@ open class SessionAPI {
      Gets a list of sessions.
      - GET /Sessions
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter controllableByUserId: (query) Filter by sessions that a given user is allowed to remote control. (optional)
      - parameter deviceId: (query) Filter by device Id. (optional)
@@ -267,26 +290,26 @@ open class SessionAPI {
      - returns: RequestBuilder<[SessionInfo]> 
      */
     open class func getSessionsWithRequestBuilder(controllableByUserId: String? = nil, deviceId: String? = nil, activeWithinSeconds: Int? = nil) -> RequestBuilder<[SessionInfo]> {
-        let urlPath = "/Sessions"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Sessions"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "controllableByUserId": controllableByUserId?.encodeToJSON(),
             "deviceId": deviceId?.encodeToJSON(),
             "activeWithinSeconds": activeWithinSeconds?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[SessionInfo]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[SessionInfo]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -300,14 +323,14 @@ open class SessionAPI {
      - parameter audioStreamIndex: (query) Optional. The index of the audio stream to play. (optional)
      - parameter subtitleStreamIndex: (query) Optional. The index of the subtitle stream to play. (optional)
      - parameter startIndex: (query) Optional. The start index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [String], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            playWithRequestBuilder(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks, mediaSourceId: mediaSourceId, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, startIndex: startIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func play(sessionId: String, playCommand: PlayCommand, itemIds: [String], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = playWithRequestBuilder(sessionId: sessionId, playCommand: playCommand, itemIds: itemIds, startPositionTicks: startPositionTicks, mediaSourceId: mediaSourceId, audioStreamIndex: audioStreamIndex, subtitleStreamIndex: subtitleStreamIndex, startIndex: startIndex).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -315,7 +338,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -323,7 +350,7 @@ open class SessionAPI {
      Instructs a session to play an item.
      - POST /Sessions/{sessionId}/Playing
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
      - parameter playCommand: (query) The type of play command to issue (PlayNow, PlayNext, PlayLast). Clients who have not yet implemented play next and play last may play now. 
@@ -336,15 +363,15 @@ open class SessionAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func playWithRequestBuilder(sessionId: String, playCommand: PlayCommand, itemIds: [String], startPositionTicks: Int64? = nil, mediaSourceId: String? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, startIndex: Int? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/Playing"
+        var localVariablePath = "/Sessions/{sessionId}/Playing"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "playCommand": playCommand.encodeToJSON(),
             "itemIds": itemIds.encodeToJSON(),
             "startPositionTicks": startPositionTicks?.encodeToJSON(),
@@ -354,15 +381,15 @@ open class SessionAPI {
             "startIndex": startIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -374,14 +401,14 @@ open class SessionAPI {
      - parameter supportsMediaControl: (query) Determines whether media can be played remotely.. (optional, default to false)
      - parameter supportsSync: (query) Determines whether sync is supported. (optional, default to false)
      - parameter supportsPersistentIdentifier: (query) Determines whether the device supports a unique identifier. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func postCapabilities(id: String? = nil, playableMediaTypes: [String]? = nil, supportedCommands: [GeneralCommandType]? = nil, supportsMediaControl: Bool? = nil, supportsSync: Bool? = nil, supportsPersistentIdentifier: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            postCapabilitiesWithRequestBuilder(id: id, playableMediaTypes: playableMediaTypes, supportedCommands: supportedCommands, supportsMediaControl: supportsMediaControl, supportsSync: supportsSync, supportsPersistentIdentifier: supportsPersistentIdentifier).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func postCapabilities(id: String? = nil, playableMediaTypes: [String]? = nil, supportedCommands: [GeneralCommandType]? = nil, supportsMediaControl: Bool? = nil, supportsSync: Bool? = nil, supportsPersistentIdentifier: Bool? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = postCapabilitiesWithRequestBuilder(id: id, playableMediaTypes: playableMediaTypes, supportedCommands: supportedCommands, supportsMediaControl: supportsMediaControl, supportsSync: supportsSync, supportsPersistentIdentifier: supportsPersistentIdentifier).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -389,7 +416,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -397,7 +428,7 @@ open class SessionAPI {
      Updates capabilities for a device.
      - POST /Sessions/Capabilities
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter id: (query) The session id. (optional)
      - parameter playableMediaTypes: (query) A list of playable media types, comma delimited. Audio, Video, Book, Photo. (optional)
@@ -408,12 +439,12 @@ open class SessionAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func postCapabilitiesWithRequestBuilder(id: String? = nil, playableMediaTypes: [String]? = nil, supportedCommands: [GeneralCommandType]? = nil, supportsMediaControl: Bool? = nil, supportsSync: Bool? = nil, supportsPersistentIdentifier: Bool? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Sessions/Capabilities"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Sessions/Capabilities"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "id": id?.encodeToJSON(),
             "playableMediaTypes": playableMediaTypes?.encodeToJSON(),
             "supportedCommands": supportedCommands?.encodeToJSON(),
@@ -422,30 +453,30 @@ open class SessionAPI {
             "supportsPersistentIdentifier": supportsPersistentIdentifier?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Updates capabilities for a device.
      
-     - parameter clientCapabilitiesDto: (body) The MediaBrowser.Model.Session.ClientCapabilities. 
+     - parameter postFullCapabilitiesRequest: (body) The MediaBrowser.Model.Session.ClientCapabilities. 
      - parameter id: (query) The session id. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func postFullCapabilities(clientCapabilitiesDto: ClientCapabilitiesDto, id: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            postFullCapabilitiesWithRequestBuilder(clientCapabilitiesDto: clientCapabilitiesDto, id: id).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func postFullCapabilities(postFullCapabilitiesRequest: PostFullCapabilitiesRequest, id: String? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = postFullCapabilitiesWithRequestBuilder(postFullCapabilitiesRequest: postFullCapabilitiesRequest, id: id).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -453,7 +484,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -461,31 +496,31 @@ open class SessionAPI {
      Updates capabilities for a device.
      - POST /Sessions/Capabilities/Full
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter clientCapabilitiesDto: (body) The MediaBrowser.Model.Session.ClientCapabilities. 
+     - parameter postFullCapabilitiesRequest: (body) The MediaBrowser.Model.Session.ClientCapabilities. 
      - parameter id: (query) The session id. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func postFullCapabilitiesWithRequestBuilder(clientCapabilitiesDto: ClientCapabilitiesDto, id: String? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Sessions/Capabilities/Full"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: clientCapabilitiesDto)
+    open class func postFullCapabilitiesWithRequestBuilder(postFullCapabilitiesRequest: PostFullCapabilitiesRequest, id: String? = nil) -> RequestBuilder<Void> {
+        let localVariablePath = "/Sessions/Capabilities/Full"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: postFullCapabilitiesRequest)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "id": id?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -493,14 +528,14 @@ open class SessionAPI {
      
      - parameter sessionId: (path) The session id. 
      - parameter userId: (path) The user id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func removeUserFromSession(sessionId: String, userId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            removeUserFromSessionWithRequestBuilder(sessionId: sessionId, userId: userId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func removeUserFromSession(sessionId: String, userId: String) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = removeUserFromSessionWithRequestBuilder(sessionId: sessionId, userId: userId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -508,7 +543,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -516,47 +555,47 @@ open class SessionAPI {
      Removes an additional user from a session.
      - DELETE /Sessions/{sessionId}/User/{userId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
      - parameter userId: (path) The user id. 
      - returns: RequestBuilder<Void> 
      */
     open class func removeUserFromSessionWithRequestBuilder(sessionId: String, userId: String) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/User/{userId}"
+        var localVariablePath = "/Sessions/{sessionId}/User/{userId}"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Reports that a session has ended.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func reportSessionEnded(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            reportSessionEndedWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func reportSessionEnded() -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = reportSessionEndedWithRequestBuilder().execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -564,7 +603,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -572,26 +615,26 @@ open class SessionAPI {
      Reports that a session has ended.
      - POST /Sessions/Logout
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<Void> 
      */
     open class func reportSessionEndedWithRequestBuilder() -> RequestBuilder<Void> {
-        let urlPath = "/Sessions/Logout"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Sessions/Logout"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -599,14 +642,14 @@ open class SessionAPI {
      
      - parameter itemId: (query) The item id. 
      - parameter sessionId: (query) The session id. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func reportViewing(itemId: String, sessionId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            reportViewingWithRequestBuilder(itemId: itemId, sessionId: sessionId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func reportViewing(itemId: String, sessionId: String? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = reportViewingWithRequestBuilder(itemId: itemId, sessionId: sessionId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -614,7 +657,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -622,47 +669,47 @@ open class SessionAPI {
      Reports that a session is viewing an item.
      - POST /Sessions/Viewing
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (query) The item id. 
      - parameter sessionId: (query) The session id. (optional)
      - returns: RequestBuilder<Void> 
      */
     open class func reportViewingWithRequestBuilder(itemId: String, sessionId: String? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Sessions/Viewing"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Sessions/Viewing"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "sessionId": sessionId?.encodeToJSON(),
             "itemId": itemId.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Issues a full general command to a client.
      
      - parameter sessionId: (path) The session id. 
-     - parameter generalCommand: (body) The MediaBrowser.Model.Session.GeneralCommand. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter sendFullGeneralCommandRequest: (body) The MediaBrowser.Model.Session.GeneralCommand. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func sendFullGeneralCommand(sessionId: String, generalCommand: GeneralCommand, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            sendFullGeneralCommandWithRequestBuilder(sessionId: sessionId, generalCommand: generalCommand).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func sendFullGeneralCommand(sessionId: String, sendFullGeneralCommandRequest: SendFullGeneralCommandRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = sendFullGeneralCommandWithRequestBuilder(sessionId: sessionId, sendFullGeneralCommandRequest: sendFullGeneralCommandRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -670,7 +717,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -678,31 +729,31 @@ open class SessionAPI {
      Issues a full general command to a client.
      - POST /Sessions/{sessionId}/Command
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
-     - parameter generalCommand: (body) The MediaBrowser.Model.Session.GeneralCommand. 
+     - parameter sendFullGeneralCommandRequest: (body) The MediaBrowser.Model.Session.GeneralCommand. 
      - returns: RequestBuilder<Void> 
      */
-    open class func sendFullGeneralCommandWithRequestBuilder(sessionId: String, generalCommand: GeneralCommand) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/Command"
+    open class func sendFullGeneralCommandWithRequestBuilder(sessionId: String, sendFullGeneralCommandRequest: SendFullGeneralCommandRequest) -> RequestBuilder<Void> {
+        var localVariablePath = "/Sessions/{sessionId}/Command"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: generalCommand)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: sendFullGeneralCommandRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -710,14 +761,14 @@ open class SessionAPI {
      
      - parameter sessionId: (path) The session id. 
      - parameter command: (path) The command to send. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func sendGeneralCommand(sessionId: String, command: GeneralCommandType, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            sendGeneralCommandWithRequestBuilder(sessionId: sessionId, command: command).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func sendGeneralCommand(sessionId: String, command: GeneralCommandType) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = sendGeneralCommandWithRequestBuilder(sessionId: sessionId, command: command).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -725,7 +776,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -733,49 +788,49 @@ open class SessionAPI {
      Issues a general command to a client.
      - POST /Sessions/{sessionId}/Command/{command}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
      - parameter command: (path) The command to send. 
      - returns: RequestBuilder<Void> 
      */
     open class func sendGeneralCommandWithRequestBuilder(sessionId: String, command: GeneralCommandType) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/Command/{command}"
+        var localVariablePath = "/Sessions/{sessionId}/Command/{command}"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
         let commandPreEscape = "\(APIHelper.mapValueToPathItem(command))"
         let commandPostEscape = commandPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{command}", with: commandPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{command}", with: commandPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Issues a command to a client to display a message to the user.
      
      - parameter sessionId: (path) The session id. 
-     - parameter messageCommand: (body) The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter sendMessageCommandRequest: (body) The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func sendMessageCommand(sessionId: String, messageCommand: MessageCommand, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            sendMessageCommandWithRequestBuilder(sessionId: sessionId, messageCommand: messageCommand).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func sendMessageCommand(sessionId: String, sendMessageCommandRequest: SendMessageCommandRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = sendMessageCommandWithRequestBuilder(sessionId: sessionId, sendMessageCommandRequest: sendMessageCommandRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -783,7 +838,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -791,31 +850,31 @@ open class SessionAPI {
      Issues a command to a client to display a message to the user.
      - POST /Sessions/{sessionId}/Message
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
-     - parameter messageCommand: (body) The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. 
+     - parameter sendMessageCommandRequest: (body) The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. 
      - returns: RequestBuilder<Void> 
      */
-    open class func sendMessageCommandWithRequestBuilder(sessionId: String, messageCommand: MessageCommand) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/Message"
+    open class func sendMessageCommandWithRequestBuilder(sessionId: String, sendMessageCommandRequest: SendMessageCommandRequest) -> RequestBuilder<Void> {
+        var localVariablePath = "/Sessions/{sessionId}/Message"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: messageCommand)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: sendMessageCommandRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -825,14 +884,14 @@ open class SessionAPI {
      - parameter command: (path) The MediaBrowser.Model.Session.PlaystateCommand. 
      - parameter seekPositionTicks: (query) The optional position ticks. (optional)
      - parameter controllingUserId: (query) The optional controlling user id. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func sendPlaystateCommand(sessionId: String, command: PlaystateCommand, seekPositionTicks: Int64? = nil, controllingUserId: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            sendPlaystateCommandWithRequestBuilder(sessionId: sessionId, command: command, seekPositionTicks: seekPositionTicks, controllingUserId: controllingUserId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func sendPlaystateCommand(sessionId: String, command: PlaystateCommand, seekPositionTicks: Int64? = nil, controllingUserId: String? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = sendPlaystateCommandWithRequestBuilder(sessionId: sessionId, command: command, seekPositionTicks: seekPositionTicks, controllingUserId: controllingUserId).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -840,7 +899,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -848,7 +911,7 @@ open class SessionAPI {
      Issues a playstate command to a client.
      - POST /Sessions/{sessionId}/Playing/{command}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
      - parameter command: (path) The MediaBrowser.Model.Session.PlaystateCommand. 
@@ -857,31 +920,31 @@ open class SessionAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func sendPlaystateCommandWithRequestBuilder(sessionId: String, command: PlaystateCommand, seekPositionTicks: Int64? = nil, controllingUserId: String? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/Playing/{command}"
+        var localVariablePath = "/Sessions/{sessionId}/Playing/{command}"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
         let commandPreEscape = "\(APIHelper.mapValueToPathItem(command))"
         let commandPostEscape = commandPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{command}", with: commandPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{command}", with: commandPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "seekPositionTicks": seekPositionTicks?.encodeToJSON(),
             "controllingUserId": controllingUserId?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -889,14 +952,14 @@ open class SessionAPI {
      
      - parameter sessionId: (path) The session id. 
      - parameter command: (path) The command to send. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func sendSystemCommand(sessionId: String, command: GeneralCommandType, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            sendSystemCommandWithRequestBuilder(sessionId: sessionId, command: command).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func sendSystemCommand(sessionId: String, command: GeneralCommandType) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = sendSystemCommandWithRequestBuilder(sessionId: sessionId, command: command).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -904,7 +967,11 @@ open class SessionAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -912,34 +979,33 @@ open class SessionAPI {
      Issues a system command to a client.
      - POST /Sessions/{sessionId}/System/{command}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter sessionId: (path) The session id. 
      - parameter command: (path) The command to send. 
      - returns: RequestBuilder<Void> 
      */
     open class func sendSystemCommandWithRequestBuilder(sessionId: String, command: GeneralCommandType) -> RequestBuilder<Void> {
-        var urlPath = "/Sessions/{sessionId}/System/{command}"
+        var localVariablePath = "/Sessions/{sessionId}/System/{command}"
         let sessionIdPreEscape = "\(APIHelper.mapValueToPathItem(sessionId))"
         let sessionIdPostEscape = sessionIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{sessionId}", with: sessionIdPostEscape, options: .literal, range: nil)
         let commandPreEscape = "\(APIHelper.mapValueToPathItem(command))"
         let commandPostEscape = commandPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{command}", with: commandPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{command}", with: commandPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

@@ -11,12 +11,13 @@ import AnyCodable
 #endif
 
 /** The admin notification dto. */
-public struct AdminNotificationDto: Codable, Hashable {
+public struct AdminNotificationDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the notification name. */
     public var name: String?
     /** Gets or sets the notification description. */
     public var description: String?
+    /** Gets or sets the notification level. */
     public var notificationLevel: NotificationLevel?
     /** Gets or sets the notification url. */
     public var url: String?

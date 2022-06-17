@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct TypeOptions: Codable, Hashable {
+public struct TypeOptions: Codable, JSONEncodable, Hashable {
 
     public var type: String?
     public var metadataFetchers: [String]?

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class RemoteImageResult. */
-public struct RemoteImageResult: Codable, Hashable {
+public struct RemoteImageResult: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the images. */
     public var images: [RemoteImageInfo]?

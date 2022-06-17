@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct RemoteSearchResult: Codable, Hashable {
+public struct RemoteSearchResult: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
@@ -25,9 +25,8 @@ public struct RemoteSearchResult: Codable, Hashable {
     public var imageUrl: String?
     public var searchProviderName: String?
     public var overview: String?
-    public var artists: [RemoteSearchResult]?
 
-    public init(name: String? = nil, providerIds: [String: String]? = nil, productionYear: Int? = nil, indexNumber: Int? = nil, indexNumberEnd: Int? = nil, parentIndexNumber: Int? = nil, premiereDate: Date? = nil, imageUrl: String? = nil, searchProviderName: String? = nil, overview: String? = nil, artists: [RemoteSearchResult]? = nil) {
+    public init(name: String? = nil, providerIds: [String: String]? = nil, productionYear: Int? = nil, indexNumber: Int? = nil, indexNumberEnd: Int? = nil, parentIndexNumber: Int? = nil, premiereDate: Date? = nil, imageUrl: String? = nil, searchProviderName: String? = nil, overview: String? = nil) {
         self.name = name
         self.providerIds = providerIds
         self.productionYear = productionYear
@@ -38,7 +37,6 @@ public struct RemoteSearchResult: Codable, Hashable {
         self.imageUrl = imageUrl
         self.searchProviderName = searchProviderName
         self.overview = overview
-        self.artists = artists
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -52,7 +50,6 @@ public struct RemoteSearchResult: Codable, Hashable {
         case imageUrl = "ImageUrl"
         case searchProviderName = "SearchProviderName"
         case overview = "Overview"
-        case artists = "Artists"
     }
 
     // Encodable protocol methods
@@ -69,6 +66,5 @@ public struct RemoteSearchResult: Codable, Hashable {
         try encoderContainer.encodeIfPresent(imageUrl, forKey: .imageUrl)
         try encoderContainer.encodeIfPresent(searchProviderName, forKey: .searchProviderName)
         try encoderContainer.encodeIfPresent(overview, forKey: .overview)
-        try encoderContainer.encodeIfPresent(artists, forKey: .artists)
     }
 }

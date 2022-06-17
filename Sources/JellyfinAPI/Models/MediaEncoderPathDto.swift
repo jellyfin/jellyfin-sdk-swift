@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Media Encoder Path Dto. */
-public struct MediaEncoderPathDto: Codable, Hashable {
+public struct MediaEncoderPathDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets media encoder path. */
     public var path: String?

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class UserItemDataDto. */
-public struct UserItemDataDto: Codable, Hashable {
+public struct UserItemDataDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the rating. */
     public var rating: Double?

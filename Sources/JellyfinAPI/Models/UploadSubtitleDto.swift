@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Upload subtitles dto. */
-public struct UploadSubtitleDto: Codable, Hashable {
+public struct UploadSubtitleDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the subtitle language. */
     public var language: String

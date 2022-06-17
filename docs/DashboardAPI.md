@@ -1,6 +1,6 @@
 # DashboardAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -10,21 +10,20 @@ Method | HTTP request | Description
 
 # **getConfigurationPages**
 ```swift
-    open class func getConfigurationPages(enableInMainMenu: Bool? = nil, pageType: ConfigurationPageType? = nil, completion: @escaping (_ data: [ConfigurationPageInfo]?, _ error: Error?) -> Void)
+    open class func getConfigurationPages(enableInMainMenu: Bool? = nil, completion: @escaping (_ data: [ConfigurationPageInfo]?, _ error: Error?) -> Void)
 ```
 
 Gets the configuration pages.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let enableInMainMenu = true // Bool | Whether to enable in the main menu. (optional)
-let pageType = ConfigurationPageType() // ConfigurationPageType | The Jellyfin.Api.Models.ConfigurationPageInfo. (optional)
 
 // Gets the configuration pages.
-DashboardAPI.getConfigurationPages(enableInMainMenu: enableInMainMenu, pageType: pageType) { (response, error) in
+DashboardAPI.getConfigurationPages(enableInMainMenu: enableInMainMenu) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -41,7 +40,6 @@ DashboardAPI.getConfigurationPages(enableInMainMenu: enableInMainMenu, pageType:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **enableInMainMenu** | **Bool** | Whether to enable in the main menu. | [optional] 
- **pageType** | [**ConfigurationPageType**](.md) | The Jellyfin.Api.Models.ConfigurationPageInfo. | [optional] 
 
 ### Return type
 
@@ -49,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[CustomAuthentication](../README.md#CustomAuthentication)
 
 ### HTTP request headers
 
@@ -65,7 +63,7 @@ No authorization required
 
 Gets a dashboard configuration page.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI

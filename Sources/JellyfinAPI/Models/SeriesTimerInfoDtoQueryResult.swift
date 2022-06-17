@@ -10,13 +10,13 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct SeriesTimerInfoDtoQueryResult: Codable, Hashable {
+public struct SeriesTimerInfoDtoQueryResult: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the items. */
     public var items: [SeriesTimerInfoDto]?
-    /** The total number of records available. */
+    /** Gets or sets the total number of records available. */
     public var totalRecordCount: Int?
-    /** The index of the first record in Items. */
+    /** Gets or sets the index of the first record in Items. */
     public var startIndex: Int?
 
     public init(items: [SeriesTimerInfoDto]? = nil, totalRecordCount: Int? = nil, startIndex: Int? = nil) {

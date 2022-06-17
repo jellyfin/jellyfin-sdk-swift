@@ -10,16 +10,16 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct TrailerInfoRemoteSearchQuery: Codable, Hashable {
+public struct TrailerInfoRemoteSearchQuery: Codable, JSONEncodable, Hashable {
 
-    public var searchInfo: TrailerInfo?
+    public var searchInfo: TrailerInfoRemoteSearchQuerySearchInfo?
     public var itemId: String?
-    /** Will only search within the given provider when set. */
+    /** Gets or sets the provider name to search within if set. */
     public var searchProviderName: String?
     /** Gets or sets a value indicating whether disabled providers should be included. */
     public var includeDisabledProviders: Bool?
 
-    public init(searchInfo: TrailerInfo? = nil, itemId: String? = nil, searchProviderName: String? = nil, includeDisabledProviders: Bool? = nil) {
+    public init(searchInfo: TrailerInfoRemoteSearchQuerySearchInfo? = nil, itemId: String? = nil, searchProviderName: String? = nil, includeDisabledProviders: Bool? = nil) {
         self.searchInfo = searchInfo
         self.itemId = itemId
         self.searchProviderName = searchProviderName

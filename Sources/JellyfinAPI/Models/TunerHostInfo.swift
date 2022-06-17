@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct TunerHostInfo: Codable, Hashable {
+public struct TunerHostInfo: Codable, JSONEncodable, Hashable {
 
     public var id: String?
     public var url: String?

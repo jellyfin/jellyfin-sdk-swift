@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class PingRequestDto. */
-public struct PingRequestDto: Codable, Hashable {
+public struct PingRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the ping time. */
     public var ping: Int64?

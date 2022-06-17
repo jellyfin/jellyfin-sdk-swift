@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class LibrarySummary. */
-public struct ItemCounts: Codable, Hashable {
+public struct ItemCounts: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the movie count. */
     public var movieCount: Int?

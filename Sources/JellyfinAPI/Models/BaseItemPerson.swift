@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** This is used by the api to get information about a Person within a BaseItem. */
-public struct BaseItemPerson: Codable, Hashable {
+public struct BaseItemPerson: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?

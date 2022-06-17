@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Create new playlist dto. */
-public struct CreatePlaylistDto: Codable, Hashable {
+public struct CreatePlaylistDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name of the new playlist. */
     public var name: String?

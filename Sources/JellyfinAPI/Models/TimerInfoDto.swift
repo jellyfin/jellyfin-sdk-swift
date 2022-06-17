@@ -10,33 +10,33 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct TimerInfoDto: Codable, Hashable {
+public struct TimerInfoDto: Codable, JSONEncodable, Hashable {
 
-    /** Id of the recording. */
+    /** Gets or sets the Id of the recording. */
     public var id: String?
     public var type: String?
     /** Gets or sets the server identifier. */
     public var serverId: String?
     /** Gets or sets the external identifier. */
     public var externalId: String?
-    /** ChannelId of the recording. */
+    /** Gets or sets the channel id of the recording. */
     public var channelId: String?
     /** Gets or sets the external channel identifier. */
     public var externalChannelId: String?
-    /** ChannelName of the recording. */
+    /** Gets or sets the channel name of the recording. */
     public var channelName: String?
     public var channelPrimaryImageTag: String?
     /** Gets or sets the program identifier. */
     public var programId: String?
     /** Gets or sets the external program identifier. */
     public var externalProgramId: String?
-    /** Name of the recording. */
+    /** Gets or sets the name of the recording. */
     public var name: String?
-    /** Description of the recording. */
+    /** Gets or sets the description of the recording. */
     public var overview: String?
-    /** The start date of the recording, in UTC. */
+    /** Gets or sets the start date of the recording, in UTC. */
     public var startDate: Date?
-    /** The end date of the recording, in UTC. */
+    /** Gets or sets the end date of the recording, in UTC. */
     public var endDate: Date?
     /** Gets or sets the name of the service. */
     public var serviceName: String?
@@ -48,13 +48,14 @@ public struct TimerInfoDto: Codable, Hashable {
     public var postPaddingSeconds: Int?
     /** Gets or sets a value indicating whether this instance is pre padding required. */
     public var isPrePaddingRequired: Bool?
-    /** If the item does not have any backdrops, this will hold the Id of the Parent that has one. */
+    /** Gets or sets the Id of the Parent that has a backdrop if the item does not have one. */
     public var parentBackdropItemId: String?
     /** Gets or sets the parent backdrop image tags. */
     public var parentBackdropImageTags: [String]?
     /** Gets or sets a value indicating whether this instance is post padding required. */
     public var isPostPaddingRequired: Bool?
     public var keepUntil: KeepUntil?
+    /** Gets or sets the status. */
     public var status: RecordingStatus?
     /** Gets or sets the series timer identifier. */
     public var seriesTimerId: String?
@@ -62,9 +63,9 @@ public struct TimerInfoDto: Codable, Hashable {
     public var externalSeriesTimerId: String?
     /** Gets or sets the run time ticks. */
     public var runTimeTicks: Int64?
-    public var programInfo: BaseItemDto?
+    public var programInfo: TimerInfoDtoProgramInfo?
 
-    public init(id: String? = nil, type: String? = nil, serverId: String? = nil, externalId: String? = nil, channelId: String? = nil, externalChannelId: String? = nil, channelName: String? = nil, channelPrimaryImageTag: String? = nil, programId: String? = nil, externalProgramId: String? = nil, name: String? = nil, overview: String? = nil, startDate: Date? = nil, endDate: Date? = nil, serviceName: String? = nil, priority: Int? = nil, prePaddingSeconds: Int? = nil, postPaddingSeconds: Int? = nil, isPrePaddingRequired: Bool? = nil, parentBackdropItemId: String? = nil, parentBackdropImageTags: [String]? = nil, isPostPaddingRequired: Bool? = nil, keepUntil: KeepUntil? = nil, status: RecordingStatus? = nil, seriesTimerId: String? = nil, externalSeriesTimerId: String? = nil, runTimeTicks: Int64? = nil, programInfo: BaseItemDto? = nil) {
+    public init(id: String? = nil, type: String? = nil, serverId: String? = nil, externalId: String? = nil, channelId: String? = nil, externalChannelId: String? = nil, channelName: String? = nil, channelPrimaryImageTag: String? = nil, programId: String? = nil, externalProgramId: String? = nil, name: String? = nil, overview: String? = nil, startDate: Date? = nil, endDate: Date? = nil, serviceName: String? = nil, priority: Int? = nil, prePaddingSeconds: Int? = nil, postPaddingSeconds: Int? = nil, isPrePaddingRequired: Bool? = nil, parentBackdropItemId: String? = nil, parentBackdropImageTags: [String]? = nil, isPostPaddingRequired: Bool? = nil, keepUntil: KeepUntil? = nil, status: RecordingStatus? = nil, seriesTimerId: String? = nil, externalSeriesTimerId: String? = nil, runTimeTicks: Int64? = nil, programInfo: TimerInfoDtoProgramInfo? = nil) {
         self.id = id
         self.type = type
         self.serverId = serverId

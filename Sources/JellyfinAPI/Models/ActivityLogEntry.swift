@@ -10,7 +10,8 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ActivityLogEntry: Codable, Hashable {
+/** An activity log entry. */
+public struct ActivityLogEntry: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the identifier. */
     public var id: Int64?
@@ -31,6 +32,7 @@ public struct ActivityLogEntry: Codable, Hashable {
     /** Gets or sets the user primary image tag. */
     @available(*, deprecated, message: "This property is deprecated.")
     public var userPrimaryImageTag: String?
+    /** Gets or sets the log severity. */
     public var severity: LogLevel?
 
     public init(id: Int64? = nil, name: String? = nil, overview: String? = nil, shortOverview: String? = nil, type: String? = nil, itemId: String? = nil, date: Date? = nil, userId: String? = nil, userPrimaryImageTag: String? = nil, severity: LogLevel? = nil) {

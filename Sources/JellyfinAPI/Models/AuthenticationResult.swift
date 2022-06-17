@@ -10,14 +10,14 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct AuthenticationResult: Codable, Hashable {
+public struct AuthenticationResult: Codable, JSONEncodable, Hashable {
 
-    public var user: UserDto?
-    public var sessionInfo: SessionInfo?
+    public var user: AuthenticationResultUser?
+    public var sessionInfo: AuthenticationResultSessionInfo?
     public var accessToken: String?
     public var serverId: String?
 
-    public init(user: UserDto? = nil, sessionInfo: SessionInfo? = nil, accessToken: String? = nil, serverId: String? = nil) {
+    public init(user: AuthenticationResultUser? = nil, sessionInfo: AuthenticationResultSessionInfo? = nil, accessToken: String? = nil, serverId: String? = nil) {
         self.user = user
         self.sessionInfo = sessionInfo
         self.accessToken = accessToken

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Open live stream dto. */
-public struct OpenLiveStreamDto: Codable, Hashable {
+public struct OpenLiveStreamDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the open token. */
     public var openToken: String?
@@ -35,11 +35,11 @@ public struct OpenLiveStreamDto: Codable, Hashable {
     public var enableDirectPlay: Bool?
     /** Gets or sets a value indicating whether to enale direct stream. */
     public var enableDirectStream: Bool?
-    public var deviceProfile: DeviceProfile?
+    public var deviceProfile: ClientCapabilitiesDeviceProfile?
     /** Gets or sets the device play protocols. */
     public var directPlayProtocols: [MediaProtocol]?
 
-    public init(openToken: String? = nil, userId: String? = nil, playSessionId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, itemId: String? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, deviceProfile: DeviceProfile? = nil, directPlayProtocols: [MediaProtocol]? = nil) {
+    public init(openToken: String? = nil, userId: String? = nil, playSessionId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, itemId: String? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, deviceProfile: ClientCapabilitiesDeviceProfile? = nil, directPlayProtocols: [MediaProtocol]? = nil) {
         self.openToken = openToken
         self.userId = userId
         self.playSessionId = playSessionId

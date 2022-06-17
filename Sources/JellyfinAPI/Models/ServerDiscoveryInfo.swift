@@ -10,15 +10,16 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ServerDiscoveryInfo: Codable, Hashable {
+/** The server discovery info model. */
+public struct ServerDiscoveryInfo: Codable, JSONEncodable, Hashable {
 
-    /** Gets or sets the address. */
+    /** Gets the address. */
     public var address: String?
-    /** Gets or sets the server identifier. */
+    /** Gets the server identifier. */
     public var id: String?
-    /** Gets or sets the name. */
+    /** Gets the name. */
     public var name: String?
-    /** Gets or sets the endpoint address. */
+    /** Gets the endpoint address. */
     public var endpointAddress: String?
 
     public init(address: String? = nil, id: String? = nil, name: String? = nil, endpointAddress: String? = nil) {

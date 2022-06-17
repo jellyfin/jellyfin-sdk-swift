@@ -10,13 +10,13 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct AllThemeMediaResult: Codable, Hashable {
+public struct AllThemeMediaResult: Codable, JSONEncodable, Hashable {
 
-    public var themeVideosResult: ThemeMediaResult?
-    public var themeSongsResult: ThemeMediaResult?
-    public var soundtrackSongsResult: ThemeMediaResult?
+    public var themeVideosResult: AllThemeMediaResultThemeVideosResult?
+    public var themeSongsResult: AllThemeMediaResultThemeVideosResult?
+    public var soundtrackSongsResult: AllThemeMediaResultThemeVideosResult?
 
-    public init(themeVideosResult: ThemeMediaResult? = nil, themeSongsResult: ThemeMediaResult? = nil, soundtrackSongsResult: ThemeMediaResult? = nil) {
+    public init(themeVideosResult: AllThemeMediaResultThemeVideosResult? = nil, themeSongsResult: AllThemeMediaResultThemeVideosResult? = nil, soundtrackSongsResult: AllThemeMediaResultThemeVideosResult? = nil) {
         self.themeVideosResult = themeVideosResult
         self.themeSongsResult = themeSongsResult
         self.soundtrackSongsResult = soundtrackSongsResult

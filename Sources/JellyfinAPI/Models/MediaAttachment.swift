@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class MediaAttachment. */
-public struct MediaAttachment: Codable, Hashable {
+public struct MediaAttachment: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the codec. */
     public var codec: String?

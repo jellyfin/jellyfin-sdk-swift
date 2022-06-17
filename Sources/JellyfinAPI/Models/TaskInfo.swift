@@ -11,16 +11,17 @@ import AnyCodable
 #endif
 
 /** Class TaskInfo. */
-public struct TaskInfo: Codable, Hashable {
+public struct TaskInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
+    /** Gets or sets the state of the task. */
     public var state: TaskState?
     /** Gets or sets the progress. */
     public var currentProgressPercentage: Double?
     /** Gets or sets the id. */
     public var id: String?
-    public var lastExecutionResult: TaskResult?
+    public var lastExecutionResult: TaskInfoLastExecutionResult?
     /** Gets or sets the triggers. */
     public var triggers: [TaskTriggerInfo]?
     /** Gets or sets the description. */
@@ -32,7 +33,7 @@ public struct TaskInfo: Codable, Hashable {
     /** Gets or sets the key. */
     public var key: String?
 
-    public init(name: String? = nil, state: TaskState? = nil, currentProgressPercentage: Double? = nil, id: String? = nil, lastExecutionResult: TaskResult? = nil, triggers: [TaskTriggerInfo]? = nil, description: String? = nil, category: String? = nil, isHidden: Bool? = nil, key: String? = nil) {
+    public init(name: String? = nil, state: TaskState? = nil, currentProgressPercentage: Double? = nil, id: String? = nil, lastExecutionResult: TaskInfoLastExecutionResult? = nil, triggers: [TaskTriggerInfo]? = nil, description: String? = nil, category: String? = nil, isHidden: Bool? = nil, key: String? = nil) {
         self.name = name
         self.state = state
         self.currentProgressPercentage = currentProgressPercentage

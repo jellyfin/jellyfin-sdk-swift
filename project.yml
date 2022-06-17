@@ -7,7 +7,7 @@ targets:
     sources: [Sources]
     info:
       path: ./Info.plist
-      version: 10.7.6
+      version: 10.8.0
     settings:
       APPLICATION_EXTENSION_API_ONLY: true
     scheme: {}

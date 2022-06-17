@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct LiveTvInfo: Codable, Hashable {
+public struct LiveTvInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the services. */
     public var services: [LiveTvServiceInfo]?

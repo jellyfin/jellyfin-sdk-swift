@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Library option info dto. */
-public struct LibraryOptionInfoDto: Codable, Hashable {
+public struct LibraryOptionInfoDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets name. */
     public var name: String?

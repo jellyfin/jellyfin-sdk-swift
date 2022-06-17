@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct EndPointInfo: Codable, Hashable {
+public struct EndPointInfo: Codable, JSONEncodable, Hashable {
 
     public var isLocal: Bool?
     public var isInNetwork: Bool?

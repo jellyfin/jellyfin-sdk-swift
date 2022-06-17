@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct LogFile: Codable, Hashable {
+public struct LogFile: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the date created. */
     public var dateCreated: Date?

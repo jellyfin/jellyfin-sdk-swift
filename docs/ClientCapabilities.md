@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **messageCallbackUrl** | **String** |  | [optional] 
 **supportsPersistentIdentifier** | **Bool** |  | [optional] 
 **supportsSync** | **Bool** |  | [optional] 
-**deviceProfile** | [**DeviceProfile**](DeviceProfile.md) |  | [optional] 
+**deviceProfile** | [**ClientCapabilitiesDeviceProfile**](ClientCapabilitiesDeviceProfile.md) |  | [optional] 
 **appStoreUrl** | **String** |  | [optional] 
 **iconUrl** | **String** |  | [optional] 
 

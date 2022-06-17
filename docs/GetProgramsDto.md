@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **startIndex** | **Int** | Gets or sets the record index to start at. All items with a lower index will be dropped from the results.  Optional. | [optional] 
 **limit** | **Int** | Gets or sets the maximum number of records to return.  Optional. | [optional] 
 **sortBy** | **[String]** | Gets or sets specify one or more sort orders, comma delimited. Options: Name, StartDate.  Optional. | [optional] 
-**aPISortOrder** | [APISortOrder] | Gets or sets sort Order - Ascending,Descending. | [optional] 
+**sortOrder** | [SortOrder] | Gets or sets sort Order - Ascending,Descending. | [optional] 
 **genres** | **[String]** | Gets or sets the genres to return guide information for. | [optional] 
 **genreIds** | **[String]** | Gets or sets the genre ids to return guide information for. | [optional] 
 **enableImages** | **Bool** | Gets or sets include image information in output.  Optional. | [optional] 

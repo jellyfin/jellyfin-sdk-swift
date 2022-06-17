@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**command** | [**PlaystateCommand**](PlaystateCommand.md) |  | [optional] 
+**command** | [**PlaystateCommand**](PlaystateCommand.md) | Enum PlaystateCommand. | [optional] 
 **seekPositionTicks** | **Int64** |  | [optional] 
 **controllingUserId** | **String** | Gets or sets the controlling user identifier. | [optional] 
 

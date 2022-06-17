@@ -11,11 +11,12 @@ import AnyCodable
 #endif
 
 /** This is a serializable stub class that is used by the api to provide information about installed plugins. */
-public struct PluginInfo: Codable, Hashable {
+public struct PluginInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
-    public var version: Version?
+    /** Gets or sets the version. */
+    public var version: String?
     /** Gets or sets the name of the configuration file. */
     public var configurationFileName: String?
     /** Gets or sets the description. */
@@ -26,9 +27,10 @@ public struct PluginInfo: Codable, Hashable {
     public var canUninstall: Bool?
     /** Gets or sets a value indicating whether this plugin has a valid image. */
     public var hasImage: Bool?
+    /** Gets or sets a value indicating the status of the plugin. */
     public var status: PluginStatus?
 
-    public init(name: String? = nil, version: Version? = nil, configurationFileName: String? = nil, description: String? = nil, id: String? = nil, canUninstall: Bool? = nil, hasImage: Bool? = nil, status: PluginStatus? = nil) {
+    public init(name: String? = nil, version: String? = nil, configurationFileName: String? = nil, description: String? = nil, id: String? = nil, canUninstall: Bool? = nil, hasImage: Bool? = nil, status: PluginStatus? = nil) {
         self.name = name
         self.version = version
         self.configurationFileName = configurationFileName

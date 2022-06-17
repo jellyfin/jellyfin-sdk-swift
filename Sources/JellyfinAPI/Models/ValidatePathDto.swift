@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Validate path object. */
-public struct ValidatePathDto: Codable, Hashable {
+public struct ValidatePathDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets a value indicating whether validate if path is writable. */
     public var validateWritable: Bool?

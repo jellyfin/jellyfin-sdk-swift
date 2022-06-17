@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct NotificationTypeInfo: Codable, Hashable {
+public struct NotificationTypeInfo: Codable, JSONEncodable, Hashable {
 
     public var type: String?
     public var name: String?

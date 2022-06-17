@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** The configuration page info. */
-public struct ConfigurationPageInfo: Codable, Hashable {
+public struct ConfigurationPageInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
@@ -23,17 +23,15 @@ public struct ConfigurationPageInfo: Codable, Hashable {
     public var menuIcon: String?
     /** Gets or sets the display name. */
     public var displayName: String?
-    public var configurationPageType: ConfigurationPageType?
     /** Gets or sets the plugin id. */
     public var pluginId: String?
 
-    public init(name: String? = nil, enableInMainMenu: Bool? = nil, menuSection: String? = nil, menuIcon: String? = nil, displayName: String? = nil, configurationPageType: ConfigurationPageType? = nil, pluginId: String? = nil) {
+    public init(name: String? = nil, enableInMainMenu: Bool? = nil, menuSection: String? = nil, menuIcon: String? = nil, displayName: String? = nil, pluginId: String? = nil) {
         self.name = name
         self.enableInMainMenu = enableInMainMenu
         self.menuSection = menuSection
         self.menuIcon = menuIcon
         self.displayName = displayName
-        self.configurationPageType = configurationPageType
         self.pluginId = pluginId
     }
 
@@ -43,7 +41,6 @@ public struct ConfigurationPageInfo: Codable, Hashable {
         case menuSection = "MenuSection"
         case menuIcon = "MenuIcon"
         case displayName = "DisplayName"
-        case configurationPageType = "ConfigurationPageType"
         case pluginId = "PluginId"
     }
 
@@ -56,7 +53,6 @@ public struct ConfigurationPageInfo: Codable, Hashable {
         try encoderContainer.encodeIfPresent(menuSection, forKey: .menuSection)
         try encoderContainer.encodeIfPresent(menuIcon, forKey: .menuIcon)
         try encoderContainer.encodeIfPresent(displayName, forKey: .displayName)
-        try encoderContainer.encodeIfPresent(configurationPageType, forKey: .configurationPageType)
         try encoderContainer.encodeIfPresent(pluginId, forKey: .pluginId)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct MessageCommand: Codable, Hashable {
+public struct MessageCommand: Codable, JSONEncodable, Hashable {
 
     public var header: String?
     public var text: String

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Client capabilities dto. */
-public struct ClientCapabilitiesDto: Codable, Hashable {
+public struct ClientCapabilitiesDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the list of playable media types. */
     public var playableMediaTypes: [String]?
@@ -27,13 +27,13 @@ public struct ClientCapabilitiesDto: Codable, Hashable {
     public var supportsPersistentIdentifier: Bool?
     /** Gets or sets a value indicating whether session supports sync. */
     public var supportsSync: Bool?
-    public var deviceProfile: DeviceProfile?
+    public var deviceProfile: ClientCapabilitiesDeviceProfile?
     /** Gets or sets the app store url. */
     public var appStoreUrl: String?
     /** Gets or sets the icon url. */
     public var iconUrl: String?
 
-    public init(playableMediaTypes: [String]? = nil, supportedCommands: [GeneralCommandType]? = nil, supportsMediaControl: Bool? = nil, supportsContentUploading: Bool? = nil, messageCallbackUrl: String? = nil, supportsPersistentIdentifier: Bool? = nil, supportsSync: Bool? = nil, deviceProfile: DeviceProfile? = nil, appStoreUrl: String? = nil, iconUrl: String? = nil) {
+    public init(playableMediaTypes: [String]? = nil, supportedCommands: [GeneralCommandType]? = nil, supportsMediaControl: Bool? = nil, supportsContentUploading: Bool? = nil, messageCallbackUrl: String? = nil, supportsPersistentIdentifier: Bool? = nil, supportsSync: Bool? = nil, deviceProfile: ClientCapabilitiesDeviceProfile? = nil, appStoreUrl: String? = nil, iconUrl: String? = nil) {
         self.playableMediaTypes = playableMediaTypes
         self.supportedCommands = supportedCommands
         self.supportsMediaControl = supportsMediaControl

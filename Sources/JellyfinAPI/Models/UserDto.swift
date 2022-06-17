@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class UserDto. */
-public struct UserDto: Codable, Hashable {
+public struct UserDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
@@ -35,12 +35,12 @@ public struct UserDto: Codable, Hashable {
     public var lastLoginDate: Date?
     /** Gets or sets the last activity date. */
     public var lastActivityDate: Date?
-    public var configuration: UserConfiguration?
-    public var policy: UserPolicy?
+    public var configuration: UserDtoConfiguration?
+    public var policy: UserDtoPolicy?
     /** Gets or sets the primary image aspect ratio. */
     public var primaryImageAspectRatio: Double?
 
-    public init(name: String? = nil, serverId: String? = nil, serverName: String? = nil, id: String? = nil, primaryImageTag: String? = nil, hasPassword: Bool? = nil, hasConfiguredPassword: Bool? = nil, hasConfiguredEasyPassword: Bool? = nil, enableAutoLogin: Bool? = nil, lastLoginDate: Date? = nil, lastActivityDate: Date? = nil, configuration: UserConfiguration? = nil, policy: UserPolicy? = nil, primaryImageAspectRatio: Double? = nil) {
+    public init(name: String? = nil, serverId: String? = nil, serverName: String? = nil, id: String? = nil, primaryImageTag: String? = nil, hasPassword: Bool? = nil, hasConfiguredPassword: Bool? = nil, hasConfiguredEasyPassword: Bool? = nil, enableAutoLogin: Bool? = nil, lastLoginDate: Date? = nil, lastActivityDate: Date? = nil, configuration: UserDtoConfiguration? = nil, policy: UserDtoPolicy? = nil, primaryImageAspectRatio: Double? = nil) {
         self.name = name
         self.serverId = serverId
         self.serverName = serverName

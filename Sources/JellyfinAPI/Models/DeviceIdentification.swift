@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct DeviceIdentification: Codable, Hashable {
+public struct DeviceIdentification: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name of the friendly. */
     public var friendlyName: String?

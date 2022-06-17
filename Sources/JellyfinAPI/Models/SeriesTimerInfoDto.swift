@@ -11,33 +11,33 @@ import AnyCodable
 #endif
 
 /** Class SeriesTimerInfoDto. */
-public struct SeriesTimerInfoDto: Codable, Hashable {
+public struct SeriesTimerInfoDto: Codable, JSONEncodable, Hashable {
 
-    /** Id of the recording. */
+    /** Gets or sets the Id of the recording. */
     public var id: String?
     public var type: String?
     /** Gets or sets the server identifier. */
     public var serverId: String?
     /** Gets or sets the external identifier. */
     public var externalId: String?
-    /** ChannelId of the recording. */
+    /** Gets or sets the channel id of the recording. */
     public var channelId: String?
     /** Gets or sets the external channel identifier. */
     public var externalChannelId: String?
-    /** ChannelName of the recording. */
+    /** Gets or sets the channel name of the recording. */
     public var channelName: String?
     public var channelPrimaryImageTag: String?
     /** Gets or sets the program identifier. */
     public var programId: String?
     /** Gets or sets the external program identifier. */
     public var externalProgramId: String?
-    /** Name of the recording. */
+    /** Gets or sets the name of the recording. */
     public var name: String?
-    /** Description of the recording. */
+    /** Gets or sets the description of the recording. */
     public var overview: String?
-    /** The start date of the recording, in UTC. */
+    /** Gets or sets the start date of the recording, in UTC. */
     public var startDate: Date?
-    /** The end date of the recording, in UTC. */
+    /** Gets or sets the end date of the recording, in UTC. */
     public var endDate: Date?
     /** Gets or sets the name of the service. */
     public var serviceName: String?
@@ -49,7 +49,7 @@ public struct SeriesTimerInfoDto: Codable, Hashable {
     public var postPaddingSeconds: Int?
     /** Gets or sets a value indicating whether this instance is pre padding required. */
     public var isPrePaddingRequired: Bool?
-    /** If the item does not have any backdrops, this will hold the Id of the Parent that has one. */
+    /** Gets or sets the Id of the Parent that has a backdrop if the item does not have one. */
     public var parentBackdropItemId: String?
     /** Gets or sets the parent backdrop image tags. */
     public var parentBackdropImageTags: [String]?
@@ -66,6 +66,7 @@ public struct SeriesTimerInfoDto: Codable, Hashable {
     public var recordNewOnly: Bool?
     /** Gets or sets the days. */
     public var days: [DayOfWeek]?
+    /** Gets or sets the day pattern. */
     public var dayPattern: DayPattern?
     /** Gets or sets the image tags. */
     public var imageTags: [String: String]?

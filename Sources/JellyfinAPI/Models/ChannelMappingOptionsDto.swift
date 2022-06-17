@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Channel mapping options dto. */
-public struct ChannelMappingOptionsDto: Codable, Hashable {
+public struct ChannelMappingOptionsDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets list of tuner channels. */
     public var tunerChannels: [TunerChannelMapping]?

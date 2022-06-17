@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Gets or sets the blurhashes for the image tags.  Maps image type to dictionary mapping image tag to blurhash value. */
-public struct BaseItemDtoImageBlurHashes: Codable, Hashable {
+public struct BaseItemDtoImageBlurHashes: Codable, JSONEncodable, Hashable {
 
     public var primary: [String: String]?
     public var art: [String: String]?

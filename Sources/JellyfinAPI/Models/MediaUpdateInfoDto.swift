@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Media Update Info Dto. */
-public struct MediaUpdateInfoDto: Codable, Hashable {
+public struct MediaUpdateInfoDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the list of updates. */
     public var updates: [MediaUpdateInfoPathDto]?

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** The startup configuration DTO. */
-public struct StartupConfigurationDto: Codable, Hashable {
+public struct StartupConfigurationDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets UI language culture. */
     public var uICulture: String?

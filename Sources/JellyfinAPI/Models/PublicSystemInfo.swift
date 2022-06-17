@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct PublicSystemInfo: Codable, Hashable {
+public struct PublicSystemInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the local address. */
     public var localAddress: String?

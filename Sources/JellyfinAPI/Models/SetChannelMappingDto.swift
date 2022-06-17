@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Set channel mapping dto. */
-public struct SetChannelMappingDto: Codable, Hashable {
+public struct SetChannelMappingDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the provider id. */
     public var providerId: String

@@ -5,27 +5,30 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class ImageAPI {
+
     /**
      Delete an item's image.
      
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
      - parameter imageIndex: (query) The image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteItemImage(itemId: String, imageType: ImageType, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            deleteItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func deleteItemImage(itemId: String, imageType: ImageType, imageIndex: Int? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = deleteItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -33,7 +36,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -41,7 +48,7 @@ open class ImageAPI {
      Delete an item's image.
      - DELETE /Items/{itemId}/Images/{imageType}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
@@ -49,30 +56,30 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func deleteItemImageWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -81,14 +88,14 @@ open class ImageAPI {
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
      - parameter imageIndex: (path) The image index. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            deleteItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func deleteItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = deleteItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -96,7 +103,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -104,7 +115,7 @@ open class ImageAPI {
      Delete an item's image.
      - DELETE /Items/{itemId}/Images/{imageType}/{imageIndex}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
@@ -112,30 +123,30 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func deleteItemImageByIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int) -> RequestBuilder<Void> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -144,14 +155,14 @@ open class ImageAPI {
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
      - parameter index: (query) (Unused) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteUserImage(userId: String, imageType: ImageType, index: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            deleteUserImageWithRequestBuilder(userId: userId, imageType: imageType, index: index).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func deleteUserImage(userId: String, imageType: ImageType, index: Int? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = deleteUserImageWithRequestBuilder(userId: userId, imageType: imageType, index: index).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -159,7 +170,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -167,7 +182,7 @@ open class ImageAPI {
      Delete the user's image.
      - DELETE /Users/{userId}/Images/{imageType}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
@@ -175,30 +190,30 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func deleteUserImageWithRequestBuilder(userId: String, imageType: ImageType, index: Int? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Users/{userId}/Images/{imageType}"
+        var localVariablePath = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "index": index?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -207,14 +222,14 @@ open class ImageAPI {
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
      - parameter index: (path) (Unused) Image index. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func deleteUserImageByIndex(userId: String, imageType: ImageType, index: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            deleteUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, index: index).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func deleteUserImageByIndex(userId: String, imageType: ImageType, index: Int) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = deleteUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, index: index).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -222,7 +237,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -230,7 +249,7 @@ open class ImageAPI {
      Delete the user's image.
      - DELETE /Users/{userId}/Images/{imageType}/{index}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
@@ -238,30 +257,30 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func deleteUserImageByIndexWithRequestBuilder(userId: String, imageType: ImageType, index: Int) -> RequestBuilder<Void> {
-        var urlPath = "/Users/{userId}/Images/{imageType}/{index}"
+        var localVariablePath = "/Users/{userId}/Images/{imageType}/{index}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let indexPreEscape = "\(APIHelper.mapValueToPathItem(index))"
         let indexPostEscape = indexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -286,22 +305,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getArtistImageWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getArtistImageWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -330,21 +353,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getArtistImageWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Artists/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Artists/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -363,15 +386,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -396,22 +419,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -440,18 +467,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Genres/{name}/Images/{imageType}"
+        var localVariablePath = "/Genres/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -471,15 +498,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -504,22 +531,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -548,21 +579,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Genres/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Genres/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -581,15 +612,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -614,22 +645,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemImage(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getItemImage(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -658,18 +693,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getItemImageWithRequestBuilder(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "maxWidth": maxWidth?.encodeToJSON(),
             "maxHeight": maxHeight?.encodeToJSON(),
             "width": width?.encodeToJSON(),
@@ -689,15 +724,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -722,22 +757,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemImage2(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getItemImage2(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -766,39 +805,39 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getItemImage2WithRequestBuilder(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/{tag}/{format}/{maxWidth}/{maxHeight}/{percentPlayed}/{unplayedCount}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/{tag}/{format}/{maxWidth}/{maxHeight}/{percentPlayed}/{unplayedCount}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let maxWidthPreEscape = "\(APIHelper.mapValueToPathItem(maxWidth))"
         let maxWidthPostEscape = maxWidthPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{maxWidth}", with: maxWidthPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{maxWidth}", with: maxWidthPostEscape, options: .literal, range: nil)
         let maxHeightPreEscape = "\(APIHelper.mapValueToPathItem(maxHeight))"
         let maxHeightPostEscape = maxHeightPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{maxHeight}", with: maxHeightPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{maxHeight}", with: maxHeightPostEscape, options: .literal, range: nil)
         let tagPreEscape = "\(APIHelper.mapValueToPathItem(tag))"
         let tagPostEscape = tagPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{tag}", with: tagPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{tag}", with: tagPostEscape, options: .literal, range: nil)
         let formatPreEscape = "\(APIHelper.mapValueToPathItem(format))"
         let formatPostEscape = formatPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{format}", with: formatPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{format}", with: formatPostEscape, options: .literal, range: nil)
         let percentPlayedPreEscape = "\(APIHelper.mapValueToPathItem(percentPlayed))"
         let percentPlayedPostEscape = percentPlayedPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{percentPlayed}", with: percentPlayedPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{percentPlayed}", with: percentPlayedPostEscape, options: .literal, range: nil)
         let unplayedCountPreEscape = "\(APIHelper.mapValueToPathItem(unplayedCount))"
         let unplayedCountPostEscape = unplayedCountPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{unplayedCount}", with: unplayedCountPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{unplayedCount}", with: unplayedCountPostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
@@ -811,15 +850,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -844,22 +883,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -888,21 +931,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getItemImageByIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "maxWidth": maxWidth?.encodeToJSON(),
             "maxHeight": maxHeight?.encodeToJSON(),
             "width": width?.encodeToJSON(),
@@ -921,37 +964,41 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get item image infos.
      
      - parameter itemId: (path) Item id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[ImageInfo], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemImageInfos(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ImageInfo], Error> {
-        return Future<[ImageInfo], Error>.init { promise in
-            getItemImageInfosWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getItemImageInfos(itemId: String) -> AnyPublisher<[ImageInfo], Error> {
+        var requestTask: RequestTask?
+        return Future<[ImageInfo], Error> { promise in
+            requestTask = getItemImageInfosWithRequestBuilder(itemId: itemId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -959,30 +1006,30 @@ open class ImageAPI {
      Get item image infos.
      - GET /Items/{itemId}/Images
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - returns: RequestBuilder<[ImageInfo]> 
      */
     open class func getItemImageInfosWithRequestBuilder(itemId: String) -> RequestBuilder<[ImageInfo]> {
-        var urlPath = "/Items/{itemId}/Images"
+        var localVariablePath = "/Items/{itemId}/Images"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[ImageInfo]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[ImageInfo]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1007,22 +1054,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getMusicGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getMusicGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1051,18 +1102,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getMusicGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/MusicGenres/{name}/Images/{imageType}"
+        var localVariablePath = "/MusicGenres/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1082,15 +1133,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1115,22 +1166,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getMusicGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getMusicGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1159,21 +1214,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getMusicGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/MusicGenres/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/MusicGenres/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1192,15 +1247,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1225,22 +1280,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getPersonImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getPersonImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1269,18 +1328,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getPersonImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Persons/{name}/Images/{imageType}"
+        var localVariablePath = "/Persons/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1300,15 +1359,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1333,22 +1392,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getPersonImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getPersonImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1377,21 +1440,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getPersonImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Persons/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Persons/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1410,15 +1473,102 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
+    }
+
+    /**
+     Generates or gets the splashscreen.
+     
+     - parameter tag: (query) Supply the cache tag from the item object to receive strong caching headers. (optional)
+     - parameter format: (query) Determines the output format of the image - original,gif,jpg,png. (optional)
+     - parameter maxWidth: (query) The maximum image width to return. (optional)
+     - parameter maxHeight: (query) The maximum image height to return. (optional)
+     - parameter width: (query) The fixed image width to return. (optional)
+     - parameter height: (query) The fixed image height to return. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
+     - parameter blur: (query) Blur image. (optional)
+     - parameter backgroundColor: (query) Apply a background color for transparent images. (optional)
+     - parameter foregroundLayer: (query) Apply a foreground layer on top of the image. (optional)
+     - parameter quality: (query) Quality setting, from 0-100. (optional, default to 90)
+     - returns: AnyPublisher<URL, Error>
+     */
+    #if canImport(Combine)
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getSplashscreen(tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, quality: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getSplashscreenWithRequestBuilder(tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, fillWidth: fillWidth, fillHeight: fillHeight, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, quality: quality).execute { result in
+                switch result {
+                case let .success(response):
+                    promise(.success(response.body))
+                case let .failure(error):
+                    promise(.failure(error))
+                }
+            }
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
+    }
+    #endif
+
+    /**
+     Generates or gets the splashscreen.
+     - GET /Branding/Splashscreen
+     - parameter tag: (query) Supply the cache tag from the item object to receive strong caching headers. (optional)
+     - parameter format: (query) Determines the output format of the image - original,gif,jpg,png. (optional)
+     - parameter maxWidth: (query) The maximum image width to return. (optional)
+     - parameter maxHeight: (query) The maximum image height to return. (optional)
+     - parameter width: (query) The fixed image width to return. (optional)
+     - parameter height: (query) The fixed image height to return. (optional)
+     - parameter fillWidth: (query) Width of box to fill. (optional)
+     - parameter fillHeight: (query) Height of box to fill. (optional)
+     - parameter blur: (query) Blur image. (optional)
+     - parameter backgroundColor: (query) Apply a background color for transparent images. (optional)
+     - parameter foregroundLayer: (query) Apply a foreground layer on top of the image. (optional)
+     - parameter quality: (query) Quality setting, from 0-100. (optional, default to 90)
+     - returns: RequestBuilder<URL> 
+     */
+    open class func getSplashscreenWithRequestBuilder(tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, quality: Int? = nil) -> RequestBuilder<URL> {
+        let localVariablePath = "/Branding/Splashscreen"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "tag": tag?.encodeToJSON(),
+            "format": format?.encodeToJSON(),
+            "maxWidth": maxWidth?.encodeToJSON(),
+            "maxHeight": maxHeight?.encodeToJSON(),
+            "width": width?.encodeToJSON(),
+            "height": height?.encodeToJSON(),
+            "fillWidth": fillWidth?.encodeToJSON(),
+            "fillHeight": fillHeight?.encodeToJSON(),
+            "blur": blur?.encodeToJSON(),
+            "backgroundColor": backgroundColor?.encodeToJSON(),
+            "foregroundLayer": foregroundLayer?.encodeToJSON(),
+            "quality": quality?.encodeToJSON(),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1443,22 +1593,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getStudioImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getStudioImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1487,18 +1641,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getStudioImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Studios/{name}/Images/{imageType}"
+        var localVariablePath = "/Studios/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1518,15 +1672,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1551,22 +1705,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getStudioImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getStudioImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1595,21 +1753,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getStudioImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Studios/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Studios/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1628,15 +1786,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1661,22 +1819,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUserImage(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getUserImage(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1705,18 +1867,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getUserImageWithRequestBuilder(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Users/{userId}/Images/{imageType}"
+        var localVariablePath = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1736,15 +1898,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1769,22 +1931,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getUserImageByIndex(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            getUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getUserImageByIndex(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = getUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1813,21 +1979,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func getUserImageByIndexWithRequestBuilder(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Users/{userId}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Users/{userId}/Images/{imageType}/{imageIndex}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1846,15 +2012,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1879,22 +2045,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headArtistImageWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headArtistImage(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headArtistImageWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -1923,21 +2093,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headArtistImageWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Artists/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Artists/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -1956,15 +2126,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -1989,22 +2159,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2033,18 +2207,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Genres/{name}/Images/{imageType}"
+        var localVariablePath = "/Genres/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -2064,15 +2238,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2097,22 +2271,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2141,21 +2319,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Genres/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Genres/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -2174,15 +2352,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2207,22 +2385,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headItemImage(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headItemImage(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2251,18 +2433,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headItemImageWithRequestBuilder(itemId: String, imageType: ImageType, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "maxWidth": maxWidth?.encodeToJSON(),
             "maxHeight": maxHeight?.encodeToJSON(),
             "width": width?.encodeToJSON(),
@@ -2282,15 +2464,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2315,22 +2497,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headItemImage2(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headItemImage2(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headItemImage2WithRequestBuilder(itemId: itemId, imageType: imageType, maxWidth: maxWidth, maxHeight: maxHeight, tag: tag, format: format, percentPlayed: percentPlayed, unplayedCount: unplayedCount, imageIndex: imageIndex, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2359,39 +2545,39 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headItemImage2WithRequestBuilder(itemId: String, imageType: ImageType, maxWidth: Int, maxHeight: Int, tag: String, format: ImageFormat, percentPlayed: Double, unplayedCount: Int, imageIndex: Int, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/{tag}/{format}/{maxWidth}/{maxHeight}/{percentPlayed}/{unplayedCount}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/{tag}/{format}/{maxWidth}/{maxHeight}/{percentPlayed}/{unplayedCount}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let maxWidthPreEscape = "\(APIHelper.mapValueToPathItem(maxWidth))"
         let maxWidthPostEscape = maxWidthPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{maxWidth}", with: maxWidthPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{maxWidth}", with: maxWidthPostEscape, options: .literal, range: nil)
         let maxHeightPreEscape = "\(APIHelper.mapValueToPathItem(maxHeight))"
         let maxHeightPostEscape = maxHeightPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{maxHeight}", with: maxHeightPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{maxHeight}", with: maxHeightPostEscape, options: .literal, range: nil)
         let tagPreEscape = "\(APIHelper.mapValueToPathItem(tag))"
         let tagPostEscape = tagPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{tag}", with: tagPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{tag}", with: tagPostEscape, options: .literal, range: nil)
         let formatPreEscape = "\(APIHelper.mapValueToPathItem(format))"
         let formatPostEscape = formatPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{format}", with: formatPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{format}", with: formatPostEscape, options: .literal, range: nil)
         let percentPlayedPreEscape = "\(APIHelper.mapValueToPathItem(percentPlayed))"
         let percentPlayedPostEscape = percentPlayedPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{percentPlayed}", with: percentPlayedPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{percentPlayed}", with: percentPlayedPostEscape, options: .literal, range: nil)
         let unplayedCountPreEscape = "\(APIHelper.mapValueToPathItem(unplayedCount))"
         let unplayedCountPostEscape = unplayedCountPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{unplayedCount}", with: unplayedCountPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{unplayedCount}", with: unplayedCountPostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "width": width?.encodeToJSON(),
             "height": height?.encodeToJSON(),
             "quality": quality?.encodeToJSON(),
@@ -2404,15 +2590,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2437,22 +2623,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, maxWidth: maxWidth, maxHeight: maxHeight, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, tag: tag, cropWhitespace: cropWhitespace, format: format, addPlayedIndicator: addPlayedIndicator, percentPlayed: percentPlayed, unplayedCount: unplayedCount, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2481,21 +2671,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headItemImageByIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int, maxWidth: Int? = nil, maxHeight: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, tag: String? = nil, cropWhitespace: Bool? = nil, format: ImageFormat? = nil, addPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "maxWidth": maxWidth?.encodeToJSON(),
             "maxHeight": maxHeight?.encodeToJSON(),
             "width": width?.encodeToJSON(),
@@ -2514,15 +2704,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2547,22 +2737,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headMusicGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headMusicGenreImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headMusicGenreImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2591,18 +2785,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headMusicGenreImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/MusicGenres/{name}/Images/{imageType}"
+        var localVariablePath = "/MusicGenres/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -2622,15 +2816,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2655,22 +2849,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headMusicGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headMusicGenreImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headMusicGenreImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2699,21 +2897,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headMusicGenreImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/MusicGenres/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/MusicGenres/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -2732,15 +2930,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2765,22 +2963,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headPersonImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headPersonImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headPersonImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2809,18 +3011,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headPersonImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Persons/{name}/Images/{imageType}"
+        var localVariablePath = "/Persons/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -2840,15 +3042,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2873,22 +3075,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headPersonImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headPersonImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headPersonImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -2917,21 +3123,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headPersonImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Persons/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Persons/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -2950,15 +3156,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -2983,22 +3189,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headStudioImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headStudioImage(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headStudioImageWithRequestBuilder(name: name, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3027,18 +3237,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headStudioImageWithRequestBuilder(name: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Studios/{name}/Images/{imageType}"
+        var localVariablePath = "/Studios/{name}/Images/{imageType}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -3058,15 +3268,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -3091,22 +3301,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headStudioImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headStudioImageByIndex(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headStudioImageByIndexWithRequestBuilder(name: name, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3135,21 +3349,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headStudioImageByIndexWithRequestBuilder(name: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Studios/{name}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Studios/{name}/Images/{imageType}/{imageIndex}"
         let namePreEscape = "\(APIHelper.mapValueToPathItem(name))"
         let namePostEscape = namePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{name}", with: namePostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -3168,15 +3382,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -3201,22 +3415,26 @@ open class ImageAPI {
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
      - parameter imageIndex: (query) Image index. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headUserImage(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headUserImage(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headUserImageWithRequestBuilder(userId: userId, imageType: imageType, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer, imageIndex: imageIndex).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3245,18 +3463,18 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headUserImageWithRequestBuilder(userId: String, imageType: ImageType, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Users/{userId}/Images/{imageType}"
+        var localVariablePath = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -3276,15 +3494,15 @@ open class ImageAPI {
             "imageIndex": imageIndex?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -3309,22 +3527,26 @@ open class ImageAPI {
      - parameter blur: (query) Optional. Blur image. (optional)
      - parameter backgroundColor: (query) Optional. Apply a background color for transparent images. (optional)
      - parameter foregroundLayer: (query) Optional. Apply a foreground layer on top of the image. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<URL, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func headUserImageByIndex(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<URL, Error> {
-        return Future<URL, Error>.init { promise in
-            headUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func headUserImageByIndex(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> AnyPublisher<URL, Error> {
+        var requestTask: RequestTask?
+        return Future<URL, Error> { promise in
+            requestTask = headUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, imageIndex: imageIndex, tag: tag, format: format, maxWidth: maxWidth, maxHeight: maxHeight, percentPlayed: percentPlayed, unplayedCount: unplayedCount, width: width, height: height, quality: quality, fillWidth: fillWidth, fillHeight: fillHeight, cropWhitespace: cropWhitespace, addPlayedIndicator: addPlayedIndicator, blur: blur, backgroundColor: backgroundColor, foregroundLayer: foregroundLayer).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3353,21 +3575,21 @@ open class ImageAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func headUserImageByIndexWithRequestBuilder(userId: String, imageType: ImageType, imageIndex: Int, tag: String? = nil, format: ImageFormat? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, percentPlayed: Double? = nil, unplayedCount: Int? = nil, width: Int? = nil, height: Int? = nil, quality: Int? = nil, fillWidth: Int? = nil, fillHeight: Int? = nil, cropWhitespace: Bool? = nil, addPlayedIndicator: Bool? = nil, blur: Int? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) -> RequestBuilder<URL> {
-        var urlPath = "/Users/{userId}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Users/{userId}/Images/{imageType}/{imageIndex}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tag": tag?.encodeToJSON(),
             "format": format?.encodeToJSON(),
             "maxWidth": maxWidth?.encodeToJSON(),
@@ -3386,15 +3608,15 @@ open class ImageAPI {
             "foregroundLayer": foregroundLayer?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "HEAD", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "HEAD", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -3404,14 +3626,14 @@ open class ImageAPI {
      - parameter imageType: (path) (Unused) Image type. 
      - parameter index: (query) (Unused) Image index. (optional)
      - parameter body: (body)  (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func postUserImage(userId: String, imageType: ImageType, index: Int? = nil, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            postUserImageWithRequestBuilder(userId: userId, imageType: imageType, index: index, body: body).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func postUserImage(userId: String, imageType: ImageType, index: Int? = nil, body: URL? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = postUserImageWithRequestBuilder(userId: userId, imageType: imageType, index: index, body: body).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -3419,7 +3641,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3427,7 +3653,7 @@ open class ImageAPI {
      Sets the user image.
      - POST /Users/{userId}/Images/{imageType}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
@@ -3436,30 +3662,30 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func postUserImageWithRequestBuilder(userId: String, imageType: ImageType, index: Int? = nil, body: URL? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Users/{userId}/Images/{imageType}"
+        var localVariablePath = "/Users/{userId}/Images/{imageType}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "index": index?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -3469,14 +3695,14 @@ open class ImageAPI {
      - parameter imageType: (path) (Unused) Image type. 
      - parameter index: (path) (Unused) Image index. 
      - parameter body: (body)  (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func postUserImageByIndex(userId: String, imageType: ImageType, index: Int, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            postUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, index: index, body: body).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func postUserImageByIndex(userId: String, imageType: ImageType, index: Int, body: URL? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = postUserImageByIndexWithRequestBuilder(userId: userId, imageType: imageType, index: index, body: body).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -3484,7 +3710,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3492,7 +3722,7 @@ open class ImageAPI {
      Sets the user image.
      - POST /Users/{userId}/Images/{imageType}/{index}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (path) User Id. 
      - parameter imageType: (path) (Unused) Image type. 
@@ -3501,30 +3731,30 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func postUserImageByIndexWithRequestBuilder(userId: String, imageType: ImageType, index: Int, body: URL? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Users/{userId}/Images/{imageType}/{index}"
+        var localVariablePath = "/Users/{userId}/Images/{imageType}/{index}"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let indexPreEscape = "\(APIHelper.mapValueToPathItem(index))"
         let indexPostEscape = indexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{index}", with: indexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -3533,14 +3763,14 @@ open class ImageAPI {
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
      - parameter body: (body)  (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func setItemImage(itemId: String, imageType: ImageType, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            setItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, body: body).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func setItemImage(itemId: String, imageType: ImageType, body: URL? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = setItemImageWithRequestBuilder(itemId: itemId, imageType: imageType, body: body).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -3548,7 +3778,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3556,7 +3790,7 @@ open class ImageAPI {
      Set item image.
      - POST /Items/{itemId}/Images/{imageType}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
@@ -3564,27 +3798,27 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func setItemImageWithRequestBuilder(itemId: String, imageType: ImageType, body: URL? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -3594,14 +3828,14 @@ open class ImageAPI {
      - parameter imageType: (path) Image type. 
      - parameter imageIndex: (path) (Unused) Image index. 
      - parameter body: (body)  (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func setItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, body: URL? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            setItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, body: body).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func setItemImageByIndex(itemId: String, imageType: ImageType, imageIndex: Int, body: URL? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = setItemImageByIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, body: body).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -3609,7 +3843,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3617,7 +3855,7 @@ open class ImageAPI {
      Set item image.
      - POST /Items/{itemId}/Images/{imageType}/{imageIndex}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
@@ -3626,30 +3864,30 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func setItemImageByIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int, body: URL? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}/{imageIndex}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -3659,14 +3897,14 @@ open class ImageAPI {
      - parameter imageType: (path) Image type. 
      - parameter imageIndex: (path) Old image index. 
      - parameter newIndex: (query) New image index. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateItemImageIndex(itemId: String, imageType: ImageType, imageIndex: Int, newIndex: Int, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            updateItemImageIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, newIndex: newIndex).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func updateItemImageIndex(itemId: String, imageType: ImageType, imageIndex: Int, newIndex: Int) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = updateItemImageIndexWithRequestBuilder(itemId: itemId, imageType: imageType, imageIndex: imageIndex, newIndex: newIndex).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -3674,7 +3912,11 @@ open class ImageAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -3682,7 +3924,7 @@ open class ImageAPI {
      Updates the index for an item image.
      - POST /Items/{itemId}/Images/{imageType}/{imageIndex}/Index
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - parameter imageType: (path) Image type. 
@@ -3691,33 +3933,86 @@ open class ImageAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func updateItemImageIndexWithRequestBuilder(itemId: String, imageType: ImageType, imageIndex: Int, newIndex: Int) -> RequestBuilder<Void> {
-        var urlPath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/Index"
+        var localVariablePath = "/Items/{itemId}/Images/{imageType}/{imageIndex}/Index"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
         let imageTypePreEscape = "\(APIHelper.mapValueToPathItem(imageType))"
         let imageTypePostEscape = imageTypePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageType}", with: imageTypePostEscape, options: .literal, range: nil)
         let imageIndexPreEscape = "\(APIHelper.mapValueToPathItem(imageIndex))"
         let imageIndexPostEscape = imageIndexPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{imageIndex}", with: imageIndexPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "newIndex": newIndex.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
+    /**
+     Uploads a custom splashscreen.
+     
+     - parameter body: (body)  (optional)
+     - returns: AnyPublisher<Void, Error>
+     */
+    #if canImport(Combine)
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func uploadCustomSplashscreen(body: URL? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = uploadCustomSplashscreenWithRequestBuilder(body: body).execute { result in
+                switch result {
+                case .success:
+                    promise(.success(()))
+                case let .failure(error):
+                    promise(.failure(error))
+                }
+            }
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
+    }
+    #endif
+
+    /**
+     Uploads a custom splashscreen.
+     - POST /Branding/Splashscreen
+     - API Key:
+       - type: apiKey Authorization 
+       - name: CustomAuthentication
+     - parameter body: (body)  (optional)
+     - returns: RequestBuilder<Void> 
+     */
+    open class func uploadCustomSplashscreenWithRequestBuilder(body: URL? = nil) -> RequestBuilder<Void> {
+        let localVariablePath = "/Branding/Splashscreen"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
+    }
 }

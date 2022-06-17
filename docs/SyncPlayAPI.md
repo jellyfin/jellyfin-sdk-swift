@@ -1,6 +1,6 @@
 # SyncPlayAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,20 +29,20 @@ Method | HTTP request | Description
 
 # **syncPlayBuffering**
 ```swift
-    open class func syncPlayBuffering(bufferRequestDto: BufferRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayBuffering(syncPlayBufferingRequest: SyncPlayBufferingRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Notify SyncPlay group that member is buffering.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let bufferRequestDto = BufferRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: "playlistItemId_example") // BufferRequestDto | The player status.
+let syncPlayBufferingRequest = SyncPlayBuffering_request(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: "playlistItemId_example") // SyncPlayBufferingRequest | The player status.
 
 // Notify SyncPlay group that member is buffering.
-SyncPlayAPI.syncPlayBuffering(bufferRequestDto: bufferRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayBuffering(syncPlayBufferingRequest: syncPlayBufferingRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -58,7 +58,7 @@ SyncPlayAPI.syncPlayBuffering(bufferRequestDto: bufferRequestDto) { (response, e
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bufferRequestDto** | [**BufferRequestDto**](BufferRequestDto.md) | The player status. | 
+ **syncPlayBufferingRequest** | [**SyncPlayBufferingRequest**](SyncPlayBufferingRequest.md) | The player status. | 
 
 ### Return type
 
@@ -77,20 +77,20 @@ Void (empty response body)
 
 # **syncPlayCreateGroup**
 ```swift
-    open class func syncPlayCreateGroup(newGroupRequestDto: NewGroupRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayCreateGroup(syncPlayCreateGroupRequest: SyncPlayCreateGroupRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Create a new SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let newGroupRequestDto = NewGroupRequestDto(groupName: "groupName_example") // NewGroupRequestDto | The settings of the new group.
+let syncPlayCreateGroupRequest = SyncPlayCreateGroup_request(groupName: "groupName_example") // SyncPlayCreateGroupRequest | The settings of the new group.
 
 // Create a new SyncPlay group.
-SyncPlayAPI.syncPlayCreateGroup(newGroupRequestDto: newGroupRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayCreateGroup(syncPlayCreateGroupRequest: syncPlayCreateGroupRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -106,7 +106,7 @@ SyncPlayAPI.syncPlayCreateGroup(newGroupRequestDto: newGroupRequestDto) { (respo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **newGroupRequestDto** | [**NewGroupRequestDto**](NewGroupRequestDto.md) | The settings of the new group. | 
+ **syncPlayCreateGroupRequest** | [**SyncPlayCreateGroupRequest**](SyncPlayCreateGroupRequest.md) | The settings of the new group. | 
 
 ### Return type
 
@@ -130,7 +130,7 @@ Void (empty response body)
 
 Gets all SyncPlay groups.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -169,20 +169,20 @@ This endpoint does not need any parameter.
 
 # **syncPlayJoinGroup**
 ```swift
-    open class func syncPlayJoinGroup(joinGroupRequestDto: JoinGroupRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayJoinGroup(syncPlayJoinGroupRequest: SyncPlayJoinGroupRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Join an existing SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let joinGroupRequestDto = JoinGroupRequestDto(groupId: "groupId_example") // JoinGroupRequestDto | The group to join.
+let syncPlayJoinGroupRequest = SyncPlayJoinGroup_request(groupId: "groupId_example") // SyncPlayJoinGroupRequest | The group to join.
 
 // Join an existing SyncPlay group.
-SyncPlayAPI.syncPlayJoinGroup(joinGroupRequestDto: joinGroupRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayJoinGroup(syncPlayJoinGroupRequest: syncPlayJoinGroupRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -198,7 +198,7 @@ SyncPlayAPI.syncPlayJoinGroup(joinGroupRequestDto: joinGroupRequestDto) { (respo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **joinGroupRequestDto** | [**JoinGroupRequestDto**](JoinGroupRequestDto.md) | The group to join. | 
+ **syncPlayJoinGroupRequest** | [**SyncPlayJoinGroupRequest**](SyncPlayJoinGroupRequest.md) | The group to join. | 
 
 ### Return type
 
@@ -222,7 +222,7 @@ Void (empty response body)
 
 Leave the joined SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -261,20 +261,20 @@ Void (empty response body)
 
 # **syncPlayMovePlaylistItem**
 ```swift
-    open class func syncPlayMovePlaylistItem(movePlaylistItemRequestDto: MovePlaylistItemRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayMovePlaylistItem(syncPlayMovePlaylistItemRequest: SyncPlayMovePlaylistItemRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to move an item in the playlist in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let movePlaylistItemRequestDto = MovePlaylistItemRequestDto(playlistItemId: "playlistItemId_example", newIndex: 123) // MovePlaylistItemRequestDto | The new position for the item.
+let syncPlayMovePlaylistItemRequest = SyncPlayMovePlaylistItem_request(playlistItemId: "playlistItemId_example", newIndex: 123) // SyncPlayMovePlaylistItemRequest | The new position for the item.
 
 // Request to move an item in the playlist in SyncPlay group.
-SyncPlayAPI.syncPlayMovePlaylistItem(movePlaylistItemRequestDto: movePlaylistItemRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayMovePlaylistItem(syncPlayMovePlaylistItemRequest: syncPlayMovePlaylistItemRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -290,7 +290,7 @@ SyncPlayAPI.syncPlayMovePlaylistItem(movePlaylistItemRequestDto: movePlaylistIte
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **movePlaylistItemRequestDto** | [**MovePlaylistItemRequestDto**](MovePlaylistItemRequestDto.md) | The new position for the item. | 
+ **syncPlayMovePlaylistItemRequest** | [**SyncPlayMovePlaylistItemRequest**](SyncPlayMovePlaylistItemRequest.md) | The new position for the item. | 
 
 ### Return type
 
@@ -309,20 +309,20 @@ Void (empty response body)
 
 # **syncPlayNextItem**
 ```swift
-    open class func syncPlayNextItem(nextItemRequestDto: NextItemRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayNextItem(syncPlayNextItemRequest: SyncPlayNextItemRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request next item in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let nextItemRequestDto = NextItemRequestDto(playlistItemId: "playlistItemId_example") // NextItemRequestDto | The current item information.
+let syncPlayNextItemRequest = SyncPlayNextItem_request(playlistItemId: "playlistItemId_example") // SyncPlayNextItemRequest | The current item information.
 
 // Request next item in SyncPlay group.
-SyncPlayAPI.syncPlayNextItem(nextItemRequestDto: nextItemRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayNextItem(syncPlayNextItemRequest: syncPlayNextItemRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -338,7 +338,7 @@ SyncPlayAPI.syncPlayNextItem(nextItemRequestDto: nextItemRequestDto) { (response
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **nextItemRequestDto** | [**NextItemRequestDto**](NextItemRequestDto.md) | The current item information. | 
+ **syncPlayNextItemRequest** | [**SyncPlayNextItemRequest**](SyncPlayNextItemRequest.md) | The current item information. | 
 
 ### Return type
 
@@ -362,7 +362,7 @@ Void (empty response body)
 
 Request pause in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -401,20 +401,20 @@ Void (empty response body)
 
 # **syncPlayPing**
 ```swift
-    open class func syncPlayPing(pingRequestDto: PingRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayPing(syncPlayPingRequest: SyncPlayPingRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Update session ping.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let pingRequestDto = PingRequestDto(ping: 123) // PingRequestDto | The new ping.
+let syncPlayPingRequest = SyncPlayPing_request(ping: 123) // SyncPlayPingRequest | The new ping.
 
 // Update session ping.
-SyncPlayAPI.syncPlayPing(pingRequestDto: pingRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayPing(syncPlayPingRequest: syncPlayPingRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -430,7 +430,7 @@ SyncPlayAPI.syncPlayPing(pingRequestDto: pingRequestDto) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pingRequestDto** | [**PingRequestDto**](PingRequestDto.md) | The new ping. | 
+ **syncPlayPingRequest** | [**SyncPlayPingRequest**](SyncPlayPingRequest.md) | The new ping. | 
 
 ### Return type
 
@@ -449,20 +449,20 @@ Void (empty response body)
 
 # **syncPlayPreviousItem**
 ```swift
-    open class func syncPlayPreviousItem(previousItemRequestDto: PreviousItemRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayPreviousItem(syncPlayPreviousItemRequest: SyncPlayPreviousItemRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request previous item in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let previousItemRequestDto = PreviousItemRequestDto(playlistItemId: "playlistItemId_example") // PreviousItemRequestDto | The current item information.
+let syncPlayPreviousItemRequest = SyncPlayPreviousItem_request(playlistItemId: "playlistItemId_example") // SyncPlayPreviousItemRequest | The current item information.
 
 // Request previous item in SyncPlay group.
-SyncPlayAPI.syncPlayPreviousItem(previousItemRequestDto: previousItemRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayPreviousItem(syncPlayPreviousItemRequest: syncPlayPreviousItemRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -478,7 +478,7 @@ SyncPlayAPI.syncPlayPreviousItem(previousItemRequestDto: previousItemRequestDto)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **previousItemRequestDto** | [**PreviousItemRequestDto**](PreviousItemRequestDto.md) | The current item information. | 
+ **syncPlayPreviousItemRequest** | [**SyncPlayPreviousItemRequest**](SyncPlayPreviousItemRequest.md) | The current item information. | 
 
 ### Return type
 
@@ -497,20 +497,20 @@ Void (empty response body)
 
 # **syncPlayQueue**
 ```swift
-    open class func syncPlayQueue(queueRequestDto: QueueRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayQueue(syncPlayQueueRequest: SyncPlayQueueRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to queue items to the playlist of a SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let queueRequestDto = QueueRequestDto(itemIds: ["itemIds_example"], mode: GroupQueueMode()) // QueueRequestDto | The items to add.
+let syncPlayQueueRequest = SyncPlayQueue_request(itemIds: ["itemIds_example"], mode: GroupQueueMode()) // SyncPlayQueueRequest | The items to add.
 
 // Request to queue items to the playlist of a SyncPlay group.
-SyncPlayAPI.syncPlayQueue(queueRequestDto: queueRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayQueue(syncPlayQueueRequest: syncPlayQueueRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -526,7 +526,7 @@ SyncPlayAPI.syncPlayQueue(queueRequestDto: queueRequestDto) { (response, error) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **queueRequestDto** | [**QueueRequestDto**](QueueRequestDto.md) | The items to add. | 
+ **syncPlayQueueRequest** | [**SyncPlayQueueRequest**](SyncPlayQueueRequest.md) | The items to add. | 
 
 ### Return type
 
@@ -545,20 +545,20 @@ Void (empty response body)
 
 # **syncPlayReady**
 ```swift
-    open class func syncPlayReady(readyRequestDto: ReadyRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayReady(syncPlayReadyRequest: SyncPlayReadyRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Notify SyncPlay group that member is ready for playback.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let readyRequestDto = ReadyRequestDto(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: "playlistItemId_example") // ReadyRequestDto | The player status.
+let syncPlayReadyRequest = SyncPlayReady_request(when: Date(), positionTicks: 123, isPlaying: false, playlistItemId: "playlistItemId_example") // SyncPlayReadyRequest | The player status.
 
 // Notify SyncPlay group that member is ready for playback.
-SyncPlayAPI.syncPlayReady(readyRequestDto: readyRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayReady(syncPlayReadyRequest: syncPlayReadyRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -574,7 +574,7 @@ SyncPlayAPI.syncPlayReady(readyRequestDto: readyRequestDto) { (response, error) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **readyRequestDto** | [**ReadyRequestDto**](ReadyRequestDto.md) | The player status. | 
+ **syncPlayReadyRequest** | [**SyncPlayReadyRequest**](SyncPlayReadyRequest.md) | The player status. | 
 
 ### Return type
 
@@ -593,20 +593,20 @@ Void (empty response body)
 
 # **syncPlayRemoveFromPlaylist**
 ```swift
-    open class func syncPlayRemoveFromPlaylist(removeFromPlaylistRequestDto: RemoveFromPlaylistRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlayRemoveFromPlaylist(syncPlayRemoveFromPlaylistRequest: SyncPlayRemoveFromPlaylistRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to remove items from the playlist in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let removeFromPlaylistRequestDto = RemoveFromPlaylistRequestDto(playlistItemIds: ["playlistItemIds_example"]) // RemoveFromPlaylistRequestDto | The items to remove.
+let syncPlayRemoveFromPlaylistRequest = SyncPlayRemoveFromPlaylist_request(playlistItemIds: ["playlistItemIds_example"], clearPlaylist: false, clearPlayingItem: false) // SyncPlayRemoveFromPlaylistRequest | The items to remove.
 
 // Request to remove items from the playlist in SyncPlay group.
-SyncPlayAPI.syncPlayRemoveFromPlaylist(removeFromPlaylistRequestDto: removeFromPlaylistRequestDto) { (response, error) in
+SyncPlayAPI.syncPlayRemoveFromPlaylist(syncPlayRemoveFromPlaylistRequest: syncPlayRemoveFromPlaylistRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -622,7 +622,7 @@ SyncPlayAPI.syncPlayRemoveFromPlaylist(removeFromPlaylistRequestDto: removeFromP
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **removeFromPlaylistRequestDto** | [**RemoveFromPlaylistRequestDto**](RemoveFromPlaylistRequestDto.md) | The items to remove. | 
+ **syncPlayRemoveFromPlaylistRequest** | [**SyncPlayRemoveFromPlaylistRequest**](SyncPlayRemoveFromPlaylistRequest.md) | The items to remove. | 
 
 ### Return type
 
@@ -641,20 +641,20 @@ Void (empty response body)
 
 # **syncPlaySeek**
 ```swift
-    open class func syncPlaySeek(seekRequestDto: SeekRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySeek(syncPlaySeekRequest: SyncPlaySeekRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request seek in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let seekRequestDto = SeekRequestDto(positionTicks: 123) // SeekRequestDto | The new playback position.
+let syncPlaySeekRequest = SyncPlaySeek_request(positionTicks: 123) // SyncPlaySeekRequest | The new playback position.
 
 // Request seek in SyncPlay group.
-SyncPlayAPI.syncPlaySeek(seekRequestDto: seekRequestDto) { (response, error) in
+SyncPlayAPI.syncPlaySeek(syncPlaySeekRequest: syncPlaySeekRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -670,7 +670,7 @@ SyncPlayAPI.syncPlaySeek(seekRequestDto: seekRequestDto) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seekRequestDto** | [**SeekRequestDto**](SeekRequestDto.md) | The new playback position. | 
+ **syncPlaySeekRequest** | [**SyncPlaySeekRequest**](SyncPlaySeekRequest.md) | The new playback position. | 
 
 ### Return type
 
@@ -689,20 +689,20 @@ Void (empty response body)
 
 # **syncPlaySetIgnoreWait**
 ```swift
-    open class func syncPlaySetIgnoreWait(ignoreWaitRequestDto: IgnoreWaitRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetIgnoreWait(syncPlaySetIgnoreWaitRequest: SyncPlaySetIgnoreWaitRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request SyncPlay group to ignore member during group-wait.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let ignoreWaitRequestDto = IgnoreWaitRequestDto(ignoreWait: false) // IgnoreWaitRequestDto | The settings to set.
+let syncPlaySetIgnoreWaitRequest = SyncPlaySetIgnoreWait_request(ignoreWait: false) // SyncPlaySetIgnoreWaitRequest | The settings to set.
 
 // Request SyncPlay group to ignore member during group-wait.
-SyncPlayAPI.syncPlaySetIgnoreWait(ignoreWaitRequestDto: ignoreWaitRequestDto) { (response, error) in
+SyncPlayAPI.syncPlaySetIgnoreWait(syncPlaySetIgnoreWaitRequest: syncPlaySetIgnoreWaitRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -718,7 +718,7 @@ SyncPlayAPI.syncPlaySetIgnoreWait(ignoreWaitRequestDto: ignoreWaitRequestDto) { 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ignoreWaitRequestDto** | [**IgnoreWaitRequestDto**](IgnoreWaitRequestDto.md) | The settings to set. | 
+ **syncPlaySetIgnoreWaitRequest** | [**SyncPlaySetIgnoreWaitRequest**](SyncPlaySetIgnoreWaitRequest.md) | The settings to set. | 
 
 ### Return type
 
@@ -737,20 +737,20 @@ Void (empty response body)
 
 # **syncPlaySetNewQueue**
 ```swift
-    open class func syncPlaySetNewQueue(playRequestDto: PlayRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetNewQueue(syncPlaySetNewQueueRequest: SyncPlaySetNewQueueRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to set new playlist in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let playRequestDto = PlayRequestDto(playingQueue: ["playingQueue_example"], playingItemPosition: 123, startPositionTicks: 123) // PlayRequestDto | The new playlist to play in the group.
+let syncPlaySetNewQueueRequest = SyncPlaySetNewQueue_request(playingQueue: ["playingQueue_example"], playingItemPosition: 123, startPositionTicks: 123) // SyncPlaySetNewQueueRequest | The new playlist to play in the group.
 
 // Request to set new playlist in SyncPlay group.
-SyncPlayAPI.syncPlaySetNewQueue(playRequestDto: playRequestDto) { (response, error) in
+SyncPlayAPI.syncPlaySetNewQueue(syncPlaySetNewQueueRequest: syncPlaySetNewQueueRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -766,7 +766,7 @@ SyncPlayAPI.syncPlaySetNewQueue(playRequestDto: playRequestDto) { (response, err
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **playRequestDto** | [**PlayRequestDto**](PlayRequestDto.md) | The new playlist to play in the group. | 
+ **syncPlaySetNewQueueRequest** | [**SyncPlaySetNewQueueRequest**](SyncPlaySetNewQueueRequest.md) | The new playlist to play in the group. | 
 
 ### Return type
 
@@ -785,20 +785,20 @@ Void (empty response body)
 
 # **syncPlaySetPlaylistItem**
 ```swift
-    open class func syncPlaySetPlaylistItem(setPlaylistItemRequestDto: SetPlaylistItemRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetPlaylistItem(syncPlaySetPlaylistItemRequest: SyncPlaySetPlaylistItemRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to change playlist item in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let setPlaylistItemRequestDto = SetPlaylistItemRequestDto(playlistItemId: "playlistItemId_example") // SetPlaylistItemRequestDto | The new item to play.
+let syncPlaySetPlaylistItemRequest = SyncPlaySetPlaylistItem_request(playlistItemId: "playlistItemId_example") // SyncPlaySetPlaylistItemRequest | The new item to play.
 
 // Request to change playlist item in SyncPlay group.
-SyncPlayAPI.syncPlaySetPlaylistItem(setPlaylistItemRequestDto: setPlaylistItemRequestDto) { (response, error) in
+SyncPlayAPI.syncPlaySetPlaylistItem(syncPlaySetPlaylistItemRequest: syncPlaySetPlaylistItemRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -814,7 +814,7 @@ SyncPlayAPI.syncPlaySetPlaylistItem(setPlaylistItemRequestDto: setPlaylistItemRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setPlaylistItemRequestDto** | [**SetPlaylistItemRequestDto**](SetPlaylistItemRequestDto.md) | The new item to play. | 
+ **syncPlaySetPlaylistItemRequest** | [**SyncPlaySetPlaylistItemRequest**](SyncPlaySetPlaylistItemRequest.md) | The new item to play. | 
 
 ### Return type
 
@@ -833,20 +833,20 @@ Void (empty response body)
 
 # **syncPlaySetRepeatMode**
 ```swift
-    open class func syncPlaySetRepeatMode(setRepeatModeRequestDto: SetRepeatModeRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetRepeatMode(syncPlaySetRepeatModeRequest: SyncPlaySetRepeatModeRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to set repeat mode in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let setRepeatModeRequestDto = SetRepeatModeRequestDto(mode: GroupRepeatMode()) // SetRepeatModeRequestDto | The new repeat mode.
+let syncPlaySetRepeatModeRequest = SyncPlaySetRepeatMode_request(mode: GroupRepeatMode()) // SyncPlaySetRepeatModeRequest | The new repeat mode.
 
 // Request to set repeat mode in SyncPlay group.
-SyncPlayAPI.syncPlaySetRepeatMode(setRepeatModeRequestDto: setRepeatModeRequestDto) { (response, error) in
+SyncPlayAPI.syncPlaySetRepeatMode(syncPlaySetRepeatModeRequest: syncPlaySetRepeatModeRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -862,7 +862,7 @@ SyncPlayAPI.syncPlaySetRepeatMode(setRepeatModeRequestDto: setRepeatModeRequestD
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setRepeatModeRequestDto** | [**SetRepeatModeRequestDto**](SetRepeatModeRequestDto.md) | The new repeat mode. | 
+ **syncPlaySetRepeatModeRequest** | [**SyncPlaySetRepeatModeRequest**](SyncPlaySetRepeatModeRequest.md) | The new repeat mode. | 
 
 ### Return type
 
@@ -881,20 +881,20 @@ Void (empty response body)
 
 # **syncPlaySetShuffleMode**
 ```swift
-    open class func syncPlaySetShuffleMode(setShuffleModeRequestDto: SetShuffleModeRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func syncPlaySetShuffleMode(syncPlaySetShuffleModeRequest: SyncPlaySetShuffleModeRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Request to set shuffle mode in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let setShuffleModeRequestDto = SetShuffleModeRequestDto(mode: GroupShuffleMode()) // SetShuffleModeRequestDto | The new shuffle mode.
+let syncPlaySetShuffleModeRequest = SyncPlaySetShuffleMode_request(mode: GroupShuffleMode()) // SyncPlaySetShuffleModeRequest | The new shuffle mode.
 
 // Request to set shuffle mode in SyncPlay group.
-SyncPlayAPI.syncPlaySetShuffleMode(setShuffleModeRequestDto: setShuffleModeRequestDto) { (response, error) in
+SyncPlayAPI.syncPlaySetShuffleMode(syncPlaySetShuffleModeRequest: syncPlaySetShuffleModeRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -910,7 +910,7 @@ SyncPlayAPI.syncPlaySetShuffleMode(setShuffleModeRequestDto: setShuffleModeReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setShuffleModeRequestDto** | [**SetShuffleModeRequestDto**](SetShuffleModeRequestDto.md) | The new shuffle mode. | 
+ **syncPlaySetShuffleModeRequest** | [**SyncPlaySetShuffleModeRequest**](SyncPlaySetShuffleModeRequest.md) | The new shuffle mode. | 
 
 ### Return type
 
@@ -934,7 +934,7 @@ Void (empty response body)
 
 Request stop in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -978,7 +978,7 @@ Void (empty response body)
 
 Request unpause in SyncPlay group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI

@@ -5,24 +5,27 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class StartupAPI {
+
     /**
      Completes the startup wizard.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func completeWizard(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            completeWizardWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func completeWizard() -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = completeWizardWithRequestBuilder().execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -30,7 +33,11 @@ open class StartupAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -38,47 +45,51 @@ open class StartupAPI {
      Completes the startup wizard.
      - POST /Startup/Complete
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<Void> 
      */
     open class func completeWizardWithRequestBuilder() -> RequestBuilder<Void> {
-        let urlPath = "/Startup/Complete"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Startup/Complete"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets the first user.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<StartupUserDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getFirstUser(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<StartupUserDto, Error> {
-        return Future<StartupUserDto, Error>.init { promise in
-            getFirstUserWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getFirstUser() -> AnyPublisher<StartupUserDto, Error> {
+        var requestTask: RequestTask?
+        return Future<StartupUserDto, Error> { promise in
+            requestTask = getFirstUserWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -86,47 +97,51 @@ open class StartupAPI {
      Gets the first user.
      - GET /Startup/User
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<StartupUserDto> 
      */
     open class func getFirstUserWithRequestBuilder() -> RequestBuilder<StartupUserDto> {
-        let urlPath = "/Startup/User"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Startup/User"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<StartupUserDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<StartupUserDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets the first user.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<StartupUserDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getFirstUser2(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<StartupUserDto, Error> {
-        return Future<StartupUserDto, Error>.init { promise in
-            getFirstUser2WithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getFirstUser2() -> AnyPublisher<StartupUserDto, Error> {
+        var requestTask: RequestTask?
+        return Future<StartupUserDto, Error> { promise in
+            requestTask = getFirstUser2WithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -134,47 +149,51 @@ open class StartupAPI {
      Gets the first user.
      - GET /Startup/FirstUser
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<StartupUserDto> 
      */
     open class func getFirstUser2WithRequestBuilder() -> RequestBuilder<StartupUserDto> {
-        let urlPath = "/Startup/FirstUser"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Startup/FirstUser"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<StartupUserDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<StartupUserDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets the initial startup wizard configuration.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<StartupConfigurationDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getStartupConfiguration(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<StartupConfigurationDto, Error> {
-        return Future<StartupConfigurationDto, Error>.init { promise in
-            getStartupConfigurationWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getStartupConfiguration() -> AnyPublisher<StartupConfigurationDto, Error> {
+        var requestTask: RequestTask?
+        return Future<StartupConfigurationDto, Error> { promise in
+            requestTask = getStartupConfigurationWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -182,40 +201,40 @@ open class StartupAPI {
      Gets the initial startup wizard configuration.
      - GET /Startup/Configuration
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<StartupConfigurationDto> 
      */
     open class func getStartupConfigurationWithRequestBuilder() -> RequestBuilder<StartupConfigurationDto> {
-        let urlPath = "/Startup/Configuration"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Startup/Configuration"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<StartupConfigurationDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<StartupConfigurationDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Sets remote access and UPnP.
      
-     - parameter startupRemoteAccessDto: (body) The startup remote access dto. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter setRemoteAccessRequest: (body) The startup remote access dto. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func setRemoteAccess(startupRemoteAccessDto: StartupRemoteAccessDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            setRemoteAccessWithRequestBuilder(startupRemoteAccessDto: startupRemoteAccessDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func setRemoteAccess(setRemoteAccessRequest: SetRemoteAccessRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = setRemoteAccessWithRequestBuilder(setRemoteAccessRequest: setRemoteAccessRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -223,7 +242,11 @@ open class StartupAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -231,41 +254,41 @@ open class StartupAPI {
      Sets remote access and UPnP.
      - POST /Startup/RemoteAccess
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter startupRemoteAccessDto: (body) The startup remote access dto. 
+     - parameter setRemoteAccessRequest: (body) The startup remote access dto. 
      - returns: RequestBuilder<Void> 
      */
-    open class func setRemoteAccessWithRequestBuilder(startupRemoteAccessDto: StartupRemoteAccessDto) -> RequestBuilder<Void> {
-        let urlPath = "/Startup/RemoteAccess"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: startupRemoteAccessDto)
+    open class func setRemoteAccessWithRequestBuilder(setRemoteAccessRequest: SetRemoteAccessRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/Startup/RemoteAccess"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: setRemoteAccessRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Sets the initial startup wizard configuration.
      
-     - parameter startupConfigurationDto: (body) The updated startup configuration. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter updateInitialConfigurationRequest: (body) The updated startup configuration. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateInitialConfiguration(startupConfigurationDto: StartupConfigurationDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            updateInitialConfigurationWithRequestBuilder(startupConfigurationDto: startupConfigurationDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func updateInitialConfiguration(updateInitialConfigurationRequest: UpdateInitialConfigurationRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = updateInitialConfigurationWithRequestBuilder(updateInitialConfigurationRequest: updateInitialConfigurationRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -273,7 +296,11 @@ open class StartupAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -281,41 +308,41 @@ open class StartupAPI {
      Sets the initial startup wizard configuration.
      - POST /Startup/Configuration
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter startupConfigurationDto: (body) The updated startup configuration. 
+     - parameter updateInitialConfigurationRequest: (body) The updated startup configuration. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateInitialConfigurationWithRequestBuilder(startupConfigurationDto: StartupConfigurationDto) -> RequestBuilder<Void> {
-        let urlPath = "/Startup/Configuration"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: startupConfigurationDto)
+    open class func updateInitialConfigurationWithRequestBuilder(updateInitialConfigurationRequest: UpdateInitialConfigurationRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/Startup/Configuration"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateInitialConfigurationRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Sets the user name and password.
      
-     - parameter startupUserDto: (body) The DTO containing username and password. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter updateStartupUserRequest: (body) The DTO containing username and password. (optional)
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateStartupUser(startupUserDto: StartupUserDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            updateStartupUserWithRequestBuilder(startupUserDto: startupUserDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func updateStartupUser(updateStartupUserRequest: UpdateStartupUserRequest? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = updateStartupUserWithRequestBuilder(updateStartupUserRequest: updateStartupUserRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -323,7 +350,11 @@ open class StartupAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -331,27 +362,26 @@ open class StartupAPI {
      Sets the user name and password.
      - POST /Startup/User
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter startupUserDto: (body) The DTO containing username and password. (optional)
+     - parameter updateStartupUserRequest: (body) The DTO containing username and password. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func updateStartupUserWithRequestBuilder(startupUserDto: StartupUserDto? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Startup/User"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: startupUserDto)
+    open class func updateStartupUserWithRequestBuilder(updateStartupUserRequest: UpdateStartupUserRequest? = nil) -> RequestBuilder<Void> {
+        let localVariablePath = "/Startup/User"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateStartupUserRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

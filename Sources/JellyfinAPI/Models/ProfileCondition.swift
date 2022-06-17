@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ProfileCondition: Codable, Hashable {
+public struct ProfileCondition: Codable, JSONEncodable, Hashable {
 
     public var condition: ProfileConditionType?
     public var property: ProfileConditionValue?

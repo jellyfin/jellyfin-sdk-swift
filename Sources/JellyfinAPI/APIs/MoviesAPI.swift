@@ -5,13 +5,16 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class MoviesAPI {
+
     /**
      Gets movie recommendations.
      
@@ -20,22 +23,26 @@ open class MoviesAPI {
      - parameter fields: (query) Optional. The fields to return. (optional)
      - parameter categoryLimit: (query) The max number of categories to return. (optional, default to 5)
      - parameter itemLimit: (query) The max number of items to return per category. (optional, default to 8)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[RecommendationDto], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMovieRecommendations(userId: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RecommendationDto], Error> {
-        return Future<[RecommendationDto], Error>.init { promise in
-            getMovieRecommendationsWithRequestBuilder(userId: userId, parentId: parentId, fields: fields, categoryLimit: categoryLimit, itemLimit: itemLimit).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getMovieRecommendations(userId: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil) -> AnyPublisher<[RecommendationDto], Error> {
+        var requestTask: RequestTask?
+        return Future<[RecommendationDto], Error> { promise in
+            requestTask = getMovieRecommendationsWithRequestBuilder(userId: userId, parentId: parentId, fields: fields, categoryLimit: categoryLimit, itemLimit: itemLimit).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -43,7 +50,7 @@ open class MoviesAPI {
      Gets movie recommendations.
      - GET /Movies/Recommendations
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) Optional. Filter by user id, and attach user data. (optional)
      - parameter parentId: (query) Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
@@ -53,12 +60,12 @@ open class MoviesAPI {
      - returns: RequestBuilder<[RecommendationDto]> 
      */
     open class func getMovieRecommendationsWithRequestBuilder(userId: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, categoryLimit: Int? = nil, itemLimit: Int? = nil) -> RequestBuilder<[RecommendationDto]> {
-        let urlPath = "/Movies/Recommendations"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Movies/Recommendations"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "parentId": parentId?.encodeToJSON(),
             "fields": fields?.encodeToJSON(),
@@ -66,15 +73,14 @@ open class MoviesAPI {
             "itemLimit": itemLimit?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RecommendationDto]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RecommendationDto]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

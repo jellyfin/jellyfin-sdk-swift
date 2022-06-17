@@ -11,10 +11,11 @@ import AnyCodable
 #endif
 
 /** Class QueueRequestDto. */
-public struct QueueRequestDto: Codable, Hashable {
+public struct QueueRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the items to enqueue. */
     public var itemIds: [String]?
+    /** Enum GroupQueueMode. */
     public var mode: GroupQueueMode?
 
     public init(itemIds: [String]? = nil, mode: GroupQueueMode? = nil) {

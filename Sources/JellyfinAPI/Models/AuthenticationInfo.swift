@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct AuthenticationInfo: Codable, Hashable {
+public struct AuthenticationInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the identifier. */
     public var id: Int64?

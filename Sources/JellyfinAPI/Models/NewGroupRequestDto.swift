@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class NewGroupRequestDto. */
-public struct NewGroupRequestDto: Codable, Hashable {
+public struct NewGroupRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the group name. */
     public var groupName: String?

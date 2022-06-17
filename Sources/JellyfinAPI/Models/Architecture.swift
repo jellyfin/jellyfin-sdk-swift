@@ -16,4 +16,5 @@ public enum Architecture: String, Codable, CaseIterable {
     case arm = "Arm"
     case arm64 = "Arm64"
     case wasm = "Wasm"
+    case s390x = "S390x"
 }

@@ -11,15 +11,15 @@ import AnyCodable
 #endif
 
 /** Media Path dto. */
-public struct MediaPathDto: Codable, Hashable {
+public struct MediaPathDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name of the library. */
     public var name: String
     /** Gets or sets the path to add. */
     public var path: String?
-    public var pathInfo: MediaPathInfo?
+    public var pathInfo: MediaPathDtoPathInfo?
 
-    public init(name: String, path: String? = nil, pathInfo: MediaPathInfo? = nil) {
+    public init(name: String, path: String? = nil, pathInfo: MediaPathDtoPathInfo? = nil) {
         self.name = name
         self.path = path
         self.pathInfo = pathInfo

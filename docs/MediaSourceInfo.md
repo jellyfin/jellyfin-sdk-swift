@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **container** | **String** |  | [optional] 
 **size** | **Int64** |  | [optional] 
 **name** | **String** |  | [optional] 
-**isRemote** | **Bool** | Differentiate internet url vs local network. | [optional] 
+**isRemote** | **Bool** | Gets or sets a value indicating whether the media is remote.  Differentiate internet url vs local network. | [optional] 
 **eTag** | **String** |  | [optional] 
 **runTimeTicks** | **Int64** |  | [optional] 
 **readAtNativeFramerate** | **Bool** |  | [optional] 

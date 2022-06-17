@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Provides the MAC address and port for wake-on-LAN functionality. */
-public struct WakeOnLanInfo: Codable, Hashable {
+public struct WakeOnLanInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets the MAC address of the device. */
     public var macAddress: String?

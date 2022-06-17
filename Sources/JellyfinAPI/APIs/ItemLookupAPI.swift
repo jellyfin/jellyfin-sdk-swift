@@ -5,27 +5,30 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class ItemLookupAPI {
+
     /**
      Applies search criteria to an item and refreshes metadata.
      
      - parameter itemId: (path) Item id. 
-     - parameter remoteSearchResult: (body) The remote search result. 
+     - parameter applySearchCriteriaRequest: (body) The remote search result. 
      - parameter replaceAllImages: (query) Optional. Whether or not to replace all images. Default: True. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func applySearchCriteria(itemId: String, remoteSearchResult: RemoteSearchResult, replaceAllImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            applySearchCriteriaWithRequestBuilder(itemId: itemId, remoteSearchResult: remoteSearchResult, replaceAllImages: replaceAllImages).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func applySearchCriteria(itemId: String, applySearchCriteriaRequest: ApplySearchCriteriaRequest, replaceAllImages: Bool? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = applySearchCriteriaWithRequestBuilder(itemId: itemId, applySearchCriteriaRequest: applySearchCriteriaRequest, replaceAllImages: replaceAllImages).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -33,7 +36,11 @@ open class ItemLookupAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -41,57 +48,61 @@ open class ItemLookupAPI {
      Applies search criteria to an item and refreshes metadata.
      - POST /Items/RemoteSearch/Apply/{itemId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
-     - parameter remoteSearchResult: (body) The remote search result. 
+     - parameter applySearchCriteriaRequest: (body) The remote search result. 
      - parameter replaceAllImages: (query) Optional. Whether or not to replace all images. Default: True. (optional, default to true)
      - returns: RequestBuilder<Void> 
      */
-    open class func applySearchCriteriaWithRequestBuilder(itemId: String, remoteSearchResult: RemoteSearchResult, replaceAllImages: Bool? = nil) -> RequestBuilder<Void> {
-        var urlPath = "/Items/RemoteSearch/Apply/{itemId}"
+    open class func applySearchCriteriaWithRequestBuilder(itemId: String, applySearchCriteriaRequest: ApplySearchCriteriaRequest, replaceAllImages: Bool? = nil) -> RequestBuilder<Void> {
+        var localVariablePath = "/Items/RemoteSearch/Apply/{itemId}"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: remoteSearchResult)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: applySearchCriteriaRequest)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "replaceAllImages": replaceAllImages?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get book remote search.
      
-     - parameter bookInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getBookRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getBookRemoteSearchResults(bookInfoRemoteSearchQuery: BookInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getBookRemoteSearchResultsWithRequestBuilder(bookInfoRemoteSearchQuery: bookInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getBookRemoteSearchResults(getBookRemoteSearchResultsRequest: GetBookRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getBookRemoteSearchResultsWithRequestBuilder(getBookRemoteSearchResultsRequest: getBookRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -99,49 +110,53 @@ open class ItemLookupAPI {
      Get book remote search.
      - POST /Items/RemoteSearch/Book
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter bookInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getBookRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getBookRemoteSearchResultsWithRequestBuilder(bookInfoRemoteSearchQuery: BookInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/Book"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: bookInfoRemoteSearchQuery)
+    open class func getBookRemoteSearchResultsWithRequestBuilder(getBookRemoteSearchResultsRequest: GetBookRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/Book"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getBookRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get box set remote search.
      
-     - parameter boxSetInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getBoxSetRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getBoxSetRemoteSearchResults(boxSetInfoRemoteSearchQuery: BoxSetInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getBoxSetRemoteSearchResultsWithRequestBuilder(boxSetInfoRemoteSearchQuery: boxSetInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getBoxSetRemoteSearchResults(getBoxSetRemoteSearchResultsRequest: GetBoxSetRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getBoxSetRemoteSearchResultsWithRequestBuilder(getBoxSetRemoteSearchResultsRequest: getBoxSetRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -149,49 +164,53 @@ open class ItemLookupAPI {
      Get box set remote search.
      - POST /Items/RemoteSearch/BoxSet
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter boxSetInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getBoxSetRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getBoxSetRemoteSearchResultsWithRequestBuilder(boxSetInfoRemoteSearchQuery: BoxSetInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/BoxSet"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: boxSetInfoRemoteSearchQuery)
+    open class func getBoxSetRemoteSearchResultsWithRequestBuilder(getBoxSetRemoteSearchResultsRequest: GetBoxSetRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/BoxSet"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getBoxSetRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get the item's external id info.
      
      - parameter itemId: (path) Item id. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[ExternalIdInfo], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getExternalIdInfos(itemId: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[ExternalIdInfo], Error> {
-        return Future<[ExternalIdInfo], Error>.init { promise in
-            getExternalIdInfosWithRequestBuilder(itemId: itemId).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getExternalIdInfos(itemId: String) -> AnyPublisher<[ExternalIdInfo], Error> {
+        var requestTask: RequestTask?
+        return Future<[ExternalIdInfo], Error> { promise in
+            requestTask = getExternalIdInfosWithRequestBuilder(itemId: itemId).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -199,52 +218,56 @@ open class ItemLookupAPI {
      Get the item's external id info.
      - GET /Items/{itemId}/ExternalIdInfos
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter itemId: (path) Item id. 
      - returns: RequestBuilder<[ExternalIdInfo]> 
      */
     open class func getExternalIdInfosWithRequestBuilder(itemId: String) -> RequestBuilder<[ExternalIdInfo]> {
-        var urlPath = "/Items/{itemId}/ExternalIdInfos"
+        var localVariablePath = "/Items/{itemId}/ExternalIdInfos"
         let itemIdPreEscape = "\(APIHelper.mapValueToPathItem(itemId))"
         let itemIdPostEscape = itemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{itemId}", with: itemIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[ExternalIdInfo]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[ExternalIdInfo]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get movie remote search.
      
-     - parameter movieInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getMovieRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMovieRemoteSearchResults(movieInfoRemoteSearchQuery: MovieInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getMovieRemoteSearchResultsWithRequestBuilder(movieInfoRemoteSearchQuery: movieInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getMovieRemoteSearchResults(getMovieRemoteSearchResultsRequest: GetMovieRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getMovieRemoteSearchResultsWithRequestBuilder(getMovieRemoteSearchResultsRequest: getMovieRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -252,49 +275,53 @@ open class ItemLookupAPI {
      Get movie remote search.
      - POST /Items/RemoteSearch/Movie
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter movieInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getMovieRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getMovieRemoteSearchResultsWithRequestBuilder(movieInfoRemoteSearchQuery: MovieInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/Movie"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: movieInfoRemoteSearchQuery)
+    open class func getMovieRemoteSearchResultsWithRequestBuilder(getMovieRemoteSearchResultsRequest: GetMovieRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/Movie"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getMovieRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get music album remote search.
      
-     - parameter albumInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getMusicAlbumRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMusicAlbumRemoteSearchResults(albumInfoRemoteSearchQuery: AlbumInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getMusicAlbumRemoteSearchResultsWithRequestBuilder(albumInfoRemoteSearchQuery: albumInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getMusicAlbumRemoteSearchResults(getMusicAlbumRemoteSearchResultsRequest: GetMusicAlbumRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getMusicAlbumRemoteSearchResultsWithRequestBuilder(getMusicAlbumRemoteSearchResultsRequest: getMusicAlbumRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -302,49 +329,53 @@ open class ItemLookupAPI {
      Get music album remote search.
      - POST /Items/RemoteSearch/MusicAlbum
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter albumInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getMusicAlbumRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getMusicAlbumRemoteSearchResultsWithRequestBuilder(albumInfoRemoteSearchQuery: AlbumInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/MusicAlbum"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: albumInfoRemoteSearchQuery)
+    open class func getMusicAlbumRemoteSearchResultsWithRequestBuilder(getMusicAlbumRemoteSearchResultsRequest: GetMusicAlbumRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/MusicAlbum"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getMusicAlbumRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get music artist remote search.
      
-     - parameter artistInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getMusicArtistRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMusicArtistRemoteSearchResults(artistInfoRemoteSearchQuery: ArtistInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getMusicArtistRemoteSearchResultsWithRequestBuilder(artistInfoRemoteSearchQuery: artistInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getMusicArtistRemoteSearchResults(getMusicArtistRemoteSearchResultsRequest: GetMusicArtistRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getMusicArtistRemoteSearchResultsWithRequestBuilder(getMusicArtistRemoteSearchResultsRequest: getMusicArtistRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -352,49 +383,53 @@ open class ItemLookupAPI {
      Get music artist remote search.
      - POST /Items/RemoteSearch/MusicArtist
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter artistInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getMusicArtistRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getMusicArtistRemoteSearchResultsWithRequestBuilder(artistInfoRemoteSearchQuery: ArtistInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/MusicArtist"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: artistInfoRemoteSearchQuery)
+    open class func getMusicArtistRemoteSearchResultsWithRequestBuilder(getMusicArtistRemoteSearchResultsRequest: GetMusicArtistRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/MusicArtist"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getMusicArtistRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get music video remote search.
      
-     - parameter musicVideoInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getMusicVideoRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getMusicVideoRemoteSearchResults(musicVideoInfoRemoteSearchQuery: MusicVideoInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getMusicVideoRemoteSearchResultsWithRequestBuilder(musicVideoInfoRemoteSearchQuery: musicVideoInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getMusicVideoRemoteSearchResults(getMusicVideoRemoteSearchResultsRequest: GetMusicVideoRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getMusicVideoRemoteSearchResultsWithRequestBuilder(getMusicVideoRemoteSearchResultsRequest: getMusicVideoRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -402,49 +437,53 @@ open class ItemLookupAPI {
      Get music video remote search.
      - POST /Items/RemoteSearch/MusicVideo
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter musicVideoInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getMusicVideoRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getMusicVideoRemoteSearchResultsWithRequestBuilder(musicVideoInfoRemoteSearchQuery: MusicVideoInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/MusicVideo"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: musicVideoInfoRemoteSearchQuery)
+    open class func getMusicVideoRemoteSearchResultsWithRequestBuilder(getMusicVideoRemoteSearchResultsRequest: GetMusicVideoRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/MusicVideo"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getMusicVideoRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get person remote search.
      
-     - parameter personLookupInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getPersonRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getPersonRemoteSearchResults(personLookupInfoRemoteSearchQuery: PersonLookupInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getPersonRemoteSearchResultsWithRequestBuilder(personLookupInfoRemoteSearchQuery: personLookupInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getPersonRemoteSearchResults(getPersonRemoteSearchResultsRequest: GetPersonRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getPersonRemoteSearchResultsWithRequestBuilder(getPersonRemoteSearchResultsRequest: getPersonRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -452,49 +491,53 @@ open class ItemLookupAPI {
      Get person remote search.
      - POST /Items/RemoteSearch/Person
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter personLookupInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getPersonRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getPersonRemoteSearchResultsWithRequestBuilder(personLookupInfoRemoteSearchQuery: PersonLookupInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/Person"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: personLookupInfoRemoteSearchQuery)
+    open class func getPersonRemoteSearchResultsWithRequestBuilder(getPersonRemoteSearchResultsRequest: GetPersonRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/Person"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getPersonRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get series remote search.
      
-     - parameter seriesInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getSeriesRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getSeriesRemoteSearchResults(seriesInfoRemoteSearchQuery: SeriesInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getSeriesRemoteSearchResultsWithRequestBuilder(seriesInfoRemoteSearchQuery: seriesInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getSeriesRemoteSearchResults(getSeriesRemoteSearchResultsRequest: GetSeriesRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getSeriesRemoteSearchResultsWithRequestBuilder(getSeriesRemoteSearchResultsRequest: getSeriesRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -502,49 +545,53 @@ open class ItemLookupAPI {
      Get series remote search.
      - POST /Items/RemoteSearch/Series
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter seriesInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getSeriesRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getSeriesRemoteSearchResultsWithRequestBuilder(seriesInfoRemoteSearchQuery: SeriesInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/Series"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: seriesInfoRemoteSearchQuery)
+    open class func getSeriesRemoteSearchResultsWithRequestBuilder(getSeriesRemoteSearchResultsRequest: GetSeriesRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/Series"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getSeriesRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get trailer remote search.
      
-     - parameter trailerInfoRemoteSearchQuery: (body) Remote search query. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter getTrailerRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: AnyPublisher<[RemoteSearchResult], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getTrailerRemoteSearchResults(trailerInfoRemoteSearchQuery: TrailerInfoRemoteSearchQuery, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[RemoteSearchResult], Error> {
-        return Future<[RemoteSearchResult], Error>.init { promise in
-            getTrailerRemoteSearchResultsWithRequestBuilder(trailerInfoRemoteSearchQuery: trailerInfoRemoteSearchQuery).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getTrailerRemoteSearchResults(getTrailerRemoteSearchResultsRequest: GetTrailerRemoteSearchResultsRequest) -> AnyPublisher<[RemoteSearchResult], Error> {
+        var requestTask: RequestTask?
+        return Future<[RemoteSearchResult], Error> { promise in
+            requestTask = getTrailerRemoteSearchResultsWithRequestBuilder(getTrailerRemoteSearchResultsRequest: getTrailerRemoteSearchResultsRequest).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -552,27 +599,26 @@ open class ItemLookupAPI {
      Get trailer remote search.
      - POST /Items/RemoteSearch/Trailer
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter trailerInfoRemoteSearchQuery: (body) Remote search query. 
+     - parameter getTrailerRemoteSearchResultsRequest: (body) Remote search query. 
      - returns: RequestBuilder<[RemoteSearchResult]> 
      */
-    open class func getTrailerRemoteSearchResultsWithRequestBuilder(trailerInfoRemoteSearchQuery: TrailerInfoRemoteSearchQuery) -> RequestBuilder<[RemoteSearchResult]> {
-        let urlPath = "/Items/RemoteSearch/Trailer"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: trailerInfoRemoteSearchQuery)
+    open class func getTrailerRemoteSearchResultsWithRequestBuilder(getTrailerRemoteSearchResultsRequest: GetTrailerRemoteSearchResultsRequest) -> RequestBuilder<[RemoteSearchResult]> {
+        let localVariablePath = "/Items/RemoteSearch/Trailer"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: getTrailerRemoteSearchResultsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RemoteSearchResult]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

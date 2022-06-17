@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **name** | **String** | Gets or sets the notification&#39;s name. Defaults to an empty string. | [optional] 
 **description** | **String** | Gets or sets the notification&#39;s description. Defaults to an empty string. | [optional] 
 **url** | **String** | Gets or sets the notification&#39;s URL. Defaults to an empty string. | [optional] 
-**level** | [**NotificationLevel**](NotificationLevel.md) |  | [optional] 
+**level** | [**NotificationLevel**](NotificationLevel.md) | Gets or sets the notification level. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

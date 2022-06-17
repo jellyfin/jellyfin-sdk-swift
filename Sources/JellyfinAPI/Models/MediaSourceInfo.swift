@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct MediaSourceInfo: Codable, Hashable {
+public struct MediaSourceInfo: Codable, JSONEncodable, Hashable {
 
     public var _protocol: MediaProtocol?
     public var id: String?
@@ -21,7 +21,7 @@ public struct MediaSourceInfo: Codable, Hashable {
     public var container: String?
     public var size: Int64?
     public var name: String?
-    /** Differentiate internet url vs local network. */
+    /** Gets or sets a value indicating whether the media is remote.  Differentiate internet url vs local network. */
     public var isRemote: Bool?
     public var eTag: String?
     public var runTimeTicks: Int64?

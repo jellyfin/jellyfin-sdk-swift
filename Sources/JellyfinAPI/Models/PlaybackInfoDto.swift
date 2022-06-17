@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Plabyback info dto. */
-public struct PlaybackInfoDto: Codable, Hashable {
+public struct PlaybackInfoDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the playback userId. */
     public var userId: String?
@@ -29,7 +29,7 @@ public struct PlaybackInfoDto: Codable, Hashable {
     public var mediaSourceId: String?
     /** Gets or sets the live stream id. */
     public var liveStreamId: String?
-    public var deviceProfile: DeviceProfile?
+    public var deviceProfile: ClientCapabilitiesDeviceProfile?
     /** Gets or sets a value indicating whether to enable direct play. */
     public var enableDirectPlay: Bool?
     /** Gets or sets a value indicating whether to enable direct stream. */
@@ -43,7 +43,7 @@ public struct PlaybackInfoDto: Codable, Hashable {
     /** Gets or sets a value indicating whether to auto open the live stream. */
     public var autoOpenLiveStream: Bool?
 
-    public init(userId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, mediaSourceId: String? = nil, liveStreamId: String? = nil, deviceProfile: DeviceProfile? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, autoOpenLiveStream: Bool? = nil) {
+    public init(userId: String? = nil, maxStreamingBitrate: Int? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, maxAudioChannels: Int? = nil, mediaSourceId: String? = nil, liveStreamId: String? = nil, deviceProfile: ClientCapabilitiesDeviceProfile? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, autoOpenLiveStream: Bool? = nil) {
         self.userId = userId
         self.maxStreamingBitrate = maxStreamingBitrate
         self.startTimeTicks = startTimeTicks

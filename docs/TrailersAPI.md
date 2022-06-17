@@ -1,6 +1,6 @@
 # TrailersAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,12 +9,12 @@ Method | HTTP request | Description
 
 # **getTrailers**
 ```swift
-    open class func getTrailers(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getTrailers(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Finds movies and trailers similar to a given trailer.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -45,15 +45,20 @@ let hasOverview = true // Bool | Optional filter by items that have an overview 
 let hasImdbId = true // Bool | Optional filter by items that have an imdb id or not. (optional)
 let hasTmdbId = true // Bool | Optional filter by items that have a tmdb id or not. (optional)
 let hasTvdbId = true // Bool | Optional filter by items that have a tvdb id or not. (optional)
+let isMovie = true // Bool | Optional filter for live tv movies. (optional)
+let isSeries = true // Bool | Optional filter for live tv series. (optional)
+let isNews = true // Bool | Optional filter for live tv news. (optional)
+let isKids = true // Bool | Optional filter for live tv kids. (optional)
+let isSports = true // Bool | Optional filter for live tv sports. (optional)
 let excludeItemIds = ["inner_example"] // [String] | Optional. If specified, results will be filtered by excluding item ids. This allows multiple, comma delimited. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let recursive = true // Bool | When searching within folders, this determines whether or not the search will be recursive. true/false. (optional)
 let searchTerm = "searchTerm_example" // String | Optional. Filter based on a search term. (optional)
-let sortOrder = [APISortOrder()] // [APISortOrder] | Sort Order - Ascending,Descending. (optional)
+let sortOrder = [SortOrder()] // [SortOrder] | Sort Order - Ascending,Descending. (optional)
 let parentId = "parentId_example" // String | Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines. (optional)
-let excludeItemTypes = ["inner_example"] // [String] | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. (optional)
+let excludeItemTypes = [BaseItemKind()] // [BaseItemKind] | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. (optional)
 let filters = [ItemFilter()] // [ItemFilter] | Optional. Specify additional filters to apply. This allows multiple, comma delimited. Options: IsFolder, IsNotFolder, IsUnplayed, IsPlayed, IsFavorite, IsResumable, Likes, Dislikes. (optional)
 let isFavorite = true // Bool | Optional filter by items that are marked as favorite, or not. (optional)
 let mediaTypes = ["inner_example"] // [String] | Optional filter by MediaType. Allows multiple, comma delimited. (optional)
@@ -100,7 +105,7 @@ let enableTotalRecordCount = true // Bool | Optional. Enable the total record co
 let enableImages = true // Bool | Optional, include image information in output. (optional) (default to true)
 
 // Finds movies and trailers similar to a given trailer.
-TrailersAPI.getTrailers(userId: userId, maxOfficialRating: maxOfficialRating, hasThemeSong: hasThemeSong, hasThemeVideo: hasThemeVideo, hasSubtitles: hasSubtitles, hasSpecialFeature: hasSpecialFeature, hasTrailer: hasTrailer, adjacentTo: adjacentTo, parentIndexNumber: parentIndexNumber, hasParentalRating: hasParentalRating, isHd: isHd, is4K: is4K, locationTypes: locationTypes, excludeLocationTypes: excludeLocationTypes, isMissing: isMissing, isUnaired: isUnaired, minCommunityRating: minCommunityRating, minCriticRating: minCriticRating, minPremiereDate: minPremiereDate, minDateLastSaved: minDateLastSaved, minDateLastSavedForUser: minDateLastSavedForUser, maxPremiereDate: maxPremiereDate, hasOverview: hasOverview, hasImdbId: hasImdbId, hasTmdbId: hasTmdbId, hasTvdbId: hasTvdbId, excludeItemIds: excludeItemIds, startIndex: startIndex, limit: limit, recursive: recursive, searchTerm: searchTerm, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, filters: filters, isFavorite: isFavorite, mediaTypes: mediaTypes, imageTypes: imageTypes, sortBy: sortBy, isPlayed: isPlayed, genres: genres, officialRatings: officialRatings, tags: tags, years: years, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, person: person, personIds: personIds, personTypes: personTypes, studios: studios, artists: artists, excludeArtistIds: excludeArtistIds, artistIds: artistIds, albumArtistIds: albumArtistIds, contributingArtistIds: contributingArtistIds, albums: albums, albumIds: albumIds, ids: ids, videoTypes: videoTypes, minOfficialRating: minOfficialRating, isLocked: isLocked, isPlaceHolder: isPlaceHolder, hasOfficialRating: hasOfficialRating, collapseBoxSetItems: collapseBoxSetItems, minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight, is3D: is3D, seriesStatus: seriesStatus, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, studioIds: studioIds, genreIds: genreIds, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages) { (response, error) in
+TrailersAPI.getTrailers(userId: userId, maxOfficialRating: maxOfficialRating, hasThemeSong: hasThemeSong, hasThemeVideo: hasThemeVideo, hasSubtitles: hasSubtitles, hasSpecialFeature: hasSpecialFeature, hasTrailer: hasTrailer, adjacentTo: adjacentTo, parentIndexNumber: parentIndexNumber, hasParentalRating: hasParentalRating, isHd: isHd, is4K: is4K, locationTypes: locationTypes, excludeLocationTypes: excludeLocationTypes, isMissing: isMissing, isUnaired: isUnaired, minCommunityRating: minCommunityRating, minCriticRating: minCriticRating, minPremiereDate: minPremiereDate, minDateLastSaved: minDateLastSaved, minDateLastSavedForUser: minDateLastSavedForUser, maxPremiereDate: maxPremiereDate, hasOverview: hasOverview, hasImdbId: hasImdbId, hasTmdbId: hasTmdbId, hasTvdbId: hasTvdbId, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, excludeItemIds: excludeItemIds, startIndex: startIndex, limit: limit, recursive: recursive, searchTerm: searchTerm, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, filters: filters, isFavorite: isFavorite, mediaTypes: mediaTypes, imageTypes: imageTypes, sortBy: sortBy, isPlayed: isPlayed, genres: genres, officialRatings: officialRatings, tags: tags, years: years, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, person: person, personIds: personIds, personTypes: personTypes, studios: studios, artists: artists, excludeArtistIds: excludeArtistIds, artistIds: artistIds, albumArtistIds: albumArtistIds, contributingArtistIds: contributingArtistIds, albums: albums, albumIds: albumIds, ids: ids, videoTypes: videoTypes, minOfficialRating: minOfficialRating, isLocked: isLocked, isPlaceHolder: isPlaceHolder, hasOfficialRating: hasOfficialRating, collapseBoxSetItems: collapseBoxSetItems, minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight, is3D: is3D, seriesStatus: seriesStatus, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, studioIds: studioIds, genreIds: genreIds, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -116,7 +121,7 @@ TrailersAPI.getTrailers(userId: userId, maxOfficialRating: maxOfficialRating, ha
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id. | [optional] 
+ **userId** | **String** | The user id. | [optional] 
  **maxOfficialRating** | **String** | Optional filter by maximum official rating (PG, PG-13, TV-MA, etc). | [optional] 
  **hasThemeSong** | **Bool** | Optional filter by items with theme songs. | [optional] 
  **hasThemeVideo** | **Bool** | Optional filter by items with theme videos. | [optional] 
@@ -142,15 +147,20 @@ Name | Type | Description  | Notes
  **hasImdbId** | **Bool** | Optional filter by items that have an imdb id or not. | [optional] 
  **hasTmdbId** | **Bool** | Optional filter by items that have a tmdb id or not. | [optional] 
  **hasTvdbId** | **Bool** | Optional filter by items that have a tvdb id or not. | [optional] 
+ **isMovie** | **Bool** | Optional filter for live tv movies. | [optional] 
+ **isSeries** | **Bool** | Optional filter for live tv series. | [optional] 
+ **isNews** | **Bool** | Optional filter for live tv news. | [optional] 
+ **isKids** | **Bool** | Optional filter for live tv kids. | [optional] 
+ **isSports** | **Bool** | Optional filter for live tv sports. | [optional] 
  **excludeItemIds** | [**[String]**](String.md) | Optional. If specified, results will be filtered by excluding item ids. This allows multiple, comma delimited. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **recursive** | **Bool** | When searching within folders, this determines whether or not the search will be recursive. true/false. | [optional] 
  **searchTerm** | **String** | Optional. Filter based on a search term. | [optional] 
- **sortOrder** | [**[APISortOrder]**](APISortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
- **parentId** | [**String**](.md) | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **sortOrder** | [**[SortOrder]**](SortOrder.md) | Sort Order - Ascending,Descending. | [optional] 
+ **parentId** | **String** | Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines. | [optional] 
- **excludeItemTypes** | [**[String]**](String.md) | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. | [optional] 
+ **excludeItemTypes** | [**[BaseItemKind]**](BaseItemKind.md) | Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. | [optional] 
  **filters** | [**[ItemFilter]**](ItemFilter.md) | Optional. Specify additional filters to apply. This allows multiple, comma delimited. Options: IsFolder, IsNotFolder, IsUnplayed, IsPlayed, IsFavorite, IsResumable, Likes, Dislikes. | [optional] 
  **isFavorite** | **Bool** | Optional filter by items that are marked as favorite, or not. | [optional] 
  **mediaTypes** | [**[String]**](String.md) | Optional filter by MediaType. Allows multiple, comma delimited. | [optional] 

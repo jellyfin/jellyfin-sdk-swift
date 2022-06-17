@@ -1,6 +1,6 @@
 # AudioAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 Gets an audio stream.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -64,7 +64,7 @@ let transcodingMaxAudioChannels = 987 // Int | Optional. The maximum number of a
 let cpuCoreLimit = 987 // Int | Optional. The limit of how many cpu cores to use. (optional)
 let liveStreamId = "liveStreamId_example" // String | The live stream id. (optional)
 let enableMpegtsM2TsMode = true // Bool | Optional. Whether to enable the MpegtsM2Ts mode. (optional)
-let videoCodec = "videoCodec_example" // String | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url's extension. Options: h265, h264, mpeg4, theora, vpx, wmv. (optional)
+let videoCodec = "videoCodec_example" // String | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url's extension. Options: h265, h264, mpeg4, theora, vp8, vp9, vpx (deprecated), wmv. (optional)
 let subtitleCodec = "subtitleCodec_example" // String | Optional. Specify a subtitle codec to encode to. (optional)
 let transcodeReasons = "transcodeReasons_example" // String | Optional. The transcoding reason. (optional)
 let audioStreamIndex = 987 // Int | Optional. The index of the audio stream to use. If omitted the first audio stream will be used. (optional)
@@ -89,7 +89,7 @@ AudioAPI.getAudioStream(itemId: itemId, container: container, _static: _static, 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | The item id. | 
+ **itemId** | **String** | The item id. | 
  **container** | **String** | The audio container. | [optional] 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
  **cpuCoreLimit** | **Int** | Optional. The limit of how many cpu cores to use. | [optional] 
  **liveStreamId** | **String** | The live stream id. | [optional] 
  **enableMpegtsM2TsMode** | **Bool** | Optional. Whether to enable the MpegtsM2Ts mode. | [optional] 
- **videoCodec** | **String** | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url&#39;s extension. Options: h265, h264, mpeg4, theora, vpx, wmv. | [optional] 
+ **videoCodec** | **String** | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url&#39;s extension. Options: h265, h264, mpeg4, theora, vp8, vp9, vpx (deprecated), wmv. | [optional] 
  **subtitleCodec** | **String** | Optional. Specify a subtitle codec to encode to. | [optional] 
  **transcodeReasons** | **String** | Optional. The transcoding reason. | [optional] 
  **audioStreamIndex** | **Int** | Optional. The index of the audio stream to use. If omitted the first audio stream will be used. | [optional] 
@@ -161,7 +161,7 @@ No authorization required
 
 Gets an audio stream.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -208,7 +208,7 @@ let transcodingMaxAudioChannels = 987 // Int | Optional. The maximum number of a
 let cpuCoreLimit = 987 // Int | Optional. The limit of how many cpu cores to use. (optional)
 let liveStreamId = "liveStreamId_example" // String | The live stream id. (optional)
 let enableMpegtsM2TsMode = true // Bool | Optional. Whether to enable the MpegtsM2Ts mode. (optional)
-let videoCodec = "videoCodec_example" // String | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url's extension. Options: h265, h264, mpeg4, theora, vpx, wmv. (optional)
+let videoCodec = "videoCodec_example" // String | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url's extension. Options: h265, h264, mpeg4, theora, vp8, vp9, vpx (deprecated), wmv. (optional)
 let subtitleCodec = "subtitleCodec_example" // String | Optional. Specify a subtitle codec to encode to. (optional)
 let transcodeReasons = "transcodeReasons_example" // String | Optional. The transcoding reason. (optional)
 let audioStreamIndex = 987 // Int | Optional. The index of the audio stream to use. If omitted the first audio stream will be used. (optional)
@@ -233,7 +233,7 @@ AudioAPI.getAudioStreamByContainer(itemId: itemId, container: container, _static
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | The item id. | 
+ **itemId** | **String** | The item id. | 
  **container** | **String** | The audio container. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
  **cpuCoreLimit** | **Int** | Optional. The limit of how many cpu cores to use. | [optional] 
  **liveStreamId** | **String** | The live stream id. | [optional] 
  **enableMpegtsM2TsMode** | **Bool** | Optional. Whether to enable the MpegtsM2Ts mode. | [optional] 
- **videoCodec** | **String** | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url&#39;s extension. Options: h265, h264, mpeg4, theora, vpx, wmv. | [optional] 
+ **videoCodec** | **String** | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url&#39;s extension. Options: h265, h264, mpeg4, theora, vp8, vp9, vpx (deprecated), wmv. | [optional] 
  **subtitleCodec** | **String** | Optional. Specify a subtitle codec to encode to. | [optional] 
  **transcodeReasons** | **String** | Optional. The transcoding reason. | [optional] 
  **audioStreamIndex** | **Int** | Optional. The index of the audio stream to use. If omitted the first audio stream will be used. | [optional] 
@@ -305,7 +305,7 @@ No authorization required
 
 Gets an audio stream.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -352,7 +352,7 @@ let transcodingMaxAudioChannels = 987 // Int | Optional. The maximum number of a
 let cpuCoreLimit = 987 // Int | Optional. The limit of how many cpu cores to use. (optional)
 let liveStreamId = "liveStreamId_example" // String | The live stream id. (optional)
 let enableMpegtsM2TsMode = true // Bool | Optional. Whether to enable the MpegtsM2Ts mode. (optional)
-let videoCodec = "videoCodec_example" // String | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url's extension. Options: h265, h264, mpeg4, theora, vpx, wmv. (optional)
+let videoCodec = "videoCodec_example" // String | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url's extension. Options: h265, h264, mpeg4, theora, vp8, vp9, vpx (deprecated), wmv. (optional)
 let subtitleCodec = "subtitleCodec_example" // String | Optional. Specify a subtitle codec to encode to. (optional)
 let transcodeReasons = "transcodeReasons_example" // String | Optional. The transcoding reason. (optional)
 let audioStreamIndex = 987 // Int | Optional. The index of the audio stream to use. If omitted the first audio stream will be used. (optional)
@@ -377,7 +377,7 @@ AudioAPI.headAudioStream(itemId: itemId, container: container, _static: _static,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | The item id. | 
+ **itemId** | **String** | The item id. | 
  **container** | **String** | The audio container. | [optional] 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
  **cpuCoreLimit** | **Int** | Optional. The limit of how many cpu cores to use. | [optional] 
  **liveStreamId** | **String** | The live stream id. | [optional] 
  **enableMpegtsM2TsMode** | **Bool** | Optional. Whether to enable the MpegtsM2Ts mode. | [optional] 
- **videoCodec** | **String** | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url&#39;s extension. Options: h265, h264, mpeg4, theora, vpx, wmv. | [optional] 
+ **videoCodec** | **String** | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url&#39;s extension. Options: h265, h264, mpeg4, theora, vp8, vp9, vpx (deprecated), wmv. | [optional] 
  **subtitleCodec** | **String** | Optional. Specify a subtitle codec to encode to. | [optional] 
  **transcodeReasons** | **String** | Optional. The transcoding reason. | [optional] 
  **audioStreamIndex** | **Int** | Optional. The index of the audio stream to use. If omitted the first audio stream will be used. | [optional] 
@@ -449,7 +449,7 @@ No authorization required
 
 Gets an audio stream.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -496,7 +496,7 @@ let transcodingMaxAudioChannels = 987 // Int | Optional. The maximum number of a
 let cpuCoreLimit = 987 // Int | Optional. The limit of how many cpu cores to use. (optional)
 let liveStreamId = "liveStreamId_example" // String | The live stream id. (optional)
 let enableMpegtsM2TsMode = true // Bool | Optional. Whether to enable the MpegtsM2Ts mode. (optional)
-let videoCodec = "videoCodec_example" // String | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url's extension. Options: h265, h264, mpeg4, theora, vpx, wmv. (optional)
+let videoCodec = "videoCodec_example" // String | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url's extension. Options: h265, h264, mpeg4, theora, vp8, vp9, vpx (deprecated), wmv. (optional)
 let subtitleCodec = "subtitleCodec_example" // String | Optional. Specify a subtitle codec to encode to. (optional)
 let transcodeReasons = "transcodeReasons_example" // String | Optional. The transcoding reason. (optional)
 let audioStreamIndex = 987 // Int | Optional. The index of the audio stream to use. If omitted the first audio stream will be used. (optional)
@@ -521,7 +521,7 @@ AudioAPI.headAudioStreamByContainer(itemId: itemId, container: container, _stati
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | The item id. | 
+ **itemId** | **String** | The item id. | 
  **container** | **String** | The audio container. | 
  **_static** | **Bool** | Optional. If true, the original file will be streamed statically without any encoding. Use either no url extension or the original file extension. true/false. | [optional] 
  **params** | **String** | The streaming parameters. | [optional] 
@@ -563,7 +563,7 @@ Name | Type | Description  | Notes
  **cpuCoreLimit** | **Int** | Optional. The limit of how many cpu cores to use. | [optional] 
  **liveStreamId** | **String** | The live stream id. | [optional] 
  **enableMpegtsM2TsMode** | **Bool** | Optional. Whether to enable the MpegtsM2Ts mode. | [optional] 
- **videoCodec** | **String** | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url&#39;s extension. Options: h265, h264, mpeg4, theora, vpx, wmv. | [optional] 
+ **videoCodec** | **String** | Optional. Specify a video codec to encode to, e.g. h264. If omitted the server will auto-select using the url&#39;s extension. Options: h265, h264, mpeg4, theora, vp8, vp9, vpx (deprecated), wmv. | [optional] 
  **subtitleCodec** | **String** | Optional. Specify a subtitle codec to encode to. | [optional] 
  **transcodeReasons** | **String** | Optional. The transcoding reason. | [optional] 
  **audioStreamIndex** | **Int** | Optional. The index of the audio stream to use. If omitted the first audio stream will be used. | [optional] 

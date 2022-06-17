@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Library options result dto. */
-public struct LibraryOptionsResultDto: Codable, Hashable {
+public struct LibraryOptionsResultDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the metadata savers. */
     public var metadataSavers: [LibraryOptionInfoDto]?

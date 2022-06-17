@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct MetadataEditorInfo: Codable, Hashable {
+public struct MetadataEditorInfo: Codable, JSONEncodable, Hashable {
 
     public var parentalRatingOptions: [ParentalRating]?
     public var countries: [CountryInfo]?

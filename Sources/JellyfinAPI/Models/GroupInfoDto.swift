@@ -11,12 +11,13 @@ import AnyCodable
 #endif
 
 /** Class GroupInfoDto. */
-public struct GroupInfoDto: Codable, Hashable {
+public struct GroupInfoDto: Codable, JSONEncodable, Hashable {
 
     /** Gets the group identifier. */
     public var groupId: String?
     /** Gets the group name. */
     public var groupName: String?
+    /** Gets the group state. */
     public var state: GroupStateType?
     /** Gets the participants. */
     public var participants: [String]?

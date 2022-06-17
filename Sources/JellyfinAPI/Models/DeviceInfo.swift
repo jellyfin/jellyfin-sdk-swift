@@ -10,9 +10,11 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct DeviceInfo: Codable, Hashable {
+public struct DeviceInfo: Codable, JSONEncodable, Hashable {
 
     public var name: String?
+    /** Gets or sets the access token. */
+    public var accessToken: String?
     /** Gets or sets the identifier. */
     public var id: String?
     /** Gets or sets the last name of the user. */
@@ -25,11 +27,12 @@ public struct DeviceInfo: Codable, Hashable {
     public var lastUserId: String?
     /** Gets or sets the date last modified. */
     public var dateLastActivity: Date?
-    public var capabilities: ClientCapabilities?
+    public var capabilities: DeviceInfoCapabilities?
     public var iconUrl: String?
 
-    public init(name: String? = nil, id: String? = nil, lastUserName: String? = nil, appName: String? = nil, appVersion: String? = nil, lastUserId: String? = nil, dateLastActivity: Date? = nil, capabilities: ClientCapabilities? = nil, iconUrl: String? = nil) {
+    public init(name: String? = nil, accessToken: String? = nil, id: String? = nil, lastUserName: String? = nil, appName: String? = nil, appVersion: String? = nil, lastUserId: String? = nil, dateLastActivity: Date? = nil, capabilities: DeviceInfoCapabilities? = nil, iconUrl: String? = nil) {
         self.name = name
+        self.accessToken = accessToken
         self.id = id
         self.lastUserName = lastUserName
         self.appName = appName
@@ -42,6 +45,7 @@ public struct DeviceInfo: Codable, Hashable {
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case name = "Name"
+        case accessToken = "AccessToken"
         case id = "Id"
         case lastUserName = "LastUserName"
         case appName = "AppName"
@@ -57,6 +61,7 @@ public struct DeviceInfo: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var encoderContainer = encoder.container(keyedBy: CodingKeys.self)
         try encoderContainer.encodeIfPresent(name, forKey: .name)
+        try encoderContainer.encodeIfPresent(accessToken, forKey: .accessToken)
         try encoderContainer.encodeIfPresent(id, forKey: .id)
         try encoderContainer.encodeIfPresent(lastUserName, forKey: .lastUserName)
         try encoderContainer.encodeIfPresent(appName, forKey: .appName)

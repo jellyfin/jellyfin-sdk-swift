@@ -11,11 +11,11 @@ import AnyCodable
 #endif
 
 /** Class SearchHintResult. */
-public struct SearchHintResult: Codable, Hashable {
+public struct SearchHintResult: Codable, JSONEncodable, Hashable {
 
-    /** Gets or sets the search hints. */
+    /** Gets the search hints. */
     public var searchHints: [SearchHint]?
-    /** Gets or sets the total record count. */
+    /** Gets the total record count. */
     public var totalRecordCount: Int?
 
     public init(searchHints: [SearchHint]? = nil, totalRecordCount: Int? = nil) {

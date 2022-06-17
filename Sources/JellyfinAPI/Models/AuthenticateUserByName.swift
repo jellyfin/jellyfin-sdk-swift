@@ -11,13 +11,14 @@ import AnyCodable
 #endif
 
 /** The authenticate user by name request body. */
-public struct AuthenticateUserByName: Codable, Hashable {
+public struct AuthenticateUserByName: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the username. */
     public var username: String?
     /** Gets or sets the plain text password. */
     public var pw: String?
     /** Gets or sets the sha1-hashed password. */
+    @available(*, deprecated, message: "This property is deprecated.")
     public var password: String?
 
     public init(username: String? = nil, pw: String? = nil, password: String? = nil) {

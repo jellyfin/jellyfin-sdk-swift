@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct GuideInfo: Codable, Hashable {
+public struct GuideInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the start date. */
     public var startDate: Date?

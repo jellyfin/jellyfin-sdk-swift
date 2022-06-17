@@ -11,13 +11,13 @@ import AnyCodable
 #endif
 
 /** Update library options dto. */
-public struct UpdateMediaPathRequestDto: Codable, Hashable {
+public struct UpdateMediaPathRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the library name. */
     public var name: String
-    public var pathInfo: MediaPathInfo
+    public var pathInfo: UpdateMediaPathRequestDtoPathInfo
 
-    public init(name: String, pathInfo: MediaPathInfo) {
+    public init(name: String, pathInfo: UpdateMediaPathRequestDtoPathInfo) {
         self.name = name
         self.pathInfo = pathInfo
     }

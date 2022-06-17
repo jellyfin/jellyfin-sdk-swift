@@ -5,35 +5,42 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class DisplayPreferencesAPI {
+
     /**
      Get Display Preferences.
      
      - parameter displayPreferencesId: (path) Display preferences id. 
      - parameter userId: (query) User id. 
      - parameter client: (query) Client. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<DisplayPreferencesDto, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getDisplayPreferences(displayPreferencesId: String, userId: String, client: String, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<DisplayPreferencesDto, Error> {
-        return Future<DisplayPreferencesDto, Error>.init { promise in
-            getDisplayPreferencesWithRequestBuilder(displayPreferencesId: displayPreferencesId, userId: userId, client: client).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getDisplayPreferences(displayPreferencesId: String, userId: String, client: String) -> AnyPublisher<DisplayPreferencesDto, Error> {
+        var requestTask: RequestTask?
+        return Future<DisplayPreferencesDto, Error> { promise in
+            requestTask = getDisplayPreferencesWithRequestBuilder(displayPreferencesId: displayPreferencesId, userId: userId, client: client).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -41,7 +48,7 @@ open class DisplayPreferencesAPI {
      Get Display Preferences.
      - GET /DisplayPreferences/{displayPreferencesId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter displayPreferencesId: (path) Display preferences id. 
      - parameter userId: (query) User id. 
@@ -49,28 +56,28 @@ open class DisplayPreferencesAPI {
      - returns: RequestBuilder<DisplayPreferencesDto> 
      */
     open class func getDisplayPreferencesWithRequestBuilder(displayPreferencesId: String, userId: String, client: String) -> RequestBuilder<DisplayPreferencesDto> {
-        var urlPath = "/DisplayPreferences/{displayPreferencesId}"
+        var localVariablePath = "/DisplayPreferences/{displayPreferencesId}"
         let displayPreferencesIdPreEscape = "\(APIHelper.mapValueToPathItem(displayPreferencesId))"
         let displayPreferencesIdPostEscape = displayPreferencesIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{displayPreferencesId}", with: displayPreferencesIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{displayPreferencesId}", with: displayPreferencesIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId.encodeToJSON(),
             "client": client.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<DisplayPreferencesDto>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<DisplayPreferencesDto>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -79,15 +86,15 @@ open class DisplayPreferencesAPI {
      - parameter displayPreferencesId: (path) Display preferences id. 
      - parameter userId: (query) User Id. 
      - parameter client: (query) Client. 
-     - parameter displayPreferencesDto: (body) New Display Preferences object. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter updateDisplayPreferencesRequest: (body) New Display Preferences object. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateDisplayPreferences(displayPreferencesId: String, userId: String, client: String, displayPreferencesDto: DisplayPreferencesDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            updateDisplayPreferencesWithRequestBuilder(displayPreferencesId: displayPreferencesId, userId: userId, client: client, displayPreferencesDto: displayPreferencesDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func updateDisplayPreferences(displayPreferencesId: String, userId: String, client: String, updateDisplayPreferencesRequest: UpdateDisplayPreferencesRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = updateDisplayPreferencesWithRequestBuilder(displayPreferencesId: displayPreferencesId, userId: userId, client: client, updateDisplayPreferencesRequest: updateDisplayPreferencesRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -95,7 +102,11 @@ open class DisplayPreferencesAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -103,37 +114,36 @@ open class DisplayPreferencesAPI {
      Update Display Preferences.
      - POST /DisplayPreferences/{displayPreferencesId}
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter displayPreferencesId: (path) Display preferences id. 
      - parameter userId: (query) User Id. 
      - parameter client: (query) Client. 
-     - parameter displayPreferencesDto: (body) New Display Preferences object. 
+     - parameter updateDisplayPreferencesRequest: (body) New Display Preferences object. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateDisplayPreferencesWithRequestBuilder(displayPreferencesId: String, userId: String, client: String, displayPreferencesDto: DisplayPreferencesDto) -> RequestBuilder<Void> {
-        var urlPath = "/DisplayPreferences/{displayPreferencesId}"
+    open class func updateDisplayPreferencesWithRequestBuilder(displayPreferencesId: String, userId: String, client: String, updateDisplayPreferencesRequest: UpdateDisplayPreferencesRequest) -> RequestBuilder<Void> {
+        var localVariablePath = "/DisplayPreferences/{displayPreferencesId}"
         let displayPreferencesIdPreEscape = "\(APIHelper.mapValueToPathItem(displayPreferencesId))"
         let displayPreferencesIdPostEscape = displayPreferencesIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{displayPreferencesId}", with: displayPreferencesIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: displayPreferencesDto)
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{displayPreferencesId}", with: displayPreferencesIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateDisplayPreferencesRequest)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId.encodeToJSON(),
             "client": client.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

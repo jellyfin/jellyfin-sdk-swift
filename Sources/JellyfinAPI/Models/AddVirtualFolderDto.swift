@@ -11,11 +11,11 @@ import AnyCodable
 #endif
 
 /** Add virtual folder dto. */
-public struct AddVirtualFolderDto: Codable, Hashable {
+public struct AddVirtualFolderDto: Codable, JSONEncodable, Hashable {
 
-    public var libraryOptions: LibraryOptions?
+    public var libraryOptions: AddVirtualFolderDtoLibraryOptions?
 
-    public init(libraryOptions: LibraryOptions? = nil) {
+    public init(libraryOptions: AddVirtualFolderDtoLibraryOptions? = nil) {
         self.libraryOptions = libraryOptions
     }
 

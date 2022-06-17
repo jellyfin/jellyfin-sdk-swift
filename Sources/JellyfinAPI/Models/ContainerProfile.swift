@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ContainerProfile: Codable, Hashable {
+public struct ContainerProfile: Codable, JSONEncodable, Hashable {
 
     public var type: DlnaProfileType?
     public var conditions: [ProfileCondition]?

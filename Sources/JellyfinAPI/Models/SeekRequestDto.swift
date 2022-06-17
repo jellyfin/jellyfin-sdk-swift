@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class SeekRequestDto. */
-public struct SeekRequestDto: Codable, Hashable {
+public struct SeekRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the position ticks. */
     public var positionTicks: Int64?

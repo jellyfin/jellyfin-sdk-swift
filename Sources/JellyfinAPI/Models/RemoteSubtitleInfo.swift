@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct RemoteSubtitleInfo: Codable, Hashable {
+public struct RemoteSubtitleInfo: Codable, JSONEncodable, Hashable {
 
     public var threeLetterISOLanguageName: String?
     public var id: String?

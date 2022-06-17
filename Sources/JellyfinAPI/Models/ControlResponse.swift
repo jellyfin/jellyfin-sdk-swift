@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ControlResponse: Codable, Hashable {
+public struct ControlResponse: Codable, JSONEncodable, Hashable {
 
     public var headers: [String: String]?
     public var xml: String?

@@ -11,8 +11,9 @@ import AnyCodable
 #endif
 
 /** Class SetShuffleModeRequestDto. */
-public struct SetShuffleModeRequestDto: Codable, Hashable {
+public struct SetShuffleModeRequestDto: Codable, JSONEncodable, Hashable {
 
+    /** Enum GroupShuffleMode. */
     public var mode: GroupShuffleMode?
 
     public init(mode: GroupShuffleMode? = nil) {

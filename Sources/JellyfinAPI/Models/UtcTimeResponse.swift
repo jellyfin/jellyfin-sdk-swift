@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class UtcTimeResponse. */
-public struct UtcTimeResponse: Codable, Hashable {
+public struct UtcTimeResponse: Codable, JSONEncodable, Hashable {
 
     /** Gets the UTC time when request has been received. */
     public var requestReceptionTime: Date?

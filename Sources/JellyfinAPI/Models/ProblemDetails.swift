@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ProblemDetails: Codable, Hashable {
+public struct ProblemDetails: Codable, JSONEncodable, Hashable {
 
     public var type: String?
     public var title: String?
@@ -66,7 +66,6 @@ public struct ProblemDetails: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let decoderContainer = try decoder.container(keyedBy: CodingKeys.self)
-
         type = try decoderContainer.decodeIfPresent(String.self, forKey: .type)
         title = try decoderContainer.decodeIfPresent(String.self, forKey: .title)
         status = try decoderContainer.decodeIfPresent(Int.self, forKey: .status)

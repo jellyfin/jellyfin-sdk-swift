@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Gets or sets the primary image blurhash. */
-public struct BaseItemPersonImageBlurHashes: Codable, Hashable {
+public struct BaseItemPersonImageBlurHashes: Codable, JSONEncodable, Hashable {
 
     public var primary: [String: String]?
     public var art: [String: String]?

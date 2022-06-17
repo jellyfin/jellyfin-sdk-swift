@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "JellyfinAPI",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v9),
         .macOS(.v10_11),
-        .tvOS(.v13),
-        .watchOS(.v5),
+        .tvOS(.v9),
+        .watchOS(.v3),
     ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.

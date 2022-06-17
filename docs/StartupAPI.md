@@ -1,6 +1,6 @@
 # StartupAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 Completes the startup wizard.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -64,7 +64,7 @@ Void (empty response body)
 
 Gets the first user.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -108,7 +108,7 @@ This endpoint does not need any parameter.
 
 Gets the first user.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -152,7 +152,7 @@ This endpoint does not need any parameter.
 
 Gets the initial startup wizard configuration.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -191,20 +191,20 @@ This endpoint does not need any parameter.
 
 # **setRemoteAccess**
 ```swift
-    open class func setRemoteAccess(startupRemoteAccessDto: StartupRemoteAccessDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func setRemoteAccess(setRemoteAccessRequest: SetRemoteAccessRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets remote access and UPnP.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let startupRemoteAccessDto = StartupRemoteAccessDto(enableRemoteAccess: false, enableAutomaticPortMapping: false) // StartupRemoteAccessDto | The startup remote access dto.
+let setRemoteAccessRequest = SetRemoteAccess_request(enableRemoteAccess: false, enableAutomaticPortMapping: false) // SetRemoteAccessRequest | The startup remote access dto.
 
 // Sets remote access and UPnP.
-StartupAPI.setRemoteAccess(startupRemoteAccessDto: startupRemoteAccessDto) { (response, error) in
+StartupAPI.setRemoteAccess(setRemoteAccessRequest: setRemoteAccessRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -220,7 +220,7 @@ StartupAPI.setRemoteAccess(startupRemoteAccessDto: startupRemoteAccessDto) { (re
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **startupRemoteAccessDto** | [**StartupRemoteAccessDto**](StartupRemoteAccessDto.md) | The startup remote access dto. | 
+ **setRemoteAccessRequest** | [**SetRemoteAccessRequest**](SetRemoteAccessRequest.md) | The startup remote access dto. | 
 
 ### Return type
 
@@ -239,20 +239,20 @@ Void (empty response body)
 
 # **updateInitialConfiguration**
 ```swift
-    open class func updateInitialConfiguration(startupConfigurationDto: StartupConfigurationDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateInitialConfiguration(updateInitialConfigurationRequest: UpdateInitialConfigurationRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the initial startup wizard configuration.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let startupConfigurationDto = StartupConfigurationDto(uICulture: "uICulture_example", metadataCountryCode: "metadataCountryCode_example", preferredMetadataLanguage: "preferredMetadataLanguage_example") // StartupConfigurationDto | The updated startup configuration.
+let updateInitialConfigurationRequest = UpdateInitialConfiguration_request(uICulture: "uICulture_example", metadataCountryCode: "metadataCountryCode_example", preferredMetadataLanguage: "preferredMetadataLanguage_example") // UpdateInitialConfigurationRequest | The updated startup configuration.
 
 // Sets the initial startup wizard configuration.
-StartupAPI.updateInitialConfiguration(startupConfigurationDto: startupConfigurationDto) { (response, error) in
+StartupAPI.updateInitialConfiguration(updateInitialConfigurationRequest: updateInitialConfigurationRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -268,7 +268,7 @@ StartupAPI.updateInitialConfiguration(startupConfigurationDto: startupConfigurat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **startupConfigurationDto** | [**StartupConfigurationDto**](StartupConfigurationDto.md) | The updated startup configuration. | 
+ **updateInitialConfigurationRequest** | [**UpdateInitialConfigurationRequest**](UpdateInitialConfigurationRequest.md) | The updated startup configuration. | 
 
 ### Return type
 
@@ -287,20 +287,20 @@ Void (empty response body)
 
 # **updateStartupUser**
 ```swift
-    open class func updateStartupUser(startupUserDto: StartupUserDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateStartupUser(updateStartupUserRequest: UpdateStartupUserRequest? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Sets the user name and password.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let startupUserDto = StartupUserDto(name: "name_example", password: "password_example") // StartupUserDto | The DTO containing username and password. (optional)
+let updateStartupUserRequest = UpdateStartupUser_request(name: "name_example", password: "password_example") // UpdateStartupUserRequest | The DTO containing username and password. (optional)
 
 // Sets the user name and password.
-StartupAPI.updateStartupUser(startupUserDto: startupUserDto) { (response, error) in
+StartupAPI.updateStartupUser(updateStartupUserRequest: updateStartupUserRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -316,7 +316,7 @@ StartupAPI.updateStartupUser(startupUserDto: startupUserDto) { (response, error)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **startupUserDto** | [**StartupUserDto**](StartupUserDto.md) | The DTO containing username and password. | [optional] 
+ **updateStartupUserRequest** | [**UpdateStartupUserRequest**](UpdateStartupUserRequest.md) | The DTO containing username and password. | [optional] 
 
 ### Return type
 

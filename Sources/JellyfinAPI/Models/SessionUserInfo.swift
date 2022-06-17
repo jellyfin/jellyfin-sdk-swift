@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class SessionUserInfo. */
-public struct SessionUserInfo: Codable, Hashable {
+public struct SessionUserInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the user identifier. */
     public var userId: String?

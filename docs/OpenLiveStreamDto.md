@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **itemId** | **String** | Gets or sets the item id. | [optional] 
 **enableDirectPlay** | **Bool** | Gets or sets a value indicating whether to enable direct play. | [optional] 
 **enableDirectStream** | **Bool** | Gets or sets a value indicating whether to enale direct stream. | [optional] 
-**deviceProfile** | [**DeviceProfile**](DeviceProfile.md) |  | [optional] 
+**deviceProfile** | [**ClientCapabilitiesDeviceProfile**](ClientCapabilitiesDeviceProfile.md) |  | [optional] 
 **directPlayProtocols** | [MediaProtocol] | Gets or sets the device play protocols. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

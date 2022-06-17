@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class CountryInfo. */
-public struct CountryInfo: Codable, Hashable {
+public struct CountryInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?

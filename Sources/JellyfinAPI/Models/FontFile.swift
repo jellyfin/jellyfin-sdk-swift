@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class FontFile. */
-public struct FontFile: Codable, Hashable {
+public struct FontFile: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?

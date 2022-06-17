@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class NextItemRequestDto. */
-public struct NextItemRequestDto: Codable, Hashable {
+public struct NextItemRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the playing item identifier. */
     public var playlistItemId: String?

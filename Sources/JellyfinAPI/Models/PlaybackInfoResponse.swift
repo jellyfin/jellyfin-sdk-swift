@@ -11,12 +11,13 @@ import AnyCodable
 #endif
 
 /** Class PlaybackInfoResponse. */
-public struct PlaybackInfoResponse: Codable, Hashable {
+public struct PlaybackInfoResponse: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the media sources. */
     public var mediaSources: [MediaSourceInfo]?
     /** Gets or sets the play session identifier. */
     public var playSessionId: String?
+    /** Gets or sets the error code. */
     public var errorCode: PlaybackErrorCode?
 
     public init(mediaSources: [MediaSourceInfo]? = nil, playSessionId: String? = nil, errorCode: PlaybackErrorCode? = nil) {

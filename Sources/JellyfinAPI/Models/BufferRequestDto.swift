@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class BufferRequestDto. */
-public struct BufferRequestDto: Codable, Hashable {
+public struct BufferRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets when the request has been made by the client. */
     public var when: Date?

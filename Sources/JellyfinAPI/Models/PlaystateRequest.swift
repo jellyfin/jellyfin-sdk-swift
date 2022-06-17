@@ -10,8 +10,9 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct PlaystateRequest: Codable, Hashable {
+public struct PlaystateRequest: Codable, JSONEncodable, Hashable {
 
+    /** Enum PlaystateCommand. */
     public var command: PlaystateCommand?
     public var seekPositionTicks: Int64?
     /** Gets or sets the controlling user identifier. */

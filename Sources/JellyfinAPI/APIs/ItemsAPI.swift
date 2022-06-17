@@ -5,13 +5,16 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class ItemsAPI {
+
     /**
      Gets items based on a query.
      
@@ -41,6 +44,11 @@ open class ItemsAPI {
      - parameter hasImdbId: (query) Optional filter by items that have an imdb id or not. (optional)
      - parameter hasTmdbId: (query) Optional filter by items that have a tmdb id or not. (optional)
      - parameter hasTvdbId: (query) Optional filter by items that have a tvdb id or not. (optional)
+     - parameter isMovie: (query) Optional filter for live tv movies. (optional)
+     - parameter isSeries: (query) Optional filter for live tv series. (optional)
+     - parameter isNews: (query) Optional filter for live tv news. (optional)
+     - parameter isKids: (query) Optional filter for live tv kids. (optional)
+     - parameter isSports: (query) Optional filter for live tv sports. (optional)
      - parameter excludeItemIds: (query) Optional. If specified, results will be filtered by excluding item ids. This allows multiple, comma delimited. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
@@ -95,22 +103,26 @@ open class ItemsAPI {
      - parameter genreIds: (query) Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. (optional)
      - parameter enableTotalRecordCount: (query) Optional. Enable the total record count. (optional, default to true)
      - parameter enableImages: (query) Optional, include image information in output. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItems(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getItemsWithRequestBuilder(userId: userId, maxOfficialRating: maxOfficialRating, hasThemeSong: hasThemeSong, hasThemeVideo: hasThemeVideo, hasSubtitles: hasSubtitles, hasSpecialFeature: hasSpecialFeature, hasTrailer: hasTrailer, adjacentTo: adjacentTo, parentIndexNumber: parentIndexNumber, hasParentalRating: hasParentalRating, isHd: isHd, is4K: is4K, locationTypes: locationTypes, excludeLocationTypes: excludeLocationTypes, isMissing: isMissing, isUnaired: isUnaired, minCommunityRating: minCommunityRating, minCriticRating: minCriticRating, minPremiereDate: minPremiereDate, minDateLastSaved: minDateLastSaved, minDateLastSavedForUser: minDateLastSavedForUser, maxPremiereDate: maxPremiereDate, hasOverview: hasOverview, hasImdbId: hasImdbId, hasTmdbId: hasTmdbId, hasTvdbId: hasTvdbId, excludeItemIds: excludeItemIds, startIndex: startIndex, limit: limit, recursive: recursive, searchTerm: searchTerm, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, filters: filters, isFavorite: isFavorite, mediaTypes: mediaTypes, imageTypes: imageTypes, sortBy: sortBy, isPlayed: isPlayed, genres: genres, officialRatings: officialRatings, tags: tags, years: years, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, person: person, personIds: personIds, personTypes: personTypes, studios: studios, artists: artists, excludeArtistIds: excludeArtistIds, artistIds: artistIds, albumArtistIds: albumArtistIds, contributingArtistIds: contributingArtistIds, albums: albums, albumIds: albumIds, ids: ids, videoTypes: videoTypes, minOfficialRating: minOfficialRating, isLocked: isLocked, isPlaceHolder: isPlaceHolder, hasOfficialRating: hasOfficialRating, collapseBoxSetItems: collapseBoxSetItems, minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight, is3D: is3D, seriesStatus: seriesStatus, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, studioIds: studioIds, genreIds: genreIds, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getItems(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getItemsWithRequestBuilder(userId: userId, maxOfficialRating: maxOfficialRating, hasThemeSong: hasThemeSong, hasThemeVideo: hasThemeVideo, hasSubtitles: hasSubtitles, hasSpecialFeature: hasSpecialFeature, hasTrailer: hasTrailer, adjacentTo: adjacentTo, parentIndexNumber: parentIndexNumber, hasParentalRating: hasParentalRating, isHd: isHd, is4K: is4K, locationTypes: locationTypes, excludeLocationTypes: excludeLocationTypes, isMissing: isMissing, isUnaired: isUnaired, minCommunityRating: minCommunityRating, minCriticRating: minCriticRating, minPremiereDate: minPremiereDate, minDateLastSaved: minDateLastSaved, minDateLastSavedForUser: minDateLastSavedForUser, maxPremiereDate: maxPremiereDate, hasOverview: hasOverview, hasImdbId: hasImdbId, hasTmdbId: hasTmdbId, hasTvdbId: hasTvdbId, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, excludeItemIds: excludeItemIds, startIndex: startIndex, limit: limit, recursive: recursive, searchTerm: searchTerm, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, filters: filters, isFavorite: isFavorite, mediaTypes: mediaTypes, imageTypes: imageTypes, sortBy: sortBy, isPlayed: isPlayed, genres: genres, officialRatings: officialRatings, tags: tags, years: years, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, person: person, personIds: personIds, personTypes: personTypes, studios: studios, artists: artists, excludeArtistIds: excludeArtistIds, artistIds: artistIds, albumArtistIds: albumArtistIds, contributingArtistIds: contributingArtistIds, albums: albums, albumIds: albumIds, ids: ids, videoTypes: videoTypes, minOfficialRating: minOfficialRating, isLocked: isLocked, isPlaceHolder: isPlaceHolder, hasOfficialRating: hasOfficialRating, collapseBoxSetItems: collapseBoxSetItems, minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight, is3D: is3D, seriesStatus: seriesStatus, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, studioIds: studioIds, genreIds: genreIds, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -118,7 +130,7 @@ open class ItemsAPI {
      Gets items based on a query.
      - GET /Items
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (query) The user id supplied as query parameter. (optional)
      - parameter maxOfficialRating: (query) Optional filter by maximum official rating (PG, PG-13, TV-MA, etc). (optional)
@@ -146,6 +158,11 @@ open class ItemsAPI {
      - parameter hasImdbId: (query) Optional filter by items that have an imdb id or not. (optional)
      - parameter hasTmdbId: (query) Optional filter by items that have a tmdb id or not. (optional)
      - parameter hasTvdbId: (query) Optional filter by items that have a tvdb id or not. (optional)
+     - parameter isMovie: (query) Optional filter for live tv movies. (optional)
+     - parameter isSeries: (query) Optional filter for live tv series. (optional)
+     - parameter isNews: (query) Optional filter for live tv news. (optional)
+     - parameter isKids: (query) Optional filter for live tv kids. (optional)
+     - parameter isSports: (query) Optional filter for live tv sports. (optional)
      - parameter excludeItemIds: (query) Optional. If specified, results will be filtered by excluding item ids. This allows multiple, comma delimited. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
@@ -202,13 +219,13 @@ open class ItemsAPI {
      - parameter enableImages: (query) Optional, include image information in output. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getItemsWithRequestBuilder(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        let urlPath = "/Items"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func getItemsWithRequestBuilder(userId: String? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        let localVariablePath = "/Items"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "userId": userId?.encodeToJSON(),
             "maxOfficialRating": maxOfficialRating?.encodeToJSON(),
             "hasThemeSong": hasThemeSong?.encodeToJSON(),
@@ -235,6 +252,11 @@ open class ItemsAPI {
             "hasImdbId": hasImdbId?.encodeToJSON(),
             "hasTmdbId": hasTmdbId?.encodeToJSON(),
             "hasTvdbId": hasTvdbId?.encodeToJSON(),
+            "isMovie": isMovie?.encodeToJSON(),
+            "isSeries": isSeries?.encodeToJSON(),
+            "isNews": isNews?.encodeToJSON(),
+            "isKids": isKids?.encodeToJSON(),
+            "isSports": isSports?.encodeToJSON(),
             "excludeItemIds": excludeItemIds?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
@@ -291,15 +313,15 @@ open class ItemsAPI {
             "enableImages": enableImages?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -317,8 +339,8 @@ open class ItemsAPI {
      - parameter hasParentalRating: (query) Optional filter by items that have or do not have a parental rating. (optional)
      - parameter isHd: (query) Optional filter by items that are HD or not. (optional)
      - parameter is4K: (query) Optional filter by items that are 4K or not. (optional)
-     - parameter locationTypes: (query) Optional. If specified, results will be filtered based on LocationType. This allows multiple, comma delimeted. (optional)
-     - parameter excludeLocationTypes: (query) Optional. If specified, results will be filtered based on the LocationType. This allows multiple, comma delimeted. (optional)
+     - parameter locationTypes: (query) Optional. If specified, results will be filtered based on LocationType. This allows multiple, comma delimited. (optional)
+     - parameter excludeLocationTypes: (query) Optional. If specified, results will be filtered based on the LocationType. This allows multiple, comma delimited. (optional)
      - parameter isMissing: (query) Optional filter by items that are missing episodes or not. (optional)
      - parameter isUnaired: (query) Optional filter by items that are unaired episodes or not. (optional)
      - parameter minCommunityRating: (query) Optional filter by minimum community rating. (optional)
@@ -331,42 +353,47 @@ open class ItemsAPI {
      - parameter hasImdbId: (query) Optional filter by items that have an imdb id or not. (optional)
      - parameter hasTmdbId: (query) Optional filter by items that have a tmdb id or not. (optional)
      - parameter hasTvdbId: (query) Optional filter by items that have a tvdb id or not. (optional)
-     - parameter excludeItemIds: (query) Optional. If specified, results will be filtered by exxcluding item ids. This allows multiple, comma delimeted. (optional)
+     - parameter isMovie: (query) Optional filter for live tv movies. (optional)
+     - parameter isSeries: (query) Optional filter for live tv series. (optional)
+     - parameter isNews: (query) Optional filter for live tv news. (optional)
+     - parameter isKids: (query) Optional filter for live tv kids. (optional)
+     - parameter isSports: (query) Optional filter for live tv sports. (optional)
+     - parameter excludeItemIds: (query) Optional. If specified, results will be filtered by excluding item ids. This allows multiple, comma delimited. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
      - parameter recursive: (query) When searching within folders, this determines whether or not the search will be recursive. true/false. (optional)
      - parameter searchTerm: (query) Optional. Filter based on a search term. (optional)
      - parameter sortOrder: (query) Sort Order - Ascending,Descending. (optional)
      - parameter parentId: (query) Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
-     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimeted. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines. (optional)
-     - parameter excludeItemTypes: (query) Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimeted. (optional)
-     - parameter includeItemTypes: (query) Optional. If specified, results will be filtered based on the item type. This allows multiple, comma delimeted. (optional)
-     - parameter filters: (query) Optional. Specify additional filters to apply. This allows multiple, comma delimeted. Options: IsFolder, IsNotFolder, IsUnplayed, IsPlayed, IsFavorite, IsResumable, Likes, Dislikes. (optional)
+     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines. (optional)
+     - parameter excludeItemTypes: (query) Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. (optional)
+     - parameter includeItemTypes: (query) Optional. If specified, results will be filtered based on the item type. This allows multiple, comma delimited. (optional)
+     - parameter filters: (query) Optional. Specify additional filters to apply. This allows multiple, comma delimited. Options: IsFolder, IsNotFolder, IsUnplayed, IsPlayed, IsFavorite, IsResumable, Likes, Dislikes. (optional)
      - parameter isFavorite: (query) Optional filter by items that are marked as favorite, or not. (optional)
      - parameter mediaTypes: (query) Optional filter by MediaType. Allows multiple, comma delimited. (optional)
      - parameter imageTypes: (query) Optional. If specified, results will be filtered based on those containing image types. This allows multiple, comma delimited. (optional)
-     - parameter sortBy: (query) Optional. Specify one or more sort orders, comma delimeted. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
+     - parameter sortBy: (query) Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
      - parameter isPlayed: (query) Optional filter by items that are played, or not. (optional)
-     - parameter genres: (query) Optional. If specified, results will be filtered based on genre. This allows multiple, pipe delimeted. (optional)
-     - parameter officialRatings: (query) Optional. If specified, results will be filtered based on OfficialRating. This allows multiple, pipe delimeted. (optional)
-     - parameter tags: (query) Optional. If specified, results will be filtered based on tag. This allows multiple, pipe delimeted. (optional)
-     - parameter years: (query) Optional. If specified, results will be filtered based on production year. This allows multiple, comma delimeted. (optional)
+     - parameter genres: (query) Optional. If specified, results will be filtered based on genre. This allows multiple, pipe delimited. (optional)
+     - parameter officialRatings: (query) Optional. If specified, results will be filtered based on OfficialRating. This allows multiple, pipe delimited. (optional)
+     - parameter tags: (query) Optional. If specified, results will be filtered based on tag. This allows multiple, pipe delimited. (optional)
+     - parameter years: (query) Optional. If specified, results will be filtered based on production year. This allows multiple, comma delimited. (optional)
      - parameter enableUserData: (query) Optional, include user data. (optional)
      - parameter imageTypeLimit: (query) Optional, the max number of images to return, per image type. (optional)
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter person: (query) Optional. If specified, results will be filtered to include only those containing the specified person. (optional)
      - parameter personIds: (query) Optional. If specified, results will be filtered to include only those containing the specified person id. (optional)
      - parameter personTypes: (query) Optional. If specified, along with Person, results will be filtered to include only those containing the specified person and PersonType. Allows multiple, comma-delimited. (optional)
-     - parameter studios: (query) Optional. If specified, results will be filtered based on studio. This allows multiple, pipe delimeted. (optional)
-     - parameter artists: (query) Optional. If specified, results will be filtered based on artists. This allows multiple, pipe delimeted. (optional)
-     - parameter excludeArtistIds: (query) Optional. If specified, results will be filtered based on artist id. This allows multiple, pipe delimeted. (optional)
+     - parameter studios: (query) Optional. If specified, results will be filtered based on studio. This allows multiple, pipe delimited. (optional)
+     - parameter artists: (query) Optional. If specified, results will be filtered based on artists. This allows multiple, pipe delimited. (optional)
+     - parameter excludeArtistIds: (query) Optional. If specified, results will be filtered based on artist id. This allows multiple, pipe delimited. (optional)
      - parameter artistIds: (query) Optional. If specified, results will be filtered to include only those containing the specified artist id. (optional)
      - parameter albumArtistIds: (query) Optional. If specified, results will be filtered to include only those containing the specified album artist id. (optional)
      - parameter contributingArtistIds: (query) Optional. If specified, results will be filtered to include only those containing the specified contributing artist id. (optional)
-     - parameter albums: (query) Optional. If specified, results will be filtered based on album. This allows multiple, pipe delimeted. (optional)
-     - parameter albumIds: (query) Optional. If specified, results will be filtered based on album id. This allows multiple, pipe delimeted. (optional)
+     - parameter albums: (query) Optional. If specified, results will be filtered based on album. This allows multiple, pipe delimited. (optional)
+     - parameter albumIds: (query) Optional. If specified, results will be filtered based on album id. This allows multiple, pipe delimited. (optional)
      - parameter ids: (query) Optional. If specific items are needed, specify a list of item id&#39;s to retrieve. This allows multiple, comma delimited. (optional)
-     - parameter videoTypes: (query) Optional filter by VideoType (videofile, dvd, bluray, iso). Allows multiple, comma delimeted. (optional)
+     - parameter videoTypes: (query) Optional filter by VideoType (videofile, dvd, bluray, iso). Allows multiple, comma delimited. (optional)
      - parameter minOfficialRating: (query) Optional filter by minimum official rating (PG, PG-13, TV-MA, etc). (optional)
      - parameter isLocked: (query) Optional filter by items that are locked. (optional)
      - parameter isPlaceHolder: (query) Optional filter by items that are placeholders. (optional)
@@ -377,30 +404,34 @@ open class ItemsAPI {
      - parameter maxWidth: (query) Optional. Filter by the maximum width of the item. (optional)
      - parameter maxHeight: (query) Optional. Filter by the maximum height of the item. (optional)
      - parameter is3D: (query) Optional filter by items that are 3D, or not. (optional)
-     - parameter seriesStatus: (query) Optional filter by Series Status. Allows multiple, comma delimeted. (optional)
+     - parameter seriesStatus: (query) Optional filter by Series Status. Allows multiple, comma delimited. (optional)
      - parameter nameStartsWithOrGreater: (query) Optional filter by items whose name is sorted equally or greater than a given input string. (optional)
      - parameter nameStartsWith: (query) Optional filter by items whose name is sorted equally than a given input string. (optional)
      - parameter nameLessThan: (query) Optional filter by items whose name is equally or lesser than a given input string. (optional)
-     - parameter studioIds: (query) Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimeted. (optional)
-     - parameter genreIds: (query) Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimeted. (optional)
+     - parameter studioIds: (query) Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. (optional)
+     - parameter genreIds: (query) Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. (optional)
      - parameter enableTotalRecordCount: (query) Optional. Enable the total record count. (optional, default to true)
      - parameter enableImages: (query) Optional, include image information in output. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getItemsByUserId(userId: String, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getItemsByUserIdWithRequestBuilder(userId: userId, maxOfficialRating: maxOfficialRating, hasThemeSong: hasThemeSong, hasThemeVideo: hasThemeVideo, hasSubtitles: hasSubtitles, hasSpecialFeature: hasSpecialFeature, hasTrailer: hasTrailer, adjacentTo: adjacentTo, parentIndexNumber: parentIndexNumber, hasParentalRating: hasParentalRating, isHd: isHd, is4K: is4K, locationTypes: locationTypes, excludeLocationTypes: excludeLocationTypes, isMissing: isMissing, isUnaired: isUnaired, minCommunityRating: minCommunityRating, minCriticRating: minCriticRating, minPremiereDate: minPremiereDate, minDateLastSaved: minDateLastSaved, minDateLastSavedForUser: minDateLastSavedForUser, maxPremiereDate: maxPremiereDate, hasOverview: hasOverview, hasImdbId: hasImdbId, hasTmdbId: hasTmdbId, hasTvdbId: hasTvdbId, excludeItemIds: excludeItemIds, startIndex: startIndex, limit: limit, recursive: recursive, searchTerm: searchTerm, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, filters: filters, isFavorite: isFavorite, mediaTypes: mediaTypes, imageTypes: imageTypes, sortBy: sortBy, isPlayed: isPlayed, genres: genres, officialRatings: officialRatings, tags: tags, years: years, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, person: person, personIds: personIds, personTypes: personTypes, studios: studios, artists: artists, excludeArtistIds: excludeArtistIds, artistIds: artistIds, albumArtistIds: albumArtistIds, contributingArtistIds: contributingArtistIds, albums: albums, albumIds: albumIds, ids: ids, videoTypes: videoTypes, minOfficialRating: minOfficialRating, isLocked: isLocked, isPlaceHolder: isPlaceHolder, hasOfficialRating: hasOfficialRating, collapseBoxSetItems: collapseBoxSetItems, minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight, is3D: is3D, seriesStatus: seriesStatus, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, studioIds: studioIds, genreIds: genreIds, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getItemsByUserId(userId: String, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getItemsByUserIdWithRequestBuilder(userId: userId, maxOfficialRating: maxOfficialRating, hasThemeSong: hasThemeSong, hasThemeVideo: hasThemeVideo, hasSubtitles: hasSubtitles, hasSpecialFeature: hasSpecialFeature, hasTrailer: hasTrailer, adjacentTo: adjacentTo, parentIndexNumber: parentIndexNumber, hasParentalRating: hasParentalRating, isHd: isHd, is4K: is4K, locationTypes: locationTypes, excludeLocationTypes: excludeLocationTypes, isMissing: isMissing, isUnaired: isUnaired, minCommunityRating: minCommunityRating, minCriticRating: minCriticRating, minPremiereDate: minPremiereDate, minDateLastSaved: minDateLastSaved, minDateLastSavedForUser: minDateLastSavedForUser, maxPremiereDate: maxPremiereDate, hasOverview: hasOverview, hasImdbId: hasImdbId, hasTmdbId: hasTmdbId, hasTvdbId: hasTvdbId, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, excludeItemIds: excludeItemIds, startIndex: startIndex, limit: limit, recursive: recursive, searchTerm: searchTerm, sortOrder: sortOrder, parentId: parentId, fields: fields, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, filters: filters, isFavorite: isFavorite, mediaTypes: mediaTypes, imageTypes: imageTypes, sortBy: sortBy, isPlayed: isPlayed, genres: genres, officialRatings: officialRatings, tags: tags, years: years, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, person: person, personIds: personIds, personTypes: personTypes, studios: studios, artists: artists, excludeArtistIds: excludeArtistIds, artistIds: artistIds, albumArtistIds: albumArtistIds, contributingArtistIds: contributingArtistIds, albums: albums, albumIds: albumIds, ids: ids, videoTypes: videoTypes, minOfficialRating: minOfficialRating, isLocked: isLocked, isPlaceHolder: isPlaceHolder, hasOfficialRating: hasOfficialRating, collapseBoxSetItems: collapseBoxSetItems, minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight, is3D: is3D, seriesStatus: seriesStatus, nameStartsWithOrGreater: nameStartsWithOrGreater, nameStartsWith: nameStartsWith, nameLessThan: nameLessThan, studioIds: studioIds, genreIds: genreIds, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -408,7 +439,7 @@ open class ItemsAPI {
      Gets items based on a query.
      - GET /Users/{userId}/Items
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (path) The user id supplied as query parameter. 
      - parameter maxOfficialRating: (query) Optional filter by maximum official rating (PG, PG-13, TV-MA, etc). (optional)
@@ -422,8 +453,8 @@ open class ItemsAPI {
      - parameter hasParentalRating: (query) Optional filter by items that have or do not have a parental rating. (optional)
      - parameter isHd: (query) Optional filter by items that are HD or not. (optional)
      - parameter is4K: (query) Optional filter by items that are 4K or not. (optional)
-     - parameter locationTypes: (query) Optional. If specified, results will be filtered based on LocationType. This allows multiple, comma delimeted. (optional)
-     - parameter excludeLocationTypes: (query) Optional. If specified, results will be filtered based on the LocationType. This allows multiple, comma delimeted. (optional)
+     - parameter locationTypes: (query) Optional. If specified, results will be filtered based on LocationType. This allows multiple, comma delimited. (optional)
+     - parameter excludeLocationTypes: (query) Optional. If specified, results will be filtered based on the LocationType. This allows multiple, comma delimited. (optional)
      - parameter isMissing: (query) Optional filter by items that are missing episodes or not. (optional)
      - parameter isUnaired: (query) Optional filter by items that are unaired episodes or not. (optional)
      - parameter minCommunityRating: (query) Optional filter by minimum community rating. (optional)
@@ -436,42 +467,47 @@ open class ItemsAPI {
      - parameter hasImdbId: (query) Optional filter by items that have an imdb id or not. (optional)
      - parameter hasTmdbId: (query) Optional filter by items that have a tmdb id or not. (optional)
      - parameter hasTvdbId: (query) Optional filter by items that have a tvdb id or not. (optional)
-     - parameter excludeItemIds: (query) Optional. If specified, results will be filtered by exxcluding item ids. This allows multiple, comma delimeted. (optional)
+     - parameter isMovie: (query) Optional filter for live tv movies. (optional)
+     - parameter isSeries: (query) Optional filter for live tv series. (optional)
+     - parameter isNews: (query) Optional filter for live tv news. (optional)
+     - parameter isKids: (query) Optional filter for live tv kids. (optional)
+     - parameter isSports: (query) Optional filter for live tv sports. (optional)
+     - parameter excludeItemIds: (query) Optional. If specified, results will be filtered by excluding item ids. This allows multiple, comma delimited. (optional)
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
      - parameter limit: (query) Optional. The maximum number of records to return. (optional)
      - parameter recursive: (query) When searching within folders, this determines whether or not the search will be recursive. true/false. (optional)
      - parameter searchTerm: (query) Optional. Filter based on a search term. (optional)
      - parameter sortOrder: (query) Sort Order - Ascending,Descending. (optional)
      - parameter parentId: (query) Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
-     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimeted. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines. (optional)
-     - parameter excludeItemTypes: (query) Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimeted. (optional)
-     - parameter includeItemTypes: (query) Optional. If specified, results will be filtered based on the item type. This allows multiple, comma delimeted. (optional)
-     - parameter filters: (query) Optional. Specify additional filters to apply. This allows multiple, comma delimeted. Options: IsFolder, IsNotFolder, IsUnplayed, IsPlayed, IsFavorite, IsResumable, Likes, Dislikes. (optional)
+     - parameter fields: (query) Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines. (optional)
+     - parameter excludeItemTypes: (query) Optional. If specified, results will be filtered based on item type. This allows multiple, comma delimited. (optional)
+     - parameter includeItemTypes: (query) Optional. If specified, results will be filtered based on the item type. This allows multiple, comma delimited. (optional)
+     - parameter filters: (query) Optional. Specify additional filters to apply. This allows multiple, comma delimited. Options: IsFolder, IsNotFolder, IsUnplayed, IsPlayed, IsFavorite, IsResumable, Likes, Dislikes. (optional)
      - parameter isFavorite: (query) Optional filter by items that are marked as favorite, or not. (optional)
      - parameter mediaTypes: (query) Optional filter by MediaType. Allows multiple, comma delimited. (optional)
      - parameter imageTypes: (query) Optional. If specified, results will be filtered based on those containing image types. This allows multiple, comma delimited. (optional)
-     - parameter sortBy: (query) Optional. Specify one or more sort orders, comma delimeted. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
+     - parameter sortBy: (query) Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
      - parameter isPlayed: (query) Optional filter by items that are played, or not. (optional)
-     - parameter genres: (query) Optional. If specified, results will be filtered based on genre. This allows multiple, pipe delimeted. (optional)
-     - parameter officialRatings: (query) Optional. If specified, results will be filtered based on OfficialRating. This allows multiple, pipe delimeted. (optional)
-     - parameter tags: (query) Optional. If specified, results will be filtered based on tag. This allows multiple, pipe delimeted. (optional)
-     - parameter years: (query) Optional. If specified, results will be filtered based on production year. This allows multiple, comma delimeted. (optional)
+     - parameter genres: (query) Optional. If specified, results will be filtered based on genre. This allows multiple, pipe delimited. (optional)
+     - parameter officialRatings: (query) Optional. If specified, results will be filtered based on OfficialRating. This allows multiple, pipe delimited. (optional)
+     - parameter tags: (query) Optional. If specified, results will be filtered based on tag. This allows multiple, pipe delimited. (optional)
+     - parameter years: (query) Optional. If specified, results will be filtered based on production year. This allows multiple, comma delimited. (optional)
      - parameter enableUserData: (query) Optional, include user data. (optional)
      - parameter imageTypeLimit: (query) Optional, the max number of images to return, per image type. (optional)
      - parameter enableImageTypes: (query) Optional. The image types to include in the output. (optional)
      - parameter person: (query) Optional. If specified, results will be filtered to include only those containing the specified person. (optional)
      - parameter personIds: (query) Optional. If specified, results will be filtered to include only those containing the specified person id. (optional)
      - parameter personTypes: (query) Optional. If specified, along with Person, results will be filtered to include only those containing the specified person and PersonType. Allows multiple, comma-delimited. (optional)
-     - parameter studios: (query) Optional. If specified, results will be filtered based on studio. This allows multiple, pipe delimeted. (optional)
-     - parameter artists: (query) Optional. If specified, results will be filtered based on artists. This allows multiple, pipe delimeted. (optional)
-     - parameter excludeArtistIds: (query) Optional. If specified, results will be filtered based on artist id. This allows multiple, pipe delimeted. (optional)
+     - parameter studios: (query) Optional. If specified, results will be filtered based on studio. This allows multiple, pipe delimited. (optional)
+     - parameter artists: (query) Optional. If specified, results will be filtered based on artists. This allows multiple, pipe delimited. (optional)
+     - parameter excludeArtistIds: (query) Optional. If specified, results will be filtered based on artist id. This allows multiple, pipe delimited. (optional)
      - parameter artistIds: (query) Optional. If specified, results will be filtered to include only those containing the specified artist id. (optional)
      - parameter albumArtistIds: (query) Optional. If specified, results will be filtered to include only those containing the specified album artist id. (optional)
      - parameter contributingArtistIds: (query) Optional. If specified, results will be filtered to include only those containing the specified contributing artist id. (optional)
-     - parameter albums: (query) Optional. If specified, results will be filtered based on album. This allows multiple, pipe delimeted. (optional)
-     - parameter albumIds: (query) Optional. If specified, results will be filtered based on album id. This allows multiple, pipe delimeted. (optional)
+     - parameter albums: (query) Optional. If specified, results will be filtered based on album. This allows multiple, pipe delimited. (optional)
+     - parameter albumIds: (query) Optional. If specified, results will be filtered based on album id. This allows multiple, pipe delimited. (optional)
      - parameter ids: (query) Optional. If specific items are needed, specify a list of item id&#39;s to retrieve. This allows multiple, comma delimited. (optional)
-     - parameter videoTypes: (query) Optional filter by VideoType (videofile, dvd, bluray, iso). Allows multiple, comma delimeted. (optional)
+     - parameter videoTypes: (query) Optional filter by VideoType (videofile, dvd, bluray, iso). Allows multiple, comma delimited. (optional)
      - parameter minOfficialRating: (query) Optional filter by minimum official rating (PG, PG-13, TV-MA, etc). (optional)
      - parameter isLocked: (query) Optional filter by items that are locked. (optional)
      - parameter isPlaceHolder: (query) Optional filter by items that are placeholders. (optional)
@@ -482,26 +518,26 @@ open class ItemsAPI {
      - parameter maxWidth: (query) Optional. Filter by the maximum width of the item. (optional)
      - parameter maxHeight: (query) Optional. Filter by the maximum height of the item. (optional)
      - parameter is3D: (query) Optional filter by items that are 3D, or not. (optional)
-     - parameter seriesStatus: (query) Optional filter by Series Status. Allows multiple, comma delimeted. (optional)
+     - parameter seriesStatus: (query) Optional filter by Series Status. Allows multiple, comma delimited. (optional)
      - parameter nameStartsWithOrGreater: (query) Optional filter by items whose name is sorted equally or greater than a given input string. (optional)
      - parameter nameStartsWith: (query) Optional filter by items whose name is sorted equally than a given input string. (optional)
      - parameter nameLessThan: (query) Optional filter by items whose name is equally or lesser than a given input string. (optional)
-     - parameter studioIds: (query) Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimeted. (optional)
-     - parameter genreIds: (query) Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimeted. (optional)
+     - parameter studioIds: (query) Optional. If specified, results will be filtered based on studio id. This allows multiple, pipe delimited. (optional)
+     - parameter genreIds: (query) Optional. If specified, results will be filtered based on genre id. This allows multiple, pipe delimited. (optional)
      - parameter enableTotalRecordCount: (query) Optional. Enable the total record count. (optional, default to true)
      - parameter enableImages: (query) Optional, include image information in output. (optional, default to true)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getItemsByUserIdWithRequestBuilder(userId: String, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [APISortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        var urlPath = "/Users/{userId}/Items"
+    open class func getItemsByUserIdWithRequestBuilder(userId: String, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, is4K: Bool? = nil, locationTypes: [LocationType]? = nil, excludeLocationTypes: [LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbId: Bool? = nil, hasTmdbId: Bool? = nil, hasTvdbId: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, excludeItemIds: [String]? = nil, startIndex: Int? = nil, limit: Int? = nil, recursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [SortOrder]? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, filters: [ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, person: String? = nil, personIds: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIds: [String]? = nil, artistIds: [String]? = nil, albumArtistIds: [String]? = nil, contributingArtistIds: [String]? = nil, albums: [String]? = nil, albumIds: [String]? = nil, ids: [String]? = nil, videoTypes: [VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, collapseBoxSetItems: Bool? = nil, minWidth: Int? = nil, minHeight: Int? = nil, maxWidth: Int? = nil, maxHeight: Int? = nil, is3D: Bool? = nil, seriesStatus: [SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIds: [String]? = nil, genreIds: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        var localVariablePath = "/Users/{userId}/Items"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "maxOfficialRating": maxOfficialRating?.encodeToJSON(),
             "hasThemeSong": hasThemeSong?.encodeToJSON(),
             "hasThemeVideo": hasThemeVideo?.encodeToJSON(),
@@ -527,6 +563,11 @@ open class ItemsAPI {
             "hasImdbId": hasImdbId?.encodeToJSON(),
             "hasTmdbId": hasTmdbId?.encodeToJSON(),
             "hasTvdbId": hasTvdbId?.encodeToJSON(),
+            "isMovie": isMovie?.encodeToJSON(),
+            "isSeries": isSeries?.encodeToJSON(),
+            "isNews": isNews?.encodeToJSON(),
+            "isKids": isKids?.encodeToJSON(),
+            "isSports": isSports?.encodeToJSON(),
             "excludeItemIds": excludeItemIds?.encodeToJSON(),
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
@@ -583,15 +624,15 @@ open class ItemsAPI {
             "enableImages": enableImages?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -611,22 +652,27 @@ open class ItemsAPI {
      - parameter includeItemTypes: (query) Optional. If specified, results will be filtered based on the item type. This allows multiple, comma delimited. (optional)
      - parameter enableTotalRecordCount: (query) Optional. Enable the total record count. (optional, default to true)
      - parameter enableImages: (query) Optional. Include image information in output. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter excludeActiveSessions: (query) Optional. Whether to exclude the currently active sessions. (optional, default to false)
      - returns: AnyPublisher<BaseItemDtoQueryResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getResumeItems(userId: String, startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, mediaTypes: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
-        return Future<BaseItemDtoQueryResult, Error>.init { promise in
-            getResumeItemsWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, searchTerm: searchTerm, parentId: parentId, fields: fields, mediaTypes: mediaTypes, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getResumeItems(userId: String, startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, mediaTypes: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, excludeActiveSessions: Bool? = nil) -> AnyPublisher<BaseItemDtoQueryResult, Error> {
+        var requestTask: RequestTask?
+        return Future<BaseItemDtoQueryResult, Error> { promise in
+            requestTask = getResumeItemsWithRequestBuilder(userId: userId, startIndex: startIndex, limit: limit, searchTerm: searchTerm, parentId: parentId, fields: fields, mediaTypes: mediaTypes, enableUserData: enableUserData, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, excludeItemTypes: excludeItemTypes, includeItemTypes: includeItemTypes, enableTotalRecordCount: enableTotalRecordCount, enableImages: enableImages, excludeActiveSessions: excludeActiveSessions).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -634,7 +680,7 @@ open class ItemsAPI {
      Gets items based on a query.
      - GET /Users/{userId}/Items/Resume
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter userId: (path) The user id. 
      - parameter startIndex: (query) The start index. (optional)
@@ -650,18 +696,19 @@ open class ItemsAPI {
      - parameter includeItemTypes: (query) Optional. If specified, results will be filtered based on the item type. This allows multiple, comma delimited. (optional)
      - parameter enableTotalRecordCount: (query) Optional. Enable the total record count. (optional, default to true)
      - parameter enableImages: (query) Optional. Include image information in output. (optional, default to true)
+     - parameter excludeActiveSessions: (query) Optional. Whether to exclude the currently active sessions. (optional, default to false)
      - returns: RequestBuilder<BaseItemDtoQueryResult> 
      */
-    open class func getResumeItemsWithRequestBuilder(userId: String, startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, mediaTypes: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, excludeItemTypes: [String]? = nil, includeItemTypes: [String]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
-        var urlPath = "/Users/{userId}/Items/Resume"
+    open class func getResumeItemsWithRequestBuilder(userId: String, startIndex: Int? = nil, limit: Int? = nil, searchTerm: String? = nil, parentId: String? = nil, fields: [ItemFields]? = nil, mediaTypes: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, excludeItemTypes: [BaseItemKind]? = nil, includeItemTypes: [BaseItemKind]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, excludeActiveSessions: Bool? = nil) -> RequestBuilder<BaseItemDtoQueryResult> {
+        var localVariablePath = "/Users/{userId}/Items/Resume"
         let userIdPreEscape = "\(APIHelper.mapValueToPathItem(userId))"
         let userIdPostEscape = userIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        urlPath = urlPath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{userId}", with: userIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
             "searchTerm": searchTerm?.encodeToJSON(),
@@ -675,17 +722,17 @@ open class ItemsAPI {
             "includeItemTypes": includeItemTypes?.encodeToJSON(),
             "enableTotalRecordCount": enableTotalRecordCount?.encodeToJSON(),
             "enableImages": enableImages?.encodeToJSON(),
+            "excludeActiveSessions": excludeActiveSessions?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<BaseItemDtoQueryResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

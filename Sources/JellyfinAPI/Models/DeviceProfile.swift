@@ -10,36 +10,36 @@ import Foundation
 import AnyCodable
 #endif
 
-/** Defines the MediaBrowser.Model.Dlna.DeviceProfile. */
-public struct DeviceProfile: Codable, Hashable {
+/** A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to play.  &lt;br /&gt;  Specifically, it defines the supported &lt;see cref&#x3D;\&quot;P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles\&quot;&gt;containers&lt;/see&gt; and  &lt;see cref&#x3D;\&quot;P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles\&quot;&gt;codecs&lt;/see&gt; (video and/or audio, including codec profiles and levels)  the device is able to direct play (without transcoding or remuxing),  as well as which &lt;see cref&#x3D;\&quot;P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles\&quot;&gt;containers/codecs to transcode to&lt;/see&gt; in case it isn&#39;t. */
+public struct DeviceProfile: Codable, JSONEncodable, Hashable {
 
-    /** Gets or sets the Name. */
+    /** Gets or sets the name of this device profile. */
     public var name: String?
     /** Gets or sets the Id. */
     public var id: String?
-    public var identification: DeviceIdentification?
-    /** Gets or sets the FriendlyName. */
+    public var identification: DeviceProfileIdentification?
+    /** Gets or sets the friendly name of the device profile, which can be shown to users. */
     public var friendlyName: String?
-    /** Gets or sets the Manufacturer. */
+    /** Gets or sets the manufacturer of the device which this profile represents. */
     public var manufacturer: String?
-    /** Gets or sets the ManufacturerUrl. */
+    /** Gets or sets an url for the manufacturer of the device which this profile represents. */
     public var manufacturerUrl: String?
-    /** Gets or sets the ModelName. */
+    /** Gets or sets the model name of the device which this profile represents. */
     public var modelName: String?
-    /** Gets or sets the ModelDescription. */
+    /** Gets or sets the model description of the device which this profile represents. */
     public var modelDescription: String?
-    /** Gets or sets the ModelNumber. */
+    /** Gets or sets the model number of the device which this profile represents. */
     public var modelNumber: String?
     /** Gets or sets the ModelUrl. */
     public var modelUrl: String?
-    /** Gets or sets the SerialNumber. */
+    /** Gets or sets the serial number of the device which this profile represents. */
     public var serialNumber: String?
     /** Gets or sets a value indicating whether EnableAlbumArtInDidl. */
-    public var enableAlbumArtInDidl: Bool?
+    public var enableAlbumArtInDidl: Bool? = false
     /** Gets or sets a value indicating whether EnableSingleAlbumArtLimit. */
-    public var enableSingleAlbumArtLimit: Bool?
+    public var enableSingleAlbumArtLimit: Bool? = false
     /** Gets or sets a value indicating whether EnableSingleSubtitleLimit. */
-    public var enableSingleSubtitleLimit: Bool?
+    public var enableSingleSubtitleLimit: Bool? = false
     /** Gets or sets the SupportedMediaTypes. */
     public var supportedMediaTypes: String?
     /** Gets or sets the UserId. */
@@ -50,48 +50,48 @@ public struct DeviceProfile: Codable, Hashable {
     public var maxAlbumArtWidth: Int?
     /** Gets or sets the MaxAlbumArtHeight. */
     public var maxAlbumArtHeight: Int?
-    /** Gets or sets the MaxIconWidth. */
+    /** Gets or sets the maximum allowed width of embedded icons. */
     public var maxIconWidth: Int?
-    /** Gets or sets the MaxIconHeight. */
+    /** Gets or sets the maximum allowed height of embedded icons. */
     public var maxIconHeight: Int?
-    /** Gets or sets the MaxStreamingBitrate. */
+    /** Gets or sets the maximum allowed bitrate for all streamed content. */
     public var maxStreamingBitrate: Int?
-    /** Gets or sets the MaxStaticBitrate. */
+    /** Gets or sets the maximum allowed bitrate for statically streamed content (= direct played files). */
     public var maxStaticBitrate: Int?
-    /** Gets or sets the MusicStreamingTranscodingBitrate. */
+    /** Gets or sets the maximum allowed bitrate for transcoded music streams. */
     public var musicStreamingTranscodingBitrate: Int?
-    /** Gets or sets the MaxStaticMusicBitrate. */
+    /** Gets or sets the maximum allowed bitrate for statically streamed (= direct played) music files. */
     public var maxStaticMusicBitrate: Int?
     /** Gets or sets the content of the aggregationFlags element in the urn:schemas-sonycom:av namespace. */
     public var sonyAggregationFlags: String?
     /** Gets or sets the ProtocolInfo. */
     public var protocolInfo: String?
     /** Gets or sets the TimelineOffsetSeconds. */
-    public var timelineOffsetSeconds: Int?
+    public var timelineOffsetSeconds: Int? = 0
     /** Gets or sets a value indicating whether RequiresPlainVideoItems. */
-    public var requiresPlainVideoItems: Bool?
+    public var requiresPlainVideoItems: Bool? = false
     /** Gets or sets a value indicating whether RequiresPlainFolders. */
-    public var requiresPlainFolders: Bool?
+    public var requiresPlainFolders: Bool? = false
     /** Gets or sets a value indicating whether EnableMSMediaReceiverRegistrar. */
-    public var enableMSMediaReceiverRegistrar: Bool?
+    public var enableMSMediaReceiverRegistrar: Bool? = false
     /** Gets or sets a value indicating whether IgnoreTranscodeByteRangeRequests. */
-    public var ignoreTranscodeByteRangeRequests: Bool?
+    public var ignoreTranscodeByteRangeRequests: Bool? = false
     /** Gets or sets the XmlRootAttributes. */
     public var xmlRootAttributes: [XmlAttribute]?
     /** Gets or sets the direct play profiles. */
     public var directPlayProfiles: [DirectPlayProfile]?
     /** Gets or sets the transcoding profiles. */
     public var transcodingProfiles: [TranscodingProfile]?
-    /** Gets or sets the ContainerProfiles. */
+    /** Gets or sets the container profiles. */
     public var containerProfiles: [ContainerProfile]?
-    /** Gets or sets the CodecProfiles. */
+    /** Gets or sets the codec profiles. */
     public var codecProfiles: [CodecProfile]?
     /** Gets or sets the ResponseProfiles. */
     public var responseProfiles: [ResponseProfile]?
-    /** Gets or sets the SubtitleProfiles. */
+    /** Gets or sets the subtitle profiles. */
     public var subtitleProfiles: [SubtitleProfile]?
 
-    public init(name: String? = nil, id: String? = nil, identification: DeviceIdentification? = nil, friendlyName: String? = nil, manufacturer: String? = nil, manufacturerUrl: String? = nil, modelName: String? = nil, modelDescription: String? = nil, modelNumber: String? = nil, modelUrl: String? = nil, serialNumber: String? = nil, enableAlbumArtInDidl: Bool? = nil, enableSingleAlbumArtLimit: Bool? = nil, enableSingleSubtitleLimit: Bool? = nil, supportedMediaTypes: String? = nil, userId: String? = nil, albumArtPn: String? = nil, maxAlbumArtWidth: Int? = nil, maxAlbumArtHeight: Int? = nil, maxIconWidth: Int? = nil, maxIconHeight: Int? = nil, maxStreamingBitrate: Int? = nil, maxStaticBitrate: Int? = nil, musicStreamingTranscodingBitrate: Int? = nil, maxStaticMusicBitrate: Int? = nil, sonyAggregationFlags: String? = nil, protocolInfo: String? = nil, timelineOffsetSeconds: Int? = nil, requiresPlainVideoItems: Bool? = nil, requiresPlainFolders: Bool? = nil, enableMSMediaReceiverRegistrar: Bool? = nil, ignoreTranscodeByteRangeRequests: Bool? = nil, xmlRootAttributes: [XmlAttribute]? = nil, directPlayProfiles: [DirectPlayProfile]? = nil, transcodingProfiles: [TranscodingProfile]? = nil, containerProfiles: [ContainerProfile]? = nil, codecProfiles: [CodecProfile]? = nil, responseProfiles: [ResponseProfile]? = nil, subtitleProfiles: [SubtitleProfile]? = nil) {
+    public init(name: String? = nil, id: String? = nil, identification: DeviceProfileIdentification? = nil, friendlyName: String? = nil, manufacturer: String? = nil, manufacturerUrl: String? = nil, modelName: String? = nil, modelDescription: String? = nil, modelNumber: String? = nil, modelUrl: String? = nil, serialNumber: String? = nil, enableAlbumArtInDidl: Bool? = false, enableSingleAlbumArtLimit: Bool? = false, enableSingleSubtitleLimit: Bool? = false, supportedMediaTypes: String? = nil, userId: String? = nil, albumArtPn: String? = nil, maxAlbumArtWidth: Int? = nil, maxAlbumArtHeight: Int? = nil, maxIconWidth: Int? = nil, maxIconHeight: Int? = nil, maxStreamingBitrate: Int? = nil, maxStaticBitrate: Int? = nil, musicStreamingTranscodingBitrate: Int? = nil, maxStaticMusicBitrate: Int? = nil, sonyAggregationFlags: String? = nil, protocolInfo: String? = nil, timelineOffsetSeconds: Int? = 0, requiresPlainVideoItems: Bool? = false, requiresPlainFolders: Bool? = false, enableMSMediaReceiverRegistrar: Bool? = false, ignoreTranscodeByteRangeRequests: Bool? = false, xmlRootAttributes: [XmlAttribute]? = nil, directPlayProfiles: [DirectPlayProfile]? = nil, transcodingProfiles: [TranscodingProfile]? = nil, containerProfiles: [ContainerProfile]? = nil, codecProfiles: [CodecProfile]? = nil, responseProfiles: [ResponseProfile]? = nil, subtitleProfiles: [SubtitleProfile]? = nil) {
         self.name = name
         self.id = id
         self.identification = identification

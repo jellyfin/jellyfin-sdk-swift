@@ -1,6 +1,6 @@
 # VideoAttachmentsAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 Get video attachment.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -40,7 +40,7 @@ VideoAttachmentsAPI.getAttachment(videoId: videoId, mediaSourceId: mediaSourceId
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **videoId** | [**String**](.md) | Video ID. | 
+ **videoId** | **String** | Video ID. | 
  **mediaSourceId** | **String** | Media Source ID. | 
  **index** | **Int** | Attachment Index. | 
 

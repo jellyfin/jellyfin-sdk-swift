@@ -10,25 +10,26 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct TranscodingProfile: Codable, Hashable {
+public struct TranscodingProfile: Codable, JSONEncodable, Hashable {
 
     public var container: String?
     public var type: DlnaProfileType?
     public var videoCodec: String?
     public var audioCodec: String?
     public var _protocol: String?
-    public var estimateContentLength: Bool?
-    public var enableMpegtsM2TsMode: Bool?
+    public var estimateContentLength: Bool? = false
+    public var enableMpegtsM2TsMode: Bool? = false
     public var transcodeSeekInfo: TranscodeSeekInfo?
-    public var copyTimestamps: Bool?
+    public var copyTimestamps: Bool? = false
     public var context: EncodingContext?
-    public var enableSubtitlesInManifest: Bool?
+    public var enableSubtitlesInManifest: Bool? = false
     public var maxAudioChannels: String?
-    public var minSegments: Int?
-    public var segmentLength: Int?
-    public var breakOnNonKeyFrames: Bool?
+    public var minSegments: Int? = 0
+    public var segmentLength: Int? = 0
+    public var breakOnNonKeyFrames: Bool? = false
+    public var conditions: [ProfileCondition]?
 
-    public init(container: String? = nil, type: DlnaProfileType? = nil, videoCodec: String? = nil, audioCodec: String? = nil, _protocol: String? = nil, estimateContentLength: Bool? = nil, enableMpegtsM2TsMode: Bool? = nil, transcodeSeekInfo: TranscodeSeekInfo? = nil, copyTimestamps: Bool? = nil, context: EncodingContext? = nil, enableSubtitlesInManifest: Bool? = nil, maxAudioChannels: String? = nil, minSegments: Int? = nil, segmentLength: Int? = nil, breakOnNonKeyFrames: Bool? = nil) {
+    public init(container: String? = nil, type: DlnaProfileType? = nil, videoCodec: String? = nil, audioCodec: String? = nil, _protocol: String? = nil, estimateContentLength: Bool? = false, enableMpegtsM2TsMode: Bool? = false, transcodeSeekInfo: TranscodeSeekInfo? = nil, copyTimestamps: Bool? = false, context: EncodingContext? = nil, enableSubtitlesInManifest: Bool? = false, maxAudioChannels: String? = nil, minSegments: Int? = 0, segmentLength: Int? = 0, breakOnNonKeyFrames: Bool? = false, conditions: [ProfileCondition]? = nil) {
         self.container = container
         self.type = type
         self.videoCodec = videoCodec
@@ -44,6 +45,7 @@ public struct TranscodingProfile: Codable, Hashable {
         self.minSegments = minSegments
         self.segmentLength = segmentLength
         self.breakOnNonKeyFrames = breakOnNonKeyFrames
+        self.conditions = conditions
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -62,6 +64,7 @@ public struct TranscodingProfile: Codable, Hashable {
         case minSegments = "MinSegments"
         case segmentLength = "SegmentLength"
         case breakOnNonKeyFrames = "BreakOnNonKeyFrames"
+        case conditions = "Conditions"
     }
 
     // Encodable protocol methods
@@ -83,5 +86,6 @@ public struct TranscodingProfile: Codable, Hashable {
         try encoderContainer.encodeIfPresent(minSegments, forKey: .minSegments)
         try encoderContainer.encodeIfPresent(segmentLength, forKey: .segmentLength)
         try encoderContainer.encodeIfPresent(breakOnNonKeyFrames, forKey: .breakOnNonKeyFrames)
+        try encoderContainer.encodeIfPresent(conditions, forKey: .conditions)
     }
 }

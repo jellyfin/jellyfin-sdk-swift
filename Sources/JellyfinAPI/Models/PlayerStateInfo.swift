@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct PlayerStateInfo: Codable, Hashable {
+public struct PlayerStateInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the now playing position ticks. */
     public var positionTicks: Int64?
@@ -28,10 +28,14 @@ public struct PlayerStateInfo: Codable, Hashable {
     public var subtitleStreamIndex: Int?
     /** Gets or sets the now playing media version identifier. */
     public var mediaSourceId: String?
+    /** Gets or sets the play method. */
     public var playMethod: PlayMethod?
+    /** Gets or sets the repeat mode. */
     public var repeatMode: RepeatMode?
+    /** Gets or sets the now playing live stream identifier. */
+    public var liveStreamId: String?
 
-    public init(positionTicks: Int64? = nil, canSeek: Bool? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil, volumeLevel: Int? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, mediaSourceId: String? = nil, playMethod: PlayMethod? = nil, repeatMode: RepeatMode? = nil) {
+    public init(positionTicks: Int64? = nil, canSeek: Bool? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil, volumeLevel: Int? = nil, audioStreamIndex: Int? = nil, subtitleStreamIndex: Int? = nil, mediaSourceId: String? = nil, playMethod: PlayMethod? = nil, repeatMode: RepeatMode? = nil, liveStreamId: String? = nil) {
         self.positionTicks = positionTicks
         self.canSeek = canSeek
         self.isPaused = isPaused
@@ -42,6 +46,7 @@ public struct PlayerStateInfo: Codable, Hashable {
         self.mediaSourceId = mediaSourceId
         self.playMethod = playMethod
         self.repeatMode = repeatMode
+        self.liveStreamId = liveStreamId
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -55,6 +60,7 @@ public struct PlayerStateInfo: Codable, Hashable {
         case mediaSourceId = "MediaSourceId"
         case playMethod = "PlayMethod"
         case repeatMode = "RepeatMode"
+        case liveStreamId = "LiveStreamId"
     }
 
     // Encodable protocol methods
@@ -71,5 +77,6 @@ public struct PlayerStateInfo: Codable, Hashable {
         try encoderContainer.encodeIfPresent(mediaSourceId, forKey: .mediaSourceId)
         try encoderContainer.encodeIfPresent(playMethod, forKey: .playMethod)
         try encoderContainer.encodeIfPresent(repeatMode, forKey: .repeatMode)
+        try encoderContainer.encodeIfPresent(liveStreamId, forKey: .liveStreamId)
     }
 }

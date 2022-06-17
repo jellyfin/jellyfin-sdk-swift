@@ -11,12 +11,13 @@ import AnyCodable
 #endif
 
 /** Class PlayRequest. */
-public struct PlayRequest: Codable, Hashable {
+public struct PlayRequest: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the item ids. */
     public var itemIds: [String]?
     /** Gets or sets the start position ticks that the first item should be played at. */
     public var startPositionTicks: Int64?
+    /** Gets or sets the play command. */
     public var playCommand: PlayCommand?
     /** Gets or sets the controlling user identifier. */
     public var controllingUserId: String?

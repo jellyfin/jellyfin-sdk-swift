@@ -11,19 +11,20 @@ import AnyCodable
 #endif
 
 /** An entity representing a user&#39;s access schedule. */
-public struct AccessSchedule: Codable, Hashable {
+public struct AccessSchedule: Codable, JSONEncodable, Hashable {
 
-    /** Gets or sets the id of this instance. */
-    public var id: Int
-    /** Gets or sets the id of the associated user. */
-    public var userId: String
-    public var dayOfWeek: DynamicDayOfWeek
+    /** Gets the id of this instance. */
+    public var id: Int?
+    /** Gets the id of the associated user. */
+    public var userId: String?
+    /** Gets or sets the day of week. */
+    public var dayOfWeek: DynamicDayOfWeek?
     /** Gets or sets the start hour. */
-    public var startHour: Double
+    public var startHour: Double?
     /** Gets or sets the end hour. */
-    public var endHour: Double
+    public var endHour: Double?
 
-    public init(id: Int, userId: String, dayOfWeek: DynamicDayOfWeek, startHour: Double, endHour: Double) {
+    public init(id: Int? = nil, userId: String? = nil, dayOfWeek: DynamicDayOfWeek? = nil, startHour: Double? = nil, endHour: Double? = nil) {
         self.id = id
         self.userId = userId
         self.dayOfWeek = dayOfWeek
@@ -43,10 +44,10 @@ public struct AccessSchedule: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var encoderContainer = encoder.container(keyedBy: CodingKeys.self)
-        try encoderContainer.encode(id, forKey: .id)
-        try encoderContainer.encode(userId, forKey: .userId)
-        try encoderContainer.encode(dayOfWeek, forKey: .dayOfWeek)
-        try encoderContainer.encode(startHour, forKey: .startHour)
-        try encoderContainer.encode(endHour, forKey: .endHour)
+        try encoderContainer.encodeIfPresent(id, forKey: .id)
+        try encoderContainer.encodeIfPresent(userId, forKey: .userId)
+        try encoderContainer.encodeIfPresent(dayOfWeek, forKey: .dayOfWeek)
+        try encoderContainer.encodeIfPresent(startHour, forKey: .startHour)
+        try encoderContainer.encodeIfPresent(endHour, forKey: .endHour)
     }
 }

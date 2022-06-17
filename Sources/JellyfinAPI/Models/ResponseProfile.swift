@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ResponseProfile: Codable, Hashable {
+public struct ResponseProfile: Codable, JSONEncodable, Hashable {
 
     public var container: String?
     public var audioCodec: String?

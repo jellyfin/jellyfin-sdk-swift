@@ -11,10 +11,11 @@ import AnyCodable
 #endif
 
 /** Class GroupUpdate. */
-public struct ObjectGroupUpdate: Codable, Hashable {
+public struct ObjectGroupUpdate: Codable, JSONEncodable, Hashable {
 
     /** Gets the group identifier. */
     public var groupId: String?
+    /** Gets the update type. */
     public var type: GroupUpdateType?
     /** Gets the update data. */
     public var data: AnyCodable?

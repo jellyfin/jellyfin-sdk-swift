@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class JoinGroupRequestDto. */
-public struct JoinGroupRequestDto: Codable, Hashable {
+public struct JoinGroupRequestDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the group identifier. */
     public var groupId: String?

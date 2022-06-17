@@ -1,6 +1,6 @@
 # ChannelsAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Get all channel features.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -62,7 +62,7 @@ This endpoint does not need any parameter.
 
 Get channel features.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -86,7 +86,7 @@ ChannelsAPI.getChannelFeatures(channelId: channelId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **channelId** | [**String**](.md) | Channel id. | 
+ **channelId** | **String** | Channel id. | 
 
 ### Return type
 
@@ -105,12 +105,12 @@ Name | Type | Description  | Notes
 
 # **getChannelItems**
 ```swift
-    open class func getChannelItems(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [APISortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getChannelItems(channelId: String, folderId: String? = nil, userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, sortOrder: [SortOrder]? = nil, filters: [ItemFilter]? = nil, sortBy: [String]? = nil, fields: [ItemFields]? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Get channel items.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -120,7 +120,7 @@ let folderId = "folderId_example" // String | Optional. Folder Id. (optional)
 let userId = "userId_example" // String | Optional. User Id. (optional)
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
-let sortOrder = [APISortOrder()] // [APISortOrder] | Optional. Sort Order - Ascending,Descending. (optional)
+let sortOrder = [SortOrder()] // [SortOrder] | Optional. Sort Order - Ascending,Descending. (optional)
 let filters = [ItemFilter()] // [ItemFilter] | Optional. Specify additional filters to apply. (optional)
 let sortBy = ["inner_example"] // [String] | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
@@ -142,12 +142,12 @@ ChannelsAPI.getChannelItems(channelId: channelId, folderId: folderId, userId: us
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **channelId** | [**String**](.md) | Channel Id. | 
- **folderId** | [**String**](.md) | Optional. Folder Id. | [optional] 
- **userId** | [**String**](.md) | Optional. User Id. | [optional] 
+ **channelId** | **String** | Channel Id. | 
+ **folderId** | **String** | Optional. Folder Id. | [optional] 
+ **userId** | **String** | Optional. User Id. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
- **sortOrder** | [**[APISortOrder]**](APISortOrder.md) | Optional. Sort Order - Ascending,Descending. | [optional] 
+ **sortOrder** | [**[SortOrder]**](SortOrder.md) | Optional. Sort Order - Ascending,Descending. | [optional] 
  **filters** | [**[ItemFilter]**](ItemFilter.md) | Optional. Specify additional filters to apply. | [optional] 
  **sortBy** | [**[String]**](String.md) | Optional. Specify one or more sort orders, comma delimited. Options: Album, AlbumArtist, Artist, Budget, CommunityRating, CriticRating, DateCreated, DatePlayed, PlayCount, PremiereDate, ProductionYear, SortName, Random, Revenue, Runtime. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 Gets available channels.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -203,7 +203,7 @@ ChannelsAPI.getChannels(userId: userId, startIndex: startIndex, limit: limit, su
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | User Id to filter by. Use System.Guid.Empty to not filter by user. | [optional] 
+ **userId** | **String** | User Id to filter by. Use System.Guid.Empty to not filter by user. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **supportsLatestItems** | **Bool** | Optional. Filter by channels that support getting latest items. | [optional] 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 Gets latest channel items.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -261,7 +261,7 @@ ChannelsAPI.getLatestChannelItems(userId: userId, startIndex: startIndex, limit:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | Optional. User Id. | [optional] 
+ **userId** | **String** | Optional. User Id. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **filters** | [**[ItemFilter]**](ItemFilter.md) | Optional. Specify additional filters to apply. | [optional] 

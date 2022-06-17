@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Forgot Password Pin enter request body DTO. */
-public struct ForgotPasswordPinDto: Codable, Hashable {
+public struct ForgotPasswordPinDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the entered pin to have the password reset. */
     public var pin: String

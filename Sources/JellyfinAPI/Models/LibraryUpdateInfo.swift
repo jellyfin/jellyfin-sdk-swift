@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class LibraryUpdateInfo. */
-public struct LibraryUpdateInfo: Codable, Hashable {
+public struct LibraryUpdateInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the folders added to. */
     public var foldersAddedTo: [String]?

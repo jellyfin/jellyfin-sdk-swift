@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class ImageProviderInfo. */
-public struct ImageProviderInfo: Codable, Hashable {
+public struct ImageProviderInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets the name. */
     public var name: String?

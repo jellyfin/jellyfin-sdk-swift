@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ExternalUrl: Codable, Hashable {
+public struct ExternalUrl: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?

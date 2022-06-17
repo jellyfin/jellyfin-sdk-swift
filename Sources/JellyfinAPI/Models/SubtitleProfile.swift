@@ -10,9 +10,10 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct SubtitleProfile: Codable, Hashable {
+public struct SubtitleProfile: Codable, JSONEncodable, Hashable {
 
     public var format: String?
+    /** Delivery method to use during playback of a specific subtitle format. */
     public var method: SubtitleDeliveryMethod?
     public var didlMode: String?
     public var language: String?

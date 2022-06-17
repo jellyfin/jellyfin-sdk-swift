@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class SendCommand. */
-public struct SendCommand: Codable, Hashable {
+public struct SendCommand: Codable, JSONEncodable, Hashable {
 
     /** Gets the group identifier. */
     public var groupId: String?
@@ -21,6 +21,7 @@ public struct SendCommand: Codable, Hashable {
     public var when: Date?
     /** Gets the position ticks. */
     public var positionTicks: Int64?
+    /** Gets the command. */
     public var command: SendCommandType?
     /** Gets the UTC time when this command has been emitted. */
     public var emittedAt: Date?

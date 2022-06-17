@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class SearchHintResult. */
-public struct SearchHint: Codable, Hashable {
+public struct SearchHint: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the item id. */
     public var itemId: String?

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class MediaStream. */
-public struct MediaStream: Codable, Hashable {
+public struct MediaStream: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the codec. */
     public var codec: String?
@@ -35,11 +35,12 @@ public struct MediaStream: Codable, Hashable {
     public var codecTimeBase: String?
     /** Gets or sets the title. */
     public var title: String?
-    /** Gets or sets the video range. */
+    /** Gets the video range. */
     public var videoRange: String?
     public var localizedUndefined: String?
     public var localizedDefault: String?
     public var localizedForced: String?
+    public var localizedExternal: String?
     public var displayTitle: String?
     public var nalLengthSize: String?
     /** Gets or sets a value indicating whether this instance is interlaced. */
@@ -73,6 +74,7 @@ public struct MediaStream: Codable, Hashable {
     public var realFrameRate: Float?
     /** Gets or sets the profile. */
     public var profile: String?
+    /** Gets or sets the type. */
     public var type: MediaStreamType?
     /** Gets or sets the aspect ratio. */
     public var aspectRatio: String?
@@ -82,6 +84,7 @@ public struct MediaStream: Codable, Hashable {
     public var score: Int?
     /** Gets or sets a value indicating whether this instance is external. */
     public var isExternal: Bool?
+    /** Gets or sets the method. */
     public var deliveryMethod: SubtitleDeliveryMethod?
     /** Gets or sets the delivery URL. */
     public var deliveryUrl: String?
@@ -96,10 +99,10 @@ public struct MediaStream: Codable, Hashable {
     public var pixelFormat: String?
     /** Gets or sets the level. */
     public var level: Double?
-    /** Gets a value indicating whether this instance is anamorphic. */
+    /** Gets or sets whether this instance is anamorphic. */
     public var isAnamorphic: Bool?
 
-    public init(codec: String? = nil, codecTag: String? = nil, language: String? = nil, colorRange: String? = nil, colorSpace: String? = nil, colorTransfer: String? = nil, colorPrimaries: String? = nil, comment: String? = nil, timeBase: String? = nil, codecTimeBase: String? = nil, title: String? = nil, videoRange: String? = nil, localizedUndefined: String? = nil, localizedDefault: String? = nil, localizedForced: String? = nil, displayTitle: String? = nil, nalLengthSize: String? = nil, isInterlaced: Bool? = nil, isAVC: Bool? = nil, channelLayout: String? = nil, bitRate: Int? = nil, bitDepth: Int? = nil, refFrames: Int? = nil, packetLength: Int? = nil, channels: Int? = nil, sampleRate: Int? = nil, isDefault: Bool? = nil, isForced: Bool? = nil, height: Int? = nil, width: Int? = nil, averageFrameRate: Float? = nil, realFrameRate: Float? = nil, profile: String? = nil, type: MediaStreamType? = nil, aspectRatio: String? = nil, index: Int? = nil, score: Int? = nil, isExternal: Bool? = nil, deliveryMethod: SubtitleDeliveryMethod? = nil, deliveryUrl: String? = nil, isExternalUrl: Bool? = nil, isTextSubtitleStream: Bool? = nil, supportsExternalStream: Bool? = nil, path: String? = nil, pixelFormat: String? = nil, level: Double? = nil, isAnamorphic: Bool? = nil) {
+    public init(codec: String? = nil, codecTag: String? = nil, language: String? = nil, colorRange: String? = nil, colorSpace: String? = nil, colorTransfer: String? = nil, colorPrimaries: String? = nil, comment: String? = nil, timeBase: String? = nil, codecTimeBase: String? = nil, title: String? = nil, videoRange: String? = nil, localizedUndefined: String? = nil, localizedDefault: String? = nil, localizedForced: String? = nil, localizedExternal: String? = nil, displayTitle: String? = nil, nalLengthSize: String? = nil, isInterlaced: Bool? = nil, isAVC: Bool? = nil, channelLayout: String? = nil, bitRate: Int? = nil, bitDepth: Int? = nil, refFrames: Int? = nil, packetLength: Int? = nil, channels: Int? = nil, sampleRate: Int? = nil, isDefault: Bool? = nil, isForced: Bool? = nil, height: Int? = nil, width: Int? = nil, averageFrameRate: Float? = nil, realFrameRate: Float? = nil, profile: String? = nil, type: MediaStreamType? = nil, aspectRatio: String? = nil, index: Int? = nil, score: Int? = nil, isExternal: Bool? = nil, deliveryMethod: SubtitleDeliveryMethod? = nil, deliveryUrl: String? = nil, isExternalUrl: Bool? = nil, isTextSubtitleStream: Bool? = nil, supportsExternalStream: Bool? = nil, path: String? = nil, pixelFormat: String? = nil, level: Double? = nil, isAnamorphic: Bool? = nil) {
         self.codec = codec
         self.codecTag = codecTag
         self.language = language
@@ -115,6 +118,7 @@ public struct MediaStream: Codable, Hashable {
         self.localizedUndefined = localizedUndefined
         self.localizedDefault = localizedDefault
         self.localizedForced = localizedForced
+        self.localizedExternal = localizedExternal
         self.displayTitle = displayTitle
         self.nalLengthSize = nalLengthSize
         self.isInterlaced = isInterlaced
@@ -162,9 +166,10 @@ public struct MediaStream: Codable, Hashable {
         case codecTimeBase = "CodecTimeBase"
         case title = "Title"
         case videoRange = "VideoRange"
-        case localizedUndefined
-        case localizedDefault
-        case localizedForced
+        case localizedUndefined = "LocalizedUndefined"
+        case localizedDefault = "LocalizedDefault"
+        case localizedForced = "LocalizedForced"
+        case localizedExternal = "LocalizedExternal"
         case displayTitle = "DisplayTitle"
         case nalLengthSize = "NalLengthSize"
         case isInterlaced = "IsInterlaced"
@@ -218,6 +223,7 @@ public struct MediaStream: Codable, Hashable {
         try encoderContainer.encodeIfPresent(localizedUndefined, forKey: .localizedUndefined)
         try encoderContainer.encodeIfPresent(localizedDefault, forKey: .localizedDefault)
         try encoderContainer.encodeIfPresent(localizedForced, forKey: .localizedForced)
+        try encoderContainer.encodeIfPresent(localizedExternal, forKey: .localizedExternal)
         try encoderContainer.encodeIfPresent(displayTitle, forKey: .displayTitle)
         try encoderContainer.encodeIfPresent(nalLengthSize, forKey: .nalLengthSize)
         try encoderContainer.encodeIfPresent(isInterlaced, forKey: .isInterlaced)

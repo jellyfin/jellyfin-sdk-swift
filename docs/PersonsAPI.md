@@ -1,6 +1,6 @@
 # PersonsAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Get person by name.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -41,7 +41,7 @@ PersonsAPI.getPerson(name: name, userId: userId) { (response, error) in
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **String** | Person name. | 
- **userId** | [**String**](.md) | Optional. Filter by user id, and attach user data. | [optional] 
+ **userId** | **String** | Optional. Filter by user id, and attach user data. | [optional] 
 
 ### Return type
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 Gets all persons.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -111,8 +111,8 @@ Name | Type | Description  | Notes
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
  **excludePersonTypes** | [**[String]**](String.md) | Optional. If specified results will be filtered to exclude those containing the specified PersonType. Allows multiple, comma-delimited. | [optional] 
  **personTypes** | [**[String]**](String.md) | Optional. If specified results will be filtered to include only those containing the specified PersonType. Allows multiple, comma-delimited. | [optional] 
- **appearsInItemId** | [**String**](.md) | Optional. If specified, person results will be filtered on items related to said persons. | [optional] 
- **userId** | [**String**](.md) | User id. | [optional] 
+ **appearsInItemId** | **String** | Optional. If specified, person results will be filtered on items related to said persons. | [optional] 
+ **userId** | **String** | User id. | [optional] 
  **enableImages** | **Bool** | Optional, include image information in output. | [optional] [default to true]
 
 ### Return type

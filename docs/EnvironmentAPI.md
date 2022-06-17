@@ -1,6 +1,6 @@
 # EnvironmentAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 Get Default directory browser.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -63,7 +63,7 @@ This endpoint does not need any parameter.
 
 Gets the contents of a given directory in the file system.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 
 Gets available drives from the server's file system.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -159,7 +159,7 @@ This endpoint does not need any parameter.
 
 Gets network paths.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -203,7 +203,7 @@ This endpoint does not need any parameter.
 
 Gets the parent path of a given path.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -246,20 +246,20 @@ Name | Type | Description  | Notes
 
 # **validatePath**
 ```swift
-    open class func validatePath(validatePathDto: ValidatePathDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func validatePath(validatePathRequest: ValidatePathRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Validates path.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let validatePathDto = ValidatePathDto(validateWritable: false, path: "path_example", isFile: false) // ValidatePathDto | Validate request object.
+let validatePathRequest = ValidatePath_request(validateWritable: false, path: "path_example", isFile: false) // ValidatePathRequest | Validate request object.
 
 // Validates path.
-EnvironmentAPI.validatePath(validatePathDto: validatePathDto) { (response, error) in
+EnvironmentAPI.validatePath(validatePathRequest: validatePathRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -275,7 +275,7 @@ EnvironmentAPI.validatePath(validatePathDto: validatePathDto) { (response, error
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **validatePathDto** | [**ValidatePathDto**](ValidatePathDto.md) | Validate request object. | 
+ **validatePathRequest** | [**ValidatePathRequest**](ValidatePathRequest.md) | Validate request object. | 
 
 ### Return type
 

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Defines the MediaBrowser.Model.Configuration.PathSubstitution. */
-public struct PathSubstitution: Codable, Hashable {
+public struct PathSubstitution: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the value to substitute. */
     public var from: String?

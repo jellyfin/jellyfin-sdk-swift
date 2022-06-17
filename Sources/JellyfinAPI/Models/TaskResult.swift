@@ -11,12 +11,13 @@ import AnyCodable
 #endif
 
 /** Class TaskExecutionInfo. */
-public struct TaskResult: Codable, Hashable {
+public struct TaskResult: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the start time UTC. */
     public var startTimeUtc: Date?
     /** Gets or sets the end time UTC. */
     public var endTimeUtc: Date?
+    /** Gets or sets the status. */
     public var status: TaskCompletionStatus?
     /** Gets or sets the name. */
     public var name: String?

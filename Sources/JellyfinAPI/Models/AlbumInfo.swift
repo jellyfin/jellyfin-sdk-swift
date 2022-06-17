@@ -10,10 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct AlbumInfo: Codable, Hashable {
+public struct AlbumInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
+    /** Gets or sets the original title. */
+    public var originalTitle: String?
     /** Gets or sets the path. */
     public var path: String?
     /** Gets or sets the metadata language. */
@@ -34,8 +36,9 @@ public struct AlbumInfo: Codable, Hashable {
     public var artistProviderIds: [String: String]?
     public var songInfos: [SongInfo]?
 
-    public init(name: String? = nil, path: String? = nil, metadataLanguage: String? = nil, metadataCountryCode: String? = nil, providerIds: [String: String]? = nil, year: Int? = nil, indexNumber: Int? = nil, parentIndexNumber: Int? = nil, premiereDate: Date? = nil, isAutomated: Bool? = nil, albumArtists: [String]? = nil, artistProviderIds: [String: String]? = nil, songInfos: [SongInfo]? = nil) {
+    public init(name: String? = nil, originalTitle: String? = nil, path: String? = nil, metadataLanguage: String? = nil, metadataCountryCode: String? = nil, providerIds: [String: String]? = nil, year: Int? = nil, indexNumber: Int? = nil, parentIndexNumber: Int? = nil, premiereDate: Date? = nil, isAutomated: Bool? = nil, albumArtists: [String]? = nil, artistProviderIds: [String: String]? = nil, songInfos: [SongInfo]? = nil) {
         self.name = name
+        self.originalTitle = originalTitle
         self.path = path
         self.metadataLanguage = metadataLanguage
         self.metadataCountryCode = metadataCountryCode
@@ -52,6 +55,7 @@ public struct AlbumInfo: Codable, Hashable {
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case name = "Name"
+        case originalTitle = "OriginalTitle"
         case path = "Path"
         case metadataLanguage = "MetadataLanguage"
         case metadataCountryCode = "MetadataCountryCode"
@@ -71,6 +75,7 @@ public struct AlbumInfo: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var encoderContainer = encoder.container(keyedBy: CodingKeys.self)
         try encoderContainer.encodeIfPresent(name, forKey: .name)
+        try encoderContainer.encodeIfPresent(originalTitle, forKey: .originalTitle)
         try encoderContainer.encodeIfPresent(path, forKey: .path)
         try encoderContainer.encodeIfPresent(metadataLanguage, forKey: .metadataLanguage)
         try encoderContainer.encodeIfPresent(metadataCountryCode, forKey: .metadataCountryCode)

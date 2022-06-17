@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** The update user password request body. */
-public struct UpdateUserPassword: Codable, Hashable {
+public struct UpdateUserPassword: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the current sha1-hashed password. */
     public var currentPassword: String?

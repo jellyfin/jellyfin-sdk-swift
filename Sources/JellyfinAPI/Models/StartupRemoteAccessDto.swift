@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Startup remote access dto. */
-public struct StartupRemoteAccessDto: Codable, Hashable {
+public struct StartupRemoteAccessDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets a value indicating whether enable remote access. */
     public var enableRemoteAccess: Bool

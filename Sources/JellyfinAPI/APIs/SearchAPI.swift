@@ -5,13 +5,16 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class SearchAPI {
+
     /**
      Gets the search hint result.
      
@@ -33,22 +36,26 @@ open class SearchAPI {
      - parameter includeGenres: (query) Optional filter whether to include genres. (optional, default to true)
      - parameter includeStudios: (query) Optional filter whether to include studios. (optional, default to true)
      - parameter includeArtists: (query) Optional filter whether to include artists. (optional, default to true)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<SearchHintResult, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func callGet(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: String? = nil, includeItemTypes: [String]? = nil, excludeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, parentId: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<SearchHintResult, Error> {
-        return Future<SearchHintResult, Error>.init { promise in
-            callGetWithRequestBuilder(searchTerm: searchTerm, startIndex: startIndex, limit: limit, userId: userId, includeItemTypes: includeItemTypes, excludeItemTypes: excludeItemTypes, mediaTypes: mediaTypes, parentId: parentId, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, includePeople: includePeople, includeMedia: includeMedia, includeGenres: includeGenres, includeStudios: includeStudios, includeArtists: includeArtists).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func callGet(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: String? = nil, includeItemTypes: [BaseItemKind]? = nil, excludeItemTypes: [BaseItemKind]? = nil, mediaTypes: [String]? = nil, parentId: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil) -> AnyPublisher<SearchHintResult, Error> {
+        var requestTask: RequestTask?
+        return Future<SearchHintResult, Error> { promise in
+            requestTask = callGetWithRequestBuilder(searchTerm: searchTerm, startIndex: startIndex, limit: limit, userId: userId, includeItemTypes: includeItemTypes, excludeItemTypes: excludeItemTypes, mediaTypes: mediaTypes, parentId: parentId, isMovie: isMovie, isSeries: isSeries, isNews: isNews, isKids: isKids, isSports: isSports, includePeople: includePeople, includeMedia: includeMedia, includeGenres: includeGenres, includeStudios: includeStudios, includeArtists: includeArtists).execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -56,7 +63,7 @@ open class SearchAPI {
      Gets the search hint result.
      - GET /Search/Hints
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter searchTerm: (query) The search term to filter on. 
      - parameter startIndex: (query) Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
@@ -78,13 +85,13 @@ open class SearchAPI {
      - parameter includeArtists: (query) Optional filter whether to include artists. (optional, default to true)
      - returns: RequestBuilder<SearchHintResult> 
      */
-    open class func callGetWithRequestBuilder(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: String? = nil, includeItemTypes: [String]? = nil, excludeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, parentId: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil) -> RequestBuilder<SearchHintResult> {
-        let urlPath = "/Search/Hints"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+    open class func callGetWithRequestBuilder(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: String? = nil, includeItemTypes: [BaseItemKind]? = nil, excludeItemTypes: [BaseItemKind]? = nil, mediaTypes: [String]? = nil, parentId: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil) -> RequestBuilder<SearchHintResult> {
+        let localVariablePath = "/Search/Hints"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "startIndex": startIndex?.encodeToJSON(),
             "limit": limit?.encodeToJSON(),
             "userId": userId?.encodeToJSON(),
@@ -105,15 +112,14 @@ open class SearchAPI {
             "includeArtists": includeArtists?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<SearchHintResult>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<SearchHintResult>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

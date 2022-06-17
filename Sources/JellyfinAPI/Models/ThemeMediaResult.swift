@@ -11,13 +11,13 @@ import AnyCodable
 #endif
 
 /** Class ThemeMediaResult. */
-public struct ThemeMediaResult: Codable, Hashable {
+public struct ThemeMediaResult: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the items. */
     public var items: [BaseItemDto]?
-    /** The total number of records available. */
+    /** Gets or sets the total number of records available. */
     public var totalRecordCount: Int?
-    /** The index of the first record in Items. */
+    /** Gets or sets the index of the first record in Items. */
     public var startIndex: Int?
     /** Gets or sets the owner id. */
     public var ownerId: String?

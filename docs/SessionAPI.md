@@ -1,6 +1,6 @@
 # SessionAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 Adds an additional user to a session.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -55,7 +55,7 @@ SessionAPI.addUserToSession(sessionId: sessionId, userId: userId) { (response, e
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **userId** | [**String**](.md) | The user id. | 
+ **userId** | **String** | The user id. | 
 
 ### Return type
 
@@ -74,18 +74,18 @@ Void (empty response body)
 
 # **displayContent**
 ```swift
-    open class func displayContent(sessionId: String, itemType: String, itemId: String, itemName: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func displayContent(sessionId: String, itemType: BaseItemKind, itemId: String, itemName: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Instructs a session to browse to an item or view.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session Id.
-let itemType = "itemType_example" // String | The type of item to browse to.
+let itemType = BaseItemKind() // BaseItemKind | The type of item to browse to.
 let itemId = "itemId_example" // String | The Id of the item.
 let itemName = "itemName_example" // String | The name of the item.
 
@@ -107,7 +107,7 @@ SessionAPI.displayContent(sessionId: sessionId, itemType: itemType, itemId: item
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session Id. | 
- **itemType** | **String** | The type of item to browse to. | 
+ **itemType** | [**BaseItemKind**](.md) | The type of item to browse to. | 
  **itemId** | **String** | The Id of the item. | 
  **itemName** | **String** | The name of the item. | 
 
@@ -133,7 +133,7 @@ Void (empty response body)
 
 Get all auth providers.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -177,7 +177,7 @@ This endpoint does not need any parameter.
 
 Get all password reset providers.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -221,7 +221,7 @@ This endpoint does not need any parameter.
 
 Gets a list of sessions.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -247,7 +247,7 @@ SessionAPI.getSessions(controllableByUserId: controllableByUserId, deviceId: dev
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **controllableByUserId** | [**String**](.md) | Filter by sessions that a given user is allowed to remote control. | [optional] 
+ **controllableByUserId** | **String** | Filter by sessions that a given user is allowed to remote control. | [optional] 
  **deviceId** | **String** | Filter by device Id. | [optional] 
  **activeWithinSeconds** | **Int** | Optional. Filter by sessions that were active in the last n seconds. | [optional] 
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 Instructs a session to play an item.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -335,7 +335,7 @@ Void (empty response body)
 
 Updates capabilities for a device.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -388,21 +388,21 @@ Void (empty response body)
 
 # **postFullCapabilities**
 ```swift
-    open class func postFullCapabilities(clientCapabilitiesDto: ClientCapabilitiesDto, id: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func postFullCapabilities(postFullCapabilitiesRequest: PostFullCapabilitiesRequest, id: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates capabilities for a device.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let clientCapabilitiesDto = ClientCapabilitiesDto(playableMediaTypes: ["playableMediaTypes_example"], supportedCommands: [GeneralCommandType()], supportsMediaControl: false, supportsContentUploading: false, messageCallbackUrl: "messageCallbackUrl_example", supportsPersistentIdentifier: false, supportsSync: false, deviceProfile: DeviceProfile(name: "name_example", id: "id_example", identification: DeviceIdentification(friendlyName: "friendlyName_example", modelNumber: "modelNumber_example", serialNumber: "serialNumber_example", modelName: "modelName_example", modelDescription: "modelDescription_example", modelUrl: "modelUrl_example", manufacturer: "manufacturer_example", manufacturerUrl: "manufacturerUrl_example", headers: [HttpHeaderInfo(name: "name_example", value: "value_example", match: HeaderMatchType())]), friendlyName: "friendlyName_example", manufacturer: "manufacturer_example", manufacturerUrl: "manufacturerUrl_example", modelName: "modelName_example", modelDescription: "modelDescription_example", modelNumber: "modelNumber_example", modelUrl: "modelUrl_example", serialNumber: "serialNumber_example", enableAlbumArtInDidl: false, enableSingleAlbumArtLimit: false, enableSingleSubtitleLimit: false, supportedMediaTypes: "supportedMediaTypes_example", userId: "userId_example", albumArtPn: "albumArtPn_example", maxAlbumArtWidth: 123, maxAlbumArtHeight: 123, maxIconWidth: 123, maxIconHeight: 123, maxStreamingBitrate: 123, maxStaticBitrate: 123, musicStreamingTranscodingBitrate: 123, maxStaticMusicBitrate: 123, sonyAggregationFlags: "sonyAggregationFlags_example", protocolInfo: "protocolInfo_example", timelineOffsetSeconds: 123, requiresPlainVideoItems: false, requiresPlainFolders: false, enableMSMediaReceiverRegistrar: false, ignoreTranscodeByteRangeRequests: false, xmlRootAttributes: [XmlAttribute(name: "name_example", value: "value_example")], directPlayProfiles: [DirectPlayProfile(container: "container_example", audioCodec: "audioCodec_example", videoCodec: "videoCodec_example", type: DlnaProfileType())], transcodingProfiles: [TranscodingProfile(container: "container_example", type: nil, videoCodec: "videoCodec_example", audioCodec: "audioCodec_example", _protocol: "_protocol_example", estimateContentLength: false, enableMpegtsM2TsMode: false, transcodeSeekInfo: TranscodeSeekInfo(), copyTimestamps: false, context: EncodingContext(), enableSubtitlesInManifest: false, maxAudioChannels: "maxAudioChannels_example", minSegments: 123, segmentLength: 123, breakOnNonKeyFrames: false)], containerProfiles: [ContainerProfile(type: nil, conditions: [ProfileCondition(condition: ProfileConditionType(), property: ProfileConditionValue(), value: "value_example", isRequired: false)], container: "container_example")], codecProfiles: [CodecProfile(type: CodecType(), conditions: [nil], applyConditions: [nil], codec: "codec_example", container: "container_example")], responseProfiles: [ResponseProfile(container: "container_example", audioCodec: "audioCodec_example", videoCodec: "videoCodec_example", type: nil, orgPn: "orgPn_example", mimeType: "mimeType_example", conditions: [nil])], subtitleProfiles: [SubtitleProfile(format: "format_example", method: SubtitleDeliveryMethod(), didlMode: "didlMode_example", language: "language_example", container: "container_example")]), appStoreUrl: "appStoreUrl_example", iconUrl: "iconUrl_example") // ClientCapabilitiesDto | The MediaBrowser.Model.Session.ClientCapabilities.
+let postFullCapabilitiesRequest = PostFullCapabilities_request(playableMediaTypes: ["playableMediaTypes_example"], supportedCommands: [GeneralCommandType()], supportsMediaControl: false, supportsContentUploading: false, messageCallbackUrl: "messageCallbackUrl_example", supportsPersistentIdentifier: false, supportsSync: false, deviceProfile: ClientCapabilities_DeviceProfile(name: "name_example", id: "id_example", identification: DeviceProfile_Identification(friendlyName: "friendlyName_example", modelNumber: "modelNumber_example", serialNumber: "serialNumber_example", modelName: "modelName_example", modelDescription: "modelDescription_example", modelUrl: "modelUrl_example", manufacturer: "manufacturer_example", manufacturerUrl: "manufacturerUrl_example", headers: [HttpHeaderInfo(name: "name_example", value: "value_example", match: HeaderMatchType())]), friendlyName: "friendlyName_example", manufacturer: "manufacturer_example", manufacturerUrl: "manufacturerUrl_example", modelName: "modelName_example", modelDescription: "modelDescription_example", modelNumber: "modelNumber_example", modelUrl: "modelUrl_example", serialNumber: "serialNumber_example", enableAlbumArtInDidl: false, enableSingleAlbumArtLimit: false, enableSingleSubtitleLimit: false, supportedMediaTypes: "supportedMediaTypes_example", userId: "userId_example", albumArtPn: "albumArtPn_example", maxAlbumArtWidth: 123, maxAlbumArtHeight: 123, maxIconWidth: 123, maxIconHeight: 123, maxStreamingBitrate: 123, maxStaticBitrate: 123, musicStreamingTranscodingBitrate: 123, maxStaticMusicBitrate: 123, sonyAggregationFlags: "sonyAggregationFlags_example", protocolInfo: "protocolInfo_example", timelineOffsetSeconds: 123, requiresPlainVideoItems: false, requiresPlainFolders: false, enableMSMediaReceiverRegistrar: false, ignoreTranscodeByteRangeRequests: false, xmlRootAttributes: [XmlAttribute(name: "name_example", value: "value_example")], directPlayProfiles: [DirectPlayProfile(container: "container_example", audioCodec: "audioCodec_example", videoCodec: "videoCodec_example", type: DlnaProfileType())], transcodingProfiles: [TranscodingProfile(container: "container_example", type: nil, videoCodec: "videoCodec_example", audioCodec: "audioCodec_example", _protocol: "_protocol_example", estimateContentLength: false, enableMpegtsM2TsMode: false, transcodeSeekInfo: TranscodeSeekInfo(), copyTimestamps: false, context: EncodingContext(), enableSubtitlesInManifest: false, maxAudioChannels: "maxAudioChannels_example", minSegments: 123, segmentLength: 123, breakOnNonKeyFrames: false, conditions: [ProfileCondition(condition: ProfileConditionType(), property: ProfileConditionValue(), value: "value_example", isRequired: false)])], containerProfiles: [ContainerProfile(type: nil, conditions: [nil], container: "container_example")], codecProfiles: [CodecProfile(type: CodecType(), conditions: [nil], applyConditions: [nil], codec: "codec_example", container: "container_example")], responseProfiles: [ResponseProfile(container: "container_example", audioCodec: "audioCodec_example", videoCodec: "videoCodec_example", type: nil, orgPn: "orgPn_example", mimeType: "mimeType_example", conditions: [nil])], subtitleProfiles: [SubtitleProfile(format: "format_example", method: SubtitleDeliveryMethod(), didlMode: "didlMode_example", language: "language_example", container: "container_example")]), appStoreUrl: "appStoreUrl_example", iconUrl: "iconUrl_example") // PostFullCapabilitiesRequest | The MediaBrowser.Model.Session.ClientCapabilities.
 let id = "id_example" // String | The session id. (optional)
 
 // Updates capabilities for a device.
-SessionAPI.postFullCapabilities(clientCapabilitiesDto: clientCapabilitiesDto, id: id) { (response, error) in
+SessionAPI.postFullCapabilities(postFullCapabilitiesRequest: postFullCapabilitiesRequest, id: id) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -418,7 +418,7 @@ SessionAPI.postFullCapabilities(clientCapabilitiesDto: clientCapabilitiesDto, id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clientCapabilitiesDto** | [**ClientCapabilitiesDto**](ClientCapabilitiesDto.md) | The MediaBrowser.Model.Session.ClientCapabilities. | 
+ **postFullCapabilitiesRequest** | [**PostFullCapabilitiesRequest**](PostFullCapabilitiesRequest.md) | The MediaBrowser.Model.Session.ClientCapabilities. | 
  **id** | **String** | The session id. | [optional] 
 
 ### Return type
@@ -443,7 +443,7 @@ Void (empty response body)
 
 Removes an additional user from a session.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -469,7 +469,7 @@ SessionAPI.removeUserFromSession(sessionId: sessionId, userId: userId) { (respon
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **userId** | [**String**](.md) | The user id. | 
+ **userId** | **String** | The user id. | 
 
 ### Return type
 
@@ -493,7 +493,7 @@ Void (empty response body)
 
 Reports that a session has ended.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -537,7 +537,7 @@ Void (empty response body)
 
 Reports that a session is viewing an item.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -582,21 +582,21 @@ Void (empty response body)
 
 # **sendFullGeneralCommand**
 ```swift
-    open class func sendFullGeneralCommand(sessionId: String, generalCommand: GeneralCommand, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func sendFullGeneralCommand(sessionId: String, sendFullGeneralCommandRequest: SendFullGeneralCommandRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Issues a full general command to a client.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
-let generalCommand = GeneralCommand(name: GeneralCommandType(), controllingUserId: "controllingUserId_example", arguments: "TODO") // GeneralCommand | The MediaBrowser.Model.Session.GeneralCommand.
+let sendFullGeneralCommandRequest = SendFullGeneralCommand_request(name: GeneralCommandType(), controllingUserId: "controllingUserId_example", arguments: "TODO") // SendFullGeneralCommandRequest | The MediaBrowser.Model.Session.GeneralCommand.
 
 // Issues a full general command to a client.
-SessionAPI.sendFullGeneralCommand(sessionId: sessionId, generalCommand: generalCommand) { (response, error) in
+SessionAPI.sendFullGeneralCommand(sessionId: sessionId, sendFullGeneralCommandRequest: sendFullGeneralCommandRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -613,7 +613,7 @@ SessionAPI.sendFullGeneralCommand(sessionId: sessionId, generalCommand: generalC
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **generalCommand** | [**GeneralCommand**](GeneralCommand.md) | The MediaBrowser.Model.Session.GeneralCommand. | 
+ **sendFullGeneralCommandRequest** | [**SendFullGeneralCommandRequest**](SendFullGeneralCommandRequest.md) | The MediaBrowser.Model.Session.GeneralCommand. | 
 
 ### Return type
 
@@ -637,7 +637,7 @@ Void (empty response body)
 
 Issues a general command to a client.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -682,21 +682,21 @@ Void (empty response body)
 
 # **sendMessageCommand**
 ```swift
-    open class func sendMessageCommand(sessionId: String, messageCommand: MessageCommand, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func sendMessageCommand(sessionId: String, sendMessageCommandRequest: SendMessageCommandRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Issues a command to a client to display a message to the user.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let sessionId = "sessionId_example" // String | The session id.
-let messageCommand = MessageCommand(header: "header_example", text: "text_example", timeoutMs: 123) // MessageCommand | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs.
+let sendMessageCommandRequest = SendMessageCommand_request(header: "header_example", text: "text_example", timeoutMs: 123) // SendMessageCommandRequest | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs.
 
 // Issues a command to a client to display a message to the user.
-SessionAPI.sendMessageCommand(sessionId: sessionId, messageCommand: messageCommand) { (response, error) in
+SessionAPI.sendMessageCommand(sessionId: sessionId, sendMessageCommandRequest: sendMessageCommandRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -713,7 +713,7 @@ SessionAPI.sendMessageCommand(sessionId: sessionId, messageCommand: messageComma
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sessionId** | **String** | The session id. | 
- **messageCommand** | [**MessageCommand**](MessageCommand.md) | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. | 
+ **sendMessageCommandRequest** | [**SendMessageCommandRequest**](SendMessageCommandRequest.md) | The MediaBrowser.Model.Session.MessageCommand object containing Header, Message Text, and TimeoutMs. | 
 
 ### Return type
 
@@ -737,7 +737,7 @@ Void (empty response body)
 
 Issues a playstate command to a client.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -791,7 +791,7 @@ Void (empty response body)
 
 Issues a system command to a client.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI

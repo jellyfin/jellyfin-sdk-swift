@@ -10,11 +10,11 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct LiveStreamResponse: Codable, Hashable {
+public struct LiveStreamResponse: Codable, JSONEncodable, Hashable {
 
-    public var mediaSource: MediaSourceInfo?
+    public var mediaSource: LiveStreamResponseMediaSource?
 
-    public init(mediaSource: MediaSourceInfo? = nil) {
+    public init(mediaSource: LiveStreamResponseMediaSource? = nil) {
         self.mediaSource = mediaSource
     }
 

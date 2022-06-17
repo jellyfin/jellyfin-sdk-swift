@@ -11,15 +11,15 @@ import AnyCodable
 #endif
 
 /** Class CultureDto. */
-public struct CultureDto: Codable, Hashable {
+public struct CultureDto: Codable, JSONEncodable, Hashable {
 
-    /** Gets or sets the name. */
+    /** Gets the name. */
     public var name: String?
-    /** Gets or sets the display name. */
+    /** Gets the display name. */
     public var displayName: String?
-    /** Gets or sets the name of the two letter ISO language. */
+    /** Gets the name of the two letter ISO language. */
     public var twoLetterISOLanguageName: String?
-    /** Gets or sets the name of the three letter ISO language. */
+    /** Gets the name of the three letter ISO language. */
     public var threeLetterISOLanguageName: String?
     public var threeLetterISOLanguageNames: [String]?
 

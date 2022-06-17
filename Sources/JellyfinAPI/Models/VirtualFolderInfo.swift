@@ -11,14 +11,15 @@ import AnyCodable
 #endif
 
 /** Used to hold information about a user&#39;s list of configured virtual folders. */
-public struct VirtualFolderInfo: Codable, Hashable {
+public struct VirtualFolderInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
     /** Gets or sets the locations. */
     public var locations: [String]?
+    /** Gets or sets the type of the collection. */
     public var collectionType: CollectionTypeOptions?
-    public var libraryOptions: LibraryOptions?
+    public var libraryOptions: VirtualFolderInfoLibraryOptions?
     /** Gets or sets the item identifier. */
     public var itemId: String?
     /** Gets or sets the primary image item identifier. */
@@ -26,7 +27,7 @@ public struct VirtualFolderInfo: Codable, Hashable {
     public var refreshProgress: Double?
     public var refreshStatus: String?
 
-    public init(name: String? = nil, locations: [String]? = nil, collectionType: CollectionTypeOptions? = nil, libraryOptions: LibraryOptions? = nil, itemId: String? = nil, primaryImageItemId: String? = nil, refreshProgress: Double? = nil, refreshStatus: String? = nil) {
+    public init(name: String? = nil, locations: [String]? = nil, collectionType: CollectionTypeOptions? = nil, libraryOptions: VirtualFolderInfoLibraryOptions? = nil, itemId: String? = nil, primaryImageItemId: String? = nil, refreshProgress: Double? = nil, refreshStatus: String? = nil) {
         self.name = name
         self.locations = locations
         self.collectionType = collectionType

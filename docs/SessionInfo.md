@@ -3,11 +3,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**playState** | [**PlayerStateInfo**](PlayerStateInfo.md) |  | [optional] 
+**playState** | [**SessionInfoPlayState**](SessionInfoPlayState.md) |  | [optional] 
 **additionalUsers** | [SessionUserInfo] |  | [optional] 
-**capabilities** | [**ClientCapabilities**](ClientCapabilities.md) |  | [optional] 
+**capabilities** | [**SessionInfoCapabilities**](SessionInfoCapabilities.md) |  | [optional] 
 **remoteEndPoint** | **String** | Gets or sets the remote end point. | [optional] 
-**playableMediaTypes** | **[String]** | Gets or sets the playable media types. | [optional] [readonly] 
+**playableMediaTypes** | **[String]** | Gets the playable media types. | [optional] [readonly] 
 **id** | **String** | Gets or sets the id. | [optional] 
 **userId** | **String** | Gets or sets the user id. | [optional] 
 **userName** | **String** | Gets or sets the username. | [optional] 
@@ -16,21 +16,22 @@ Name | Type | Description | Notes
 **lastPlaybackCheckIn** | **Date** | Gets or sets the last playback check in. | [optional] 
 **deviceName** | **String** | Gets or sets the name of the device. | [optional] 
 **deviceType** | **String** | Gets or sets the type of the device. | [optional] 
-**nowPlayingItem** | [**BaseItemDto**](BaseItemDto.md) |  | [optional] 
-**fullNowPlayingItem** | [**BaseItem**](BaseItem.md) |  | [optional] 
-**nowViewingItem** | [**BaseItemDto**](BaseItemDto.md) |  | [optional] 
+**nowPlayingItem** | [**SessionInfoNowPlayingItem**](SessionInfoNowPlayingItem.md) |  | [optional] 
+**fullNowPlayingItem** | [**SessionInfoFullNowPlayingItem**](SessionInfoFullNowPlayingItem.md) |  | [optional] 
+**nowViewingItem** | [**SessionInfoNowViewingItem**](SessionInfoNowViewingItem.md) |  | [optional] 
 **deviceId** | **String** | Gets or sets the device id. | [optional] 
 **applicationVersion** | **String** | Gets or sets the application version. | [optional] 
-**transcodingInfo** | [**TranscodingInfo**](TranscodingInfo.md) |  | [optional] 
+**transcodingInfo** | [**SessionInfoTranscodingInfo**](SessionInfoTranscodingInfo.md) |  | [optional] 
 **isActive** | **Bool** | Gets a value indicating whether this instance is active. | [optional] [readonly] 
 **supportsMediaControl** | **Bool** |  | [optional] [readonly] 
 **supportsRemoteControl** | **Bool** |  | [optional] [readonly] 
 **nowPlayingQueue** | [QueueItem] |  | [optional] 
+**nowPlayingQueueFullItems** | [BaseItemDto] |  | [optional] 
 **hasCustomDeviceName** | **Bool** |  | [optional] 
 **playlistItemId** | **String** |  | [optional] 
 **serverId** | **String** |  | [optional] 
 **userPrimaryImageTag** | **String** |  | [optional] 
-**supportedCommands** | [GeneralCommandType] | Gets or sets the supported commands. | [optional] [readonly] 
+**supportedCommands** | [GeneralCommandType] | Gets the supported commands. | [optional] [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct MediaPathInfo: Codable, Hashable {
+public struct MediaPathInfo: Codable, JSONEncodable, Hashable {
 
     public var path: String?
     public var networkPath: String?

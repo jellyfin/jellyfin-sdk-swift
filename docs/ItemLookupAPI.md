@@ -1,6 +1,6 @@
 # ItemLookupAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -19,22 +19,22 @@ Method | HTTP request | Description
 
 # **applySearchCriteria**
 ```swift
-    open class func applySearchCriteria(itemId: String, remoteSearchResult: RemoteSearchResult, replaceAllImages: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func applySearchCriteria(itemId: String, applySearchCriteriaRequest: ApplySearchCriteriaRequest, replaceAllImages: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Applies search criteria to an item and refreshes metadata.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
 let itemId = "itemId_example" // String | Item id.
-let remoteSearchResult = RemoteSearchResult(name: "name_example", providerIds: "TODO", productionYear: 123, indexNumber: 123, indexNumberEnd: 123, parentIndexNumber: 123, premiereDate: Date(), imageUrl: "imageUrl_example", searchProviderName: "searchProviderName_example", overview: "overview_example", artists: [nil]) // RemoteSearchResult | The remote search result.
+let applySearchCriteriaRequest = ApplySearchCriteria_request(name: "name_example", providerIds: "TODO", productionYear: 123, indexNumber: 123, indexNumberEnd: 123, parentIndexNumber: 123, premiereDate: Date(), imageUrl: "imageUrl_example", searchProviderName: "searchProviderName_example", overview: "overview_example") // ApplySearchCriteriaRequest | The remote search result.
 let replaceAllImages = true // Bool | Optional. Whether or not to replace all images. Default: True. (optional) (default to true)
 
 // Applies search criteria to an item and refreshes metadata.
-ItemLookupAPI.applySearchCriteria(itemId: itemId, remoteSearchResult: remoteSearchResult, replaceAllImages: replaceAllImages) { (response, error) in
+ItemLookupAPI.applySearchCriteria(itemId: itemId, applySearchCriteriaRequest: applySearchCriteriaRequest, replaceAllImages: replaceAllImages) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -50,8 +50,8 @@ ItemLookupAPI.applySearchCriteria(itemId: itemId, remoteSearchResult: remoteSear
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | Item id. | 
- **remoteSearchResult** | [**RemoteSearchResult**](RemoteSearchResult.md) | The remote search result. | 
+ **itemId** | **String** | Item id. | 
+ **applySearchCriteriaRequest** | [**ApplySearchCriteriaRequest**](ApplySearchCriteriaRequest.md) | The remote search result. | 
  **replaceAllImages** | **Bool** | Optional. Whether or not to replace all images. Default: True. | [optional] [default to true]
 
 ### Return type
@@ -71,20 +71,20 @@ Void (empty response body)
 
 # **getBookRemoteSearchResults**
 ```swift
-    open class func getBookRemoteSearchResults(bookInfoRemoteSearchQuery: BookInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getBookRemoteSearchResults(getBookRemoteSearchResultsRequest: GetBookRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get book remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let bookInfoRemoteSearchQuery = BookInfoRemoteSearchQuery(searchInfo: BookInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, seriesName: "seriesName_example"), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // BookInfoRemoteSearchQuery | Remote search query.
+let getBookRemoteSearchResultsRequest = GetBookRemoteSearchResults_request(searchInfo: BookInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, seriesName: "seriesName_example"), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetBookRemoteSearchResultsRequest | Remote search query.
 
 // Get book remote search.
-ItemLookupAPI.getBookRemoteSearchResults(bookInfoRemoteSearchQuery: bookInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getBookRemoteSearchResults(getBookRemoteSearchResultsRequest: getBookRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -100,7 +100,7 @@ ItemLookupAPI.getBookRemoteSearchResults(bookInfoRemoteSearchQuery: bookInfoRemo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bookInfoRemoteSearchQuery** | [**BookInfoRemoteSearchQuery**](BookInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getBookRemoteSearchResultsRequest** | [**GetBookRemoteSearchResultsRequest**](GetBookRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 
@@ -119,20 +119,20 @@ Name | Type | Description  | Notes
 
 # **getBoxSetRemoteSearchResults**
 ```swift
-    open class func getBoxSetRemoteSearchResults(boxSetInfoRemoteSearchQuery: BoxSetInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getBoxSetRemoteSearchResults(getBoxSetRemoteSearchResultsRequest: GetBoxSetRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get box set remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let boxSetInfoRemoteSearchQuery = BoxSetInfoRemoteSearchQuery(searchInfo: BoxSetInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // BoxSetInfoRemoteSearchQuery | Remote search query.
+let getBoxSetRemoteSearchResultsRequest = GetBoxSetRemoteSearchResults_request(searchInfo: BoxSetInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetBoxSetRemoteSearchResultsRequest | Remote search query.
 
 // Get box set remote search.
-ItemLookupAPI.getBoxSetRemoteSearchResults(boxSetInfoRemoteSearchQuery: boxSetInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getBoxSetRemoteSearchResults(getBoxSetRemoteSearchResultsRequest: getBoxSetRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -148,7 +148,7 @@ ItemLookupAPI.getBoxSetRemoteSearchResults(boxSetInfoRemoteSearchQuery: boxSetIn
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **boxSetInfoRemoteSearchQuery** | [**BoxSetInfoRemoteSearchQuery**](BoxSetInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getBoxSetRemoteSearchResultsRequest** | [**GetBoxSetRemoteSearchResultsRequest**](GetBoxSetRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 
@@ -172,7 +172,7 @@ Name | Type | Description  | Notes
 
 Get the item's external id info.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -196,7 +196,7 @@ ItemLookupAPI.getExternalIdInfos(itemId: itemId) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | Item id. | 
+ **itemId** | **String** | Item id. | 
 
 ### Return type
 
@@ -215,20 +215,20 @@ Name | Type | Description  | Notes
 
 # **getMovieRemoteSearchResults**
 ```swift
-    open class func getMovieRemoteSearchResults(movieInfoRemoteSearchQuery: MovieInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getMovieRemoteSearchResults(getMovieRemoteSearchResultsRequest: GetMovieRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get movie remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let movieInfoRemoteSearchQuery = MovieInfoRemoteSearchQuery(searchInfo: MovieInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // MovieInfoRemoteSearchQuery | Remote search query.
+let getMovieRemoteSearchResultsRequest = GetMovieRemoteSearchResults_request(searchInfo: MovieInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetMovieRemoteSearchResultsRequest | Remote search query.
 
 // Get movie remote search.
-ItemLookupAPI.getMovieRemoteSearchResults(movieInfoRemoteSearchQuery: movieInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getMovieRemoteSearchResults(getMovieRemoteSearchResultsRequest: getMovieRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -244,7 +244,7 @@ ItemLookupAPI.getMovieRemoteSearchResults(movieInfoRemoteSearchQuery: movieInfoR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **movieInfoRemoteSearchQuery** | [**MovieInfoRemoteSearchQuery**](MovieInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getMovieRemoteSearchResultsRequest** | [**GetMovieRemoteSearchResultsRequest**](GetMovieRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 
@@ -263,20 +263,20 @@ Name | Type | Description  | Notes
 
 # **getMusicAlbumRemoteSearchResults**
 ```swift
-    open class func getMusicAlbumRemoteSearchResults(albumInfoRemoteSearchQuery: AlbumInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getMusicAlbumRemoteSearchResults(getMusicAlbumRemoteSearchResultsRequest: GetMusicAlbumRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get music album remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let albumInfoRemoteSearchQuery = AlbumInfoRemoteSearchQuery(searchInfo: AlbumInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], artistProviderIds: "TODO", songInfos: [SongInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], album: "album_example", artists: ["artists_example"])]), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // AlbumInfoRemoteSearchQuery | Remote search query.
+let getMusicAlbumRemoteSearchResultsRequest = GetMusicAlbumRemoteSearchResults_request(searchInfo: AlbumInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], artistProviderIds: "TODO", songInfos: [SongInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], album: "album_example", artists: ["artists_example"])]), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetMusicAlbumRemoteSearchResultsRequest | Remote search query.
 
 // Get music album remote search.
-ItemLookupAPI.getMusicAlbumRemoteSearchResults(albumInfoRemoteSearchQuery: albumInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getMusicAlbumRemoteSearchResults(getMusicAlbumRemoteSearchResultsRequest: getMusicAlbumRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -292,7 +292,7 @@ ItemLookupAPI.getMusicAlbumRemoteSearchResults(albumInfoRemoteSearchQuery: album
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **albumInfoRemoteSearchQuery** | [**AlbumInfoRemoteSearchQuery**](AlbumInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getMusicAlbumRemoteSearchResultsRequest** | [**GetMusicAlbumRemoteSearchResultsRequest**](GetMusicAlbumRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 
@@ -311,20 +311,20 @@ Name | Type | Description  | Notes
 
 # **getMusicArtistRemoteSearchResults**
 ```swift
-    open class func getMusicArtistRemoteSearchResults(artistInfoRemoteSearchQuery: ArtistInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getMusicArtistRemoteSearchResults(getMusicArtistRemoteSearchResultsRequest: GetMusicArtistRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get music artist remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let artistInfoRemoteSearchQuery = ArtistInfoRemoteSearchQuery(searchInfo: ArtistInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, songInfos: [SongInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], album: "album_example", artists: ["artists_example"])]), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // ArtistInfoRemoteSearchQuery | Remote search query.
+let getMusicArtistRemoteSearchResultsRequest = GetMusicArtistRemoteSearchResults_request(searchInfo: ArtistInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, songInfos: [SongInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, albumArtists: ["albumArtists_example"], album: "album_example", artists: ["artists_example"])]), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetMusicArtistRemoteSearchResultsRequest | Remote search query.
 
 // Get music artist remote search.
-ItemLookupAPI.getMusicArtistRemoteSearchResults(artistInfoRemoteSearchQuery: artistInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getMusicArtistRemoteSearchResults(getMusicArtistRemoteSearchResultsRequest: getMusicArtistRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -340,7 +340,7 @@ ItemLookupAPI.getMusicArtistRemoteSearchResults(artistInfoRemoteSearchQuery: art
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **artistInfoRemoteSearchQuery** | [**ArtistInfoRemoteSearchQuery**](ArtistInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getMusicArtistRemoteSearchResultsRequest** | [**GetMusicArtistRemoteSearchResultsRequest**](GetMusicArtistRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 
@@ -359,20 +359,20 @@ Name | Type | Description  | Notes
 
 # **getMusicVideoRemoteSearchResults**
 ```swift
-    open class func getMusicVideoRemoteSearchResults(musicVideoInfoRemoteSearchQuery: MusicVideoInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getMusicVideoRemoteSearchResults(getMusicVideoRemoteSearchResultsRequest: GetMusicVideoRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get music video remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let musicVideoInfoRemoteSearchQuery = MusicVideoInfoRemoteSearchQuery(searchInfo: MusicVideoInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, artists: ["artists_example"]), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // MusicVideoInfoRemoteSearchQuery | Remote search query.
+let getMusicVideoRemoteSearchResultsRequest = GetMusicVideoRemoteSearchResults_request(searchInfo: MusicVideoInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false, artists: ["artists_example"]), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetMusicVideoRemoteSearchResultsRequest | Remote search query.
 
 // Get music video remote search.
-ItemLookupAPI.getMusicVideoRemoteSearchResults(musicVideoInfoRemoteSearchQuery: musicVideoInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getMusicVideoRemoteSearchResults(getMusicVideoRemoteSearchResultsRequest: getMusicVideoRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -388,7 +388,7 @@ ItemLookupAPI.getMusicVideoRemoteSearchResults(musicVideoInfoRemoteSearchQuery: 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **musicVideoInfoRemoteSearchQuery** | [**MusicVideoInfoRemoteSearchQuery**](MusicVideoInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getMusicVideoRemoteSearchResultsRequest** | [**GetMusicVideoRemoteSearchResultsRequest**](GetMusicVideoRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 
@@ -407,20 +407,20 @@ Name | Type | Description  | Notes
 
 # **getPersonRemoteSearchResults**
 ```swift
-    open class func getPersonRemoteSearchResults(personLookupInfoRemoteSearchQuery: PersonLookupInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getPersonRemoteSearchResults(getPersonRemoteSearchResultsRequest: GetPersonRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get person remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let personLookupInfoRemoteSearchQuery = PersonLookupInfoRemoteSearchQuery(searchInfo: PersonLookupInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // PersonLookupInfoRemoteSearchQuery | Remote search query.
+let getPersonRemoteSearchResultsRequest = GetPersonRemoteSearchResults_request(searchInfo: PersonLookupInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetPersonRemoteSearchResultsRequest | Remote search query.
 
 // Get person remote search.
-ItemLookupAPI.getPersonRemoteSearchResults(personLookupInfoRemoteSearchQuery: personLookupInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getPersonRemoteSearchResults(getPersonRemoteSearchResultsRequest: getPersonRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -436,7 +436,7 @@ ItemLookupAPI.getPersonRemoteSearchResults(personLookupInfoRemoteSearchQuery: pe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **personLookupInfoRemoteSearchQuery** | [**PersonLookupInfoRemoteSearchQuery**](PersonLookupInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getPersonRemoteSearchResultsRequest** | [**GetPersonRemoteSearchResultsRequest**](GetPersonRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 
@@ -455,20 +455,20 @@ Name | Type | Description  | Notes
 
 # **getSeriesRemoteSearchResults**
 ```swift
-    open class func getSeriesRemoteSearchResults(seriesInfoRemoteSearchQuery: SeriesInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getSeriesRemoteSearchResults(getSeriesRemoteSearchResultsRequest: GetSeriesRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get series remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let seriesInfoRemoteSearchQuery = SeriesInfoRemoteSearchQuery(searchInfo: SeriesInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // SeriesInfoRemoteSearchQuery | Remote search query.
+let getSeriesRemoteSearchResultsRequest = GetSeriesRemoteSearchResults_request(searchInfo: SeriesInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetSeriesRemoteSearchResultsRequest | Remote search query.
 
 // Get series remote search.
-ItemLookupAPI.getSeriesRemoteSearchResults(seriesInfoRemoteSearchQuery: seriesInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getSeriesRemoteSearchResults(getSeriesRemoteSearchResultsRequest: getSeriesRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -484,7 +484,7 @@ ItemLookupAPI.getSeriesRemoteSearchResults(seriesInfoRemoteSearchQuery: seriesIn
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seriesInfoRemoteSearchQuery** | [**SeriesInfoRemoteSearchQuery**](SeriesInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getSeriesRemoteSearchResultsRequest** | [**GetSeriesRemoteSearchResultsRequest**](GetSeriesRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 
@@ -503,20 +503,20 @@ Name | Type | Description  | Notes
 
 # **getTrailerRemoteSearchResults**
 ```swift
-    open class func getTrailerRemoteSearchResults(trailerInfoRemoteSearchQuery: TrailerInfoRemoteSearchQuery, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
+    open class func getTrailerRemoteSearchResults(getTrailerRemoteSearchResultsRequest: GetTrailerRemoteSearchResultsRequest, completion: @escaping (_ data: [RemoteSearchResult]?, _ error: Error?) -> Void)
 ```
 
 Get trailer remote search.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let trailerInfoRemoteSearchQuery = TrailerInfoRemoteSearchQuery(searchInfo: TrailerInfo(name: "name_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // TrailerInfoRemoteSearchQuery | Remote search query.
+let getTrailerRemoteSearchResultsRequest = GetTrailerRemoteSearchResults_request(searchInfo: TrailerInfoRemoteSearchQuery_SearchInfo(name: "name_example", originalTitle: "originalTitle_example", path: "path_example", metadataLanguage: "metadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", providerIds: "TODO", year: 123, indexNumber: 123, parentIndexNumber: 123, premiereDate: Date(), isAutomated: false), itemId: "itemId_example", searchProviderName: "searchProviderName_example", includeDisabledProviders: false) // GetTrailerRemoteSearchResultsRequest | Remote search query.
 
 // Get trailer remote search.
-ItemLookupAPI.getTrailerRemoteSearchResults(trailerInfoRemoteSearchQuery: trailerInfoRemoteSearchQuery) { (response, error) in
+ItemLookupAPI.getTrailerRemoteSearchResults(getTrailerRemoteSearchResultsRequest: getTrailerRemoteSearchResultsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -532,7 +532,7 @@ ItemLookupAPI.getTrailerRemoteSearchResults(trailerInfoRemoteSearchQuery: traile
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **trailerInfoRemoteSearchQuery** | [**TrailerInfoRemoteSearchQuery**](TrailerInfoRemoteSearchQuery.md) | Remote search query. | 
+ **getTrailerRemoteSearchResultsRequest** | [**GetTrailerRemoteSearchResultsRequest**](GetTrailerRemoteSearchResultsRequest.md) | Remote search query. | 
 
 ### Return type
 

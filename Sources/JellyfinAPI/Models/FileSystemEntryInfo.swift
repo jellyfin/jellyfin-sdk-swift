@@ -11,12 +11,13 @@ import AnyCodable
 #endif
 
 /** Class FileSystemEntryInfo. */
-public struct FileSystemEntryInfo: Codable, Hashable {
+public struct FileSystemEntryInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets the name. */
     public var name: String?
     /** Gets the path. */
     public var path: String?
+    /** Gets the type. */
     public var type: FileSystemEntryType?
 
     public init(name: String? = nil, path: String? = nil, type: FileSystemEntryType? = nil) {

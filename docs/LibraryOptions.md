@@ -27,6 +27,8 @@ Name | Type | Description | Notes
 **subtitleDownloadLanguages** | **[String]** |  | [optional] 
 **requirePerfectSubtitleMatch** | **Bool** |  | [optional] 
 **saveSubtitlesWithMedia** | **Bool** |  | [optional] 
+**automaticallyAddToCollection** | **Bool** |  | [optional] 
+**allowEmbeddedSubtitles** | [**EmbeddedSubtitleOptions**](EmbeddedSubtitleOptions.md) | An enum representing the options to disable embedded subs. | [optional] 
 **typeOptions** | [TypeOptions] |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

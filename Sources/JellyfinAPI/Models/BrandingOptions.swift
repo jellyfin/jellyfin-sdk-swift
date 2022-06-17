@@ -10,7 +10,8 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct BrandingOptions: Codable, Hashable {
+/** The branding options. */
+public struct BrandingOptions: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the login disclaimer. */
     public var loginDisclaimer: String?

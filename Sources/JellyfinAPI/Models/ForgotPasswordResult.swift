@@ -10,8 +10,9 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ForgotPasswordResult: Codable, Hashable {
+public struct ForgotPasswordResult: Codable, JSONEncodable, Hashable {
 
+    /** Gets or sets the action. */
     public var action: ForgotPasswordAction?
     /** Gets or sets the pin file. */
     public var pinFile: String?

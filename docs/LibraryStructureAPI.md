@@ -1,6 +1,6 @@
 # LibraryStructureAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -16,21 +16,21 @@ Method | HTTP request | Description
 
 # **addMediaPath**
 ```swift
-    open class func addMediaPath(mediaPathDto: MediaPathDto, refreshLibrary: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func addMediaPath(addMediaPathRequest: AddMediaPathRequest, refreshLibrary: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Add a media path to a library.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let mediaPathDto = MediaPathDto(name: "name_example", path: "path_example", pathInfo: MediaPathInfo(path: "path_example", networkPath: "networkPath_example")) // MediaPathDto | The media path dto.
+let addMediaPathRequest = AddMediaPath_request(name: "name_example", path: "path_example", pathInfo: MediaPathDto_PathInfo(path: "path_example", networkPath: "networkPath_example")) // AddMediaPathRequest | The media path dto.
 let refreshLibrary = true // Bool | Whether to refresh the library. (optional) (default to false)
 
 // Add a media path to a library.
-LibraryStructureAPI.addMediaPath(mediaPathDto: mediaPathDto, refreshLibrary: refreshLibrary) { (response, error) in
+LibraryStructureAPI.addMediaPath(addMediaPathRequest: addMediaPathRequest, refreshLibrary: refreshLibrary) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -46,7 +46,7 @@ LibraryStructureAPI.addMediaPath(mediaPathDto: mediaPathDto, refreshLibrary: ref
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **mediaPathDto** | [**MediaPathDto**](MediaPathDto.md) | The media path dto. | 
+ **addMediaPathRequest** | [**AddMediaPathRequest**](AddMediaPathRequest.md) | The media path dto. | 
  **refreshLibrary** | **Bool** | Whether to refresh the library. | [optional] [default to false]
 
 ### Return type
@@ -66,12 +66,12 @@ Void (empty response body)
 
 # **addVirtualFolder**
 ```swift
-    open class func addVirtualFolder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func addVirtualFolder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderRequest: AddVirtualFolderRequest? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Adds a virtual folder.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -80,10 +80,10 @@ let name = "name_example" // String | The name of the virtual folder. (optional)
 let collectionType = CollectionTypeOptions() // CollectionTypeOptions | The type of the collection. (optional)
 let paths = ["inner_example"] // [String] | The paths of the virtual folder. (optional)
 let refreshLibrary = true // Bool | Whether to refresh the library. (optional) (default to false)
-let addVirtualFolderDto = AddVirtualFolderDto(libraryOptions: LibraryOptions(enablePhotos: false, enableRealtimeMonitor: false, enableChapterImageExtraction: false, extractChapterImagesDuringLibraryScan: false, pathInfos: [MediaPathInfo(path: "path_example", networkPath: "networkPath_example")], saveLocalMetadata: false, enableInternetProviders: false, enableAutomaticSeriesGrouping: false, enableEmbeddedTitles: false, enableEmbeddedEpisodeInfos: false, automaticRefreshIntervalDays: 123, preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", seasonZeroDisplayName: "seasonZeroDisplayName_example", metadataSavers: ["metadataSavers_example"], disabledLocalMetadataReaders: ["disabledLocalMetadataReaders_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledSubtitleFetchers: ["disabledSubtitleFetchers_example"], subtitleFetcherOrder: ["subtitleFetcherOrder_example"], skipSubtitlesIfEmbeddedSubtitlesPresent: false, skipSubtitlesIfAudioTrackMatches: false, subtitleDownloadLanguages: ["subtitleDownloadLanguages_example"], requirePerfectSubtitleMatch: false, saveSubtitlesWithMedia: false, typeOptions: [TypeOptions(type: "type_example", metadataFetchers: ["metadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], imageFetchers: ["imageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"], imageOptions: [ImageOption(type: ImageType(), limit: 123, minWidth: 123)])])) // AddVirtualFolderDto | The library options. (optional)
+let addVirtualFolderRequest = AddVirtualFolder_request(libraryOptions: AddVirtualFolderDto_LibraryOptions(enablePhotos: false, enableRealtimeMonitor: false, enableChapterImageExtraction: false, extractChapterImagesDuringLibraryScan: false, pathInfos: [MediaPathInfo(path: "path_example", networkPath: "networkPath_example")], saveLocalMetadata: false, enableInternetProviders: false, enableAutomaticSeriesGrouping: false, enableEmbeddedTitles: false, enableEmbeddedEpisodeInfos: false, automaticRefreshIntervalDays: 123, preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", seasonZeroDisplayName: "seasonZeroDisplayName_example", metadataSavers: ["metadataSavers_example"], disabledLocalMetadataReaders: ["disabledLocalMetadataReaders_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledSubtitleFetchers: ["disabledSubtitleFetchers_example"], subtitleFetcherOrder: ["subtitleFetcherOrder_example"], skipSubtitlesIfEmbeddedSubtitlesPresent: false, skipSubtitlesIfAudioTrackMatches: false, subtitleDownloadLanguages: ["subtitleDownloadLanguages_example"], requirePerfectSubtitleMatch: false, saveSubtitlesWithMedia: false, automaticallyAddToCollection: false, allowEmbeddedSubtitles: EmbeddedSubtitleOptions(), typeOptions: [TypeOptions(type: "type_example", metadataFetchers: ["metadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], imageFetchers: ["imageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"], imageOptions: [ImageOption(type: ImageType(), limit: 123, minWidth: 123)])])) // AddVirtualFolderRequest | The library options. (optional)
 
 // Adds a virtual folder.
-LibraryStructureAPI.addVirtualFolder(name: name, collectionType: collectionType, paths: paths, refreshLibrary: refreshLibrary, addVirtualFolderDto: addVirtualFolderDto) { (response, error) in
+LibraryStructureAPI.addVirtualFolder(name: name, collectionType: collectionType, paths: paths, refreshLibrary: refreshLibrary, addVirtualFolderRequest: addVirtualFolderRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
  **collectionType** | [**CollectionTypeOptions**](.md) | The type of the collection. | [optional] 
  **paths** | [**[String]**](String.md) | The paths of the virtual folder. | [optional] 
  **refreshLibrary** | **Bool** | Whether to refresh the library. | [optional] [default to false]
- **addVirtualFolderDto** | [**AddVirtualFolderDto**](AddVirtualFolderDto.md) | The library options. | [optional] 
+ **addVirtualFolderRequest** | [**AddVirtualFolderRequest**](AddVirtualFolderRequest.md) | The library options. | [optional] 
 
 ### Return type
 
@@ -127,7 +127,7 @@ Void (empty response body)
 
 Gets all virtual folders.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -171,7 +171,7 @@ This endpoint does not need any parameter.
 
 Remove a media path.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -223,7 +223,7 @@ Void (empty response body)
 
 Removes a virtual folder.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -273,7 +273,7 @@ Void (empty response body)
 
 Renames a virtual folder.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -320,20 +320,20 @@ Void (empty response body)
 
 # **updateLibraryOptions**
 ```swift
-    open class func updateLibraryOptions(updateLibraryOptionsDto: UpdateLibraryOptionsDto? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateLibraryOptions(updateLibraryOptionsRequest: UpdateLibraryOptionsRequest? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Update library options.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let updateLibraryOptionsDto = UpdateLibraryOptionsDto(id: "id_example", libraryOptions: LibraryOptions(enablePhotos: false, enableRealtimeMonitor: false, enableChapterImageExtraction: false, extractChapterImagesDuringLibraryScan: false, pathInfos: [MediaPathInfo(path: "path_example", networkPath: "networkPath_example")], saveLocalMetadata: false, enableInternetProviders: false, enableAutomaticSeriesGrouping: false, enableEmbeddedTitles: false, enableEmbeddedEpisodeInfos: false, automaticRefreshIntervalDays: 123, preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", seasonZeroDisplayName: "seasonZeroDisplayName_example", metadataSavers: ["metadataSavers_example"], disabledLocalMetadataReaders: ["disabledLocalMetadataReaders_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledSubtitleFetchers: ["disabledSubtitleFetchers_example"], subtitleFetcherOrder: ["subtitleFetcherOrder_example"], skipSubtitlesIfEmbeddedSubtitlesPresent: false, skipSubtitlesIfAudioTrackMatches: false, subtitleDownloadLanguages: ["subtitleDownloadLanguages_example"], requirePerfectSubtitleMatch: false, saveSubtitlesWithMedia: false, typeOptions: [TypeOptions(type: "type_example", metadataFetchers: ["metadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], imageFetchers: ["imageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"], imageOptions: [ImageOption(type: ImageType(), limit: 123, minWidth: 123)])])) // UpdateLibraryOptionsDto | The library name and options. (optional)
+let updateLibraryOptionsRequest = UpdateLibraryOptions_request(id: "id_example", libraryOptions: AddVirtualFolderDto_LibraryOptions(enablePhotos: false, enableRealtimeMonitor: false, enableChapterImageExtraction: false, extractChapterImagesDuringLibraryScan: false, pathInfos: [MediaPathInfo(path: "path_example", networkPath: "networkPath_example")], saveLocalMetadata: false, enableInternetProviders: false, enableAutomaticSeriesGrouping: false, enableEmbeddedTitles: false, enableEmbeddedEpisodeInfos: false, automaticRefreshIntervalDays: 123, preferredMetadataLanguage: "preferredMetadataLanguage_example", metadataCountryCode: "metadataCountryCode_example", seasonZeroDisplayName: "seasonZeroDisplayName_example", metadataSavers: ["metadataSavers_example"], disabledLocalMetadataReaders: ["disabledLocalMetadataReaders_example"], localMetadataReaderOrder: ["localMetadataReaderOrder_example"], disabledSubtitleFetchers: ["disabledSubtitleFetchers_example"], subtitleFetcherOrder: ["subtitleFetcherOrder_example"], skipSubtitlesIfEmbeddedSubtitlesPresent: false, skipSubtitlesIfAudioTrackMatches: false, subtitleDownloadLanguages: ["subtitleDownloadLanguages_example"], requirePerfectSubtitleMatch: false, saveSubtitlesWithMedia: false, automaticallyAddToCollection: false, allowEmbeddedSubtitles: EmbeddedSubtitleOptions(), typeOptions: [TypeOptions(type: "type_example", metadataFetchers: ["metadataFetchers_example"], metadataFetcherOrder: ["metadataFetcherOrder_example"], imageFetchers: ["imageFetchers_example"], imageFetcherOrder: ["imageFetcherOrder_example"], imageOptions: [ImageOption(type: ImageType(), limit: 123, minWidth: 123)])])) // UpdateLibraryOptionsRequest | The library name and options. (optional)
 
 // Update library options.
-LibraryStructureAPI.updateLibraryOptions(updateLibraryOptionsDto: updateLibraryOptionsDto) { (response, error) in
+LibraryStructureAPI.updateLibraryOptions(updateLibraryOptionsRequest: updateLibraryOptionsRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -349,7 +349,7 @@ LibraryStructureAPI.updateLibraryOptions(updateLibraryOptionsDto: updateLibraryO
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateLibraryOptionsDto** | [**UpdateLibraryOptionsDto**](UpdateLibraryOptionsDto.md) | The library name and options. | [optional] 
+ **updateLibraryOptionsRequest** | [**UpdateLibraryOptionsRequest**](UpdateLibraryOptionsRequest.md) | The library name and options. | [optional] 
 
 ### Return type
 
@@ -368,20 +368,20 @@ Void (empty response body)
 
 # **updateMediaPath**
 ```swift
-    open class func updateMediaPath(updateMediaPathRequestDto: UpdateMediaPathRequestDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateMediaPath(updateMediaPathRequest: UpdateMediaPathRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Updates a media path.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
 
-let updateMediaPathRequestDto = UpdateMediaPathRequestDto(name: "name_example", pathInfo: MediaPathInfo(path: "path_example", networkPath: "networkPath_example")) // UpdateMediaPathRequestDto | The name of the library and path infos.
+let updateMediaPathRequest = UpdateMediaPath_request(name: "name_example", pathInfo: UpdateMediaPathRequestDto_PathInfo(path: "path_example", networkPath: "networkPath_example")) // UpdateMediaPathRequest | The name of the library and path infos.
 
 // Updates a media path.
-LibraryStructureAPI.updateMediaPath(updateMediaPathRequestDto: updateMediaPathRequestDto) { (response, error) in
+LibraryStructureAPI.updateMediaPath(updateMediaPathRequest: updateMediaPathRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -397,7 +397,7 @@ LibraryStructureAPI.updateMediaPath(updateMediaPathRequestDto: updateMediaPathRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateMediaPathRequestDto** | [**UpdateMediaPathRequestDto**](UpdateMediaPathRequestDto.md) | The name of the library and path infos. | 
+ **updateMediaPathRequest** | [**UpdateMediaPathRequest**](UpdateMediaPathRequest.md) | The name of the library and path infos. | 
 
 ### Return type
 

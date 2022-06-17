@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct UserPolicy: Codable, Hashable {
+public struct UserPolicy: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets a value indicating whether this instance is administrator. */
     public var isAdministrator: Bool?
@@ -55,6 +55,7 @@ public struct UserPolicy: Codable, Hashable {
     public var remoteClientBitrateLimit: Int?
     public var authenticationProviderId: String?
     public var passwordResetProviderId: String?
+    /** Enum SyncPlayUserAccessType. */
     public var syncPlayAccess: SyncPlayUserAccessType?
 
     public init(isAdministrator: Bool? = nil, isHidden: Bool? = nil, isDisabled: Bool? = nil, maxParentalRating: Int? = nil, blockedTags: [String]? = nil, enableUserPreferenceAccess: Bool? = nil, accessSchedules: [AccessSchedule]? = nil, blockUnratedItems: [UnratedItem]? = nil, enableRemoteControlOfOtherUsers: Bool? = nil, enableSharedDeviceControl: Bool? = nil, enableRemoteAccess: Bool? = nil, enableLiveTvManagement: Bool? = nil, enableLiveTvAccess: Bool? = nil, enableMediaPlayback: Bool? = nil, enableAudioPlaybackTranscoding: Bool? = nil, enableVideoPlaybackTranscoding: Bool? = nil, enablePlaybackRemuxing: Bool? = nil, forceRemoteSourceTranscoding: Bool? = nil, enableContentDeletion: Bool? = nil, enableContentDeletionFromFolders: [String]? = nil, enableContentDownloading: Bool? = nil, enableSyncTranscoding: Bool? = nil, enableMediaConversion: Bool? = nil, enabledDevices: [String]? = nil, enableAllDevices: Bool? = nil, enabledChannels: [String]? = nil, enableAllChannels: Bool? = nil, enabledFolders: [String]? = nil, enableAllFolders: Bool? = nil, invalidLoginAttemptCount: Int? = nil, loginAttemptsBeforeLockout: Int? = nil, maxActiveSessions: Int? = nil, enablePublicSharing: Bool? = nil, blockedMediaFolders: [String]? = nil, blockedChannels: [String]? = nil, remoteClientBitrateLimit: Int? = nil, authenticationProviderId: String? = nil, passwordResetProviderId: String? = nil, syncPlayAccess: SyncPlayUserAccessType? = nil) {

@@ -11,12 +11,13 @@ import AnyCodable
 #endif
 
 /** Class ServiceInfo. */
-public struct LiveTvServiceInfo: Codable, Hashable {
+public struct LiveTvServiceInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
     /** Gets or sets the home page URL. */
     public var homePageUrl: String?
+    /** Gets or sets the status. */
     public var status: LiveTvServiceStatus?
     /** Gets or sets the status message. */
     public var statusMessage: String?

@@ -11,10 +11,11 @@ import AnyCodable
 #endif
 
 /** The notification summary DTO. */
-public struct NotificationsSummaryDto: Codable, Hashable {
+public struct NotificationsSummaryDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the number of unread notifications. */
     public var unreadCount: Int?
+    /** Gets or sets the maximum unread notification level. */
     public var maxUnreadNotificationLevel: NotificationLevel?
 
     public init(unreadCount: Int? = nil, maxUnreadNotificationLevel: NotificationLevel? = nil) {

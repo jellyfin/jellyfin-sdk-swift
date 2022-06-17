@@ -11,13 +11,13 @@ import AnyCodable
 #endif
 
 /** Update library options dto. */
-public struct UpdateLibraryOptionsDto: Codable, Hashable {
+public struct UpdateLibraryOptionsDto: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the library item id. */
     public var id: String?
-    public var libraryOptions: LibraryOptions?
+    public var libraryOptions: AddVirtualFolderDtoLibraryOptions?
 
-    public init(id: String? = nil, libraryOptions: LibraryOptions? = nil) {
+    public init(id: String? = nil, libraryOptions: AddVirtualFolderDtoLibraryOptions? = nil) {
         self.id = id
         self.libraryOptions = libraryOptions
     }

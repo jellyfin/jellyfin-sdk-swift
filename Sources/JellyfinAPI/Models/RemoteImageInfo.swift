@@ -11,13 +11,13 @@ import AnyCodable
 #endif
 
 /** Class RemoteImageInfo. */
-public struct RemoteImageInfo: Codable, Hashable {
+public struct RemoteImageInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name of the provider. */
     public var providerName: String?
     /** Gets or sets the URL. */
     public var url: String?
-    /** Gets a url used for previewing a smaller version. */
+    /** Gets or sets a url used for previewing a smaller version. */
     public var thumbnailUrl: String?
     /** Gets or sets the height. */
     public var height: Int?
@@ -29,7 +29,9 @@ public struct RemoteImageInfo: Codable, Hashable {
     public var voteCount: Int?
     /** Gets or sets the language. */
     public var language: String?
+    /** Gets or sets the type. */
     public var type: ImageType?
+    /** Gets or sets the type of the rating. */
     public var ratingType: RatingType?
 
     public init(providerName: String? = nil, url: String? = nil, thumbnailUrl: String? = nil, height: Int? = nil, width: Int? = nil, communityRating: Double? = nil, voteCount: Int? = nil, language: String? = nil, type: ImageType? = nil, ratingType: RatingType? = nil) {

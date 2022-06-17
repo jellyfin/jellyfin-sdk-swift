@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class UserConfiguration. */
-public struct UserConfiguration: Codable, Hashable {
+public struct UserConfiguration: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the audio language preference. */
     public var audioLanguagePreference: String?
@@ -21,6 +21,7 @@ public struct UserConfiguration: Codable, Hashable {
     public var subtitleLanguagePreference: String?
     public var displayMissingEpisodes: Bool?
     public var groupedFolders: [String]?
+    /** An enum representing a subtitle playback mode. */
     public var subtitleMode: SubtitlePlaybackMode?
     public var displayCollectionsView: Bool?
     public var enableLocalPassword: Bool?

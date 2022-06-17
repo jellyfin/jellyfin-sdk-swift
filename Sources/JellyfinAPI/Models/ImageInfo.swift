@@ -11,8 +11,9 @@ import AnyCodable
 #endif
 
 /** Class ImageInfo. */
-public struct ImageInfo: Codable, Hashable {
+public struct ImageInfo: Codable, JSONEncodable, Hashable {
 
+    /** Gets or sets the type of the image. */
     public var imageType: ImageType?
     /** Gets or sets the index of the image. */
     public var imageIndex: Int?

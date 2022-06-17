@@ -11,10 +11,10 @@ Name | Type | Description | Notes
 **primaryImageHeight** | **Int** | Gets or sets the height of the primary image. | [optional] 
 **primaryImageWidth** | **Int** | Gets or sets the width of the primary image. | [optional] 
 **customPrefs** | **[String: String]** | Gets or sets the custom prefs. | [optional] 
-**scrollDirection** | [**ScrollDirection**](ScrollDirection.md) |  | [optional] 
+**scrollDirection** | [**ScrollDirection**](ScrollDirection.md) | An enum representing the axis that should be scrolled. | [optional] 
 **showBackdrop** | **Bool** | Gets or sets a value indicating whether to show backdrops on this item. | [optional] 
 **rememberSorting** | **Bool** | Gets or sets a value indicating whether [remember sorting]. | [optional] 
-**aPISortOrder** | [**APISortOrder**](APISortOrder.md) |  | [optional] 
+**sortOrder** | [**SortOrder**](SortOrder.md) | An enum representing the sorting order. | [optional] 
 **showSidebar** | **Bool** | Gets or sets a value indicating whether [show sidebar]. | [optional] 
 **client** | **String** | Gets or sets the client. | [optional] 
 

@@ -1,6 +1,6 @@
 # SearchAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,12 +9,12 @@ Method | HTTP request | Description
 
 # **callGet**
 ```swift
-    open class func callGet(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: String? = nil, includeItemTypes: [String]? = nil, excludeItemTypes: [String]? = nil, mediaTypes: [String]? = nil, parentId: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil, completion: @escaping (_ data: SearchHintResult?, _ error: Error?) -> Void)
+    open class func callGet(searchTerm: String, startIndex: Int? = nil, limit: Int? = nil, userId: String? = nil, includeItemTypes: [BaseItemKind]? = nil, excludeItemTypes: [BaseItemKind]? = nil, mediaTypes: [String]? = nil, parentId: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, includePeople: Bool? = nil, includeMedia: Bool? = nil, includeGenres: Bool? = nil, includeStudios: Bool? = nil, includeArtists: Bool? = nil, completion: @escaping (_ data: SearchHintResult?, _ error: Error?) -> Void)
 ```
 
 Gets the search hint result.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -23,8 +23,8 @@ let searchTerm = "searchTerm_example" // String | The search term to filter on.
 let startIndex = 987 // Int | Optional. The record index to start at. All items with a lower index will be dropped from the results. (optional)
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let userId = "userId_example" // String | Optional. Supply a user id to search within a user's library or omit to search all. (optional)
-let includeItemTypes = ["inner_example"] // [String] | If specified, only results with the specified item types are returned. This allows multiple, comma delimeted. (optional)
-let excludeItemTypes = ["inner_example"] // [String] | If specified, results with these item types are filtered out. This allows multiple, comma delimeted. (optional)
+let includeItemTypes = [BaseItemKind()] // [BaseItemKind] | If specified, only results with the specified item types are returned. This allows multiple, comma delimeted. (optional)
+let excludeItemTypes = [BaseItemKind()] // [BaseItemKind] | If specified, results with these item types are filtered out. This allows multiple, comma delimeted. (optional)
 let mediaTypes = ["inner_example"] // [String] | If specified, only results with the specified media types are returned. This allows multiple, comma delimeted. (optional)
 let parentId = "parentId_example" // String | If specified, only children of the parent are returned. (optional)
 let isMovie = true // Bool | Optional filter for movies. (optional)
@@ -58,11 +58,11 @@ Name | Type | Description  | Notes
  **searchTerm** | **String** | The search term to filter on. | 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
- **userId** | [**String**](.md) | Optional. Supply a user id to search within a user&#39;s library or omit to search all. | [optional] 
- **includeItemTypes** | [**[String]**](String.md) | If specified, only results with the specified item types are returned. This allows multiple, comma delimeted. | [optional] 
- **excludeItemTypes** | [**[String]**](String.md) | If specified, results with these item types are filtered out. This allows multiple, comma delimeted. | [optional] 
+ **userId** | **String** | Optional. Supply a user id to search within a user&#39;s library or omit to search all. | [optional] 
+ **includeItemTypes** | [**[BaseItemKind]**](BaseItemKind.md) | If specified, only results with the specified item types are returned. This allows multiple, comma delimeted. | [optional] 
+ **excludeItemTypes** | [**[BaseItemKind]**](BaseItemKind.md) | If specified, results with these item types are filtered out. This allows multiple, comma delimeted. | [optional] 
  **mediaTypes** | [**[String]**](String.md) | If specified, only results with the specified media types are returned. This allows multiple, comma delimeted. | [optional] 
- **parentId** | [**String**](.md) | If specified, only children of the parent are returned. | [optional] 
+ **parentId** | **String** | If specified, only children of the parent are returned. | [optional] 
  **isMovie** | **Bool** | Optional filter for movies. | [optional] 
  **isSeries** | **Bool** | Optional filter for series. | [optional] 
  **isNews** | **Bool** | Optional filter for news. | [optional] 

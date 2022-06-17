@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class PackageInfo. */
-public struct PackageInfo: Codable, Hashable {
+public struct PackageInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?

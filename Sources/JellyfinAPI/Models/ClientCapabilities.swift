@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ClientCapabilities: Codable, Hashable {
+public struct ClientCapabilities: Codable, JSONEncodable, Hashable {
 
     public var playableMediaTypes: [String]?
     public var supportedCommands: [GeneralCommandType]?
@@ -19,11 +19,11 @@ public struct ClientCapabilities: Codable, Hashable {
     public var messageCallbackUrl: String?
     public var supportsPersistentIdentifier: Bool?
     public var supportsSync: Bool?
-    public var deviceProfile: DeviceProfile?
+    public var deviceProfile: ClientCapabilitiesDeviceProfile?
     public var appStoreUrl: String?
     public var iconUrl: String?
 
-    public init(playableMediaTypes: [String]? = nil, supportedCommands: [GeneralCommandType]? = nil, supportsMediaControl: Bool? = nil, supportsContentUploading: Bool? = nil, messageCallbackUrl: String? = nil, supportsPersistentIdentifier: Bool? = nil, supportsSync: Bool? = nil, deviceProfile: DeviceProfile? = nil, appStoreUrl: String? = nil, iconUrl: String? = nil) {
+    public init(playableMediaTypes: [String]? = nil, supportedCommands: [GeneralCommandType]? = nil, supportsMediaControl: Bool? = nil, supportsContentUploading: Bool? = nil, messageCallbackUrl: String? = nil, supportsPersistentIdentifier: Bool? = nil, supportsSync: Bool? = nil, deviceProfile: ClientCapabilitiesDeviceProfile? = nil, appStoreUrl: String? = nil, iconUrl: String? = nil) {
         self.playableMediaTypes = playableMediaTypes
         self.supportedCommands = supportedCommands
         self.supportsMediaControl = supportsMediaControl

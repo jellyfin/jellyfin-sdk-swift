@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct LibraryOptions: Codable, Hashable {
+public struct LibraryOptions: Codable, JSONEncodable, Hashable {
 
     public var enablePhotos: Bool?
     public var enableRealtimeMonitor: Bool?
@@ -18,6 +18,7 @@ public struct LibraryOptions: Codable, Hashable {
     public var extractChapterImagesDuringLibraryScan: Bool?
     public var pathInfos: [MediaPathInfo]?
     public var saveLocalMetadata: Bool?
+    @available(*, deprecated, message: "This property is deprecated.")
     public var enableInternetProviders: Bool?
     public var enableAutomaticSeriesGrouping: Bool?
     public var enableEmbeddedTitles: Bool?
@@ -38,9 +39,12 @@ public struct LibraryOptions: Codable, Hashable {
     public var subtitleDownloadLanguages: [String]?
     public var requirePerfectSubtitleMatch: Bool?
     public var saveSubtitlesWithMedia: Bool?
+    public var automaticallyAddToCollection: Bool?
+    /** An enum representing the options to disable embedded subs. */
+    public var allowEmbeddedSubtitles: EmbeddedSubtitleOptions?
     public var typeOptions: [TypeOptions]?
 
-    public init(enablePhotos: Bool? = nil, enableRealtimeMonitor: Bool? = nil, enableChapterImageExtraction: Bool? = nil, extractChapterImagesDuringLibraryScan: Bool? = nil, pathInfos: [MediaPathInfo]? = nil, saveLocalMetadata: Bool? = nil, enableInternetProviders: Bool? = nil, enableAutomaticSeriesGrouping: Bool? = nil, enableEmbeddedTitles: Bool? = nil, enableEmbeddedEpisodeInfos: Bool? = nil, automaticRefreshIntervalDays: Int? = nil, preferredMetadataLanguage: String? = nil, metadataCountryCode: String? = nil, seasonZeroDisplayName: String? = nil, metadataSavers: [String]? = nil, disabledLocalMetadataReaders: [String]? = nil, localMetadataReaderOrder: [String]? = nil, disabledSubtitleFetchers: [String]? = nil, subtitleFetcherOrder: [String]? = nil, skipSubtitlesIfEmbeddedSubtitlesPresent: Bool? = nil, skipSubtitlesIfAudioTrackMatches: Bool? = nil, subtitleDownloadLanguages: [String]? = nil, requirePerfectSubtitleMatch: Bool? = nil, saveSubtitlesWithMedia: Bool? = nil, typeOptions: [TypeOptions]? = nil) {
+    public init(enablePhotos: Bool? = nil, enableRealtimeMonitor: Bool? = nil, enableChapterImageExtraction: Bool? = nil, extractChapterImagesDuringLibraryScan: Bool? = nil, pathInfos: [MediaPathInfo]? = nil, saveLocalMetadata: Bool? = nil, enableInternetProviders: Bool? = nil, enableAutomaticSeriesGrouping: Bool? = nil, enableEmbeddedTitles: Bool? = nil, enableEmbeddedEpisodeInfos: Bool? = nil, automaticRefreshIntervalDays: Int? = nil, preferredMetadataLanguage: String? = nil, metadataCountryCode: String? = nil, seasonZeroDisplayName: String? = nil, metadataSavers: [String]? = nil, disabledLocalMetadataReaders: [String]? = nil, localMetadataReaderOrder: [String]? = nil, disabledSubtitleFetchers: [String]? = nil, subtitleFetcherOrder: [String]? = nil, skipSubtitlesIfEmbeddedSubtitlesPresent: Bool? = nil, skipSubtitlesIfAudioTrackMatches: Bool? = nil, subtitleDownloadLanguages: [String]? = nil, requirePerfectSubtitleMatch: Bool? = nil, saveSubtitlesWithMedia: Bool? = nil, automaticallyAddToCollection: Bool? = nil, allowEmbeddedSubtitles: EmbeddedSubtitleOptions? = nil, typeOptions: [TypeOptions]? = nil) {
         self.enablePhotos = enablePhotos
         self.enableRealtimeMonitor = enableRealtimeMonitor
         self.enableChapterImageExtraction = enableChapterImageExtraction
@@ -65,6 +69,8 @@ public struct LibraryOptions: Codable, Hashable {
         self.subtitleDownloadLanguages = subtitleDownloadLanguages
         self.requirePerfectSubtitleMatch = requirePerfectSubtitleMatch
         self.saveSubtitlesWithMedia = saveSubtitlesWithMedia
+        self.automaticallyAddToCollection = automaticallyAddToCollection
+        self.allowEmbeddedSubtitles = allowEmbeddedSubtitles
         self.typeOptions = typeOptions
     }
 
@@ -93,6 +99,8 @@ public struct LibraryOptions: Codable, Hashable {
         case subtitleDownloadLanguages = "SubtitleDownloadLanguages"
         case requirePerfectSubtitleMatch = "RequirePerfectSubtitleMatch"
         case saveSubtitlesWithMedia = "SaveSubtitlesWithMedia"
+        case automaticallyAddToCollection = "AutomaticallyAddToCollection"
+        case allowEmbeddedSubtitles = "AllowEmbeddedSubtitles"
         case typeOptions = "TypeOptions"
     }
 
@@ -124,6 +132,8 @@ public struct LibraryOptions: Codable, Hashable {
         try encoderContainer.encodeIfPresent(subtitleDownloadLanguages, forKey: .subtitleDownloadLanguages)
         try encoderContainer.encodeIfPresent(requirePerfectSubtitleMatch, forKey: .requirePerfectSubtitleMatch)
         try encoderContainer.encodeIfPresent(saveSubtitlesWithMedia, forKey: .saveSubtitlesWithMedia)
+        try encoderContainer.encodeIfPresent(automaticallyAddToCollection, forKey: .automaticallyAddToCollection)
+        try encoderContainer.encodeIfPresent(allowEmbeddedSubtitles, forKey: .allowEmbeddedSubtitles)
         try encoderContainer.encodeIfPresent(typeOptions, forKey: .typeOptions)
     }
 }

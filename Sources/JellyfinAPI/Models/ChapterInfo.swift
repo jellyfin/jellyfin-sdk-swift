@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class ChapterInfo. */
-public struct ChapterInfo: Codable, Hashable {
+public struct ChapterInfo: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the start position ticks. */
     public var startPositionTicks: Int64?

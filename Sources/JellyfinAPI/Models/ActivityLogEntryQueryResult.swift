@@ -10,13 +10,13 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct ActivityLogEntryQueryResult: Codable, Hashable {
+public struct ActivityLogEntryQueryResult: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the items. */
     public var items: [ActivityLogEntry]?
-    /** The total number of records available. */
+    /** Gets or sets the total number of records available. */
     public var totalRecordCount: Int?
-    /** The index of the first record in Items. */
+    /** Gets or sets the index of the first record in Items. */
     public var startIndex: Int?
 
     public init(items: [ActivityLogEntry]? = nil, totalRecordCount: Int? = nil, startIndex: Int? = nil) {

@@ -5,26 +5,29 @@
 // https://openapi-generator.tech
 //
 
-import AnyCodable
 import Foundation
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class LibraryStructureAPI {
+
     /**
      Add a media path to a library.
      
-     - parameter mediaPathDto: (body) The media path dto. 
+     - parameter addMediaPathRequest: (body) The media path dto. 
      - parameter refreshLibrary: (query) Whether to refresh the library. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func addMediaPath(mediaPathDto: MediaPathDto, refreshLibrary: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            addMediaPathWithRequestBuilder(mediaPathDto: mediaPathDto, refreshLibrary: refreshLibrary).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func addMediaPath(addMediaPathRequest: AddMediaPathRequest, refreshLibrary: Bool? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = addMediaPathWithRequestBuilder(addMediaPathRequest: addMediaPathRequest, refreshLibrary: refreshLibrary).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -32,7 +35,11 @@ open class LibraryStructureAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -40,31 +47,31 @@ open class LibraryStructureAPI {
      Add a media path to a library.
      - POST /Library/VirtualFolders/Paths
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter mediaPathDto: (body) The media path dto. 
+     - parameter addMediaPathRequest: (body) The media path dto. 
      - parameter refreshLibrary: (query) Whether to refresh the library. (optional, default to false)
      - returns: RequestBuilder<Void> 
      */
-    open class func addMediaPathWithRequestBuilder(mediaPathDto: MediaPathDto, refreshLibrary: Bool? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Library/VirtualFolders/Paths"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: mediaPathDto)
+    open class func addMediaPathWithRequestBuilder(addMediaPathRequest: AddMediaPathRequest, refreshLibrary: Bool? = nil) -> RequestBuilder<Void> {
+        let localVariablePath = "/Library/VirtualFolders/Paths"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: addMediaPathRequest)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "refreshLibrary": refreshLibrary?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -74,15 +81,15 @@ open class LibraryStructureAPI {
      - parameter collectionType: (query) The type of the collection. (optional)
      - parameter paths: (query) The paths of the virtual folder. (optional)
      - parameter refreshLibrary: (query) Whether to refresh the library. (optional, default to false)
-     - parameter addVirtualFolderDto: (body) The library options. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter addVirtualFolderRequest: (body) The library options. (optional)
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func addVirtualFolder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            addVirtualFolderWithRequestBuilder(name: name, collectionType: collectionType, paths: paths, refreshLibrary: refreshLibrary, addVirtualFolderDto: addVirtualFolderDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func addVirtualFolder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderRequest: AddVirtualFolderRequest? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = addVirtualFolderWithRequestBuilder(name: name, collectionType: collectionType, paths: paths, refreshLibrary: refreshLibrary, addVirtualFolderRequest: addVirtualFolderRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -90,7 +97,11 @@ open class LibraryStructureAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -98,58 +109,62 @@ open class LibraryStructureAPI {
      Adds a virtual folder.
      - POST /Library/VirtualFolders
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter name: (query) The name of the virtual folder. (optional)
      - parameter collectionType: (query) The type of the collection. (optional)
      - parameter paths: (query) The paths of the virtual folder. (optional)
      - parameter refreshLibrary: (query) Whether to refresh the library. (optional, default to false)
-     - parameter addVirtualFolderDto: (body) The library options. (optional)
+     - parameter addVirtualFolderRequest: (body) The library options. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func addVirtualFolderWithRequestBuilder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderDto: AddVirtualFolderDto? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Library/VirtualFolders"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: addVirtualFolderDto)
+    open class func addVirtualFolderWithRequestBuilder(name: String? = nil, collectionType: CollectionTypeOptions? = nil, paths: [String]? = nil, refreshLibrary: Bool? = nil, addVirtualFolderRequest: AddVirtualFolderRequest? = nil) -> RequestBuilder<Void> {
+        let localVariablePath = "/Library/VirtualFolders"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: addVirtualFolderRequest)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "name": name?.encodeToJSON(),
             "collectionType": collectionType?.encodeToJSON(),
             "paths": paths?.encodeToJSON(),
             "refreshLibrary": refreshLibrary?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Gets all virtual folders.
      
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<[VirtualFolderInfo], Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getVirtualFolders(apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<[VirtualFolderInfo], Error> {
-        return Future<[VirtualFolderInfo], Error>.init { promise in
-            getVirtualFoldersWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getVirtualFolders() -> AnyPublisher<[VirtualFolderInfo], Error> {
+        var requestTask: RequestTask?
+        return Future<[VirtualFolderInfo], Error> { promise in
+            requestTask = getVirtualFoldersWithRequestBuilder().execute { result in
                 switch result {
                 case let .success(response):
-                    promise(.success(response.body!))
+                    promise(.success(response.body))
                 case let .failure(error):
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -157,26 +172,26 @@ open class LibraryStructureAPI {
      Gets all virtual folders.
      - GET /Library/VirtualFolders
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - returns: RequestBuilder<[VirtualFolderInfo]> 
      */
     open class func getVirtualFoldersWithRequestBuilder() -> RequestBuilder<[VirtualFolderInfo]> {
-        let urlPath = "/Library/VirtualFolders"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Library/VirtualFolders"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<[VirtualFolderInfo]>.Type = JellyfinAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[VirtualFolderInfo]>.Type = JellyfinAPIAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -185,14 +200,14 @@ open class LibraryStructureAPI {
      - parameter name: (query) The name of the library. (optional)
      - parameter path: (query) The path to remove. (optional)
      - parameter refreshLibrary: (query) Whether to refresh the library. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func removeMediaPath(name: String? = nil, path: String? = nil, refreshLibrary: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            removeMediaPathWithRequestBuilder(name: name, path: path, refreshLibrary: refreshLibrary).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func removeMediaPath(name: String? = nil, path: String? = nil, refreshLibrary: Bool? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = removeMediaPathWithRequestBuilder(name: name, path: path, refreshLibrary: refreshLibrary).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -200,7 +215,11 @@ open class LibraryStructureAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -208,7 +227,7 @@ open class LibraryStructureAPI {
      Remove a media path.
      - DELETE /Library/VirtualFolders/Paths
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter name: (query) The name of the library. (optional)
      - parameter path: (query) The path to remove. (optional)
@@ -216,26 +235,26 @@ open class LibraryStructureAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func removeMediaPathWithRequestBuilder(name: String? = nil, path: String? = nil, refreshLibrary: Bool? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Library/VirtualFolders/Paths"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Library/VirtualFolders/Paths"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "name": name?.encodeToJSON(),
             "path": path?.encodeToJSON(),
             "refreshLibrary": refreshLibrary?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -243,14 +262,14 @@ open class LibraryStructureAPI {
      
      - parameter name: (query) The name of the folder. (optional)
      - parameter refreshLibrary: (query) Whether to refresh the library. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func removeVirtualFolder(name: String? = nil, refreshLibrary: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            removeVirtualFolderWithRequestBuilder(name: name, refreshLibrary: refreshLibrary).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func removeVirtualFolder(name: String? = nil, refreshLibrary: Bool? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = removeVirtualFolderWithRequestBuilder(name: name, refreshLibrary: refreshLibrary).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -258,7 +277,11 @@ open class LibraryStructureAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -266,32 +289,32 @@ open class LibraryStructureAPI {
      Removes a virtual folder.
      - DELETE /Library/VirtualFolders
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter name: (query) The name of the folder. (optional)
      - parameter refreshLibrary: (query) Whether to refresh the library. (optional, default to false)
      - returns: RequestBuilder<Void> 
      */
     open class func removeVirtualFolderWithRequestBuilder(name: String? = nil, refreshLibrary: Bool? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Library/VirtualFolders"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Library/VirtualFolders"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "name": name?.encodeToJSON(),
             "refreshLibrary": refreshLibrary?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "DELETE", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -300,14 +323,14 @@ open class LibraryStructureAPI {
      - parameter name: (query) The name of the virtual folder. (optional)
      - parameter newName: (query) The new name. (optional)
      - parameter refreshLibrary: (query) Whether to refresh the library. (optional, default to false)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func renameVirtualFolder(name: String? = nil, newName: String? = nil, refreshLibrary: Bool? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            renameVirtualFolderWithRequestBuilder(name: name, newName: newName, refreshLibrary: refreshLibrary).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func renameVirtualFolder(name: String? = nil, newName: String? = nil, refreshLibrary: Bool? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = renameVirtualFolderWithRequestBuilder(name: name, newName: newName, refreshLibrary: refreshLibrary).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -315,7 +338,11 @@ open class LibraryStructureAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -323,7 +350,7 @@ open class LibraryStructureAPI {
      Renames a virtual folder.
      - POST /Library/VirtualFolders/Name
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
      - parameter name: (query) The name of the virtual folder. (optional)
      - parameter newName: (query) The new name. (optional)
@@ -331,40 +358,40 @@ open class LibraryStructureAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func renameVirtualFolderWithRequestBuilder(name: String? = nil, newName: String? = nil, refreshLibrary: Bool? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Library/VirtualFolders/Name"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/Library/VirtualFolders/Name"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "name": name?.encodeToJSON(),
             "newName": newName?.encodeToJSON(),
             "refreshLibrary": refreshLibrary?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Update library options.
      
-     - parameter updateLibraryOptionsDto: (body) The library name and options. (optional)
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter updateLibraryOptionsRequest: (body) The library name and options. (optional)
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateLibraryOptions(updateLibraryOptionsDto: UpdateLibraryOptionsDto? = nil, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            updateLibraryOptionsWithRequestBuilder(updateLibraryOptionsDto: updateLibraryOptionsDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func updateLibraryOptions(updateLibraryOptionsRequest: UpdateLibraryOptionsRequest? = nil) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = updateLibraryOptionsWithRequestBuilder(updateLibraryOptionsRequest: updateLibraryOptionsRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -372,7 +399,11 @@ open class LibraryStructureAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -380,41 +411,41 @@ open class LibraryStructureAPI {
      Update library options.
      - POST /Library/VirtualFolders/LibraryOptions
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter updateLibraryOptionsDto: (body) The library name and options. (optional)
+     - parameter updateLibraryOptionsRequest: (body) The library name and options. (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func updateLibraryOptionsWithRequestBuilder(updateLibraryOptionsDto: UpdateLibraryOptionsDto? = nil) -> RequestBuilder<Void> {
-        let urlPath = "/Library/VirtualFolders/LibraryOptions"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateLibraryOptionsDto)
+    open class func updateLibraryOptionsWithRequestBuilder(updateLibraryOptionsRequest: UpdateLibraryOptionsRequest? = nil) -> RequestBuilder<Void> {
+        let localVariablePath = "/Library/VirtualFolders/LibraryOptions"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateLibraryOptionsRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Updates a media path.
      
-     - parameter updateMediaPathRequestDto: (body) The name of the library and path infos. 
-     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter updateMediaPathRequest: (body) The name of the library and path infos. 
      - returns: AnyPublisher<Void, Error>
      */
     #if canImport(Combine)
-    @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func updateMediaPath(updateMediaPathRequestDto: UpdateMediaPathRequestDto, apiResponseQueue: DispatchQueue = JellyfinAPI.apiResponseQueue) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error>.init { promise in
-            updateMediaPathWithRequestBuilder(updateMediaPathRequestDto: updateMediaPathRequestDto).execute(apiResponseQueue) { result -> Void in
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func updateMediaPath(updateMediaPathRequest: UpdateMediaPathRequest) -> AnyPublisher<Void, Error> {
+        var requestTask: RequestTask?
+        return Future<Void, Error> { promise in
+            requestTask = updateMediaPathWithRequestBuilder(updateMediaPathRequest: updateMediaPathRequest).execute { result in
                 switch result {
                 case .success:
                     promise(.success(()))
@@ -422,7 +453,11 @@ open class LibraryStructureAPI {
                     promise(.failure(error))
                 }
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveCancel: {
+            requestTask?.cancel()
+        })
+        .eraseToAnyPublisher()
     }
     #endif
 
@@ -430,27 +465,26 @@ open class LibraryStructureAPI {
      Updates a media path.
      - POST /Library/VirtualFolders/Paths/Update
      - API Key:
-       - type: apiKey X-Emby-Authorization 
+       - type: apiKey Authorization 
        - name: CustomAuthentication
-     - parameter updateMediaPathRequestDto: (body) The name of the library and path infos. 
+     - parameter updateMediaPathRequest: (body) The name of the library and path infos. 
      - returns: RequestBuilder<Void> 
      */
-    open class func updateMediaPathWithRequestBuilder(updateMediaPathRequestDto: UpdateMediaPathRequestDto) -> RequestBuilder<Void> {
-        let urlPath = "/Library/VirtualFolders/Paths/Update"
-        let URLString = JellyfinAPI.basePath + urlPath
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateMediaPathRequestDto)
+    open class func updateMediaPathWithRequestBuilder(updateMediaPathRequest: UpdateMediaPathRequest) -> RequestBuilder<Void> {
+        let localVariablePath = "/Library/VirtualFolders/Paths/Update"
+        let localVariableURLString = JellyfinAPIAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateMediaPathRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<Void>.Type = JellyfinAPI.requestBuilderFactory.getNonDecodableBuilder()
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = JellyfinAPIAPI.requestBuilderFactory.getNonDecodableBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

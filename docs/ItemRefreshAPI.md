@@ -1,20 +1,20 @@
 # ItemRefreshAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**post**](ItemRefreshAPI.md#post) | **POST** /Items/{itemId}/Refresh | Refreshes metadata for an item.
+[**refreshItem**](ItemRefreshAPI.md#refreshitem) | **POST** /Items/{itemId}/Refresh | Refreshes metadata for an item.
 
 
-# **post**
+# **refreshItem**
 ```swift
-    open class func post(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func refreshItem(itemId: String, metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: MetadataRefreshMode? = nil, replaceAllMetadata: Bool? = nil, replaceAllImages: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Refreshes metadata for an item.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -26,7 +26,7 @@ let replaceAllMetadata = true // Bool | (Optional) Determines if metadata should
 let replaceAllImages = true // Bool | (Optional) Determines if images should be replaced. Only applicable if mode is FullRefresh. (optional) (default to false)
 
 // Refreshes metadata for an item.
-ItemRefreshAPI.post(itemId: itemId, metadataRefreshMode: metadataRefreshMode, imageRefreshMode: imageRefreshMode, replaceAllMetadata: replaceAllMetadata, replaceAllImages: replaceAllImages) { (response, error) in
+ItemRefreshAPI.refreshItem(itemId: itemId, metadataRefreshMode: metadataRefreshMode, imageRefreshMode: imageRefreshMode, replaceAllMetadata: replaceAllMetadata, replaceAllImages: replaceAllImages) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -42,7 +42,7 @@ ItemRefreshAPI.post(itemId: itemId, metadataRefreshMode: metadataRefreshMode, im
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **itemId** | [**String**](.md) | Item id. | 
+ **itemId** | **String** | Item id. | 
  **metadataRefreshMode** | [**MetadataRefreshMode**](.md) | (Optional) Specifies the metadata refresh mode. | [optional] 
  **imageRefreshMode** | [**MetadataRefreshMode**](.md) | (Optional) Specifies the image refresh mode. | [optional] 
  **replaceAllMetadata** | **Bool** | (Optional) Determines if metadata should be replaced. Only applicable if mode is FullRefresh. | [optional] [default to false]

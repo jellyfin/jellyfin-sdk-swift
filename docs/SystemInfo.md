@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **id** | **String** | Gets or sets the id. | [optional] 
 **startupWizardCompleted** | **Bool** | Gets or sets a value indicating whether the startup wizard is completed. | [optional] 
 **operatingSystemDisplayName** | **String** | Gets or sets the display name of the operating system. | [optional] 
-**packageName** | **String** | Get or sets the package name. | [optional] 
+**packageName** | **String** | Gets or sets the package name. | [optional] 
 **hasPendingRestart** | **Bool** | Gets or sets a value indicating whether this instance has pending restart. | [optional] 
 **isShuttingDown** | **Bool** |  | [optional] 
 **supportsLibraryMonitor** | **Bool** | Gets or sets a value indicating whether [supports library monitor]. | [optional] 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **internalMetadataPath** | **String** | Gets or sets the internal metadata path. | [optional] 
 **transcodingTempPath** | **String** | Gets or sets the transcode path. | [optional] 
 **hasUpdateAvailable** | **Bool** | Gets or sets a value indicating whether this instance has update available. | [optional] 
-**encoderLocation** | [**FFmpegLocation**](FFmpegLocation.md) |  | [optional] 
+**encoderLocation** | [**FFmpegLocation**](FFmpegLocation.md) | Enum describing the location of the FFmpeg tool. | [optional] 
 **systemArchitecture** | [**Architecture**](Architecture.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

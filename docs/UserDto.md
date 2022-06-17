@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **enableAutoLogin** | **Bool** | Gets or sets whether async login is enabled or not. | [optional] 
 **lastLoginDate** | **Date** | Gets or sets the last login date. | [optional] 
 **lastActivityDate** | **Date** | Gets or sets the last activity date. | [optional] 
-**configuration** | [**UserConfiguration**](UserConfiguration.md) |  | [optional] 
-**policy** | [**UserPolicy**](UserPolicy.md) |  | [optional] 
+**configuration** | [**UserDtoConfiguration**](UserDtoConfiguration.md) |  | [optional] 
+**policy** | [**UserDtoPolicy**](UserDtoPolicy.md) |  | [optional] 
 **primaryImageAspectRatio** | **Double** | Gets or sets the primary image aspect ratio. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct PinRedeemResult: Codable, Hashable {
+public struct PinRedeemResult: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets a value indicating whether this MediaBrowser.Model.Users.PinRedeemResult is success. */
     public var success: Bool?

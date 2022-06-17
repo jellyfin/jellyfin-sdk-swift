@@ -11,23 +11,23 @@ import AnyCodable
 #endif
 
 /** The quick connect request body. */
-public struct QuickConnectDto: Codable, Hashable {
+public struct QuickConnectDto: Codable, JSONEncodable, Hashable {
 
-    /** Gets or sets the quick connect token. */
-    public var token: String
+    /** Gets or sets the quick connect secret. */
+    public var secret: String
 
-    public init(token: String) {
-        self.token = token
+    public init(secret: String) {
+        self.secret = secret
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case token = "Token"
+        case secret = "Secret"
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var encoderContainer = encoder.container(keyedBy: CodingKeys.self)
-        try encoderContainer.encode(token, forKey: .token)
+        try encoderContainer.encode(secret, forKey: .secret)
     }
 }

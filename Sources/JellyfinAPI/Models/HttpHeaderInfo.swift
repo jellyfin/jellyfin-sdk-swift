@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct HttpHeaderInfo: Codable, Hashable {
+public struct HttpHeaderInfo: Codable, JSONEncodable, Hashable {
 
     public var name: String?
     public var value: String?

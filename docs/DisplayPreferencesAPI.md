@@ -1,6 +1,6 @@
 # DisplayPreferencesAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Get Display Preferences.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -42,7 +42,7 @@ DisplayPreferencesAPI.getDisplayPreferences(displayPreferencesId: displayPrefere
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **displayPreferencesId** | **String** | Display preferences id. | 
- **userId** | [**String**](.md) | User id. | 
+ **userId** | **String** | User id. | 
  **client** | **String** | Client. | 
 
 ### Return type
@@ -62,12 +62,12 @@ Name | Type | Description  | Notes
 
 # **updateDisplayPreferences**
 ```swift
-    open class func updateDisplayPreferences(displayPreferencesId: String, userId: String, client: String, displayPreferencesDto: DisplayPreferencesDto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func updateDisplayPreferences(displayPreferencesId: String, userId: String, client: String, updateDisplayPreferencesRequest: UpdateDisplayPreferencesRequest, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Update Display Preferences.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -75,10 +75,10 @@ import JellyfinAPI
 let displayPreferencesId = "displayPreferencesId_example" // String | Display preferences id.
 let userId = "userId_example" // String | User Id.
 let client = "client_example" // String | Client.
-let displayPreferencesDto = DisplayPreferencesDto(id: "id_example", viewType: "viewType_example", sortBy: "sortBy_example", indexBy: "indexBy_example", rememberIndexing: false, primaryImageHeight: 123, primaryImageWidth: 123, customPrefs: "TODO", scrollDirection: ScrollDirection(), showBackdrop: false, rememberSorting: false, aPISortOrder: APISortOrder(), showSidebar: false, client: "client_example") // DisplayPreferencesDto | New Display Preferences object.
+let updateDisplayPreferencesRequest = UpdateDisplayPreferences_request(id: "id_example", viewType: "viewType_example", sortBy: "sortBy_example", indexBy: "indexBy_example", rememberIndexing: false, primaryImageHeight: 123, primaryImageWidth: 123, customPrefs: "TODO", scrollDirection: ScrollDirection(), showBackdrop: false, rememberSorting: false, sortOrder: SortOrder(), showSidebar: false, client: "client_example") // UpdateDisplayPreferencesRequest | New Display Preferences object.
 
 // Update Display Preferences.
-DisplayPreferencesAPI.updateDisplayPreferences(displayPreferencesId: displayPreferencesId, userId: userId, client: client, displayPreferencesDto: displayPreferencesDto) { (response, error) in
+DisplayPreferencesAPI.updateDisplayPreferences(displayPreferencesId: displayPreferencesId, userId: userId, client: client, updateDisplayPreferencesRequest: updateDisplayPreferencesRequest) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -95,9 +95,9 @@ DisplayPreferencesAPI.updateDisplayPreferences(displayPreferencesId: displayPref
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **displayPreferencesId** | **String** | Display preferences id. | 
- **userId** | [**String**](.md) | User Id. | 
+ **userId** | **String** | User Id. | 
  **client** | **String** | Client. | 
- **displayPreferencesDto** | [**DisplayPreferencesDto**](DisplayPreferencesDto.md) | New Display Preferences object. | 
+ **updateDisplayPreferencesRequest** | [**UpdateDisplayPreferencesRequest**](UpdateDisplayPreferencesRequest.md) | New Display Preferences object. | 
 
 ### Return type
 

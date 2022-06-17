@@ -1,6 +1,6 @@
 # TvShowsAPI
 
-All URIs are relative to *http://localhost:8096*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 Gets episodes for a tv season.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -55,14 +55,14 @@ TvShowsAPI.getEpisodes(seriesId: seriesId, userId: userId, fields: fields, seaso
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seriesId** | [**String**](.md) | The series id. | 
- **userId** | [**String**](.md) | The user id. | [optional] 
+ **seriesId** | **String** | The series id. | 
+ **userId** | **String** | The user id. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
  **season** | **Int** | Optional filter by season number. | [optional] 
- **seasonId** | [**String**](.md) | Optional. Filter by season id. | [optional] 
+ **seasonId** | **String** | Optional. Filter by season id. | [optional] 
  **isMissing** | **Bool** | Optional. Filter by items that are missing episodes or not. | [optional] 
  **adjacentTo** | **String** | Optional. Return items that are siblings of a supplied item. | [optional] 
- **startItemId** | [**String**](.md) | Optional. Skip through the list until a given item is found. | [optional] 
+ **startItemId** | **String** | Optional. Skip through the list until a given item is found. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **enableImages** | **Bool** | Optional, include image information in output. | [optional] 
@@ -88,12 +88,12 @@ Name | Type | Description  | Notes
 
 # **getNextUp**
 ```swift
-    open class func getNextUp(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: String? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getNextUp(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, seriesId: String? = nil, parentId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, nextUpDateCutoff: Date? = nil, enableTotalRecordCount: Bool? = nil, disableFirstEpisode: Bool? = nil, enableRewatching: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets a list of next up episodes.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -104,15 +104,17 @@ let limit = 987 // Int | Optional. The maximum number of records to return. (opt
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let seriesId = "seriesId_example" // String | Optional. Filter by series id. (optional)
 let parentId = "parentId_example" // String | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
-let enableImges = true // Bool | Optional. Include image information in output. (optional)
+let enableImages = true // Bool | Optional. Include image information in output. (optional)
 let imageTypeLimit = 987 // Int | Optional. The max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
 let enableUserData = true // Bool | Optional. Include user data. (optional)
+let nextUpDateCutoff = Date() // Date | Optional. Starting date of shows to show in Next Up section. (optional)
 let enableTotalRecordCount = true // Bool | Whether to enable the total records count. Defaults to true. (optional) (default to true)
 let disableFirstEpisode = true // Bool | Whether to disable sending the first episode in a series as next up. (optional) (default to false)
+let enableRewatching = true // Bool | Whether to include watched episode in next up results. (optional) (default to false)
 
 // Gets a list of next up episodes.
-TvShowsAPI.getNextUp(userId: userId, startIndex: startIndex, limit: limit, fields: fields, seriesId: seriesId, parentId: parentId, enableImges: enableImges, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, enableTotalRecordCount: enableTotalRecordCount, disableFirstEpisode: disableFirstEpisode) { (response, error) in
+TvShowsAPI.getNextUp(userId: userId, startIndex: startIndex, limit: limit, fields: fields, seriesId: seriesId, parentId: parentId, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData, nextUpDateCutoff: nextUpDateCutoff, enableTotalRecordCount: enableTotalRecordCount, disableFirstEpisode: disableFirstEpisode, enableRewatching: enableRewatching) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -128,18 +130,20 @@ TvShowsAPI.getNextUp(userId: userId, startIndex: startIndex, limit: limit, field
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id of the user to get the next up episodes for. | [optional] 
+ **userId** | **String** | The user id of the user to get the next up episodes for. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
  **seriesId** | **String** | Optional. Filter by series id. | [optional] 
- **parentId** | [**String**](.md) | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
- **enableImges** | **Bool** | Optional. Include image information in output. | [optional] 
+ **parentId** | **String** | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **enableImages** | **Bool** | Optional. Include image information in output. | [optional] 
  **imageTypeLimit** | **Int** | Optional. The max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
  **enableUserData** | **Bool** | Optional. Include user data. | [optional] 
+ **nextUpDateCutoff** | **Date** | Optional. Starting date of shows to show in Next Up section. | [optional] 
  **enableTotalRecordCount** | **Bool** | Whether to enable the total records count. Defaults to true. | [optional] [default to true]
  **disableFirstEpisode** | **Bool** | Whether to disable sending the first episode in a series as next up. | [optional] [default to false]
+ **enableRewatching** | **Bool** | Whether to include watched episode in next up results. | [optional] [default to false]
 
 ### Return type
 
@@ -163,7 +167,7 @@ Name | Type | Description  | Notes
 
 Gets seasons for a tv series.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -196,8 +200,8 @@ TvShowsAPI.getSeasons(seriesId: seriesId, userId: userId, fields: fields, isSpec
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seriesId** | [**String**](.md) | The series id. | 
- **userId** | [**String**](.md) | The user id. | [optional] 
+ **seriesId** | **String** | The series id. | 
+ **userId** | **String** | The user id. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines, TrailerUrls. | [optional] 
  **isSpecialSeason** | **Bool** | Optional. Filter by special season. | [optional] 
  **isMissing** | **Bool** | Optional. Filter by items that are missing episodes or not. | [optional] 
@@ -224,12 +228,12 @@ Name | Type | Description  | Notes
 
 # **getUpcomingEpisodes**
 ```swift
-    open class func getUpcomingEpisodes(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, parentId: String? = nil, enableImges: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
+    open class func getUpcomingEpisodes(userId: String? = nil, startIndex: Int? = nil, limit: Int? = nil, fields: [ItemFields]? = nil, parentId: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int? = nil, enableImageTypes: [ImageType]? = nil, enableUserData: Bool? = nil, completion: @escaping (_ data: BaseItemDtoQueryResult?, _ error: Error?) -> Void)
 ```
 
 Gets a list of upcoming episodes.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import JellyfinAPI
@@ -239,13 +243,13 @@ let startIndex = 987 // Int | Optional. The record index to start at. All items 
 let limit = 987 // Int | Optional. The maximum number of records to return. (optional)
 let fields = [ItemFields()] // [ItemFields] | Optional. Specify additional fields of information to return in the output. (optional)
 let parentId = "parentId_example" // String | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. (optional)
-let enableImges = true // Bool | Optional. Include image information in output. (optional)
+let enableImages = true // Bool | Optional. Include image information in output. (optional)
 let imageTypeLimit = 987 // Int | Optional. The max number of images to return, per image type. (optional)
 let enableImageTypes = [ImageType()] // [ImageType] | Optional. The image types to include in the output. (optional)
 let enableUserData = true // Bool | Optional. Include user data. (optional)
 
 // Gets a list of upcoming episodes.
-TvShowsAPI.getUpcomingEpisodes(userId: userId, startIndex: startIndex, limit: limit, fields: fields, parentId: parentId, enableImges: enableImges, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData) { (response, error) in
+TvShowsAPI.getUpcomingEpisodes(userId: userId, startIndex: startIndex, limit: limit, fields: fields, parentId: parentId, enableImages: enableImages, imageTypeLimit: imageTypeLimit, enableImageTypes: enableImageTypes, enableUserData: enableUserData) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -261,12 +265,12 @@ TvShowsAPI.getUpcomingEpisodes(userId: userId, startIndex: startIndex, limit: li
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**String**](.md) | The user id of the user to get the upcoming episodes for. | [optional] 
+ **userId** | **String** | The user id of the user to get the upcoming episodes for. | [optional] 
  **startIndex** | **Int** | Optional. The record index to start at. All items with a lower index will be dropped from the results. | [optional] 
  **limit** | **Int** | Optional. The maximum number of records to return. | [optional] 
  **fields** | [**[ItemFields]**](ItemFields.md) | Optional. Specify additional fields of information to return in the output. | [optional] 
- **parentId** | [**String**](.md) | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
- **enableImges** | **Bool** | Optional. Include image information in output. | [optional] 
+ **parentId** | **String** | Optional. Specify this to localize the search to a specific item or folder. Omit to use the root. | [optional] 
+ **enableImages** | **Bool** | Optional. Include image information in output. | [optional] 
  **imageTypeLimit** | **Int** | Optional. The max number of images to return, per image type. | [optional] 
  **enableImageTypes** | [**[ImageType]**](ImageType.md) | Optional. The image types to include in the output. | [optional] 
  **enableUserData** | **Bool** | Optional. Include user data. | [optional] 

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Class ParentalRating. */
-public struct ParentalRating: Codable, Hashable {
+public struct ParentalRating: Codable, JSONEncodable, Hashable {
 
     /** Gets or sets the name. */
     public var name: String?
