@@ -11,12 +11,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kean/Get", from: "1.0.2"),
-        .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
+        .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0"),
     ],
     targets: [
         .target(name: "JellyfinAPI", dependencies: [
             .product(name: "Get", package: "Get"),
-            .product(name: "URLQueryEncoder", package: "URLQueryEncoder")
-        ], path: "Sources")
+            .product(name: "URLQueryEncoder", package: "URLQueryEncoder"),
+        ], path: "Sources"),
     ]
 )
