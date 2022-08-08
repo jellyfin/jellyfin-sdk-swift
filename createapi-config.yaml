@@ -1,0 +1,6 @@
+entities:
+  includeIdentifiableConformance: true
+  sortPropertiesAlphabetically: true
+paths:
+  style: operations
+  filenameTemplate: "%0API.swift"
