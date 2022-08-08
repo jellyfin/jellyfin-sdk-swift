@@ -1,33 +1,23 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.5
+// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "JellyfinAPI",
-    platforms: [
-        .iOS(.v9),
-        .macOS(.v10_11),
-        .tvOS(.v9),
-        .watchOS(.v3),
-    ],
+    platforms: [.iOS(.v13), .macCatalyst(.v13), .macOS(.v10_15), .watchOS(.v6), .tvOS(.v13)],
     products: [
-        // Products define the executables and libraries produced by a package, and make them visible to other packages.
-        .library(
-            name: "JellyfinAPI",
-            targets: ["JellyfinAPI"]
-        ),
+        .library(name: "JellyfinAPI", targets: ["JellyfinAPI"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/Flight-School/AnyCodable", from: "0.6.1"),
+        .package(path: "/Users/epippin/Developer/GitHub/Get"),
+//        .package(url: "https://github.com/kean/Get", from: "1.0.2"),
+        .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-        .target(
-            name: "JellyfinAPI",
-            dependencies: ["AnyCodable", ],
-            path: "Sources/JellyfinAPI"
-        ),
+        .target(name: "JellyfinAPI", dependencies: [
+            .product(name: "Get", package: "Get"),
+            .product(name: "URLQueryEncoder", package: "URLQueryEncoder")
+        ], path: "Sources")
     ]
 )
