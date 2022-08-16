@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -25,7 +25,7 @@ public extension Paths {
     }
 
     struct GetPostedPlaybackInfoParameters {
-        public var userID: String?
+        public var userID: UUID?
         public var maxStreamingBitrate: Int?
         public var startTimeTicks: Int?
         public var audioStreamIndex: Int?
@@ -41,7 +41,7 @@ public extension Paths {
         public var allowAudioStreamCopy: Bool?
 
         public init(
-            userID: String? = nil,
+            userID: UUID? = nil,
             maxStreamingBitrate: Int? = nil,
             startTimeTicks: Int? = nil,
             audioStreamIndex: Int? = nil,

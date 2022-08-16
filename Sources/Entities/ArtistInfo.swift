@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -55,37 +55,5 @@ public struct ArtistInfo: Codable {
         self.providerIDs = providerIDs
         self.songInfos = songInfos
         self.year = year
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.indexNumber = try values.decodeIfPresent(Int.self, forKey: "IndexNumber")
-        self.isAutomated = try values.decodeIfPresent(Bool.self, forKey: "IsAutomated")
-        self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
-        self.metadataLanguage = try values.decodeIfPresent(String.self, forKey: "MetadataLanguage")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.originalTitle = try values.decodeIfPresent(String.self, forKey: "OriginalTitle")
-        self.parentIndexNumber = try values.decodeIfPresent(Int.self, forKey: "ParentIndexNumber")
-        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
-        self.premiereDate = try values.decodeIfPresent(Date.self, forKey: "PremiereDate")
-        self.providerIDs = try values.decodeIfPresent([String: String].self, forKey: "ProviderIds")
-        self.songInfos = try values.decodeIfPresent([SongInfo].self, forKey: "SongInfos")
-        self.year = try values.decodeIfPresent(Int.self, forKey: "Year")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(indexNumber, forKey: "IndexNumber")
-        try values.encodeIfPresent(isAutomated, forKey: "IsAutomated")
-        try values.encodeIfPresent(metadataCountryCode, forKey: "MetadataCountryCode")
-        try values.encodeIfPresent(metadataLanguage, forKey: "MetadataLanguage")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(originalTitle, forKey: "OriginalTitle")
-        try values.encodeIfPresent(parentIndexNumber, forKey: "ParentIndexNumber")
-        try values.encodeIfPresent(path, forKey: "Path")
-        try values.encodeIfPresent(premiereDate, forKey: "PremiereDate")
-        try values.encodeIfPresent(providerIDs, forKey: "ProviderIds")
-        try values.encodeIfPresent(songInfos, forKey: "SongInfos")
-        try values.encodeIfPresent(year, forKey: "Year")
     }
 }

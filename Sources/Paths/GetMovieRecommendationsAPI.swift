@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,15 +17,15 @@ public extension Paths {
     }
 
     struct GetMovieRecommendationsParameters {
-        public var userID: String?
-        public var parentID: String?
+        public var userID: UUID?
+        public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var categoryLimit: Int?
         public var itemLimit: Int?
 
         public init(
-            userID: String? = nil,
-            parentID: String? = nil,
+            userID: UUID? = nil,
+            parentID: UUID? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             categoryLimit: Int? = nil,
             itemLimit: Int? = nil

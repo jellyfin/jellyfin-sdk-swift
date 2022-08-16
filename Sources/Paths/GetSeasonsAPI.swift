@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,7 +17,7 @@ public extension Paths {
     }
 
     struct GetSeasonsParameters {
-        public var userID: String?
+        public var userID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var isSpecialSeason: Bool?
         public var isMissing: Bool?
@@ -28,7 +28,7 @@ public extension Paths {
         public var enableUserData: Bool?
 
         public init(
-            userID: String? = nil,
+            userID: UUID? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             isSpecialSeason: Bool? = nil,
             isMissing: Bool? = nil,

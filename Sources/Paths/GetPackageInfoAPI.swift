@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets a package by name or assembly GUID.
-    public static func getPackageInfo(name: String, assemblyGuid: String? = nil) -> Request<JellyfinAPI.PackageInfo> {
+    public static func getPackageInfo(name: String, assemblyGuid: UUID? = nil) -> Request<JellyfinAPI.PackageInfo> {
         Request(method: "GET", url: "/Packages/\(name)", query: makeGetPackageInfoQuery(assemblyGuid), id: "GetPackageInfo")
     }
 
-    private static func makeGetPackageInfoQuery(_ assemblyGuid: String?) -> [(String, String?)] {
+    private static func makeGetPackageInfoQuery(_ assemblyGuid: UUID?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(assemblyGuid, forKey: "assemblyGuid")
         return encoder.items

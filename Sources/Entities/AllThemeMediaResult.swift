@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -24,19 +24,5 @@ public struct AllThemeMediaResult: Codable {
         self.soundtrackSongsResult = soundtrackSongsResult
         self.themeSongsResult = themeSongsResult
         self.themeVideosResult = themeVideosResult
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.soundtrackSongsResult = try values.decodeIfPresent(ThemeMediaResult.self, forKey: "SoundtrackSongsResult")
-        self.themeSongsResult = try values.decodeIfPresent(ThemeMediaResult.self, forKey: "ThemeSongsResult")
-        self.themeVideosResult = try values.decodeIfPresent(ThemeMediaResult.self, forKey: "ThemeVideosResult")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(soundtrackSongsResult, forKey: "SoundtrackSongsResult")
-        try values.encodeIfPresent(themeSongsResult, forKey: "ThemeSongsResult")
-        try values.encodeIfPresent(themeVideosResult, forKey: "ThemeVideosResult")
     }
 }

@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,7 +17,7 @@ public extension Paths {
     }
 
     struct GetRecommendedProgramsParameters {
-        public var userID: String?
+        public var userID: UUID?
         public var limit: Int?
         public var isAiring: Bool?
         public var hasAired: Bool?
@@ -29,13 +29,13 @@ public extension Paths {
         public var enableImages: Bool?
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
-        public var genreIDs: [String]?
+        public var genreIDs: [UUID]?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableUserData: Bool?
         public var enableTotalRecordCount: Bool?
 
         public init(
-            userID: String? = nil,
+            userID: UUID? = nil,
             limit: Int? = nil,
             isAiring: Bool? = nil,
             hasAired: Bool? = nil,
@@ -47,7 +47,7 @@ public extension Paths {
             enableImages: Bool? = nil,
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            genreIDs: [String]? = nil,
+            genreIDs: [UUID]? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             enableUserData: Bool? = nil,
             enableTotalRecordCount: Bool? = nil

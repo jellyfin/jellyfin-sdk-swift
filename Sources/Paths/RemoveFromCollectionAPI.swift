@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Removes items from a collection.
-    public static func removeFromCollection(collectionID: String, ids: [String]) -> Request<Void> {
+    public static func removeFromCollection(collectionID: String, ids: [UUID]) -> Request<Void> {
         Request(
             method: "DELETE",
             url: "/Collections/\(collectionID)/Items",
@@ -21,7 +21,7 @@ extension Paths {
         )
     }
 
-    private static func makeRemoveFromCollectionQuery(_ ids: [String]) -> [(String, String?)] {
+    private static func makeRemoveFromCollectionQuery(_ ids: [UUID]) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(ids, forKey: "ids")
         return encoder.items

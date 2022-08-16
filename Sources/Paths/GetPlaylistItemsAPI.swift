@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -20,7 +20,7 @@ public extension Paths {
     }
 
     struct GetPlaylistItemsParameters {
-        public var userID: String
+        public var userID: UUID
         public var startIndex: Int?
         public var limit: Int?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -30,7 +30,7 @@ public extension Paths {
         public var enableImageTypes: [JellyfinAPI.ImageType]?
 
         public init(
-            userID: String,
+            userID: UUID,
             startIndex: Int? = nil,
             limit: Int? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,

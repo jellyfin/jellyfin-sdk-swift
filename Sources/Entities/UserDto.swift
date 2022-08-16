@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -71,41 +71,5 @@ public struct UserDto: Codable, Identifiable {
         self.primaryImageTag = primaryImageTag
         self.serverID = serverID
         self.serverName = serverName
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.configuration = try values.decodeIfPresent(UserConfiguration.self, forKey: "Configuration")
-        self.enableAutoLogin = try values.decodeIfPresent(Bool.self, forKey: "EnableAutoLogin")
-        self.hasConfiguredEasyPassword = try values.decodeIfPresent(Bool.self, forKey: "HasConfiguredEasyPassword")
-        self.hasConfiguredPassword = try values.decodeIfPresent(Bool.self, forKey: "HasConfiguredPassword")
-        self.hasPassword = try values.decodeIfPresent(Bool.self, forKey: "HasPassword")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
-        self.lastActivityDate = try values.decodeIfPresent(Date.self, forKey: "LastActivityDate")
-        self.lastLoginDate = try values.decodeIfPresent(Date.self, forKey: "LastLoginDate")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.policy = try values.decodeIfPresent(UserPolicy.self, forKey: "Policy")
-        self.primaryImageAspectRatio = try values.decodeIfPresent(Double.self, forKey: "PrimaryImageAspectRatio")
-        self.primaryImageTag = try values.decodeIfPresent(String.self, forKey: "PrimaryImageTag")
-        self.serverID = try values.decodeIfPresent(String.self, forKey: "ServerId")
-        self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(configuration, forKey: "Configuration")
-        try values.encodeIfPresent(enableAutoLogin, forKey: "EnableAutoLogin")
-        try values.encodeIfPresent(hasConfiguredEasyPassword, forKey: "HasConfiguredEasyPassword")
-        try values.encodeIfPresent(hasConfiguredPassword, forKey: "HasConfiguredPassword")
-        try values.encodeIfPresent(hasPassword, forKey: "HasPassword")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(lastActivityDate, forKey: "LastActivityDate")
-        try values.encodeIfPresent(lastLoginDate, forKey: "LastLoginDate")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(policy, forKey: "Policy")
-        try values.encodeIfPresent(primaryImageAspectRatio, forKey: "PrimaryImageAspectRatio")
-        try values.encodeIfPresent(primaryImageTag, forKey: "PrimaryImageTag")
-        try values.encodeIfPresent(serverID, forKey: "ServerId")
-        try values.encodeIfPresent(serverName, forKey: "ServerName")
     }
 }

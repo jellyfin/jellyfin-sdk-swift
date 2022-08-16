@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -50,33 +50,5 @@ public struct DeviceInfo: Codable, Identifiable {
         self.lastUserID = lastUserID
         self.lastUserName = lastUserName
         self.name = name
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.accessToken = try values.decodeIfPresent(String.self, forKey: "AccessToken")
-        self.appName = try values.decodeIfPresent(String.self, forKey: "AppName")
-        self.appVersion = try values.decodeIfPresent(String.self, forKey: "AppVersion")
-        self.capabilities = try values.decodeIfPresent(ClientCapabilities.self, forKey: "Capabilities")
-        self.dateLastActivity = try values.decodeIfPresent(Date.self, forKey: "DateLastActivity")
-        self.iconURL = try values.decodeIfPresent(String.self, forKey: "IconUrl")
-        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.lastUserID = try values.decodeIfPresent(UUID.self, forKey: "LastUserId")
-        self.lastUserName = try values.decodeIfPresent(String.self, forKey: "LastUserName")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(accessToken, forKey: "AccessToken")
-        try values.encodeIfPresent(appName, forKey: "AppName")
-        try values.encodeIfPresent(appVersion, forKey: "AppVersion")
-        try values.encodeIfPresent(capabilities, forKey: "Capabilities")
-        try values.encodeIfPresent(dateLastActivity, forKey: "DateLastActivity")
-        try values.encodeIfPresent(iconURL, forKey: "IconUrl")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(lastUserID, forKey: "LastUserId")
-        try values.encodeIfPresent(lastUserName, forKey: "LastUserName")
-        try values.encodeIfPresent(name, forKey: "Name")
     }
 }

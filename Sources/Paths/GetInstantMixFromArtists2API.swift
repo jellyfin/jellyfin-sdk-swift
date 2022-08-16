@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -18,8 +18,8 @@ public extension Paths {
     }
 
     struct GetInstantMixFromArtists2Parameters {
-        public var id: String
-        public var userID: String?
+        public var id: UUID
+        public var userID: UUID?
         public var limit: Int?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableImages: Bool?
@@ -28,8 +28,8 @@ public extension Paths {
         public var enableImageTypes: [JellyfinAPI.ImageType]?
 
         public init(
-            id: String,
-            userID: String? = nil,
+            id: UUID,
+            userID: UUID? = nil,
             limit: Int? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             enableImages: Bool? = nil,

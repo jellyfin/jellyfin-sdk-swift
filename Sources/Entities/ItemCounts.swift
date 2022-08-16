@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -61,37 +61,5 @@ public struct ItemCounts: Codable {
         self.seriesCount = seriesCount
         self.songCount = songCount
         self.trailerCount = trailerCount
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.albumCount = try values.decodeIfPresent(Int.self, forKey: "AlbumCount")
-        self.artistCount = try values.decodeIfPresent(Int.self, forKey: "ArtistCount")
-        self.bookCount = try values.decodeIfPresent(Int.self, forKey: "BookCount")
-        self.boxSetCount = try values.decodeIfPresent(Int.self, forKey: "BoxSetCount")
-        self.episodeCount = try values.decodeIfPresent(Int.self, forKey: "EpisodeCount")
-        self.itemCount = try values.decodeIfPresent(Int.self, forKey: "ItemCount")
-        self.movieCount = try values.decodeIfPresent(Int.self, forKey: "MovieCount")
-        self.musicVideoCount = try values.decodeIfPresent(Int.self, forKey: "MusicVideoCount")
-        self.programCount = try values.decodeIfPresent(Int.self, forKey: "ProgramCount")
-        self.seriesCount = try values.decodeIfPresent(Int.self, forKey: "SeriesCount")
-        self.songCount = try values.decodeIfPresent(Int.self, forKey: "SongCount")
-        self.trailerCount = try values.decodeIfPresent(Int.self, forKey: "TrailerCount")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(albumCount, forKey: "AlbumCount")
-        try values.encodeIfPresent(artistCount, forKey: "ArtistCount")
-        try values.encodeIfPresent(bookCount, forKey: "BookCount")
-        try values.encodeIfPresent(boxSetCount, forKey: "BoxSetCount")
-        try values.encodeIfPresent(episodeCount, forKey: "EpisodeCount")
-        try values.encodeIfPresent(itemCount, forKey: "ItemCount")
-        try values.encodeIfPresent(movieCount, forKey: "MovieCount")
-        try values.encodeIfPresent(musicVideoCount, forKey: "MusicVideoCount")
-        try values.encodeIfPresent(programCount, forKey: "ProgramCount")
-        try values.encodeIfPresent(seriesCount, forKey: "SeriesCount")
-        try values.encodeIfPresent(songCount, forKey: "SongCount")
-        try values.encodeIfPresent(trailerCount, forKey: "TrailerCount")
     }
 }

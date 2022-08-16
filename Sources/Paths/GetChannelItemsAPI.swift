@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -20,8 +20,8 @@ public extension Paths {
     }
 
     struct GetChannelItemsParameters {
-        public var folderID: String?
-        public var userID: String?
+        public var folderID: UUID?
+        public var userID: UUID?
         public var startIndex: Int?
         public var limit: Int?
         public var sortOrder: [JellyfinAPI.SortOrder]?
@@ -30,8 +30,8 @@ public extension Paths {
         public var fields: [JellyfinAPI.ItemFields]?
 
         public init(
-            folderID: String? = nil,
-            userID: String? = nil,
+            folderID: UUID? = nil,
+            userID: UUID? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,

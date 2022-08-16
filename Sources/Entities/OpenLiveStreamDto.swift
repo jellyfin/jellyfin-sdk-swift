@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -75,39 +75,5 @@ public struct OpenLiveStreamDto: Codable {
         self.startTimeTicks = startTimeTicks
         self.subtitleStreamIndex = subtitleStreamIndex
         self.userID = userID
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
-        self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
-        self.directPlayProtocols = try values.decodeIfPresent([MediaProtocol].self, forKey: "DirectPlayProtocols")
-        self.enableDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectPlay")
-        self.enableDirectStream = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectStream")
-        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
-        self.maxAudioChannels = try values.decodeIfPresent(Int.self, forKey: "MaxAudioChannels")
-        self.maxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStreamingBitrate")
-        self.openToken = try values.decodeIfPresent(String.self, forKey: "OpenToken")
-        self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
-        self.startTimeTicks = try values.decodeIfPresent(Int.self, forKey: "StartTimeTicks")
-        self.subtitleStreamIndex = try values.decodeIfPresent(Int.self, forKey: "SubtitleStreamIndex")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(audioStreamIndex, forKey: "AudioStreamIndex")
-        try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")
-        try values.encodeIfPresent(directPlayProtocols, forKey: "DirectPlayProtocols")
-        try values.encodeIfPresent(enableDirectPlay, forKey: "EnableDirectPlay")
-        try values.encodeIfPresent(enableDirectStream, forKey: "EnableDirectStream")
-        try values.encodeIfPresent(itemID, forKey: "ItemId")
-        try values.encodeIfPresent(maxAudioChannels, forKey: "MaxAudioChannels")
-        try values.encodeIfPresent(maxStreamingBitrate, forKey: "MaxStreamingBitrate")
-        try values.encodeIfPresent(openToken, forKey: "OpenToken")
-        try values.encodeIfPresent(playSessionID, forKey: "PlaySessionId")
-        try values.encodeIfPresent(startTimeTicks, forKey: "StartTimeTicks")
-        try values.encodeIfPresent(subtitleStreamIndex, forKey: "SubtitleStreamIndex")
-        try values.encodeIfPresent(userID, forKey: "UserId")
     }
 }

@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -44,29 +44,5 @@ public struct LiveTvServiceInfo: Codable {
         self.statusMessage = statusMessage
         self.tuners = tuners
         self.version = version
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.hasUpdateAvailable = try values.decodeIfPresent(Bool.self, forKey: "HasUpdateAvailable")
-        self.homePageURL = try values.decodeIfPresent(String.self, forKey: "HomePageUrl")
-        self.isVisible = try values.decodeIfPresent(Bool.self, forKey: "IsVisible")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.status = try values.decodeIfPresent(LiveTvServiceStatus.self, forKey: "Status")
-        self.statusMessage = try values.decodeIfPresent(String.self, forKey: "StatusMessage")
-        self.tuners = try values.decodeIfPresent([String].self, forKey: "Tuners")
-        self.version = try values.decodeIfPresent(String.self, forKey: "Version")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(hasUpdateAvailable, forKey: "HasUpdateAvailable")
-        try values.encodeIfPresent(homePageURL, forKey: "HomePageUrl")
-        try values.encodeIfPresent(isVisible, forKey: "IsVisible")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(status, forKey: "Status")
-        try values.encodeIfPresent(statusMessage, forKey: "StatusMessage")
-        try values.encodeIfPresent(tuners, forKey: "Tuners")
-        try values.encodeIfPresent(version, forKey: "Version")
     }
 }

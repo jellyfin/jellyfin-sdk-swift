@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,7 +17,7 @@ public extension Paths {
     }
 
     struct GetTrailersParameters {
-        public var userID: String?
+        public var userID: UUID?
         public var maxOfficialRating: String?
         public var hasThemeSong: Bool?
         public var hasThemeVideo: Bool?
@@ -48,13 +48,13 @@ public extension Paths {
         public var isNews: Bool?
         public var isKids: Bool?
         public var isSports: Bool?
-        public var excludeItemIDs: [String]?
+        public var excludeItemIDs: [UUID]?
         public var startIndex: Int?
         public var limit: Int?
         public var isRecursive: Bool?
         public var searchTerm: String?
         public var sortOrder: [JellyfinAPI.SortOrder]?
-        public var parentID: String?
+        public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var filters: [JellyfinAPI.ItemFilter]?
@@ -71,17 +71,17 @@ public extension Paths {
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var person: String?
-        public var personIDs: [String]?
+        public var personIDs: [UUID]?
         public var personTypes: [String]?
         public var studios: [String]?
         public var artists: [String]?
-        public var excludeArtistIDs: [String]?
-        public var artistIDs: [String]?
-        public var albumArtistIDs: [String]?
-        public var contributingArtistIDs: [String]?
+        public var excludeArtistIDs: [UUID]?
+        public var artistIDs: [UUID]?
+        public var albumArtistIDs: [UUID]?
+        public var contributingArtistIDs: [UUID]?
         public var albums: [String]?
-        public var albumIDs: [String]?
-        public var ids: [String]?
+        public var albumIDs: [UUID]?
+        public var ids: [UUID]?
         public var videoTypes: [JellyfinAPI.VideoType]?
         public var minOfficialRating: String?
         public var isLocked: Bool?
@@ -97,13 +97,13 @@ public extension Paths {
         public var nameStartsWithOrGreater: String?
         public var nameStartsWith: String?
         public var nameLessThan: String?
-        public var studioIDs: [String]?
-        public var genreIDs: [String]?
+        public var studioIDs: [UUID]?
+        public var genreIDs: [UUID]?
         public var enableTotalRecordCount: Bool?
         public var enableImages: Bool?
 
         public init(
-            userID: String? = nil,
+            userID: UUID? = nil,
             maxOfficialRating: String? = nil,
             hasThemeSong: Bool? = nil,
             hasThemeVideo: Bool? = nil,
@@ -134,13 +134,13 @@ public extension Paths {
             isNews: Bool? = nil,
             isKids: Bool? = nil,
             isSports: Bool? = nil,
-            excludeItemIDs: [String]? = nil,
+            excludeItemIDs: [UUID]? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
             isRecursive: Bool? = nil,
             searchTerm: String? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
-            parentID: String? = nil,
+            parentID: UUID? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             filters: [JellyfinAPI.ItemFilter]? = nil,
@@ -157,17 +157,17 @@ public extension Paths {
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             person: String? = nil,
-            personIDs: [String]? = nil,
+            personIDs: [UUID]? = nil,
             personTypes: [String]? = nil,
             studios: [String]? = nil,
             artists: [String]? = nil,
-            excludeArtistIDs: [String]? = nil,
-            artistIDs: [String]? = nil,
-            albumArtistIDs: [String]? = nil,
-            contributingArtistIDs: [String]? = nil,
+            excludeArtistIDs: [UUID]? = nil,
+            artistIDs: [UUID]? = nil,
+            albumArtistIDs: [UUID]? = nil,
+            contributingArtistIDs: [UUID]? = nil,
             albums: [String]? = nil,
-            albumIDs: [String]? = nil,
-            ids: [String]? = nil,
+            albumIDs: [UUID]? = nil,
+            ids: [UUID]? = nil,
             videoTypes: [JellyfinAPI.VideoType]? = nil,
             minOfficialRating: String? = nil,
             isLocked: Bool? = nil,
@@ -183,8 +183,8 @@ public extension Paths {
             nameStartsWithOrGreater: String? = nil,
             nameStartsWith: String? = nil,
             nameLessThan: String? = nil,
-            studioIDs: [String]? = nil,
-            genreIDs: [String]? = nil,
+            studioIDs: [UUID]? = nil,
+            genreIDs: [UUID]? = nil,
             enableTotalRecordCount: Bool? = nil,
             enableImages: Bool? = nil
         ) {

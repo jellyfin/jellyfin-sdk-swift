@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -21,7 +21,7 @@ public extension Paths {
         public var startIndex: Int?
         public var limit: Int?
         public var searchTerm: String?
-        public var parentID: String?
+        public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -29,7 +29,7 @@ public extension Paths {
         public var isFavorite: Bool?
         public var mediaTypes: [String]?
         public var genres: [String]?
-        public var genreIDs: [String]?
+        public var genreIDs: [UUID]?
         public var officialRatings: [String]?
         public var tags: [String]?
         public var years: [Int]?
@@ -37,11 +37,11 @@ public extension Paths {
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var person: String?
-        public var personIDs: [String]?
+        public var personIDs: [UUID]?
         public var personTypes: [String]?
         public var studios: [String]?
-        public var studioIDs: [String]?
-        public var userID: String?
+        public var studioIDs: [UUID]?
+        public var userID: UUID?
         public var nameStartsWithOrGreater: String?
         public var nameStartsWith: String?
         public var nameLessThan: String?
@@ -55,7 +55,7 @@ public extension Paths {
             startIndex: Int? = nil,
             limit: Int? = nil,
             searchTerm: String? = nil,
-            parentID: String? = nil,
+            parentID: UUID? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
@@ -63,7 +63,7 @@ public extension Paths {
             isFavorite: Bool? = nil,
             mediaTypes: [String]? = nil,
             genres: [String]? = nil,
-            genreIDs: [String]? = nil,
+            genreIDs: [UUID]? = nil,
             officialRatings: [String]? = nil,
             tags: [String]? = nil,
             years: [Int]? = nil,
@@ -71,11 +71,11 @@ public extension Paths {
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             person: String? = nil,
-            personIDs: [String]? = nil,
+            personIDs: [UUID]? = nil,
             personTypes: [String]? = nil,
             studios: [String]? = nil,
-            studioIDs: [String]? = nil,
-            userID: String? = nil,
+            studioIDs: [UUID]? = nil,
+            userID: UUID? = nil,
             nameStartsWithOrGreater: String? = nil,
             nameStartsWith: String? = nil,
             nameLessThan: String? = nil,

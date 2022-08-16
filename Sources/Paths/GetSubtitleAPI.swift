@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -28,7 +28,7 @@ public extension Paths {
     }
 
     struct GetSubtitleParameters {
-        public var itemID: String?
+        public var itemID: UUID?
         public var mediaSourceID: String?
         public var index: Int?
         public var format: String?
@@ -38,7 +38,7 @@ public extension Paths {
         public var startPositionTicks: Int?
 
         public init(
-            itemID: String? = nil,
+            itemID: UUID? = nil,
             mediaSourceID: String? = nil,
             index: Int? = nil,
             format: String? = nil,

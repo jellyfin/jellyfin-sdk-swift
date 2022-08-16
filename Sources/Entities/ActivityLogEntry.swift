@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -55,33 +55,5 @@ public struct ActivityLogEntry: Codable, Identifiable {
         self.type = type
         self.userID = userID
         self.userPrimaryImageTag = userPrimaryImageTag
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.date = try values.decodeIfPresent(Date.self, forKey: "Date")
-        self.id = try values.decodeIfPresent(Int.self, forKey: "Id")
-        self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.overview = try values.decodeIfPresent(String.self, forKey: "Overview")
-        self.severity = try values.decodeIfPresent(LogLevel.self, forKey: "Severity")
-        self.shortOverview = try values.decodeIfPresent(String.self, forKey: "ShortOverview")
-        self.type = try values.decodeIfPresent(String.self, forKey: "Type")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
-        self.userPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "UserPrimaryImageTag")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(date, forKey: "Date")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(itemID, forKey: "ItemId")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(overview, forKey: "Overview")
-        try values.encodeIfPresent(severity, forKey: "Severity")
-        try values.encodeIfPresent(shortOverview, forKey: "ShortOverview")
-        try values.encodeIfPresent(type, forKey: "Type")
-        try values.encodeIfPresent(userID, forKey: "UserId")
-        try values.encodeIfPresent(userPrimaryImageTag, forKey: "UserPrimaryImageTag")
     }
 }

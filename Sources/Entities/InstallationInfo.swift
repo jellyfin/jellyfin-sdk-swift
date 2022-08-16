@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -41,27 +41,5 @@ public struct InstallationInfo: Codable {
         self.packageInfo = packageInfo
         self.sourceURL = sourceURL
         self.version = version
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.changelog = try values.decodeIfPresent(String.self, forKey: "Changelog")
-        self.checksum = try values.decodeIfPresent(String.self, forKey: "Checksum")
-        self.guid = try values.decodeIfPresent(UUID.self, forKey: "Guid")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.packageInfo = try values.decodeIfPresent(PackageInfo.self, forKey: "PackageInfo")
-        self.sourceURL = try values.decodeIfPresent(String.self, forKey: "SourceUrl")
-        self.version = try values.decodeIfPresent(String.self, forKey: "Version")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(changelog, forKey: "Changelog")
-        try values.encodeIfPresent(checksum, forKey: "Checksum")
-        try values.encodeIfPresent(guid, forKey: "Guid")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(packageInfo, forKey: "PackageInfo")
-        try values.encodeIfPresent(sourceURL, forKey: "SourceUrl")
-        try values.encodeIfPresent(version, forKey: "Version")
     }
 }

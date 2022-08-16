@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Adds items to a collection.
-    public static func addToCollection(collectionID: String, ids: [String]) -> Request<Void> {
+    public static func addToCollection(collectionID: String, ids: [UUID]) -> Request<Void> {
         Request(method: "POST", url: "/Collections/\(collectionID)/Items", query: makeAddToCollectionQuery(ids), id: "AddToCollection")
     }
 
-    private static func makeAddToCollectionQuery(_ ids: [String]) -> [(String, String?)] {
+    private static func makeAddToCollectionQuery(_ ids: [UUID]) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(ids, forKey: "ids")
         return encoder.items

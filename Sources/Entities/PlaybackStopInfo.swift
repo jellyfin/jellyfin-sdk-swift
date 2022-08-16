@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -54,35 +54,5 @@ public struct PlaybackStopInfo: Codable {
         self.playlistItemID = playlistItemID
         self.positionTicks = positionTicks
         self.sessionID = sessionID
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isFailed = try values.decodeIfPresent(Bool.self, forKey: "Failed")
-        self.item = try values.decodeIfPresent(BaseItemDto.self, forKey: "Item")
-        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
-        self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
-        self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
-        self.nextMediaType = try values.decodeIfPresent(String.self, forKey: "NextMediaType")
-        self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
-        self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
-        self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
-        self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
-        self.sessionID = try values.decodeIfPresent(String.self, forKey: "SessionId")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isFailed, forKey: "Failed")
-        try values.encodeIfPresent(item, forKey: "Item")
-        try values.encodeIfPresent(itemID, forKey: "ItemId")
-        try values.encodeIfPresent(liveStreamID, forKey: "LiveStreamId")
-        try values.encodeIfPresent(mediaSourceID, forKey: "MediaSourceId")
-        try values.encodeIfPresent(nextMediaType, forKey: "NextMediaType")
-        try values.encodeIfPresent(nowPlayingQueue, forKey: "NowPlayingQueue")
-        try values.encodeIfPresent(playSessionID, forKey: "PlaySessionId")
-        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
-        try values.encodeIfPresent(positionTicks, forKey: "PositionTicks")
-        try values.encodeIfPresent(sessionID, forKey: "SessionId")
     }
 }

@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -20,7 +20,7 @@ public extension Paths {
         public var container: [String]?
         public var mediaSourceID: String?
         public var deviceID: String?
-        public var userID: String?
+        public var userID: UUID?
         public var audioCodec: String?
         public var maxAudioChannels: Int?
         public var transcodingAudioChannels: Int?
@@ -39,7 +39,7 @@ public extension Paths {
             container: [String]? = nil,
             mediaSourceID: String? = nil,
             deviceID: String? = nil,
-            userID: String? = nil,
+            userID: UUID? = nil,
             audioCodec: String? = nil,
             maxAudioChannels: Int? = nil,
             transcodingAudioChannels: Int? = nil,

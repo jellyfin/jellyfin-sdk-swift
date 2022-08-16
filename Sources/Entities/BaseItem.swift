@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -47,35 +47,5 @@ public struct BaseItem: Codable {
         self.size = size
         self.isSupportsExternalTransfer = isSupportsExternalTransfer
         self.width = width
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.container = try values.decodeIfPresent(String.self, forKey: "Container")
-        self.dateLastSaved = try values.decodeIfPresent(Date.self, forKey: "DateLastSaved")
-        self.extraIDs = try values.decodeIfPresent([UUID].self, forKey: "ExtraIds")
-        self.height = try values.decodeIfPresent(Int.self, forKey: "Height")
-        self.isHD = try values.decodeIfPresent(Bool.self, forKey: "IsHD")
-        self.isShortcut = try values.decodeIfPresent(Bool.self, forKey: "IsShortcut")
-        self.remoteTrailers = try values.decodeIfPresent([MediaURL].self, forKey: "RemoteTrailers")
-        self.shortcutPath = try values.decodeIfPresent(String.self, forKey: "ShortcutPath")
-        self.size = try values.decodeIfPresent(Int.self, forKey: "Size")
-        self.isSupportsExternalTransfer = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalTransfer")
-        self.width = try values.decodeIfPresent(Int.self, forKey: "Width")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(container, forKey: "Container")
-        try values.encodeIfPresent(dateLastSaved, forKey: "DateLastSaved")
-        try values.encodeIfPresent(extraIDs, forKey: "ExtraIds")
-        try values.encodeIfPresent(height, forKey: "Height")
-        try values.encodeIfPresent(isHD, forKey: "IsHD")
-        try values.encodeIfPresent(isShortcut, forKey: "IsShortcut")
-        try values.encodeIfPresent(remoteTrailers, forKey: "RemoteTrailers")
-        try values.encodeIfPresent(shortcutPath, forKey: "ShortcutPath")
-        try values.encodeIfPresent(size, forKey: "Size")
-        try values.encodeIfPresent(isSupportsExternalTransfer, forKey: "SupportsExternalTransfer")
-        try values.encodeIfPresent(width, forKey: "Width")
     }
 }

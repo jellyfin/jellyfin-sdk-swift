@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,12 +17,12 @@ public extension Paths {
     }
 
     struct GetNextUpParameters {
-        public var userID: String?
+        public var userID: UUID?
         public var startIndex: Int?
         public var limit: Int?
         public var fields: [JellyfinAPI.ItemFields]?
         public var seriesID: String?
-        public var parentID: String?
+        public var parentID: UUID?
         public var enableImages: Bool?
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
@@ -33,12 +33,12 @@ public extension Paths {
         public var enableRewatching: Bool?
 
         public init(
-            userID: String? = nil,
+            userID: UUID? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             seriesID: String? = nil,
-            parentID: String? = nil,
+            parentID: UUID? = nil,
             enableImages: Bool? = nil,
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,

@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -10,9 +10,15 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets live playback media info for an item.
-    static func getPlaybackInfo(itemID: String, userID: String) -> Request<JellyfinAPI.PlaybackInfoResponse> {
-        Request(method: "GET", url: "/Items/\(itemID)/PlaybackInfo", query: [("userId", userID)], id: "GetPlaybackInfo")
+    public static func getPlaybackInfo(itemID: String, userID: UUID) -> Request<JellyfinAPI.PlaybackInfoResponse> {
+        Request(method: "GET", url: "/Items/\(itemID)/PlaybackInfo", query: makeGetPlaybackInfoQuery(userID), id: "GetPlaybackInfo")
+    }
+
+    private static func makeGetPlaybackInfoQuery(_ userID: UUID) -> [(String, String?)] {
+        let encoder = URLQueryEncoder()
+        encoder.encode(userID, forKey: "userId")
+        return encoder.items
     }
 }

@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -123,71 +123,5 @@ public struct SearchHint: Codable, Identifiable {
         self.thumbImageItemID = thumbImageItemID
         self.thumbImageTag = thumbImageTag
         self.type = type
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.album = try values.decodeIfPresent(String.self, forKey: "Album")
-        self.albumArtist = try values.decodeIfPresent(String.self, forKey: "AlbumArtist")
-        self.albumID = try values.decodeIfPresent(UUID.self, forKey: "AlbumId")
-        self.artists = try values.decodeIfPresent([String].self, forKey: "Artists")
-        self.backdropImageItemID = try values.decodeIfPresent(String.self, forKey: "BackdropImageItemId")
-        self.backdropImageTag = try values.decodeIfPresent(String.self, forKey: "BackdropImageTag")
-        self.channelID = try values.decodeIfPresent(UUID.self, forKey: "ChannelId")
-        self.channelName = try values.decodeIfPresent(String.self, forKey: "ChannelName")
-        self.endDate = try values.decodeIfPresent(Date.self, forKey: "EndDate")
-        self.episodeCount = try values.decodeIfPresent(Int.self, forKey: "EpisodeCount")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
-        self.indexNumber = try values.decodeIfPresent(Int.self, forKey: "IndexNumber")
-        self.isFolder = try values.decodeIfPresent(Bool.self, forKey: "IsFolder")
-        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
-        self.matchedTerm = try values.decodeIfPresent(String.self, forKey: "MatchedTerm")
-        self.mediaType = try values.decodeIfPresent(String.self, forKey: "MediaType")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.parentIndexNumber = try values.decodeIfPresent(Int.self, forKey: "ParentIndexNumber")
-        self.primaryImageAspectRatio = try values.decodeIfPresent(Double.self, forKey: "PrimaryImageAspectRatio")
-        self.primaryImageTag = try values.decodeIfPresent(String.self, forKey: "PrimaryImageTag")
-        self.productionYear = try values.decodeIfPresent(Int.self, forKey: "ProductionYear")
-        self.runTimeTicks = try values.decodeIfPresent(Int.self, forKey: "RunTimeTicks")
-        self.series = try values.decodeIfPresent(String.self, forKey: "Series")
-        self.songCount = try values.decodeIfPresent(Int.self, forKey: "SongCount")
-        self.startDate = try values.decodeIfPresent(Date.self, forKey: "StartDate")
-        self.status = try values.decodeIfPresent(String.self, forKey: "Status")
-        self.thumbImageItemID = try values.decodeIfPresent(String.self, forKey: "ThumbImageItemId")
-        self.thumbImageTag = try values.decodeIfPresent(String.self, forKey: "ThumbImageTag")
-        self.type = try values.decodeIfPresent(String.self, forKey: "Type")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(album, forKey: "Album")
-        try values.encodeIfPresent(albumArtist, forKey: "AlbumArtist")
-        try values.encodeIfPresent(albumID, forKey: "AlbumId")
-        try values.encodeIfPresent(artists, forKey: "Artists")
-        try values.encodeIfPresent(backdropImageItemID, forKey: "BackdropImageItemId")
-        try values.encodeIfPresent(backdropImageTag, forKey: "BackdropImageTag")
-        try values.encodeIfPresent(channelID, forKey: "ChannelId")
-        try values.encodeIfPresent(channelName, forKey: "ChannelName")
-        try values.encodeIfPresent(endDate, forKey: "EndDate")
-        try values.encodeIfPresent(episodeCount, forKey: "EpisodeCount")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(indexNumber, forKey: "IndexNumber")
-        try values.encodeIfPresent(isFolder, forKey: "IsFolder")
-        try values.encodeIfPresent(itemID, forKey: "ItemId")
-        try values.encodeIfPresent(matchedTerm, forKey: "MatchedTerm")
-        try values.encodeIfPresent(mediaType, forKey: "MediaType")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(parentIndexNumber, forKey: "ParentIndexNumber")
-        try values.encodeIfPresent(primaryImageAspectRatio, forKey: "PrimaryImageAspectRatio")
-        try values.encodeIfPresent(primaryImageTag, forKey: "PrimaryImageTag")
-        try values.encodeIfPresent(productionYear, forKey: "ProductionYear")
-        try values.encodeIfPresent(runTimeTicks, forKey: "RunTimeTicks")
-        try values.encodeIfPresent(series, forKey: "Series")
-        try values.encodeIfPresent(songCount, forKey: "SongCount")
-        try values.encodeIfPresent(startDate, forKey: "StartDate")
-        try values.encodeIfPresent(status, forKey: "Status")
-        try values.encodeIfPresent(thumbImageItemID, forKey: "ThumbImageItemId")
-        try values.encodeIfPresent(thumbImageTag, forKey: "ThumbImageTag")
-        try values.encodeIfPresent(type, forKey: "Type")
     }
 }

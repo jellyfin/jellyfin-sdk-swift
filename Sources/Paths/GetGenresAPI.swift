@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -20,14 +20,14 @@ public extension Paths {
         public var startIndex: Int?
         public var limit: Int?
         public var searchTerm: String?
-        public var parentID: String?
+        public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isFavorite: Bool?
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
-        public var userID: String?
+        public var userID: UUID?
         public var nameStartsWithOrGreater: String?
         public var nameStartsWith: String?
         public var nameLessThan: String?
@@ -40,14 +40,14 @@ public extension Paths {
             startIndex: Int? = nil,
             limit: Int? = nil,
             searchTerm: String? = nil,
-            parentID: String? = nil,
+            parentID: UUID? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             isFavorite: Bool? = nil,
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            userID: String? = nil,
+            userID: UUID? = nil,
             nameStartsWithOrGreater: String? = nil,
             nameStartsWith: String? = nil,
             nameLessThan: String? = nil,

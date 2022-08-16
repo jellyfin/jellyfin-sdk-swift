@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -179,91 +179,5 @@ public struct DeviceProfile: Codable, Identifiable {
         self.transcodingProfiles = transcodingProfiles
         self.userID = userID
         self.xmlRootAttributes = xmlRootAttributes
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.albumArtPn = try values.decodeIfPresent(String.self, forKey: "AlbumArtPn")
-        self.codecProfiles = try values.decodeIfPresent([CodecProfile].self, forKey: "CodecProfiles")
-        self.containerProfiles = try values.decodeIfPresent([ContainerProfile].self, forKey: "ContainerProfiles")
-        self.directPlayProfiles = try values.decodeIfPresent([DirectPlayProfile].self, forKey: "DirectPlayProfiles")
-        self.enableAlbumArtInDidl = try values.decodeIfPresent(Bool.self, forKey: "EnableAlbumArtInDidl") ?? false
-        self.enableMSMediaReceiverRegistrar = try values.decodeIfPresent(Bool.self, forKey: "EnableMSMediaReceiverRegistrar") ?? false
-        self.enableSingleAlbumArtLimit = try values.decodeIfPresent(Bool.self, forKey: "EnableSingleAlbumArtLimit") ?? false
-        self.enableSingleSubtitleLimit = try values.decodeIfPresent(Bool.self, forKey: "EnableSingleSubtitleLimit") ?? false
-        self.friendlyName = try values.decodeIfPresent(String.self, forKey: "FriendlyName")
-        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.identification = try values.decodeIfPresent(DeviceIdentification.self, forKey: "Identification")
-        self.isIgnoreTranscodeByteRangeRequests = try values.decodeIfPresent(Bool.self, forKey: "IgnoreTranscodeByteRangeRequests") ?? false
-        self.manufacturer = try values.decodeIfPresent(String.self, forKey: "Manufacturer")
-        self.manufacturerURL = try values.decodeIfPresent(String.self, forKey: "ManufacturerUrl")
-        self.maxAlbumArtHeight = try values.decodeIfPresent(Int.self, forKey: "MaxAlbumArtHeight")
-        self.maxAlbumArtWidth = try values.decodeIfPresent(Int.self, forKey: "MaxAlbumArtWidth")
-        self.maxIconHeight = try values.decodeIfPresent(Int.self, forKey: "MaxIconHeight")
-        self.maxIconWidth = try values.decodeIfPresent(Int.self, forKey: "MaxIconWidth")
-        self.maxStaticBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStaticBitrate")
-        self.maxStaticMusicBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStaticMusicBitrate")
-        self.maxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStreamingBitrate")
-        self.modelDescription = try values.decodeIfPresent(String.self, forKey: "ModelDescription")
-        self.modelName = try values.decodeIfPresent(String.self, forKey: "ModelName")
-        self.modelNumber = try values.decodeIfPresent(String.self, forKey: "ModelNumber")
-        self.modelURL = try values.decodeIfPresent(String.self, forKey: "ModelUrl")
-        self.musicStreamingTranscodingBitrate = try values.decodeIfPresent(Int.self, forKey: "MusicStreamingTranscodingBitrate")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.protocolInfo = try values.decodeIfPresent(String.self, forKey: "ProtocolInfo")
-        self.requiresPlainFolders = try values.decodeIfPresent(Bool.self, forKey: "RequiresPlainFolders") ?? false
-        self.requiresPlainVideoItems = try values.decodeIfPresent(Bool.self, forKey: "RequiresPlainVideoItems") ?? false
-        self.responseProfiles = try values.decodeIfPresent([ResponseProfile].self, forKey: "ResponseProfiles")
-        self.serialNumber = try values.decodeIfPresent(String.self, forKey: "SerialNumber")
-        self.sonyAggregationFlags = try values.decodeIfPresent(String.self, forKey: "SonyAggregationFlags")
-        self.subtitleProfiles = try values.decodeIfPresent([SubtitleProfile].self, forKey: "SubtitleProfiles")
-        self.supportedMediaTypes = try values.decodeIfPresent(String.self, forKey: "SupportedMediaTypes")
-        self.timelineOffsetSeconds = try values.decodeIfPresent(Int.self, forKey: "TimelineOffsetSeconds")
-        self.transcodingProfiles = try values.decodeIfPresent([TranscodingProfile].self, forKey: "TranscodingProfiles")
-        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
-        self.xmlRootAttributes = try values.decodeIfPresent([XmlAttribute].self, forKey: "XmlRootAttributes")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(albumArtPn, forKey: "AlbumArtPn")
-        try values.encodeIfPresent(codecProfiles, forKey: "CodecProfiles")
-        try values.encodeIfPresent(containerProfiles, forKey: "ContainerProfiles")
-        try values.encodeIfPresent(directPlayProfiles, forKey: "DirectPlayProfiles")
-        try values.encodeIfPresent(enableAlbumArtInDidl, forKey: "EnableAlbumArtInDidl")
-        try values.encodeIfPresent(enableMSMediaReceiverRegistrar, forKey: "EnableMSMediaReceiverRegistrar")
-        try values.encodeIfPresent(enableSingleAlbumArtLimit, forKey: "EnableSingleAlbumArtLimit")
-        try values.encodeIfPresent(enableSingleSubtitleLimit, forKey: "EnableSingleSubtitleLimit")
-        try values.encodeIfPresent(friendlyName, forKey: "FriendlyName")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(identification, forKey: "Identification")
-        try values.encodeIfPresent(isIgnoreTranscodeByteRangeRequests, forKey: "IgnoreTranscodeByteRangeRequests")
-        try values.encodeIfPresent(manufacturer, forKey: "Manufacturer")
-        try values.encodeIfPresent(manufacturerURL, forKey: "ManufacturerUrl")
-        try values.encodeIfPresent(maxAlbumArtHeight, forKey: "MaxAlbumArtHeight")
-        try values.encodeIfPresent(maxAlbumArtWidth, forKey: "MaxAlbumArtWidth")
-        try values.encodeIfPresent(maxIconHeight, forKey: "MaxIconHeight")
-        try values.encodeIfPresent(maxIconWidth, forKey: "MaxIconWidth")
-        try values.encodeIfPresent(maxStaticBitrate, forKey: "MaxStaticBitrate")
-        try values.encodeIfPresent(maxStaticMusicBitrate, forKey: "MaxStaticMusicBitrate")
-        try values.encodeIfPresent(maxStreamingBitrate, forKey: "MaxStreamingBitrate")
-        try values.encodeIfPresent(modelDescription, forKey: "ModelDescription")
-        try values.encodeIfPresent(modelName, forKey: "ModelName")
-        try values.encodeIfPresent(modelNumber, forKey: "ModelNumber")
-        try values.encodeIfPresent(modelURL, forKey: "ModelUrl")
-        try values.encodeIfPresent(musicStreamingTranscodingBitrate, forKey: "MusicStreamingTranscodingBitrate")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(protocolInfo, forKey: "ProtocolInfo")
-        try values.encodeIfPresent(requiresPlainFolders, forKey: "RequiresPlainFolders")
-        try values.encodeIfPresent(requiresPlainVideoItems, forKey: "RequiresPlainVideoItems")
-        try values.encodeIfPresent(responseProfiles, forKey: "ResponseProfiles")
-        try values.encodeIfPresent(serialNumber, forKey: "SerialNumber")
-        try values.encodeIfPresent(sonyAggregationFlags, forKey: "SonyAggregationFlags")
-        try values.encodeIfPresent(subtitleProfiles, forKey: "SubtitleProfiles")
-        try values.encodeIfPresent(supportedMediaTypes, forKey: "SupportedMediaTypes")
-        try values.encodeIfPresent(timelineOffsetSeconds, forKey: "TimelineOffsetSeconds")
-        try values.encodeIfPresent(transcodingProfiles, forKey: "TranscodingProfiles")
-        try values.encodeIfPresent(userID, forKey: "UserId")
-        try values.encodeIfPresent(xmlRootAttributes, forKey: "XmlRootAttributes")
     }
 }

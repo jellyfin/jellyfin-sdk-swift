@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -118,65 +118,5 @@ public struct SystemInfo: Codable, Identifiable {
         self.version = version
         self.webPath = webPath
         self.webSocketPortNumber = webSocketPortNumber
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.cachePath = try values.decodeIfPresent(String.self, forKey: "CachePath")
-        self.canLaunchWebBrowser = try values.decodeIfPresent(Bool.self, forKey: "CanLaunchWebBrowser")
-        self.canSelfRestart = try values.decodeIfPresent(Bool.self, forKey: "CanSelfRestart")
-        self.completedInstallations = try values.decodeIfPresent([InstallationInfo].self, forKey: "CompletedInstallations")
-        self.encoderLocation = try values.decodeIfPresent(FFmpegLocation.self, forKey: "EncoderLocation")
-        self.hasPendingRestart = try values.decodeIfPresent(Bool.self, forKey: "HasPendingRestart")
-        self.hasUpdateAvailable = try values.decodeIfPresent(Bool.self, forKey: "HasUpdateAvailable")
-        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.internalMetadataPath = try values.decodeIfPresent(String.self, forKey: "InternalMetadataPath")
-        self.isShuttingDown = try values.decodeIfPresent(Bool.self, forKey: "IsShuttingDown")
-        self.itemsByNamePath = try values.decodeIfPresent(String.self, forKey: "ItemsByNamePath")
-        self.localAddress = try values.decodeIfPresent(String.self, forKey: "LocalAddress")
-        self.logPath = try values.decodeIfPresent(String.self, forKey: "LogPath")
-        self.operatingSystem = try values.decodeIfPresent(String.self, forKey: "OperatingSystem")
-        self.operatingSystemDisplayName = try values.decodeIfPresent(String.self, forKey: "OperatingSystemDisplayName")
-        self.packageName = try values.decodeIfPresent(String.self, forKey: "PackageName")
-        self.productName = try values.decodeIfPresent(String.self, forKey: "ProductName")
-        self.programDataPath = try values.decodeIfPresent(String.self, forKey: "ProgramDataPath")
-        self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
-        self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
-        self.isSupportsLibraryMonitor = try values.decodeIfPresent(Bool.self, forKey: "SupportsLibraryMonitor")
-        self.systemArchitecture = try values.decodeIfPresent(Architecture.self, forKey: "SystemArchitecture")
-        self.transcodingTempPath = try values.decodeIfPresent(String.self, forKey: "TranscodingTempPath")
-        self.version = try values.decodeIfPresent(String.self, forKey: "Version")
-        self.webPath = try values.decodeIfPresent(String.self, forKey: "WebPath")
-        self.webSocketPortNumber = try values.decodeIfPresent(Int.self, forKey: "WebSocketPortNumber")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(cachePath, forKey: "CachePath")
-        try values.encodeIfPresent(canLaunchWebBrowser, forKey: "CanLaunchWebBrowser")
-        try values.encodeIfPresent(canSelfRestart, forKey: "CanSelfRestart")
-        try values.encodeIfPresent(completedInstallations, forKey: "CompletedInstallations")
-        try values.encodeIfPresent(encoderLocation, forKey: "EncoderLocation")
-        try values.encodeIfPresent(hasPendingRestart, forKey: "HasPendingRestart")
-        try values.encodeIfPresent(hasUpdateAvailable, forKey: "HasUpdateAvailable")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(internalMetadataPath, forKey: "InternalMetadataPath")
-        try values.encodeIfPresent(isShuttingDown, forKey: "IsShuttingDown")
-        try values.encodeIfPresent(itemsByNamePath, forKey: "ItemsByNamePath")
-        try values.encodeIfPresent(localAddress, forKey: "LocalAddress")
-        try values.encodeIfPresent(logPath, forKey: "LogPath")
-        try values.encodeIfPresent(operatingSystem, forKey: "OperatingSystem")
-        try values.encodeIfPresent(operatingSystemDisplayName, forKey: "OperatingSystemDisplayName")
-        try values.encodeIfPresent(packageName, forKey: "PackageName")
-        try values.encodeIfPresent(productName, forKey: "ProductName")
-        try values.encodeIfPresent(programDataPath, forKey: "ProgramDataPath")
-        try values.encodeIfPresent(serverName, forKey: "ServerName")
-        try values.encodeIfPresent(isStartupWizardCompleted, forKey: "StartupWizardCompleted")
-        try values.encodeIfPresent(isSupportsLibraryMonitor, forKey: "SupportsLibraryMonitor")
-        try values.encodeIfPresent(systemArchitecture, forKey: "SystemArchitecture")
-        try values.encodeIfPresent(transcodingTempPath, forKey: "TranscodingTempPath")
-        try values.encodeIfPresent(version, forKey: "Version")
-        try values.encodeIfPresent(webPath, forKey: "WebPath")
-        try values.encodeIfPresent(webSocketPortNumber, forKey: "WebSocketPortNumber")
     }
 }

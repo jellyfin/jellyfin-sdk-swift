@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -159,81 +159,5 @@ public struct NetworkConfiguration: Codable {
         self.uDPSendDelay = uDPSendDelay
         self.isUPnPCreateHTTPPortMap = isUPnPCreateHTTPPortMap
         self.virtualInterfaceNames = virtualInterfaceNames
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isAutoDiscovery = try values.decodeIfPresent(Bool.self, forKey: "AutoDiscovery")
-        self.isAutoDiscoveryTracing = try values.decodeIfPresent(Bool.self, forKey: "AutoDiscoveryTracing")
-        self.baseURL = try values.decodeIfPresent(String.self, forKey: "BaseUrl")
-        self.certificatePassword = try values.decodeIfPresent(String.self, forKey: "CertificatePassword")
-        self.certificatePath = try values.decodeIfPresent(String.self, forKey: "CertificatePath")
-        self.enableHTTPS = try values.decodeIfPresent(Bool.self, forKey: "EnableHttps")
-        self.enableIPV4 = try values.decodeIfPresent(Bool.self, forKey: "EnableIPV4")
-        self.enableIPV6 = try values.decodeIfPresent(Bool.self, forKey: "EnableIPV6")
-        self.enableMultiSocketBinding = try values.decodeIfPresent(Bool.self, forKey: "EnableMultiSocketBinding")
-        self.enablePublishedServerUriByRequest = try values.decodeIfPresent(Bool.self, forKey: "EnablePublishedServerUriByRequest")
-        self.enableRemoteAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableRemoteAccess")
-        self.enableSSDPTracing = try values.decodeIfPresent(Bool.self, forKey: "EnableSSDPTracing")
-        self.enableUPnP = try values.decodeIfPresent(Bool.self, forKey: "EnableUPnP")
-        self.gatewayMonitorPeriod = try values.decodeIfPresent(Int.self, forKey: "GatewayMonitorPeriod")
-        self.hDHomerunPortRange = try values.decodeIfPresent(String.self, forKey: "HDHomerunPortRange")
-        self.httpserverPortNumber = try values.decodeIfPresent(Int.self, forKey: "HttpServerPortNumber")
-        self.httpsPortNumber = try values.decodeIfPresent(Int.self, forKey: "HttpsPortNumber")
-        self.isIgnoreVirtualInterfaces = try values.decodeIfPresent(Bool.self, forKey: "IgnoreVirtualInterfaces")
-        self.isRemoteIPFilterBlacklist = try values.decodeIfPresent(Bool.self, forKey: "IsRemoteIPFilterBlacklist")
-        self.knownProxies = try values.decodeIfPresent([String].self, forKey: "KnownProxies")
-        self.localNetworkAddresses = try values.decodeIfPresent([String].self, forKey: "LocalNetworkAddresses")
-        self.localNetworkSubnets = try values.decodeIfPresent([String].self, forKey: "LocalNetworkSubnets")
-        self.publicHTTPSPort = try values.decodeIfPresent(Int.self, forKey: "PublicHttpsPort")
-        self.publicPort = try values.decodeIfPresent(Int.self, forKey: "PublicPort")
-        self.publishedServerUriBySubnet = try values.decodeIfPresent([String].self, forKey: "PublishedServerUriBySubnet")
-        self.remoteIPFilter = try values.decodeIfPresent([String].self, forKey: "RemoteIPFilter")
-        self.requireHTTPS = try values.decodeIfPresent(Bool.self, forKey: "RequireHttps")
-        self.sSDPTracingFilter = try values.decodeIfPresent(String.self, forKey: "SSDPTracingFilter")
-        self.isTrustAllIP6Interfaces = try values.decodeIfPresent(Bool.self, forKey: "TrustAllIP6Interfaces")
-        self.uDPPortRange = try values.decodeIfPresent(String.self, forKey: "UDPPortRange")
-        self.uDPSendCount = try values.decodeIfPresent(Int.self, forKey: "UDPSendCount")
-        self.uDPSendDelay = try values.decodeIfPresent(Int.self, forKey: "UDPSendDelay")
-        self.isUPnPCreateHTTPPortMap = try values.decodeIfPresent(Bool.self, forKey: "UPnPCreateHttpPortMap")
-        self.virtualInterfaceNames = try values.decodeIfPresent(String.self, forKey: "VirtualInterfaceNames")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isAutoDiscovery, forKey: "AutoDiscovery")
-        try values.encodeIfPresent(isAutoDiscoveryTracing, forKey: "AutoDiscoveryTracing")
-        try values.encodeIfPresent(baseURL, forKey: "BaseUrl")
-        try values.encodeIfPresent(certificatePassword, forKey: "CertificatePassword")
-        try values.encodeIfPresent(certificatePath, forKey: "CertificatePath")
-        try values.encodeIfPresent(enableHTTPS, forKey: "EnableHttps")
-        try values.encodeIfPresent(enableIPV4, forKey: "EnableIPV4")
-        try values.encodeIfPresent(enableIPV6, forKey: "EnableIPV6")
-        try values.encodeIfPresent(enableMultiSocketBinding, forKey: "EnableMultiSocketBinding")
-        try values.encodeIfPresent(enablePublishedServerUriByRequest, forKey: "EnablePublishedServerUriByRequest")
-        try values.encodeIfPresent(enableRemoteAccess, forKey: "EnableRemoteAccess")
-        try values.encodeIfPresent(enableSSDPTracing, forKey: "EnableSSDPTracing")
-        try values.encodeIfPresent(enableUPnP, forKey: "EnableUPnP")
-        try values.encodeIfPresent(gatewayMonitorPeriod, forKey: "GatewayMonitorPeriod")
-        try values.encodeIfPresent(hDHomerunPortRange, forKey: "HDHomerunPortRange")
-        try values.encodeIfPresent(httpserverPortNumber, forKey: "HttpServerPortNumber")
-        try values.encodeIfPresent(httpsPortNumber, forKey: "HttpsPortNumber")
-        try values.encodeIfPresent(isIgnoreVirtualInterfaces, forKey: "IgnoreVirtualInterfaces")
-        try values.encodeIfPresent(isRemoteIPFilterBlacklist, forKey: "IsRemoteIPFilterBlacklist")
-        try values.encodeIfPresent(knownProxies, forKey: "KnownProxies")
-        try values.encodeIfPresent(localNetworkAddresses, forKey: "LocalNetworkAddresses")
-        try values.encodeIfPresent(localNetworkSubnets, forKey: "LocalNetworkSubnets")
-        try values.encodeIfPresent(publicHTTPSPort, forKey: "PublicHttpsPort")
-        try values.encodeIfPresent(publicPort, forKey: "PublicPort")
-        try values.encodeIfPresent(publishedServerUriBySubnet, forKey: "PublishedServerUriBySubnet")
-        try values.encodeIfPresent(remoteIPFilter, forKey: "RemoteIPFilter")
-        try values.encodeIfPresent(requireHTTPS, forKey: "RequireHttps")
-        try values.encodeIfPresent(sSDPTracingFilter, forKey: "SSDPTracingFilter")
-        try values.encodeIfPresent(isTrustAllIP6Interfaces, forKey: "TrustAllIP6Interfaces")
-        try values.encodeIfPresent(uDPPortRange, forKey: "UDPPortRange")
-        try values.encodeIfPresent(uDPSendCount, forKey: "UDPSendCount")
-        try values.encodeIfPresent(uDPSendDelay, forKey: "UDPSendDelay")
-        try values.encodeIfPresent(isUPnPCreateHTTPPortMap, forKey: "UPnPCreateHttpPortMap")
-        try values.encodeIfPresent(virtualInterfaceNames, forKey: "VirtualInterfaceNames")
     }
 }

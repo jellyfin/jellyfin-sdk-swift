@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Get item counts.
-    public static func getItemCounts(userID: String? = nil, isFavorite: Bool? = nil) -> Request<JellyfinAPI.ItemCounts> {
+    public static func getItemCounts(userID: UUID? = nil, isFavorite: Bool? = nil) -> Request<JellyfinAPI.ItemCounts> {
         Request(method: "GET", url: "/Items/Counts", query: makeGetItemCountsQuery(userID, isFavorite), id: "GetItemCounts")
     }
 
-    private static func makeGetItemCountsQuery(_ userID: String?, _ isFavorite: Bool?) -> [(String, String?)] {
+    private static func makeGetItemCountsQuery(_ userID: UUID?, _ isFavorite: Bool?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         encoder.encode(isFavorite, forKey: "isFavorite")

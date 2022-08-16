@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,7 +17,7 @@ public extension Paths {
     }
 
     struct GetLatestMediaParameters {
-        public var parentID: String?
+        public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isPlayed: Bool?
@@ -29,7 +29,7 @@ public extension Paths {
         public var isGroupItems: Bool?
 
         public init(
-            parentID: String? = nil,
+            parentID: UUID? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             isPlayed: Bool? = nil,

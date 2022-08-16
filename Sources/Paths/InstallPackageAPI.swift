@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,11 +17,11 @@ public extension Paths {
     }
 
     struct InstallPackageParameters {
-        public var assemblyGuid: String?
+        public var assemblyGuid: UUID?
         public var version: String?
         public var repositoryURL: String?
 
-        public init(assemblyGuid: String? = nil, version: String? = nil, repositoryURL: String? = nil) {
+        public init(assemblyGuid: UUID? = nil, version: String? = nil, repositoryURL: String? = nil) {
             self.assemblyGuid = assemblyGuid
             self.version = version
             self.repositoryURL = repositoryURL

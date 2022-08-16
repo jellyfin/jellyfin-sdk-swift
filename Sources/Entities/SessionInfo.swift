@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -121,71 +121,5 @@ public struct SessionInfo: Codable, Identifiable {
         self.userID = userID
         self.userName = userName
         self.userPrimaryImageTag = userPrimaryImageTag
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.additionalUsers = try values.decodeIfPresent([SessionUserInfo].self, forKey: "AdditionalUsers")
-        self.applicationVersion = try values.decodeIfPresent(String.self, forKey: "ApplicationVersion")
-        self.capabilities = try values.decodeIfPresent(ClientCapabilities.self, forKey: "Capabilities")
-        self.client = try values.decodeIfPresent(String.self, forKey: "Client")
-        self.deviceID = try values.decodeIfPresent(String.self, forKey: "DeviceId")
-        self.deviceName = try values.decodeIfPresent(String.self, forKey: "DeviceName")
-        self.deviceType = try values.decodeIfPresent(String.self, forKey: "DeviceType")
-        self.fullNowPlayingItem = try values.decodeIfPresent(BaseItem.self, forKey: "FullNowPlayingItem")
-        self.hasCustomDeviceName = try values.decodeIfPresent(Bool.self, forKey: "HasCustomDeviceName")
-        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
-        self.lastActivityDate = try values.decodeIfPresent(Date.self, forKey: "LastActivityDate")
-        self.lastPlaybackCheckIn = try values.decodeIfPresent(Date.self, forKey: "LastPlaybackCheckIn")
-        self.nowPlayingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowPlayingItem")
-        self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
-        self.nowPlayingQueueFullItems = try values.decodeIfPresent([BaseItemDto].self, forKey: "NowPlayingQueueFullItems")
-        self.nowViewingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowViewingItem")
-        self.playState = try values.decodeIfPresent(PlayerStateInfo.self, forKey: "PlayState")
-        self.playableMediaTypes = try values.decodeIfPresent([String].self, forKey: "PlayableMediaTypes")
-        self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
-        self.remoteEndPoint = try values.decodeIfPresent(String.self, forKey: "RemoteEndPoint")
-        self.serverID = try values.decodeIfPresent(String.self, forKey: "ServerId")
-        self.supportedCommands = try values.decodeIfPresent([GeneralCommandType].self, forKey: "SupportedCommands")
-        self.isSupportsMediaControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
-        self.isSupportsRemoteControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsRemoteControl")
-        self.transcodingInfo = try values.decodeIfPresent(TranscodingInfo.self, forKey: "TranscodingInfo")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
-        self.userName = try values.decodeIfPresent(String.self, forKey: "UserName")
-        self.userPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "UserPrimaryImageTag")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(additionalUsers, forKey: "AdditionalUsers")
-        try values.encodeIfPresent(applicationVersion, forKey: "ApplicationVersion")
-        try values.encodeIfPresent(capabilities, forKey: "Capabilities")
-        try values.encodeIfPresent(client, forKey: "Client")
-        try values.encodeIfPresent(deviceID, forKey: "DeviceId")
-        try values.encodeIfPresent(deviceName, forKey: "DeviceName")
-        try values.encodeIfPresent(deviceType, forKey: "DeviceType")
-        try values.encodeIfPresent(fullNowPlayingItem, forKey: "FullNowPlayingItem")
-        try values.encodeIfPresent(hasCustomDeviceName, forKey: "HasCustomDeviceName")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(isActive, forKey: "IsActive")
-        try values.encodeIfPresent(lastActivityDate, forKey: "LastActivityDate")
-        try values.encodeIfPresent(lastPlaybackCheckIn, forKey: "LastPlaybackCheckIn")
-        try values.encodeIfPresent(nowPlayingItem, forKey: "NowPlayingItem")
-        try values.encodeIfPresent(nowPlayingQueue, forKey: "NowPlayingQueue")
-        try values.encodeIfPresent(nowPlayingQueueFullItems, forKey: "NowPlayingQueueFullItems")
-        try values.encodeIfPresent(nowViewingItem, forKey: "NowViewingItem")
-        try values.encodeIfPresent(playState, forKey: "PlayState")
-        try values.encodeIfPresent(playableMediaTypes, forKey: "PlayableMediaTypes")
-        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
-        try values.encodeIfPresent(remoteEndPoint, forKey: "RemoteEndPoint")
-        try values.encodeIfPresent(serverID, forKey: "ServerId")
-        try values.encodeIfPresent(supportedCommands, forKey: "SupportedCommands")
-        try values.encodeIfPresent(isSupportsMediaControl, forKey: "SupportsMediaControl")
-        try values.encodeIfPresent(isSupportsRemoteControl, forKey: "SupportsRemoteControl")
-        try values.encodeIfPresent(transcodingInfo, forKey: "TranscodingInfo")
-        try values.encodeIfPresent(userID, forKey: "UserId")
-        try values.encodeIfPresent(userName, forKey: "UserName")
-        try values.encodeIfPresent(userPrimaryImageTag, forKey: "UserPrimaryImageTag")
     }
 }

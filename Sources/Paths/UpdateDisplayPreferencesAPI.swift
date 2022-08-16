@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -10,20 +10,27 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Update Display Preferences.
-    static func updateDisplayPreferences(
+    public static func updateDisplayPreferences(
         displayPreferencesID: String,
-        userID: String,
+        userID: UUID,
         client: String,
         _ body: JellyfinAPI.DisplayPreferencesDto
     ) -> Request<Void> {
         Request(
             method: "POST",
             url: "/DisplayPreferences/\(displayPreferencesID)",
-            query: [("userId", userID), ("client", client)],
+            query: makeUpdateDisplayPreferencesQuery(userID, client),
             body: body,
             id: "UpdateDisplayPreferences"
         )
+    }
+
+    private static func makeUpdateDisplayPreferencesQuery(_ userID: UUID, _ client: String) -> [(String, String?)] {
+        let encoder = URLQueryEncoder()
+        encoder.encode(userID, forKey: "userId")
+        encoder.encode(client, forKey: "client")
+        return encoder.items
     }
 }

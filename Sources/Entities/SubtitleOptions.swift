@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -39,31 +39,5 @@ public struct SubtitleOptions: Codable {
         self.requirePerfectMatch = requirePerfectMatch
         self.isSkipIfAudioTrackMatches = isSkipIfAudioTrackMatches
         self.isSkipIfEmbeddedSubtitlesPresent = isSkipIfEmbeddedSubtitlesPresent
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isDownloadEpisodeSubtitles = try values.decodeIfPresent(Bool.self, forKey: "DownloadEpisodeSubtitles")
-        self.downloadLanguages = try values.decodeIfPresent([String].self, forKey: "DownloadLanguages")
-        self.isDownloadMovieSubtitles = try values.decodeIfPresent(Bool.self, forKey: "DownloadMovieSubtitles")
-        self.isOpenSubtitleVipAccount = try values.decodeIfPresent(Bool.self, forKey: "IsOpenSubtitleVipAccount")
-        self.openSubtitlesPasswordHash = try values.decodeIfPresent(String.self, forKey: "OpenSubtitlesPasswordHash")
-        self.openSubtitlesUsername = try values.decodeIfPresent(String.self, forKey: "OpenSubtitlesUsername")
-        self.requirePerfectMatch = try values.decodeIfPresent(Bool.self, forKey: "RequirePerfectMatch")
-        self.isSkipIfAudioTrackMatches = try values.decodeIfPresent(Bool.self, forKey: "SkipIfAudioTrackMatches")
-        self.isSkipIfEmbeddedSubtitlesPresent = try values.decodeIfPresent(Bool.self, forKey: "SkipIfEmbeddedSubtitlesPresent")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isDownloadEpisodeSubtitles, forKey: "DownloadEpisodeSubtitles")
-        try values.encodeIfPresent(downloadLanguages, forKey: "DownloadLanguages")
-        try values.encodeIfPresent(isDownloadMovieSubtitles, forKey: "DownloadMovieSubtitles")
-        try values.encodeIfPresent(isOpenSubtitleVipAccount, forKey: "IsOpenSubtitleVipAccount")
-        try values.encodeIfPresent(openSubtitlesPasswordHash, forKey: "OpenSubtitlesPasswordHash")
-        try values.encodeIfPresent(openSubtitlesUsername, forKey: "OpenSubtitlesUsername")
-        try values.encodeIfPresent(requirePerfectMatch, forKey: "RequirePerfectMatch")
-        try values.encodeIfPresent(isSkipIfAudioTrackMatches, forKey: "SkipIfAudioTrackMatches")
-        try values.encodeIfPresent(isSkipIfEmbeddedSubtitlesPresent, forKey: "SkipIfEmbeddedSubtitlesPresent")
     }
 }

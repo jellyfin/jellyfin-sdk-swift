@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,8 +17,8 @@ public extension Paths {
     }
 
     struct GetLiveTvProgramsParameters {
-        public var channelIDs: [String]?
-        public var userID: String?
+        public var channelIDs: [UUID]?
+        public var userID: UUID?
         public var minStartDate: Date?
         public var hasAired: Bool?
         public var isAiring: Bool?
@@ -35,19 +35,19 @@ public extension Paths {
         public var sortBy: [String]?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var genres: [String]?
-        public var genreIDs: [String]?
+        public var genreIDs: [UUID]?
         public var enableImages: Bool?
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
         public var seriesTimerID: String?
-        public var librarySeriesID: String?
+        public var librarySeriesID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableTotalRecordCount: Bool?
 
         public init(
-            channelIDs: [String]? = nil,
-            userID: String? = nil,
+            channelIDs: [UUID]? = nil,
+            userID: UUID? = nil,
             minStartDate: Date? = nil,
             hasAired: Bool? = nil,
             isAiring: Bool? = nil,
@@ -64,13 +64,13 @@ public extension Paths {
             sortBy: [String]? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             genres: [String]? = nil,
-            genreIDs: [String]? = nil,
+            genreIDs: [UUID]? = nil,
             enableImages: Bool? = nil,
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             enableUserData: Bool? = nil,
             seriesTimerID: String? = nil,
-            librarySeriesID: String? = nil,
+            librarySeriesID: UUID? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             enableTotalRecordCount: Bool? = nil
         ) {

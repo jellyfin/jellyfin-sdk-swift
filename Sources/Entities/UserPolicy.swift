@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -135,91 +135,5 @@ public struct UserPolicy: Codable {
         self.passwordResetProviderID = passwordResetProviderID
         self.remoteClientBitrateLimit = remoteClientBitrateLimit
         self.syncPlayAccess = syncPlayAccess
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.accessSchedules = try values.decodeIfPresent([AccessSchedule].self, forKey: "AccessSchedules")
-        self.authenticationProviderID = try values.decodeIfPresent(String.self, forKey: "AuthenticationProviderId")
-        self.blockUnratedItems = try values.decodeIfPresent([UnratedItem].self, forKey: "BlockUnratedItems")
-        self.blockedChannels = try values.decodeIfPresent([UUID].self, forKey: "BlockedChannels")
-        self.blockedMediaFolders = try values.decodeIfPresent([UUID].self, forKey: "BlockedMediaFolders")
-        self.blockedTags = try values.decodeIfPresent([String].self, forKey: "BlockedTags")
-        self.enableAllChannels = try values.decodeIfPresent(Bool.self, forKey: "EnableAllChannels")
-        self.enableAllDevices = try values.decodeIfPresent(Bool.self, forKey: "EnableAllDevices")
-        self.enableAllFolders = try values.decodeIfPresent(Bool.self, forKey: "EnableAllFolders")
-        self.enableAudioPlaybackTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableAudioPlaybackTranscoding")
-        self.enableContentDeletion = try values.decodeIfPresent(Bool.self, forKey: "EnableContentDeletion")
-        self.enableContentDeletionFromFolders = try values.decodeIfPresent([String].self, forKey: "EnableContentDeletionFromFolders")
-        self.enableContentDownloading = try values.decodeIfPresent(Bool.self, forKey: "EnableContentDownloading")
-        self.enableLiveTvAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableLiveTvAccess")
-        self.enableLiveTvManagement = try values.decodeIfPresent(Bool.self, forKey: "EnableLiveTvManagement")
-        self.enableMediaConversion = try values.decodeIfPresent(Bool.self, forKey: "EnableMediaConversion")
-        self.enableMediaPlayback = try values.decodeIfPresent(Bool.self, forKey: "EnableMediaPlayback")
-        self.enablePlaybackRemuxing = try values.decodeIfPresent(Bool.self, forKey: "EnablePlaybackRemuxing")
-        self.enablePublicSharing = try values.decodeIfPresent(Bool.self, forKey: "EnablePublicSharing")
-        self.enableRemoteAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableRemoteAccess")
-        self.enableRemoteControlOfOtherUsers = try values.decodeIfPresent(Bool.self, forKey: "EnableRemoteControlOfOtherUsers")
-        self.enableSharedDeviceControl = try values.decodeIfPresent(Bool.self, forKey: "EnableSharedDeviceControl")
-        self.enableSyncTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableSyncTranscoding")
-        self.enableUserPreferenceAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableUserPreferenceAccess")
-        self.enableVideoPlaybackTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableVideoPlaybackTranscoding")
-        self.enabledChannels = try values.decodeIfPresent([UUID].self, forKey: "EnabledChannels")
-        self.enabledDevices = try values.decodeIfPresent([String].self, forKey: "EnabledDevices")
-        self.enabledFolders = try values.decodeIfPresent([UUID].self, forKey: "EnabledFolders")
-        self.isForceRemoteSourceTranscoding = try values.decodeIfPresent(Bool.self, forKey: "ForceRemoteSourceTranscoding")
-        self.invalidLoginAttemptCount = try values.decodeIfPresent(Int.self, forKey: "InvalidLoginAttemptCount")
-        self.isAdministrator = try values.decodeIfPresent(Bool.self, forKey: "IsAdministrator")
-        self.isDisabled = try values.decodeIfPresent(Bool.self, forKey: "IsDisabled")
-        self.isHidden = try values.decodeIfPresent(Bool.self, forKey: "IsHidden")
-        self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int.self, forKey: "LoginAttemptsBeforeLockout")
-        self.maxActiveSessions = try values.decodeIfPresent(Int.self, forKey: "MaxActiveSessions")
-        self.maxParentalRating = try values.decodeIfPresent(Int.self, forKey: "MaxParentalRating")
-        self.passwordResetProviderID = try values.decodeIfPresent(String.self, forKey: "PasswordResetProviderId")
-        self.remoteClientBitrateLimit = try values.decodeIfPresent(Int.self, forKey: "RemoteClientBitrateLimit")
-        self.syncPlayAccess = try values.decodeIfPresent(SyncPlayUserAccessType.self, forKey: "SyncPlayAccess")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(accessSchedules, forKey: "AccessSchedules")
-        try values.encodeIfPresent(authenticationProviderID, forKey: "AuthenticationProviderId")
-        try values.encodeIfPresent(blockUnratedItems, forKey: "BlockUnratedItems")
-        try values.encodeIfPresent(blockedChannels, forKey: "BlockedChannels")
-        try values.encodeIfPresent(blockedMediaFolders, forKey: "BlockedMediaFolders")
-        try values.encodeIfPresent(blockedTags, forKey: "BlockedTags")
-        try values.encodeIfPresent(enableAllChannels, forKey: "EnableAllChannels")
-        try values.encodeIfPresent(enableAllDevices, forKey: "EnableAllDevices")
-        try values.encodeIfPresent(enableAllFolders, forKey: "EnableAllFolders")
-        try values.encodeIfPresent(enableAudioPlaybackTranscoding, forKey: "EnableAudioPlaybackTranscoding")
-        try values.encodeIfPresent(enableContentDeletion, forKey: "EnableContentDeletion")
-        try values.encodeIfPresent(enableContentDeletionFromFolders, forKey: "EnableContentDeletionFromFolders")
-        try values.encodeIfPresent(enableContentDownloading, forKey: "EnableContentDownloading")
-        try values.encodeIfPresent(enableLiveTvAccess, forKey: "EnableLiveTvAccess")
-        try values.encodeIfPresent(enableLiveTvManagement, forKey: "EnableLiveTvManagement")
-        try values.encodeIfPresent(enableMediaConversion, forKey: "EnableMediaConversion")
-        try values.encodeIfPresent(enableMediaPlayback, forKey: "EnableMediaPlayback")
-        try values.encodeIfPresent(enablePlaybackRemuxing, forKey: "EnablePlaybackRemuxing")
-        try values.encodeIfPresent(enablePublicSharing, forKey: "EnablePublicSharing")
-        try values.encodeIfPresent(enableRemoteAccess, forKey: "EnableRemoteAccess")
-        try values.encodeIfPresent(enableRemoteControlOfOtherUsers, forKey: "EnableRemoteControlOfOtherUsers")
-        try values.encodeIfPresent(enableSharedDeviceControl, forKey: "EnableSharedDeviceControl")
-        try values.encodeIfPresent(enableSyncTranscoding, forKey: "EnableSyncTranscoding")
-        try values.encodeIfPresent(enableUserPreferenceAccess, forKey: "EnableUserPreferenceAccess")
-        try values.encodeIfPresent(enableVideoPlaybackTranscoding, forKey: "EnableVideoPlaybackTranscoding")
-        try values.encodeIfPresent(enabledChannels, forKey: "EnabledChannels")
-        try values.encodeIfPresent(enabledDevices, forKey: "EnabledDevices")
-        try values.encodeIfPresent(enabledFolders, forKey: "EnabledFolders")
-        try values.encodeIfPresent(isForceRemoteSourceTranscoding, forKey: "ForceRemoteSourceTranscoding")
-        try values.encodeIfPresent(invalidLoginAttemptCount, forKey: "InvalidLoginAttemptCount")
-        try values.encodeIfPresent(isAdministrator, forKey: "IsAdministrator")
-        try values.encodeIfPresent(isDisabled, forKey: "IsDisabled")
-        try values.encodeIfPresent(isHidden, forKey: "IsHidden")
-        try values.encodeIfPresent(loginAttemptsBeforeLockout, forKey: "LoginAttemptsBeforeLockout")
-        try values.encodeIfPresent(maxActiveSessions, forKey: "MaxActiveSessions")
-        try values.encodeIfPresent(maxParentalRating, forKey: "MaxParentalRating")
-        try values.encodeIfPresent(passwordResetProviderID, forKey: "PasswordResetProviderId")
-        try values.encodeIfPresent(remoteClientBitrateLimit, forKey: "RemoteClientBitrateLimit")
-        try values.encodeIfPresent(syncPlayAccess, forKey: "SyncPlayAccess")
     }
 }

@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -21,19 +21,5 @@ public struct ValidatePathDto: Codable {
         self.isFile = isFile
         self.path = path
         self.isValidateWritable = isValidateWritable
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isFile = try values.decodeIfPresent(Bool.self, forKey: "IsFile")
-        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
-        self.isValidateWritable = try values.decodeIfPresent(Bool.self, forKey: "ValidateWritable")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isFile, forKey: "IsFile")
-        try values.encodeIfPresent(path, forKey: "Path")
-        try values.encodeIfPresent(isValidateWritable, forKey: "ValidateWritable")
     }
 }

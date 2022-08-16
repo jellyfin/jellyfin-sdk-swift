@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -21,19 +21,5 @@ public struct MediaPathDto: Codable {
         self.name = name
         self.path = path
         self.pathInfo = pathInfo
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.name = try values.decode(String.self, forKey: "Name")
-        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
-        self.pathInfo = try values.decodeIfPresent(MediaPathInfo.self, forKey: "PathInfo")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(name, forKey: "Name")
-        try values.encodeIfPresent(path, forKey: "Path")
-        try values.encodeIfPresent(pathInfo, forKey: "PathInfo")
     }
 }

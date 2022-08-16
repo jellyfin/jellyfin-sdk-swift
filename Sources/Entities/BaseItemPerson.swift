@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -68,40 +68,6 @@ public struct BaseItemPerson: Codable, Identifiable {
             self.screenshot = screenshot
             self.thumb = thumb
         }
-
-        public init(from decoder: Decoder) throws {
-            let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.art = try values.decodeIfPresent([String: String].self, forKey: "Art")
-            self.backdrop = try values.decodeIfPresent([String: String].self, forKey: "Backdrop")
-            self.banner = try values.decodeIfPresent([String: String].self, forKey: "Banner")
-            self.box = try values.decodeIfPresent([String: String].self, forKey: "Box")
-            self.boxRear = try values.decodeIfPresent([String: String].self, forKey: "BoxRear")
-            self.chapter = try values.decodeIfPresent([String: String].self, forKey: "Chapter")
-            self.disc = try values.decodeIfPresent([String: String].self, forKey: "Disc")
-            self.logo = try values.decodeIfPresent([String: String].self, forKey: "Logo")
-            self.menu = try values.decodeIfPresent([String: String].self, forKey: "Menu")
-            self.primary = try values.decodeIfPresent([String: String].self, forKey: "Primary")
-            self.profile = try values.decodeIfPresent([String: String].self, forKey: "Profile")
-            self.screenshot = try values.decodeIfPresent([String: String].self, forKey: "Screenshot")
-            self.thumb = try values.decodeIfPresent([String: String].self, forKey: "Thumb")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encodeIfPresent(art, forKey: "Art")
-            try values.encodeIfPresent(backdrop, forKey: "Backdrop")
-            try values.encodeIfPresent(banner, forKey: "Banner")
-            try values.encodeIfPresent(box, forKey: "Box")
-            try values.encodeIfPresent(boxRear, forKey: "BoxRear")
-            try values.encodeIfPresent(chapter, forKey: "Chapter")
-            try values.encodeIfPresent(disc, forKey: "Disc")
-            try values.encodeIfPresent(logo, forKey: "Logo")
-            try values.encodeIfPresent(menu, forKey: "Menu")
-            try values.encodeIfPresent(primary, forKey: "Primary")
-            try values.encodeIfPresent(profile, forKey: "Profile")
-            try values.encodeIfPresent(screenshot, forKey: "Screenshot")
-            try values.encodeIfPresent(thumb, forKey: "Thumb")
-        }
     }
 
     public init(
@@ -118,25 +84,5 @@ public struct BaseItemPerson: Codable, Identifiable {
         self.primaryImageTag = primaryImageTag
         self.role = role
         self.type = type
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
-        self.imageBlurHashes = try values.decodeIfPresent(ImageBlurHashes.self, forKey: "ImageBlurHashes")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.primaryImageTag = try values.decodeIfPresent(String.self, forKey: "PrimaryImageTag")
-        self.role = try values.decodeIfPresent(String.self, forKey: "Role")
-        self.type = try values.decodeIfPresent(String.self, forKey: "Type")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(imageBlurHashes, forKey: "ImageBlurHashes")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(primaryImageTag, forKey: "PrimaryImageTag")
-        try values.encodeIfPresent(role, forKey: "Role")
-        try values.encodeIfPresent(type, forKey: "Type")
     }
 }

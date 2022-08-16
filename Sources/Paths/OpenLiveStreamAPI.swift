@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -21,27 +21,27 @@ public extension Paths {
 
     struct OpenLiveStreamParameters {
         public var openToken: String?
-        public var userID: String?
+        public var userID: UUID?
         public var playSessionID: String?
         public var maxStreamingBitrate: Int?
         public var startTimeTicks: Int?
         public var audioStreamIndex: Int?
         public var subtitleStreamIndex: Int?
         public var maxAudioChannels: Int?
-        public var itemID: String?
+        public var itemID: UUID?
         public var enableDirectPlay: Bool?
         public var enableDirectStream: Bool?
 
         public init(
             openToken: String? = nil,
-            userID: String? = nil,
+            userID: UUID? = nil,
             playSessionID: String? = nil,
             maxStreamingBitrate: Int? = nil,
             startTimeTicks: Int? = nil,
             audioStreamIndex: Int? = nil,
             subtitleStreamIndex: Int? = nil,
             maxAudioChannels: Int? = nil,
-            itemID: String? = nil,
+            itemID: UUID? = nil,
             enableDirectPlay: Bool? = nil,
             enableDirectStream: Bool? = nil
         ) {

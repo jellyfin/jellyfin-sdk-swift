@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -53,33 +53,5 @@ public struct ClientCapabilities: Codable {
         self.isSupportsMediaControl = isSupportsMediaControl
         self.isSupportsPersistentIdentifier = isSupportsPersistentIdentifier
         self.isSupportsSync = isSupportsSync
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.appStoreURL = try values.decodeIfPresent(String.self, forKey: "AppStoreUrl")
-        self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
-        self.iconURL = try values.decodeIfPresent(String.self, forKey: "IconUrl")
-        self.messageCallbackURL = try values.decodeIfPresent(String.self, forKey: "MessageCallbackUrl")
-        self.playableMediaTypes = try values.decodeIfPresent([String].self, forKey: "PlayableMediaTypes")
-        self.supportedCommands = try values.decodeIfPresent([GeneralCommandType].self, forKey: "SupportedCommands")
-        self.isSupportsContentUploading = try values.decodeIfPresent(Bool.self, forKey: "SupportsContentUploading")
-        self.isSupportsMediaControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
-        self.isSupportsPersistentIdentifier = try values.decodeIfPresent(Bool.self, forKey: "SupportsPersistentIdentifier")
-        self.isSupportsSync = try values.decodeIfPresent(Bool.self, forKey: "SupportsSync")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(appStoreURL, forKey: "AppStoreUrl")
-        try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")
-        try values.encodeIfPresent(iconURL, forKey: "IconUrl")
-        try values.encodeIfPresent(messageCallbackURL, forKey: "MessageCallbackUrl")
-        try values.encodeIfPresent(playableMediaTypes, forKey: "PlayableMediaTypes")
-        try values.encodeIfPresent(supportedCommands, forKey: "SupportedCommands")
-        try values.encodeIfPresent(isSupportsContentUploading, forKey: "SupportsContentUploading")
-        try values.encodeIfPresent(isSupportsMediaControl, forKey: "SupportsMediaControl")
-        try values.encodeIfPresent(isSupportsPersistentIdentifier, forKey: "SupportsPersistentIdentifier")
-        try values.encodeIfPresent(isSupportsSync, forKey: "SupportsSync")
     }
 }

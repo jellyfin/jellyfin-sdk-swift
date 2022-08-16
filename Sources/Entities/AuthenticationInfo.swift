@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -58,37 +58,5 @@ public struct AuthenticationInfo: Codable, Identifiable {
         self.isActive = isActive
         self.userID = userID
         self.userName = userName
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.accessToken = try values.decodeIfPresent(String.self, forKey: "AccessToken")
-        self.appName = try values.decodeIfPresent(String.self, forKey: "AppName")
-        self.appVersion = try values.decodeIfPresent(String.self, forKey: "AppVersion")
-        self.dateCreated = try values.decodeIfPresent(Date.self, forKey: "DateCreated")
-        self.dateLastActivity = try values.decodeIfPresent(Date.self, forKey: "DateLastActivity")
-        self.dateRevoked = try values.decodeIfPresent(Date.self, forKey: "DateRevoked")
-        self.deviceID = try values.decodeIfPresent(String.self, forKey: "DeviceId")
-        self.deviceName = try values.decodeIfPresent(String.self, forKey: "DeviceName")
-        self.id = try values.decodeIfPresent(Int.self, forKey: "Id")
-        self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
-        self.userName = try values.decodeIfPresent(String.self, forKey: "UserName")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(accessToken, forKey: "AccessToken")
-        try values.encodeIfPresent(appName, forKey: "AppName")
-        try values.encodeIfPresent(appVersion, forKey: "AppVersion")
-        try values.encodeIfPresent(dateCreated, forKey: "DateCreated")
-        try values.encodeIfPresent(dateLastActivity, forKey: "DateLastActivity")
-        try values.encodeIfPresent(dateRevoked, forKey: "DateRevoked")
-        try values.encodeIfPresent(deviceID, forKey: "DeviceId")
-        try values.encodeIfPresent(deviceName, forKey: "DeviceName")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(isActive, forKey: "IsActive")
-        try values.encodeIfPresent(userID, forKey: "UserId")
-        try values.encodeIfPresent(userName, forKey: "UserName")
     }
 }

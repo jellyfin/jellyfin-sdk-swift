@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -41,29 +41,5 @@ public struct PlayRequest: Codable {
         self.startIndex = startIndex
         self.startPositionTicks = startPositionTicks
         self.subtitleStreamIndex = subtitleStreamIndex
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
-        self.controllingUserID = try values.decodeIfPresent(UUID.self, forKey: "ControllingUserId")
-        self.itemIDs = try values.decodeIfPresent([UUID].self, forKey: "ItemIds")
-        self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
-        self.playCommand = try values.decodeIfPresent(PlayCommand.self, forKey: "PlayCommand")
-        self.startIndex = try values.decodeIfPresent(Int.self, forKey: "StartIndex")
-        self.startPositionTicks = try values.decodeIfPresent(Int.self, forKey: "StartPositionTicks")
-        self.subtitleStreamIndex = try values.decodeIfPresent(Int.self, forKey: "SubtitleStreamIndex")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(audioStreamIndex, forKey: "AudioStreamIndex")
-        try values.encodeIfPresent(controllingUserID, forKey: "ControllingUserId")
-        try values.encodeIfPresent(itemIDs, forKey: "ItemIds")
-        try values.encodeIfPresent(mediaSourceID, forKey: "MediaSourceId")
-        try values.encodeIfPresent(playCommand, forKey: "PlayCommand")
-        try values.encodeIfPresent(startIndex, forKey: "StartIndex")
-        try values.encodeIfPresent(startPositionTicks, forKey: "StartPositionTicks")
-        try values.encodeIfPresent(subtitleStreamIndex, forKey: "SubtitleStreamIndex")
     }
 }

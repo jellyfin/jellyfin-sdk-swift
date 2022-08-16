@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -20,12 +20,12 @@ public extension Paths {
     }
 
     struct GetSimilarMoviesParameters {
-        public var excludeArtistIDs: [String]?
-        public var userID: String?
+        public var excludeArtistIDs: [UUID]?
+        public var userID: UUID?
         public var limit: Int?
         public var fields: [JellyfinAPI.ItemFields]?
 
-        public init(excludeArtistIDs: [String]? = nil, userID: String? = nil, limit: Int? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
+        public init(excludeArtistIDs: [UUID]? = nil, userID: UUID? = nil, limit: Int? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
             self.excludeArtistIDs = excludeArtistIDs
             self.userID = userID
             self.limit = limit

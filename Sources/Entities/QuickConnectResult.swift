@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -45,29 +45,5 @@ public struct QuickConnectResult: Codable {
         self.deviceID = deviceID
         self.deviceName = deviceName
         self.secret = secret
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.appName = try values.decodeIfPresent(String.self, forKey: "AppName")
-        self.appVersion = try values.decodeIfPresent(String.self, forKey: "AppVersion")
-        self.isAuthenticated = try values.decodeIfPresent(Bool.self, forKey: "Authenticated")
-        self.code = try values.decodeIfPresent(String.self, forKey: "Code")
-        self.dateAdded = try values.decodeIfPresent(Date.self, forKey: "DateAdded")
-        self.deviceID = try values.decodeIfPresent(String.self, forKey: "DeviceId")
-        self.deviceName = try values.decodeIfPresent(String.self, forKey: "DeviceName")
-        self.secret = try values.decodeIfPresent(String.self, forKey: "Secret")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(appName, forKey: "AppName")
-        try values.encodeIfPresent(appVersion, forKey: "AppVersion")
-        try values.encodeIfPresent(isAuthenticated, forKey: "Authenticated")
-        try values.encodeIfPresent(code, forKey: "Code")
-        try values.encodeIfPresent(dateAdded, forKey: "DateAdded")
-        try values.encodeIfPresent(deviceID, forKey: "DeviceId")
-        try values.encodeIfPresent(deviceName, forKey: "DeviceName")
-        try values.encodeIfPresent(secret, forKey: "Secret")
     }
 }

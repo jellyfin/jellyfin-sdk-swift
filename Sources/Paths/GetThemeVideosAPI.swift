@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -14,7 +14,7 @@ extension Paths {
     /// Get theme videos for an item.
     public static func getThemeVideos(
         itemID: String,
-        userID: String? = nil,
+        userID: UUID? = nil,
         isInheritFromParent: Bool? = nil
     ) -> Request<JellyfinAPI.ThemeMediaResult> {
         Request(
@@ -25,7 +25,7 @@ extension Paths {
         )
     }
 
-    private static func makeGetThemeVideosQuery(_ userID: String?, _ isInheritFromParent: Bool?) -> [(String, String?)] {
+    private static func makeGetThemeVideosQuery(_ userID: UUID?, _ isInheritFromParent: Bool?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         encoder.encode(isInheritFromParent, forKey: "inheritFromParent")

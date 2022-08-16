@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -45,29 +45,5 @@ public struct PluginInfo: Codable, Identifiable {
         self.name = name
         self.status = status
         self.version = version
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.canUninstall = try values.decodeIfPresent(Bool.self, forKey: "CanUninstall")
-        self.configurationFileName = try values.decodeIfPresent(String.self, forKey: "ConfigurationFileName")
-        self.description = try values.decodeIfPresent(String.self, forKey: "Description")
-        self.hasImage = try values.decodeIfPresent(Bool.self, forKey: "HasImage")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.status = try values.decodeIfPresent(PluginStatus.self, forKey: "Status")
-        self.version = try values.decodeIfPresent(String.self, forKey: "Version")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(canUninstall, forKey: "CanUninstall")
-        try values.encodeIfPresent(configurationFileName, forKey: "ConfigurationFileName")
-        try values.encodeIfPresent(description, forKey: "Description")
-        try values.encodeIfPresent(hasImage, forKey: "HasImage")
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(status, forKey: "Status")
-        try values.encodeIfPresent(version, forKey: "Version")
     }
 }

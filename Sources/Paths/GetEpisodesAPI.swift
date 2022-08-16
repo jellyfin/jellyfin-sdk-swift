@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,13 +17,13 @@ public extension Paths {
     }
 
     struct GetEpisodesParameters {
-        public var userID: String?
+        public var userID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var season: Int?
-        public var seasonID: String?
+        public var seasonID: UUID?
         public var isMissing: Bool?
         public var adjacentTo: String?
-        public var startItemID: String?
+        public var startItemID: UUID?
         public var startIndex: Int?
         public var limit: Int?
         public var enableImages: Bool?
@@ -33,13 +33,13 @@ public extension Paths {
         public var sortBy: String?
 
         public init(
-            userID: String? = nil,
+            userID: UUID? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             season: Int? = nil,
-            seasonID: String? = nil,
+            seasonID: UUID? = nil,
             isMissing: Bool? = nil,
             adjacentTo: String? = nil,
-            startItemID: String? = nil,
+            startItemID: UUID? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
             enableImages: Bool? = nil,

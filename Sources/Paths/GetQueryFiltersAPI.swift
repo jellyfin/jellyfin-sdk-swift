@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -17,8 +17,8 @@ public extension Paths {
     }
 
     struct GetQueryFiltersParameters {
-        public var userID: String?
-        public var parentID: String?
+        public var userID: UUID?
+        public var parentID: UUID?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isAiring: Bool?
         public var isMovie: Bool?
@@ -29,8 +29,8 @@ public extension Paths {
         public var isRecursive: Bool?
 
         public init(
-            userID: String? = nil,
-            parentID: String? = nil,
+            userID: UUID? = nil,
+            parentID: UUID? = nil,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             isAiring: Bool? = nil,
             isMovie: Bool? = nil,

@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -32,23 +32,5 @@ public struct CultureDto: Codable {
         self.threeLetterISOLanguageName = threeLetterISOLanguageName
         self.threeLetterISOLanguageNames = threeLetterISOLanguageNames
         self.twoLetterISOLanguageName = twoLetterISOLanguageName
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.displayName = try values.decodeIfPresent(String.self, forKey: "DisplayName")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.threeLetterISOLanguageName = try values.decodeIfPresent(String.self, forKey: "ThreeLetterISOLanguageName")
-        self.threeLetterISOLanguageNames = try values.decodeIfPresent([String].self, forKey: "ThreeLetterISOLanguageNames")
-        self.twoLetterISOLanguageName = try values.decodeIfPresent(String.self, forKey: "TwoLetterISOLanguageName")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(displayName, forKey: "DisplayName")
-        try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(threeLetterISOLanguageName, forKey: "ThreeLetterISOLanguageName")
-        try values.encodeIfPresent(threeLetterISOLanguageNames, forKey: "ThreeLetterISOLanguageNames")
-        try values.encodeIfPresent(twoLetterISOLanguageName, forKey: "TwoLetterISOLanguageName")
     }
 }

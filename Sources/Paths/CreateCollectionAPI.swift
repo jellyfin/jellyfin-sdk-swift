@@ -1,5 +1,5 @@
 //
-// Swiftfin is subject to the terms of the Mozilla Public
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
@@ -19,10 +19,10 @@ public extension Paths {
     struct CreateCollectionParameters {
         public var name: String?
         public var ids: [String]?
-        public var parentID: String?
+        public var parentID: UUID?
         public var isLocked: Bool?
 
-        public init(name: String? = nil, ids: [String]? = nil, parentID: String? = nil, isLocked: Bool? = nil) {
+        public init(name: String? = nil, ids: [String]? = nil, parentID: UUID? = nil, isLocked: Bool? = nil) {
             self.name = name
             self.ids = ids
             self.parentID = parentID
