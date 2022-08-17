@@ -25,4 +25,20 @@ public struct ChannelMappingOptionsDto: Codable {
         self.providerName = providerName
         self.tunerChannels = tunerChannels
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.mappings = try values.decodeIfPresent([NameValuePair].self, forKey: "Mappings")
+        self.providerChannels = try values.decodeIfPresent([NameIDPair].self, forKey: "ProviderChannels")
+        self.providerName = try values.decodeIfPresent(String.self, forKey: "ProviderName")
+        self.tunerChannels = try values.decodeIfPresent([TunerChannelMapping].self, forKey: "TunerChannels")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(mappings, forKey: "Mappings")
+        try values.encodeIfPresent(providerChannels, forKey: "ProviderChannels")
+        try values.encodeIfPresent(providerName, forKey: "ProviderName")
+        try values.encodeIfPresent(tunerChannels, forKey: "TunerChannels")
+    }
 }

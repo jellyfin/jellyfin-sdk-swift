@@ -20,4 +20,20 @@ public struct DirectPlayProfile: Codable {
         self.type = type
         self.videoCodec = videoCodec
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.audioCodec = try values.decodeIfPresent(String.self, forKey: "AudioCodec")
+        self.container = try values.decodeIfPresent(String.self, forKey: "Container")
+        self.type = try values.decodeIfPresent(DlnaProfileType.self, forKey: "Type")
+        self.videoCodec = try values.decodeIfPresent(String.self, forKey: "VideoCodec")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(audioCodec, forKey: "AudioCodec")
+        try values.encodeIfPresent(container, forKey: "Container")
+        try values.encodeIfPresent(type, forKey: "Type")
+        try values.encodeIfPresent(videoCodec, forKey: "VideoCodec")
+    }
 }

@@ -40,4 +40,30 @@ public struct VersionInfo: Codable {
         self.timestamp = timestamp
         self.version = version
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.versionNumber = try values.decodeIfPresent(String.self, forKey: "VersionNumber")
+        self.changelog = try values.decodeIfPresent(String.self, forKey: "changelog")
+        self.checksum = try values.decodeIfPresent(String.self, forKey: "checksum")
+        self.repositoryName = try values.decodeIfPresent(String.self, forKey: "repositoryName")
+        self.repositoryURL = try values.decodeIfPresent(String.self, forKey: "repositoryUrl")
+        self.sourceURL = try values.decodeIfPresent(String.self, forKey: "sourceUrl")
+        self.targetAbi = try values.decodeIfPresent(String.self, forKey: "targetAbi")
+        self.timestamp = try values.decodeIfPresent(String.self, forKey: "timestamp")
+        self.version = try values.decodeIfPresent(String.self, forKey: "version")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(versionNumber, forKey: "VersionNumber")
+        try values.encodeIfPresent(changelog, forKey: "changelog")
+        try values.encodeIfPresent(checksum, forKey: "checksum")
+        try values.encodeIfPresent(repositoryName, forKey: "repositoryName")
+        try values.encodeIfPresent(repositoryURL, forKey: "repositoryUrl")
+        try values.encodeIfPresent(sourceURL, forKey: "sourceUrl")
+        try values.encodeIfPresent(targetAbi, forKey: "targetAbi")
+        try values.encodeIfPresent(timestamp, forKey: "timestamp")
+        try values.encodeIfPresent(version, forKey: "version")
+    }
 }

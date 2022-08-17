@@ -21,4 +21,16 @@ public struct MediaUpdateInfoPathDto: Codable {
         self.path = path
         self.updateType = updateType
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
+        self.updateType = try values.decodeIfPresent(String.self, forKey: "UpdateType")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(path, forKey: "Path")
+        try values.encodeIfPresent(updateType, forKey: "UpdateType")
+    }
 }

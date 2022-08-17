@@ -25,4 +25,20 @@ public struct AdminNotificationDto: Codable {
         self.notificationLevel = notificationLevel
         self.url = url
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.description = try values.decodeIfPresent(String.self, forKey: "Description")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.notificationLevel = try values.decodeIfPresent(NotificationLevel.self, forKey: "NotificationLevel")
+        self.url = try values.decodeIfPresent(String.self, forKey: "Url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(description, forKey: "Description")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(notificationLevel, forKey: "NotificationLevel")
+        try values.encodeIfPresent(url, forKey: "Url")
+    }
 }

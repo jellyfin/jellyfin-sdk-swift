@@ -23,4 +23,22 @@ public struct SubtitleProfile: Codable {
         self.language = language
         self.method = method
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.container = try values.decodeIfPresent(String.self, forKey: "Container")
+        self.didlMode = try values.decodeIfPresent(String.self, forKey: "DidlMode")
+        self.format = try values.decodeIfPresent(String.self, forKey: "Format")
+        self.language = try values.decodeIfPresent(String.self, forKey: "Language")
+        self.method = try values.decodeIfPresent(SubtitleDeliveryMethod.self, forKey: "Method")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(container, forKey: "Container")
+        try values.encodeIfPresent(didlMode, forKey: "DidlMode")
+        try values.encodeIfPresent(format, forKey: "Format")
+        try values.encodeIfPresent(language, forKey: "Language")
+        try values.encodeIfPresent(method, forKey: "Method")
+    }
 }

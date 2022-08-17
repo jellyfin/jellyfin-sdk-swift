@@ -16,4 +16,16 @@ public struct MediaPathInfo: Codable {
         self.networkPath = networkPath
         self.path = path
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.networkPath = try values.decodeIfPresent(String.self, forKey: "NetworkPath")
+        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(networkPath, forKey: "NetworkPath")
+        try values.encodeIfPresent(path, forKey: "Path")
+    }
 }

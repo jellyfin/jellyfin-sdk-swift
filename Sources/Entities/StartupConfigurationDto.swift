@@ -22,4 +22,18 @@ public struct StartupConfigurationDto: Codable {
         self.preferredMetadataLanguage = preferredMetadataLanguage
         self.uICulture = uICulture
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
+        self.preferredMetadataLanguage = try values.decodeIfPresent(String.self, forKey: "PreferredMetadataLanguage")
+        self.uICulture = try values.decodeIfPresent(String.self, forKey: "UICulture")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(metadataCountryCode, forKey: "MetadataCountryCode")
+        try values.encodeIfPresent(preferredMetadataLanguage, forKey: "PreferredMetadataLanguage")
+        try values.encodeIfPresent(uICulture, forKey: "UICulture")
+    }
 }

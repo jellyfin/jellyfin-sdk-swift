@@ -18,4 +18,18 @@ public struct ControlResponse: Codable {
         self.isSuccessful = isSuccessful
         self.xml = xml
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.headers = try values.decodeIfPresent([String: String].self, forKey: "Headers")
+        self.isSuccessful = try values.decodeIfPresent(Bool.self, forKey: "IsSuccessful")
+        self.xml = try values.decodeIfPresent(String.self, forKey: "Xml")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(headers, forKey: "Headers")
+        try values.encodeIfPresent(isSuccessful, forKey: "IsSuccessful")
+        try values.encodeIfPresent(xml, forKey: "Xml")
+    }
 }

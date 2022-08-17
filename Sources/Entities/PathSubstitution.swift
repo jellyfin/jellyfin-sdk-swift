@@ -19,4 +19,16 @@ public struct PathSubstitution: Codable {
         self.from = from
         self.to = to
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.from = try values.decodeIfPresent(String.self, forKey: "From")
+        self.to = try values.decodeIfPresent(String.self, forKey: "To")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(from, forKey: "From")
+        try values.encodeIfPresent(to, forKey: "To")
+    }
 }

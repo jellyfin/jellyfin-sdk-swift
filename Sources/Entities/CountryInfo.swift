@@ -25,4 +25,20 @@ public struct CountryInfo: Codable {
         self.threeLetterISORegionName = threeLetterISORegionName
         self.twoLetterISORegionName = twoLetterISORegionName
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.displayName = try values.decodeIfPresent(String.self, forKey: "DisplayName")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.threeLetterISORegionName = try values.decodeIfPresent(String.self, forKey: "ThreeLetterISORegionName")
+        self.twoLetterISORegionName = try values.decodeIfPresent(String.self, forKey: "TwoLetterISORegionName")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(displayName, forKey: "DisplayName")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(threeLetterISORegionName, forKey: "ThreeLetterISORegionName")
+        try values.encodeIfPresent(twoLetterISORegionName, forKey: "TwoLetterISORegionName")
+    }
 }

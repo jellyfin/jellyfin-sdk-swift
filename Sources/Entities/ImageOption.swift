@@ -21,4 +21,18 @@ public struct ImageOption: Codable {
         self.minWidth = minWidth
         self.type = type
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.limit = try values.decodeIfPresent(Int32.self, forKey: "Limit")
+        self.minWidth = try values.decodeIfPresent(Int32.self, forKey: "MinWidth")
+        self.type = try values.decodeIfPresent(ImageType.self, forKey: "Type")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(limit, forKey: "Limit")
+        try values.encodeIfPresent(minWidth, forKey: "MinWidth")
+        try values.encodeIfPresent(type, forKey: "Type")
+    }
 }

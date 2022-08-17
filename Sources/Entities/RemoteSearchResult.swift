@@ -39,4 +39,36 @@ public final class RemoteSearchResult: Codable {
         self.providerIDs = providerIDs
         self.searchProviderName = searchProviderName
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.albumArtist = try values.decodeIfPresent(RemoteSearchResult.self, forKey: "AlbumArtist")
+        self.artists = try values.decodeIfPresent([RemoteSearchResult].self, forKey: "Artists")
+        self.imageURL = try values.decodeIfPresent(String.self, forKey: "ImageUrl")
+        self.indexNumber = try values.decodeIfPresent(Int32.self, forKey: "IndexNumber")
+        self.indexNumberEnd = try values.decodeIfPresent(Int32.self, forKey: "IndexNumberEnd")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.overview = try values.decodeIfPresent(String.self, forKey: "Overview")
+        self.parentIndexNumber = try values.decodeIfPresent(Int32.self, forKey: "ParentIndexNumber")
+        self.premiereDate = try values.decodeIfPresent(Date.self, forKey: "PremiereDate")
+        self.productionYear = try values.decodeIfPresent(Int32.self, forKey: "ProductionYear")
+        self.providerIDs = try values.decodeIfPresent([String: String].self, forKey: "ProviderIds")
+        self.searchProviderName = try values.decodeIfPresent(String.self, forKey: "SearchProviderName")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(albumArtist, forKey: "AlbumArtist")
+        try values.encodeIfPresent(artists, forKey: "Artists")
+        try values.encodeIfPresent(imageURL, forKey: "ImageUrl")
+        try values.encodeIfPresent(indexNumber, forKey: "IndexNumber")
+        try values.encodeIfPresent(indexNumberEnd, forKey: "IndexNumberEnd")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(overview, forKey: "Overview")
+        try values.encodeIfPresent(parentIndexNumber, forKey: "ParentIndexNumber")
+        try values.encodeIfPresent(premiereDate, forKey: "PremiereDate")
+        try values.encodeIfPresent(productionYear, forKey: "ProductionYear")
+        try values.encodeIfPresent(providerIDs, forKey: "ProviderIds")
+        try values.encodeIfPresent(searchProviderName, forKey: "SearchProviderName")
+    }
 }

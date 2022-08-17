@@ -24,4 +24,24 @@ public struct MetadataEditorInfo: Codable {
         self.externalIDInfos = externalIDInfos
         self.parentalRatingOptions = parentalRatingOptions
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.contentType = try values.decodeIfPresent(String.self, forKey: "ContentType")
+        self.contentTypeOptions = try values.decodeIfPresent([NameValuePair].self, forKey: "ContentTypeOptions")
+        self.countries = try values.decodeIfPresent([CountryInfo].self, forKey: "Countries")
+        self.cultures = try values.decodeIfPresent([CultureDto].self, forKey: "Cultures")
+        self.externalIDInfos = try values.decodeIfPresent([ExternalIDInfo].self, forKey: "ExternalIdInfos")
+        self.parentalRatingOptions = try values.decodeIfPresent([ParentalRating].self, forKey: "ParentalRatingOptions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(contentType, forKey: "ContentType")
+        try values.encodeIfPresent(contentTypeOptions, forKey: "ContentTypeOptions")
+        try values.encodeIfPresent(countries, forKey: "Countries")
+        try values.encodeIfPresent(cultures, forKey: "Cultures")
+        try values.encodeIfPresent(externalIDInfos, forKey: "ExternalIdInfos")
+        try values.encodeIfPresent(parentalRatingOptions, forKey: "ParentalRatingOptions")
+    }
 }

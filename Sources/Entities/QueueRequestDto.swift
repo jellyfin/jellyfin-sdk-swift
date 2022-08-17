@@ -19,4 +19,16 @@ public struct QueueRequestDto: Codable {
         self.itemIDs = itemIDs
         self.mode = mode
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.itemIDs = try values.decodeIfPresent([UUID].self, forKey: "ItemIds")
+        self.mode = try values.decodeIfPresent(GroupQueueMode.self, forKey: "Mode")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(itemIDs, forKey: "ItemIds")
+        try values.encodeIfPresent(mode, forKey: "Mode")
+    }
 }

@@ -20,4 +20,18 @@ public struct PlaystateRequest: Codable {
         self.controllingUserID = controllingUserID
         self.seekPositionTicks = seekPositionTicks
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.command = try values.decodeIfPresent(PlaystateCommand.self, forKey: "Command")
+        self.controllingUserID = try values.decodeIfPresent(String.self, forKey: "ControllingUserId")
+        self.seekPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "SeekPositionTicks")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(command, forKey: "Command")
+        try values.encodeIfPresent(controllingUserID, forKey: "ControllingUserId")
+        try values.encodeIfPresent(seekPositionTicks, forKey: "SeekPositionTicks")
+    }
 }

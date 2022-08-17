@@ -28,4 +28,22 @@ public struct LibraryTypeOptionsDto: Codable {
         self.supportedImageTypes = supportedImageTypes
         self.type = type
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.defaultImageOptions = try values.decodeIfPresent([ImageOption].self, forKey: "DefaultImageOptions")
+        self.imageFetchers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "ImageFetchers")
+        self.metadataFetchers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "MetadataFetchers")
+        self.supportedImageTypes = try values.decodeIfPresent([ImageType].self, forKey: "SupportedImageTypes")
+        self.type = try values.decodeIfPresent(String.self, forKey: "Type")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(defaultImageOptions, forKey: "DefaultImageOptions")
+        try values.encodeIfPresent(imageFetchers, forKey: "ImageFetchers")
+        try values.encodeIfPresent(metadataFetchers, forKey: "MetadataFetchers")
+        try values.encodeIfPresent(supportedImageTypes, forKey: "SupportedImageTypes")
+        try values.encodeIfPresent(type, forKey: "Type")
+    }
 }

@@ -46,4 +46,34 @@ public struct UserItemDataDto: Codable {
         self.rating = rating
         self.unplayedItemCount = unplayedItemCount
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isFavorite = try values.decodeIfPresent(Bool.self, forKey: "IsFavorite")
+        self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
+        self.key = try values.decodeIfPresent(String.self, forKey: "Key")
+        self.lastPlayedDate = try values.decodeIfPresent(Date.self, forKey: "LastPlayedDate")
+        self.isLikes = try values.decodeIfPresent(Bool.self, forKey: "Likes")
+        self.playCount = try values.decodeIfPresent(Int32.self, forKey: "PlayCount")
+        self.playbackPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "PlaybackPositionTicks")
+        self.isPlayed = try values.decodeIfPresent(Bool.self, forKey: "Played")
+        self.playedPercentage = try values.decodeIfPresent(Double.self, forKey: "PlayedPercentage")
+        self.rating = try values.decodeIfPresent(Double.self, forKey: "Rating")
+        self.unplayedItemCount = try values.decodeIfPresent(Int32.self, forKey: "UnplayedItemCount")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isFavorite, forKey: "IsFavorite")
+        try values.encodeIfPresent(itemID, forKey: "ItemId")
+        try values.encodeIfPresent(key, forKey: "Key")
+        try values.encodeIfPresent(lastPlayedDate, forKey: "LastPlayedDate")
+        try values.encodeIfPresent(isLikes, forKey: "Likes")
+        try values.encodeIfPresent(playCount, forKey: "PlayCount")
+        try values.encodeIfPresent(playbackPositionTicks, forKey: "PlaybackPositionTicks")
+        try values.encodeIfPresent(isPlayed, forKey: "Played")
+        try values.encodeIfPresent(playedPercentage, forKey: "PlayedPercentage")
+        try values.encodeIfPresent(rating, forKey: "Rating")
+        try values.encodeIfPresent(unplayedItemCount, forKey: "UnplayedItemCount")
+    }
 }

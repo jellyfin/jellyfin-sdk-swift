@@ -47,4 +47,42 @@ public struct UserConfiguration: Codable {
         self.subtitleLanguagePreference = subtitleLanguagePreference
         self.subtitleMode = subtitleMode
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.audioLanguagePreference = try values.decodeIfPresent(String.self, forKey: "AudioLanguagePreference")
+        self.isDisplayCollectionsView = try values.decodeIfPresent(Bool.self, forKey: "DisplayCollectionsView")
+        self.isDisplayMissingEpisodes = try values.decodeIfPresent(Bool.self, forKey: "DisplayMissingEpisodes")
+        self.enableLocalPassword = try values.decodeIfPresent(Bool.self, forKey: "EnableLocalPassword")
+        self.enableNextEpisodeAutoPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableNextEpisodeAutoPlay")
+        self.groupedFolders = try values.decodeIfPresent([String].self, forKey: "GroupedFolders")
+        self.isHidePlayedInLatest = try values.decodeIfPresent(Bool.self, forKey: "HidePlayedInLatest")
+        self.latestItemsExcludes = try values.decodeIfPresent([String].self, forKey: "LatestItemsExcludes")
+        self.myMediaExcludes = try values.decodeIfPresent([String].self, forKey: "MyMediaExcludes")
+        self.orderedViews = try values.decodeIfPresent([String].self, forKey: "OrderedViews")
+        self.isPlayDefaultAudioTrack = try values.decodeIfPresent(Bool.self, forKey: "PlayDefaultAudioTrack")
+        self.isRememberAudioSelections = try values.decodeIfPresent(Bool.self, forKey: "RememberAudioSelections")
+        self.isRememberSubtitleSelections = try values.decodeIfPresent(Bool.self, forKey: "RememberSubtitleSelections")
+        self.subtitleLanguagePreference = try values.decodeIfPresent(String.self, forKey: "SubtitleLanguagePreference")
+        self.subtitleMode = try values.decodeIfPresent(SubtitlePlaybackMode.self, forKey: "SubtitleMode")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(audioLanguagePreference, forKey: "AudioLanguagePreference")
+        try values.encodeIfPresent(isDisplayCollectionsView, forKey: "DisplayCollectionsView")
+        try values.encodeIfPresent(isDisplayMissingEpisodes, forKey: "DisplayMissingEpisodes")
+        try values.encodeIfPresent(enableLocalPassword, forKey: "EnableLocalPassword")
+        try values.encodeIfPresent(enableNextEpisodeAutoPlay, forKey: "EnableNextEpisodeAutoPlay")
+        try values.encodeIfPresent(groupedFolders, forKey: "GroupedFolders")
+        try values.encodeIfPresent(isHidePlayedInLatest, forKey: "HidePlayedInLatest")
+        try values.encodeIfPresent(latestItemsExcludes, forKey: "LatestItemsExcludes")
+        try values.encodeIfPresent(myMediaExcludes, forKey: "MyMediaExcludes")
+        try values.encodeIfPresent(orderedViews, forKey: "OrderedViews")
+        try values.encodeIfPresent(isPlayDefaultAudioTrack, forKey: "PlayDefaultAudioTrack")
+        try values.encodeIfPresent(isRememberAudioSelections, forKey: "RememberAudioSelections")
+        try values.encodeIfPresent(isRememberSubtitleSelections, forKey: "RememberSubtitleSelections")
+        try values.encodeIfPresent(subtitleLanguagePreference, forKey: "SubtitleLanguagePreference")
+        try values.encodeIfPresent(subtitleMode, forKey: "SubtitleMode")
+    }
 }

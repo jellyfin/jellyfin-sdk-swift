@@ -14,4 +14,14 @@ public struct LiveStreamResponse: Codable {
     public init(mediaSource: MediaSourceInfo? = nil) {
         self.mediaSource = mediaSource
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.mediaSource = try values.decodeIfPresent(MediaSourceInfo.self, forKey: "MediaSource")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(mediaSource, forKey: "MediaSource")
+    }
 }

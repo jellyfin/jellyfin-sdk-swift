@@ -101,8 +101,8 @@ public final class JellyfinClient {
             "Device": configuration.deviceName,
             "Client": configuration.client,
             "Version": configuration.appVersion,
+            "Token": accessToken ?? ""
         ]
-            .updatingValue(accessToken ?? "", forKey: "Token", if: accessToken != nil)
             .map { "\($0.key)=\($0.value)" }
             .joined(separator: ", ")
         
@@ -112,18 +112,6 @@ public final class JellyfinClient {
 
 extension JellyfinClient: APIClientDelegate {
     public func client(_ client: APIClient, willSendRequest request: inout URLRequest) async throws {
-        request.addValue("Authorization", forHTTPHeaderField: authHeaders())
-    }
-}
-
-extension Dictionary {
-    func updatingValue(_ value: Value, forKey key: Key, if condition: Bool) -> Self {
-        var copy = self
-        
-        if condition {
-            copy.updateValue(value, forKey: key)
-        }
-        
-        return copy
+        request.addValue(authHeaders(), forHTTPHeaderField: "Authorization")
     }
 }

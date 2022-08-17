@@ -52,4 +52,34 @@ public struct DlnaOptions: Codable {
         self.enableServer = enableServer
         self.isSendOnlyMatchedHost = isSendOnlyMatchedHost
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.aliveMessageIntervalSeconds = try values.decodeIfPresent(Int32.self, forKey: "AliveMessageIntervalSeconds")
+        self.isAutoCreatePlayToProfiles = try values.decodeIfPresent(Bool.self, forKey: "AutoCreatePlayToProfiles")
+        self.blastAliveMessageIntervalSeconds = try values.decodeIfPresent(Int32.self, forKey: "BlastAliveMessageIntervalSeconds")
+        self.isBlastAliveMessages = try values.decodeIfPresent(Bool.self, forKey: "BlastAliveMessages")
+        self.clientDiscoveryIntervalSeconds = try values.decodeIfPresent(Int32.self, forKey: "ClientDiscoveryIntervalSeconds")
+        self.defaultUserID = try values.decodeIfPresent(String.self, forKey: "DefaultUserId")
+        self.enableDebugLog = try values.decodeIfPresent(Bool.self, forKey: "EnableDebugLog")
+        self.enablePlayTo = try values.decodeIfPresent(Bool.self, forKey: "EnablePlayTo")
+        self.enablePlayToTracing = try values.decodeIfPresent(Bool.self, forKey: "EnablePlayToTracing")
+        self.enableServer = try values.decodeIfPresent(Bool.self, forKey: "EnableServer")
+        self.isSendOnlyMatchedHost = try values.decodeIfPresent(Bool.self, forKey: "SendOnlyMatchedHost")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(aliveMessageIntervalSeconds, forKey: "AliveMessageIntervalSeconds")
+        try values.encodeIfPresent(isAutoCreatePlayToProfiles, forKey: "AutoCreatePlayToProfiles")
+        try values.encodeIfPresent(blastAliveMessageIntervalSeconds, forKey: "BlastAliveMessageIntervalSeconds")
+        try values.encodeIfPresent(isBlastAliveMessages, forKey: "BlastAliveMessages")
+        try values.encodeIfPresent(clientDiscoveryIntervalSeconds, forKey: "ClientDiscoveryIntervalSeconds")
+        try values.encodeIfPresent(defaultUserID, forKey: "DefaultUserId")
+        try values.encodeIfPresent(enableDebugLog, forKey: "EnableDebugLog")
+        try values.encodeIfPresent(enablePlayTo, forKey: "EnablePlayTo")
+        try values.encodeIfPresent(enablePlayToTracing, forKey: "EnablePlayToTracing")
+        try values.encodeIfPresent(enableServer, forKey: "EnableServer")
+        try values.encodeIfPresent(isSendOnlyMatchedHost, forKey: "SendOnlyMatchedHost")
+    }
 }

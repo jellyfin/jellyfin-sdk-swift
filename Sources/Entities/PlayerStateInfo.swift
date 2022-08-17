@@ -45,4 +45,34 @@ public struct PlayerStateInfo: Codable {
         self.subtitleStreamIndex = subtitleStreamIndex
         self.volumeLevel = volumeLevel
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.audioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "AudioStreamIndex")
+        self.canSeek = try values.decodeIfPresent(Bool.self, forKey: "CanSeek")
+        self.isMuted = try values.decodeIfPresent(Bool.self, forKey: "IsMuted")
+        self.isPaused = try values.decodeIfPresent(Bool.self, forKey: "IsPaused")
+        self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
+        self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
+        self.playMethod = try values.decodeIfPresent(PlayMethod.self, forKey: "PlayMethod")
+        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.repeatMode = try values.decodeIfPresent(RepeatMode.self, forKey: "RepeatMode")
+        self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
+        self.volumeLevel = try values.decodeIfPresent(Int32.self, forKey: "VolumeLevel")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(audioStreamIndex, forKey: "AudioStreamIndex")
+        try values.encodeIfPresent(canSeek, forKey: "CanSeek")
+        try values.encodeIfPresent(isMuted, forKey: "IsMuted")
+        try values.encodeIfPresent(isPaused, forKey: "IsPaused")
+        try values.encodeIfPresent(liveStreamID, forKey: "LiveStreamId")
+        try values.encodeIfPresent(mediaSourceID, forKey: "MediaSourceId")
+        try values.encodeIfPresent(playMethod, forKey: "PlayMethod")
+        try values.encodeIfPresent(positionTicks, forKey: "PositionTicks")
+        try values.encodeIfPresent(repeatMode, forKey: "RepeatMode")
+        try values.encodeIfPresent(subtitleStreamIndex, forKey: "SubtitleStreamIndex")
+        try values.encodeIfPresent(volumeLevel, forKey: "VolumeLevel")
+    }
 }

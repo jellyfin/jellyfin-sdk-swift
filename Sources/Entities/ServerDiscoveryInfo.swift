@@ -25,4 +25,20 @@ public struct ServerDiscoveryInfo: Codable, Identifiable {
         self.id = id
         self.name = name
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.address = try values.decodeIfPresent(String.self, forKey: "Address")
+        self.endpointAddress = try values.decodeIfPresent(String.self, forKey: "EndpointAddress")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(address, forKey: "Address")
+        try values.encodeIfPresent(endpointAddress, forKey: "EndpointAddress")
+        try values.encodeIfPresent(id, forKey: "Id")
+        try values.encodeIfPresent(name, forKey: "Name")
+    }
 }

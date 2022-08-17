@@ -22,4 +22,18 @@ public struct DeviceOptions: Codable, Identifiable {
         self.deviceID = deviceID
         self.id = id
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.customName = try values.decodeIfPresent(String.self, forKey: "CustomName")
+        self.deviceID = try values.decodeIfPresent(String.self, forKey: "DeviceId")
+        self.id = try values.decodeIfPresent(Int32.self, forKey: "Id")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(customName, forKey: "CustomName")
+        try values.encodeIfPresent(deviceID, forKey: "DeviceId")
+        try values.encodeIfPresent(id, forKey: "Id")
+    }
 }

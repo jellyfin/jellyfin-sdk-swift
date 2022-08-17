@@ -43,4 +43,32 @@ public struct RemoteImageInfo: Codable {
         self.voteCount = voteCount
         self.width = width
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.communityRating = try values.decodeIfPresent(Double.self, forKey: "CommunityRating")
+        self.height = try values.decodeIfPresent(Int32.self, forKey: "Height")
+        self.language = try values.decodeIfPresent(String.self, forKey: "Language")
+        self.providerName = try values.decodeIfPresent(String.self, forKey: "ProviderName")
+        self.ratingType = try values.decodeIfPresent(RatingType.self, forKey: "RatingType")
+        self.thumbnailURL = try values.decodeIfPresent(String.self, forKey: "ThumbnailUrl")
+        self.type = try values.decodeIfPresent(ImageType.self, forKey: "Type")
+        self.url = try values.decodeIfPresent(String.self, forKey: "Url")
+        self.voteCount = try values.decodeIfPresent(Int32.self, forKey: "VoteCount")
+        self.width = try values.decodeIfPresent(Int32.self, forKey: "Width")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(communityRating, forKey: "CommunityRating")
+        try values.encodeIfPresent(height, forKey: "Height")
+        try values.encodeIfPresent(language, forKey: "Language")
+        try values.encodeIfPresent(providerName, forKey: "ProviderName")
+        try values.encodeIfPresent(ratingType, forKey: "RatingType")
+        try values.encodeIfPresent(thumbnailURL, forKey: "ThumbnailUrl")
+        try values.encodeIfPresent(type, forKey: "Type")
+        try values.encodeIfPresent(url, forKey: "Url")
+        try values.encodeIfPresent(voteCount, forKey: "VoteCount")
+        try values.encodeIfPresent(width, forKey: "Width")
+    }
 }

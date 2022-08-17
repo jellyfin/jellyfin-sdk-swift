@@ -19,4 +19,18 @@ public struct GeneralCommand: Codable {
         self.controllingUserID = controllingUserID
         self.name = name
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.arguments = try values.decodeIfPresent([String: String].self, forKey: "Arguments")
+        self.controllingUserID = try values.decodeIfPresent(UUID.self, forKey: "ControllingUserId")
+        self.name = try values.decodeIfPresent(GeneralCommandType.self, forKey: "Name")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(arguments, forKey: "Arguments")
+        try values.encodeIfPresent(controllingUserID, forKey: "ControllingUserId")
+        try values.encodeIfPresent(name, forKey: "Name")
+    }
 }

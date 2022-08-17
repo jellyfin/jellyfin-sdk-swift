@@ -28,4 +28,22 @@ public struct TaskTriggerInfo: Codable {
         self.timeOfDayTicks = timeOfDayTicks
         self.type = type
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.dayOfWeek = try values.decodeIfPresent(DayOfWeek.self, forKey: "DayOfWeek")
+        self.intervalTicks = try values.decodeIfPresent(Int64.self, forKey: "IntervalTicks")
+        self.maxRuntimeTicks = try values.decodeIfPresent(Int64.self, forKey: "MaxRuntimeTicks")
+        self.timeOfDayTicks = try values.decodeIfPresent(Int64.self, forKey: "TimeOfDayTicks")
+        self.type = try values.decodeIfPresent(String.self, forKey: "Type")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(dayOfWeek, forKey: "DayOfWeek")
+        try values.encodeIfPresent(intervalTicks, forKey: "IntervalTicks")
+        try values.encodeIfPresent(maxRuntimeTicks, forKey: "MaxRuntimeTicks")
+        try values.encodeIfPresent(timeOfDayTicks, forKey: "TimeOfDayTicks")
+        try values.encodeIfPresent(type, forKey: "Type")
+    }
 }

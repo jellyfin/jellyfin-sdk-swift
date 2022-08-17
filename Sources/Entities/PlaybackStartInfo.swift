@@ -68,4 +68,52 @@ public struct PlaybackStartInfo: Codable {
         self.subtitleStreamIndex = subtitleStreamIndex
         self.volumeLevel = volumeLevel
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.aspectRatio = try values.decodeIfPresent(String.self, forKey: "AspectRatio")
+        self.audioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "AudioStreamIndex")
+        self.brightness = try values.decodeIfPresent(Int32.self, forKey: "Brightness")
+        self.canSeek = try values.decodeIfPresent(Bool.self, forKey: "CanSeek")
+        self.isMuted = try values.decodeIfPresent(Bool.self, forKey: "IsMuted")
+        self.isPaused = try values.decodeIfPresent(Bool.self, forKey: "IsPaused")
+        self.item = try values.decodeIfPresent(BaseItemDto.self, forKey: "Item")
+        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
+        self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
+        self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
+        self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
+        self.playMethod = try values.decodeIfPresent(PlayMethod.self, forKey: "PlayMethod")
+        self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
+        self.playbackStartTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "PlaybackStartTimeTicks")
+        self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
+        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.repeatMode = try values.decodeIfPresent(RepeatMode.self, forKey: "RepeatMode")
+        self.sessionID = try values.decodeIfPresent(String.self, forKey: "SessionId")
+        self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
+        self.volumeLevel = try values.decodeIfPresent(Int32.self, forKey: "VolumeLevel")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(aspectRatio, forKey: "AspectRatio")
+        try values.encodeIfPresent(audioStreamIndex, forKey: "AudioStreamIndex")
+        try values.encodeIfPresent(brightness, forKey: "Brightness")
+        try values.encodeIfPresent(canSeek, forKey: "CanSeek")
+        try values.encodeIfPresent(isMuted, forKey: "IsMuted")
+        try values.encodeIfPresent(isPaused, forKey: "IsPaused")
+        try values.encodeIfPresent(item, forKey: "Item")
+        try values.encodeIfPresent(itemID, forKey: "ItemId")
+        try values.encodeIfPresent(liveStreamID, forKey: "LiveStreamId")
+        try values.encodeIfPresent(mediaSourceID, forKey: "MediaSourceId")
+        try values.encodeIfPresent(nowPlayingQueue, forKey: "NowPlayingQueue")
+        try values.encodeIfPresent(playMethod, forKey: "PlayMethod")
+        try values.encodeIfPresent(playSessionID, forKey: "PlaySessionId")
+        try values.encodeIfPresent(playbackStartTimeTicks, forKey: "PlaybackStartTimeTicks")
+        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
+        try values.encodeIfPresent(positionTicks, forKey: "PositionTicks")
+        try values.encodeIfPresent(repeatMode, forKey: "RepeatMode")
+        try values.encodeIfPresent(sessionID, forKey: "SessionId")
+        try values.encodeIfPresent(subtitleStreamIndex, forKey: "SubtitleStreamIndex")
+        try values.encodeIfPresent(volumeLevel, forKey: "VolumeLevel")
+    }
 }

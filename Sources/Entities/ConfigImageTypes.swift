@@ -26,4 +26,26 @@ public struct ConfigImageTypes: Codable {
         self.secureBaseURL = secureBaseURL
         self.stillSizes = stillSizes
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.backdropSizes = try values.decodeIfPresent([String].self, forKey: "BackdropSizes")
+        self.baseURL = try values.decodeIfPresent(String.self, forKey: "BaseUrl")
+        self.logoSizes = try values.decodeIfPresent([String].self, forKey: "LogoSizes")
+        self.posterSizes = try values.decodeIfPresent([String].self, forKey: "PosterSizes")
+        self.profileSizes = try values.decodeIfPresent([String].self, forKey: "ProfileSizes")
+        self.secureBaseURL = try values.decodeIfPresent(String.self, forKey: "SecureBaseUrl")
+        self.stillSizes = try values.decodeIfPresent([String].self, forKey: "StillSizes")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(backdropSizes, forKey: "BackdropSizes")
+        try values.encodeIfPresent(baseURL, forKey: "BaseUrl")
+        try values.encodeIfPresent(logoSizes, forKey: "LogoSizes")
+        try values.encodeIfPresent(posterSizes, forKey: "PosterSizes")
+        try values.encodeIfPresent(profileSizes, forKey: "ProfileSizes")
+        try values.encodeIfPresent(secureBaseURL, forKey: "SecureBaseUrl")
+        try values.encodeIfPresent(stillSizes, forKey: "StillSizes")
+    }
 }

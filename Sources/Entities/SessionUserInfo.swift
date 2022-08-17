@@ -19,4 +19,16 @@ public struct SessionUserInfo: Codable {
         self.userID = userID
         self.userName = userName
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+        self.userName = try values.decodeIfPresent(String.self, forKey: "UserName")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(userID, forKey: "UserId")
+        try values.encodeIfPresent(userName, forKey: "UserName")
+    }
 }

@@ -19,4 +19,16 @@ public struct WakeOnLanInfo: Codable {
         self.macAddress = macAddress
         self.port = port
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.macAddress = try values.decodeIfPresent(String.self, forKey: "MacAddress")
+        self.port = try values.decodeIfPresent(Int32.self, forKey: "Port")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(macAddress, forKey: "MacAddress")
+        try values.encodeIfPresent(port, forKey: "Port")
+    }
 }

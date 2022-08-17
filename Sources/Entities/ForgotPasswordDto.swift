@@ -16,4 +16,14 @@ public struct ForgotPasswordDto: Codable {
     public init(enteredUsername: String) {
         self.enteredUsername = enteredUsername
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.enteredUsername = try values.decode(String.self, forKey: "EnteredUsername")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(enteredUsername, forKey: "EnteredUsername")
+    }
 }

@@ -21,4 +21,18 @@ public struct ForgotPasswordResult: Codable {
         self.pinExpirationDate = pinExpirationDate
         self.pinFile = pinFile
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.action = try values.decodeIfPresent(ForgotPasswordAction.self, forKey: "Action")
+        self.pinExpirationDate = try values.decodeIfPresent(Date.self, forKey: "PinExpirationDate")
+        self.pinFile = try values.decodeIfPresent(String.self, forKey: "PinFile")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(action, forKey: "Action")
+        try values.encodeIfPresent(pinExpirationDate, forKey: "PinExpirationDate")
+        try values.encodeIfPresent(pinFile, forKey: "PinFile")
+    }
 }

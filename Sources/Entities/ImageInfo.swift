@@ -37,4 +37,28 @@ public struct ImageInfo: Codable {
         self.size = size
         self.width = width
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.blurHash = try values.decodeIfPresent(String.self, forKey: "BlurHash")
+        self.height = try values.decodeIfPresent(Int32.self, forKey: "Height")
+        self.imageIndex = try values.decodeIfPresent(Int32.self, forKey: "ImageIndex")
+        self.imageTag = try values.decodeIfPresent(String.self, forKey: "ImageTag")
+        self.imageType = try values.decodeIfPresent(ImageType.self, forKey: "ImageType")
+        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
+        self.size = try values.decodeIfPresent(Int64.self, forKey: "Size")
+        self.width = try values.decodeIfPresent(Int32.self, forKey: "Width")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(blurHash, forKey: "BlurHash")
+        try values.encodeIfPresent(height, forKey: "Height")
+        try values.encodeIfPresent(imageIndex, forKey: "ImageIndex")
+        try values.encodeIfPresent(imageTag, forKey: "ImageTag")
+        try values.encodeIfPresent(imageType, forKey: "ImageType")
+        try values.encodeIfPresent(path, forKey: "Path")
+        try values.encodeIfPresent(size, forKey: "Size")
+        try values.encodeIfPresent(width, forKey: "Width")
+    }
 }

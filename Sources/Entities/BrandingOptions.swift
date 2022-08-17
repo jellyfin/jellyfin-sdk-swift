@@ -22,4 +22,18 @@ public struct BrandingOptions: Codable {
         self.loginDisclaimer = loginDisclaimer
         self.isSplashscreenEnabled = isSplashscreenEnabled
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.customCss = try values.decodeIfPresent(String.self, forKey: "CustomCss")
+        self.loginDisclaimer = try values.decodeIfPresent(String.self, forKey: "LoginDisclaimer")
+        self.isSplashscreenEnabled = try values.decodeIfPresent(Bool.self, forKey: "SplashscreenEnabled")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(customCss, forKey: "CustomCss")
+        try values.encodeIfPresent(loginDisclaimer, forKey: "LoginDisclaimer")
+        try values.encodeIfPresent(isSplashscreenEnabled, forKey: "SplashscreenEnabled")
+    }
 }

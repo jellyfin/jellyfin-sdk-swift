@@ -16,4 +16,14 @@ public struct SetRepeatModeRequestDto: Codable {
     public init(mode: GroupRepeatMode? = nil) {
         self.mode = mode
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.mode = try values.decodeIfPresent(GroupRepeatMode.self, forKey: "Mode")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(mode, forKey: "Mode")
+    }
 }

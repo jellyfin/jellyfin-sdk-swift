@@ -21,4 +21,18 @@ public struct AuthenticationInfoQueryResult: Codable {
         self.startIndex = startIndex
         self.totalRecordCount = totalRecordCount
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.items = try values.decodeIfPresent([AuthenticationInfo].self, forKey: "Items")
+        self.startIndex = try values.decodeIfPresent(Int32.self, forKey: "StartIndex")
+        self.totalRecordCount = try values.decodeIfPresent(Int32.self, forKey: "TotalRecordCount")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(items, forKey: "Items")
+        try values.encodeIfPresent(startIndex, forKey: "StartIndex")
+        try values.encodeIfPresent(totalRecordCount, forKey: "TotalRecordCount")
+    }
 }

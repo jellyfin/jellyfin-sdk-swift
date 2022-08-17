@@ -66,4 +66,38 @@ public struct TranscodingInfo: Codable {
         self.videoCodec = videoCodec
         self.width = width
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.audioChannels = try values.decodeIfPresent(Int32.self, forKey: "AudioChannels")
+        self.audioCodec = try values.decodeIfPresent(String.self, forKey: "AudioCodec")
+        self.bitrate = try values.decodeIfPresent(Int32.self, forKey: "Bitrate")
+        self.completionPercentage = try values.decodeIfPresent(Double.self, forKey: "CompletionPercentage")
+        self.container = try values.decodeIfPresent(String.self, forKey: "Container")
+        self.framerate = try values.decodeIfPresent(Float.self, forKey: "Framerate")
+        self.hardwareAccelerationType = try values.decodeIfPresent(HardwareEncodingType.self, forKey: "HardwareAccelerationType")
+        self.height = try values.decodeIfPresent(Int32.self, forKey: "Height")
+        self.isAudioDirect = try values.decodeIfPresent(Bool.self, forKey: "IsAudioDirect")
+        self.isVideoDirect = try values.decodeIfPresent(Bool.self, forKey: "IsVideoDirect")
+        self.transcodeReasons = try values.decodeIfPresent(TranscodeReasons.self, forKey: "TranscodeReasons")
+        self.videoCodec = try values.decodeIfPresent(String.self, forKey: "VideoCodec")
+        self.width = try values.decodeIfPresent(Int32.self, forKey: "Width")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(audioChannels, forKey: "AudioChannels")
+        try values.encodeIfPresent(audioCodec, forKey: "AudioCodec")
+        try values.encodeIfPresent(bitrate, forKey: "Bitrate")
+        try values.encodeIfPresent(completionPercentage, forKey: "CompletionPercentage")
+        try values.encodeIfPresent(container, forKey: "Container")
+        try values.encodeIfPresent(framerate, forKey: "Framerate")
+        try values.encodeIfPresent(hardwareAccelerationType, forKey: "HardwareAccelerationType")
+        try values.encodeIfPresent(height, forKey: "Height")
+        try values.encodeIfPresent(isAudioDirect, forKey: "IsAudioDirect")
+        try values.encodeIfPresent(isVideoDirect, forKey: "IsVideoDirect")
+        try values.encodeIfPresent(transcodeReasons, forKey: "TranscodeReasons")
+        try values.encodeIfPresent(videoCodec, forKey: "VideoCodec")
+        try values.encodeIfPresent(width, forKey: "Width")
+    }
 }

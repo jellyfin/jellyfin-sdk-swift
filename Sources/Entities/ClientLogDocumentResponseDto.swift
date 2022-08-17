@@ -16,4 +16,14 @@ public struct ClientLogDocumentResponseDto: Codable {
     public init(fileName: String? = nil) {
         self.fileName = fileName
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.fileName = try values.decodeIfPresent(String.self, forKey: "FileName")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(fileName, forKey: "FileName")
+    }
 }

@@ -25,4 +25,20 @@ public struct LibraryOptionsResultDto: Codable {
         self.subtitleFetchers = subtitleFetchers
         self.typeOptions = typeOptions
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.metadataReaders = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "MetadataReaders")
+        self.metadataSavers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "MetadataSavers")
+        self.subtitleFetchers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "SubtitleFetchers")
+        self.typeOptions = try values.decodeIfPresent([LibraryTypeOptionsDto].self, forKey: "TypeOptions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(metadataReaders, forKey: "MetadataReaders")
+        try values.encodeIfPresent(metadataSavers, forKey: "MetadataSavers")
+        try values.encodeIfPresent(subtitleFetchers, forKey: "SubtitleFetchers")
+        try values.encodeIfPresent(typeOptions, forKey: "TypeOptions")
+    }
 }

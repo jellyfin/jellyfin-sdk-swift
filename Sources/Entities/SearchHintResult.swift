@@ -19,4 +19,16 @@ public struct SearchHintResult: Codable {
         self.searchHints = searchHints
         self.totalRecordCount = totalRecordCount
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.searchHints = try values.decodeIfPresent([SearchHint].self, forKey: "SearchHints")
+        self.totalRecordCount = try values.decodeIfPresent(Int32.self, forKey: "TotalRecordCount")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(searchHints, forKey: "SearchHints")
+        try values.encodeIfPresent(totalRecordCount, forKey: "TotalRecordCount")
+    }
 }

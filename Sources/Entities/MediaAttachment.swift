@@ -34,4 +34,26 @@ public struct MediaAttachment: Codable {
         self.index = index
         self.mimeType = mimeType
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.codec = try values.decodeIfPresent(String.self, forKey: "Codec")
+        self.codecTag = try values.decodeIfPresent(String.self, forKey: "CodecTag")
+        self.comment = try values.decodeIfPresent(String.self, forKey: "Comment")
+        self.deliveryURL = try values.decodeIfPresent(String.self, forKey: "DeliveryUrl")
+        self.fileName = try values.decodeIfPresent(String.self, forKey: "FileName")
+        self.index = try values.decodeIfPresent(Int32.self, forKey: "Index")
+        self.mimeType = try values.decodeIfPresent(String.self, forKey: "MimeType")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(codec, forKey: "Codec")
+        try values.encodeIfPresent(codecTag, forKey: "CodecTag")
+        try values.encodeIfPresent(comment, forKey: "Comment")
+        try values.encodeIfPresent(deliveryURL, forKey: "DeliveryUrl")
+        try values.encodeIfPresent(fileName, forKey: "FileName")
+        try values.encodeIfPresent(index, forKey: "Index")
+        try values.encodeIfPresent(mimeType, forKey: "MimeType")
+    }
 }

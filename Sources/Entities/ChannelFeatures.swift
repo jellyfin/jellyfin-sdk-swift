@@ -48,4 +48,36 @@ public struct ChannelFeatures: Codable, Identifiable {
         self.isSupportsLatestMedia = isSupportsLatestMedia
         self.isSupportsSortOrderToggle = isSupportsSortOrderToggle
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.autoRefreshLevels = try values.decodeIfPresent(Int32.self, forKey: "AutoRefreshLevels")
+        self.canFilter = try values.decodeIfPresent(Bool.self, forKey: "CanFilter")
+        self.canSearch = try values.decodeIfPresent(Bool.self, forKey: "CanSearch")
+        self.contentTypes = try values.decodeIfPresent([ChannelMediaContentType].self, forKey: "ContentTypes")
+        self.defaultSortFields = try values.decodeIfPresent([ChannelItemSortField].self, forKey: "DefaultSortFields")
+        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.maxPageSize = try values.decodeIfPresent(Int32.self, forKey: "MaxPageSize")
+        self.mediaTypes = try values.decodeIfPresent([ChannelMediaType].self, forKey: "MediaTypes")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.isSupportsContentDownloading = try values.decodeIfPresent(Bool.self, forKey: "SupportsContentDownloading")
+        self.isSupportsLatestMedia = try values.decodeIfPresent(Bool.self, forKey: "SupportsLatestMedia")
+        self.isSupportsSortOrderToggle = try values.decodeIfPresent(Bool.self, forKey: "SupportsSortOrderToggle")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(autoRefreshLevels, forKey: "AutoRefreshLevels")
+        try values.encodeIfPresent(canFilter, forKey: "CanFilter")
+        try values.encodeIfPresent(canSearch, forKey: "CanSearch")
+        try values.encodeIfPresent(contentTypes, forKey: "ContentTypes")
+        try values.encodeIfPresent(defaultSortFields, forKey: "DefaultSortFields")
+        try values.encodeIfPresent(id, forKey: "Id")
+        try values.encodeIfPresent(maxPageSize, forKey: "MaxPageSize")
+        try values.encodeIfPresent(mediaTypes, forKey: "MediaTypes")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(isSupportsContentDownloading, forKey: "SupportsContentDownloading")
+        try values.encodeIfPresent(isSupportsLatestMedia, forKey: "SupportsLatestMedia")
+        try values.encodeIfPresent(isSupportsSortOrderToggle, forKey: "SupportsSortOrderToggle")
+    }
 }

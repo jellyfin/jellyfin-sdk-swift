@@ -25,4 +25,20 @@ public struct BufferRequestDto: Codable {
         self.positionTicks = positionTicks
         self.when = when
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isPlaying = try values.decodeIfPresent(Bool.self, forKey: "IsPlaying")
+        self.playlistItemID = try values.decodeIfPresent(UUID.self, forKey: "PlaylistItemId")
+        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.when = try values.decodeIfPresent(Date.self, forKey: "When")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isPlaying, forKey: "IsPlaying")
+        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
+        try values.encodeIfPresent(positionTicks, forKey: "PositionTicks")
+        try values.encodeIfPresent(when, forKey: "When")
+    }
 }

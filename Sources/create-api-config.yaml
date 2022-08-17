@@ -16,8 +16,6 @@ entities:
   sortPropertiesAlphabetically: true
   exclude:
   - BaseItemDto.CurrentProgram
-  alwaysIncludeDecodableImplementation: false
-  alwaysIncludeEncodableImplementation: false
 paths:
   style: operations
   filenameTemplate: "%0API.swift"

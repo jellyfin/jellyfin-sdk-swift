@@ -34,4 +34,28 @@ public struct VirtualFolderInfo: Codable {
         self.refreshProgress = refreshProgress
         self.refreshStatus = refreshStatus
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.collectionType = try values.decodeIfPresent(CollectionTypeOptions.self, forKey: "CollectionType")
+        self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
+        self.libraryOptions = try values.decodeIfPresent(LibraryOptions.self, forKey: "LibraryOptions")
+        self.locations = try values.decodeIfPresent([String].self, forKey: "Locations")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.primaryImageItemID = try values.decodeIfPresent(String.self, forKey: "PrimaryImageItemId")
+        self.refreshProgress = try values.decodeIfPresent(Double.self, forKey: "RefreshProgress")
+        self.refreshStatus = try values.decodeIfPresent(String.self, forKey: "RefreshStatus")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(collectionType, forKey: "CollectionType")
+        try values.encodeIfPresent(itemID, forKey: "ItemId")
+        try values.encodeIfPresent(libraryOptions, forKey: "LibraryOptions")
+        try values.encodeIfPresent(locations, forKey: "Locations")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(primaryImageItemID, forKey: "PrimaryImageItemId")
+        try values.encodeIfPresent(refreshProgress, forKey: "RefreshProgress")
+        try values.encodeIfPresent(refreshStatus, forKey: "RefreshStatus")
+    }
 }

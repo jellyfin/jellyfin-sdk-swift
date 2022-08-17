@@ -28,4 +28,22 @@ public struct AccessSchedule: Codable, Identifiable {
         self.startHour = startHour
         self.userID = userID
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.dayOfWeek = try values.decodeIfPresent(DynamicDayOfWeek.self, forKey: "DayOfWeek")
+        self.endHour = try values.decodeIfPresent(Double.self, forKey: "EndHour")
+        self.id = try values.decodeIfPresent(Int32.self, forKey: "Id")
+        self.startHour = try values.decodeIfPresent(Double.self, forKey: "StartHour")
+        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(dayOfWeek, forKey: "DayOfWeek")
+        try values.encodeIfPresent(endHour, forKey: "EndHour")
+        try values.encodeIfPresent(id, forKey: "Id")
+        try values.encodeIfPresent(startHour, forKey: "StartHour")
+        try values.encodeIfPresent(userID, forKey: "UserId")
+    }
 }

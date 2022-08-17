@@ -16,4 +16,14 @@ public struct QuickConnectDto: Codable {
     public init(secret: String) {
         self.secret = secret
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.secret = try values.decode(String.self, forKey: "Secret")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(secret, forKey: "Secret")
+    }
 }

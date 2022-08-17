@@ -32,4 +32,26 @@ public struct LibraryUpdateInfo: Codable {
         self.itemsRemoved = itemsRemoved
         self.itemsUpdated = itemsUpdated
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.collectionFolders = try values.decodeIfPresent([String].self, forKey: "CollectionFolders")
+        self.foldersAddedTo = try values.decodeIfPresent([String].self, forKey: "FoldersAddedTo")
+        self.foldersRemovedFrom = try values.decodeIfPresent([String].self, forKey: "FoldersRemovedFrom")
+        self.isEmpty = try values.decodeIfPresent(Bool.self, forKey: "IsEmpty")
+        self.itemsAdded = try values.decodeIfPresent([String].self, forKey: "ItemsAdded")
+        self.itemsRemoved = try values.decodeIfPresent([String].self, forKey: "ItemsRemoved")
+        self.itemsUpdated = try values.decodeIfPresent([String].self, forKey: "ItemsUpdated")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(collectionFolders, forKey: "CollectionFolders")
+        try values.encodeIfPresent(foldersAddedTo, forKey: "FoldersAddedTo")
+        try values.encodeIfPresent(foldersRemovedFrom, forKey: "FoldersRemovedFrom")
+        try values.encodeIfPresent(isEmpty, forKey: "IsEmpty")
+        try values.encodeIfPresent(itemsAdded, forKey: "ItemsAdded")
+        try values.encodeIfPresent(itemsRemoved, forKey: "ItemsRemoved")
+        try values.encodeIfPresent(itemsUpdated, forKey: "ItemsUpdated")
+    }
 }

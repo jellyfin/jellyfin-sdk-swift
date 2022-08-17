@@ -24,4 +24,18 @@ public struct AuthenticateUserByName: Codable {
         self.pw = pw
         self.username = username
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.password = try values.decodeIfPresent(String.self, forKey: "Password")
+        self.pw = try values.decodeIfPresent(String.self, forKey: "Pw")
+        self.username = try values.decodeIfPresent(String.self, forKey: "Username")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(password, forKey: "Password")
+        try values.encodeIfPresent(pw, forKey: "Pw")
+        try values.encodeIfPresent(username, forKey: "Username")
+    }
 }

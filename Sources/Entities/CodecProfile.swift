@@ -22,4 +22,22 @@ public struct CodecProfile: Codable {
         self.container = container
         self.type = type
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.applyConditions = try values.decodeIfPresent([ProfileCondition].self, forKey: "ApplyConditions")
+        self.codec = try values.decodeIfPresent(String.self, forKey: "Codec")
+        self.conditions = try values.decodeIfPresent([ProfileCondition].self, forKey: "Conditions")
+        self.container = try values.decodeIfPresent(String.self, forKey: "Container")
+        self.type = try values.decodeIfPresent(CodecType.self, forKey: "Type")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(applyConditions, forKey: "ApplyConditions")
+        try values.encodeIfPresent(codec, forKey: "Codec")
+        try values.encodeIfPresent(conditions, forKey: "Conditions")
+        try values.encodeIfPresent(container, forKey: "Container")
+        try values.encodeIfPresent(type, forKey: "Type")
+    }
 }

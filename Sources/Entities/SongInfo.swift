@@ -47,4 +47,40 @@ public struct SongInfo: Codable {
         self.providerIDs = providerIDs
         self.year = year
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.album = try values.decodeIfPresent(String.self, forKey: "Album")
+        self.albumArtists = try values.decodeIfPresent([String].self, forKey: "AlbumArtists")
+        self.artists = try values.decodeIfPresent([String].self, forKey: "Artists")
+        self.indexNumber = try values.decodeIfPresent(Int32.self, forKey: "IndexNumber")
+        self.isAutomated = try values.decodeIfPresent(Bool.self, forKey: "IsAutomated")
+        self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
+        self.metadataLanguage = try values.decodeIfPresent(String.self, forKey: "MetadataLanguage")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.originalTitle = try values.decodeIfPresent(String.self, forKey: "OriginalTitle")
+        self.parentIndexNumber = try values.decodeIfPresent(Int32.self, forKey: "ParentIndexNumber")
+        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
+        self.premiereDate = try values.decodeIfPresent(Date.self, forKey: "PremiereDate")
+        self.providerIDs = try values.decodeIfPresent([String: String].self, forKey: "ProviderIds")
+        self.year = try values.decodeIfPresent(Int32.self, forKey: "Year")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(album, forKey: "Album")
+        try values.encodeIfPresent(albumArtists, forKey: "AlbumArtists")
+        try values.encodeIfPresent(artists, forKey: "Artists")
+        try values.encodeIfPresent(indexNumber, forKey: "IndexNumber")
+        try values.encodeIfPresent(isAutomated, forKey: "IsAutomated")
+        try values.encodeIfPresent(metadataCountryCode, forKey: "MetadataCountryCode")
+        try values.encodeIfPresent(metadataLanguage, forKey: "MetadataLanguage")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(originalTitle, forKey: "OriginalTitle")
+        try values.encodeIfPresent(parentIndexNumber, forKey: "ParentIndexNumber")
+        try values.encodeIfPresent(path, forKey: "Path")
+        try values.encodeIfPresent(premiereDate, forKey: "PremiereDate")
+        try values.encodeIfPresent(providerIDs, forKey: "ProviderIds")
+        try values.encodeIfPresent(year, forKey: "Year")
+    }
 }

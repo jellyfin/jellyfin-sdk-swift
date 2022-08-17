@@ -27,4 +27,22 @@ public struct ImageByNameInfo: Codable {
         self.name = name
         self.theme = theme
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.context = try values.decodeIfPresent(String.self, forKey: "Context")
+        self.fileLength = try values.decodeIfPresent(Int64.self, forKey: "FileLength")
+        self.format = try values.decodeIfPresent(String.self, forKey: "Format")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.theme = try values.decodeIfPresent(String.self, forKey: "Theme")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(context, forKey: "Context")
+        try values.encodeIfPresent(fileLength, forKey: "FileLength")
+        try values.encodeIfPresent(format, forKey: "Format")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(theme, forKey: "Theme")
+    }
 }

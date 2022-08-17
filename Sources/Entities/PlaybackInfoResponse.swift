@@ -22,4 +22,18 @@ public struct PlaybackInfoResponse: Codable {
         self.mediaSources = mediaSources
         self.playSessionID = playSessionID
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.errorCode = try values.decodeIfPresent(PlaybackErrorCode.self, forKey: "ErrorCode")
+        self.mediaSources = try values.decodeIfPresent([MediaSourceInfo].self, forKey: "MediaSources")
+        self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(errorCode, forKey: "ErrorCode")
+        try values.encodeIfPresent(mediaSources, forKey: "MediaSources")
+        try values.encodeIfPresent(playSessionID, forKey: "PlaySessionId")
+    }
 }

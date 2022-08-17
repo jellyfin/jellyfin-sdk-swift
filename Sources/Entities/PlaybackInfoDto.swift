@@ -68,4 +68,42 @@ public struct PlaybackInfoDto: Codable {
         self.subtitleStreamIndex = subtitleStreamIndex
         self.userID = userID
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.allowAudioStreamCopy = try values.decodeIfPresent(Bool.self, forKey: "AllowAudioStreamCopy")
+        self.allowVideoStreamCopy = try values.decodeIfPresent(Bool.self, forKey: "AllowVideoStreamCopy")
+        self.audioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "AudioStreamIndex")
+        self.isAutoOpenLiveStream = try values.decodeIfPresent(Bool.self, forKey: "AutoOpenLiveStream")
+        self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
+        self.enableDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectPlay")
+        self.enableDirectStream = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectStream")
+        self.enableTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableTranscoding")
+        self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
+        self.maxAudioChannels = try values.decodeIfPresent(Int32.self, forKey: "MaxAudioChannels")
+        self.maxStreamingBitrate = try values.decodeIfPresent(Int32.self, forKey: "MaxStreamingBitrate")
+        self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
+        self.startTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "StartTimeTicks")
+        self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
+        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(allowAudioStreamCopy, forKey: "AllowAudioStreamCopy")
+        try values.encodeIfPresent(allowVideoStreamCopy, forKey: "AllowVideoStreamCopy")
+        try values.encodeIfPresent(audioStreamIndex, forKey: "AudioStreamIndex")
+        try values.encodeIfPresent(isAutoOpenLiveStream, forKey: "AutoOpenLiveStream")
+        try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")
+        try values.encodeIfPresent(enableDirectPlay, forKey: "EnableDirectPlay")
+        try values.encodeIfPresent(enableDirectStream, forKey: "EnableDirectStream")
+        try values.encodeIfPresent(enableTranscoding, forKey: "EnableTranscoding")
+        try values.encodeIfPresent(liveStreamID, forKey: "LiveStreamId")
+        try values.encodeIfPresent(maxAudioChannels, forKey: "MaxAudioChannels")
+        try values.encodeIfPresent(maxStreamingBitrate, forKey: "MaxStreamingBitrate")
+        try values.encodeIfPresent(mediaSourceID, forKey: "MediaSourceId")
+        try values.encodeIfPresent(startTimeTicks, forKey: "StartTimeTicks")
+        try values.encodeIfPresent(subtitleStreamIndex, forKey: "SubtitleStreamIndex")
+        try values.encodeIfPresent(userID, forKey: "UserId")
+    }
 }

@@ -55,4 +55,40 @@ public struct DisplayPreferencesDto: Codable, Identifiable {
         self.sortOrder = sortOrder
         self.viewType = viewType
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.client = try values.decodeIfPresent(String.self, forKey: "Client")
+        self.customPrefs = try values.decodeIfPresent([String: String].self, forKey: "CustomPrefs")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
+        self.indexBy = try values.decodeIfPresent(String.self, forKey: "IndexBy")
+        self.primaryImageHeight = try values.decodeIfPresent(Int32.self, forKey: "PrimaryImageHeight")
+        self.primaryImageWidth = try values.decodeIfPresent(Int32.self, forKey: "PrimaryImageWidth")
+        self.isRememberIndexing = try values.decodeIfPresent(Bool.self, forKey: "RememberIndexing")
+        self.isRememberSorting = try values.decodeIfPresent(Bool.self, forKey: "RememberSorting")
+        self.scrollDirection = try values.decodeIfPresent(ScrollDirection.self, forKey: "ScrollDirection")
+        self.isShowBackdrop = try values.decodeIfPresent(Bool.self, forKey: "ShowBackdrop")
+        self.isShowSidebar = try values.decodeIfPresent(Bool.self, forKey: "ShowSidebar")
+        self.sortBy = try values.decodeIfPresent(String.self, forKey: "SortBy")
+        self.sortOrder = try values.decodeIfPresent(SortOrder.self, forKey: "SortOrder")
+        self.viewType = try values.decodeIfPresent(String.self, forKey: "ViewType")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(client, forKey: "Client")
+        try values.encodeIfPresent(customPrefs, forKey: "CustomPrefs")
+        try values.encodeIfPresent(id, forKey: "Id")
+        try values.encodeIfPresent(indexBy, forKey: "IndexBy")
+        try values.encodeIfPresent(primaryImageHeight, forKey: "PrimaryImageHeight")
+        try values.encodeIfPresent(primaryImageWidth, forKey: "PrimaryImageWidth")
+        try values.encodeIfPresent(isRememberIndexing, forKey: "RememberIndexing")
+        try values.encodeIfPresent(isRememberSorting, forKey: "RememberSorting")
+        try values.encodeIfPresent(scrollDirection, forKey: "ScrollDirection")
+        try values.encodeIfPresent(isShowBackdrop, forKey: "ShowBackdrop")
+        try values.encodeIfPresent(isShowSidebar, forKey: "ShowSidebar")
+        try values.encodeIfPresent(sortBy, forKey: "SortBy")
+        try values.encodeIfPresent(sortOrder, forKey: "SortOrder")
+        try values.encodeIfPresent(viewType, forKey: "ViewType")
+    }
 }

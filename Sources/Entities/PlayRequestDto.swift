@@ -22,4 +22,18 @@ public struct PlayRequestDto: Codable {
         self.playingQueue = playingQueue
         self.startPositionTicks = startPositionTicks
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.playingItemPosition = try values.decodeIfPresent(Int32.self, forKey: "PlayingItemPosition")
+        self.playingQueue = try values.decodeIfPresent([UUID].self, forKey: "PlayingQueue")
+        self.startPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "StartPositionTicks")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(playingItemPosition, forKey: "PlayingItemPosition")
+        try values.encodeIfPresent(playingQueue, forKey: "PlayingQueue")
+        try values.encodeIfPresent(startPositionTicks, forKey: "StartPositionTicks")
+    }
 }

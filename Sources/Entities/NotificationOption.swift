@@ -29,4 +29,24 @@ public struct NotificationOption: Codable {
         self.sendToUsers = sendToUsers
         self.type = type
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.disabledMonitorUsers = try values.decodeIfPresent([String].self, forKey: "DisabledMonitorUsers")
+        self.disabledServices = try values.decodeIfPresent([String].self, forKey: "DisabledServices")
+        self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "Enabled")
+        self.sendToUserMode = try values.decodeIfPresent(SendToUserType.self, forKey: "SendToUserMode")
+        self.sendToUsers = try values.decodeIfPresent([String].self, forKey: "SendToUsers")
+        self.type = try values.decodeIfPresent(String.self, forKey: "Type")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(disabledMonitorUsers, forKey: "DisabledMonitorUsers")
+        try values.encodeIfPresent(disabledServices, forKey: "DisabledServices")
+        try values.encodeIfPresent(isEnabled, forKey: "Enabled")
+        try values.encodeIfPresent(sendToUserMode, forKey: "SendToUserMode")
+        try values.encodeIfPresent(sendToUsers, forKey: "SendToUsers")
+        try values.encodeIfPresent(type, forKey: "Type")
+    }
 }

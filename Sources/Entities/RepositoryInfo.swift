@@ -22,4 +22,18 @@ public struct RepositoryInfo: Codable {
         self.name = name
         self.url = url
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "Enabled")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.url = try values.decodeIfPresent(String.self, forKey: "Url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isEnabled, forKey: "Enabled")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(url, forKey: "Url")
+    }
 }

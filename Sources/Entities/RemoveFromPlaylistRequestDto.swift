@@ -22,4 +22,18 @@ public struct RemoveFromPlaylistRequestDto: Codable {
         self.isClearPlaylist = isClearPlaylist
         self.playlistItemIDs = playlistItemIDs
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isClearPlayingItem = try values.decodeIfPresent(Bool.self, forKey: "ClearPlayingItem")
+        self.isClearPlaylist = try values.decodeIfPresent(Bool.self, forKey: "ClearPlaylist")
+        self.playlistItemIDs = try values.decodeIfPresent([UUID].self, forKey: "PlaylistItemIds")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isClearPlayingItem, forKey: "ClearPlayingItem")
+        try values.encodeIfPresent(isClearPlaylist, forKey: "ClearPlaylist")
+        try values.encodeIfPresent(playlistItemIDs, forKey: "PlaylistItemIds")
+    }
 }

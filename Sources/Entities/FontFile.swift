@@ -25,4 +25,20 @@ public struct FontFile: Codable {
         self.name = name
         self.size = size
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.dateCreated = try values.decodeIfPresent(Date.self, forKey: "DateCreated")
+        self.dateModified = try values.decodeIfPresent(Date.self, forKey: "DateModified")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.size = try values.decodeIfPresent(Int64.self, forKey: "Size")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(dateCreated, forKey: "DateCreated")
+        try values.encodeIfPresent(dateModified, forKey: "DateModified")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(size, forKey: "Size")
+    }
 }

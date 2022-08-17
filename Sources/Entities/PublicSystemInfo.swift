@@ -33,4 +33,26 @@ public struct PublicSystemInfo: Codable, Identifiable {
         self.isStartupWizardCompleted = isStartupWizardCompleted
         self.version = version
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
+        self.localAddress = try values.decodeIfPresent(String.self, forKey: "LocalAddress")
+        self.operatingSystem = try values.decodeIfPresent(String.self, forKey: "OperatingSystem")
+        self.productName = try values.decodeIfPresent(String.self, forKey: "ProductName")
+        self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
+        self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
+        self.version = try values.decodeIfPresent(String.self, forKey: "Version")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "Id")
+        try values.encodeIfPresent(localAddress, forKey: "LocalAddress")
+        try values.encodeIfPresent(operatingSystem, forKey: "OperatingSystem")
+        try values.encodeIfPresent(productName, forKey: "ProductName")
+        try values.encodeIfPresent(serverName, forKey: "ServerName")
+        try values.encodeIfPresent(isStartupWizardCompleted, forKey: "StartupWizardCompleted")
+        try values.encodeIfPresent(version, forKey: "Version")
+    }
 }

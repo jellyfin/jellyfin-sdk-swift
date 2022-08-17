@@ -16,4 +16,16 @@ public struct QueueItem: Codable, Identifiable {
         self.id = id
         self.playlistItemID = playlistItemID
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "Id")
+        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
+    }
 }

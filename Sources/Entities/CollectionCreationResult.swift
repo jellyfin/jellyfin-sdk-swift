@@ -14,4 +14,14 @@ public struct CollectionCreationResult: Codable, Identifiable {
     public init(id: UUID? = nil) {
         self.id = id
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "Id")
+    }
 }

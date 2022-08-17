@@ -20,4 +20,20 @@ public struct QueryFiltersLegacy: Codable {
         self.tags = tags
         self.years = years
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.genres = try values.decodeIfPresent([String].self, forKey: "Genres")
+        self.officialRatings = try values.decodeIfPresent([String].self, forKey: "OfficialRatings")
+        self.tags = try values.decodeIfPresent([String].self, forKey: "Tags")
+        self.years = try values.decodeIfPresent([Int32].self, forKey: "Years")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(genres, forKey: "Genres")
+        try values.encodeIfPresent(officialRatings, forKey: "OfficialRatings")
+        try values.encodeIfPresent(tags, forKey: "Tags")
+        try values.encodeIfPresent(years, forKey: "Years")
+    }
 }

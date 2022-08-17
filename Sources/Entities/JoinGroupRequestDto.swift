@@ -16,4 +16,14 @@ public struct JoinGroupRequestDto: Codable {
     public init(groupID: UUID? = nil) {
         self.groupID = groupID
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.groupID = try values.decodeIfPresent(UUID.self, forKey: "GroupId")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(groupID, forKey: "GroupId")
+    }
 }

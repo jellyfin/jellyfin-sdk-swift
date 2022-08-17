@@ -20,4 +20,20 @@ public struct TunerChannelMapping: Codable, Identifiable {
         self.providerChannelID = providerChannelID
         self.providerChannelName = providerChannelName
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.providerChannelID = try values.decodeIfPresent(String.self, forKey: "ProviderChannelId")
+        self.providerChannelName = try values.decodeIfPresent(String.self, forKey: "ProviderChannelName")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "Id")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(providerChannelID, forKey: "ProviderChannelId")
+        try values.encodeIfPresent(providerChannelName, forKey: "ProviderChannelName")
+    }
 }

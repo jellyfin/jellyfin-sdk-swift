@@ -22,4 +22,18 @@ public struct ValidatePathDto: Codable {
         self.path = path
         self.isValidateWritable = isValidateWritable
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isFile = try values.decodeIfPresent(Bool.self, forKey: "IsFile")
+        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
+        self.isValidateWritable = try values.decodeIfPresent(Bool.self, forKey: "ValidateWritable")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isFile, forKey: "IsFile")
+        try values.encodeIfPresent(path, forKey: "Path")
+        try values.encodeIfPresent(isValidateWritable, forKey: "ValidateWritable")
+    }
 }

@@ -31,4 +31,20 @@ public struct ExternalIDInfo: Codable {
         self.type = type
         self.urlFormatString = urlFormatString
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.key = try values.decodeIfPresent(String.self, forKey: "Key")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.type = try values.decodeIfPresent(ExternalIDMediaType.self, forKey: "Type")
+        self.urlFormatString = try values.decodeIfPresent(String.self, forKey: "UrlFormatString")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(key, forKey: "Key")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(type, forKey: "Type")
+        try values.encodeIfPresent(urlFormatString, forKey: "UrlFormatString")
+    }
 }

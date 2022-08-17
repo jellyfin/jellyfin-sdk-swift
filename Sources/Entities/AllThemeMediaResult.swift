@@ -21,4 +21,18 @@ public struct AllThemeMediaResult: Codable {
         self.themeSongsResult = themeSongsResult
         self.themeVideosResult = themeVideosResult
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.soundtrackSongsResult = try values.decodeIfPresent(ThemeMediaResult.self, forKey: "SoundtrackSongsResult")
+        self.themeSongsResult = try values.decodeIfPresent(ThemeMediaResult.self, forKey: "ThemeSongsResult")
+        self.themeVideosResult = try values.decodeIfPresent(ThemeMediaResult.self, forKey: "ThemeVideosResult")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(soundtrackSongsResult, forKey: "SoundtrackSongsResult")
+        try values.encodeIfPresent(themeSongsResult, forKey: "ThemeSongsResult")
+        try values.encodeIfPresent(themeVideosResult, forKey: "ThemeVideosResult")
+    }
 }

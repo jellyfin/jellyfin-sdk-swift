@@ -18,4 +18,16 @@ public struct GuideInfo: Codable {
         self.endDate = endDate
         self.startDate = startDate
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.endDate = try values.decodeIfPresent(Date.self, forKey: "EndDate")
+        self.startDate = try values.decodeIfPresent(Date.self, forKey: "StartDate")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(endDate, forKey: "EndDate")
+        try values.encodeIfPresent(startDate, forKey: "StartDate")
+    }
 }

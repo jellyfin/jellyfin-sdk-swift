@@ -22,4 +22,18 @@ public struct UpdateUserEasyPassword: Codable {
         self.newPw = newPw
         self.isResetPassword = isResetPassword
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.newPassword = try values.decodeIfPresent(String.self, forKey: "NewPassword")
+        self.newPw = try values.decodeIfPresent(String.self, forKey: "NewPw")
+        self.isResetPassword = try values.decodeIfPresent(Bool.self, forKey: "ResetPassword")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(newPassword, forKey: "NewPassword")
+        try values.encodeIfPresent(newPw, forKey: "NewPw")
+        try values.encodeIfPresent(isResetPassword, forKey: "ResetPassword")
+    }
 }

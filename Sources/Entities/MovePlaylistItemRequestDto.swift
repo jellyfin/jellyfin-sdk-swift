@@ -19,4 +19,16 @@ public struct MovePlaylistItemRequestDto: Codable {
         self.newIndex = newIndex
         self.playlistItemID = playlistItemID
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.newIndex = try values.decodeIfPresent(Int32.self, forKey: "NewIndex")
+        self.playlistItemID = try values.decodeIfPresent(UUID.self, forKey: "PlaylistItemId")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(newIndex, forKey: "NewIndex")
+        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
+    }
 }

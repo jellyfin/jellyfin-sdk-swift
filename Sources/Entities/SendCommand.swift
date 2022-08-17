@@ -31,4 +31,24 @@ public struct SendCommand: Codable {
         self.positionTicks = positionTicks
         self.when = when
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.command = try values.decodeIfPresent(SendCommandType.self, forKey: "Command")
+        self.emittedAt = try values.decodeIfPresent(Date.self, forKey: "EmittedAt")
+        self.groupID = try values.decodeIfPresent(UUID.self, forKey: "GroupId")
+        self.playlistItemID = try values.decodeIfPresent(UUID.self, forKey: "PlaylistItemId")
+        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.when = try values.decodeIfPresent(Date.self, forKey: "When")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(command, forKey: "Command")
+        try values.encodeIfPresent(emittedAt, forKey: "EmittedAt")
+        try values.encodeIfPresent(groupID, forKey: "GroupId")
+        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
+        try values.encodeIfPresent(positionTicks, forKey: "PositionTicks")
+        try values.encodeIfPresent(when, forKey: "When")
+    }
 }

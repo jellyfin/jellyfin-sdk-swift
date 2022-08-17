@@ -16,4 +16,14 @@ public struct NextItemRequestDto: Codable {
     public init(playlistItemID: UUID? = nil) {
         self.playlistItemID = playlistItemID
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.playlistItemID = try values.decodeIfPresent(UUID.self, forKey: "PlaylistItemId")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
+    }
 }

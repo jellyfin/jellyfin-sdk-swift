@@ -18,4 +18,18 @@ public struct HTTPHeaderInfo: Codable {
         self.name = name
         self.value = value
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.match = try values.decodeIfPresent(HeaderMatchType.self, forKey: "Match")
+        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.value = try values.decodeIfPresent(String.self, forKey: "Value")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(match, forKey: "Match")
+        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(value, forKey: "Value")
+    }
 }
