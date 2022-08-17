@@ -17,11 +17,11 @@ extension Paths {
     }
 
     public struct GetSessionsParameters {
-        public var controllableByUserID: UUID?
+        public var controllableByUserID: String?
         public var deviceID: String?
         public var activeWithinSeconds: Int32?
 
-        public init(controllableByUserID: UUID? = nil, deviceID: String? = nil, activeWithinSeconds: Int32? = nil) {
+        public init(controllableByUserID: String? = nil, deviceID: String? = nil, activeWithinSeconds: Int32? = nil) {
             self.controllableByUserID = controllableByUserID
             self.deviceID = deviceID
             self.activeWithinSeconds = activeWithinSeconds

@@ -13,11 +13,11 @@ public struct PlayRequestDto: Codable {
     /// Gets or sets the position of the playing item in the queue.
     public var playingItemPosition: Int32?
     /// Gets or sets the playing queue.
-    public var playingQueue: [UUID]?
+    public var playingQueue: [String]?
     /// Gets or sets the start position ticks.
     public var startPositionTicks: Int64?
 
-    public init(playingItemPosition: Int32? = nil, playingQueue: [UUID]? = nil, startPositionTicks: Int64? = nil) {
+    public init(playingItemPosition: Int32? = nil, playingQueue: [String]? = nil, startPositionTicks: Int64? = nil) {
         self.playingItemPosition = playingItemPosition
         self.playingQueue = playingQueue
         self.startPositionTicks = startPositionTicks
@@ -26,7 +26,7 @@ public struct PlayRequestDto: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.playingItemPosition = try values.decodeIfPresent(Int32.self, forKey: "PlayingItemPosition")
-        self.playingQueue = try values.decodeIfPresent([UUID].self, forKey: "PlayingQueue")
+        self.playingQueue = try values.decodeIfPresent([String].self, forKey: "PlayingQueue")
         self.startPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "StartPositionTicks")
     }
 

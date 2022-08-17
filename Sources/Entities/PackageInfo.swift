@@ -17,7 +17,7 @@ public struct PackageInfo: Codable {
     /// Gets or sets the guid of the assembly associated with this plugin.
     /// 
     /// This is used to identify the proper item for automatic updates.
-    public var guid: UUID?
+    public var guid: String?
     /// Gets or sets the image url for the package.
     public var imageURL: String?
     /// Gets or sets the name.
@@ -29,7 +29,7 @@ public struct PackageInfo: Codable {
     /// Gets or sets the versions.
     public var versions: [VersionInfo]?
 
-    public init(category: String? = nil, description: String? = nil, guid: UUID? = nil, imageURL: String? = nil, name: String? = nil, overview: String? = nil, owner: String? = nil, versions: [VersionInfo]? = nil) {
+    public init(category: String? = nil, description: String? = nil, guid: String? = nil, imageURL: String? = nil, name: String? = nil, overview: String? = nil, owner: String? = nil, versions: [VersionInfo]? = nil) {
         self.category = category
         self.description = description
         self.guid = guid
@@ -44,7 +44,7 @@ public struct PackageInfo: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.category = try values.decodeIfPresent(String.self, forKey: "category")
         self.description = try values.decodeIfPresent(String.self, forKey: "description")
-        self.guid = try values.decodeIfPresent(UUID.self, forKey: "guid")
+        self.guid = try values.decodeIfPresent(String.self, forKey: "guid")
         self.imageURL = try values.decodeIfPresent(String.self, forKey: "imageUrl")
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
         self.overview = try values.decodeIfPresent(String.self, forKey: "overview")

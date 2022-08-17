@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Adds items to a playlist.
-    static public func addToPlaylist(playlistID: String, ids: [UUID]? = nil, userID: UUID? = nil) -> Request<Void> {
+    static public func addToPlaylist(playlistID: String, ids: [String]? = nil, userID: String? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Playlists/\(playlistID)/Items", query: makeAddToPlaylistQuery(ids, userID), id: "AddToPlaylist")
     }
 
-    private static func makeAddToPlaylistQuery(_ ids: [UUID]?, _ userID: UUID?) -> [(String, String?)] {
+    private static func makeAddToPlaylistQuery(_ ids: [String]?, _ userID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(ids, forKey: "ids")
         encoder.encode(userID, forKey: "userId")

@@ -18,18 +18,18 @@ extension Paths {
 
     public struct OpenLiveStreamParameters {
         public var openToken: String?
-        public var userID: UUID?
+        public var userID: String?
         public var playSessionID: String?
         public var maxStreamingBitrate: Int32?
         public var startTimeTicks: Int64?
         public var audioStreamIndex: Int32?
         public var subtitleStreamIndex: Int32?
         public var maxAudioChannels: Int32?
-        public var itemID: UUID?
+        public var itemID: String?
         public var enableDirectPlay: Bool?
         public var enableDirectStream: Bool?
 
-        public init(openToken: String? = nil, userID: UUID? = nil, playSessionID: String? = nil, maxStreamingBitrate: Int32? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, maxAudioChannels: Int32? = nil, itemID: UUID? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil) {
+        public init(openToken: String? = nil, userID: String? = nil, playSessionID: String? = nil, maxStreamingBitrate: Int32? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, maxAudioChannels: Int32? = nil, itemID: String? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil) {
             self.openToken = openToken
             self.userID = userID
             self.playSessionID = playSessionID

@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets a studio by name.
-    static public func getStudio(name: String, userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDto> {
+    static public func getStudio(name: String, userID: String? = nil) -> Request<JellyfinAPI.BaseItemDto> {
         Request(method: "GET", url: "/Studios/\(name)", query: makeGetStudioQuery(userID), id: "GetStudio")
     }
 
-    private static func makeGetStudioQuery(_ userID: UUID?) -> [(String, String?)] {
+    private static func makeGetStudioQuery(_ userID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         return encoder.items

@@ -17,13 +17,13 @@ extension Paths {
     }
 
     public struct GetMovieRecommendationsParameters {
-        public var userID: UUID?
-        public var parentID: UUID?
+        public var userID: String?
+        public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var categoryLimit: Int32?
         public var itemLimit: Int32?
 
-        public init(userID: UUID? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, categoryLimit: Int32? = nil, itemLimit: Int32? = nil) {
+        public init(userID: String? = nil, parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, categoryLimit: Int32? = nil, itemLimit: Int32? = nil) {
             self.userID = userID
             self.parentID = parentID
             self.fields = fields

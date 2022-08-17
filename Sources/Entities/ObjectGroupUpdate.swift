@@ -13,11 +13,11 @@ public struct ObjectGroupUpdate: Codable {
     /// Gets the update data.
     public var data: AnyJSON?
     /// Gets the group identifier.
-    public var groupID: UUID?
+    public var groupID: String?
     /// Gets the update type.
     public var type: GroupUpdateType?
 
-    public init(data: AnyJSON? = nil, groupID: UUID? = nil, type: GroupUpdateType? = nil) {
+    public init(data: AnyJSON? = nil, groupID: String? = nil, type: GroupUpdateType? = nil) {
         self.data = data
         self.groupID = groupID
         self.type = type
@@ -26,7 +26,7 @@ public struct ObjectGroupUpdate: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.data = try values.decodeIfPresent(AnyJSON.self, forKey: "Data")
-        self.groupID = try values.decodeIfPresent(UUID.self, forKey: "GroupId")
+        self.groupID = try values.decodeIfPresent(String.self, forKey: "GroupId")
         self.type = try values.decodeIfPresent(GroupUpdateType.self, forKey: "Type")
     }
 

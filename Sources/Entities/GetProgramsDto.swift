@@ -11,7 +11,7 @@ import Foundation
 /// Get programs dto.
 public struct GetProgramsDto: Codable {
     /// Gets or sets the channels to return guide information for.
-    public var channelIDs: [UUID]?
+    public var channelIDs: [String]?
     /// Gets or sets the image types to include in the output.
     /// 
     /// Optional.
@@ -31,7 +31,7 @@ public struct GetProgramsDto: Codable {
     /// Optional.
     public var fields: [ItemFields]?
     /// Gets or sets the genre ids to return guide information for.
-    public var genreIDs: [UUID]?
+    public var genreIDs: [String]?
     /// Gets or sets the genres to return guide information for.
     public var genres: [String]?
     /// Gets or sets filter by programs that have completed airing, or not.
@@ -69,7 +69,7 @@ public struct GetProgramsDto: Codable {
     /// Gets or sets filter by library series id.
     /// 
     /// Optional.
-    public var librarySeriesID: UUID?
+    public var librarySeriesID: String?
     /// Gets or sets the maximum number of records to return.
     /// 
     /// Optional.
@@ -105,9 +105,9 @@ public struct GetProgramsDto: Codable {
     /// Optional.
     public var startIndex: Int32?
     /// Gets or sets optional. Filter by user id.
-    public var userID: UUID?
+    public var userID: String?
 
-    public init(channelIDs: [UUID]? = nil, enableImageTypes: [ImageType]? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, enableUserData: Bool? = nil, fields: [ItemFields]? = nil, genreIDs: [UUID]? = nil, genres: [String]? = nil, hasAired: Bool? = nil, imageTypeLimit: Int32? = nil, isAiring: Bool? = nil, isKids: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, isSports: Bool? = nil, librarySeriesID: UUID? = nil, limit: Int32? = nil, maxEndDate: Date? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, minStartDate: Date? = nil, seriesTimerID: String? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, startIndex: Int32? = nil, userID: UUID? = nil) {
+    public init(channelIDs: [String]? = nil, enableImageTypes: [ImageType]? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil, enableUserData: Bool? = nil, fields: [ItemFields]? = nil, genreIDs: [String]? = nil, genres: [String]? = nil, hasAired: Bool? = nil, imageTypeLimit: Int32? = nil, isAiring: Bool? = nil, isKids: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, isSports: Bool? = nil, librarySeriesID: String? = nil, limit: Int32? = nil, maxEndDate: Date? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, minStartDate: Date? = nil, seriesTimerID: String? = nil, sortBy: [String]? = nil, sortOrder: [SortOrder]? = nil, startIndex: Int32? = nil, userID: String? = nil) {
         self.channelIDs = channelIDs
         self.enableImageTypes = enableImageTypes
         self.enableImages = enableImages
@@ -139,13 +139,13 @@ public struct GetProgramsDto: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.channelIDs = try values.decodeIfPresent([UUID].self, forKey: "ChannelIds")
+        self.channelIDs = try values.decodeIfPresent([String].self, forKey: "ChannelIds")
         self.enableImageTypes = try values.decodeIfPresent([ImageType].self, forKey: "EnableImageTypes")
         self.enableImages = try values.decodeIfPresent(Bool.self, forKey: "EnableImages")
         self.enableTotalRecordCount = try values.decodeIfPresent(Bool.self, forKey: "EnableTotalRecordCount")
         self.enableUserData = try values.decodeIfPresent(Bool.self, forKey: "EnableUserData")
         self.fields = try values.decodeIfPresent([ItemFields].self, forKey: "Fields")
-        self.genreIDs = try values.decodeIfPresent([UUID].self, forKey: "GenreIds")
+        self.genreIDs = try values.decodeIfPresent([String].self, forKey: "GenreIds")
         self.genres = try values.decodeIfPresent([String].self, forKey: "Genres")
         self.hasAired = try values.decodeIfPresent(Bool.self, forKey: "HasAired")
         self.imageTypeLimit = try values.decodeIfPresent(Int32.self, forKey: "ImageTypeLimit")
@@ -155,7 +155,7 @@ public struct GetProgramsDto: Codable {
         self.isNews = try values.decodeIfPresent(Bool.self, forKey: "IsNews")
         self.isSeries = try values.decodeIfPresent(Bool.self, forKey: "IsSeries")
         self.isSports = try values.decodeIfPresent(Bool.self, forKey: "IsSports")
-        self.librarySeriesID = try values.decodeIfPresent(UUID.self, forKey: "LibrarySeriesId")
+        self.librarySeriesID = try values.decodeIfPresent(String.self, forKey: "LibrarySeriesId")
         self.limit = try values.decodeIfPresent(Int32.self, forKey: "Limit")
         self.maxEndDate = try values.decodeIfPresent(Date.self, forKey: "MaxEndDate")
         self.maxStartDate = try values.decodeIfPresent(Date.self, forKey: "MaxStartDate")
@@ -165,7 +165,7 @@ public struct GetProgramsDto: Codable {
         self.sortBy = try values.decodeIfPresent([String].self, forKey: "SortBy")
         self.sortOrder = try values.decodeIfPresent([SortOrder].self, forKey: "SortOrder")
         self.startIndex = try values.decodeIfPresent(Int32.self, forKey: "StartIndex")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -21,7 +21,7 @@ extension Paths {
     }
 
     public struct GetPostedPlaybackInfoParameters {
-        public var userID: UUID?
+        public var userID: String?
         public var maxStreamingBitrate: Int32?
         public var startTimeTicks: Int64?
         public var audioStreamIndex: Int32?
@@ -36,7 +36,7 @@ extension Paths {
         public var allowVideoStreamCopy: Bool?
         public var allowAudioStreamCopy: Bool?
 
-        public init(userID: UUID? = nil, maxStreamingBitrate: Int32? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, maxAudioChannels: Int32? = nil, mediaSourceID: String? = nil, liveStreamID: String? = nil, isAutoOpenLiveStream: Bool? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil) {
+        public init(userID: String? = nil, maxStreamingBitrate: Int32? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, maxAudioChannels: Int32? = nil, mediaSourceID: String? = nil, liveStreamID: String? = nil, isAutoOpenLiveStream: Bool? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil) {
             self.userID = userID
             self.maxStreamingBitrate = maxStreamingBitrate
             self.startTimeTicks = startTimeTicks

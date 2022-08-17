@@ -19,10 +19,10 @@ extension Paths {
     public struct CreateCollectionParameters {
         public var name: String?
         public var ids: [String]?
-        public var parentID: UUID?
+        public var parentID: String?
         public var isLocked: Bool?
 
-        public init(name: String? = nil, ids: [String]? = nil, parentID: UUID? = nil, isLocked: Bool? = nil) {
+        public init(name: String? = nil, ids: [String]? = nil, parentID: String? = nil, isLocked: Bool? = nil) {
             self.name = name
             self.ids = ids
             self.parentID = parentID

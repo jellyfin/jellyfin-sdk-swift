@@ -15,9 +15,9 @@ public struct RemoveFromPlaylistRequestDto: Codable {
     /// Gets or sets a value indicating whether the entire playlist should be cleared.
     public var isClearPlaylist: Bool?
     /// Gets or sets the playlist identifiers ot the items. Ignored when clearing the playlist.
-    public var playlistItemIDs: [UUID]?
+    public var playlistItemIDs: [String]?
 
-    public init(isClearPlayingItem: Bool? = nil, isClearPlaylist: Bool? = nil, playlistItemIDs: [UUID]? = nil) {
+    public init(isClearPlayingItem: Bool? = nil, isClearPlaylist: Bool? = nil, playlistItemIDs: [String]? = nil) {
         self.isClearPlayingItem = isClearPlayingItem
         self.isClearPlaylist = isClearPlaylist
         self.playlistItemIDs = playlistItemIDs
@@ -27,7 +27,7 @@ public struct RemoveFromPlaylistRequestDto: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isClearPlayingItem = try values.decodeIfPresent(Bool.self, forKey: "ClearPlayingItem")
         self.isClearPlaylist = try values.decodeIfPresent(Bool.self, forKey: "ClearPlaylist")
-        self.playlistItemIDs = try values.decodeIfPresent([UUID].self, forKey: "PlaylistItemIds")
+        self.playlistItemIDs = try values.decodeIfPresent([String].self, forKey: "PlaylistItemIds")
     }
 
     public func encode(to encoder: Encoder) throws {

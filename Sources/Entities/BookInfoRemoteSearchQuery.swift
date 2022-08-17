@@ -11,12 +11,12 @@ import Foundation
 public struct BookInfoRemoteSearchQuery: Codable {
     /// Gets or sets a value indicating whether disabled providers should be included.
     public var isIncludeDisabledProviders: Bool?
-    public var itemID: UUID?
+    public var itemID: String?
     public var searchInfo: BookInfo?
     /// Gets or sets the provider name to search within if set.
     public var searchProviderName: String?
 
-    public init(isIncludeDisabledProviders: Bool? = nil, itemID: UUID? = nil, searchInfo: BookInfo? = nil, searchProviderName: String? = nil) {
+    public init(isIncludeDisabledProviders: Bool? = nil, itemID: String? = nil, searchInfo: BookInfo? = nil, searchProviderName: String? = nil) {
         self.isIncludeDisabledProviders = isIncludeDisabledProviders
         self.itemID = itemID
         self.searchInfo = searchInfo
@@ -26,7 +26,7 @@ public struct BookInfoRemoteSearchQuery: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isIncludeDisabledProviders = try values.decodeIfPresent(Bool.self, forKey: "IncludeDisabledProviders")
-        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
+        self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.searchInfo = try values.decodeIfPresent(BookInfo.self, forKey: "SearchInfo")
         self.searchProviderName = try values.decodeIfPresent(String.self, forKey: "SearchProviderName")
     }

@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets recording folders.
-    static public func getRecordingFolders(userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getRecordingFolders(userID: String? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Recordings/Folders", query: makeGetRecordingFoldersQuery(userID), id: "GetRecordingFolders")
     }
 
-    private static func makeGetRecordingFoldersQuery(_ userID: UUID?) -> [(String, String?)] {
+    private static func makeGetRecordingFoldersQuery(_ userID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         return encoder.items

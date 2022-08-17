@@ -9,17 +9,17 @@
 import Foundation
 
 public struct NameGuidPair: Codable, Identifiable {
-    public var id: UUID?
+    public var id: String?
     public var name: String?
 
-    public init(id: UUID? = nil, name: String? = nil) {
+    public init(id: String? = nil, name: String? = nil) {
         self.id = id
         self.name = name
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
     }
 

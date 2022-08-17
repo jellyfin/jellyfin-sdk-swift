@@ -11,7 +11,7 @@ import Foundation
 /// Class GroupInfoDto.
 public struct GroupInfoDto: Codable {
     /// Gets the group identifier.
-    public var groupID: UUID?
+    public var groupID: String?
     /// Gets the group name.
     public var groupName: String?
     /// Gets the date when this DTO has been created.
@@ -21,7 +21,7 @@ public struct GroupInfoDto: Codable {
     /// Gets the group state.
     public var state: GroupStateType?
 
-    public init(groupID: UUID? = nil, groupName: String? = nil, lastUpdatedAt: Date? = nil, participants: [String]? = nil, state: GroupStateType? = nil) {
+    public init(groupID: String? = nil, groupName: String? = nil, lastUpdatedAt: Date? = nil, participants: [String]? = nil, state: GroupStateType? = nil) {
         self.groupID = groupID
         self.groupName = groupName
         self.lastUpdatedAt = lastUpdatedAt
@@ -31,7 +31,7 @@ public struct GroupInfoDto: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.groupID = try values.decodeIfPresent(UUID.self, forKey: "GroupId")
+        self.groupID = try values.decodeIfPresent(String.self, forKey: "GroupId")
         self.groupName = try values.decodeIfPresent(String.self, forKey: "GroupName")
         self.lastUpdatedAt = try values.decodeIfPresent(Date.self, forKey: "LastUpdatedAt")
         self.participants = try values.decodeIfPresent([String].self, forKey: "Participants")

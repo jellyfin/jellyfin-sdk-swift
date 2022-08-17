@@ -18,7 +18,7 @@ extension Paths {
 
     public struct GetRecordingsParameters {
         public var channelID: String?
-        public var userID: UUID?
+        public var userID: String?
         public var startIndex: Int32?
         public var limit: Int32?
         public var status: Status?
@@ -39,7 +39,7 @@ extension Paths {
 
         public typealias Status = JellyfinAPI.RecordingStatus
 
-        public init(channelID: String? = nil, userID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, status: Status? = nil, isInProgress: Bool? = nil, seriesTimerID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isNews: Bool? = nil, isLibraryItem: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
+        public init(channelID: String? = nil, userID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, status: Status? = nil, isInProgress: Bool? = nil, seriesTimerID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isNews: Bool? = nil, isLibraryItem: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
             self.channelID = channelID
             self.userID = userID
             self.startIndex = startIndex

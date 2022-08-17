@@ -9,15 +9,15 @@
 import Foundation
 
 public struct CollectionCreationResult: Codable, Identifiable {
-    public var id: UUID?
+    public var id: String?
 
-    public init(id: UUID? = nil) {
+    public init(id: String? = nil) {
         self.id = id
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets a music genre, by name.
-    static public func getMusicGenre(genreName: String, userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDto> {
+    static public func getMusicGenre(genreName: String, userID: String? = nil) -> Request<JellyfinAPI.BaseItemDto> {
         Request(method: "GET", url: "/MusicGenres/\(genreName)", query: makeGetMusicGenreQuery(userID), id: "GetMusicGenre")
     }
 
-    private static func makeGetMusicGenreQuery(_ userID: UUID?) -> [(String, String?)] {
+    private static func makeGetMusicGenreQuery(_ userID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         return encoder.items

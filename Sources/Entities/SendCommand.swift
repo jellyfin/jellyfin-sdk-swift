@@ -15,15 +15,15 @@ public struct SendCommand: Codable {
     /// Gets the UTC time when this command has been emitted.
     public var emittedAt: Date?
     /// Gets the group identifier.
-    public var groupID: UUID?
+    public var groupID: String?
     /// Gets the playlist identifier of the playing item.
-    public var playlistItemID: UUID?
+    public var playlistItemID: String?
     /// Gets the position ticks.
     public var positionTicks: Int64?
     /// Gets or sets the UTC time when to execute the command.
     public var when: Date?
 
-    public init(command: SendCommandType? = nil, emittedAt: Date? = nil, groupID: UUID? = nil, playlistItemID: UUID? = nil, positionTicks: Int64? = nil, when: Date? = nil) {
+    public init(command: SendCommandType? = nil, emittedAt: Date? = nil, groupID: String? = nil, playlistItemID: String? = nil, positionTicks: Int64? = nil, when: Date? = nil) {
         self.command = command
         self.emittedAt = emittedAt
         self.groupID = groupID
@@ -36,8 +36,8 @@ public struct SendCommand: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.command = try values.decodeIfPresent(SendCommandType.self, forKey: "Command")
         self.emittedAt = try values.decodeIfPresent(Date.self, forKey: "EmittedAt")
-        self.groupID = try values.decodeIfPresent(UUID.self, forKey: "GroupId")
-        self.playlistItemID = try values.decodeIfPresent(UUID.self, forKey: "PlaylistItemId")
+        self.groupID = try values.decodeIfPresent(String.self, forKey: "GroupId")
+        self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
         self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
         self.when = try values.decodeIfPresent(Date.self, forKey: "When")
     }

@@ -27,11 +27,11 @@ extension Paths {
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var excludePersonTypes: [String]?
         public var personTypes: [String]?
-        public var appearsInItemID: UUID?
-        public var userID: UUID?
+        public var appearsInItemID: String?
+        public var userID: String?
         public var enableImages: Bool?
 
-        public init(limit: Int32? = nil, searchTerm: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, excludePersonTypes: [String]? = nil, personTypes: [String]? = nil, appearsInItemID: UUID? = nil, userID: UUID? = nil, enableImages: Bool? = nil) {
+        public init(limit: Int32? = nil, searchTerm: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, excludePersonTypes: [String]? = nil, personTypes: [String]? = nil, appearsInItemID: String? = nil, userID: String? = nil, enableImages: Bool? = nil) {
             self.limit = limit
             self.searchTerm = searchTerm
             self.fields = fields

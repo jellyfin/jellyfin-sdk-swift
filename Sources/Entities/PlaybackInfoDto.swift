@@ -49,9 +49,9 @@ public struct PlaybackInfoDto: Codable {
     /// Gets or sets the subtitle stream index.
     public var subtitleStreamIndex: Int32?
     /// Gets or sets the playback userId.
-    public var userID: UUID?
+    public var userID: String?
 
-    public init(allowAudioStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, audioStreamIndex: Int32? = nil, isAutoOpenLiveStream: Bool? = nil, deviceProfile: DeviceProfile? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, liveStreamID: String? = nil, maxAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, mediaSourceID: String? = nil, startTimeTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil, userID: UUID? = nil) {
+    public init(allowAudioStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, audioStreamIndex: Int32? = nil, isAutoOpenLiveStream: Bool? = nil, deviceProfile: DeviceProfile? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, liveStreamID: String? = nil, maxAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, mediaSourceID: String? = nil, startTimeTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil, userID: String? = nil) {
         self.allowAudioStreamCopy = allowAudioStreamCopy
         self.allowVideoStreamCopy = allowVideoStreamCopy
         self.audioStreamIndex = audioStreamIndex
@@ -85,7 +85,7 @@ public struct PlaybackInfoDto: Codable {
         self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
         self.startTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "StartTimeTicks")
         self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
 
     public func encode(to encoder: Encoder) throws {

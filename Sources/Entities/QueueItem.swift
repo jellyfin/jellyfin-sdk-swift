@@ -9,17 +9,17 @@
 import Foundation
 
 public struct QueueItem: Codable, Identifiable {
-    public var id: UUID?
+    public var id: String?
     public var playlistItemID: String?
 
-    public init(id: UUID? = nil, playlistItemID: String? = nil) {
+    public init(id: String? = nil, playlistItemID: String? = nil) {
         self.id = id
         self.playlistItemID = playlistItemID
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
     }
 

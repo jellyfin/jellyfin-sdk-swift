@@ -13,11 +13,11 @@ import URLQueryEncoder
 extension Paths {
     /// Gets live tv recording groups.
     @available(*, deprecated, message: "Deprecated")
-    static public func getRecordingGroups(userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getRecordingGroups(userID: String? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Recordings/Groups", query: makeGetRecordingGroupsQuery(userID), id: "GetRecordingGroups")
     }
 
-    private static func makeGetRecordingGroupsQuery(_ userID: UUID?) -> [(String, String?)] {
+    private static func makeGetRecordingGroupsQuery(_ userID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         return encoder.items

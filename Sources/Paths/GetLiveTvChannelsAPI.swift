@@ -18,7 +18,7 @@ extension Paths {
 
     public struct GetLiveTvChannelsParameters {
         public var type: `Type`?
-        public var userID: UUID?
+        public var userID: String?
         public var startIndex: Int32?
         public var isMovie: Bool?
         public var isSeries: Bool?
@@ -43,7 +43,7 @@ extension Paths {
 
         public typealias SortOrder = JellyfinAPI.SortOrder
 
-        public init(type: `Type`? = nil, userID: UUID? = nil, startIndex: Int32? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int32? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, isAddCurrentProgram: Bool? = nil) {
+        public init(type: `Type`? = nil, userID: String? = nil, startIndex: Int32? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int32? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, isAddCurrentProgram: Bool? = nil) {
             self.type = type
             self.userID = userID
             self.startIndex = startIndex

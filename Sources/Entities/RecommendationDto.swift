@@ -10,11 +10,11 @@ import Foundation
 
 public struct RecommendationDto: Codable {
     public var baselineItemName: String?
-    public var categoryID: UUID?
+    public var categoryID: String?
     public var items: [BaseItemDto]?
     public var recommendationType: RecommendationType?
 
-    public init(baselineItemName: String? = nil, categoryID: UUID? = nil, items: [BaseItemDto]? = nil, recommendationType: RecommendationType? = nil) {
+    public init(baselineItemName: String? = nil, categoryID: String? = nil, items: [BaseItemDto]? = nil, recommendationType: RecommendationType? = nil) {
         self.baselineItemName = baselineItemName
         self.categoryID = categoryID
         self.items = items
@@ -24,7 +24,7 @@ public struct RecommendationDto: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.baselineItemName = try values.decodeIfPresent(String.self, forKey: "BaselineItemName")
-        self.categoryID = try values.decodeIfPresent(UUID.self, forKey: "CategoryId")
+        self.categoryID = try values.decodeIfPresent(String.self, forKey: "CategoryId")
         self.items = try values.decodeIfPresent([BaseItemDto].self, forKey: "Items")
         self.recommendationType = try values.decodeIfPresent(RecommendationType.self, forKey: "RecommendationType")
     }

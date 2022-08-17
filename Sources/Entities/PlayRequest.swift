@@ -12,9 +12,9 @@ import Foundation
 public struct PlayRequest: Codable {
     public var audioStreamIndex: Int32?
     /// Gets or sets the controlling user identifier.
-    public var controllingUserID: UUID?
+    public var controllingUserID: String?
     /// Gets or sets the item ids.
-    public var itemIDs: [UUID]?
+    public var itemIDs: [String]?
     public var mediaSourceID: String?
     /// Gets or sets the play command.
     public var playCommand: PlayCommand?
@@ -23,7 +23,7 @@ public struct PlayRequest: Codable {
     public var startPositionTicks: Int64?
     public var subtitleStreamIndex: Int32?
 
-    public init(audioStreamIndex: Int32? = nil, controllingUserID: UUID? = nil, itemIDs: [UUID]? = nil, mediaSourceID: String? = nil, playCommand: PlayCommand? = nil, startIndex: Int32? = nil, startPositionTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil) {
+    public init(audioStreamIndex: Int32? = nil, controllingUserID: String? = nil, itemIDs: [String]? = nil, mediaSourceID: String? = nil, playCommand: PlayCommand? = nil, startIndex: Int32? = nil, startPositionTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil) {
         self.audioStreamIndex = audioStreamIndex
         self.controllingUserID = controllingUserID
         self.itemIDs = itemIDs
@@ -37,8 +37,8 @@ public struct PlayRequest: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.audioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "AudioStreamIndex")
-        self.controllingUserID = try values.decodeIfPresent(UUID.self, forKey: "ControllingUserId")
-        self.itemIDs = try values.decodeIfPresent([UUID].self, forKey: "ItemIds")
+        self.controllingUserID = try values.decodeIfPresent(String.self, forKey: "ControllingUserId")
+        self.itemIDs = try values.decodeIfPresent([String].self, forKey: "ItemIds")
         self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
         self.playCommand = try values.decodeIfPresent(PlayCommand.self, forKey: "PlayCommand")
         self.startIndex = try values.decodeIfPresent(Int32.self, forKey: "StartIndex")

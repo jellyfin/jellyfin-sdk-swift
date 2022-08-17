@@ -17,12 +17,12 @@ extension Paths {
     }
 
     public struct GetQueryFiltersLegacyParameters {
-        public var userID: UUID?
-        public var parentID: UUID?
+        public var userID: String?
+        public var parentID: String?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var mediaTypes: [String]?
 
-        public init(userID: UUID? = nil, parentID: UUID? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil) {
+        public init(userID: String? = nil, parentID: String? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil) {
             self.userID = userID
             self.parentID = parentID
             self.includeItemTypes = includeItemTypes

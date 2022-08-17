@@ -13,13 +13,13 @@ public struct ThemeMediaResult: Codable {
     /// Gets or sets the items.
     public var items: [BaseItemDto]?
     /// Gets or sets the owner id.
-    public var ownerID: UUID?
+    public var ownerID: String?
     /// Gets or sets the index of the first record in Items.
     public var startIndex: Int32?
     /// Gets or sets the total number of records available.
     public var totalRecordCount: Int32?
 
-    public init(items: [BaseItemDto]? = nil, ownerID: UUID? = nil, startIndex: Int32? = nil, totalRecordCount: Int32? = nil) {
+    public init(items: [BaseItemDto]? = nil, ownerID: String? = nil, startIndex: Int32? = nil, totalRecordCount: Int32? = nil) {
         self.items = items
         self.ownerID = ownerID
         self.startIndex = startIndex
@@ -29,7 +29,7 @@ public struct ThemeMediaResult: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.items = try values.decodeIfPresent([BaseItemDto].self, forKey: "Items")
-        self.ownerID = try values.decodeIfPresent(UUID.self, forKey: "OwnerId")
+        self.ownerID = try values.decodeIfPresent(String.self, forKey: "OwnerId")
         self.startIndex = try values.decodeIfPresent(Int32.self, forKey: "StartIndex")
         self.totalRecordCount = try values.decodeIfPresent(Int32.self, forKey: "TotalRecordCount")
     }

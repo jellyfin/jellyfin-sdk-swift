@@ -12,14 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Update Display Preferences.
-    static public func updateDisplayPreferences(displayPreferencesID: String, userID: UUID, client: String, _ body: JellyfinAPI.DisplayPreferencesDto) -> Request<Void> {
-        Request(method: "POST", url: "/DisplayPreferences/\(displayPreferencesID)", query: makeUpdateDisplayPreferencesQuery(userID, client), body: body, id: "UpdateDisplayPreferences")
-    }
-
-    private static func makeUpdateDisplayPreferencesQuery(_ userID: UUID, _ client: String) -> [(String, String?)] {
-        let encoder = URLQueryEncoder()
-        encoder.encode(userID, forKey: "userId")
-        encoder.encode(client, forKey: "client")
-        return encoder.items
+    static public func updateDisplayPreferences(displayPreferencesID: String, userID: String, client: String, _ body: JellyfinAPI.DisplayPreferencesDto) -> Request<Void> {
+        Request(method: "POST", url: "/DisplayPreferences/\(displayPreferencesID)", query: [("userId", userID), ("client", client)], body: body, id: "UpdateDisplayPreferences")
     }
 }

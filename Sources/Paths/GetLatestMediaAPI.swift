@@ -17,7 +17,7 @@ extension Paths {
     }
 
     public struct GetLatestMediaParameters {
-        public var parentID: UUID?
+        public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isPlayed: Bool?
@@ -28,7 +28,7 @@ extension Paths {
         public var limit: Int32?
         public var isGroupItems: Bool?
 
-        public init(parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isPlayed: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, limit: Int32? = nil, isGroupItems: Bool? = nil) {
+        public init(parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isPlayed: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, limit: Int32? = nil, isGroupItems: Bool? = nil) {
             self.parentID = parentID
             self.fields = fields
             self.includeItemTypes = includeItemTypes

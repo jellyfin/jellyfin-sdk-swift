@@ -20,7 +20,7 @@ public struct ChannelFeatures: Codable, Identifiable {
     /// Gets or sets the default sort orders.
     public var defaultSortFields: [ChannelItemSortField]?
     /// Gets or sets the identifier.
-    public var id: UUID?
+    public var id: String?
     /// Gets or sets the maximum number of records the channel allows retrieving at a time.
     public var maxPageSize: Int32?
     /// Gets or sets the media types.
@@ -34,7 +34,7 @@ public struct ChannelFeatures: Codable, Identifiable {
     /// Gets or sets a value indicating whether a sort ascending/descending toggle is supported.
     public var isSupportsSortOrderToggle: Bool?
 
-    public init(autoRefreshLevels: Int32? = nil, canFilter: Bool? = nil, canSearch: Bool? = nil, contentTypes: [ChannelMediaContentType]? = nil, defaultSortFields: [ChannelItemSortField]? = nil, id: UUID? = nil, maxPageSize: Int32? = nil, mediaTypes: [ChannelMediaType]? = nil, name: String? = nil, isSupportsContentDownloading: Bool? = nil, isSupportsLatestMedia: Bool? = nil, isSupportsSortOrderToggle: Bool? = nil) {
+    public init(autoRefreshLevels: Int32? = nil, canFilter: Bool? = nil, canSearch: Bool? = nil, contentTypes: [ChannelMediaContentType]? = nil, defaultSortFields: [ChannelItemSortField]? = nil, id: String? = nil, maxPageSize: Int32? = nil, mediaTypes: [ChannelMediaType]? = nil, name: String? = nil, isSupportsContentDownloading: Bool? = nil, isSupportsLatestMedia: Bool? = nil, isSupportsSortOrderToggle: Bool? = nil) {
         self.autoRefreshLevels = autoRefreshLevels
         self.canFilter = canFilter
         self.canSearch = canSearch
@@ -56,7 +56,7 @@ public struct ChannelFeatures: Codable, Identifiable {
         self.canSearch = try values.decodeIfPresent(Bool.self, forKey: "CanSearch")
         self.contentTypes = try values.decodeIfPresent([ChannelMediaContentType].self, forKey: "ContentTypes")
         self.defaultSortFields = try values.decodeIfPresent([ChannelItemSortField].self, forKey: "DefaultSortFields")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.maxPageSize = try values.decodeIfPresent(Int32.self, forKey: "MaxPageSize")
         self.mediaTypes = try values.decodeIfPresent([ChannelMediaType].self, forKey: "MediaTypes")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")

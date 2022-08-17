@@ -20,7 +20,7 @@ extension Paths {
         public var startIndex: Int32?
         public var limit: Int32?
         public var searchTerm: String?
-        public var parentID: UUID?
+        public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -28,14 +28,14 @@ extension Paths {
         public var enableUserData: Bool?
         public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
-        public var userID: UUID?
+        public var userID: String?
         public var nameStartsWithOrGreater: String?
         public var nameStartsWith: String?
         public var nameLessThan: String?
         public var enableImages: Bool?
         public var enableTotalRecordCount: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, userID: UUID? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, userID: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.searchTerm = searchTerm

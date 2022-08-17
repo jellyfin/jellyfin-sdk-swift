@@ -17,7 +17,7 @@ extension Paths {
     }
 
     public struct GetSeasonsParameters {
-        public var userID: UUID?
+        public var userID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var isSpecialSeason: Bool?
         public var isMissing: Bool?
@@ -27,7 +27,7 @@ extension Paths {
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
 
-        public init(userID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, isSpecialSeason: Bool? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil) {
+        public init(userID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, isSpecialSeason: Bool? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil) {
             self.userID = userID
             self.fields = fields
             self.isSpecialSeason = isSpecialSeason

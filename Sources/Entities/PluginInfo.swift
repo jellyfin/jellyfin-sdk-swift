@@ -19,7 +19,7 @@ public struct PluginInfo: Codable, Identifiable {
     /// Gets or sets a value indicating whether this plugin has a valid image.
     public var hasImage: Bool?
     /// Gets or sets the unique id.
-    public var id: UUID?
+    public var id: String?
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets a value indicating the status of the plugin.
@@ -27,7 +27,7 @@ public struct PluginInfo: Codable, Identifiable {
     /// Gets or sets the version.
     public var version: String?
 
-    public init(canUninstall: Bool? = nil, configurationFileName: String? = nil, description: String? = nil, hasImage: Bool? = nil, id: UUID? = nil, name: String? = nil, status: PluginStatus? = nil, version: String? = nil) {
+    public init(canUninstall: Bool? = nil, configurationFileName: String? = nil, description: String? = nil, hasImage: Bool? = nil, id: String? = nil, name: String? = nil, status: PluginStatus? = nil, version: String? = nil) {
         self.canUninstall = canUninstall
         self.configurationFileName = configurationFileName
         self.description = description
@@ -44,7 +44,7 @@ public struct PluginInfo: Codable, Identifiable {
         self.configurationFileName = try values.decodeIfPresent(String.self, forKey: "ConfigurationFileName")
         self.description = try values.decodeIfPresent(String.self, forKey: "Description")
         self.hasImage = try values.decodeIfPresent(Bool.self, forKey: "HasImage")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.status = try values.decodeIfPresent(PluginStatus.self, forKey: "Status")
         self.version = try values.decodeIfPresent(String.self, forKey: "Version")

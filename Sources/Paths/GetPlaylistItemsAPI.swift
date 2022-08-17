@@ -17,7 +17,7 @@ extension Paths {
     }
 
     public struct GetPlaylistItemsParameters {
-        public var userID: UUID
+        public var userID: String
         public var startIndex: Int32?
         public var limit: Int32?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -26,7 +26,7 @@ extension Paths {
         public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
 
-        public init(userID: UUID, startIndex: Int32? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil) {
+        public init(userID: String, startIndex: Int32? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

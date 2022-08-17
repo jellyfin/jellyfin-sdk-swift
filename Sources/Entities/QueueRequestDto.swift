@@ -11,18 +11,18 @@ import Foundation
 /// Class QueueRequestDto.
 public struct QueueRequestDto: Codable {
     /// Gets or sets the items to enqueue.
-    public var itemIDs: [UUID]?
+    public var itemIDs: [String]?
     /// Enum GroupQueueMode.
     public var mode: GroupQueueMode?
 
-    public init(itemIDs: [UUID]? = nil, mode: GroupQueueMode? = nil) {
+    public init(itemIDs: [String]? = nil, mode: GroupQueueMode? = nil) {
         self.itemIDs = itemIDs
         self.mode = mode
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.itemIDs = try values.decodeIfPresent([UUID].self, forKey: "ItemIds")
+        self.itemIDs = try values.decodeIfPresent([String].self, forKey: "ItemIds")
         self.mode = try values.decodeIfPresent(GroupQueueMode.self, forKey: "Mode")
     }
 

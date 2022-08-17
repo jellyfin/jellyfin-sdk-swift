@@ -22,11 +22,11 @@ extension Paths {
 
     public struct CreatePlaylistParameters {
         public var name: String?
-        public var ids: [UUID]?
-        public var userID: UUID?
+        public var ids: [String]?
+        public var userID: String?
         public var mediaType: String?
 
-        public init(name: String? = nil, ids: [UUID]? = nil, userID: UUID? = nil, mediaType: String? = nil) {
+        public init(name: String? = nil, ids: [String]? = nil, userID: String? = nil, mediaType: String? = nil) {
             self.name = name
             self.ids = ids
             self.userID = userID

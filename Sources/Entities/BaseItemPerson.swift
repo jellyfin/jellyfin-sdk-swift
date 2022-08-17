@@ -11,7 +11,7 @@ import Foundation
 /// This is used by the api to get information about a Person within a BaseItem.
 public struct BaseItemPerson: Codable, Identifiable {
     /// Gets or sets the identifier.
-    public var id: UUID?
+    public var id: String?
     /// Gets or sets the primary image blurhash.
     public var imageBlurHashes: ImageBlurHashes?
     /// Gets or sets the name.
@@ -90,7 +90,7 @@ public struct BaseItemPerson: Codable, Identifiable {
         }
     }
 
-    public init(id: UUID? = nil, imageBlurHashes: ImageBlurHashes? = nil, name: String? = nil, primaryImageTag: String? = nil, role: String? = nil, type: String? = nil) {
+    public init(id: String? = nil, imageBlurHashes: ImageBlurHashes? = nil, name: String? = nil, primaryImageTag: String? = nil, role: String? = nil, type: String? = nil) {
         self.id = id
         self.imageBlurHashes = imageBlurHashes
         self.name = name
@@ -101,7 +101,7 @@ public struct BaseItemPerson: Codable, Identifiable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.imageBlurHashes = try values.decodeIfPresent(ImageBlurHashes.self, forKey: "ImageBlurHashes")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.primaryImageTag = try values.decodeIfPresent(String.self, forKey: "PrimaryImageTag")

@@ -17,14 +17,14 @@ extension Paths {
     }
 
     public struct GetChannelsParameters {
-        public var userID: UUID?
+        public var userID: String?
         public var startIndex: Int32?
         public var limit: Int32?
         public var isSupportsLatestItems: Bool?
         public var isSupportsMediaDeletion: Bool?
         public var isFavorite: Bool?
 
-        public init(userID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, isSupportsLatestItems: Bool? = nil, isSupportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil) {
+        public init(userID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, isSupportsLatestItems: Bool? = nil, isSupportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

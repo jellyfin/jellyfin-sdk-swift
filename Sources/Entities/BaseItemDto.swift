@@ -28,7 +28,7 @@ public struct BaseItemDto: Codable, Identifiable {
     /// Gets or sets the album count.
     public var albumCount: Int32?
     /// Gets or sets the album id.
-    public var albumID: UUID?
+    public var albumID: String?
     /// Gets or sets the album image tag.
     public var albumPrimaryImageTag: String?
     public var altitude: Double?
@@ -49,7 +49,7 @@ public struct BaseItemDto: Codable, Identifiable {
     public var canDelete: Bool?
     public var canDownload: Bool?
     /// Gets or sets the channel identifier.
-    public var channelID: UUID?
+    public var channelID: String?
     public var channelName: String?
     public var channelNumber: String?
     /// Gets or sets the channel primary image tag.
@@ -101,7 +101,7 @@ public struct BaseItemDto: Codable, Identifiable {
     public var hasSubtitles: Bool?
     public var height: Int32?
     /// Gets or sets the id.
-    public var id: UUID?
+    public var id: String?
     /// Gets or sets the blurhashes for the image tags.
     /// 
     /// Maps image type to dictionary mapping image tag to blurhash value.
@@ -171,19 +171,19 @@ public struct BaseItemDto: Codable, Identifiable {
     /// Gets or sets the parent art image tag.
     public var parentArtImageTag: String?
     /// Gets or sets wether the item has fan art, this will hold the Id of the Parent that has one.
-    public var parentArtItemID: UUID?
+    public var parentArtItemID: String?
     /// Gets or sets the parent backdrop image tags.
     public var parentBackdropImageTags: [String]?
     /// Gets or sets wether the item has any backdrops, this will hold the Id of the Parent that has one.
-    public var parentBackdropItemID: UUID?
+    public var parentBackdropItemID: String?
     /// Gets or sets the parent id.
-    public var parentID: UUID?
+    public var parentID: String?
     /// Gets or sets the parent index number.
     public var parentIndexNumber: Int32?
     /// Gets or sets the parent logo image tag.
     public var parentLogoImageTag: String?
     /// Gets or sets wether the item has a logo, this will hold the Id of the Parent that has one.
-    public var parentLogoItemID: UUID?
+    public var parentLogoItemID: String?
     /// Gets or sets the parent primary image item identifier.
     public var parentPrimaryImageItemID: String?
     /// Gets or sets the parent primary image tag.
@@ -191,7 +191,7 @@ public struct BaseItemDto: Codable, Identifiable {
     /// Gets or sets the parent thumb image tag.
     public var parentThumbImageTag: String?
     /// Gets or sets the parent thumb item id.
-    public var parentThumbItemID: UUID?
+    public var parentThumbItemID: String?
     /// Gets or sets the part count.
     public var partCount: Int32?
     /// Gets or sets the path.
@@ -225,13 +225,13 @@ public struct BaseItemDto: Codable, Identifiable {
     /// Gets or sets the screenshot image tags.
     public var screenshotImageTags: [String]?
     /// Gets or sets the season identifier.
-    public var seasonID: UUID?
+    public var seasonID: String?
     /// Gets or sets the name of the season.
     public var seasonName: String?
     /// Gets or sets the series count.
     public var seriesCount: Int32?
     /// Gets or sets the series id.
-    public var seriesID: UUID?
+    public var seriesID: String?
     /// Gets or sets the name of the series.
     public var seriesName: String?
     /// Gets or sets the series primary image tag.
@@ -349,7 +349,7 @@ public struct BaseItemDto: Codable, Identifiable {
         }
     }
 
-    public init(airDays: [DayOfWeek]? = nil, airTime: String? = nil, airsAfterSeasonNumber: Int32? = nil, airsBeforeEpisodeNumber: Int32? = nil, airsBeforeSeasonNumber: Int32? = nil, album: String? = nil, albumArtist: String? = nil, albumArtists: [NameGuidPair]? = nil, albumCount: Int32? = nil, albumID: UUID? = nil, albumPrimaryImageTag: String? = nil, altitude: Double? = nil, aperture: Double? = nil, artistCount: Int32? = nil, artistItems: [NameGuidPair]? = nil, artists: [String]? = nil, aspectRatio: String? = nil, audio: ProgramAudio? = nil, backdropImageTags: [String]? = nil, cameraMake: String? = nil, cameraModel: String? = nil, canDelete: Bool? = nil, canDownload: Bool? = nil, channelID: UUID? = nil, channelName: String? = nil, channelNumber: String? = nil, channelPrimaryImageTag: String? = nil, channelType: ChannelType? = nil, chapters: [ChapterInfo]? = nil, childCount: Int32? = nil, collectionType: String? = nil, communityRating: Float? = nil, completionPercentage: Double? = nil, container: String? = nil, criticRating: Float? = nil, cumulativeRunTimeTicks: Int64? = nil, customRating: String? = nil, dateCreated: Date? = nil, dateLastMediaAdded: Date? = nil, displayOrder: String? = nil, displayPreferencesID: String? = nil, enableMediaSourceDisplay: Bool? = nil, endDate: Date? = nil, episodeCount: Int32? = nil, episodeTitle: String? = nil, etag: String? = nil, exposureTime: Double? = nil, externalURLs: [ExternalURL]? = nil, extraType: String? = nil, focalLength: Double? = nil, forcedSortName: String? = nil, genreItems: [NameGuidPair]? = nil, genres: [String]? = nil, hasSubtitles: Bool? = nil, height: Int32? = nil, id: UUID? = nil, imageBlurHashes: ImageBlurHashes? = nil, imageOrientation: ImageOrientation? = nil, imageTags: [String: String]? = nil, indexNumber: Int32? = nil, indexNumberEnd: Int32? = nil, isFolder: Bool? = nil, isHD: Bool? = nil, isKids: Bool? = nil, isLive: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isPlaceHolder: Bool? = nil, isPremiere: Bool? = nil, isRepeat: Bool? = nil, isSeries: Bool? = nil, isSports: Bool? = nil, isoSpeedRating: Int32? = nil, isoType: IsoType? = nil, latitude: Double? = nil, localTrailerCount: Int32? = nil, locationType: LocationType? = nil, lockData: Bool? = nil, lockedFields: [MetadataField]? = nil, longitude: Double? = nil, mediaSourceCount: Int32? = nil, mediaSources: [MediaSourceInfo]? = nil, mediaStreams: [MediaStream]? = nil, mediaType: String? = nil, movieCount: Int32? = nil, musicVideoCount: Int32? = nil, name: String? = nil, number: String? = nil, officialRating: String? = nil, originalTitle: String? = nil, overview: String? = nil, parentArtImageTag: String? = nil, parentArtItemID: UUID? = nil, parentBackdropImageTags: [String]? = nil, parentBackdropItemID: UUID? = nil, parentID: UUID? = nil, parentIndexNumber: Int32? = nil, parentLogoImageTag: String? = nil, parentLogoItemID: UUID? = nil, parentPrimaryImageItemID: String? = nil, parentPrimaryImageTag: String? = nil, parentThumbImageTag: String? = nil, parentThumbItemID: UUID? = nil, partCount: Int32? = nil, path: String? = nil, people: [BaseItemPerson]? = nil, playAccess: PlayAccess? = nil, playlistItemID: String? = nil, preferredMetadataCountryCode: String? = nil, preferredMetadataLanguage: String? = nil, premiereDate: Date? = nil, primaryImageAspectRatio: Double? = nil, productionLocations: [String]? = nil, productionYear: Int32? = nil, programCount: Int32? = nil, programID: String? = nil, providerIDs: [String: String]? = nil, recursiveItemCount: Int32? = nil, remoteTrailers: [MediaURL]? = nil, runTimeTicks: Int64? = nil, screenshotImageTags: [String]? = nil, seasonID: UUID? = nil, seasonName: String? = nil, seriesCount: Int32? = nil, seriesID: UUID? = nil, seriesName: String? = nil, seriesPrimaryImageTag: String? = nil, seriesStudio: String? = nil, seriesThumbImageTag: String? = nil, seriesTimerID: String? = nil, serverID: String? = nil, shutterSpeed: Double? = nil, software: String? = nil, songCount: Int32? = nil, sortName: String? = nil, sourceType: String? = nil, specialFeatureCount: Int32? = nil, startDate: Date? = nil, status: String? = nil, studios: [NameGuidPair]? = nil, isSupportsSync: Bool? = nil, taglines: [String]? = nil, tags: [String]? = nil, timerID: String? = nil, trailerCount: Int32? = nil, type: BaseItemKind? = nil, userData: UserItemDataDto? = nil, video3DFormat: Video3DFormat? = nil, videoType: VideoType? = nil, width: Int32? = nil) {
+    public init(airDays: [DayOfWeek]? = nil, airTime: String? = nil, airsAfterSeasonNumber: Int32? = nil, airsBeforeEpisodeNumber: Int32? = nil, airsBeforeSeasonNumber: Int32? = nil, album: String? = nil, albumArtist: String? = nil, albumArtists: [NameGuidPair]? = nil, albumCount: Int32? = nil, albumID: String? = nil, albumPrimaryImageTag: String? = nil, altitude: Double? = nil, aperture: Double? = nil, artistCount: Int32? = nil, artistItems: [NameGuidPair]? = nil, artists: [String]? = nil, aspectRatio: String? = nil, audio: ProgramAudio? = nil, backdropImageTags: [String]? = nil, cameraMake: String? = nil, cameraModel: String? = nil, canDelete: Bool? = nil, canDownload: Bool? = nil, channelID: String? = nil, channelName: String? = nil, channelNumber: String? = nil, channelPrimaryImageTag: String? = nil, channelType: ChannelType? = nil, chapters: [ChapterInfo]? = nil, childCount: Int32? = nil, collectionType: String? = nil, communityRating: Float? = nil, completionPercentage: Double? = nil, container: String? = nil, criticRating: Float? = nil, cumulativeRunTimeTicks: Int64? = nil, customRating: String? = nil, dateCreated: Date? = nil, dateLastMediaAdded: Date? = nil, displayOrder: String? = nil, displayPreferencesID: String? = nil, enableMediaSourceDisplay: Bool? = nil, endDate: Date? = nil, episodeCount: Int32? = nil, episodeTitle: String? = nil, etag: String? = nil, exposureTime: Double? = nil, externalURLs: [ExternalURL]? = nil, extraType: String? = nil, focalLength: Double? = nil, forcedSortName: String? = nil, genreItems: [NameGuidPair]? = nil, genres: [String]? = nil, hasSubtitles: Bool? = nil, height: Int32? = nil, id: String? = nil, imageBlurHashes: ImageBlurHashes? = nil, imageOrientation: ImageOrientation? = nil, imageTags: [String: String]? = nil, indexNumber: Int32? = nil, indexNumberEnd: Int32? = nil, isFolder: Bool? = nil, isHD: Bool? = nil, isKids: Bool? = nil, isLive: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isPlaceHolder: Bool? = nil, isPremiere: Bool? = nil, isRepeat: Bool? = nil, isSeries: Bool? = nil, isSports: Bool? = nil, isoSpeedRating: Int32? = nil, isoType: IsoType? = nil, latitude: Double? = nil, localTrailerCount: Int32? = nil, locationType: LocationType? = nil, lockData: Bool? = nil, lockedFields: [MetadataField]? = nil, longitude: Double? = nil, mediaSourceCount: Int32? = nil, mediaSources: [MediaSourceInfo]? = nil, mediaStreams: [MediaStream]? = nil, mediaType: String? = nil, movieCount: Int32? = nil, musicVideoCount: Int32? = nil, name: String? = nil, number: String? = nil, officialRating: String? = nil, originalTitle: String? = nil, overview: String? = nil, parentArtImageTag: String? = nil, parentArtItemID: String? = nil, parentBackdropImageTags: [String]? = nil, parentBackdropItemID: String? = nil, parentID: String? = nil, parentIndexNumber: Int32? = nil, parentLogoImageTag: String? = nil, parentLogoItemID: String? = nil, parentPrimaryImageItemID: String? = nil, parentPrimaryImageTag: String? = nil, parentThumbImageTag: String? = nil, parentThumbItemID: String? = nil, partCount: Int32? = nil, path: String? = nil, people: [BaseItemPerson]? = nil, playAccess: PlayAccess? = nil, playlistItemID: String? = nil, preferredMetadataCountryCode: String? = nil, preferredMetadataLanguage: String? = nil, premiereDate: Date? = nil, primaryImageAspectRatio: Double? = nil, productionLocations: [String]? = nil, productionYear: Int32? = nil, programCount: Int32? = nil, programID: String? = nil, providerIDs: [String: String]? = nil, recursiveItemCount: Int32? = nil, remoteTrailers: [MediaURL]? = nil, runTimeTicks: Int64? = nil, screenshotImageTags: [String]? = nil, seasonID: String? = nil, seasonName: String? = nil, seriesCount: Int32? = nil, seriesID: String? = nil, seriesName: String? = nil, seriesPrimaryImageTag: String? = nil, seriesStudio: String? = nil, seriesThumbImageTag: String? = nil, seriesTimerID: String? = nil, serverID: String? = nil, shutterSpeed: Double? = nil, software: String? = nil, songCount: Int32? = nil, sortName: String? = nil, sourceType: String? = nil, specialFeatureCount: Int32? = nil, startDate: Date? = nil, status: String? = nil, studios: [NameGuidPair]? = nil, isSupportsSync: Bool? = nil, taglines: [String]? = nil, tags: [String]? = nil, timerID: String? = nil, trailerCount: Int32? = nil, type: BaseItemKind? = nil, userData: UserItemDataDto? = nil, video3DFormat: Video3DFormat? = nil, videoType: VideoType? = nil, width: Int32? = nil) {
         self.airDays = airDays
         self.airTime = airTime
         self.airsAfterSeasonNumber = airsAfterSeasonNumber
@@ -513,7 +513,7 @@ public struct BaseItemDto: Codable, Identifiable {
         self.albumArtist = try values.decodeIfPresent(String.self, forKey: "AlbumArtist")
         self.albumArtists = try values.decodeIfPresent([NameGuidPair].self, forKey: "AlbumArtists")
         self.albumCount = try values.decodeIfPresent(Int32.self, forKey: "AlbumCount")
-        self.albumID = try values.decodeIfPresent(UUID.self, forKey: "AlbumId")
+        self.albumID = try values.decodeIfPresent(String.self, forKey: "AlbumId")
         self.albumPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "AlbumPrimaryImageTag")
         self.altitude = try values.decodeIfPresent(Double.self, forKey: "Altitude")
         self.aperture = try values.decodeIfPresent(Double.self, forKey: "Aperture")
@@ -527,7 +527,7 @@ public struct BaseItemDto: Codable, Identifiable {
         self.cameraModel = try values.decodeIfPresent(String.self, forKey: "CameraModel")
         self.canDelete = try values.decodeIfPresent(Bool.self, forKey: "CanDelete")
         self.canDownload = try values.decodeIfPresent(Bool.self, forKey: "CanDownload")
-        self.channelID = try values.decodeIfPresent(UUID.self, forKey: "ChannelId")
+        self.channelID = try values.decodeIfPresent(String.self, forKey: "ChannelId")
         self.channelName = try values.decodeIfPresent(String.self, forKey: "ChannelName")
         self.channelNumber = try values.decodeIfPresent(String.self, forKey: "ChannelNumber")
         self.channelPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "ChannelPrimaryImageTag")
@@ -559,7 +559,7 @@ public struct BaseItemDto: Codable, Identifiable {
         self.genres = try values.decodeIfPresent([String].self, forKey: "Genres")
         self.hasSubtitles = try values.decodeIfPresent(Bool.self, forKey: "HasSubtitles")
         self.height = try values.decodeIfPresent(Int32.self, forKey: "Height")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.imageBlurHashes = try values.decodeIfPresent(ImageBlurHashes.self, forKey: "ImageBlurHashes")
         self.imageOrientation = try values.decodeIfPresent(ImageOrientation.self, forKey: "ImageOrientation")
         self.imageTags = try values.decodeIfPresent([String: String].self, forKey: "ImageTags")
@@ -596,17 +596,17 @@ public struct BaseItemDto: Codable, Identifiable {
         self.originalTitle = try values.decodeIfPresent(String.self, forKey: "OriginalTitle")
         self.overview = try values.decodeIfPresent(String.self, forKey: "Overview")
         self.parentArtImageTag = try values.decodeIfPresent(String.self, forKey: "ParentArtImageTag")
-        self.parentArtItemID = try values.decodeIfPresent(UUID.self, forKey: "ParentArtItemId")
+        self.parentArtItemID = try values.decodeIfPresent(String.self, forKey: "ParentArtItemId")
         self.parentBackdropImageTags = try values.decodeIfPresent([String].self, forKey: "ParentBackdropImageTags")
-        self.parentBackdropItemID = try values.decodeIfPresent(UUID.self, forKey: "ParentBackdropItemId")
-        self.parentID = try values.decodeIfPresent(UUID.self, forKey: "ParentId")
+        self.parentBackdropItemID = try values.decodeIfPresent(String.self, forKey: "ParentBackdropItemId")
+        self.parentID = try values.decodeIfPresent(String.self, forKey: "ParentId")
         self.parentIndexNumber = try values.decodeIfPresent(Int32.self, forKey: "ParentIndexNumber")
         self.parentLogoImageTag = try values.decodeIfPresent(String.self, forKey: "ParentLogoImageTag")
-        self.parentLogoItemID = try values.decodeIfPresent(UUID.self, forKey: "ParentLogoItemId")
+        self.parentLogoItemID = try values.decodeIfPresent(String.self, forKey: "ParentLogoItemId")
         self.parentPrimaryImageItemID = try values.decodeIfPresent(String.self, forKey: "ParentPrimaryImageItemId")
         self.parentPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "ParentPrimaryImageTag")
         self.parentThumbImageTag = try values.decodeIfPresent(String.self, forKey: "ParentThumbImageTag")
-        self.parentThumbItemID = try values.decodeIfPresent(UUID.self, forKey: "ParentThumbItemId")
+        self.parentThumbItemID = try values.decodeIfPresent(String.self, forKey: "ParentThumbItemId")
         self.partCount = try values.decodeIfPresent(Int32.self, forKey: "PartCount")
         self.path = try values.decodeIfPresent(String.self, forKey: "Path")
         self.people = try values.decodeIfPresent([BaseItemPerson].self, forKey: "People")
@@ -625,10 +625,10 @@ public struct BaseItemDto: Codable, Identifiable {
         self.remoteTrailers = try values.decodeIfPresent([MediaURL].self, forKey: "RemoteTrailers")
         self.runTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "RunTimeTicks")
         self.screenshotImageTags = try values.decodeIfPresent([String].self, forKey: "ScreenshotImageTags")
-        self.seasonID = try values.decodeIfPresent(UUID.self, forKey: "SeasonId")
+        self.seasonID = try values.decodeIfPresent(String.self, forKey: "SeasonId")
         self.seasonName = try values.decodeIfPresent(String.self, forKey: "SeasonName")
         self.seriesCount = try values.decodeIfPresent(Int32.self, forKey: "SeriesCount")
-        self.seriesID = try values.decodeIfPresent(UUID.self, forKey: "SeriesId")
+        self.seriesID = try values.decodeIfPresent(String.self, forKey: "SeriesId")
         self.seriesName = try values.decodeIfPresent(String.self, forKey: "SeriesName")
         self.seriesPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "SeriesPrimaryImageTag")
         self.seriesStudio = try values.decodeIfPresent(String.self, forKey: "SeriesStudio")

@@ -12,7 +12,7 @@ import Foundation
 public struct BaseItem: Codable {
     public var container: String?
     public var dateLastSaved: Date?
-    public var extraIDs: [UUID]?
+    public var extraIDs: [String]?
     public var height: Int32?
     public var isHD: Bool?
     public var isShortcut: Bool?
@@ -23,7 +23,7 @@ public struct BaseItem: Codable {
     public var isSupportsExternalTransfer: Bool?
     public var width: Int32?
 
-    public init(container: String? = nil, dateLastSaved: Date? = nil, extraIDs: [UUID]? = nil, height: Int32? = nil, isHD: Bool? = nil, isShortcut: Bool? = nil, remoteTrailers: [MediaURL]? = nil, shortcutPath: String? = nil, size: Int64? = nil, isSupportsExternalTransfer: Bool? = nil, width: Int32? = nil) {
+    public init(container: String? = nil, dateLastSaved: Date? = nil, extraIDs: [String]? = nil, height: Int32? = nil, isHD: Bool? = nil, isShortcut: Bool? = nil, remoteTrailers: [MediaURL]? = nil, shortcutPath: String? = nil, size: Int64? = nil, isSupportsExternalTransfer: Bool? = nil, width: Int32? = nil) {
         self.container = container
         self.dateLastSaved = dateLastSaved
         self.extraIDs = extraIDs
@@ -41,7 +41,7 @@ public struct BaseItem: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.container = try values.decodeIfPresent(String.self, forKey: "Container")
         self.dateLastSaved = try values.decodeIfPresent(Date.self, forKey: "DateLastSaved")
-        self.extraIDs = try values.decodeIfPresent([UUID].self, forKey: "ExtraIds")
+        self.extraIDs = try values.decodeIfPresent([String].self, forKey: "ExtraIds")
         self.height = try values.decodeIfPresent(Int32.self, forKey: "Height")
         self.isHD = try values.decodeIfPresent(Bool.self, forKey: "IsHD")
         self.isShortcut = try values.decodeIfPresent(Bool.self, forKey: "IsShortcut")

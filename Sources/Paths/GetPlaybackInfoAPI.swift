@@ -12,13 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets live playback media info for an item.
-    static public func getPlaybackInfo(itemID: String, userID: UUID) -> Request<JellyfinAPI.PlaybackInfoResponse> {
-        Request(method: "GET", url: "/Items/\(itemID)/PlaybackInfo", query: makeGetPlaybackInfoQuery(userID), id: "GetPlaybackInfo")
-    }
-
-    private static func makeGetPlaybackInfoQuery(_ userID: UUID) -> [(String, String?)] {
-        let encoder = URLQueryEncoder()
-        encoder.encode(userID, forKey: "userId")
-        return encoder.items
+    static public func getPlaybackInfo(itemID: String, userID: String) -> Request<JellyfinAPI.PlaybackInfoResponse> {
+        Request(method: "GET", url: "/Items/\(itemID)/PlaybackInfo", query: [("userId", userID)], id: "GetPlaybackInfo")
     }
 }

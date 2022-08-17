@@ -19,9 +19,9 @@ public struct AccessSchedule: Codable, Identifiable {
     /// Gets or sets the start hour.
     public var startHour: Double?
     /// Gets the id of the associated user.
-    public var userID: UUID?
+    public var userID: String?
 
-    public init(dayOfWeek: DynamicDayOfWeek? = nil, endHour: Double? = nil, id: Int32? = nil, startHour: Double? = nil, userID: UUID? = nil) {
+    public init(dayOfWeek: DynamicDayOfWeek? = nil, endHour: Double? = nil, id: Int32? = nil, startHour: Double? = nil, userID: String? = nil) {
         self.dayOfWeek = dayOfWeek
         self.endHour = endHour
         self.id = id
@@ -35,7 +35,7 @@ public struct AccessSchedule: Codable, Identifiable {
         self.endHour = try values.decodeIfPresent(Double.self, forKey: "EndHour")
         self.id = try values.decodeIfPresent(Int32.self, forKey: "Id")
         self.startHour = try values.decodeIfPresent(Double.self, forKey: "StartHour")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
 
     public func encode(to encoder: Encoder) throws {

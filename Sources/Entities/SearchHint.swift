@@ -14,7 +14,7 @@ public struct SearchHint: Codable, Identifiable {
     public var album: String?
     /// Gets or sets the album artist.
     public var albumArtist: String?
-    public var albumID: UUID?
+    public var albumID: String?
     /// Gets or sets the artists.
     public var artists: [String]?
     /// Gets or sets the backdrop image item identifier.
@@ -22,18 +22,18 @@ public struct SearchHint: Codable, Identifiable {
     /// Gets or sets the backdrop image tag.
     public var backdropImageTag: String?
     /// Gets or sets the channel identifier.
-    public var channelID: UUID?
+    public var channelID: String?
     /// Gets or sets the name of the channel.
     public var channelName: String?
     public var endDate: Date?
     /// Gets or sets the episode count.
     public var episodeCount: Int32?
-    public var id: UUID?
+    public var id: String?
     /// Gets or sets the index number.
     public var indexNumber: Int32?
     public var isFolder: Bool?
     /// Gets or sets the item id.
-    public var itemID: UUID?
+    public var itemID: String?
     /// Gets or sets the matched term.
     public var matchedTerm: String?
     /// Gets or sets the type of the media.
@@ -63,7 +63,7 @@ public struct SearchHint: Codable, Identifiable {
     /// Gets or sets the type.
     public var type: String?
 
-    public init(album: String? = nil, albumArtist: String? = nil, albumID: UUID? = nil, artists: [String]? = nil, backdropImageItemID: String? = nil, backdropImageTag: String? = nil, channelID: UUID? = nil, channelName: String? = nil, endDate: Date? = nil, episodeCount: Int32? = nil, id: UUID? = nil, indexNumber: Int32? = nil, isFolder: Bool? = nil, itemID: UUID? = nil, matchedTerm: String? = nil, mediaType: String? = nil, name: String? = nil, parentIndexNumber: Int32? = nil, primaryImageAspectRatio: Double? = nil, primaryImageTag: String? = nil, productionYear: Int32? = nil, runTimeTicks: Int64? = nil, series: String? = nil, songCount: Int32? = nil, startDate: Date? = nil, status: String? = nil, thumbImageItemID: String? = nil, thumbImageTag: String? = nil, type: String? = nil) {
+    public init(album: String? = nil, albumArtist: String? = nil, albumID: String? = nil, artists: [String]? = nil, backdropImageItemID: String? = nil, backdropImageTag: String? = nil, channelID: String? = nil, channelName: String? = nil, endDate: Date? = nil, episodeCount: Int32? = nil, id: String? = nil, indexNumber: Int32? = nil, isFolder: Bool? = nil, itemID: String? = nil, matchedTerm: String? = nil, mediaType: String? = nil, name: String? = nil, parentIndexNumber: Int32? = nil, primaryImageAspectRatio: Double? = nil, primaryImageTag: String? = nil, productionYear: Int32? = nil, runTimeTicks: Int64? = nil, series: String? = nil, songCount: Int32? = nil, startDate: Date? = nil, status: String? = nil, thumbImageItemID: String? = nil, thumbImageTag: String? = nil, type: String? = nil) {
         self.album = album
         self.albumArtist = albumArtist
         self.albumID = albumID
@@ -99,18 +99,18 @@ public struct SearchHint: Codable, Identifiable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.album = try values.decodeIfPresent(String.self, forKey: "Album")
         self.albumArtist = try values.decodeIfPresent(String.self, forKey: "AlbumArtist")
-        self.albumID = try values.decodeIfPresent(UUID.self, forKey: "AlbumId")
+        self.albumID = try values.decodeIfPresent(String.self, forKey: "AlbumId")
         self.artists = try values.decodeIfPresent([String].self, forKey: "Artists")
         self.backdropImageItemID = try values.decodeIfPresent(String.self, forKey: "BackdropImageItemId")
         self.backdropImageTag = try values.decodeIfPresent(String.self, forKey: "BackdropImageTag")
-        self.channelID = try values.decodeIfPresent(UUID.self, forKey: "ChannelId")
+        self.channelID = try values.decodeIfPresent(String.self, forKey: "ChannelId")
         self.channelName = try values.decodeIfPresent(String.self, forKey: "ChannelName")
         self.endDate = try values.decodeIfPresent(Date.self, forKey: "EndDate")
         self.episodeCount = try values.decodeIfPresent(Int32.self, forKey: "EpisodeCount")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.indexNumber = try values.decodeIfPresent(Int32.self, forKey: "IndexNumber")
         self.isFolder = try values.decodeIfPresent(Bool.self, forKey: "IsFolder")
-        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
+        self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.matchedTerm = try values.decodeIfPresent(String.self, forKey: "MatchedTerm")
         self.mediaType = try values.decodeIfPresent(String.self, forKey: "MediaType")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")

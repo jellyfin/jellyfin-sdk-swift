@@ -21,11 +21,7 @@ public struct UserDto: Codable, Identifiable {
     /// Gets or sets a value indicating whether this instance has password.
     public var hasPassword: Bool?
     /// Gets or sets the id.
-    public var id: UUID?
-    /// Gets or sets the last activity date.
-    public var lastActivityDate: Date?
-    /// Gets or sets the last login date.
-    public var lastLoginDate: Date?
+    public var id: String?
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the policy.
@@ -41,15 +37,13 @@ public struct UserDto: Codable, Identifiable {
     /// This is not used by the server and is for client-side usage only.
     public var serverName: String?
 
-    public init(configuration: UserConfiguration? = nil, enableAutoLogin: Bool? = nil, hasConfiguredEasyPassword: Bool? = nil, hasConfiguredPassword: Bool? = nil, hasPassword: Bool? = nil, id: UUID? = nil, lastActivityDate: Date? = nil, lastLoginDate: Date? = nil, name: String? = nil, policy: UserPolicy? = nil, primaryImageAspectRatio: Double? = nil, primaryImageTag: String? = nil, serverID: String? = nil, serverName: String? = nil) {
+    public init(configuration: UserConfiguration? = nil, enableAutoLogin: Bool? = nil, hasConfiguredEasyPassword: Bool? = nil, hasConfiguredPassword: Bool? = nil, hasPassword: Bool? = nil, id: String? = nil, name: String? = nil, policy: UserPolicy? = nil, primaryImageAspectRatio: Double? = nil, primaryImageTag: String? = nil, serverID: String? = nil, serverName: String? = nil) {
         self.configuration = configuration
         self.enableAutoLogin = enableAutoLogin
         self.hasConfiguredEasyPassword = hasConfiguredEasyPassword
         self.hasConfiguredPassword = hasConfiguredPassword
         self.hasPassword = hasPassword
         self.id = id
-        self.lastActivityDate = lastActivityDate
-        self.lastLoginDate = lastLoginDate
         self.name = name
         self.policy = policy
         self.primaryImageAspectRatio = primaryImageAspectRatio
@@ -65,9 +59,7 @@ public struct UserDto: Codable, Identifiable {
         self.hasConfiguredEasyPassword = try values.decodeIfPresent(Bool.self, forKey: "HasConfiguredEasyPassword")
         self.hasConfiguredPassword = try values.decodeIfPresent(Bool.self, forKey: "HasConfiguredPassword")
         self.hasPassword = try values.decodeIfPresent(Bool.self, forKey: "HasPassword")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
-        self.lastActivityDate = try values.decodeIfPresent(Date.self, forKey: "LastActivityDate")
-        self.lastLoginDate = try values.decodeIfPresent(Date.self, forKey: "LastLoginDate")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.policy = try values.decodeIfPresent(UserPolicy.self, forKey: "Policy")
         self.primaryImageAspectRatio = try values.decodeIfPresent(Double.self, forKey: "PrimaryImageAspectRatio")
@@ -84,8 +76,6 @@ public struct UserDto: Codable, Identifiable {
         try values.encodeIfPresent(hasConfiguredPassword, forKey: "HasConfiguredPassword")
         try values.encodeIfPresent(hasPassword, forKey: "HasPassword")
         try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(lastActivityDate, forKey: "LastActivityDate")
-        try values.encodeIfPresent(lastLoginDate, forKey: "LastLoginDate")
         try values.encodeIfPresent(name, forKey: "Name")
         try values.encodeIfPresent(policy, forKey: "Policy")
         try values.encodeIfPresent(primaryImageAspectRatio, forKey: "PrimaryImageAspectRatio")

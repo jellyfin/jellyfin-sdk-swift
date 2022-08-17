@@ -19,12 +19,12 @@ extension Paths {
     public struct GetParameters {
         public var startIndex: Int32?
         public var limit: Int32?
-        public var userID: UUID?
+        public var userID: String?
         public var searchTerm: String
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var mediaTypes: [String]?
-        public var parentID: UUID?
+        public var parentID: String?
         public var isMovie: Bool?
         public var isSeries: Bool?
         public var isNews: Bool?
@@ -36,7 +36,7 @@ extension Paths {
         public var isIncludeStudios: Bool?
         public var isIncludeArtists: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, userID: UUID? = nil, searchTerm: String, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil, parentID: UUID? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isIncludePeople: Bool? = nil, isIncludeMedia: Bool? = nil, isIncludeGenres: Bool? = nil, isIncludeStudios: Bool? = nil, isIncludeArtists: Bool? = nil) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, userID: String? = nil, searchTerm: String, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil, parentID: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isIncludePeople: Bool? = nil, isIncludeMedia: Bool? = nil, isIncludeGenres: Bool? = nil, isIncludeStudios: Bool? = nil, isIncludeArtists: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.userID = userID

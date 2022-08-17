@@ -17,8 +17,8 @@ extension Paths {
     }
 
     public struct GetQueryFiltersParameters {
-        public var userID: UUID?
-        public var parentID: UUID?
+        public var userID: String?
+        public var parentID: String?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isAiring: Bool?
         public var isMovie: Bool?
@@ -28,7 +28,7 @@ extension Paths {
         public var isSeries: Bool?
         public var isRecursive: Bool?
 
-        public init(userID: UUID? = nil, parentID: UUID? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isAiring: Bool? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isKids: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, isRecursive: Bool? = nil) {
+        public init(userID: String? = nil, parentID: String? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isAiring: Bool? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isKids: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, isRecursive: Bool? = nil) {
             self.userID = userID
             self.parentID = parentID
             self.includeItemTypes = includeItemTypes

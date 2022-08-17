@@ -17,13 +17,13 @@ extension Paths {
     }
 
     public struct GetEpisodesParameters {
-        public var userID: UUID?
+        public var userID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var season: Int32?
-        public var seasonID: UUID?
+        public var seasonID: String?
         public var isMissing: Bool?
         public var adjacentTo: String?
-        public var startItemID: UUID?
+        public var startItemID: String?
         public var startIndex: Int32?
         public var limit: Int32?
         public var enableImages: Bool?
@@ -32,7 +32,7 @@ extension Paths {
         public var enableUserData: Bool?
         public var sortBy: String?
 
-        public init(userID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, season: Int32? = nil, seasonID: UUID? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, startItemID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, sortBy: String? = nil) {
+        public init(userID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, season: Int32? = nil, seasonID: String? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, startItemID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, sortBy: String? = nil) {
             self.userID = userID
             self.fields = fields
             self.season = season

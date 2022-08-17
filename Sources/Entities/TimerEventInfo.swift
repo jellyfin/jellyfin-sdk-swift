@@ -10,9 +10,9 @@ import Foundation
 
 public struct TimerEventInfo: Codable, Identifiable {
     public var id: String?
-    public var programID: UUID?
+    public var programID: String?
 
-    public init(id: String? = nil, programID: UUID? = nil) {
+    public init(id: String? = nil, programID: String? = nil) {
         self.id = id
         self.programID = programID
     }
@@ -20,7 +20,7 @@ public struct TimerEventInfo: Codable, Identifiable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.programID = try values.decodeIfPresent(UUID.self, forKey: "ProgramId")
+        self.programID = try values.decodeIfPresent(String.self, forKey: "ProgramId")
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -23,12 +23,12 @@ public struct DeviceInfo: Codable, Identifiable {
     /// Gets or sets the identifier.
     public var id: String?
     /// Gets or sets the last user identifier.
-    public var lastUserID: UUID?
+    public var lastUserID: String?
     /// Gets or sets the last name of the user.
     public var lastUserName: String?
     public var name: String?
 
-    public init(accessToken: String? = nil, appName: String? = nil, appVersion: String? = nil, capabilities: ClientCapabilities? = nil, dateLastActivity: Date? = nil, iconURL: String? = nil, id: String? = nil, lastUserID: UUID? = nil, lastUserName: String? = nil, name: String? = nil) {
+    public init(accessToken: String? = nil, appName: String? = nil, appVersion: String? = nil, capabilities: ClientCapabilities? = nil, dateLastActivity: Date? = nil, iconURL: String? = nil, id: String? = nil, lastUserID: String? = nil, lastUserName: String? = nil, name: String? = nil) {
         self.accessToken = accessToken
         self.appName = appName
         self.appVersion = appVersion
@@ -50,7 +50,7 @@ public struct DeviceInfo: Codable, Identifiable {
         self.dateLastActivity = try values.decodeIfPresent(Date.self, forKey: "DateLastActivity")
         self.iconURL = try values.decodeIfPresent(String.self, forKey: "IconUrl")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.lastUserID = try values.decodeIfPresent(UUID.self, forKey: "LastUserId")
+        self.lastUserID = try values.decodeIfPresent(String.self, forKey: "LastUserId")
         self.lastUserName = try values.decodeIfPresent(String.self, forKey: "LastUserName")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
     }

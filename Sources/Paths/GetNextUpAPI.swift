@@ -17,12 +17,12 @@ extension Paths {
     }
 
     public struct GetNextUpParameters {
-        public var userID: UUID?
+        public var userID: String?
         public var startIndex: Int32?
         public var limit: Int32?
         public var fields: [JellyfinAPI.ItemFields]?
         public var seriesID: String?
-        public var parentID: UUID?
+        public var parentID: String?
         public var enableImages: Bool?
         public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
@@ -32,7 +32,7 @@ extension Paths {
         public var isDisableFirstEpisode: Bool?
         public var enableRewatching: Bool?
 
-        public init(userID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, seriesID: String? = nil, parentID: UUID? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, nextUpDateCutoff: Date? = nil, enableTotalRecordCount: Bool? = nil, isDisableFirstEpisode: Bool? = nil, enableRewatching: Bool? = nil) {
+        public init(userID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, seriesID: String? = nil, parentID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, nextUpDateCutoff: Date? = nil, enableTotalRecordCount: Bool? = nil, isDisableFirstEpisode: Bool? = nil, enableRewatching: Bool? = nil) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

@@ -17,7 +17,7 @@ extension Paths {
     }
 
     public struct GetSubtitleWithTicksParameters {
-        public var itemID: UUID?
+        public var itemID: String?
         public var mediaSourceID: String?
         public var index: Int32?
         public var startPositionTicks: Int64?
@@ -26,7 +26,7 @@ extension Paths {
         public var isCopyTimestamps: Bool?
         public var isAddVttTimeMap: Bool?
 
-        public init(itemID: UUID? = nil, mediaSourceID: String? = nil, index: Int32? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, isCopyTimestamps: Bool? = nil, isAddVttTimeMap: Bool? = nil) {
+        public init(itemID: String? = nil, mediaSourceID: String? = nil, index: Int32? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, isCopyTimestamps: Bool? = nil, isAddVttTimeMap: Bool? = nil) {
             self.itemID = itemID
             self.mediaSourceID = mediaSourceID
             self.index = index

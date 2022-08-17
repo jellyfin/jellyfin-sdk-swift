@@ -11,15 +11,15 @@ import Foundation
 /// Class JoinGroupRequestDto.
 public struct JoinGroupRequestDto: Codable {
     /// Gets or sets the group identifier.
-    public var groupID: UUID?
+    public var groupID: String?
 
-    public init(groupID: UUID? = nil) {
+    public init(groupID: String? = nil) {
         self.groupID = groupID
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.groupID = try values.decodeIfPresent(UUID.self, forKey: "GroupId")
+        self.groupID = try values.decodeIfPresent(String.self, forKey: "GroupId")
     }
 
     public func encode(to encoder: Encoder) throws {

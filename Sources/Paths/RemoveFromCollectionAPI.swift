@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Removes items from a collection.
-    static public func removeFromCollection(collectionID: String, ids: [UUID]) -> Request<Void> {
+    static public func removeFromCollection(collectionID: String, ids: [String]) -> Request<Void> {
         Request(method: "DELETE", url: "/Collections/\(collectionID)/Items", query: makeRemoveFromCollectionQuery(ids), id: "RemoveFromCollection")
     }
 
-    private static func makeRemoveFromCollectionQuery(_ ids: [UUID]) -> [(String, String?)] {
+    private static func makeRemoveFromCollectionQuery(_ ids: [String]) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(ids, forKey: "ids")
         return encoder.items

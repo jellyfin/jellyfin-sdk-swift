@@ -17,11 +17,11 @@ extension Paths {
     }
 
     public struct InstallPackageParameters {
-        public var assemblyGuid: UUID?
+        public var assemblyGuid: String?
         public var version: String?
         public var repositoryURL: String?
 
-        public init(assemblyGuid: UUID? = nil, version: String? = nil, repositoryURL: String? = nil) {
+        public init(assemblyGuid: String? = nil, version: String? = nil, repositoryURL: String? = nil) {
             self.assemblyGuid = assemblyGuid
             self.version = version
             self.repositoryURL = repositoryURL

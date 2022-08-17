@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Adds items to a collection.
-    static public func addToCollection(collectionID: String, ids: [UUID]) -> Request<Void> {
+    static public func addToCollection(collectionID: String, ids: [String]) -> Request<Void> {
         Request(method: "POST", url: "/Collections/\(collectionID)/Items", query: makeAddToCollectionQuery(ids), id: "AddToCollection")
     }
 
-    private static func makeAddToCollectionQuery(_ ids: [UUID]) -> [(String, String?)] {
+    private static func makeAddToCollectionQuery(_ ids: [String]) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(ids, forKey: "ids")
         return encoder.items

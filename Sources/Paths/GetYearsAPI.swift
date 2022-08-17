@@ -20,7 +20,7 @@ extension Paths {
         public var startIndex: Int32?
         public var limit: Int32?
         public var sortOrder: [JellyfinAPI.SortOrder]?
-        public var parentID: UUID?
+        public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -29,11 +29,11 @@ extension Paths {
         public var enableUserData: Bool?
         public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
-        public var userID: UUID?
+        public var userID: String?
         public var isRecursive: Bool?
         public var enableImages: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, userID: UUID? = nil, isRecursive: Bool? = nil, enableImages: Bool? = nil) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, userID: String? = nil, isRecursive: Bool? = nil, enableImages: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.sortOrder = sortOrder

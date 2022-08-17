@@ -11,18 +11,18 @@ import Foundation
 /// Class SessionUserInfo.
 public struct SessionUserInfo: Codable {
     /// Gets or sets the user identifier.
-    public var userID: UUID?
+    public var userID: String?
     /// Gets or sets the name of the user.
     public var userName: String?
 
-    public init(userID: UUID? = nil, userName: String? = nil) {
+    public init(userID: String? = nil, userName: String? = nil) {
         self.userID = userID
         self.userName = userName
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
         self.userName = try values.decodeIfPresent(String.self, forKey: "UserName")
     }
 

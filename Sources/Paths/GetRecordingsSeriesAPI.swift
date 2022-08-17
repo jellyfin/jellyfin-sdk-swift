@@ -19,7 +19,7 @@ extension Paths {
 
     public struct GetRecordingsSeriesParameters {
         public var channelID: String?
-        public var userID: UUID?
+        public var userID: String?
         public var groupID: String?
         public var startIndex: Int32?
         public var limit: Int32?
@@ -35,7 +35,7 @@ extension Paths {
 
         public typealias Status = JellyfinAPI.RecordingStatus
 
-        public init(channelID: String? = nil, userID: UUID? = nil, groupID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, status: Status? = nil, isInProgress: Bool? = nil, seriesTimerID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
+        public init(channelID: String? = nil, userID: String? = nil, groupID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, status: Status? = nil, isInProgress: Bool? = nil, seriesTimerID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
             self.channelID = channelID
             self.userID = userID
             self.groupID = groupID

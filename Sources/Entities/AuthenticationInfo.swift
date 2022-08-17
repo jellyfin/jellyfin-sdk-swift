@@ -29,10 +29,10 @@ public struct AuthenticationInfo: Codable, Identifiable {
     /// Gets or sets a value indicating whether this instance is active.
     public var isActive: Bool?
     /// Gets or sets the user identifier.
-    public var userID: UUID?
+    public var userID: String?
     public var userName: String?
 
-    public init(accessToken: String? = nil, appName: String? = nil, appVersion: String? = nil, dateCreated: Date? = nil, dateLastActivity: Date? = nil, dateRevoked: Date? = nil, deviceID: String? = nil, deviceName: String? = nil, id: Int64? = nil, isActive: Bool? = nil, userID: UUID? = nil, userName: String? = nil) {
+    public init(accessToken: String? = nil, appName: String? = nil, appVersion: String? = nil, dateCreated: Date? = nil, dateLastActivity: Date? = nil, dateRevoked: Date? = nil, deviceID: String? = nil, deviceName: String? = nil, id: Int64? = nil, isActive: Bool? = nil, userID: String? = nil, userName: String? = nil) {
         self.accessToken = accessToken
         self.appName = appName
         self.appVersion = appVersion
@@ -59,7 +59,7 @@ public struct AuthenticationInfo: Codable, Identifiable {
         self.deviceName = try values.decodeIfPresent(String.self, forKey: "DeviceName")
         self.id = try values.decodeIfPresent(Int64.self, forKey: "Id")
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
         self.userName = try values.decodeIfPresent(String.self, forKey: "UserName")
     }
 

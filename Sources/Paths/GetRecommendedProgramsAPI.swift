@@ -17,7 +17,7 @@ extension Paths {
     }
 
     public struct GetRecommendedProgramsParameters {
-        public var userID: UUID?
+        public var userID: String?
         public var limit: Int32?
         public var isAiring: Bool?
         public var hasAired: Bool?
@@ -29,12 +29,12 @@ extension Paths {
         public var enableImages: Bool?
         public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
-        public var genreIDs: [UUID]?
+        public var genreIDs: [String]?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableUserData: Bool?
         public var enableTotalRecordCount: Bool?
 
-        public init(userID: UUID? = nil, limit: Int32? = nil, isAiring: Bool? = nil, hasAired: Bool? = nil, isSeries: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, genreIDs: [UUID]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
+        public init(userID: String? = nil, limit: Int32? = nil, isAiring: Bool? = nil, hasAired: Bool? = nil, isSeries: Bool? = nil, isMovie: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, genreIDs: [String]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
             self.userID = userID
             self.limit = limit
             self.isAiring = isAiring

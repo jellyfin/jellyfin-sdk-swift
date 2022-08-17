@@ -20,7 +20,7 @@ extension Paths {
         public var container: [String]?
         public var mediaSourceID: String?
         public var deviceID: String?
-        public var userID: UUID?
+        public var userID: String?
         public var audioCodec: String?
         public var maxAudioChannels: Int32?
         public var transcodingAudioChannels: Int32?
@@ -35,7 +35,7 @@ extension Paths {
         public var isBreakOnNonKeyFrames: Bool?
         public var enableRedirection: Bool?
 
-        public init(container: [String]? = nil, mediaSourceID: String? = nil, deviceID: String? = nil, userID: UUID? = nil, audioCodec: String? = nil, maxAudioChannels: Int32? = nil, transcodingAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, audioBitRate: Int32? = nil, startTimeTicks: Int64? = nil, transcodingContainer: String? = nil, transcodingProtocol: String? = nil, maxAudioSampleRate: Int32? = nil, maxAudioBitDepth: Int32? = nil, enableRemoteMedia: Bool? = nil, isBreakOnNonKeyFrames: Bool? = nil, enableRedirection: Bool? = nil) {
+        public init(container: [String]? = nil, mediaSourceID: String? = nil, deviceID: String? = nil, userID: String? = nil, audioCodec: String? = nil, maxAudioChannels: Int32? = nil, transcodingAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, audioBitRate: Int32? = nil, startTimeTicks: Int64? = nil, transcodingContainer: String? = nil, transcodingProtocol: String? = nil, maxAudioSampleRate: Int32? = nil, maxAudioBitDepth: Int32? = nil, enableRemoteMedia: Bool? = nil, isBreakOnNonKeyFrames: Bool? = nil, enableRedirection: Bool? = nil) {
             self.container = container
             self.mediaSourceID = mediaSourceID
             self.deviceID = deviceID

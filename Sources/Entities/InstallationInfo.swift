@@ -15,7 +15,7 @@ public struct InstallationInfo: Codable {
     /// Gets or sets a checksum for the binary.
     public var checksum: String?
     /// Gets or sets the Id.
-    public var guid: UUID?
+    public var guid: String?
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets package information for the installation.
@@ -25,7 +25,7 @@ public struct InstallationInfo: Codable {
     /// Gets or sets the version.
     public var version: String?
 
-    public init(changelog: String? = nil, checksum: String? = nil, guid: UUID? = nil, name: String? = nil, packageInfo: PackageInfo? = nil, sourceURL: String? = nil, version: String? = nil) {
+    public init(changelog: String? = nil, checksum: String? = nil, guid: String? = nil, name: String? = nil, packageInfo: PackageInfo? = nil, sourceURL: String? = nil, version: String? = nil) {
         self.changelog = changelog
         self.checksum = checksum
         self.guid = guid
@@ -39,7 +39,7 @@ public struct InstallationInfo: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.changelog = try values.decodeIfPresent(String.self, forKey: "Changelog")
         self.checksum = try values.decodeIfPresent(String.self, forKey: "Checksum")
-        self.guid = try values.decodeIfPresent(UUID.self, forKey: "Guid")
+        self.guid = try values.decodeIfPresent(String.self, forKey: "Guid")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.packageInfo = try values.decodeIfPresent(PackageInfo.self, forKey: "PackageInfo")
         self.sourceURL = try values.decodeIfPresent(String.self, forKey: "SourceUrl")

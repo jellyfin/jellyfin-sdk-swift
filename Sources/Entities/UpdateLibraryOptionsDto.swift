@@ -11,18 +11,18 @@ import Foundation
 /// Update library options dto.
 public struct UpdateLibraryOptionsDto: Codable, Identifiable {
     /// Gets or sets the library item id.
-    public var id: UUID?
+    public var id: String?
     /// Gets or sets library options.
     public var libraryOptions: LibraryOptions?
 
-    public init(id: UUID? = nil, libraryOptions: LibraryOptions? = nil) {
+    public init(id: String? = nil, libraryOptions: LibraryOptions? = nil) {
         self.id = id
         self.libraryOptions = libraryOptions
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.libraryOptions = try values.decodeIfPresent(LibraryOptions.self, forKey: "LibraryOptions")
     }
 

@@ -20,7 +20,7 @@ extension Paths {
         public var startIndex: Int32?
         public var limit: Int32?
         public var searchTerm: String?
-        public var parentID: UUID?
+        public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var mediaTypes: [String]?
         public var enableUserData: Bool?
@@ -32,7 +32,7 @@ extension Paths {
         public var enableImages: Bool?
         public var excludeActiveSessions: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, mediaTypes: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, excludeActiveSessions: Bool? = nil) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, mediaTypes: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, excludeActiveSessions: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.searchTerm = searchTerm

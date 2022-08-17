@@ -27,13 +27,13 @@ public struct ActivityLogEntry: Codable, Identifiable {
     /// Gets or sets the type.
     public var type: String?
     /// Gets or sets the user identifier.
-    public var userID: UUID?
+    public var userID: String?
     /// Gets or sets the user primary image tag.
     ///
     /// - warning: Deprecated.
     public var userPrimaryImageTag: String?
 
-    public init(date: Date? = nil, id: Int64? = nil, itemID: String? = nil, name: String? = nil, overview: String? = nil, severity: LogLevel? = nil, shortOverview: String? = nil, type: String? = nil, userID: UUID? = nil, userPrimaryImageTag: String? = nil) {
+    public init(date: Date? = nil, id: Int64? = nil, itemID: String? = nil, name: String? = nil, overview: String? = nil, severity: LogLevel? = nil, shortOverview: String? = nil, type: String? = nil, userID: String? = nil, userPrimaryImageTag: String? = nil) {
         self.date = date
         self.id = id
         self.itemID = itemID
@@ -56,7 +56,7 @@ public struct ActivityLogEntry: Codable, Identifiable {
         self.severity = try values.decodeIfPresent(LogLevel.self, forKey: "Severity")
         self.shortOverview = try values.decodeIfPresent(String.self, forKey: "ShortOverview")
         self.type = try values.decodeIfPresent(String.self, forKey: "Type")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
         self.userPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "UserPrimaryImageTag")
     }
 

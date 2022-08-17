@@ -31,7 +31,7 @@ public struct OpenLiveStreamDto: Codable {
     /// Gets or sets a value indicating whether to enale direct stream.
     public var enableDirectStream: Bool?
     /// Gets or sets the item id.
-    public var itemID: UUID?
+    public var itemID: String?
     /// Gets or sets the max audio channels.
     public var maxAudioChannels: Int32?
     /// Gets or sets the max streaming bitrate.
@@ -45,9 +45,9 @@ public struct OpenLiveStreamDto: Codable {
     /// Gets or sets the subtitle stream index.
     public var subtitleStreamIndex: Int32?
     /// Gets or sets the user id.
-    public var userID: UUID?
+    public var userID: String?
 
-    public init(audioStreamIndex: Int32? = nil, deviceProfile: DeviceProfile? = nil, directPlayProtocols: [MediaProtocol]? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, itemID: UUID? = nil, maxAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, openToken: String? = nil, playSessionID: String? = nil, startTimeTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil, userID: UUID? = nil) {
+    public init(audioStreamIndex: Int32? = nil, deviceProfile: DeviceProfile? = nil, directPlayProtocols: [MediaProtocol]? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, itemID: String? = nil, maxAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, openToken: String? = nil, playSessionID: String? = nil, startTimeTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil, userID: String? = nil) {
         self.audioStreamIndex = audioStreamIndex
         self.deviceProfile = deviceProfile
         self.directPlayProtocols = directPlayProtocols
@@ -70,14 +70,14 @@ public struct OpenLiveStreamDto: Codable {
         self.directPlayProtocols = try values.decodeIfPresent([MediaProtocol].self, forKey: "DirectPlayProtocols")
         self.enableDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectPlay")
         self.enableDirectStream = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectStream")
-        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
+        self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.maxAudioChannels = try values.decodeIfPresent(Int32.self, forKey: "MaxAudioChannels")
         self.maxStreamingBitrate = try values.decodeIfPresent(Int32.self, forKey: "MaxStreamingBitrate")
         self.openToken = try values.decodeIfPresent(String.self, forKey: "OpenToken")
         self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
         self.startTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "StartTimeTicks")
         self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
-        self.userID = try values.decodeIfPresent(UUID.self, forKey: "UserId")
+        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
 
     public func encode(to encoder: Encoder) throws {

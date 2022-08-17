@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Merges videos into a single record.
-    static public func mergeVersions(ids: [UUID]) -> Request<Void> {
+    static public func mergeVersions(ids: [String]) -> Request<Void> {
         Request(method: "POST", url: "/Videos/MergeVersions", query: makeMergeVersionsQuery(ids), id: "MergeVersions")
     }
 
-    private static func makeMergeVersionsQuery(_ ids: [UUID]) -> [(String, String?)] {
+    private static func makeMergeVersionsQuery(_ ids: [String]) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(ids, forKey: "ids")
         return encoder.items

@@ -17,12 +17,12 @@ extension Paths {
     }
 
     public struct GetSimilarAlbumsParameters {
-        public var excludeArtistIDs: [UUID]?
-        public var userID: UUID?
+        public var excludeArtistIDs: [String]?
+        public var userID: String?
         public var limit: Int32?
         public var fields: [JellyfinAPI.ItemFields]?
 
-        public init(excludeArtistIDs: [UUID]? = nil, userID: UUID? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
+        public init(excludeArtistIDs: [String]? = nil, userID: String? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
             self.excludeArtistIDs = excludeArtistIDs
             self.userID = userID
             self.limit = limit

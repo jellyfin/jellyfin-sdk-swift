@@ -21,9 +21,9 @@ public struct ConfigurationPageInfo: Codable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the plugin id.
-    public var pluginID: UUID?
+    public var pluginID: String?
 
-    public init(displayName: String? = nil, enableInMainMenu: Bool? = nil, menuIcon: String? = nil, menuSection: String? = nil, name: String? = nil, pluginID: UUID? = nil) {
+    public init(displayName: String? = nil, enableInMainMenu: Bool? = nil, menuIcon: String? = nil, menuSection: String? = nil, name: String? = nil, pluginID: String? = nil) {
         self.displayName = displayName
         self.enableInMainMenu = enableInMainMenu
         self.menuIcon = menuIcon
@@ -39,7 +39,7 @@ public struct ConfigurationPageInfo: Codable {
         self.menuIcon = try values.decodeIfPresent(String.self, forKey: "MenuIcon")
         self.menuSection = try values.decodeIfPresent(String.self, forKey: "MenuSection")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.pluginID = try values.decodeIfPresent(UUID.self, forKey: "PluginId")
+        self.pluginID = try values.decodeIfPresent(String.self, forKey: "PluginId")
     }
 
     public func encode(to encoder: Encoder) throws {

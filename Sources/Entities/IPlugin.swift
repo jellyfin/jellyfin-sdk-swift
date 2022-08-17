@@ -19,13 +19,13 @@ public struct IPlugin: Codable, Identifiable {
     /// Gets the Description.
     public var description: String?
     /// Gets the unique id.
-    public var id: UUID?
+    public var id: String?
     /// Gets the name of the plugin.
     public var name: String?
     /// Gets the plugin version.
     public var version: String?
 
-    public init(assemblyFilePath: String? = nil, canUninstall: Bool? = nil, dataFolderPath: String? = nil, description: String? = nil, id: UUID? = nil, name: String? = nil, version: String? = nil) {
+    public init(assemblyFilePath: String? = nil, canUninstall: Bool? = nil, dataFolderPath: String? = nil, description: String? = nil, id: String? = nil, name: String? = nil, version: String? = nil) {
         self.assemblyFilePath = assemblyFilePath
         self.canUninstall = canUninstall
         self.dataFolderPath = dataFolderPath
@@ -41,7 +41,7 @@ public struct IPlugin: Codable, Identifiable {
         self.canUninstall = try values.decodeIfPresent(Bool.self, forKey: "CanUninstall")
         self.dataFolderPath = try values.decodeIfPresent(String.self, forKey: "DataFolderPath")
         self.description = try values.decodeIfPresent(String.self, forKey: "Description")
-        self.id = try values.decodeIfPresent(UUID.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.version = try values.decodeIfPresent(String.self, forKey: "Version")
     }

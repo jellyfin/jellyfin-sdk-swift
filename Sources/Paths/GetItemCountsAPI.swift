@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Get item counts.
-    static public func getItemCounts(userID: UUID? = nil, isFavorite: Bool? = nil) -> Request<JellyfinAPI.ItemCounts> {
+    static public func getItemCounts(userID: String? = nil, isFavorite: Bool? = nil) -> Request<JellyfinAPI.ItemCounts> {
         Request(method: "GET", url: "/Items/Counts", query: makeGetItemCountsQuery(userID, isFavorite), id: "GetItemCounts")
     }
 
-    private static func makeGetItemCountsQuery(_ userID: UUID?, _ isFavorite: Bool?) -> [(String, String?)] {
+    private static func makeGetItemCountsQuery(_ userID: String?, _ isFavorite: Bool?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         encoder.encode(isFavorite, forKey: "isFavorite")

@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets additional parts for a video.
-    static public func getAdditionalPart(itemID: String, userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getAdditionalPart(itemID: String, userID: String? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Videos/\(itemID)/AdditionalParts", query: makeGetAdditionalPartQuery(userID), id: "GetAdditionalPart")
     }
 
-    private static func makeGetAdditionalPartQuery(_ userID: UUID?) -> [(String, String?)] {
+    private static func makeGetAdditionalPartQuery(_ userID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         return encoder.items

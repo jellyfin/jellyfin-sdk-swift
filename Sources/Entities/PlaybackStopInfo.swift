@@ -15,7 +15,7 @@ public struct PlaybackStopInfo: Codable {
     /// Gets or sets the item.
     public var item: BaseItemDto?
     /// Gets or sets the item identifier.
-    public var itemID: UUID?
+    public var itemID: String?
     /// Gets or sets the live stream identifier.
     public var liveStreamID: String?
     /// Gets or sets the media version identifier.
@@ -30,7 +30,7 @@ public struct PlaybackStopInfo: Codable {
     /// Gets or sets the session id.
     public var sessionID: String?
 
-    public init(isFailed: Bool? = nil, item: BaseItemDto? = nil, itemID: UUID? = nil, liveStreamID: String? = nil, mediaSourceID: String? = nil, nextMediaType: String? = nil, nowPlayingQueue: [QueueItem]? = nil, playSessionID: String? = nil, playlistItemID: String? = nil, positionTicks: Int64? = nil, sessionID: String? = nil) {
+    public init(isFailed: Bool? = nil, item: BaseItemDto? = nil, itemID: String? = nil, liveStreamID: String? = nil, mediaSourceID: String? = nil, nextMediaType: String? = nil, nowPlayingQueue: [QueueItem]? = nil, playSessionID: String? = nil, playlistItemID: String? = nil, positionTicks: Int64? = nil, sessionID: String? = nil) {
         self.isFailed = isFailed
         self.item = item
         self.itemID = itemID
@@ -48,7 +48,7 @@ public struct PlaybackStopInfo: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isFailed = try values.decodeIfPresent(Bool.self, forKey: "Failed")
         self.item = try values.decodeIfPresent(BaseItemDto.self, forKey: "Item")
-        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
+        self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
         self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
         self.nextMediaType = try values.decodeIfPresent(String.self, forKey: "NextMediaType")

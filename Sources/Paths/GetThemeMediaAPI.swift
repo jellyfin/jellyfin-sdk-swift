@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Get theme songs and videos for an item.
-    static public func getThemeMedia(itemID: String, userID: UUID? = nil, isInheritFromParent: Bool? = nil) -> Request<JellyfinAPI.AllThemeMediaResult> {
+    static public func getThemeMedia(itemID: String, userID: String? = nil, isInheritFromParent: Bool? = nil) -> Request<JellyfinAPI.AllThemeMediaResult> {
         Request(method: "GET", url: "/Items/\(itemID)/ThemeMedia", query: makeGetThemeMediaQuery(userID, isInheritFromParent), id: "GetThemeMedia")
     }
 
-    private static func makeGetThemeMediaQuery(_ userID: UUID?, _ isInheritFromParent: Bool?) -> [(String, String?)] {
+    private static func makeGetThemeMediaQuery(_ userID: String?, _ isInheritFromParent: Bool?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(userID, forKey: "userId")
         encoder.encode(isInheritFromParent, forKey: "inheritFromParent")

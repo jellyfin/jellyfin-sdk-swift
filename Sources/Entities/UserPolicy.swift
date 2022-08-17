@@ -12,8 +12,8 @@ public struct UserPolicy: Codable {
     public var accessSchedules: [AccessSchedule]?
     public var authenticationProviderID: String?
     public var blockUnratedItems: [UnratedItem]?
-    public var blockedChannels: [UUID]?
-    public var blockedMediaFolders: [UUID]?
+    public var blockedChannels: [String]?
+    public var blockedMediaFolders: [String]?
     public var blockedTags: [String]?
     public var enableAllChannels: Bool?
     public var enableAllDevices: Bool?
@@ -35,9 +35,9 @@ public struct UserPolicy: Codable {
     public var enableSyncTranscoding: Bool?
     public var enableUserPreferenceAccess: Bool?
     public var enableVideoPlaybackTranscoding: Bool?
-    public var enabledChannels: [UUID]?
+    public var enabledChannels: [String]?
     public var enabledDevices: [String]?
-    public var enabledFolders: [UUID]?
+    public var enabledFolders: [String]?
     public var isForceRemoteSourceTranscoding: Bool?
     public var invalidLoginAttemptCount: Int32?
     /// Gets or sets a value indicating whether this instance is administrator.
@@ -55,7 +55,7 @@ public struct UserPolicy: Codable {
     /// Gets or sets a value indicating what SyncPlay features the user can access.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
-    public init(accessSchedules: [AccessSchedule]? = nil, authenticationProviderID: String? = nil, blockUnratedItems: [UnratedItem]? = nil, blockedChannels: [UUID]? = nil, blockedMediaFolders: [UUID]? = nil, blockedTags: [String]? = nil, enableAllChannels: Bool? = nil, enableAllDevices: Bool? = nil, enableAllFolders: Bool? = nil, enableAudioPlaybackTranscoding: Bool? = nil, enableContentDeletion: Bool? = nil, enableContentDeletionFromFolders: [String]? = nil, enableContentDownloading: Bool? = nil, enableLiveTvAccess: Bool? = nil, enableLiveTvManagement: Bool? = nil, enableMediaConversion: Bool? = nil, enableMediaPlayback: Bool? = nil, enablePlaybackRemuxing: Bool? = nil, enablePublicSharing: Bool? = nil, enableRemoteAccess: Bool? = nil, enableRemoteControlOfOtherUsers: Bool? = nil, enableSharedDeviceControl: Bool? = nil, enableSyncTranscoding: Bool? = nil, enableUserPreferenceAccess: Bool? = nil, enableVideoPlaybackTranscoding: Bool? = nil, enabledChannels: [UUID]? = nil, enabledDevices: [String]? = nil, enabledFolders: [UUID]? = nil, isForceRemoteSourceTranscoding: Bool? = nil, invalidLoginAttemptCount: Int32? = nil, isAdministrator: Bool? = nil, isDisabled: Bool? = nil, isHidden: Bool? = nil, loginAttemptsBeforeLockout: Int32? = nil, maxActiveSessions: Int32? = nil, maxParentalRating: Int32? = nil, passwordResetProviderID: String? = nil, remoteClientBitrateLimit: Int32? = nil, syncPlayAccess: SyncPlayUserAccessType? = nil) {
+    public init(accessSchedules: [AccessSchedule]? = nil, authenticationProviderID: String? = nil, blockUnratedItems: [UnratedItem]? = nil, blockedChannels: [String]? = nil, blockedMediaFolders: [String]? = nil, blockedTags: [String]? = nil, enableAllChannels: Bool? = nil, enableAllDevices: Bool? = nil, enableAllFolders: Bool? = nil, enableAudioPlaybackTranscoding: Bool? = nil, enableContentDeletion: Bool? = nil, enableContentDeletionFromFolders: [String]? = nil, enableContentDownloading: Bool? = nil, enableLiveTvAccess: Bool? = nil, enableLiveTvManagement: Bool? = nil, enableMediaConversion: Bool? = nil, enableMediaPlayback: Bool? = nil, enablePlaybackRemuxing: Bool? = nil, enablePublicSharing: Bool? = nil, enableRemoteAccess: Bool? = nil, enableRemoteControlOfOtherUsers: Bool? = nil, enableSharedDeviceControl: Bool? = nil, enableSyncTranscoding: Bool? = nil, enableUserPreferenceAccess: Bool? = nil, enableVideoPlaybackTranscoding: Bool? = nil, enabledChannels: [String]? = nil, enabledDevices: [String]? = nil, enabledFolders: [String]? = nil, isForceRemoteSourceTranscoding: Bool? = nil, invalidLoginAttemptCount: Int32? = nil, isAdministrator: Bool? = nil, isDisabled: Bool? = nil, isHidden: Bool? = nil, loginAttemptsBeforeLockout: Int32? = nil, maxActiveSessions: Int32? = nil, maxParentalRating: Int32? = nil, passwordResetProviderID: String? = nil, remoteClientBitrateLimit: Int32? = nil, syncPlayAccess: SyncPlayUserAccessType? = nil) {
         self.accessSchedules = accessSchedules
         self.authenticationProviderID = authenticationProviderID
         self.blockUnratedItems = blockUnratedItems
@@ -102,8 +102,8 @@ public struct UserPolicy: Codable {
         self.accessSchedules = try values.decodeIfPresent([AccessSchedule].self, forKey: "AccessSchedules")
         self.authenticationProviderID = try values.decodeIfPresent(String.self, forKey: "AuthenticationProviderId")
         self.blockUnratedItems = try values.decodeIfPresent([UnratedItem].self, forKey: "BlockUnratedItems")
-        self.blockedChannels = try values.decodeIfPresent([UUID].self, forKey: "BlockedChannels")
-        self.blockedMediaFolders = try values.decodeIfPresent([UUID].self, forKey: "BlockedMediaFolders")
+        self.blockedChannels = try values.decodeIfPresent([String].self, forKey: "BlockedChannels")
+        self.blockedMediaFolders = try values.decodeIfPresent([String].self, forKey: "BlockedMediaFolders")
         self.blockedTags = try values.decodeIfPresent([String].self, forKey: "BlockedTags")
         self.enableAllChannels = try values.decodeIfPresent(Bool.self, forKey: "EnableAllChannels")
         self.enableAllDevices = try values.decodeIfPresent(Bool.self, forKey: "EnableAllDevices")
@@ -124,9 +124,9 @@ public struct UserPolicy: Codable {
         self.enableSyncTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableSyncTranscoding")
         self.enableUserPreferenceAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableUserPreferenceAccess")
         self.enableVideoPlaybackTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableVideoPlaybackTranscoding")
-        self.enabledChannels = try values.decodeIfPresent([UUID].self, forKey: "EnabledChannels")
+        self.enabledChannels = try values.decodeIfPresent([String].self, forKey: "EnabledChannels")
         self.enabledDevices = try values.decodeIfPresent([String].self, forKey: "EnabledDevices")
-        self.enabledFolders = try values.decodeIfPresent([UUID].self, forKey: "EnabledFolders")
+        self.enabledFolders = try values.decodeIfPresent([String].self, forKey: "EnabledFolders")
         self.isForceRemoteSourceTranscoding = try values.decodeIfPresent(Bool.self, forKey: "ForceRemoteSourceTranscoding")
         self.invalidLoginAttemptCount = try values.decodeIfPresent(Int32.self, forKey: "InvalidLoginAttemptCount")
         self.isAdministrator = try values.decodeIfPresent(Bool.self, forKey: "IsAdministrator")

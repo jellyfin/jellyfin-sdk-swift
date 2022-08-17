@@ -23,7 +23,7 @@ public struct PlaybackStartInfo: Codable {
     /// Gets or sets the item.
     public var item: BaseItemDto?
     /// Gets or sets the item identifier.
-    public var itemID: UUID?
+    public var itemID: String?
     /// Gets or sets the live stream identifier.
     public var liveStreamID: String?
     /// Gets or sets the media version identifier.
@@ -46,7 +46,7 @@ public struct PlaybackStartInfo: Codable {
     /// Gets or sets the volume level.
     public var volumeLevel: Int32?
 
-    public init(aspectRatio: String? = nil, audioStreamIndex: Int32? = nil, brightness: Int32? = nil, canSeek: Bool? = nil, isMuted: Bool? = nil, isPaused: Bool? = nil, item: BaseItemDto? = nil, itemID: UUID? = nil, liveStreamID: String? = nil, mediaSourceID: String? = nil, nowPlayingQueue: [QueueItem]? = nil, playMethod: PlayMethod? = nil, playSessionID: String? = nil, playbackStartTimeTicks: Int64? = nil, playlistItemID: String? = nil, positionTicks: Int64? = nil, repeatMode: RepeatMode? = nil, sessionID: String? = nil, subtitleStreamIndex: Int32? = nil, volumeLevel: Int32? = nil) {
+    public init(aspectRatio: String? = nil, audioStreamIndex: Int32? = nil, brightness: Int32? = nil, canSeek: Bool? = nil, isMuted: Bool? = nil, isPaused: Bool? = nil, item: BaseItemDto? = nil, itemID: String? = nil, liveStreamID: String? = nil, mediaSourceID: String? = nil, nowPlayingQueue: [QueueItem]? = nil, playMethod: PlayMethod? = nil, playSessionID: String? = nil, playbackStartTimeTicks: Int64? = nil, playlistItemID: String? = nil, positionTicks: Int64? = nil, repeatMode: RepeatMode? = nil, sessionID: String? = nil, subtitleStreamIndex: Int32? = nil, volumeLevel: Int32? = nil) {
         self.aspectRatio = aspectRatio
         self.audioStreamIndex = audioStreamIndex
         self.brightness = brightness
@@ -78,7 +78,7 @@ public struct PlaybackStartInfo: Codable {
         self.isMuted = try values.decodeIfPresent(Bool.self, forKey: "IsMuted")
         self.isPaused = try values.decodeIfPresent(Bool.self, forKey: "IsPaused")
         self.item = try values.decodeIfPresent(BaseItemDto.self, forKey: "Item")
-        self.itemID = try values.decodeIfPresent(UUID.self, forKey: "ItemId")
+        self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
         self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")

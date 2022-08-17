@@ -11,15 +11,15 @@ import Foundation
 /// Class NextItemRequestDto.
 public struct NextItemRequestDto: Codable {
     /// Gets or sets the playing item identifier.
-    public var playlistItemID: UUID?
+    public var playlistItemID: String?
 
-    public init(playlistItemID: UUID? = nil) {
+    public init(playlistItemID: String? = nil) {
         self.playlistItemID = playlistItemID
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.playlistItemID = try values.decodeIfPresent(UUID.self, forKey: "PlaylistItemId")
+        self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
     }
 
     public func encode(to encoder: Encoder) throws {

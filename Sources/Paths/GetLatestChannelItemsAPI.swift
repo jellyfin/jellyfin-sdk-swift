@@ -17,14 +17,14 @@ extension Paths {
     }
 
     public struct GetLatestChannelItemsParameters {
-        public var userID: UUID?
+        public var userID: String?
         public var startIndex: Int32?
         public var limit: Int32?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var fields: [JellyfinAPI.ItemFields]?
-        public var channelIDs: [UUID]?
+        public var channelIDs: [String]?
 
-        public init(userID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, channelIDs: [UUID]? = nil) {
+        public init(userID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, channelIDs: [String]? = nil) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit
