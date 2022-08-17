@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the item's image.
-    static public func headItemImage(itemID: String, imageType: String, parameters: HeadItemImageParameters? = nil) -> Request<Data> {
+    static func headItemImage(itemID: String, imageType: String, parameters: HeadItemImageParameters? = nil) -> Request<Data> {
         Request(method: "HEAD", url: "/Items/\(itemID)/Images/\(imageType)", query: parameters?.asQuery, id: "HeadItemImage")
     }
 
-    public struct HeadItemImageParameters {
+    struct HeadItemImageParameters {
         public var maxWidth: Int32?
         public var maxHeight: Int32?
         public var width: Int32?
@@ -37,7 +37,25 @@ extension Paths {
 
         public typealias Format = JellyfinAPI.ImageFormat
 
-        public init(maxWidth: Int32? = nil, maxHeight: Int32? = nil, width: Int32? = nil, height: Int32? = nil, quality: Int32? = nil, fillWidth: Int32? = nil, fillHeight: Int32? = nil, tag: String? = nil, isCropWhitespace: Bool? = nil, format: Format? = nil, isAddPlayedIndicator: Bool? = nil, percentPlayed: Double? = nil, unplayedCount: Int32? = nil, blur: Int32? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int32? = nil) {
+        public init(
+            maxWidth: Int32? = nil,
+            maxHeight: Int32? = nil,
+            width: Int32? = nil,
+            height: Int32? = nil,
+            quality: Int32? = nil,
+            fillWidth: Int32? = nil,
+            fillHeight: Int32? = nil,
+            tag: String? = nil,
+            isCropWhitespace: Bool? = nil,
+            format: Format? = nil,
+            isAddPlayedIndicator: Bool? = nil,
+            percentPlayed: Double? = nil,
+            unplayedCount: Int32? = nil,
+            blur: Int32? = nil,
+            backgroundColor: String? = nil,
+            foregroundLayer: String? = nil,
+            imageIndex: Int32? = nil
+        ) {
             self.maxWidth = maxWidth
             self.maxHeight = maxHeight
             self.width = width

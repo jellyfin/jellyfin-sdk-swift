@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the user based on auth token.
-    static public var getCurrentUser: Request<JellyfinAPI.UserDto> {
+    static var getCurrentUser: Request<JellyfinAPI.UserDto> {
         Request(method: "GET", url: "/Users/Me", id: "GetCurrentUser")
     }
 }

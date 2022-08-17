@@ -32,7 +32,19 @@ public struct PlayerStateInfo: Codable {
     /// Gets or sets the volume level.
     public var volumeLevel: Int32?
 
-    public init(audioStreamIndex: Int32? = nil, canSeek: Bool? = nil, isMuted: Bool? = nil, isPaused: Bool? = nil, liveStreamID: String? = nil, mediaSourceID: String? = nil, playMethod: PlayMethod? = nil, positionTicks: Int64? = nil, repeatMode: RepeatMode? = nil, subtitleStreamIndex: Int32? = nil, volumeLevel: Int32? = nil) {
+    public init(
+        audioStreamIndex: Int32? = nil,
+        canSeek: Bool? = nil,
+        isMuted: Bool? = nil,
+        isPaused: Bool? = nil,
+        liveStreamID: String? = nil,
+        mediaSourceID: String? = nil,
+        playMethod: PlayMethod? = nil,
+        positionTicks: Int64? = nil,
+        repeatMode: RepeatMode? = nil,
+        subtitleStreamIndex: Int32? = nil,
+        volumeLevel: Int32? = nil
+    ) {
         self.audioStreamIndex = audioStreamIndex
         self.canSeek = canSeek
         self.isMuted = isMuted

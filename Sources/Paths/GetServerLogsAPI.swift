@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a list of available server log files.
-    static public var getServerLogs: Request<[JellyfinAPI.LogFile]> {
+    static var getServerLogs: Request<[JellyfinAPI.LogFile]> {
         Request(method: "GET", url: "/System/Logs", id: "GetServerLogs")
     }
 }

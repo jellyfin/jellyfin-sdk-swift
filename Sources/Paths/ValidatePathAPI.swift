@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Validates path.
-    static public func validatePath(_ body: JellyfinAPI.ValidatePathDto) -> Request<Void> {
+    static func validatePath(_ body: JellyfinAPI.ValidatePathDto) -> Request<Void> {
         Request(method: "POST", url: "/Environment/ValidatePath", body: body, id: "ValidatePath")
     }
 }

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a hls video playlist.
-    static public func getHlsPlaylistLegacy(itemID: String, playlistID: String) -> Request<Data> {
+    static func getHlsPlaylistLegacy(itemID: String, playlistID: String) -> Request<Data> {
         Request(method: "GET", url: "/Videos/\(itemID)/hls/\(playlistID)/stream.m3u8", id: "GetHlsPlaylistLegacy")
     }
 }

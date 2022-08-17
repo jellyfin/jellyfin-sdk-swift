@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets metadata editor info for an item.
-    static public func getMetadataEditorInfo(itemID: String) -> Request<JellyfinAPI.MetadataEditorInfo> {
+    static func getMetadataEditorInfo(itemID: String) -> Request<JellyfinAPI.MetadataEditorInfo> {
         Request(method: "GET", url: "/Items/\(itemID)/MetadataEditor", id: "GetMetadataEditorInfo")
     }
 }

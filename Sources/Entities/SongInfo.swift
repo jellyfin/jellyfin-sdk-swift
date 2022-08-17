@@ -31,7 +31,22 @@ public struct SongInfo: Codable {
     /// Gets or sets the year.
     public var year: Int32?
 
-    public init(album: String? = nil, albumArtists: [String]? = nil, artists: [String]? = nil, indexNumber: Int32? = nil, isAutomated: Bool? = nil, metadataCountryCode: String? = nil, metadataLanguage: String? = nil, name: String? = nil, originalTitle: String? = nil, parentIndexNumber: Int32? = nil, path: String? = nil, premiereDate: Date? = nil, providerIDs: [String: String]? = nil, year: Int32? = nil) {
+    public init(
+        album: String? = nil,
+        albumArtists: [String]? = nil,
+        artists: [String]? = nil,
+        indexNumber: Int32? = nil,
+        isAutomated: Bool? = nil,
+        metadataCountryCode: String? = nil,
+        metadataLanguage: String? = nil,
+        name: String? = nil,
+        originalTitle: String? = nil,
+        parentIndexNumber: Int32? = nil,
+        path: String? = nil,
+        premiereDate: Date? = nil,
+        providerIDs: [String: String]? = nil,
+        year: Int32? = nil
+    ) {
         self.album = album
         self.albumArtists = albumArtists
         self.artists = artists

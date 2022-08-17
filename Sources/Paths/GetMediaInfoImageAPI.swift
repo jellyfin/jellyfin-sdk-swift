@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get media info image.
-    static public func getMediaInfoImage(theme: String, name: String) -> Request<Data> {
+    static func getMediaInfoImage(theme: String, name: String) -> Request<Data> {
         Request(method: "GET", url: "/Images/MediaInfo/\(theme)/\(name)", id: "GetMediaInfoImage")
     }
 }

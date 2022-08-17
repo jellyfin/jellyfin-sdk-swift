@@ -34,13 +34,13 @@ public struct SessionInfo: Codable, Identifiable {
     /// Gets or sets the last playback check in.
     public var lastPlaybackCheckIn: Date?
     /// This is strictly used as a data transfer object from the api layer.
-    /// 
+    ///
     /// This holds information about a BaseItem in a format that is convenient for the client.
     public var nowPlayingItem: BaseItemDto?
     public var nowPlayingQueue: [QueueItem]?
     public var nowPlayingQueueFullItems: [BaseItemDto]?
     /// This is strictly used as a data transfer object from the api layer.
-    /// 
+    ///
     /// This holds information about a BaseItem in a format that is convenient for the client.
     public var nowViewingItem: BaseItemDto?
     public var playState: PlayerStateInfo?
@@ -61,7 +61,37 @@ public struct SessionInfo: Codable, Identifiable {
     public var userName: String?
     public var userPrimaryImageTag: String?
 
-    public init(additionalUsers: [SessionUserInfo]? = nil, applicationVersion: String? = nil, capabilities: ClientCapabilities? = nil, client: String? = nil, deviceID: String? = nil, deviceName: String? = nil, deviceType: String? = nil, fullNowPlayingItem: BaseItem? = nil, hasCustomDeviceName: Bool? = nil, id: String? = nil, isActive: Bool? = nil, lastActivityDate: Date? = nil, lastPlaybackCheckIn: Date? = nil, nowPlayingItem: BaseItemDto? = nil, nowPlayingQueue: [QueueItem]? = nil, nowPlayingQueueFullItems: [BaseItemDto]? = nil, nowViewingItem: BaseItemDto? = nil, playState: PlayerStateInfo? = nil, playableMediaTypes: [String]? = nil, playlistItemID: String? = nil, remoteEndPoint: String? = nil, serverID: String? = nil, supportedCommands: [GeneralCommandType]? = nil, isSupportsMediaControl: Bool? = nil, isSupportsRemoteControl: Bool? = nil, transcodingInfo: TranscodingInfo? = nil, userID: String? = nil, userName: String? = nil, userPrimaryImageTag: String? = nil) {
+    public init(
+        additionalUsers: [SessionUserInfo]? = nil,
+        applicationVersion: String? = nil,
+        capabilities: ClientCapabilities? = nil,
+        client: String? = nil,
+        deviceID: String? = nil,
+        deviceName: String? = nil,
+        deviceType: String? = nil,
+        fullNowPlayingItem: BaseItem? = nil,
+        hasCustomDeviceName: Bool? = nil,
+        id: String? = nil,
+        isActive: Bool? = nil,
+        lastActivityDate: Date? = nil,
+        lastPlaybackCheckIn: Date? = nil,
+        nowPlayingItem: BaseItemDto? = nil,
+        nowPlayingQueue: [QueueItem]? = nil,
+        nowPlayingQueueFullItems: [BaseItemDto]? = nil,
+        nowViewingItem: BaseItemDto? = nil,
+        playState: PlayerStateInfo? = nil,
+        playableMediaTypes: [String]? = nil,
+        playlistItemID: String? = nil,
+        remoteEndPoint: String? = nil,
+        serverID: String? = nil,
+        supportedCommands: [GeneralCommandType]? = nil,
+        isSupportsMediaControl: Bool? = nil,
+        isSupportsRemoteControl: Bool? = nil,
+        transcodingInfo: TranscodingInfo? = nil,
+        userID: String? = nil,
+        userName: String? = nil,
+        userPrimaryImageTag: String? = nil
+    ) {
         self.additionalUsers = additionalUsers
         self.applicationVersion = applicationVersion
         self.capabilities = capabilities

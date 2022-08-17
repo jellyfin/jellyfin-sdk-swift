@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets all virtual folders.
-    static public var getVirtualFolders: Request<[JellyfinAPI.VirtualFolderInfo]> {
+    static var getVirtualFolders: Request<[JellyfinAPI.VirtualFolderInfo]> {
         Request(method: "GET", url: "/Library/VirtualFolders", id: "GetVirtualFolders")
     }
 }

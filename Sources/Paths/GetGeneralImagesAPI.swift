@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get all general images.
-    static public var getGeneralImages: Request<[JellyfinAPI.ImageByNameInfo]> {
+    static var getGeneralImages: Request<[JellyfinAPI.ImageByNameInfo]> {
         Request(method: "GET", url: "/Images/General", id: "GetGeneralImages")
     }
 }

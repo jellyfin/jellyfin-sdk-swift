@@ -24,7 +24,16 @@ public struct VirtualFolderInfo: Codable {
     public var refreshProgress: Double?
     public var refreshStatus: String?
 
-    public init(collectionType: CollectionTypeOptions? = nil, itemID: String? = nil, libraryOptions: LibraryOptions? = nil, locations: [String]? = nil, name: String? = nil, primaryImageItemID: String? = nil, refreshProgress: Double? = nil, refreshStatus: String? = nil) {
+    public init(
+        collectionType: CollectionTypeOptions? = nil,
+        itemID: String? = nil,
+        libraryOptions: LibraryOptions? = nil,
+        locations: [String]? = nil,
+        name: String? = nil,
+        primaryImageItemID: String? = nil,
+        refreshProgress: Double? = nil,
+        refreshStatus: String? = nil
+    ) {
         self.collectionType = collectionType
         self.itemID = itemID
         self.libraryOptions = libraryOptions

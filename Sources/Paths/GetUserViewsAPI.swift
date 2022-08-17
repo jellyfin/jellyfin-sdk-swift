@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get user views.
-    static public func getUserViews(userID: String, parameters: GetUserViewsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getUserViews(userID: String, parameters: GetUserViewsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Users/\(userID)/Views", query: parameters?.asQuery, id: "GetUserViews")
     }
 
-    public struct GetUserViewsParameters {
+    struct GetUserViewsParameters {
         public var isIncludeExternalContent: Bool?
         public var presetViews: [String]?
         public var isIncludeHidden: Bool?

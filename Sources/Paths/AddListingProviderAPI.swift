@@ -10,13 +10,16 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Adds a listings provider.
-    static public func addListingProvider(parameters: AddListingProviderParameters? = nil, _ body: JellyfinAPI.ListingsProviderInfo? = nil) -> Request<JellyfinAPI.ListingsProviderInfo> {
+    static func addListingProvider(
+        parameters: AddListingProviderParameters? = nil,
+        _ body: JellyfinAPI.ListingsProviderInfo? = nil
+    ) -> Request<JellyfinAPI.ListingsProviderInfo> {
         Request(method: "POST", url: "/LiveTv/ListingProviders", query: parameters?.asQuery, body: body, id: "AddListingProvider")
     }
 
-    public struct AddListingProviderParameters {
+    struct AddListingProviderParameters {
         public var pw: String?
         public var isValidateListings: Bool?
         public var isValidateLogin: Bool?

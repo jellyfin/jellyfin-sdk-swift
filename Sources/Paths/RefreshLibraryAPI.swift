@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Starts a library scan.
-    static public var refreshLibrary: Request<Void> {
+    static var refreshLibrary: Request<Void> {
         Request(method: "POST", url: "/Library/Refresh", id: "RefreshLibrary")
     }
 }

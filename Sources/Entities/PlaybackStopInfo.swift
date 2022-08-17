@@ -30,7 +30,19 @@ public struct PlaybackStopInfo: Codable {
     /// Gets or sets the session id.
     public var sessionID: String?
 
-    public init(isFailed: Bool? = nil, item: BaseItemDto? = nil, itemID: String? = nil, liveStreamID: String? = nil, mediaSourceID: String? = nil, nextMediaType: String? = nil, nowPlayingQueue: [QueueItem]? = nil, playSessionID: String? = nil, playlistItemID: String? = nil, positionTicks: Int64? = nil, sessionID: String? = nil) {
+    public init(
+        isFailed: Bool? = nil,
+        item: BaseItemDto? = nil,
+        itemID: String? = nil,
+        liveStreamID: String? = nil,
+        mediaSourceID: String? = nil,
+        nextMediaType: String? = nil,
+        nowPlayingQueue: [QueueItem]? = nil,
+        playSessionID: String? = nil,
+        playlistItemID: String? = nil,
+        positionTicks: Int64? = nil,
+        sessionID: String? = nil
+    ) {
         self.isFailed = isFailed
         self.item = item
         self.itemID = itemID

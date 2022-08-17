@@ -10,13 +10,24 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a video stream using HTTP live streaming.
-    static public func getHlsAudioSegment(itemID: String, playlistID: String, segmentID: Int, container: String, parameters: GetHlsAudioSegmentParameters) -> Request<Data> {
-        Request(method: "GET", url: "/Audio/\(itemID)/hls1/\(playlistID)/\(segmentID).\(container)", query: parameters.asQuery, id: "GetHlsAudioSegment")
+    static func getHlsAudioSegment(
+        itemID: String,
+        playlistID: String,
+        segmentID: Int,
+        container: String,
+        parameters: GetHlsAudioSegmentParameters
+    ) -> Request<Data> {
+        Request(
+            method: "GET",
+            url: "/Audio/\(itemID)/hls1/\(playlistID)/\(segmentID).\(container)",
+            query: parameters.asQuery,
+            id: "GetHlsAudioSegment"
+        )
     }
 
-    public struct GetHlsAudioSegmentParameters {
+    struct GetHlsAudioSegmentParameters {
         public var runtimeTicks: Int64
         public var actualSegmentLengthTicks: Int64
         public var isStatic: Bool?
@@ -74,7 +85,58 @@ extension Paths {
 
         public typealias StreamOptions = [String: String]
 
-        public init(runtimeTicks: Int64, actualSegmentLengthTicks: Int64, isStatic: Bool? = nil, params: String? = nil, tag: String? = nil, deviceProfileID: String? = nil, playSessionID: String? = nil, segmentContainer: String? = nil, segmentLength: Int32? = nil, minSegments: Int32? = nil, mediaSourceID: String? = nil, deviceID: String? = nil, audioCodec: String? = nil, enableAutoStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil, isBreakOnNonKeyFrames: Bool? = nil, audioSampleRate: Int32? = nil, maxAudioBitDepth: Int32? = nil, maxStreamingBitrate: Int32? = nil, audioBitRate: Int32? = nil, audioChannels: Int32? = nil, maxAudioChannels: Int32? = nil, profile: String? = nil, level: String? = nil, framerate: Float? = nil, maxFramerate: Float? = nil, isCopyTimestamps: Bool? = nil, startTimeTicks: Int64? = nil, width: Int32? = nil, height: Int32? = nil, videoBitRate: Int32? = nil, subtitleStreamIndex: Int32? = nil, subtitleMethod: SubtitleMethod? = nil, maxRefFrames: Int32? = nil, maxVideoBitDepth: Int32? = nil, requireAvc: Bool? = nil, isDeInterlace: Bool? = nil, requireNonAnamorphic: Bool? = nil, transcodingMaxAudioChannels: Int32? = nil, cpuCoreLimit: Int32? = nil, liveStreamID: String? = nil, enableMpegtsM2TsMode: Bool? = nil, videoCodec: String? = nil, subtitleCodec: String? = nil, transcodeReasons: String? = nil, audioStreamIndex: Int32? = nil, videoStreamIndex: Int32? = nil, context: Context? = nil, streamOptions: StreamOptions? = nil) {
+        public init(
+            runtimeTicks: Int64,
+            actualSegmentLengthTicks: Int64,
+            isStatic: Bool? = nil,
+            params: String? = nil,
+            tag: String? = nil,
+            deviceProfileID: String? = nil,
+            playSessionID: String? = nil,
+            segmentContainer: String? = nil,
+            segmentLength: Int32? = nil,
+            minSegments: Int32? = nil,
+            mediaSourceID: String? = nil,
+            deviceID: String? = nil,
+            audioCodec: String? = nil,
+            enableAutoStreamCopy: Bool? = nil,
+            allowVideoStreamCopy: Bool? = nil,
+            allowAudioStreamCopy: Bool? = nil,
+            isBreakOnNonKeyFrames: Bool? = nil,
+            audioSampleRate: Int32? = nil,
+            maxAudioBitDepth: Int32? = nil,
+            maxStreamingBitrate: Int32? = nil,
+            audioBitRate: Int32? = nil,
+            audioChannels: Int32? = nil,
+            maxAudioChannels: Int32? = nil,
+            profile: String? = nil,
+            level: String? = nil,
+            framerate: Float? = nil,
+            maxFramerate: Float? = nil,
+            isCopyTimestamps: Bool? = nil,
+            startTimeTicks: Int64? = nil,
+            width: Int32? = nil,
+            height: Int32? = nil,
+            videoBitRate: Int32? = nil,
+            subtitleStreamIndex: Int32? = nil,
+            subtitleMethod: SubtitleMethod? = nil,
+            maxRefFrames: Int32? = nil,
+            maxVideoBitDepth: Int32? = nil,
+            requireAvc: Bool? = nil,
+            isDeInterlace: Bool? = nil,
+            requireNonAnamorphic: Bool? = nil,
+            transcodingMaxAudioChannels: Int32? = nil,
+            cpuCoreLimit: Int32? = nil,
+            liveStreamID: String? = nil,
+            enableMpegtsM2TsMode: Bool? = nil,
+            videoCodec: String? = nil,
+            subtitleCodec: String? = nil,
+            transcodeReasons: String? = nil,
+            audioStreamIndex: Int32? = nil,
+            videoStreamIndex: Int32? = nil,
+            context: Context? = nil,
+            streamOptions: StreamOptions? = nil
+        ) {
             self.runtimeTicks = runtimeTicks
             self.actualSegmentLengthTicks = actualSegmentLengthTicks
             self.isStatic = isStatic

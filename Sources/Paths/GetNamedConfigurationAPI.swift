@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a named configuration.
-    static public func getNamedConfiguration(key: String) -> Request<String> {
+    static func getNamedConfiguration(key: String) -> Request<String> {
         Request(method: "GET", url: "/System/Configuration/\(key)", id: "GetNamedConfiguration")
     }
 }

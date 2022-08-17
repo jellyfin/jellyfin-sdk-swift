@@ -19,7 +19,17 @@ public struct SubtitleOptions: Codable {
     public var isSkipIfAudioTrackMatches: Bool?
     public var isSkipIfEmbeddedSubtitlesPresent: Bool?
 
-    public init(isDownloadEpisodeSubtitles: Bool? = nil, downloadLanguages: [String]? = nil, isDownloadMovieSubtitles: Bool? = nil, isOpenSubtitleVipAccount: Bool? = nil, openSubtitlesPasswordHash: String? = nil, openSubtitlesUsername: String? = nil, requirePerfectMatch: Bool? = nil, isSkipIfAudioTrackMatches: Bool? = nil, isSkipIfEmbeddedSubtitlesPresent: Bool? = nil) {
+    public init(
+        isDownloadEpisodeSubtitles: Bool? = nil,
+        downloadLanguages: [String]? = nil,
+        isDownloadMovieSubtitles: Bool? = nil,
+        isOpenSubtitleVipAccount: Bool? = nil,
+        openSubtitlesPasswordHash: String? = nil,
+        openSubtitlesUsername: String? = nil,
+        requirePerfectMatch: Bool? = nil,
+        isSkipIfAudioTrackMatches: Bool? = nil,
+        isSkipIfEmbeddedSubtitlesPresent: Bool? = nil
+    ) {
         self.isDownloadEpisodeSubtitles = isDownloadEpisodeSubtitles
         self.downloadLanguages = downloadLanguages
         self.isDownloadMovieSubtitles = isDownloadMovieSubtitles

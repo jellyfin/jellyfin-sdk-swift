@@ -10,7 +10,7 @@ let package = Package(
         .macCatalyst(.v13),
         .macOS(.v10_15),
         .watchOS(.v6),
-        .tvOS(.v13)
+        .tvOS(.v13),
     ],
     products: [
         .library(name: "JellyfinAPI", targets: ["JellyfinAPI"]),
@@ -29,7 +29,7 @@ let package = Package(
             path: "Sources",
             exclude: [
                 "jellyfin-openapi-stable.json",
-                "create-api-config.yaml"
+                "create-api-config.yaml",
             ]
         ),
         .binaryTarget(
@@ -45,12 +45,12 @@ let package = Package(
                     description: "Generates the OpenAPI entities and paths using CreateAPI"
                 ),
                 permissions: [
-                    .writeToPackageDirectory(reason: "To output the generated source code")
+                    .writeToPackageDirectory(reason: "To output the generated source code"),
                 ]
             ),
             dependencies: [
-                .target(name: "create-api")
+                .target(name: "create-api"),
             ]
-        )
+        ),
     ]
 )

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Delete the user's image.
-    static public func deleteUserImageByIndex(userID: String, imageType: String, index: Int) -> Request<Void> {
+    static func deleteUserImageByIndex(userID: String, imageType: String, index: Int) -> Request<Void> {
         Request(method: "DELETE", url: "/Users/\(userID)/Images/\(imageType)/\(index)", id: "DeleteUserImageByIndex")
     }
 }

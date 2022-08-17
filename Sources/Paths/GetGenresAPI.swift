@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets all genres from a given item, folder, or the entire library.
-    static public func getGenres(parameters: GetGenresParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getGenres(parameters: GetGenresParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Genres", query: parameters?.asQuery, id: "GetGenres")
     }
 
-    public struct GetGenresParameters {
+    struct GetGenresParameters {
         public var startIndex: Int32?
         public var limit: Int32?
         public var searchTerm: String?
@@ -36,7 +36,26 @@ extension Paths {
         public var enableImages: Bool?
         public var enableTotalRecordCount: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isFavorite: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, userID: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, sortBy: [String]? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
+        public init(
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            searchTerm: String? = nil,
+            parentID: String? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            isFavorite: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            userID: String? = nil,
+            nameStartsWithOrGreater: String? = nil,
+            nameStartsWith: String? = nil,
+            nameLessThan: String? = nil,
+            sortBy: [String]? = nil,
+            sortOrder: [JellyfinAPI.SortOrder]? = nil,
+            enableImages: Bool? = nil,
+            enableTotalRecordCount: Bool? = nil
+        ) {
             self.startIndex = startIndex
             self.limit = limit
             self.searchTerm = searchTerm

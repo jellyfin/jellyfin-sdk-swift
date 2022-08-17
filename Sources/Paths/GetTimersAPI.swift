@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the live tv timers.
-    static public func getTimers(parameters: GetTimersParameters? = nil) -> Request<JellyfinAPI.TimerInfoDtoQueryResult> {
+    static func getTimers(parameters: GetTimersParameters? = nil) -> Request<JellyfinAPI.TimerInfoDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Timers", query: parameters?.asQuery, id: "GetTimers")
     }
 
-    public struct GetTimersParameters {
+    struct GetTimersParameters {
         public var channelID: String?
         public var seriesTimerID: String?
         public var isActive: Bool?

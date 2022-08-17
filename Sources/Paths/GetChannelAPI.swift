@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets a live tv channel.
-    static public func getChannel(channelID: String, userID: String? = nil) -> Request<JellyfinAPI.BaseItemDto> {
+    public static func getChannel(channelID: String, userID: String? = nil) -> Request<JellyfinAPI.BaseItemDto> {
         Request(method: "GET", url: "/LiveTv/Channels/\(channelID)", query: makeGetChannelQuery(userID), id: "GetChannel")
     }
 

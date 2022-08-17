@@ -39,7 +39,22 @@ public struct DisplayPreferencesDto: Codable, Identifiable {
     /// Gets or sets the type of the view.
     public var viewType: String?
 
-    public init(client: String? = nil, customPrefs: [String: String]? = nil, id: String? = nil, indexBy: String? = nil, primaryImageHeight: Int32? = nil, primaryImageWidth: Int32? = nil, isRememberIndexing: Bool? = nil, isRememberSorting: Bool? = nil, scrollDirection: ScrollDirection? = nil, isShowBackdrop: Bool? = nil, isShowSidebar: Bool? = nil, sortBy: String? = nil, sortOrder: SortOrder? = nil, viewType: String? = nil) {
+    public init(
+        client: String? = nil,
+        customPrefs: [String: String]? = nil,
+        id: String? = nil,
+        indexBy: String? = nil,
+        primaryImageHeight: Int32? = nil,
+        primaryImageWidth: Int32? = nil,
+        isRememberIndexing: Bool? = nil,
+        isRememberSorting: Bool? = nil,
+        scrollDirection: ScrollDirection? = nil,
+        isShowBackdrop: Bool? = nil,
+        isShowSidebar: Bool? = nil,
+        sortBy: String? = nil,
+        sortOrder: SortOrder? = nil,
+        viewType: String? = nil
+    ) {
         self.client = client
         self.customPrefs = customPrefs
         self.id = id

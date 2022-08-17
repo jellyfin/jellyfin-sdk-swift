@@ -10,10 +10,10 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Uninstalls a plugin.
     @available(*, deprecated, message: "Deprecated")
-    static public func uninstallPlugin(pluginID: String) -> Request<Void> {
+    static func uninstallPlugin(pluginID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/Plugins/\(pluginID)", id: "UninstallPlugin")
     }
 }

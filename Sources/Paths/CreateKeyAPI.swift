@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Create a new api key.
-    static public func createKey(app: String) -> Request<Void> {
+    static func createKey(app: String) -> Request<Void> {
         Request(method: "POST", url: "/Auth/Keys", query: [("app", app)], id: "CreateKey")
     }
 }

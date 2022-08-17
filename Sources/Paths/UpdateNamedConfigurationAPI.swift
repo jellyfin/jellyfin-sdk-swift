@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Updates named configuration.
-    static public func updateNamedConfiguration(key: String, _ body: AnyJSON) -> Request<Void> {
+    static func updateNamedConfiguration(key: String, _ body: AnyJSON) -> Request<Void> {
         Request(method: "POST", url: "/System/Configuration/\(key)", body: body, id: "UpdateNamedConfiguration")
     }
 }

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Request previous item in SyncPlay group.
-    static public func syncPlayPreviousItem(_ body: JellyfinAPI.PreviousItemRequestDto) -> Request<Void> {
+    static func syncPlayPreviousItem(_ body: JellyfinAPI.PreviousItemRequestDto) -> Request<Void> {
         Request(method: "POST", url: "/SyncPlay/PreviousItem", body: body, id: "SyncPlayPreviousItem")
     }
 }

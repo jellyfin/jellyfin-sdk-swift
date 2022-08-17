@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets all persons.
-    static public func getPersons(parameters: GetPersonsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getPersons(parameters: GetPersonsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Persons", query: parameters?.asQuery, id: "GetPersons")
     }
 
-    public struct GetPersonsParameters {
+    struct GetPersonsParameters {
         public var limit: Int32?
         public var searchTerm: String?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -31,7 +31,21 @@ extension Paths {
         public var userID: String?
         public var enableImages: Bool?
 
-        public init(limit: Int32? = nil, searchTerm: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, excludePersonTypes: [String]? = nil, personTypes: [String]? = nil, appearsInItemID: String? = nil, userID: String? = nil, enableImages: Bool? = nil) {
+        public init(
+            limit: Int32? = nil,
+            searchTerm: String? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            filters: [JellyfinAPI.ItemFilter]? = nil,
+            isFavorite: Bool? = nil,
+            enableUserData: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            excludePersonTypes: [String]? = nil,
+            personTypes: [String]? = nil,
+            appearsInItemID: String? = nil,
+            userID: String? = nil,
+            enableImages: Bool? = nil
+        ) {
             self.limit = limit
             self.searchTerm = searchTerm
             self.fields = fields

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets plugin configuration.
-    static public func getPluginConfiguration(pluginID: String) -> Request<Void> {
+    static func getPluginConfiguration(pluginID: String) -> Request<Void> {
         Request(method: "GET", url: "/Plugins/\(pluginID)/Configuration", id: "GetPluginConfiguration")
     }
 }

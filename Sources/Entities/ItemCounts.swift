@@ -35,7 +35,20 @@ public struct ItemCounts: Codable {
     /// Gets or sets the trailer count.
     public var trailerCount: Int32?
 
-    public init(albumCount: Int32? = nil, artistCount: Int32? = nil, bookCount: Int32? = nil, boxSetCount: Int32? = nil, episodeCount: Int32? = nil, itemCount: Int32? = nil, movieCount: Int32? = nil, musicVideoCount: Int32? = nil, programCount: Int32? = nil, seriesCount: Int32? = nil, songCount: Int32? = nil, trailerCount: Int32? = nil) {
+    public init(
+        albumCount: Int32? = nil,
+        artistCount: Int32? = nil,
+        bookCount: Int32? = nil,
+        boxSetCount: Int32? = nil,
+        episodeCount: Int32? = nil,
+        itemCount: Int32? = nil,
+        movieCount: Int32? = nil,
+        musicVideoCount: Int32? = nil,
+        programCount: Int32? = nil,
+        seriesCount: Int32? = nil,
+        songCount: Int32? = nil,
+        trailerCount: Int32? = nil
+    ) {
         self.albumCount = albumCount
         self.artistCount = artistCount
         self.bookCount = bookCount

@@ -15,7 +15,13 @@ public struct XbmcMetadataOptions: Codable {
     public var isSaveImagePathsInNfo: Bool?
     public var userID: String?
 
-    public init(enableExtraThumbsDuplication: Bool? = nil, enablePathSubstitution: Bool? = nil, releaseDateFormat: String? = nil, isSaveImagePathsInNfo: Bool? = nil, userID: String? = nil) {
+    public init(
+        enableExtraThumbsDuplication: Bool? = nil,
+        enablePathSubstitution: Bool? = nil,
+        releaseDateFormat: String? = nil,
+        isSaveImagePathsInNfo: Bool? = nil,
+        userID: String? = nil
+    ) {
         self.enableExtraThumbsDuplication = enableExtraThumbsDuplication
         self.enablePathSubstitution = enablePathSubstitution
         self.releaseDateFormat = releaseDateFormat

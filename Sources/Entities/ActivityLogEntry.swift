@@ -33,7 +33,18 @@ public struct ActivityLogEntry: Codable, Identifiable {
     /// - warning: Deprecated.
     public var userPrimaryImageTag: String?
 
-    public init(date: Date? = nil, id: Int64? = nil, itemID: String? = nil, name: String? = nil, overview: String? = nil, severity: LogLevel? = nil, shortOverview: String? = nil, type: String? = nil, userID: String? = nil, userPrimaryImageTag: String? = nil) {
+    public init(
+        date: Date? = nil,
+        id: Int64? = nil,
+        itemID: String? = nil,
+        name: String? = nil,
+        overview: String? = nil,
+        severity: LogLevel? = nil,
+        shortOverview: String? = nil,
+        type: String? = nil,
+        userID: String? = nil,
+        userPrimaryImageTag: String? = nil
+    ) {
         self.date = date
         self.id = id
         self.itemID = itemID

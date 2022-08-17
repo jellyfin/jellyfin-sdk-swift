@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Update library options.
-    static public func updateLibraryOptions(_ body: JellyfinAPI.UpdateLibraryOptionsDto? = nil) -> Request<Void> {
+    static func updateLibraryOptions(_ body: JellyfinAPI.UpdateLibraryOptionsDto? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Library/VirtualFolders/LibraryOptions", body: body, id: "UpdateLibraryOptions")
     }
 }

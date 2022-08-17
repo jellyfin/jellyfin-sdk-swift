@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets public information about the server.
-    static public var getPublicSystemInfo: Request<JellyfinAPI.PublicSystemInfo> {
+    static var getPublicSystemInfo: Request<JellyfinAPI.PublicSystemInfo> {
         Request(method: "GET", url: "/System/Info/Public", id: "GetPublicSystemInfo")
     }
 }

@@ -29,7 +29,17 @@ public struct VersionInfo: Codable {
     /// Gets or sets the version.
     public var version: String?
 
-    public init(versionNumber: String? = nil, changelog: String? = nil, checksum: String? = nil, repositoryName: String? = nil, repositoryURL: String? = nil, sourceURL: String? = nil, targetAbi: String? = nil, timestamp: String? = nil, version: String? = nil) {
+    public init(
+        versionNumber: String? = nil,
+        changelog: String? = nil,
+        checksum: String? = nil,
+        repositoryName: String? = nil,
+        repositoryURL: String? = nil,
+        sourceURL: String? = nil,
+        targetAbi: String? = nil,
+        timestamp: String? = nil,
+        version: String? = nil
+    ) {
         self.versionNumber = versionNumber
         self.changelog = changelog
         self.checksum = checksum

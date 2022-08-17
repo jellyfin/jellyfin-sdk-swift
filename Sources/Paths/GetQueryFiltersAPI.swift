@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets query filters.
-    static public func getQueryFilters(parameters: GetQueryFiltersParameters? = nil) -> Request<JellyfinAPI.QueryFilters> {
+    static func getQueryFilters(parameters: GetQueryFiltersParameters? = nil) -> Request<JellyfinAPI.QueryFilters> {
         Request(method: "GET", url: "/Items/Filters2", query: parameters?.asQuery, id: "GetQueryFilters")
     }
 
-    public struct GetQueryFiltersParameters {
+    struct GetQueryFiltersParameters {
         public var userID: String?
         public var parentID: String?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -28,7 +28,18 @@ extension Paths {
         public var isSeries: Bool?
         public var isRecursive: Bool?
 
-        public init(userID: String? = nil, parentID: String? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isAiring: Bool? = nil, isMovie: Bool? = nil, isSports: Bool? = nil, isKids: Bool? = nil, isNews: Bool? = nil, isSeries: Bool? = nil, isRecursive: Bool? = nil) {
+        public init(
+            userID: String? = nil,
+            parentID: String? = nil,
+            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            isAiring: Bool? = nil,
+            isMovie: Bool? = nil,
+            isSports: Bool? = nil,
+            isKids: Bool? = nil,
+            isNews: Bool? = nil,
+            isSeries: Bool? = nil,
+            isRecursive: Bool? = nil
+        ) {
             self.userID = userID
             self.parentID = parentID
             self.includeItemTypes = includeItemTypes

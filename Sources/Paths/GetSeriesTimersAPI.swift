@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets live tv series timers.
-    static public func getSeriesTimers(parameters: GetSeriesTimersParameters? = nil) -> Request<JellyfinAPI.SeriesTimerInfoDtoQueryResult> {
+    static func getSeriesTimers(parameters: GetSeriesTimersParameters? = nil) -> Request<JellyfinAPI.SeriesTimerInfoDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/SeriesTimers", query: parameters?.asQuery, id: "GetSeriesTimers")
     }
 
-    public struct GetSeriesTimersParameters {
+    struct GetSeriesTimersParameters {
         public var sortBy: String?
         public var sortOrder: SortOrder?
 

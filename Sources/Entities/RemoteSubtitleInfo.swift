@@ -21,7 +21,19 @@ public struct RemoteSubtitleInfo: Codable, Identifiable {
     public var providerName: String?
     public var threeLetterISOLanguageName: String?
 
-    public init(author: String? = nil, comment: String? = nil, communityRating: Float? = nil, dateCreated: Date? = nil, downloadCount: Int32? = nil, format: String? = nil, id: String? = nil, isHashMatch: Bool? = nil, name: String? = nil, providerName: String? = nil, threeLetterISOLanguageName: String? = nil) {
+    public init(
+        author: String? = nil,
+        comment: String? = nil,
+        communityRating: Float? = nil,
+        dateCreated: Date? = nil,
+        downloadCount: Int32? = nil,
+        format: String? = nil,
+        id: String? = nil,
+        isHashMatch: Bool? = nil,
+        name: String? = nil,
+        providerName: String? = nil,
+        threeLetterISOLanguageName: String? = nil
+    ) {
         self.author = author
         self.comment = comment
         self.communityRating = communityRating

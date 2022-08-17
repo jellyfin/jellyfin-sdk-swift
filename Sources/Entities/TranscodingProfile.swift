@@ -26,7 +26,24 @@ public struct TranscodingProfile: Codable {
     public var type: DlnaProfileType?
     public var videoCodec: String?
 
-    public init(audioCodec: String? = nil, isBreakOnNonKeyFrames: Bool? = nil, conditions: [ProfileCondition]? = nil, container: String? = nil, context: EncodingContext? = nil, isCopyTimestamps: Bool? = nil, enableMpegtsM2TsMode: Bool? = nil, enableSubtitlesInManifest: Bool? = nil, isEstimateContentLength: Bool? = nil, maxAudioChannels: String? = nil, minSegments: Int32? = nil, `protocol`: String? = nil, segmentLength: Int32? = nil, transcodeSeekInfo: TranscodeSeekInfo? = nil, type: DlnaProfileType? = nil, videoCodec: String? = nil) {
+    public init(
+        audioCodec: String? = nil,
+        isBreakOnNonKeyFrames: Bool? = nil,
+        conditions: [ProfileCondition]? = nil,
+        container: String? = nil,
+        context: EncodingContext? = nil,
+        isCopyTimestamps: Bool? = nil,
+        enableMpegtsM2TsMode: Bool? = nil,
+        enableSubtitlesInManifest: Bool? = nil,
+        isEstimateContentLength: Bool? = nil,
+        maxAudioChannels: String? = nil,
+        minSegments: Int32? = nil,
+        protocol: String? = nil,
+        segmentLength: Int32? = nil,
+        transcodeSeekInfo: TranscodeSeekInfo? = nil,
+        type: DlnaProfileType? = nil,
+        videoCodec: String? = nil
+    ) {
         self.audioCodec = audioCodec
         self.isBreakOnNonKeyFrames = isBreakOnNonKeyFrames ?? false
         self.conditions = conditions

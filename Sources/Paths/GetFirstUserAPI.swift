@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the first user.
-    static public var getFirstUser: Request<JellyfinAPI.StartupUserDto> {
+    static var getFirstUser: Request<JellyfinAPI.StartupUserDto> {
         Request(method: "GET", url: "/Startup/User", id: "GetFirstUser")
     }
 }

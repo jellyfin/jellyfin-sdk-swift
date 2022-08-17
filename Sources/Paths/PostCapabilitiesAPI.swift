@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Updates capabilities for a device.
-    static public func postCapabilities(parameters: PostCapabilitiesParameters? = nil) -> Request<Void> {
+    static func postCapabilities(parameters: PostCapabilitiesParameters? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/Capabilities", query: parameters?.asQuery, id: "PostCapabilities")
     }
 
-    public struct PostCapabilitiesParameters {
+    struct PostCapabilitiesParameters {
         public var id: String?
         public var playableMediaTypes: [String]?
         public var supportedCommands: [JellyfinAPI.GeneralCommandType]?
@@ -24,7 +24,14 @@ extension Paths {
         public var isSupportsSync: Bool?
         public var isSupportsPersistentIdentifier: Bool?
 
-        public init(id: String? = nil, playableMediaTypes: [String]? = nil, supportedCommands: [JellyfinAPI.GeneralCommandType]? = nil, isSupportsMediaControl: Bool? = nil, isSupportsSync: Bool? = nil, isSupportsPersistentIdentifier: Bool? = nil) {
+        public init(
+            id: String? = nil,
+            playableMediaTypes: [String]? = nil,
+            supportedCommands: [JellyfinAPI.GeneralCommandType]? = nil,
+            isSupportsMediaControl: Bool? = nil,
+            isSupportsSync: Bool? = nil,
+            isSupportsPersistentIdentifier: Bool? = nil
+        ) {
             self.id = id
             self.playableMediaTypes = playableMediaTypes
             self.supportedCommands = supportedCommands

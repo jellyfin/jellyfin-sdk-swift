@@ -76,7 +76,43 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
     public var startDate: Date?
     public var type: String?
 
-    public init(channelID: String? = nil, channelName: String? = nil, channelPrimaryImageTag: String? = nil, dayPattern: DayPattern? = nil, days: [DayOfWeek]? = nil, endDate: Date? = nil, externalChannelID: String? = nil, externalID: String? = nil, externalProgramID: String? = nil, id: String? = nil, imageTags: [String: String]? = nil, isPostPaddingRequired: Bool? = nil, isPrePaddingRequired: Bool? = nil, keepUntil: KeepUntil? = nil, keepUpTo: Int32? = nil, name: String? = nil, overview: String? = nil, parentBackdropImageTags: [String]? = nil, parentBackdropItemID: String? = nil, parentPrimaryImageItemID: String? = nil, parentPrimaryImageTag: String? = nil, parentThumbImageTag: String? = nil, parentThumbItemID: String? = nil, postPaddingSeconds: Int32? = nil, prePaddingSeconds: Int32? = nil, priority: Int32? = nil, programID: String? = nil, isRecordAnyChannel: Bool? = nil, isRecordAnyTime: Bool? = nil, isRecordNewOnly: Bool? = nil, serverID: String? = nil, serviceName: String? = nil, isSkipEpisodesInLibrary: Bool? = nil, startDate: Date? = nil, type: String? = nil) {
+    public init(
+        channelID: String? = nil,
+        channelName: String? = nil,
+        channelPrimaryImageTag: String? = nil,
+        dayPattern: DayPattern? = nil,
+        days: [DayOfWeek]? = nil,
+        endDate: Date? = nil,
+        externalChannelID: String? = nil,
+        externalID: String? = nil,
+        externalProgramID: String? = nil,
+        id: String? = nil,
+        imageTags: [String: String]? = nil,
+        isPostPaddingRequired: Bool? = nil,
+        isPrePaddingRequired: Bool? = nil,
+        keepUntil: KeepUntil? = nil,
+        keepUpTo: Int32? = nil,
+        name: String? = nil,
+        overview: String? = nil,
+        parentBackdropImageTags: [String]? = nil,
+        parentBackdropItemID: String? = nil,
+        parentPrimaryImageItemID: String? = nil,
+        parentPrimaryImageTag: String? = nil,
+        parentThumbImageTag: String? = nil,
+        parentThumbItemID: String? = nil,
+        postPaddingSeconds: Int32? = nil,
+        prePaddingSeconds: Int32? = nil,
+        priority: Int32? = nil,
+        programID: String? = nil,
+        isRecordAnyChannel: Bool? = nil,
+        isRecordAnyTime: Bool? = nil,
+        isRecordNewOnly: Bool? = nil,
+        serverID: String? = nil,
+        serviceName: String? = nil,
+        isSkipEpisodesInLibrary: Bool? = nil,
+        startDate: Date? = nil,
+        type: String? = nil
+    ) {
         self.channelID = channelID
         self.channelName = channelName
         self.channelPrimaryImageTag = channelPrimaryImageTag

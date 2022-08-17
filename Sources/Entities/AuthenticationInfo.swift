@@ -32,7 +32,20 @@ public struct AuthenticationInfo: Codable, Identifiable {
     public var userID: String?
     public var userName: String?
 
-    public init(accessToken: String? = nil, appName: String? = nil, appVersion: String? = nil, dateCreated: Date? = nil, dateLastActivity: Date? = nil, dateRevoked: Date? = nil, deviceID: String? = nil, deviceName: String? = nil, id: Int64? = nil, isActive: Bool? = nil, userID: String? = nil, userName: String? = nil) {
+    public init(
+        accessToken: String? = nil,
+        appName: String? = nil,
+        appVersion: String? = nil,
+        dateCreated: Date? = nil,
+        dateLastActivity: Date? = nil,
+        dateRevoked: Date? = nil,
+        deviceID: String? = nil,
+        deviceName: String? = nil,
+        id: Int64? = nil,
+        isActive: Bool? = nil,
+        userID: String? = nil,
+        userName: String? = nil
+    ) {
         self.accessToken = accessToken
         self.appName = appName
         self.appVersion = appVersion

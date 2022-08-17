@@ -42,9 +42,9 @@ public struct ServerConfiguration: Codable {
     /// Gets or sets the how many metadata refreshes can run concurrently.
     public var libraryMetadataRefreshConcurrency: Int32?
     /// Gets or sets the delay in seconds that we will wait after a file system change to try and discover what has been added/removed
-    /// 
+    ///
     /// Some delay is necessary with some items because their creation is not atomic.  It involves the creation of several
-    /// 
+    ///
     /// different directories and files.
     public var libraryMonitorDelay: Int32?
     /// Gets or sets the how the library scan fans out.
@@ -74,7 +74,7 @@ public struct ServerConfiguration: Codable {
     /// Gets or sets the last known version that was ran using the configuration.
     public var previousVersion: String?
     /// Gets or sets the stringified PreviousVersion to be stored/loaded,
-    /// 
+    ///
     /// because System.Version itself isn't xml-serializable.
     public var previousVersionStr: String?
     /// Gets or sets a value indicating whether quick connect is available for use on this server.
@@ -95,7 +95,56 @@ public struct ServerConfiguration: Codable {
     public var sortReplaceCharacters: [String]?
     public var uICulture: String?
 
-    public init(activityLogRetentionDays: Int32? = nil, allowClientLogUpload: Bool? = nil, cachePath: String? = nil, codecsUsed: [String]? = nil, contentTypes: [NameValuePair]? = nil, corsHosts: [String]? = nil, isDisableLiveTvChannelUserDataName: Bool? = nil, isDisplaySpecialsWithinSeasons: Bool? = nil, enableCaseSensitiveItemIDs: Bool? = nil, enableExternalContentInSuggestions: Bool? = nil, enableFolderView: Bool? = nil, enableGroupingIntoCollections: Bool? = nil, enableMetrics: Bool? = nil, enableNormalizedItemByNameIDs: Bool? = nil, enableSlowResponseWarning: Bool? = nil, imageExtractionTimeoutMs: Int32? = nil, imageSavingConvention: ImageSavingConvention? = nil, isPortAuthorized: Bool? = nil, isStartupWizardCompleted: Bool? = nil, libraryMetadataRefreshConcurrency: Int32? = nil, libraryMonitorDelay: Int32? = nil, libraryScanFanoutConcurrency: Int32? = nil, logFileRetentionDays: Int32? = nil, maxAudiobookResume: Int32? = nil, maxResumePct: Int32? = nil, metadataCountryCode: String? = nil, metadataNetworkPath: String? = nil, metadataOptions: [MetadataOptions]? = nil, metadataPath: String? = nil, minAudiobookResume: Int32? = nil, minResumeDurationSeconds: Int32? = nil, minResumePct: Int32? = nil, pathSubstitutions: [PathSubstitution]? = nil, pluginRepositories: [RepositoryInfo]? = nil, preferredMetadataLanguage: String? = nil, previousVersion: String? = nil, previousVersionStr: String? = nil, isQuickConnectAvailable: Bool? = nil, remoteClientBitrateLimit: Int32? = nil, isRemoveOldPlugins: Bool? = nil, isSaveMetadataHidden: Bool? = nil, serverName: String? = nil, isSkipDeserializationForBasicTypes: Bool? = nil, slowResponseThresholdMs: Int64? = nil, sortRemoveCharacters: [String]? = nil, sortRemoveWords: [String]? = nil, sortReplaceCharacters: [String]? = nil, uICulture: String? = nil) {
+    public init(
+        activityLogRetentionDays: Int32? = nil,
+        allowClientLogUpload: Bool? = nil,
+        cachePath: String? = nil,
+        codecsUsed: [String]? = nil,
+        contentTypes: [NameValuePair]? = nil,
+        corsHosts: [String]? = nil,
+        isDisableLiveTvChannelUserDataName: Bool? = nil,
+        isDisplaySpecialsWithinSeasons: Bool? = nil,
+        enableCaseSensitiveItemIDs: Bool? = nil,
+        enableExternalContentInSuggestions: Bool? = nil,
+        enableFolderView: Bool? = nil,
+        enableGroupingIntoCollections: Bool? = nil,
+        enableMetrics: Bool? = nil,
+        enableNormalizedItemByNameIDs: Bool? = nil,
+        enableSlowResponseWarning: Bool? = nil,
+        imageExtractionTimeoutMs: Int32? = nil,
+        imageSavingConvention: ImageSavingConvention? = nil,
+        isPortAuthorized: Bool? = nil,
+        isStartupWizardCompleted: Bool? = nil,
+        libraryMetadataRefreshConcurrency: Int32? = nil,
+        libraryMonitorDelay: Int32? = nil,
+        libraryScanFanoutConcurrency: Int32? = nil,
+        logFileRetentionDays: Int32? = nil,
+        maxAudiobookResume: Int32? = nil,
+        maxResumePct: Int32? = nil,
+        metadataCountryCode: String? = nil,
+        metadataNetworkPath: String? = nil,
+        metadataOptions: [MetadataOptions]? = nil,
+        metadataPath: String? = nil,
+        minAudiobookResume: Int32? = nil,
+        minResumeDurationSeconds: Int32? = nil,
+        minResumePct: Int32? = nil,
+        pathSubstitutions: [PathSubstitution]? = nil,
+        pluginRepositories: [RepositoryInfo]? = nil,
+        preferredMetadataLanguage: String? = nil,
+        previousVersion: String? = nil,
+        previousVersionStr: String? = nil,
+        isQuickConnectAvailable: Bool? = nil,
+        remoteClientBitrateLimit: Int32? = nil,
+        isRemoveOldPlugins: Bool? = nil,
+        isSaveMetadataHidden: Bool? = nil,
+        serverName: String? = nil,
+        isSkipDeserializationForBasicTypes: Bool? = nil,
+        slowResponseThresholdMs: Int64? = nil,
+        sortRemoveCharacters: [String]? = nil,
+        sortRemoveWords: [String]? = nil,
+        sortReplaceCharacters: [String]? = nil,
+        uICulture: String? = nil
+    ) {
         self.activityLogRetentionDays = activityLogRetentionDays
         self.allowClientLogUpload = allowClientLogUpload
         self.cachePath = cachePath

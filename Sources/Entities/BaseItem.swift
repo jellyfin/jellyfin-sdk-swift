@@ -23,7 +23,19 @@ public struct BaseItem: Codable {
     public var isSupportsExternalTransfer: Bool?
     public var width: Int32?
 
-    public init(container: String? = nil, dateLastSaved: Date? = nil, extraIDs: [String]? = nil, height: Int32? = nil, isHD: Bool? = nil, isShortcut: Bool? = nil, remoteTrailers: [MediaURL]? = nil, shortcutPath: String? = nil, size: Int64? = nil, isSupportsExternalTransfer: Bool? = nil, width: Int32? = nil) {
+    public init(
+        container: String? = nil,
+        dateLastSaved: Date? = nil,
+        extraIDs: [String]? = nil,
+        height: Int32? = nil,
+        isHD: Bool? = nil,
+        isShortcut: Bool? = nil,
+        remoteTrailers: [MediaURL]? = nil,
+        shortcutPath: String? = nil,
+        size: Int64? = nil,
+        isSupportsExternalTransfer: Bool? = nil,
+        width: Int32? = nil
+    ) {
         self.container = container
         self.dateLastSaved = dateLastSaved
         self.extraIDs = extraIDs

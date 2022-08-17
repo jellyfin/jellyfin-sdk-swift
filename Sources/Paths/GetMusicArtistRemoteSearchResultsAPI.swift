@@ -10,9 +10,12 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get music artist remote search.
-    static public func getMusicArtistRemoteSearchResults(_ body: JellyfinAPI.ArtistInfoRemoteSearchQuery) -> Request<[JellyfinAPI.RemoteSearchResult]> {
+    static func getMusicArtistRemoteSearchResults(
+        _ body: JellyfinAPI
+            .ArtistInfoRemoteSearchQuery
+    ) -> Request<[JellyfinAPI.RemoteSearchResult]> {
         Request(method: "POST", url: "/Items/RemoteSearch/MusicArtist", body: body, id: "GetMusicArtistRemoteSearchResults")
     }
 }

@@ -39,7 +39,21 @@ public struct BaseItemPerson: Codable, Identifiable {
         public var screenshot: [String: String]?
         public var thumb: [String: String]?
 
-        public init(art: [String: String]? = nil, backdrop: [String: String]? = nil, banner: [String: String]? = nil, box: [String: String]? = nil, boxRear: [String: String]? = nil, chapter: [String: String]? = nil, disc: [String: String]? = nil, logo: [String: String]? = nil, menu: [String: String]? = nil, primary: [String: String]? = nil, profile: [String: String]? = nil, screenshot: [String: String]? = nil, thumb: [String: String]? = nil) {
+        public init(
+            art: [String: String]? = nil,
+            backdrop: [String: String]? = nil,
+            banner: [String: String]? = nil,
+            box: [String: String]? = nil,
+            boxRear: [String: String]? = nil,
+            chapter: [String: String]? = nil,
+            disc: [String: String]? = nil,
+            logo: [String: String]? = nil,
+            menu: [String: String]? = nil,
+            primary: [String: String]? = nil,
+            profile: [String: String]? = nil,
+            screenshot: [String: String]? = nil,
+            thumb: [String: String]? = nil
+        ) {
             self.art = art
             self.backdrop = backdrop
             self.banner = banner
@@ -90,7 +104,14 @@ public struct BaseItemPerson: Codable, Identifiable {
         }
     }
 
-    public init(id: String? = nil, imageBlurHashes: ImageBlurHashes? = nil, name: String? = nil, primaryImageTag: String? = nil, role: String? = nil, type: String? = nil) {
+    public init(
+        id: String? = nil,
+        imageBlurHashes: ImageBlurHashes? = nil,
+        name: String? = nil,
+        primaryImageTag: String? = nil,
+        role: String? = nil,
+        type: String? = nil
+    ) {
         self.id = id
         self.imageBlurHashes = imageBlurHashes
         self.name = name

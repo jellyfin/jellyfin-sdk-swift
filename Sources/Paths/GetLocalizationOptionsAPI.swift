@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets localization options.
-    static public var getLocalizationOptions: Request<[JellyfinAPI.LocalizationOption]> {
+    static var getLocalizationOptions: Request<[JellyfinAPI.LocalizationOption]> {
         Request(method: "GET", url: "/Localization/Options", id: "GetLocalizationOptions")
     }
 }

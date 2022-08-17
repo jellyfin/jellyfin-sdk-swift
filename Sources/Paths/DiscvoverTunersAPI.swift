@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Discover tuners.
-    static public func discvoverTuners(isNewDevicesOnly: Bool? = nil) -> Request<[JellyfinAPI.TunerHostInfo]> {
+    public static func discvoverTuners(isNewDevicesOnly: Bool? = nil) -> Request<[JellyfinAPI.TunerHostInfo]> {
         Request(method: "GET", url: "/LiveTv/Tuners/Discvover", query: makeDiscvoverTunersQuery(isNewDevicesOnly), id: "DiscvoverTuners")
     }
 

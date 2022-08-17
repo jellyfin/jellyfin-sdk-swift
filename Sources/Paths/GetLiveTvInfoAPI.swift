@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets available live tv services.
-    static public var getLiveTvInfo: Request<JellyfinAPI.LiveTvInfo> {
+    static var getLiveTvInfo: Request<JellyfinAPI.LiveTvInfo> {
         Request(method: "GET", url: "/LiveTv/Info", id: "GetLiveTvInfo")
     }
 }

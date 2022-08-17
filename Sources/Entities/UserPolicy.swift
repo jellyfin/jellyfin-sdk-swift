@@ -55,7 +55,47 @@ public struct UserPolicy: Codable {
     /// Gets or sets a value indicating what SyncPlay features the user can access.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
-    public init(accessSchedules: [AccessSchedule]? = nil, authenticationProviderID: String? = nil, blockUnratedItems: [UnratedItem]? = nil, blockedChannels: [String]? = nil, blockedMediaFolders: [String]? = nil, blockedTags: [String]? = nil, enableAllChannels: Bool? = nil, enableAllDevices: Bool? = nil, enableAllFolders: Bool? = nil, enableAudioPlaybackTranscoding: Bool? = nil, enableContentDeletion: Bool? = nil, enableContentDeletionFromFolders: [String]? = nil, enableContentDownloading: Bool? = nil, enableLiveTvAccess: Bool? = nil, enableLiveTvManagement: Bool? = nil, enableMediaConversion: Bool? = nil, enableMediaPlayback: Bool? = nil, enablePlaybackRemuxing: Bool? = nil, enablePublicSharing: Bool? = nil, enableRemoteAccess: Bool? = nil, enableRemoteControlOfOtherUsers: Bool? = nil, enableSharedDeviceControl: Bool? = nil, enableSyncTranscoding: Bool? = nil, enableUserPreferenceAccess: Bool? = nil, enableVideoPlaybackTranscoding: Bool? = nil, enabledChannels: [String]? = nil, enabledDevices: [String]? = nil, enabledFolders: [String]? = nil, isForceRemoteSourceTranscoding: Bool? = nil, invalidLoginAttemptCount: Int32? = nil, isAdministrator: Bool? = nil, isDisabled: Bool? = nil, isHidden: Bool? = nil, loginAttemptsBeforeLockout: Int32? = nil, maxActiveSessions: Int32? = nil, maxParentalRating: Int32? = nil, passwordResetProviderID: String? = nil, remoteClientBitrateLimit: Int32? = nil, syncPlayAccess: SyncPlayUserAccessType? = nil) {
+    public init(
+        accessSchedules: [AccessSchedule]? = nil,
+        authenticationProviderID: String? = nil,
+        blockUnratedItems: [UnratedItem]? = nil,
+        blockedChannels: [String]? = nil,
+        blockedMediaFolders: [String]? = nil,
+        blockedTags: [String]? = nil,
+        enableAllChannels: Bool? = nil,
+        enableAllDevices: Bool? = nil,
+        enableAllFolders: Bool? = nil,
+        enableAudioPlaybackTranscoding: Bool? = nil,
+        enableContentDeletion: Bool? = nil,
+        enableContentDeletionFromFolders: [String]? = nil,
+        enableContentDownloading: Bool? = nil,
+        enableLiveTvAccess: Bool? = nil,
+        enableLiveTvManagement: Bool? = nil,
+        enableMediaConversion: Bool? = nil,
+        enableMediaPlayback: Bool? = nil,
+        enablePlaybackRemuxing: Bool? = nil,
+        enablePublicSharing: Bool? = nil,
+        enableRemoteAccess: Bool? = nil,
+        enableRemoteControlOfOtherUsers: Bool? = nil,
+        enableSharedDeviceControl: Bool? = nil,
+        enableSyncTranscoding: Bool? = nil,
+        enableUserPreferenceAccess: Bool? = nil,
+        enableVideoPlaybackTranscoding: Bool? = nil,
+        enabledChannels: [String]? = nil,
+        enabledDevices: [String]? = nil,
+        enabledFolders: [String]? = nil,
+        isForceRemoteSourceTranscoding: Bool? = nil,
+        invalidLoginAttemptCount: Int32? = nil,
+        isAdministrator: Bool? = nil,
+        isDisabled: Bool? = nil,
+        isHidden: Bool? = nil,
+        loginAttemptsBeforeLockout: Int32? = nil,
+        maxActiveSessions: Int32? = nil,
+        maxParentalRating: Int32? = nil,
+        passwordResetProviderID: String? = nil,
+        remoteClientBitrateLimit: Int32? = nil,
+        syncPlayAccess: SyncPlayUserAccessType? = nil
+    ) {
         self.accessSchedules = accessSchedules
         self.authenticationProviderID = authenticationProviderID
         self.blockUnratedItems = blockUnratedItems

@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets available remote images for an item.
-    static public func getRemoteImages(itemID: String, parameters: GetRemoteImagesParameters? = nil) -> Request<JellyfinAPI.RemoteImageResult> {
+    static func getRemoteImages(itemID: String, parameters: GetRemoteImagesParameters? = nil) -> Request<JellyfinAPI.RemoteImageResult> {
         Request(method: "GET", url: "/Items/\(itemID)/RemoteImages", query: parameters?.asQuery, id: "GetRemoteImages")
     }
 
-    public struct GetRemoteImagesParameters {
+    struct GetRemoteImagesParameters {
         public var type: `Type`?
         public var startIndex: Int32?
         public var limit: Int32?
@@ -25,7 +25,13 @@ extension Paths {
 
         public typealias `Type` = JellyfinAPI.ImageType
 
-        public init(type: `Type`? = nil, startIndex: Int32? = nil, limit: Int32? = nil, providerName: String? = nil, isIncludeAllLanguages: Bool? = nil) {
+        public init(
+            type: Type? = nil,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            providerName: String? = nil,
+            isIncludeAllLanguages: Bool? = nil
+        ) {
             self.type = type
             self.startIndex = startIndex
             self.limit = limit

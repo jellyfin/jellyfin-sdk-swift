@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Enables a disabled plugin.
-    static public func enablePlugin(pluginID: String, version: String) -> Request<Void> {
+    static func enablePlugin(pluginID: String, version: String) -> Request<Void> {
         Request(method: "POST", url: "/Plugins/\(pluginID)/\(version)/Enable", id: "EnablePlugin")
     }
 }

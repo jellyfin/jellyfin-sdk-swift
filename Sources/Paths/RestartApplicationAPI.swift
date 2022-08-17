@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Restarts the application.
-    static public var restartApplication: Request<Void> {
+    static var restartApplication: Request<Void> {
         Request(method: "POST", url: "/System/Restart", id: "RestartApplication")
     }
 }

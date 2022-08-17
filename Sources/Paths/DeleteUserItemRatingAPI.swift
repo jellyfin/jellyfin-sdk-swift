@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Deletes a user's saved personal rating for an item.
-    static public func deleteUserItemRating(userID: String, itemID: String) -> Request<JellyfinAPI.UserItemDataDto> {
+    static func deleteUserItemRating(userID: String, itemID: String) -> Request<JellyfinAPI.UserItemDataDto> {
         Request(method: "DELETE", url: "/Users/\(userID)/Items/\(itemID)/Rating", id: "DeleteUserItemRating")
     }
 }

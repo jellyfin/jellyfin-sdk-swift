@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get years.
-    static public func getYears(parameters: GetYearsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getYears(parameters: GetYearsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Years", query: parameters?.asQuery, id: "GetYears")
     }
 
-    public struct GetYearsParameters {
+    struct GetYearsParameters {
         public var startIndex: Int32?
         public var limit: Int32?
         public var sortOrder: [JellyfinAPI.SortOrder]?
@@ -33,7 +33,23 @@ extension Paths {
         public var isRecursive: Bool?
         public var enableImages: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, userID: String? = nil, isRecursive: Bool? = nil, enableImages: Bool? = nil) {
+        public init(
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            sortOrder: [JellyfinAPI.SortOrder]? = nil,
+            parentID: String? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            mediaTypes: [String]? = nil,
+            sortBy: [String]? = nil,
+            enableUserData: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            userID: String? = nil,
+            isRecursive: Bool? = nil,
+            enableImages: Bool? = nil
+        ) {
             self.startIndex = startIndex
             self.limit = limit
             self.sortOrder = sortOrder

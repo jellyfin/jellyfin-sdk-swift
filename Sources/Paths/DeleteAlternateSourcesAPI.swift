@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Removes alternate video sources.
-    static public func deleteAlternateSources(itemID: String) -> Request<Void> {
+    static func deleteAlternateSources(itemID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/Videos/\(itemID)/AlternateSources", id: "DeleteAlternateSources")
     }
 }

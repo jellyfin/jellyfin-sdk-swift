@@ -13,15 +13,15 @@ public struct OpenLiveStreamDto: Codable {
     /// Gets or sets the audio stream index.
     public var audioStreamIndex: Int32?
     /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to play.
-    /// 
+    ///
     /// <br />
-    /// 
+    ///
     /// Specifically, it defines the supported <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles">containers</see> and
-    /// 
+    ///
     /// <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles">codecs</see> (video and/or audio, including codec profiles and levels)
-    /// 
+    ///
     /// the device is able to direct play (without transcoding or remuxing),
-    /// 
+    ///
     /// as well as which <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles">containers/codecs to transcode to</see> in case it isn't.
     public var deviceProfile: DeviceProfile?
     /// Gets or sets the device play protocols.
@@ -47,7 +47,21 @@ public struct OpenLiveStreamDto: Codable {
     /// Gets or sets the user id.
     public var userID: String?
 
-    public init(audioStreamIndex: Int32? = nil, deviceProfile: DeviceProfile? = nil, directPlayProtocols: [MediaProtocol]? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, itemID: String? = nil, maxAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, openToken: String? = nil, playSessionID: String? = nil, startTimeTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil, userID: String? = nil) {
+    public init(
+        audioStreamIndex: Int32? = nil,
+        deviceProfile: DeviceProfile? = nil,
+        directPlayProtocols: [MediaProtocol]? = nil,
+        enableDirectPlay: Bool? = nil,
+        enableDirectStream: Bool? = nil,
+        itemID: String? = nil,
+        maxAudioChannels: Int32? = nil,
+        maxStreamingBitrate: Int32? = nil,
+        openToken: String? = nil,
+        playSessionID: String? = nil,
+        startTimeTicks: Int64? = nil,
+        subtitleStreamIndex: Int32? = nil,
+        userID: String? = nil
+    ) {
         self.audioStreamIndex = audioStreamIndex
         self.deviceProfile = deviceProfile
         self.directPlayProtocols = directPlayProtocols

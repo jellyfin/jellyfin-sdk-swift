@@ -16,7 +16,14 @@ public struct MetadataEditorInfo: Codable {
     public var externalIDInfos: [ExternalIDInfo]?
     public var parentalRatingOptions: [ParentalRating]?
 
-    public init(contentType: String? = nil, contentTypeOptions: [NameValuePair]? = nil, countries: [CountryInfo]? = nil, cultures: [CultureDto]? = nil, externalIDInfos: [ExternalIDInfo]? = nil, parentalRatingOptions: [ParentalRating]? = nil) {
+    public init(
+        contentType: String? = nil,
+        contentTypeOptions: [NameValuePair]? = nil,
+        countries: [CountryInfo]? = nil,
+        cultures: [CultureDto]? = nil,
+        externalIDInfos: [ExternalIDInfo]? = nil,
+        parentalRatingOptions: [ParentalRating]? = nil
+    ) {
         self.contentType = contentType
         self.contentTypeOptions = contentTypeOptions
         self.countries = countries

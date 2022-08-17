@@ -10,13 +10,23 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get user profile image.
-    static public func headUserImageByIndex(userID: String, imageType: String, imageIndex: Int, parameters: HeadUserImageByIndexParameters? = nil) -> Request<Data> {
-        Request(method: "HEAD", url: "/Users/\(userID)/Images/\(imageType)/\(imageIndex)", query: parameters?.asQuery, id: "HeadUserImageByIndex")
+    static func headUserImageByIndex(
+        userID: String,
+        imageType: String,
+        imageIndex: Int,
+        parameters: HeadUserImageByIndexParameters? = nil
+    ) -> Request<Data> {
+        Request(
+            method: "HEAD",
+            url: "/Users/\(userID)/Images/\(imageType)/\(imageIndex)",
+            query: parameters?.asQuery,
+            id: "HeadUserImageByIndex"
+        )
     }
 
-    public struct HeadUserImageByIndexParameters {
+    struct HeadUserImageByIndexParameters {
         public var tag: String?
         public var format: Format?
         public var maxWidth: Int32?
@@ -36,7 +46,24 @@ extension Paths {
 
         public typealias Format = JellyfinAPI.ImageFormat
 
-        public init(tag: String? = nil, format: Format? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, percentPlayed: Double? = nil, unplayedCount: Int32? = nil, width: Int32? = nil, height: Int32? = nil, quality: Int32? = nil, fillWidth: Int32? = nil, fillHeight: Int32? = nil, isCropWhitespace: Bool? = nil, isAddPlayedIndicator: Bool? = nil, blur: Int32? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) {
+        public init(
+            tag: String? = nil,
+            format: Format? = nil,
+            maxWidth: Int32? = nil,
+            maxHeight: Int32? = nil,
+            percentPlayed: Double? = nil,
+            unplayedCount: Int32? = nil,
+            width: Int32? = nil,
+            height: Int32? = nil,
+            quality: Int32? = nil,
+            fillWidth: Int32? = nil,
+            fillHeight: Int32? = nil,
+            isCropWhitespace: Bool? = nil,
+            isAddPlayedIndicator: Bool? = nil,
+            blur: Int32? = nil,
+            backgroundColor: String? = nil,
+            foregroundLayer: String? = nil
+        ) {
             self.tag = tag
             self.format = format
             self.maxWidth = maxWidth

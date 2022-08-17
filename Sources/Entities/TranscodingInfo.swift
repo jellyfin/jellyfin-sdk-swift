@@ -51,7 +51,21 @@ public struct TranscodingInfo: Codable {
         case videoRangeTypeNotSupported = "VideoRangeTypeNotSupported"
     }
 
-    public init(audioChannels: Int32? = nil, audioCodec: String? = nil, bitrate: Int32? = nil, completionPercentage: Double? = nil, container: String? = nil, framerate: Float? = nil, hardwareAccelerationType: HardwareEncodingType? = nil, height: Int32? = nil, isAudioDirect: Bool? = nil, isVideoDirect: Bool? = nil, transcodeReasons: TranscodeReasons? = nil, videoCodec: String? = nil, width: Int32? = nil) {
+    public init(
+        audioChannels: Int32? = nil,
+        audioCodec: String? = nil,
+        bitrate: Int32? = nil,
+        completionPercentage: Double? = nil,
+        container: String? = nil,
+        framerate: Float? = nil,
+        hardwareAccelerationType: HardwareEncodingType? = nil,
+        height: Int32? = nil,
+        isAudioDirect: Bool? = nil,
+        isVideoDirect: Bool? = nil,
+        transcodeReasons: TranscodeReasons? = nil,
+        videoCodec: String? = nil,
+        width: Int32? = nil
+    ) {
         self.audioChannels = audioChannels
         self.audioCodec = audioCodec
         self.bitrate = bitrate

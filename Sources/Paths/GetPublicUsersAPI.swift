@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a list of publicly visible users for display on a login screen.
-    static public var getPublicUsers: Request<[JellyfinAPI.UserDto]> {
+    static var getPublicUsers: Request<[JellyfinAPI.UserDto]> {
         Request(method: "GET", url: "/Users/Public", id: "GetPublicUsers")
     }
 }

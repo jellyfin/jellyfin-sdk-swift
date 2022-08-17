@@ -37,11 +37,26 @@ public struct UserDto: Codable, Identifiable {
     /// Gets or sets the server identifier.
     public var serverID: String?
     /// Gets or sets the name of the server.
-    /// 
+    ///
     /// This is not used by the server and is for client-side usage only.
     public var serverName: String?
 
-    public init(configuration: UserConfiguration? = nil, enableAutoLogin: Bool? = nil, hasConfiguredEasyPassword: Bool? = nil, hasConfiguredPassword: Bool? = nil, hasPassword: Bool? = nil, id: String? = nil, lastActivityDate: Date? = nil, lastLoginDate: Date? = nil, name: String? = nil, policy: UserPolicy? = nil, primaryImageAspectRatio: Double? = nil, primaryImageTag: String? = nil, serverID: String? = nil, serverName: String? = nil) {
+    public init(
+        configuration: UserConfiguration? = nil,
+        enableAutoLogin: Bool? = nil,
+        hasConfiguredEasyPassword: Bool? = nil,
+        hasConfiguredPassword: Bool? = nil,
+        hasPassword: Bool? = nil,
+        id: String? = nil,
+        lastActivityDate: Date? = nil,
+        lastLoginDate: Date? = nil,
+        name: String? = nil,
+        policy: UserPolicy? = nil,
+        primaryImageAspectRatio: Double? = nil,
+        primaryImageTag: String? = nil,
+        serverID: String? = nil,
+        serverName: String? = nil
+    ) {
         self.configuration = configuration
         self.enableAutoLogin = enableAutoLogin
         self.hasConfiguredEasyPassword = hasConfiguredEasyPassword

@@ -25,7 +25,20 @@ public final class RemoteSearchResult: Codable {
     public let providerIDs: [String: String]?
     public let searchProviderName: String?
 
-    public init(albumArtist: RemoteSearchResult? = nil, artists: [RemoteSearchResult]? = nil, imageURL: String? = nil, indexNumber: Int32? = nil, indexNumberEnd: Int32? = nil, name: String? = nil, overview: String? = nil, parentIndexNumber: Int32? = nil, premiereDate: Date? = nil, productionYear: Int32? = nil, providerIDs: [String: String]? = nil, searchProviderName: String? = nil) {
+    public init(
+        albumArtist: RemoteSearchResult? = nil,
+        artists: [RemoteSearchResult]? = nil,
+        imageURL: String? = nil,
+        indexNumber: Int32? = nil,
+        indexNumberEnd: Int32? = nil,
+        name: String? = nil,
+        overview: String? = nil,
+        parentIndexNumber: Int32? = nil,
+        premiereDate: Date? = nil,
+        productionYear: Int32? = nil,
+        providerIDs: [String: String]? = nil,
+        searchProviderName: String? = nil
+    ) {
         self.albumArtist = albumArtist
         self.artists = artists
         self.imageURL = imageURL

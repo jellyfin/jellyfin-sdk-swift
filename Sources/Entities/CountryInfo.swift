@@ -19,7 +19,12 @@ public struct CountryInfo: Codable {
     /// Gets or sets the name of the two letter ISO region.
     public var twoLetterISORegionName: String?
 
-    public init(displayName: String? = nil, name: String? = nil, threeLetterISORegionName: String? = nil, twoLetterISORegionName: String? = nil) {
+    public init(
+        displayName: String? = nil,
+        name: String? = nil,
+        threeLetterISORegionName: String? = nil,
+        twoLetterISORegionName: String? = nil
+    ) {
         self.displayName = displayName
         self.name = name
         self.threeLetterISORegionName = threeLetterISORegionName

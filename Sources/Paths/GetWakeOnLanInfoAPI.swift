@@ -10,10 +10,10 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets wake on lan information.
     @available(*, deprecated, message: "Deprecated")
-    static public var getWakeOnLanInfo: Request<[JellyfinAPI.WakeOnLanInfo]> {
+    static var getWakeOnLanInfo: Request<[JellyfinAPI.WakeOnLanInfo]> {
         Request(method: "GET", url: "/System/WakeOnLanInfo", id: "GetWakeOnLanInfo")
     }
 }

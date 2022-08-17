@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Delete a custom splashscreen.
-    static public var deleteCustomSplashscreen: Request<Void> {
+    static var deleteCustomSplashscreen: Request<Void> {
         Request(method: "DELETE", url: "/Branding/Splashscreen", id: "DeleteCustomSplashscreen")
     }
 }

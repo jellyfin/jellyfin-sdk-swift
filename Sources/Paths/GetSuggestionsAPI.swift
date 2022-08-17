@@ -10,20 +10,26 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets suggestions.
-    static public func getSuggestions(userID: String, parameters: GetSuggestionsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getSuggestions(userID: String, parameters: GetSuggestionsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Users/\(userID)/Suggestions", query: parameters?.asQuery, id: "GetSuggestions")
     }
 
-    public struct GetSuggestionsParameters {
+    struct GetSuggestionsParameters {
         public var mediaType: [String]?
         public var type: [JellyfinAPI.BaseItemKind]?
         public var startIndex: Int32?
         public var limit: Int32?
         public var enableTotalRecordCount: Bool?
 
-        public init(mediaType: [String]? = nil, type: [JellyfinAPI.BaseItemKind]? = nil, startIndex: Int32? = nil, limit: Int32? = nil, enableTotalRecordCount: Bool? = nil) {
+        public init(
+            mediaType: [String]? = nil,
+            type: [JellyfinAPI.BaseItemKind]? = nil,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            enableTotalRecordCount: Bool? = nil
+        ) {
             self.mediaType = mediaType
             self.type = type
             self.startIndex = startIndex

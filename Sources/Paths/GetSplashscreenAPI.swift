@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Generates or gets the splashscreen.
-    static public func getSplashscreen(parameters: GetSplashscreenParameters? = nil) -> Request<Data> {
+    static func getSplashscreen(parameters: GetSplashscreenParameters? = nil) -> Request<Data> {
         Request(method: "GET", url: "/Branding/Splashscreen", query: parameters?.asQuery, id: "GetSplashscreen")
     }
 
-    public struct GetSplashscreenParameters {
+    struct GetSplashscreenParameters {
         public var tag: String?
         public var format: Format?
         public var maxWidth: Int32?
@@ -32,7 +32,20 @@ extension Paths {
 
         public typealias Format = JellyfinAPI.ImageFormat
 
-        public init(tag: String? = nil, format: Format? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, width: Int32? = nil, height: Int32? = nil, fillWidth: Int32? = nil, fillHeight: Int32? = nil, blur: Int32? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, quality: Int32? = nil) {
+        public init(
+            tag: String? = nil,
+            format: Format? = nil,
+            maxWidth: Int32? = nil,
+            maxHeight: Int32? = nil,
+            width: Int32? = nil,
+            height: Int32? = nil,
+            fillWidth: Int32? = nil,
+            fillHeight: Int32? = nil,
+            blur: Int32? = nil,
+            backgroundColor: String? = nil,
+            foregroundLayer: String? = nil,
+            quality: Int32? = nil
+        ) {
             self.tag = tag
             self.format = format
             self.maxWidth = maxWidth

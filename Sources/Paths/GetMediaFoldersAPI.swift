@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets all user media folders.
-    static public func getMediaFolders(isHidden: Bool? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    public static func getMediaFolders(isHidden: Bool? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Library/MediaFolders", query: makeGetMediaFoldersQuery(isHidden), id: "GetMediaFolders")
     }
 

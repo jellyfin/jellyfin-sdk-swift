@@ -12,8 +12,17 @@ import URLQueryEncoder
 
 extension Paths {
     /// Search remote subtitles.
-    static public func searchRemoteSubtitles(itemID: String, language: String, isPerfectMatch: Bool? = nil) -> Request<[JellyfinAPI.RemoteSubtitleInfo]> {
-        Request(method: "GET", url: "/Items/\(itemID)/RemoteSearch/Subtitles/\(language)", query: makeSearchRemoteSubtitlesQuery(isPerfectMatch), id: "SearchRemoteSubtitles")
+    public static func searchRemoteSubtitles(
+        itemID: String,
+        language: String,
+        isPerfectMatch: Bool? = nil
+    ) -> Request<[JellyfinAPI.RemoteSubtitleInfo]> {
+        Request(
+            method: "GET",
+            url: "/Items/\(itemID)/RemoteSearch/Subtitles/\(language)",
+            query: makeSearchRemoteSubtitlesQuery(isPerfectMatch),
+            id: "SearchRemoteSubtitles"
+        )
     }
 
     private static func makeSearchRemoteSubtitlesQuery(_ isPerfectMatch: Bool?) -> [(String, String?)] {

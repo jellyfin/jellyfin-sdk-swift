@@ -15,7 +15,13 @@ public struct NotificationTypeInfo: Codable {
     public var name: String?
     public var type: String?
 
-    public init(category: String? = nil, isEnabled: Bool? = nil, isBasedOnUserEvent: Bool? = nil, name: String? = nil, type: String? = nil) {
+    public init(
+        category: String? = nil,
+        isEnabled: Bool? = nil,
+        isBasedOnUserEvent: Bool? = nil,
+        name: String? = nil,
+        type: String? = nil
+    ) {
         self.category = category
         self.isEnabled = isEnabled
         self.isBasedOnUserEvent = isBasedOnUserEvent

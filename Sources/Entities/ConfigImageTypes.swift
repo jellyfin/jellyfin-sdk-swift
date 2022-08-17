@@ -17,7 +17,15 @@ public struct ConfigImageTypes: Codable {
     public var secureBaseURL: String?
     public var stillSizes: [String]?
 
-    public init(backdropSizes: [String]? = nil, baseURL: String? = nil, logoSizes: [String]? = nil, posterSizes: [String]? = nil, profileSizes: [String]? = nil, secureBaseURL: String? = nil, stillSizes: [String]? = nil) {
+    public init(
+        backdropSizes: [String]? = nil,
+        baseURL: String? = nil,
+        logoSizes: [String]? = nil,
+        posterSizes: [String]? = nil,
+        profileSizes: [String]? = nil,
+        secureBaseURL: String? = nil,
+        stillSizes: [String]? = nil
+    ) {
         self.backdropSizes = backdropSizes
         self.baseURL = baseURL
         self.logoSizes = logoSizes

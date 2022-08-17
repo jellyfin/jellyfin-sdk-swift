@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets available lineups.
-    static public func getLineups(parameters: GetLineupsParameters? = nil) -> Request<[JellyfinAPI.NameIDPair]> {
+    static func getLineups(parameters: GetLineupsParameters? = nil) -> Request<[JellyfinAPI.NameIDPair]> {
         Request(method: "GET", url: "/LiveTv/ListingProviders/Lineups", query: parameters?.asQuery, id: "GetLineups")
     }
 
-    public struct GetLineupsParameters {
+    struct GetLineupsParameters {
         public var id: String?
         public var type: String?
         public var location: String?

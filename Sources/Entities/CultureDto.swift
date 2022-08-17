@@ -20,7 +20,13 @@ public struct CultureDto: Codable {
     /// Gets the name of the two letter ISO language.
     public var twoLetterISOLanguageName: String?
 
-    public init(displayName: String? = nil, name: String? = nil, threeLetterISOLanguageName: String? = nil, threeLetterISOLanguageNames: [String]? = nil, twoLetterISOLanguageName: String? = nil) {
+    public init(
+        displayName: String? = nil,
+        name: String? = nil,
+        threeLetterISOLanguageName: String? = nil,
+        threeLetterISOLanguageNames: [String]? = nil,
+        twoLetterISOLanguageName: String? = nil
+    ) {
         self.displayName = displayName
         self.name = name
         self.threeLetterISOLanguageName = threeLetterISOLanguageName

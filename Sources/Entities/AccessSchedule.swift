@@ -21,7 +21,13 @@ public struct AccessSchedule: Codable, Identifiable {
     /// Gets the id of the associated user.
     public var userID: String?
 
-    public init(dayOfWeek: DynamicDayOfWeek? = nil, endHour: Double? = nil, id: Int32? = nil, startHour: Double? = nil, userID: String? = nil) {
+    public init(
+        dayOfWeek: DynamicDayOfWeek? = nil,
+        endHour: Double? = nil,
+        id: Int32? = nil,
+        startHour: Double? = nil,
+        userID: String? = nil
+    ) {
         self.dayOfWeek = dayOfWeek
         self.endHour = endHour
         self.id = id

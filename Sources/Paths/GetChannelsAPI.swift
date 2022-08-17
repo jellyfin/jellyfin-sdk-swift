@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets available channels.
-    static public func getChannels(parameters: GetChannelsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getChannels(parameters: GetChannelsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Channels", query: parameters?.asQuery, id: "GetChannels")
     }
 
-    public struct GetChannelsParameters {
+    struct GetChannelsParameters {
         public var userID: String?
         public var startIndex: Int32?
         public var limit: Int32?
@@ -24,7 +24,14 @@ extension Paths {
         public var isSupportsMediaDeletion: Bool?
         public var isFavorite: Bool?
 
-        public init(userID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, isSupportsLatestItems: Bool? = nil, isSupportsMediaDeletion: Bool? = nil, isFavorite: Bool? = nil) {
+        public init(
+            userID: String? = nil,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            isSupportsLatestItems: Bool? = nil,
+            isSupportsMediaDeletion: Bool? = nil,
+            isFavorite: Bool? = nil
+        ) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

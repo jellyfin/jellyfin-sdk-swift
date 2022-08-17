@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Updates a user policy.
-    static public func updateUserPolicy(userID: String, _ body: JellyfinAPI.UserPolicy) -> Request<Void> {
+    static func updateUserPolicy(userID: String, _ body: JellyfinAPI.UserPolicy) -> Request<Void> {
         Request(method: "POST", url: "/Users/\(userID)/Policy", body: body, id: "UpdateUserPolicy")
     }
 }

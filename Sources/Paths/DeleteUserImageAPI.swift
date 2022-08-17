@@ -12,8 +12,13 @@ import URLQueryEncoder
 
 extension Paths {
     /// Delete the user's image.
-    static public func deleteUserImage(userID: String, imageType: String, index: Int32? = nil) -> Request<Void> {
-        Request(method: "DELETE", url: "/Users/\(userID)/Images/\(imageType)", query: makeDeleteUserImageQuery(index), id: "DeleteUserImage")
+    public static func deleteUserImage(userID: String, imageType: String, index: Int32? = nil) -> Request<Void> {
+        Request(
+            method: "DELETE",
+            url: "/Users/\(userID)/Images/\(imageType)",
+            query: makeDeleteUserImageQuery(index),
+            id: "DeleteUserImage"
+        )
     }
 
     private static func makeDeleteUserImageQuery(_ index: Int32?) -> [(String, String?)] {

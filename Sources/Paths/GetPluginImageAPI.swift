@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a plugin's image.
-    static public func getPluginImage(pluginID: String, version: String) -> Request<Data> {
+    static func getPluginImage(pluginID: String, version: String) -> Request<Data> {
         Request(method: "GET", url: "/Plugins/\(pluginID)/\(version)/Image", id: "GetPluginImage")
     }
 }

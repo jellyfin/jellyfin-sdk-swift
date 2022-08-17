@@ -14,7 +14,12 @@ public struct RecommendationDto: Codable {
     public var items: [BaseItemDto]?
     public var recommendationType: RecommendationType?
 
-    public init(baselineItemName: String? = nil, categoryID: String? = nil, items: [BaseItemDto]? = nil, recommendationType: RecommendationType? = nil) {
+    public init(
+        baselineItemName: String? = nil,
+        categoryID: String? = nil,
+        items: [BaseItemDto]? = nil,
+        recommendationType: RecommendationType? = nil
+    ) {
         self.baselineItemName = baselineItemName
         self.categoryID = categoryID
         self.items = items

@@ -10,20 +10,26 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Reports that a user has stopped playing an item.
-    static public func onPlaybackStopped(userID: String, itemID: String, parameters: OnPlaybackStoppedParameters? = nil) -> Request<Void> {
+    static func onPlaybackStopped(userID: String, itemID: String, parameters: OnPlaybackStoppedParameters? = nil) -> Request<Void> {
         Request(method: "DELETE", url: "/Users/\(userID)/PlayingItems/\(itemID)", query: parameters?.asQuery, id: "OnPlaybackStopped")
     }
 
-    public struct OnPlaybackStoppedParameters {
+    struct OnPlaybackStoppedParameters {
         public var mediaSourceID: String?
         public var nextMediaType: String?
         public var positionTicks: Int64?
         public var liveStreamID: String?
         public var playSessionID: String?
 
-        public init(mediaSourceID: String? = nil, nextMediaType: String? = nil, positionTicks: Int64? = nil, liveStreamID: String? = nil, playSessionID: String? = nil) {
+        public init(
+            mediaSourceID: String? = nil,
+            nextMediaType: String? = nil,
+            positionTicks: Int64? = nil,
+            liveStreamID: String? = nil,
+            playSessionID: String? = nil
+        ) {
             self.mediaSourceID = mediaSourceID
             self.nextMediaType = nextMediaType
             self.positionTicks = positionTicks

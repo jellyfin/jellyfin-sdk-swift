@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Updates the path to the media encoder.
-    static public func updateMediaEncoderPath(_ body: JellyfinAPI.MediaEncoderPathDto) -> Request<Void> {
+    static func updateMediaEncoderPath(_ body: JellyfinAPI.MediaEncoderPathDto) -> Request<Void> {
         Request(method: "POST", url: "/System/MediaEncoder/Path", body: body, id: "UpdateMediaEncoderPath")
     }
 }

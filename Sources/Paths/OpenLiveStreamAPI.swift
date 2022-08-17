@@ -10,13 +10,16 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Opens a media source.
-    static public func openLiveStream(parameters: OpenLiveStreamParameters? = nil, _ body: JellyfinAPI.OpenLiveStreamDto? = nil) -> Request<JellyfinAPI.LiveStreamResponse> {
+    static func openLiveStream(
+        parameters: OpenLiveStreamParameters? = nil,
+        _ body: JellyfinAPI.OpenLiveStreamDto? = nil
+    ) -> Request<JellyfinAPI.LiveStreamResponse> {
         Request(method: "POST", url: "/LiveStreams/Open", query: parameters?.asQuery, body: body, id: "OpenLiveStream")
     }
 
-    public struct OpenLiveStreamParameters {
+    struct OpenLiveStreamParameters {
         public var openToken: String?
         public var userID: String?
         public var playSessionID: String?
@@ -29,7 +32,19 @@ extension Paths {
         public var enableDirectPlay: Bool?
         public var enableDirectStream: Bool?
 
-        public init(openToken: String? = nil, userID: String? = nil, playSessionID: String? = nil, maxStreamingBitrate: Int32? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, maxAudioChannels: Int32? = nil, itemID: String? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil) {
+        public init(
+            openToken: String? = nil,
+            userID: String? = nil,
+            playSessionID: String? = nil,
+            maxStreamingBitrate: Int32? = nil,
+            startTimeTicks: Int64? = nil,
+            audioStreamIndex: Int32? = nil,
+            subtitleStreamIndex: Int32? = nil,
+            maxAudioChannels: Int32? = nil,
+            itemID: String? = nil,
+            enableDirectPlay: Bool? = nil,
+            enableDirectStream: Bool? = nil
+        ) {
             self.openToken = openToken
             self.userID = userID
             self.playSessionID = playSessionID

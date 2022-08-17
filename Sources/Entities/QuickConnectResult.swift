@@ -27,7 +27,16 @@ public struct QuickConnectResult: Codable {
     /// Gets the secret value used to uniquely identify this request. Can be used to retrieve authentication information.
     public var secret: String?
 
-    public init(appName: String? = nil, appVersion: String? = nil, isAuthenticated: Bool? = nil, code: String? = nil, dateAdded: Date? = nil, deviceID: String? = nil, deviceName: String? = nil, secret: String? = nil) {
+    public init(
+        appName: String? = nil,
+        appVersion: String? = nil,
+        isAuthenticated: Bool? = nil,
+        code: String? = nil,
+        dateAdded: Date? = nil,
+        deviceID: String? = nil,
+        deviceName: String? = nil,
+        secret: String? = nil
+    ) {
         self.appName = appName
         self.appVersion = appVersion
         self.isAuthenticated = isAuthenticated

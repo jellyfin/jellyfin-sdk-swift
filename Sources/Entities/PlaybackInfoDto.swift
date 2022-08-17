@@ -19,15 +19,15 @@ public struct PlaybackInfoDto: Codable {
     /// Gets or sets a value indicating whether to auto open the live stream.
     public var isAutoOpenLiveStream: Bool?
     /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to play.
-    /// 
+    ///
     /// <br />
-    /// 
+    ///
     /// Specifically, it defines the supported <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles">containers</see> and
-    /// 
+    ///
     /// <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles">codecs</see> (video and/or audio, including codec profiles and levels)
-    /// 
+    ///
     /// the device is able to direct play (without transcoding or remuxing),
-    /// 
+    ///
     /// as well as which <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles">containers/codecs to transcode to</see> in case it isn't.
     public var deviceProfile: DeviceProfile?
     /// Gets or sets a value indicating whether to enable direct play.
@@ -51,7 +51,23 @@ public struct PlaybackInfoDto: Codable {
     /// Gets or sets the playback userId.
     public var userID: String?
 
-    public init(allowAudioStreamCopy: Bool? = nil, allowVideoStreamCopy: Bool? = nil, audioStreamIndex: Int32? = nil, isAutoOpenLiveStream: Bool? = nil, deviceProfile: DeviceProfile? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, liveStreamID: String? = nil, maxAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, mediaSourceID: String? = nil, startTimeTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil, userID: String? = nil) {
+    public init(
+        allowAudioStreamCopy: Bool? = nil,
+        allowVideoStreamCopy: Bool? = nil,
+        audioStreamIndex: Int32? = nil,
+        isAutoOpenLiveStream: Bool? = nil,
+        deviceProfile: DeviceProfile? = nil,
+        enableDirectPlay: Bool? = nil,
+        enableDirectStream: Bool? = nil,
+        enableTranscoding: Bool? = nil,
+        liveStreamID: String? = nil,
+        maxAudioChannels: Int32? = nil,
+        maxStreamingBitrate: Int32? = nil,
+        mediaSourceID: String? = nil,
+        startTimeTicks: Int64? = nil,
+        subtitleStreamIndex: Int32? = nil,
+        userID: String? = nil
+    ) {
         self.allowAudioStreamCopy = allowAudioStreamCopy
         self.allowVideoStreamCopy = allowVideoStreamCopy
         self.audioStreamIndex = audioStreamIndex

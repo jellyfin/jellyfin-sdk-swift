@@ -17,7 +17,15 @@ public struct ResponseProfile: Codable {
     public var type: DlnaProfileType?
     public var videoCodec: String?
 
-    public init(audioCodec: String? = nil, conditions: [ProfileCondition]? = nil, container: String? = nil, mimeType: String? = nil, orgPn: String? = nil, type: DlnaProfileType? = nil, videoCodec: String? = nil) {
+    public init(
+        audioCodec: String? = nil,
+        conditions: [ProfileCondition]? = nil,
+        container: String? = nil,
+        mimeType: String? = nil,
+        orgPn: String? = nil,
+        type: DlnaProfileType? = nil,
+        videoCodec: String? = nil
+    ) {
         self.audioCodec = audioCodec
         self.conditions = conditions
         self.container = container

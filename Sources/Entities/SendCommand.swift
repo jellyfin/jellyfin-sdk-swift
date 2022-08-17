@@ -23,7 +23,14 @@ public struct SendCommand: Codable {
     /// Gets or sets the UTC time when to execute the command.
     public var when: Date?
 
-    public init(command: SendCommandType? = nil, emittedAt: Date? = nil, groupID: String? = nil, playlistItemID: String? = nil, positionTicks: Int64? = nil, when: Date? = nil) {
+    public init(
+        command: SendCommandType? = nil,
+        emittedAt: Date? = nil,
+        groupID: String? = nil,
+        playlistItemID: String? = nil,
+        positionTicks: Int64? = nil,
+        when: Date? = nil
+    ) {
         self.command = command
         self.emittedAt = emittedAt
         self.groupID = groupID

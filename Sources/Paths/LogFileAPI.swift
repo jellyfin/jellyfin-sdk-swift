@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Upload a document.
-    static public func logFile(_ body: String? = nil) -> Request<JellyfinAPI.ClientLogDocumentResponseDto> {
+    static func logFile(_ body: String? = nil) -> Request<JellyfinAPI.ClientLogDocumentResponseDto> {
         Request(method: "POST", url: "/ClientLog/Document", body: body, id: "LogFile")
     }
 }

@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets an audio stream.
-    static public func getUniversalAudioStream(itemID: String, parameters: GetUniversalAudioStreamParameters? = nil) -> Request<Data> {
+    static func getUniversalAudioStream(itemID: String, parameters: GetUniversalAudioStreamParameters? = nil) -> Request<Data> {
         Request(method: "GET", url: "/Audio/\(itemID)/universal", query: parameters?.asQuery, id: "GetUniversalAudioStream")
     }
 
-    public struct GetUniversalAudioStreamParameters {
+    struct GetUniversalAudioStreamParameters {
         public var container: [String]?
         public var mediaSourceID: String?
         public var deviceID: String?
@@ -35,7 +35,25 @@ extension Paths {
         public var isBreakOnNonKeyFrames: Bool?
         public var enableRedirection: Bool?
 
-        public init(container: [String]? = nil, mediaSourceID: String? = nil, deviceID: String? = nil, userID: String? = nil, audioCodec: String? = nil, maxAudioChannels: Int32? = nil, transcodingAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, audioBitRate: Int32? = nil, startTimeTicks: Int64? = nil, transcodingContainer: String? = nil, transcodingProtocol: String? = nil, maxAudioSampleRate: Int32? = nil, maxAudioBitDepth: Int32? = nil, enableRemoteMedia: Bool? = nil, isBreakOnNonKeyFrames: Bool? = nil, enableRedirection: Bool? = nil) {
+        public init(
+            container: [String]? = nil,
+            mediaSourceID: String? = nil,
+            deviceID: String? = nil,
+            userID: String? = nil,
+            audioCodec: String? = nil,
+            maxAudioChannels: Int32? = nil,
+            transcodingAudioChannels: Int32? = nil,
+            maxStreamingBitrate: Int32? = nil,
+            audioBitRate: Int32? = nil,
+            startTimeTicks: Int64? = nil,
+            transcodingContainer: String? = nil,
+            transcodingProtocol: String? = nil,
+            maxAudioSampleRate: Int32? = nil,
+            maxAudioBitDepth: Int32? = nil,
+            enableRemoteMedia: Bool? = nil,
+            isBreakOnNonKeyFrames: Bool? = nil,
+            enableRedirection: Bool? = nil
+        ) {
             self.container = container
             self.mediaSourceID = mediaSourceID
             self.deviceID = deviceID

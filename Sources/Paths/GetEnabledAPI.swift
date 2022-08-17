@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the current quick connect state.
-    static public var getEnabled: Request<Data> {
+    static var getEnabled: Request<Data> {
         Request(method: "GET", url: "/QuickConnect/Enabled", id: "GetEnabled")
     }
 }

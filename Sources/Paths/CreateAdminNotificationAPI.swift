@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Sends a notification to all admins.
-    static public func createAdminNotification(_ body: JellyfinAPI.AdminNotificationDto) -> Request<Void> {
+    static func createAdminNotification(_ body: JellyfinAPI.AdminNotificationDto) -> Request<Void> {
         Request(method: "POST", url: "/Notifications/Admin", body: body, id: "CreateAdminNotification")
     }
 }

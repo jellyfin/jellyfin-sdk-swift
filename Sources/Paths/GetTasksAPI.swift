@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Get tasks.
-    static public func getTasks(isHidden: Bool? = nil, isEnabled: Bool? = nil) -> Request<[JellyfinAPI.TaskInfo]> {
+    public static func getTasks(isHidden: Bool? = nil, isEnabled: Bool? = nil) -> Request<[JellyfinAPI.TaskInfo]> {
         Request(method: "GET", url: "/ScheduledTasks", query: makeGetTasksQuery(isHidden, isEnabled), id: "GetTasks")
     }
 

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a fallback font file.
-    static public func getFallbackFont(name: String) -> Request<Data> {
+    static func getFallbackFont(name: String) -> Request<Data> {
         Request(method: "GET", url: "/FallbackFont/Fonts/\(name)", id: "GetFallbackFont")
     }
 }

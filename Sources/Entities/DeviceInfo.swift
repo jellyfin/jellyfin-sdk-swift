@@ -28,7 +28,18 @@ public struct DeviceInfo: Codable, Identifiable {
     public var lastUserName: String?
     public var name: String?
 
-    public init(accessToken: String? = nil, appName: String? = nil, appVersion: String? = nil, capabilities: ClientCapabilities? = nil, dateLastActivity: Date? = nil, iconURL: String? = nil, id: String? = nil, lastUserID: String? = nil, lastUserName: String? = nil, name: String? = nil) {
+    public init(
+        accessToken: String? = nil,
+        appName: String? = nil,
+        appVersion: String? = nil,
+        capabilities: ClientCapabilities? = nil,
+        dateLastActivity: Date? = nil,
+        iconURL: String? = nil,
+        id: String? = nil,
+        lastUserID: String? = nil,
+        lastUserName: String? = nil,
+        name: String? = nil
+    ) {
         self.accessToken = accessToken
         self.appName = appName
         self.appVersion = appVersion

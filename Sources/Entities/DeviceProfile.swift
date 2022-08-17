@@ -9,15 +9,15 @@
 import Foundation
 
 /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to play.
-/// 
+///
 /// <br />
-/// 
+///
 /// Specifically, it defines the supported <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles">containers</see> and
-/// 
+///
 /// <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles">codecs</see> (video and/or audio, including codec profiles and levels)
-/// 
+///
 /// the device is able to direct play (without transcoding or remuxing),
-/// 
+///
 /// as well as which <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles">containers/codecs to transcode to</see> in case it isn't.
 public struct DeviceProfile: Codable, Identifiable {
     /// Gets or sets the AlbumArtPn.
@@ -99,7 +99,47 @@ public struct DeviceProfile: Codable, Identifiable {
     /// Gets or sets the XmlRootAttributes.
     public var xmlRootAttributes: [XmlAttribute]?
 
-    public init(albumArtPn: String? = nil, codecProfiles: [CodecProfile]? = nil, containerProfiles: [ContainerProfile]? = nil, directPlayProfiles: [DirectPlayProfile]? = nil, enableAlbumArtInDidl: Bool? = nil, enableMSMediaReceiverRegistrar: Bool? = nil, enableSingleAlbumArtLimit: Bool? = nil, enableSingleSubtitleLimit: Bool? = nil, friendlyName: String? = nil, id: String? = nil, identification: DeviceIdentification? = nil, isIgnoreTranscodeByteRangeRequests: Bool? = nil, manufacturer: String? = nil, manufacturerURL: String? = nil, maxAlbumArtHeight: Int32? = nil, maxAlbumArtWidth: Int32? = nil, maxIconHeight: Int32? = nil, maxIconWidth: Int32? = nil, maxStaticBitrate: Int32? = nil, maxStaticMusicBitrate: Int32? = nil, maxStreamingBitrate: Int32? = nil, modelDescription: String? = nil, modelName: String? = nil, modelNumber: String? = nil, modelURL: String? = nil, musicStreamingTranscodingBitrate: Int32? = nil, name: String? = nil, protocolInfo: String? = nil, requiresPlainFolders: Bool? = nil, requiresPlainVideoItems: Bool? = nil, responseProfiles: [ResponseProfile]? = nil, serialNumber: String? = nil, sonyAggregationFlags: String? = nil, subtitleProfiles: [SubtitleProfile]? = nil, supportedMediaTypes: String? = nil, timelineOffsetSeconds: Int32? = nil, transcodingProfiles: [TranscodingProfile]? = nil, userID: String? = nil, xmlRootAttributes: [XmlAttribute]? = nil) {
+    public init(
+        albumArtPn: String? = nil,
+        codecProfiles: [CodecProfile]? = nil,
+        containerProfiles: [ContainerProfile]? = nil,
+        directPlayProfiles: [DirectPlayProfile]? = nil,
+        enableAlbumArtInDidl: Bool? = nil,
+        enableMSMediaReceiverRegistrar: Bool? = nil,
+        enableSingleAlbumArtLimit: Bool? = nil,
+        enableSingleSubtitleLimit: Bool? = nil,
+        friendlyName: String? = nil,
+        id: String? = nil,
+        identification: DeviceIdentification? = nil,
+        isIgnoreTranscodeByteRangeRequests: Bool? = nil,
+        manufacturer: String? = nil,
+        manufacturerURL: String? = nil,
+        maxAlbumArtHeight: Int32? = nil,
+        maxAlbumArtWidth: Int32? = nil,
+        maxIconHeight: Int32? = nil,
+        maxIconWidth: Int32? = nil,
+        maxStaticBitrate: Int32? = nil,
+        maxStaticMusicBitrate: Int32? = nil,
+        maxStreamingBitrate: Int32? = nil,
+        modelDescription: String? = nil,
+        modelName: String? = nil,
+        modelNumber: String? = nil,
+        modelURL: String? = nil,
+        musicStreamingTranscodingBitrate: Int32? = nil,
+        name: String? = nil,
+        protocolInfo: String? = nil,
+        requiresPlainFolders: Bool? = nil,
+        requiresPlainVideoItems: Bool? = nil,
+        responseProfiles: [ResponseProfile]? = nil,
+        serialNumber: String? = nil,
+        sonyAggregationFlags: String? = nil,
+        subtitleProfiles: [SubtitleProfile]? = nil,
+        supportedMediaTypes: String? = nil,
+        timelineOffsetSeconds: Int32? = nil,
+        transcodingProfiles: [TranscodingProfile]? = nil,
+        userID: String? = nil,
+        xmlRootAttributes: [XmlAttribute]? = nil
+    ) {
         self.albumArtPn = albumArtPn
         self.codecProfiles = codecProfiles
         self.containerProfiles = containerProfiles

@@ -27,7 +27,16 @@ public struct TaskResult: Codable, Identifiable {
     /// Gets or sets the status.
     public var status: TaskCompletionStatus?
 
-    public init(endTimeUtc: Date? = nil, errorMessage: String? = nil, id: String? = nil, key: String? = nil, longErrorMessage: String? = nil, name: String? = nil, startTimeUtc: Date? = nil, status: TaskCompletionStatus? = nil) {
+    public init(
+        endTimeUtc: Date? = nil,
+        errorMessage: String? = nil,
+        id: String? = nil,
+        key: String? = nil,
+        longErrorMessage: String? = nil,
+        name: String? = nil,
+        startTimeUtc: Date? = nil,
+        status: TaskCompletionStatus? = nil
+    ) {
         self.endTimeUtc = endTimeUtc
         self.errorMessage = errorMessage
         self.id = id

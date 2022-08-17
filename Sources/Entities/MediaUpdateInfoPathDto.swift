@@ -13,7 +13,7 @@ public struct MediaUpdateInfoPathDto: Codable {
     /// Gets or sets media path.
     public var path: String?
     /// Gets or sets media update type.
-    /// 
+    ///
     /// Created, Modified, Deleted.
     public var updateType: String?
 

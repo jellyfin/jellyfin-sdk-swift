@@ -23,7 +23,21 @@ public struct LiveTvOptions: Codable {
     public var seriesRecordingPath: String?
     public var tunerHosts: [TunerHostInfo]?
 
-    public init(enableOriginalAudioWithEncodedRecordings: Bool? = nil, enableRecordingSubfolders: Bool? = nil, guideDays: Int32? = nil, listingProviders: [ListingsProviderInfo]? = nil, mediaLocationsCreated: [String]? = nil, movieRecordingPath: String? = nil, postPaddingSeconds: Int32? = nil, prePaddingSeconds: Int32? = nil, recordingPath: String? = nil, recordingPostProcessor: String? = nil, recordingPostProcessorArguments: String? = nil, seriesRecordingPath: String? = nil, tunerHosts: [TunerHostInfo]? = nil) {
+    public init(
+        enableOriginalAudioWithEncodedRecordings: Bool? = nil,
+        enableRecordingSubfolders: Bool? = nil,
+        guideDays: Int32? = nil,
+        listingProviders: [ListingsProviderInfo]? = nil,
+        mediaLocationsCreated: [String]? = nil,
+        movieRecordingPath: String? = nil,
+        postPaddingSeconds: Int32? = nil,
+        prePaddingSeconds: Int32? = nil,
+        recordingPath: String? = nil,
+        recordingPostProcessor: String? = nil,
+        recordingPostProcessorArguments: String? = nil,
+        seriesRecordingPath: String? = nil,
+        tunerHosts: [TunerHostInfo]? = nil
+    ) {
         self.enableOriginalAudioWithEncodedRecordings = enableOriginalAudioWithEncodedRecordings
         self.enableRecordingSubfolders = enableRecordingSubfolders
         self.guideDays = guideDays
@@ -41,7 +55,10 @@ public struct LiveTvOptions: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.enableOriginalAudioWithEncodedRecordings = try values.decodeIfPresent(Bool.self, forKey: "EnableOriginalAudioWithEncodedRecordings")
+        self.enableOriginalAudioWithEncodedRecordings = try values.decodeIfPresent(
+            Bool.self,
+            forKey: "EnableOriginalAudioWithEncodedRecordings"
+        )
         self.enableRecordingSubfolders = try values.decodeIfPresent(Bool.self, forKey: "EnableRecordingSubfolders")
         self.guideDays = try values.decodeIfPresent(Int32.self, forKey: "GuideDays")
         self.listingProviders = try values.decodeIfPresent([ListingsProviderInfo].self, forKey: "ListingProviders")

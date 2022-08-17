@@ -12,8 +12,13 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets the configuration pages.
-    static public func getConfigurationPages(enableInMainMenu: Bool? = nil) -> Request<[JellyfinAPI.ConfigurationPageInfo]> {
-        Request(method: "GET", url: "/web/ConfigurationPages", query: makeGetConfigurationPagesQuery(enableInMainMenu), id: "GetConfigurationPages")
+    public static func getConfigurationPages(enableInMainMenu: Bool? = nil) -> Request<[JellyfinAPI.ConfigurationPageInfo]> {
+        Request(
+            method: "GET",
+            url: "/web/ConfigurationPages",
+            query: makeGetConfigurationPagesQuery(enableInMainMenu),
+            id: "GetConfigurationPages"
+        )
     }
 
     private static func makeGetConfigurationPagesQuery(_ enableInMainMenu: Bool?) -> [(String, String?)] {

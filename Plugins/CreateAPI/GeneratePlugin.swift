@@ -22,7 +22,7 @@ struct Plugin: CommandPlugin {
             "generate",
             "jellyfin-openapi-stable.json",
             "--config", "create-api-config.yaml",
-            "--output", "."
+            "--output", ".",
         ]
 
         try process.run()

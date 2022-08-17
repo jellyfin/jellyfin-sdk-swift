@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Reports playback has stopped within a session.
-    static public func reportPlaybackStopped(_ body: JellyfinAPI.PlaybackStopInfo? = nil) -> Request<Void> {
+    static func reportPlaybackStopped(_ body: JellyfinAPI.PlaybackStopInfo? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/Playing/Stopped", body: body, id: "ReportPlaybackStopped")
     }
 }

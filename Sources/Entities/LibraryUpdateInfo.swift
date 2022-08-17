@@ -23,7 +23,15 @@ public struct LibraryUpdateInfo: Codable {
     /// Gets or sets the items updated.
     public var itemsUpdated: [String]?
 
-    public init(collectionFolders: [String]? = nil, foldersAddedTo: [String]? = nil, foldersRemovedFrom: [String]? = nil, isEmpty: Bool? = nil, itemsAdded: [String]? = nil, itemsRemoved: [String]? = nil, itemsUpdated: [String]? = nil) {
+    public init(
+        collectionFolders: [String]? = nil,
+        foldersAddedTo: [String]? = nil,
+        foldersRemovedFrom: [String]? = nil,
+        isEmpty: Bool? = nil,
+        itemsAdded: [String]? = nil,
+        itemsRemoved: [String]? = nil,
+        itemsUpdated: [String]? = nil
+    ) {
         self.collectionFolders = collectionFolders
         self.foldersAddedTo = foldersAddedTo
         self.foldersRemovedFrom = foldersRemovedFrom

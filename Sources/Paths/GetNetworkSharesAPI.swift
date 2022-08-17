@@ -10,10 +10,10 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets network paths.
     @available(*, deprecated, message: "Deprecated")
-    static public var getNetworkShares: Request<[JellyfinAPI.FileSystemEntryInfo]> {
+    static var getNetworkShares: Request<[JellyfinAPI.FileSystemEntryInfo]> {
         Request(method: "GET", url: "/Environment/NetworkShares", id: "GetNetworkShares")
     }
 }

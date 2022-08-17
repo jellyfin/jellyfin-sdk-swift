@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets available live tv channels.
-    static public func getLiveTvChannels(parameters: GetLiveTvChannelsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getLiveTvChannels(parameters: GetLiveTvChannelsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Channels", query: parameters?.asQuery, id: "GetLiveTvChannels")
     }
 
-    public struct GetLiveTvChannelsParameters {
+    struct GetLiveTvChannelsParameters {
         public var type: `Type`?
         public var userID: String?
         public var startIndex: Int32?
@@ -43,7 +43,29 @@ extension Paths {
 
         public typealias SortOrder = JellyfinAPI.SortOrder
 
-        public init(type: `Type`? = nil, userID: String? = nil, startIndex: Int32? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int32? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, isAddCurrentProgram: Bool? = nil) {
+        public init(
+            type: Type? = nil,
+            userID: String? = nil,
+            startIndex: Int32? = nil,
+            isMovie: Bool? = nil,
+            isSeries: Bool? = nil,
+            isNews: Bool? = nil,
+            isKids: Bool? = nil,
+            isSports: Bool? = nil,
+            limit: Int32? = nil,
+            isFavorite: Bool? = nil,
+            isLiked: Bool? = nil,
+            isDisliked: Bool? = nil,
+            enableImages: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            enableUserData: Bool? = nil,
+            sortBy: [String]? = nil,
+            sortOrder: SortOrder? = nil,
+            enableFavoriteSorting: Bool? = nil,
+            isAddCurrentProgram: Bool? = nil
+        ) {
             self.type = type
             self.userID = userID
             self.startIndex = startIndex

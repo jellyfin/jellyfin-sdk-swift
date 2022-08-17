@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get info for a device.
-    static public func getDeviceInfo(id: String) -> Request<JellyfinAPI.DeviceInfo> {
+    static func getDeviceInfo(id: String) -> Request<JellyfinAPI.DeviceInfo> {
         Request(method: "GET", url: "/Devices/Info", query: [("id", id)], id: "GetDeviceInfo")
     }
 }

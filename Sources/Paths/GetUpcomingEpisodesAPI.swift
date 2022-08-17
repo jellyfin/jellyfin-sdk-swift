@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a list of upcoming episodes.
-    static public func getUpcomingEpisodes(parameters: GetUpcomingEpisodesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getUpcomingEpisodes(parameters: GetUpcomingEpisodesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Shows/Upcoming", query: parameters?.asQuery, id: "GetUpcomingEpisodes")
     }
 
-    public struct GetUpcomingEpisodesParameters {
+    struct GetUpcomingEpisodesParameters {
         public var userID: String?
         public var startIndex: Int32?
         public var limit: Int32?
@@ -27,7 +27,17 @@ extension Paths {
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
 
-        public init(userID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, parentID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil) {
+        public init(
+            userID: String? = nil,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            parentID: String? = nil,
+            enableImages: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableUserData: Bool? = nil
+        ) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

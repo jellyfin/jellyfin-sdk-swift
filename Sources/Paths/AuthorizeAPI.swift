@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Authorizes a pending quick connect request.
-    static public func authorize(code: String) -> Request<Data> {
+    static func authorize(code: String) -> Request<Data> {
         Request(method: "POST", url: "/QuickConnect/Authorize", query: [("code", code)], id: "Authorize")
     }
 }

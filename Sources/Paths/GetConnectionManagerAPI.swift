@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets Dlna media receiver registrar xml.
-    static public func getConnectionManager(serverID: String) -> Request<String> {
+    static func getConnectionManager(serverID: String) -> Request<String> {
         Request(method: "GET", url: "/Dlna/\(serverID)/ConnectionManager", id: "GetConnectionManager")
     }
 }

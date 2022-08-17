@@ -12,8 +12,13 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets a dashboard configuration page.
-    static public func getDashboardConfigurationPage(name: String? = nil) -> Request<String> {
-        Request(method: "GET", url: "/web/ConfigurationPage", query: makeGetDashboardConfigurationPageQuery(name), id: "GetDashboardConfigurationPage")
+    public static func getDashboardConfigurationPage(name: String? = nil) -> Request<String> {
+        Request(
+            method: "GET",
+            url: "/web/ConfigurationPage",
+            query: makeGetDashboardConfigurationPageQuery(name),
+            id: "GetDashboardConfigurationPage"
+        )
     }
 
     private static func makeGetDashboardConfigurationPageQuery(_ name: String?) -> [(String, String?)] {

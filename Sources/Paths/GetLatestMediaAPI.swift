@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets latest media.
-    static public func getLatestMedia(userID: String, parameters: GetLatestMediaParameters? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
+    static func getLatestMedia(userID: String, parameters: GetLatestMediaParameters? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
         Request(method: "GET", url: "/Users/\(userID)/Items/Latest", query: parameters?.asQuery, id: "GetLatestMedia")
     }
 
-    public struct GetLatestMediaParameters {
+    struct GetLatestMediaParameters {
         public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -28,7 +28,18 @@ extension Paths {
         public var limit: Int32?
         public var isGroupItems: Bool?
 
-        public init(parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isPlayed: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, limit: Int32? = nil, isGroupItems: Bool? = nil) {
+        public init(
+            parentID: String? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            isPlayed: Bool? = nil,
+            enableImages: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableUserData: Bool? = nil,
+            limit: Int32? = nil,
+            isGroupItems: Bool? = nil
+        ) {
             self.parentID = parentID
             self.fields = fields
             self.includeItemTypes = includeItemTypes

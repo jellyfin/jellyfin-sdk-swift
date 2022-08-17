@@ -27,7 +27,16 @@ public struct ImageInfo: Codable {
     /// Gets or sets the width.
     public var width: Int32?
 
-    public init(blurHash: String? = nil, height: Int32? = nil, imageIndex: Int32? = nil, imageTag: String? = nil, imageType: ImageType? = nil, path: String? = nil, size: Int64? = nil, width: Int32? = nil) {
+    public init(
+        blurHash: String? = nil,
+        height: Int32? = nil,
+        imageIndex: Int32? = nil,
+        imageTag: String? = nil,
+        imageType: ImageType? = nil,
+        path: String? = nil,
+        size: Int64? = nil,
+        width: Int32? = nil
+    ) {
         self.blurHash = blurHash
         self.height = height
         self.imageIndex = imageIndex

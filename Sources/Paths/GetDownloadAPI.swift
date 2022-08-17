@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Downloads item media.
-    static public func getDownload(itemID: String) -> Request<Data> {
+    static func getDownload(itemID: String) -> Request<Data> {
         Request(method: "GET", url: "/Items/\(itemID)/Download", id: "GetDownload")
     }
 }

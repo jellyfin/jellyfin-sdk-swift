@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Redeems a forgot password pin.
-    static public func forgotPasswordPin(_ body: JellyfinAPI.ForgotPasswordPinDto) -> Request<JellyfinAPI.PinRedeemResult> {
+    static func forgotPasswordPin(_ body: JellyfinAPI.ForgotPasswordPinDto) -> Request<JellyfinAPI.PinRedeemResult> {
         Request(method: "POST", url: "/Users/ForgotPassword/Pin", body: body, id: "ForgotPasswordPin")
     }
 }

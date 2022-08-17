@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a single profile.
-    static public func getProfile(profileID: String) -> Request<JellyfinAPI.DeviceProfile> {
+    static func getProfile(profileID: String) -> Request<JellyfinAPI.DeviceProfile> {
         Request(method: "GET", url: "/Dlna/Profiles/\(profileID)", id: "GetProfile")
     }
 }

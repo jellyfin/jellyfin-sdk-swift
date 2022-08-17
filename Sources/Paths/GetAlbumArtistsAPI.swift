@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets all album artists from a given item, folder, or the entire library.
-    static public func getAlbumArtists(parameters: GetAlbumArtistsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getAlbumArtists(parameters: GetAlbumArtistsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Artists/AlbumArtists", query: parameters?.asQuery, id: "GetAlbumArtists")
     }
 
-    public struct GetAlbumArtistsParameters {
+    struct GetAlbumArtistsParameters {
         public var minCommunityRating: Double?
         public var startIndex: Int32?
         public var limit: Int32?
@@ -50,7 +50,40 @@ extension Paths {
         public var enableImages: Bool?
         public var enableTotalRecordCount: Bool?
 
-        public init(minCommunityRating: Double? = nil, startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, genres: [String]? = nil, genreIDs: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int32]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, person: String? = nil, personIDs: [String]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, studioIDs: [String]? = nil, userID: String? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, sortBy: [String]? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
+        public init(
+            minCommunityRating: Double? = nil,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            searchTerm: String? = nil,
+            parentID: String? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            filters: [JellyfinAPI.ItemFilter]? = nil,
+            isFavorite: Bool? = nil,
+            mediaTypes: [String]? = nil,
+            genres: [String]? = nil,
+            genreIDs: [String]? = nil,
+            officialRatings: [String]? = nil,
+            tags: [String]? = nil,
+            years: [Int32]? = nil,
+            enableUserData: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            person: String? = nil,
+            personIDs: [String]? = nil,
+            personTypes: [String]? = nil,
+            studios: [String]? = nil,
+            studioIDs: [String]? = nil,
+            userID: String? = nil,
+            nameStartsWithOrGreater: String? = nil,
+            nameStartsWith: String? = nil,
+            nameLessThan: String? = nil,
+            sortBy: [String]? = nil,
+            sortOrder: [JellyfinAPI.SortOrder]? = nil,
+            enableImages: Bool? = nil,
+            enableTotalRecordCount: Bool? = nil
+        ) {
             self.minCommunityRating = minCommunityRating
             self.startIndex = startIndex
             self.limit = limit

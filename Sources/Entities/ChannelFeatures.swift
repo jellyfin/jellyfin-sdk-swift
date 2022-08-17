@@ -34,7 +34,20 @@ public struct ChannelFeatures: Codable, Identifiable {
     /// Gets or sets a value indicating whether a sort ascending/descending toggle is supported.
     public var isSupportsSortOrderToggle: Bool?
 
-    public init(autoRefreshLevels: Int32? = nil, canFilter: Bool? = nil, canSearch: Bool? = nil, contentTypes: [ChannelMediaContentType]? = nil, defaultSortFields: [ChannelItemSortField]? = nil, id: String? = nil, maxPageSize: Int32? = nil, mediaTypes: [ChannelMediaType]? = nil, name: String? = nil, isSupportsContentDownloading: Bool? = nil, isSupportsLatestMedia: Bool? = nil, isSupportsSortOrderToggle: Bool? = nil) {
+    public init(
+        autoRefreshLevels: Int32? = nil,
+        canFilter: Bool? = nil,
+        canSearch: Bool? = nil,
+        contentTypes: [ChannelMediaContentType]? = nil,
+        defaultSortFields: [ChannelItemSortField]? = nil,
+        id: String? = nil,
+        maxPageSize: Int32? = nil,
+        mediaTypes: [ChannelMediaType]? = nil,
+        name: String? = nil,
+        isSupportsContentDownloading: Bool? = nil,
+        isSupportsLatestMedia: Bool? = nil,
+        isSupportsSortOrderToggle: Bool? = nil
+    ) {
         self.autoRefreshLevels = autoRefreshLevels
         self.canFilter = canFilter
         self.canSearch = canSearch

@@ -12,8 +12,13 @@ import URLQueryEncoder
 
 extension Paths {
     /// Authenticates a user.
-    static public func authenticateUser(userID: String, pw: String, password: String? = nil) -> Request<JellyfinAPI.AuthenticationResult> {
-        Request(method: "POST", url: "/Users/\(userID)/Authenticate", query: makeAuthenticateUserQuery(pw, password), id: "AuthenticateUser")
+    public static func authenticateUser(userID: String, pw: String, password: String? = nil) -> Request<JellyfinAPI.AuthenticationResult> {
+        Request(
+            method: "POST",
+            url: "/Users/\(userID)/Authenticate",
+            query: makeAuthenticateUserQuery(pw, password),
+            id: "AuthenticateUser"
+        )
     }
 
     private static func makeAuthenticateUserQuery(_ pw: String, _ password: String?) -> [(String, String?)] {

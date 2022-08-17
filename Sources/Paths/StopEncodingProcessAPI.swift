@@ -10,9 +10,14 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Stops an active encoding.
-    static public func stopEncodingProcess(deviceID: String, playSessionID: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Videos/ActiveEncodings", query: [("deviceId", deviceID), ("playSessionId", playSessionID)], id: "StopEncodingProcess")
+    static func stopEncodingProcess(deviceID: String, playSessionID: String) -> Request<Void> {
+        Request(
+            method: "DELETE",
+            url: "/Videos/ActiveEncodings",
+            query: [("deviceId", deviceID), ("playSessionId", playSessionID)],
+            id: "StopEncodingProcess"
+        )
     }
 }

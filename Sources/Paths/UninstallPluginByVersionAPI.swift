@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Uninstalls a plugin by version.
-    static public func uninstallPluginByVersion(pluginID: String, version: String) -> Request<Void> {
+    static func uninstallPluginByVersion(pluginID: String, version: String) -> Request<Void> {
         Request(method: "DELETE", url: "/Plugins/\(pluginID)/\(version)", id: "UninstallPluginByVersion")
     }
 }

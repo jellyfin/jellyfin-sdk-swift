@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Reports that a user has begun playing an item.
-    static public func onPlaybackStart(userID: String, itemID: String, parameters: OnPlaybackStartParameters? = nil) -> Request<Void> {
+    static func onPlaybackStart(userID: String, itemID: String, parameters: OnPlaybackStartParameters? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Users/\(userID)/PlayingItems/\(itemID)", query: parameters?.asQuery, id: "OnPlaybackStart")
     }
 
-    public struct OnPlaybackStartParameters {
+    struct OnPlaybackStartParameters {
         public var mediaSourceID: String?
         public var audioStreamIndex: Int32?
         public var subtitleStreamIndex: Int32?
@@ -27,7 +27,15 @@ extension Paths {
 
         public typealias PlayMethod = JellyfinAPI.PlayMethod
 
-        public init(mediaSourceID: String? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, playMethod: PlayMethod? = nil, liveStreamID: String? = nil, playSessionID: String? = nil, canSeek: Bool? = nil) {
+        public init(
+            mediaSourceID: String? = nil,
+            audioStreamIndex: Int32? = nil,
+            subtitleStreamIndex: Int32? = nil,
+            playMethod: PlayMethod? = nil,
+            liveStreamID: String? = nil,
+            playSessionID: String? = nil,
+            canSeek: Bool? = nil
+        ) {
             self.mediaSourceID = mediaSourceID
             self.audioStreamIndex = audioStreamIndex
             self.subtitleStreamIndex = subtitleStreamIndex

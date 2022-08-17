@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets branding css.
-    static public var getBrandingCss: Request<String> {
+    static var getBrandingCss: Request<String> {
         Request(method: "GET", url: "/Branding/Css", id: "GetBrandingCss")
     }
 }

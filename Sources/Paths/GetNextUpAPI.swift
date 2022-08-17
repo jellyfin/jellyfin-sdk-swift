@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a list of next up episodes.
-    static public func getNextUp(parameters: GetNextUpParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getNextUp(parameters: GetNextUpParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Shows/NextUp", query: parameters?.asQuery, id: "GetNextUp")
     }
 
-    public struct GetNextUpParameters {
+    struct GetNextUpParameters {
         public var userID: String?
         public var startIndex: Int32?
         public var limit: Int32?
@@ -32,7 +32,22 @@ extension Paths {
         public var isDisableFirstEpisode: Bool?
         public var enableRewatching: Bool?
 
-        public init(userID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, seriesID: String? = nil, parentID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, nextUpDateCutoff: Date? = nil, enableTotalRecordCount: Bool? = nil, isDisableFirstEpisode: Bool? = nil, enableRewatching: Bool? = nil) {
+        public init(
+            userID: String? = nil,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            seriesID: String? = nil,
+            parentID: String? = nil,
+            enableImages: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableUserData: Bool? = nil,
+            nextUpDateCutoff: Date? = nil,
+            enableTotalRecordCount: Bool? = nil,
+            isDisableFirstEpisode: Bool? = nil,
+            enableRewatching: Bool? = nil
+        ) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

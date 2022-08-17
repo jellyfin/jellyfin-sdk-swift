@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets items based on a query.
-    static public func getResumeItems(userID: String, parameters: GetResumeItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getResumeItems(userID: String, parameters: GetResumeItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Users/\(userID)/Items/Resume", query: parameters?.asQuery, id: "GetResumeItems")
     }
 
-    public struct GetResumeItemsParameters {
+    struct GetResumeItemsParameters {
         public var startIndex: Int32?
         public var limit: Int32?
         public var searchTerm: String?
@@ -32,7 +32,22 @@ extension Paths {
         public var enableImages: Bool?
         public var excludeActiveSessions: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, mediaTypes: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, excludeActiveSessions: Bool? = nil) {
+        public init(
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            searchTerm: String? = nil,
+            parentID: String? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            mediaTypes: [String]? = nil,
+            enableUserData: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            enableTotalRecordCount: Bool? = nil,
+            enableImages: Bool? = nil,
+            excludeActiveSessions: Bool? = nil
+        ) {
             self.startIndex = startIndex
             self.limit = limit
             self.searchTerm = searchTerm

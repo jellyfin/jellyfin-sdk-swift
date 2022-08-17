@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Moves a playlist item.
-    static public func moveItem(playlistID: String, itemID: String, newIndex: Int) -> Request<Void> {
+    static func moveItem(playlistID: String, itemID: String, newIndex: Int) -> Request<Void> {
         Request(method: "POST", url: "/Playlists/\(playlistID)/Items/\(itemID)/Move/\(newIndex)", id: "MoveItem")
     }
 }

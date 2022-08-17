@@ -21,7 +21,13 @@ public struct TaskTriggerInfo: Codable {
     /// Gets or sets the type.
     public var type: String?
 
-    public init(dayOfWeek: DayOfWeek? = nil, intervalTicks: Int64? = nil, maxRuntimeTicks: Int64? = nil, timeOfDayTicks: Int64? = nil, type: String? = nil) {
+    public init(
+        dayOfWeek: DayOfWeek? = nil,
+        intervalTicks: Int64? = nil,
+        maxRuntimeTicks: Int64? = nil,
+        timeOfDayTicks: Int64? = nil,
+        type: String? = nil
+    ) {
         self.dayOfWeek = dayOfWeek
         self.intervalTicks = intervalTicks
         self.maxRuntimeTicks = maxRuntimeTicks

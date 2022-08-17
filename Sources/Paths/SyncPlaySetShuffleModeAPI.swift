@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Request to set shuffle mode in SyncPlay group.
-    static public func syncPlaySetShuffleMode(_ body: JellyfinAPI.SetShuffleModeRequestDto) -> Request<Void> {
+    static func syncPlaySetShuffleMode(_ body: JellyfinAPI.SetShuffleModeRequestDto) -> Request<Void> {
         Request(method: "POST", url: "/SyncPlay/SetShuffleMode", body: body, id: "SyncPlaySetShuffleMode")
     }
 }

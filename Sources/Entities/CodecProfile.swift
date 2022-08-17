@@ -15,7 +15,13 @@ public struct CodecProfile: Codable {
     public var container: String?
     public var type: CodecType?
 
-    public init(applyConditions: [ProfileCondition]? = nil, codec: String? = nil, conditions: [ProfileCondition]? = nil, container: String? = nil, type: CodecType? = nil) {
+    public init(
+        applyConditions: [ProfileCondition]? = nil,
+        codec: String? = nil,
+        conditions: [ProfileCondition]? = nil,
+        container: String? = nil,
+        type: CodecType? = nil
+    ) {
         self.applyConditions = applyConditions
         self.codec = codec
         self.conditions = conditions

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets available countries.
-    static public var getSchedulesDirectCountries: Request<String> {
+    static var getSchedulesDirectCountries: Request<String> {
         Request(method: "GET", url: "/LiveTv/ListingProviders/SchedulesDirect/Countries", id: "GetSchedulesDirectCountries")
     }
 }

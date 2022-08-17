@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Cancels a live tv timer.
-    static public func cancelTimer(timerID: String) -> Request<Void> {
+    static func cancelTimer(timerID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/LiveTv/Timers/\(timerID)", id: "CancelTimer")
     }
 }

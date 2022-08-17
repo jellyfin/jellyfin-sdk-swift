@@ -10,14 +10,14 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets live tv recording series.
     @available(*, deprecated, message: "Deprecated")
-    static public func getRecordingsSeries(parameters: GetRecordingsSeriesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getRecordingsSeries(parameters: GetRecordingsSeriesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Recordings/Series", query: parameters?.asQuery, id: "GetRecordingsSeries")
     }
 
-    public struct GetRecordingsSeriesParameters {
+    struct GetRecordingsSeriesParameters {
         public var channelID: String?
         public var userID: String?
         public var groupID: String?
@@ -35,7 +35,22 @@ extension Paths {
 
         public typealias Status = JellyfinAPI.RecordingStatus
 
-        public init(channelID: String? = nil, userID: String? = nil, groupID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, status: Status? = nil, isInProgress: Bool? = nil, seriesTimerID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
+        public init(
+            channelID: String? = nil,
+            userID: String? = nil,
+            groupID: String? = nil,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            status: Status? = nil,
+            isInProgress: Bool? = nil,
+            seriesTimerID: String? = nil,
+            enableImages: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            enableUserData: Bool? = nil,
+            enableTotalRecordCount: Bool? = nil
+        ) {
             self.channelID = channelID
             self.userID = userID
             self.groupID = groupID

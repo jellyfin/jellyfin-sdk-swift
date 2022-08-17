@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Completes the startup wizard.
-    static public var completeWizard: Request<Void> {
+    static var completeWizard: Request<Void> {
         Request(method: "POST", url: "/Startup/Complete", id: "CompleteWizard")
     }
 }

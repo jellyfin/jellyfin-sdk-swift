@@ -10,13 +10,16 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the original items of a playlist.
-    static public func getPlaylistItems(playlistID: String, parameters: GetPlaylistItemsParameters) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getPlaylistItems(
+        playlistID: String,
+        parameters: GetPlaylistItemsParameters
+    ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Playlists/\(playlistID)/Items", query: parameters.asQuery, id: "GetPlaylistItems")
     }
 
-    public struct GetPlaylistItemsParameters {
+    struct GetPlaylistItemsParameters {
         public var userID: String
         public var startIndex: Int32?
         public var limit: Int32?
@@ -26,7 +29,16 @@ extension Paths {
         public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
 
-        public init(userID: String, startIndex: Int32? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil) {
+        public init(
+            userID: String,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            enableImages: Bool? = nil,
+            enableUserData: Bool? = nil,
+            imageTypeLimit: Int32? = nil,
+            enableImageTypes: [JellyfinAPI.ImageType]? = nil
+        ) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

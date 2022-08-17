@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets a live tv channel stream.
-    static public func getLiveStreamFile(streamID: String, container: String) -> Request<Data> {
+    static func getLiveStreamFile(streamID: String, container: String) -> Request<Data> {
         Request(method: "GET", url: "/LiveTv/LiveStreamFiles/\(streamID)/stream.\(container)", id: "GetLiveStreamFile")
     }
 }

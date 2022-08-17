@@ -33,7 +33,19 @@ public struct UserItemDataDto: Codable {
     /// Gets or sets the unplayed item count.
     public var unplayedItemCount: Int32?
 
-    public init(isFavorite: Bool? = nil, itemID: String? = nil, key: String? = nil, lastPlayedDate: Date? = nil, isLikes: Bool? = nil, playCount: Int32? = nil, playbackPositionTicks: Int64? = nil, isPlayed: Bool? = nil, playedPercentage: Double? = nil, rating: Double? = nil, unplayedItemCount: Int32? = nil) {
+    public init(
+        isFavorite: Bool? = nil,
+        itemID: String? = nil,
+        key: String? = nil,
+        lastPlayedDate: Date? = nil,
+        isLikes: Bool? = nil,
+        playCount: Int32? = nil,
+        playbackPositionTicks: Int64? = nil,
+        isPlayed: Bool? = nil,
+        playedPercentage: Double? = nil,
+        rating: Double? = nil,
+        unplayedItemCount: Int32? = nil
+    ) {
         self.isFavorite = isFavorite
         self.itemID = itemID
         self.key = key

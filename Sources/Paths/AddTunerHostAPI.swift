@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Adds a tuner host.
-    static public func addTunerHost(_ body: JellyfinAPI.TunerHostInfo? = nil) -> Request<JellyfinAPI.TunerHostInfo> {
+    static func addTunerHost(_ body: JellyfinAPI.TunerHostInfo? = nil) -> Request<JellyfinAPI.TunerHostInfo> {
         Request(method: "POST", url: "/LiveTv/TunerHosts", body: body, id: "AddTunerHost")
     }
 }

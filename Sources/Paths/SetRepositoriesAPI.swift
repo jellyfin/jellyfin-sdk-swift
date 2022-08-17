@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Sets the enabled and existing package repositories.
-    static public func setRepositories(_ body: [JellyfinAPI.RepositoryInfo]) -> Request<Void> {
+    static func setRepositories(_ body: [JellyfinAPI.RepositoryInfo]) -> Request<Void> {
         Request(method: "POST", url: "/Repositories", body: body, id: "SetRepositories")
     }
 }

@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Renames a virtual folder.
-    static public func renameVirtualFolder(parameters: RenameVirtualFolderParameters? = nil) -> Request<Void> {
+    static func renameVirtualFolder(parameters: RenameVirtualFolderParameters? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Library/VirtualFolders/Name", query: parameters?.asQuery, id: "RenameVirtualFolder")
     }
 
-    public struct RenameVirtualFolderParameters {
+    struct RenameVirtualFolderParameters {
         public var name: String?
         public var newName: String?
         public var isRefreshLibrary: Bool?

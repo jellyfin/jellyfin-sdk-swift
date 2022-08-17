@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets information about the request endpoint.
-    static public var getEndpointInfo: Request<JellyfinAPI.EndPointInfo> {
+    static var getEndpointInfo: Request<JellyfinAPI.EndPointInfo> {
         Request(method: "GET", url: "/System/Endpoint", id: "GetEndpointInfo")
     }
 }

@@ -63,7 +63,37 @@ public struct SearchHint: Codable, Identifiable {
     /// Gets or sets the type.
     public var type: String?
 
-    public init(album: String? = nil, albumArtist: String? = nil, albumID: String? = nil, artists: [String]? = nil, backdropImageItemID: String? = nil, backdropImageTag: String? = nil, channelID: String? = nil, channelName: String? = nil, endDate: Date? = nil, episodeCount: Int32? = nil, id: String? = nil, indexNumber: Int32? = nil, isFolder: Bool? = nil, itemID: String? = nil, matchedTerm: String? = nil, mediaType: String? = nil, name: String? = nil, parentIndexNumber: Int32? = nil, primaryImageAspectRatio: Double? = nil, primaryImageTag: String? = nil, productionYear: Int32? = nil, runTimeTicks: Int64? = nil, series: String? = nil, songCount: Int32? = nil, startDate: Date? = nil, status: String? = nil, thumbImageItemID: String? = nil, thumbImageTag: String? = nil, type: String? = nil) {
+    public init(
+        album: String? = nil,
+        albumArtist: String? = nil,
+        albumID: String? = nil,
+        artists: [String]? = nil,
+        backdropImageItemID: String? = nil,
+        backdropImageTag: String? = nil,
+        channelID: String? = nil,
+        channelName: String? = nil,
+        endDate: Date? = nil,
+        episodeCount: Int32? = nil,
+        id: String? = nil,
+        indexNumber: Int32? = nil,
+        isFolder: Bool? = nil,
+        itemID: String? = nil,
+        matchedTerm: String? = nil,
+        mediaType: String? = nil,
+        name: String? = nil,
+        parentIndexNumber: Int32? = nil,
+        primaryImageAspectRatio: Double? = nil,
+        primaryImageTag: String? = nil,
+        productionYear: Int32? = nil,
+        runTimeTicks: Int64? = nil,
+        series: String? = nil,
+        songCount: Int32? = nil,
+        startDate: Date? = nil,
+        status: String? = nil,
+        thumbImageItemID: String? = nil,
+        thumbImageTag: String? = nil,
+        type: String? = nil
+    ) {
         self.album = album
         self.albumArtist = albumArtist
         self.albumID = albumID

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets available remote image providers for an item.
-    static public func getRemoteImageProviders(itemID: String) -> Request<[JellyfinAPI.ImageProviderInfo]> {
+    static func getRemoteImageProviders(itemID: String) -> Request<[JellyfinAPI.ImageProviderInfo]> {
         Request(method: "GET", url: "/Items/\(itemID)/RemoteImages/Providers", id: "GetRemoteImageProviders")
     }
 }

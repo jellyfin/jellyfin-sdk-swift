@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Deletes a profile.
-    static public func deleteProfile(profileID: String) -> Request<Void> {
+    static func deleteProfile(profileID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/Dlna/Profiles/\(profileID)", id: "DeleteProfile")
     }
 }

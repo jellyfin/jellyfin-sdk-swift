@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets all parents of an item.
-    static public func getAncestors(itemID: String, userID: String? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
+    public static func getAncestors(itemID: String, userID: String? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
         Request(method: "GET", url: "/Items/\(itemID)/Ancestors", query: makeGetAncestorsQuery(userID), id: "GetAncestors")
     }
 

@@ -12,8 +12,13 @@ import URLQueryEncoder
 
 extension Paths {
     /// Updates the index for an item image.
-    static public func updateItemImageIndex(itemID: String, imageType: String, imageIndex: Int, newIndex: Int32) -> Request<Void> {
-        Request(method: "POST", url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/Index", query: makeUpdateItemImageIndexQuery(newIndex), id: "UpdateItemImageIndex")
+    public static func updateItemImageIndex(itemID: String, imageType: String, imageIndex: Int, newIndex: Int32) -> Request<Void> {
+        Request(
+            method: "POST",
+            url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/Index",
+            query: makeUpdateItemImageIndexQuery(newIndex),
+            id: "UpdateItemImageIndex"
+        )
     }
 
     private static func makeUpdateItemImageIndexQuery(_ newIndex: Int32) -> [(String, String?)] {

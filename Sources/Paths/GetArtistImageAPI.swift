@@ -10,13 +10,18 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get artist image by name.
-    static public func getArtistImage(name: String, imageType: String, imageIndex: Int, parameters: GetArtistImageParameters? = nil) -> Request<Data> {
+    static func getArtistImage(
+        name: String,
+        imageType: String,
+        imageIndex: Int,
+        parameters: GetArtistImageParameters? = nil
+    ) -> Request<Data> {
         Request(method: "GET", url: "/Artists/\(name)/Images/\(imageType)/\(imageIndex)", query: parameters?.asQuery, id: "GetArtistImage")
     }
 
-    public struct GetArtistImageParameters {
+    struct GetArtistImageParameters {
         public var tag: String?
         public var format: Format?
         public var maxWidth: Int32?
@@ -36,7 +41,24 @@ extension Paths {
 
         public typealias Format = JellyfinAPI.ImageFormat
 
-        public init(tag: String? = nil, format: Format? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, percentPlayed: Double? = nil, unplayedCount: Int32? = nil, width: Int32? = nil, height: Int32? = nil, quality: Int32? = nil, fillWidth: Int32? = nil, fillHeight: Int32? = nil, isCropWhitespace: Bool? = nil, isAddPlayedIndicator: Bool? = nil, blur: Int32? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) {
+        public init(
+            tag: String? = nil,
+            format: Format? = nil,
+            maxWidth: Int32? = nil,
+            maxHeight: Int32? = nil,
+            percentPlayed: Double? = nil,
+            unplayedCount: Int32? = nil,
+            width: Int32? = nil,
+            height: Int32? = nil,
+            quality: Int32? = nil,
+            fillWidth: Int32? = nil,
+            fillHeight: Int32? = nil,
+            isCropWhitespace: Bool? = nil,
+            isAddPlayedIndicator: Bool? = nil,
+            blur: Int32? = nil,
+            backgroundColor: String? = nil,
+            foregroundLayer: String? = nil
+        ) {
             self.tag = tag
             self.format = format
             self.maxWidth = maxWidth

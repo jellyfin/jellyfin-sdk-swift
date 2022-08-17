@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Pings the system.
-    static public var getPingSystem: Request<String> {
+    static var getPingSystem: Request<String> {
         Request(method: "GET", url: "/System/Ping", id: "GetPingSystem")
     }
 }

@@ -19,7 +19,12 @@ public struct ChannelMappingOptionsDto: Codable {
     /// Gets or sets list of tuner channels.
     public var tunerChannels: [TunerChannelMapping]?
 
-    public init(mappings: [NameValuePair]? = nil, providerChannels: [NameIDPair]? = nil, providerName: String? = nil, tunerChannels: [TunerChannelMapping]? = nil) {
+    public init(
+        mappings: [NameValuePair]? = nil,
+        providerChannels: [NameIDPair]? = nil,
+        providerName: String? = nil,
+        tunerChannels: [TunerChannelMapping]? = nil
+    ) {
         self.mappings = mappings
         self.providerChannels = providerChannels
         self.providerName = providerName

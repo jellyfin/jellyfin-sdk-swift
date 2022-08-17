@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets all package repositories.
-    static public var getRepositories: Request<[JellyfinAPI.RepositoryInfo]> {
+    static var getRepositories: Request<[JellyfinAPI.RepositoryInfo]> {
         Request(method: "GET", url: "/Repositories", id: "GetRepositories")
     }
 }

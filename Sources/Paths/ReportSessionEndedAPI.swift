@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Reports that a session has ended.
-    static public var reportSessionEnded: Request<Void> {
+    static var reportSessionEnded: Request<Void> {
         Request(method: "POST", url: "/Sessions/Logout", id: "ReportSessionEnded")
     }
 }

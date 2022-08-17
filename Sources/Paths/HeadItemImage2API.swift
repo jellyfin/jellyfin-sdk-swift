@@ -10,13 +10,29 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the item's image.
-    static public func headItemImage2(itemID: String, imageType: String, maxWidth: Int, maxHeight: Int, tag: String, format: String, percentPlayed: String, unplayedCount: Int, imageIndex: Int, parameters: HeadItemImage2Parameters? = nil) -> Request<Data> {
-        Request(method: "HEAD", url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/\(tag)/\(format)/\(maxWidth)/\(maxHeight)/\(percentPlayed)/\(unplayedCount)", query: parameters?.asQuery, id: "HeadItemImage2")
+    static func headItemImage2(
+        itemID: String,
+        imageType: String,
+        maxWidth: Int,
+        maxHeight: Int,
+        tag: String,
+        format: String,
+        percentPlayed: String,
+        unplayedCount: Int,
+        imageIndex: Int,
+        parameters: HeadItemImage2Parameters? = nil
+    ) -> Request<Data> {
+        Request(
+            method: "HEAD",
+            url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/\(tag)/\(format)/\(maxWidth)/\(maxHeight)/\(percentPlayed)/\(unplayedCount)",
+            query: parameters?.asQuery,
+            id: "HeadItemImage2"
+        )
     }
 
-    public struct HeadItemImage2Parameters {
+    struct HeadItemImage2Parameters {
         public var width: Int32?
         public var height: Int32?
         public var quality: Int32?
@@ -28,7 +44,18 @@ extension Paths {
         public var backgroundColor: String?
         public var foregroundLayer: String?
 
-        public init(width: Int32? = nil, height: Int32? = nil, quality: Int32? = nil, fillWidth: Int32? = nil, fillHeight: Int32? = nil, isCropWhitespace: Bool? = nil, isAddPlayedIndicator: Bool? = nil, blur: Int32? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) {
+        public init(
+            width: Int32? = nil,
+            height: Int32? = nil,
+            quality: Int32? = nil,
+            fillWidth: Int32? = nil,
+            fillHeight: Int32? = nil,
+            isCropWhitespace: Bool? = nil,
+            isAddPlayedIndicator: Bool? = nil,
+            blur: Int32? = nil,
+            backgroundColor: String? = nil,
+            foregroundLayer: String? = nil
+        ) {
             self.width = width
             self.height = height
             self.quality = quality

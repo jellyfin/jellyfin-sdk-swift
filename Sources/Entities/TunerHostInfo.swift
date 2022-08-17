@@ -21,7 +21,19 @@ public struct TunerHostInfo: Codable, Identifiable {
     public var url: String?
     public var userAgent: String?
 
-    public init(allowHWTranscoding: Bool? = nil, deviceID: String? = nil, enableStreamLooping: Bool? = nil, friendlyName: String? = nil, id: String? = nil, isImportFavoritesOnly: Bool? = nil, source: String? = nil, tunerCount: Int32? = nil, type: String? = nil, url: String? = nil, userAgent: String? = nil) {
+    public init(
+        allowHWTranscoding: Bool? = nil,
+        deviceID: String? = nil,
+        enableStreamLooping: Bool? = nil,
+        friendlyName: String? = nil,
+        id: String? = nil,
+        isImportFavoritesOnly: Bool? = nil,
+        source: String? = nil,
+        tunerCount: Int32? = nil,
+        type: String? = nil,
+        url: String? = nil,
+        userAgent: String? = nil
+    ) {
         self.allowHWTranscoding = allowHWTranscoding
         self.deviceID = deviceID
         self.enableStreamLooping = enableStreamLooping

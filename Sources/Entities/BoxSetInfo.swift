@@ -28,7 +28,19 @@ public struct BoxSetInfo: Codable {
     /// Gets or sets the year.
     public var year: Int32?
 
-    public init(indexNumber: Int32? = nil, isAutomated: Bool? = nil, metadataCountryCode: String? = nil, metadataLanguage: String? = nil, name: String? = nil, originalTitle: String? = nil, parentIndexNumber: Int32? = nil, path: String? = nil, premiereDate: Date? = nil, providerIDs: [String: String]? = nil, year: Int32? = nil) {
+    public init(
+        indexNumber: Int32? = nil,
+        isAutomated: Bool? = nil,
+        metadataCountryCode: String? = nil,
+        metadataLanguage: String? = nil,
+        name: String? = nil,
+        originalTitle: String? = nil,
+        parentIndexNumber: Int32? = nil,
+        path: String? = nil,
+        premiereDate: Date? = nil,
+        providerIDs: [String: String]? = nil,
+        year: Int32? = nil
+    ) {
         self.indexNumber = indexNumber
         self.isAutomated = isAutomated
         self.metadataCountryCode = metadataCountryCode

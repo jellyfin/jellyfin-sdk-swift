@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets latest channel items.
-    static public func getLatestChannelItems(parameters: GetLatestChannelItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getLatestChannelItems(parameters: GetLatestChannelItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Channels/Items/Latest", query: parameters?.asQuery, id: "GetLatestChannelItems")
     }
 
-    public struct GetLatestChannelItemsParameters {
+    struct GetLatestChannelItemsParameters {
         public var userID: String?
         public var startIndex: Int32?
         public var limit: Int32?
@@ -24,7 +24,14 @@ extension Paths {
         public var fields: [JellyfinAPI.ItemFields]?
         public var channelIDs: [String]?
 
-        public init(userID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, channelIDs: [String]? = nil) {
+        public init(
+            userID: String? = nil,
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            filters: [JellyfinAPI.ItemFilter]? = nil,
+            fields: [JellyfinAPI.ItemFields]? = nil,
+            channelIDs: [String]? = nil
+        ) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

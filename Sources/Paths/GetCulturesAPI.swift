@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets known cultures.
-    static public var getCultures: Request<[JellyfinAPI.CultureDto]> {
+    static var getCultures: Request<[JellyfinAPI.CultureDto]> {
         Request(method: "GET", url: "/Localization/Cultures", id: "GetCultures")
     }
 }

@@ -12,8 +12,13 @@ import URLQueryEncoder
 
 extension Paths {
     /// Removes items from a playlist.
-    static public func removeFromPlaylist(playlistID: String, entryIDs: [String]? = nil) -> Request<Void> {
-        Request(method: "DELETE", url: "/Playlists/\(playlistID)/Items", query: makeRemoveFromPlaylistQuery(entryIDs), id: "RemoveFromPlaylist")
+    public static func removeFromPlaylist(playlistID: String, entryIDs: [String]? = nil) -> Request<Void> {
+        Request(
+            method: "DELETE",
+            url: "/Playlists/\(playlistID)/Items",
+            query: makeRemoveFromPlaylistQuery(entryIDs),
+            id: "RemoveFromPlaylist"
+        )
     }
 
     private static func makeRemoveFromPlaylistQuery(_ entryIDs: [String]?) -> [(String, String?)] {

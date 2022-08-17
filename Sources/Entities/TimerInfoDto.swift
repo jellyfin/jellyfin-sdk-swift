@@ -63,7 +63,36 @@ public struct TimerInfoDto: Codable, Identifiable {
     public var status: RecordingStatus?
     public var type: String?
 
-    public init(channelID: String? = nil, channelName: String? = nil, channelPrimaryImageTag: String? = nil, endDate: Date? = nil, externalChannelID: String? = nil, externalID: String? = nil, externalProgramID: String? = nil, externalSeriesTimerID: String? = nil, id: String? = nil, isPostPaddingRequired: Bool? = nil, isPrePaddingRequired: Bool? = nil, keepUntil: KeepUntil? = nil, name: String? = nil, overview: String? = nil, parentBackdropImageTags: [String]? = nil, parentBackdropItemID: String? = nil, postPaddingSeconds: Int32? = nil, prePaddingSeconds: Int32? = nil, priority: Int32? = nil, programID: String? = nil, programInfo: BaseItemDto? = nil, runTimeTicks: Int64? = nil, seriesTimerID: String? = nil, serverID: String? = nil, serviceName: String? = nil, startDate: Date? = nil, status: RecordingStatus? = nil, type: String? = nil) {
+    public init(
+        channelID: String? = nil,
+        channelName: String? = nil,
+        channelPrimaryImageTag: String? = nil,
+        endDate: Date? = nil,
+        externalChannelID: String? = nil,
+        externalID: String? = nil,
+        externalProgramID: String? = nil,
+        externalSeriesTimerID: String? = nil,
+        id: String? = nil,
+        isPostPaddingRequired: Bool? = nil,
+        isPrePaddingRequired: Bool? = nil,
+        keepUntil: KeepUntil? = nil,
+        name: String? = nil,
+        overview: String? = nil,
+        parentBackdropImageTags: [String]? = nil,
+        parentBackdropItemID: String? = nil,
+        postPaddingSeconds: Int32? = nil,
+        prePaddingSeconds: Int32? = nil,
+        priority: Int32? = nil,
+        programID: String? = nil,
+        programInfo: BaseItemDto? = nil,
+        runTimeTicks: Int64? = nil,
+        seriesTimerID: String? = nil,
+        serverID: String? = nil,
+        serviceName: String? = nil,
+        startDate: Date? = nil,
+        status: RecordingStatus? = nil,
+        type: String? = nil
+    ) {
         self.channelID = channelID
         self.channelName = channelName
         self.channelPrimaryImageTag = channelPrimaryImageTag

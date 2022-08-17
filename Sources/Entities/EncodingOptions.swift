@@ -50,7 +50,46 @@ public struct EncodingOptions: Codable {
     public var vppTonemappingBrightness: Double?
     public var vppTonemappingContrast: Double?
 
-    public init(allowHevcEncoding: Bool? = nil, allowOnDemandMetadataBasedKeyframeExtractionForExtensions: [String]? = nil, isDeinterlaceDoubleRate: Bool? = nil, deinterlaceMethod: String? = nil, downMixAudioBoost: Double? = nil, enableDecodingColorDepth10Hevc: Bool? = nil, enableDecodingColorDepth10Vp9: Bool? = nil, enableEnhancedNvdecDecoder: Bool? = nil, enableFallbackFont: Bool? = nil, enableHardwareEncoding: Bool? = nil, enableIntelLowPowerH264HwEncoder: Bool? = nil, enableIntelLowPowerHevcHwEncoder: Bool? = nil, enableSubtitleExtraction: Bool? = nil, enableThrottling: Bool? = nil, enableTonemapping: Bool? = nil, enableVppTonemapping: Bool? = nil, encoderAppPath: String? = nil, encoderAppPathDisplay: String? = nil, encoderPreset: String? = nil, encodingThreadCount: Int32? = nil, fallbackFontPath: String? = nil, h264Crf: Int32? = nil, h265Crf: Int32? = nil, hardwareAccelerationType: String? = nil, hardwareDecodingCodecs: [String]? = nil, maxMuxingQueueSize: Int32? = nil, isPreferSystemNativeHwDecoder: Bool? = nil, throttleDelaySeconds: Int32? = nil, tonemappingAlgorithm: String? = nil, tonemappingDesat: Double? = nil, tonemappingParam: Double? = nil, tonemappingPeak: Double? = nil, tonemappingRange: String? = nil, tonemappingThreshold: Double? = nil, transcodingTempPath: String? = nil, vaapiDevice: String? = nil, vppTonemappingBrightness: Double? = nil, vppTonemappingContrast: Double? = nil) {
+    public init(
+        allowHevcEncoding: Bool? = nil,
+        allowOnDemandMetadataBasedKeyframeExtractionForExtensions: [String]? = nil,
+        isDeinterlaceDoubleRate: Bool? = nil,
+        deinterlaceMethod: String? = nil,
+        downMixAudioBoost: Double? = nil,
+        enableDecodingColorDepth10Hevc: Bool? = nil,
+        enableDecodingColorDepth10Vp9: Bool? = nil,
+        enableEnhancedNvdecDecoder: Bool? = nil,
+        enableFallbackFont: Bool? = nil,
+        enableHardwareEncoding: Bool? = nil,
+        enableIntelLowPowerH264HwEncoder: Bool? = nil,
+        enableIntelLowPowerHevcHwEncoder: Bool? = nil,
+        enableSubtitleExtraction: Bool? = nil,
+        enableThrottling: Bool? = nil,
+        enableTonemapping: Bool? = nil,
+        enableVppTonemapping: Bool? = nil,
+        encoderAppPath: String? = nil,
+        encoderAppPathDisplay: String? = nil,
+        encoderPreset: String? = nil,
+        encodingThreadCount: Int32? = nil,
+        fallbackFontPath: String? = nil,
+        h264Crf: Int32? = nil,
+        h265Crf: Int32? = nil,
+        hardwareAccelerationType: String? = nil,
+        hardwareDecodingCodecs: [String]? = nil,
+        maxMuxingQueueSize: Int32? = nil,
+        isPreferSystemNativeHwDecoder: Bool? = nil,
+        throttleDelaySeconds: Int32? = nil,
+        tonemappingAlgorithm: String? = nil,
+        tonemappingDesat: Double? = nil,
+        tonemappingParam: Double? = nil,
+        tonemappingPeak: Double? = nil,
+        tonemappingRange: String? = nil,
+        tonemappingThreshold: Double? = nil,
+        transcodingTempPath: String? = nil,
+        vaapiDevice: String? = nil,
+        vppTonemappingBrightness: Double? = nil,
+        vppTonemappingContrast: Double? = nil
+    ) {
         self.allowHevcEncoding = allowHevcEncoding
         self.allowOnDemandMetadataBasedKeyframeExtractionForExtensions = allowOnDemandMetadataBasedKeyframeExtractionForExtensions
         self.isDeinterlaceDoubleRate = isDeinterlaceDoubleRate
@@ -94,7 +133,10 @@ public struct EncodingOptions: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.allowHevcEncoding = try values.decodeIfPresent(Bool.self, forKey: "AllowHevcEncoding")
-        self.allowOnDemandMetadataBasedKeyframeExtractionForExtensions = try values.decodeIfPresent([String].self, forKey: "AllowOnDemandMetadataBasedKeyframeExtractionForExtensions")
+        self.allowOnDemandMetadataBasedKeyframeExtractionForExtensions = try values.decodeIfPresent(
+            [String].self,
+            forKey: "AllowOnDemandMetadataBasedKeyframeExtractionForExtensions"
+        )
         self.isDeinterlaceDoubleRate = try values.decodeIfPresent(Bool.self, forKey: "DeinterlaceDoubleRate")
         self.deinterlaceMethod = try values.decodeIfPresent(String.self, forKey: "DeinterlaceMethod")
         self.downMixAudioBoost = try values.decodeIfPresent(Double.self, forKey: "DownMixAudioBoost")
@@ -136,7 +178,10 @@ public struct EncodingOptions: Codable {
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(allowHevcEncoding, forKey: "AllowHevcEncoding")
-        try values.encodeIfPresent(allowOnDemandMetadataBasedKeyframeExtractionForExtensions, forKey: "AllowOnDemandMetadataBasedKeyframeExtractionForExtensions")
+        try values.encodeIfPresent(
+            allowOnDemandMetadataBasedKeyframeExtractionForExtensions,
+            forKey: "AllowOnDemandMetadataBasedKeyframeExtractionForExtensions"
+        )
         try values.encodeIfPresent(isDeinterlaceDoubleRate, forKey: "DeinterlaceDoubleRate")
         try values.encodeIfPresent(deinterlaceMethod, forKey: "DeinterlaceMethod")
         try values.encodeIfPresent(downMixAudioBoost, forKey: "DownMixAudioBoost")

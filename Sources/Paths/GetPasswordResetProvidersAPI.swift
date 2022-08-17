@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get all password reset providers.
-    static public var getPasswordResetProviders: Request<[JellyfinAPI.NameIDPair]> {
+    static var getPasswordResetProviders: Request<[JellyfinAPI.NameIDPair]> {
         Request(method: "GET", url: "/Auth/PasswordResetProviders", id: "GetPasswordResetProviders")
     }
 }

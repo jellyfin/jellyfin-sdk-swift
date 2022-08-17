@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Request to remove items from the playlist in SyncPlay group.
-    static public func syncPlayRemoveFromPlaylist(_ body: JellyfinAPI.RemoveFromPlaylistRequestDto) -> Request<Void> {
+    static func syncPlayRemoveFromPlaylist(_ body: JellyfinAPI.RemoveFromPlaylistRequestDto) -> Request<Void> {
         Request(method: "POST", url: "/SyncPlay/RemoveFromPlaylist", body: body, id: "SyncPlayRemoveFromPlaylist")
     }
 }

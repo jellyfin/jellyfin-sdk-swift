@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets a package by name or assembly GUID.
-    static public func getPackageInfo(name: String, assemblyGuid: String? = nil) -> Request<JellyfinAPI.PackageInfo> {
+    public static func getPackageInfo(name: String, assemblyGuid: String? = nil) -> Request<JellyfinAPI.PackageInfo> {
         Request(method: "GET", url: "/Packages/\(name)", query: makeGetPackageInfoQuery(assemblyGuid), id: "GetPackageInfo")
     }
 

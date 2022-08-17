@@ -12,8 +12,13 @@ import URLQueryEncoder
 
 extension Paths {
     /// Updates an item's content type.
-    static public func updateItemContentType(itemID: String, contentType: String? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Items/\(itemID)/ContentType", query: makeUpdateItemContentTypeQuery(contentType), id: "UpdateItemContentType")
+    public static func updateItemContentType(itemID: String, contentType: String? = nil) -> Request<Void> {
+        Request(
+            method: "POST",
+            url: "/Items/\(itemID)/ContentType",
+            query: makeUpdateItemContentTypeQuery(contentType),
+            id: "UpdateItemContentType"
+        )
     }
 
     private static func makeUpdateItemContentTypeQuery(_ contentType: String?) -> [(String, String?)] {

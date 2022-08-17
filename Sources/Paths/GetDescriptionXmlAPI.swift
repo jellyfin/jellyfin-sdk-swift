@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get Description Xml.
-    static public func getDescriptionXml(serverID: String) -> Request<String> {
+    static func getDescriptionXml(serverID: String) -> Request<String> {
         Request(method: "GET", url: "/Dlna/\(serverID)/description", id: "GetDescriptionXml")
     }
 }

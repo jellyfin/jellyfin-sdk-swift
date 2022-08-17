@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the search hint result.
-    static public func get(parameters: GetParameters) -> Request<JellyfinAPI.SearchHintResult> {
+    static func get(parameters: GetParameters) -> Request<JellyfinAPI.SearchHintResult> {
         Request(method: "GET", url: "/Search/Hints", query: parameters.asQuery, id: "Get")
     }
 
-    public struct GetParameters {
+    struct GetParameters {
         public var startIndex: Int32?
         public var limit: Int32?
         public var userID: String?
@@ -36,7 +36,26 @@ extension Paths {
         public var isIncludeStudios: Bool?
         public var isIncludeArtists: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, userID: String? = nil, searchTerm: String, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil, parentID: String? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isIncludePeople: Bool? = nil, isIncludeMedia: Bool? = nil, isIncludeGenres: Bool? = nil, isIncludeStudios: Bool? = nil, isIncludeArtists: Bool? = nil) {
+        public init(
+            startIndex: Int32? = nil,
+            limit: Int32? = nil,
+            userID: String? = nil,
+            searchTerm: String,
+            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            mediaTypes: [String]? = nil,
+            parentID: String? = nil,
+            isMovie: Bool? = nil,
+            isSeries: Bool? = nil,
+            isNews: Bool? = nil,
+            isKids: Bool? = nil,
+            isSports: Bool? = nil,
+            isIncludePeople: Bool? = nil,
+            isIncludeMedia: Bool? = nil,
+            isIncludeGenres: Bool? = nil,
+            isIncludeStudios: Bool? = nil,
+            isIncludeArtists: Bool? = nil
+        ) {
             self.startIndex = startIndex
             self.limit = limit
             self.userID = userID

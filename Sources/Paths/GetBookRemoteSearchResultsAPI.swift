@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get book remote search.
-    static public func getBookRemoteSearchResults(_ body: JellyfinAPI.BookInfoRemoteSearchQuery) -> Request<[JellyfinAPI.RemoteSearchResult]> {
+    static func getBookRemoteSearchResults(_ body: JellyfinAPI.BookInfoRemoteSearchQuery) -> Request<[JellyfinAPI.RemoteSearchResult]> {
         Request(method: "POST", url: "/Items/RemoteSearch/Book", body: body, id: "GetBookRemoteSearchResults")
     }
 }

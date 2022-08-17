@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets known countries.
-    static public var getCountries: Request<[JellyfinAPI.CountryInfo]> {
+    static var getCountries: Request<[JellyfinAPI.CountryInfo]> {
         Request(method: "GET", url: "/Localization/Countries", id: "GetCountries")
     }
 }
