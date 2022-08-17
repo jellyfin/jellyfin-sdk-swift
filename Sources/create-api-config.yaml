@@ -19,10 +19,6 @@ entities:
   sortPropertiesAlphabetically: true
   exclude:
   - BaseItemDto.CurrentProgram # removed due to circular references for struct conformance
-  - SessionInfo.LastActivityDate # removed due to ISO 8601 incompliance
-  - SessionInfo.LastPlaybackCheckIn # removed due to ISO 8601 incompliance
-  - UserDto.LastActivityDate # removed due to ISO 8601 incompliance
-  - UserDto.LastLoginDate # removed due to ISO 8601 incompliance
 paths:
   style: operations
   filenameTemplate: "%0API.swift"

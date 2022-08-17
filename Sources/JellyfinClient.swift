@@ -35,9 +35,18 @@ public final class JellyfinClient {
 
         self._apiClient = APIClient(baseURL: configuration.url) { configuration in
             configuration.sessionConfiguration = sessionConfiguration
-            configuration.decoder = JSONDecoder()
-            configuration.encoder = JSONEncoder()
             configuration.delegate = self
+            
+            let isoDateFormatter: DateFormatter = OpenISO8601DateFormatter()
+            
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(isoDateFormatter)
+            configuration.decoder = decoder
+            
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .formatted(isoDateFormatter)
+            encoder.outputFormatting = .prettyPrinted
+            configuration.encoder = encoder
         }
     }
 

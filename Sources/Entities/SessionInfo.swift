@@ -29,6 +29,10 @@ public struct SessionInfo: Codable, Identifiable {
     public var id: String?
     /// Gets a value indicating whether this instance is active.
     public var isActive: Bool?
+    /// Gets or sets the last activity date.
+    public var lastActivityDate: Date?
+    /// Gets or sets the last playback check in.
+    public var lastPlaybackCheckIn: Date?
     /// This is strictly used as a data transfer object from the api layer.
     /// 
     /// This holds information about a BaseItem in a format that is convenient for the client.
@@ -57,7 +61,7 @@ public struct SessionInfo: Codable, Identifiable {
     public var userName: String?
     public var userPrimaryImageTag: String?
 
-    public init(additionalUsers: [SessionUserInfo]? = nil, applicationVersion: String? = nil, capabilities: ClientCapabilities? = nil, client: String? = nil, deviceID: String? = nil, deviceName: String? = nil, deviceType: String? = nil, fullNowPlayingItem: BaseItem? = nil, hasCustomDeviceName: Bool? = nil, id: String? = nil, isActive: Bool? = nil, nowPlayingItem: BaseItemDto? = nil, nowPlayingQueue: [QueueItem]? = nil, nowPlayingQueueFullItems: [BaseItemDto]? = nil, nowViewingItem: BaseItemDto? = nil, playState: PlayerStateInfo? = nil, playableMediaTypes: [String]? = nil, playlistItemID: String? = nil, remoteEndPoint: String? = nil, serverID: String? = nil, supportedCommands: [GeneralCommandType]? = nil, isSupportsMediaControl: Bool? = nil, isSupportsRemoteControl: Bool? = nil, transcodingInfo: TranscodingInfo? = nil, userID: String? = nil, userName: String? = nil, userPrimaryImageTag: String? = nil) {
+    public init(additionalUsers: [SessionUserInfo]? = nil, applicationVersion: String? = nil, capabilities: ClientCapabilities? = nil, client: String? = nil, deviceID: String? = nil, deviceName: String? = nil, deviceType: String? = nil, fullNowPlayingItem: BaseItem? = nil, hasCustomDeviceName: Bool? = nil, id: String? = nil, isActive: Bool? = nil, lastActivityDate: Date? = nil, lastPlaybackCheckIn: Date? = nil, nowPlayingItem: BaseItemDto? = nil, nowPlayingQueue: [QueueItem]? = nil, nowPlayingQueueFullItems: [BaseItemDto]? = nil, nowViewingItem: BaseItemDto? = nil, playState: PlayerStateInfo? = nil, playableMediaTypes: [String]? = nil, playlistItemID: String? = nil, remoteEndPoint: String? = nil, serverID: String? = nil, supportedCommands: [GeneralCommandType]? = nil, isSupportsMediaControl: Bool? = nil, isSupportsRemoteControl: Bool? = nil, transcodingInfo: TranscodingInfo? = nil, userID: String? = nil, userName: String? = nil, userPrimaryImageTag: String? = nil) {
         self.additionalUsers = additionalUsers
         self.applicationVersion = applicationVersion
         self.capabilities = capabilities
@@ -69,6 +73,8 @@ public struct SessionInfo: Codable, Identifiable {
         self.hasCustomDeviceName = hasCustomDeviceName
         self.id = id
         self.isActive = isActive
+        self.lastActivityDate = lastActivityDate
+        self.lastPlaybackCheckIn = lastPlaybackCheckIn
         self.nowPlayingItem = nowPlayingItem
         self.nowPlayingQueue = nowPlayingQueue
         self.nowPlayingQueueFullItems = nowPlayingQueueFullItems
@@ -100,6 +106,8 @@ public struct SessionInfo: Codable, Identifiable {
         self.hasCustomDeviceName = try values.decodeIfPresent(Bool.self, forKey: "HasCustomDeviceName")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
+        self.lastActivityDate = try values.decodeIfPresent(Date.self, forKey: "LastActivityDate")
+        self.lastPlaybackCheckIn = try values.decodeIfPresent(Date.self, forKey: "LastPlaybackCheckIn")
         self.nowPlayingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowPlayingItem")
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
         self.nowPlayingQueueFullItems = try values.decodeIfPresent([BaseItemDto].self, forKey: "NowPlayingQueueFullItems")
@@ -131,6 +139,8 @@ public struct SessionInfo: Codable, Identifiable {
         try values.encodeIfPresent(hasCustomDeviceName, forKey: "HasCustomDeviceName")
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(isActive, forKey: "IsActive")
+        try values.encodeIfPresent(lastActivityDate, forKey: "LastActivityDate")
+        try values.encodeIfPresent(lastPlaybackCheckIn, forKey: "LastPlaybackCheckIn")
         try values.encodeIfPresent(nowPlayingItem, forKey: "NowPlayingItem")
         try values.encodeIfPresent(nowPlayingQueue, forKey: "NowPlayingQueue")
         try values.encodeIfPresent(nowPlayingQueueFullItems, forKey: "NowPlayingQueueFullItems")
