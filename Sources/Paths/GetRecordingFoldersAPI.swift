@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets recording folders.
-    public static func getRecordingFolders(userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getRecordingFolders(userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Recordings/Folders", query: makeGetRecordingFoldersQuery(userID), id: "GetRecordingFolders")
     }
 

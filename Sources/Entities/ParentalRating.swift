@@ -13,9 +13,9 @@ public struct ParentalRating: Codable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the value.
-    public var value: Int?
+    public var value: Int32?
 
-    public init(name: String? = nil, value: Int? = nil) {
+    public init(name: String? = nil, value: Int32? = nil) {
         self.name = name
         self.value = value
     }

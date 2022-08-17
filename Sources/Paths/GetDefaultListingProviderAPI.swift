@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets default listings provider info.
-    static var getDefaultListingProvider: Request<JellyfinAPI.ListingsProviderInfo> {
+    static public var getDefaultListingProvider: Request<JellyfinAPI.ListingsProviderInfo> {
         Request(method: "GET", url: "/LiveTv/ListingProviders/Default", id: "GetDefaultListingProvider")
     }
 }

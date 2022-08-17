@@ -13,9 +13,9 @@ public struct NotificationResultDto: Codable {
     /// Gets or sets the current page of notifications.
     public var notifications: [NotificationDto]?
     /// Gets or sets the total number of notifications.
-    public var totalRecordCount: Int?
+    public var totalRecordCount: Int32?
 
-    public init(notifications: [NotificationDto]? = nil, totalRecordCount: Int? = nil) {
+    public init(notifications: [NotificationDto]? = nil, totalRecordCount: Int32? = nil) {
         self.notifications = notifications
         self.totalRecordCount = totalRecordCount
     }

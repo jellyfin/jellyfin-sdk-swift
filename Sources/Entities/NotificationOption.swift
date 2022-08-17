@@ -21,14 +21,7 @@ public struct NotificationOption: Codable {
     public var sendToUsers: [String]?
     public var type: String?
 
-    public init(
-        disabledMonitorUsers: [String]? = nil,
-        disabledServices: [String]? = nil,
-        isEnabled: Bool? = nil,
-        sendToUserMode: SendToUserType? = nil,
-        sendToUsers: [String]? = nil,
-        type: String? = nil
-    ) {
+    public init(disabledMonitorUsers: [String]? = nil, disabledServices: [String]? = nil, isEnabled: Bool? = nil, sendToUserMode: SendToUserType? = nil, sendToUsers: [String]? = nil, type: String? = nil) {
         self.disabledMonitorUsers = disabledMonitorUsers
         self.disabledServices = disabledServices
         self.isEnabled = isEnabled

@@ -18,15 +18,7 @@ public struct MetadataOptions: Codable {
     public var localMetadataReaderOrder: [String]?
     public var metadataFetcherOrder: [String]?
 
-    public init(
-        disabledImageFetchers: [String]? = nil,
-        disabledMetadataFetchers: [String]? = nil,
-        disabledMetadataSavers: [String]? = nil,
-        imageFetcherOrder: [String]? = nil,
-        itemType: String? = nil,
-        localMetadataReaderOrder: [String]? = nil,
-        metadataFetcherOrder: [String]? = nil
-    ) {
+    public init(disabledImageFetchers: [String]? = nil, disabledMetadataFetchers: [String]? = nil, disabledMetadataSavers: [String]? = nil, imageFetcherOrder: [String]? = nil, itemType: String? = nil, localMetadataReaderOrder: [String]? = nil, metadataFetcherOrder: [String]? = nil) {
         self.disabledImageFetchers = disabledImageFetchers
         self.disabledMetadataFetchers = disabledMetadataFetchers
         self.disabledMetadataSavers = disabledMetadataSavers

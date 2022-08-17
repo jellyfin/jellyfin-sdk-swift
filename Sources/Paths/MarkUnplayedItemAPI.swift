@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Marks an item as unplayed for user.
-    static func markUnplayedItem(userID: String, itemID: String) -> Request<JellyfinAPI.UserItemDataDto> {
+    static public func markUnplayedItem(userID: String, itemID: String) -> Request<JellyfinAPI.UserItemDataDto> {
         Request(method: "DELETE", url: "/Users/\(userID)/PlayedItems/\(itemID)", id: "MarkUnplayedItem")
     }
 }

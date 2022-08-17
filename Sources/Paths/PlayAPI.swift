@@ -10,33 +10,25 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Instructs a session to play an item.
-    static func play(sessionID: String, parameters: PlayParameters) -> Request<Void> {
+    static public func play(sessionID: String, parameters: PlayParameters) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/\(sessionID)/Playing", query: parameters.asQuery, id: "Play")
     }
 
-    struct PlayParameters {
+    public struct PlayParameters {
         /// Enum PlayCommand.
         public var playCommand: PlayCommand
         public var itemIDs: [UUID]
-        public var startPositionTicks: Int?
+        public var startPositionTicks: Int64?
         public var mediaSourceID: String?
-        public var audioStreamIndex: Int?
-        public var subtitleStreamIndex: Int?
-        public var startIndex: Int?
+        public var audioStreamIndex: Int32?
+        public var subtitleStreamIndex: Int32?
+        public var startIndex: Int32?
 
         public typealias PlayCommand = JellyfinAPI.PlayCommand
 
-        public init(
-            playCommand: PlayCommand,
-            itemIDs: [UUID],
-            startPositionTicks: Int? = nil,
-            mediaSourceID: String? = nil,
-            audioStreamIndex: Int? = nil,
-            subtitleStreamIndex: Int? = nil,
-            startIndex: Int? = nil
-        ) {
+        public init(playCommand: PlayCommand, itemIDs: [UUID], startPositionTicks: Int64? = nil, mediaSourceID: String? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, startIndex: Int32? = nil) {
             self.playCommand = playCommand
             self.itemIDs = itemIDs
             self.startPositionTicks = startPositionTicks

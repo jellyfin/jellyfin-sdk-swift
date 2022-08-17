@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Creates a user.
-    static func createUserByName(_ body: JellyfinAPI.CreateUserByName) -> Request<JellyfinAPI.UserDto> {
+    static public func createUserByName(_ body: JellyfinAPI.CreateUserByName) -> Request<JellyfinAPI.UserDto> {
         Request(method: "POST", url: "/Users/New", body: body, id: "CreateUserByName")
     }
 }

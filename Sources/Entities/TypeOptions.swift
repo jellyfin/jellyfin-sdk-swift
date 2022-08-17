@@ -16,14 +16,7 @@ public struct TypeOptions: Codable {
     public var metadataFetchers: [String]?
     public var type: String?
 
-    public init(
-        imageFetcherOrder: [String]? = nil,
-        imageFetchers: [String]? = nil,
-        imageOptions: [ImageOption]? = nil,
-        metadataFetcherOrder: [String]? = nil,
-        metadataFetchers: [String]? = nil,
-        type: String? = nil
-    ) {
+    public init(imageFetcherOrder: [String]? = nil, imageFetchers: [String]? = nil, imageOptions: [ImageOption]? = nil, metadataFetcherOrder: [String]? = nil, metadataFetchers: [String]? = nil, type: String? = nil) {
         self.imageFetcherOrder = imageFetcherOrder
         self.imageFetchers = imageFetchers
         self.imageOptions = imageOptions

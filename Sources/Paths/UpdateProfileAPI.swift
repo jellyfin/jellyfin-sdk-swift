@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Updates a profile.
-    static func updateProfile(profileID: String, _ body: JellyfinAPI.DeviceProfile? = nil) -> Request<Void> {
+    static public func updateProfile(profileID: String, _ body: JellyfinAPI.DeviceProfile? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Dlna/Profiles/\(profileID)", body: body, id: "UpdateProfile")
     }
 }

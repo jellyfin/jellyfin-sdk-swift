@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Request to set repeat mode in SyncPlay group.
-    static func syncPlaySetRepeatMode(_ body: JellyfinAPI.SetRepeatModeRequestDto) -> Request<Void> {
+    static public func syncPlaySetRepeatMode(_ body: JellyfinAPI.SetRepeatModeRequestDto) -> Request<Void> {
         Request(method: "POST", url: "/SyncPlay/SetRepeatMode", body: body, id: "SyncPlaySetRepeatMode")
     }
 }

@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Creates a new collection.
-    static func createCollection(parameters: CreateCollectionParameters? = nil) -> Request<JellyfinAPI.CollectionCreationResult> {
+    static public func createCollection(parameters: CreateCollectionParameters? = nil) -> Request<JellyfinAPI.CollectionCreationResult> {
         Request(method: "POST", url: "/Collections", query: parameters?.asQuery, id: "CreateCollection")
     }
 
-    struct CreateCollectionParameters {
+    public struct CreateCollectionParameters {
         public var name: String?
         public var ids: [String]?
         public var parentID: UUID?

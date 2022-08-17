@@ -10,21 +10,21 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a list of next up episodes.
-    static func getNextUp(parameters: GetNextUpParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getNextUp(parameters: GetNextUpParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Shows/NextUp", query: parameters?.asQuery, id: "GetNextUp")
     }
 
-    struct GetNextUpParameters {
+    public struct GetNextUpParameters {
         public var userID: UUID?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var fields: [JellyfinAPI.ItemFields]?
         public var seriesID: String?
         public var parentID: UUID?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
         public var nextUpDateCutoff: Date?
@@ -32,22 +32,7 @@ public extension Paths {
         public var isDisableFirstEpisode: Bool?
         public var enableRewatching: Bool?
 
-        public init(
-            userID: UUID? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            seriesID: String? = nil,
-            parentID: UUID? = nil,
-            enableImages: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            enableUserData: Bool? = nil,
-            nextUpDateCutoff: Date? = nil,
-            enableTotalRecordCount: Bool? = nil,
-            isDisableFirstEpisode: Bool? = nil,
-            enableRewatching: Bool? = nil
-        ) {
+        public init(userID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, seriesID: String? = nil, parentID: UUID? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, nextUpDateCutoff: Date? = nil, enableTotalRecordCount: Bool? = nil, isDisableFirstEpisode: Bool? = nil, enableRewatching: Bool? = nil) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

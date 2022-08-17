@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get guid info.
-    static var getGuideInfo: Request<JellyfinAPI.GuideInfo> {
+    static public var getGuideInfo: Request<JellyfinAPI.GuideInfo> {
         Request(method: "GET", url: "/LiveTv/GuideInfo", id: "GetGuideInfo")
     }
 }

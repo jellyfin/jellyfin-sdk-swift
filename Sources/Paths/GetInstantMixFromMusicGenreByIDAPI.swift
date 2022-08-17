@@ -10,33 +10,23 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Creates an instant playlist based on a given genre.
-    static func getInstantMixFromMusicGenreByID(parameters: GetInstantMixFromMusicGenreByIDParameters)
-    -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getInstantMixFromMusicGenreByID(parameters: GetInstantMixFromMusicGenreByIDParameters) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/MusicGenres/InstantMix", query: parameters.asQuery, id: "GetInstantMixFromMusicGenreById")
     }
 
-    struct GetInstantMixFromMusicGenreByIDParameters {
+    public struct GetInstantMixFromMusicGenreByIDParameters {
         public var id: UUID
         public var userID: UUID?
-        public var limit: Int?
+        public var limit: Int32?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableImages: Bool?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
 
-        public init(
-            id: UUID,
-            userID: UUID? = nil,
-            limit: Int? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            enableImages: Bool? = nil,
-            enableUserData: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil
-        ) {
+        public init(id: UUID, userID: UUID? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableImages: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil) {
             self.id = id
             self.userID = userID
             self.limit = limit

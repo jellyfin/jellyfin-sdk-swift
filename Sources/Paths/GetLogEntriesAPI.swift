@@ -10,19 +10,19 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets activity log entries.
-    static func getLogEntries(parameters: GetLogEntriesParameters? = nil) -> Request<JellyfinAPI.ActivityLogEntryQueryResult> {
+    static public func getLogEntries(parameters: GetLogEntriesParameters? = nil) -> Request<JellyfinAPI.ActivityLogEntryQueryResult> {
         Request(method: "GET", url: "/System/ActivityLog/Entries", query: parameters?.asQuery, id: "GetLogEntries")
     }
 
-    struct GetLogEntriesParameters {
-        public var startIndex: Int?
-        public var limit: Int?
+    public struct GetLogEntriesParameters {
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var minDate: Date?
         public var hasUserID: Bool?
 
-        public init(startIndex: Int? = nil, limit: Int? = nil, minDate: Date? = nil, hasUserID: Bool? = nil) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, minDate: Date? = nil, hasUserID: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.minDate = minDate

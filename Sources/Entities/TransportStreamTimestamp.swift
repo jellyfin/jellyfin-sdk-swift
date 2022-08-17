@@ -9,7 +9,7 @@
 import Foundation
 
 public enum TransportStreamTimestamp: String, Codable, CaseIterable {
-    case none = "None"
+    case `none` = "None"
     case zero = "Zero"
     case valid = "Valid"
 }

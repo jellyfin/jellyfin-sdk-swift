@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get task by id.
-    static func getTask(taskID: String) -> Request<JellyfinAPI.TaskInfo> {
+    static public func getTask(taskID: String) -> Request<JellyfinAPI.TaskInfo> {
         Request(method: "GET", url: "/ScheduledTasks/\(taskID)", id: "GetTask")
     }
 }

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Request pause in SyncPlay group.
-    static var syncPlayPause: Request<Void> {
+    static public var syncPlayPause: Request<Void> {
         Request(method: "POST", url: "/SyncPlay/Pause", id: "SyncPlayPause")
     }
 }

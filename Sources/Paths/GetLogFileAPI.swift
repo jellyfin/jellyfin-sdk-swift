@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a log file.
-    static func getLogFile(name: String) -> Request<String> {
+    static public func getLogFile(name: String) -> Request<String> {
         Request(method: "GET", url: "/System/Logs/Log", query: [("name", name)], id: "GetLogFile")
     }
 }

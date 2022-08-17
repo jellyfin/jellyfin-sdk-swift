@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets the TMDb image configuration options.
-    static var tmdbClientConfiguration: Request<JellyfinAPI.ConfigImageTypes> {
+    static public var tmdbClientConfiguration: Request<JellyfinAPI.ConfigImageTypes> {
         Request(method: "GET", url: "/Tmdb/ClientConfiguration", id: "TmdbClientConfiguration")
     }
 }

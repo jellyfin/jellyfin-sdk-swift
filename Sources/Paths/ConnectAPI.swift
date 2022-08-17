@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Attempts to retrieve authentication information.
-    static func connect(secret: String) -> Request<JellyfinAPI.QuickConnectResult> {
+    static public func connect(secret: String) -> Request<JellyfinAPI.QuickConnectResult> {
         Request(method: "GET", url: "/QuickConnect/Connect", query: [("secret", secret)], id: "Connect")
     }
 }

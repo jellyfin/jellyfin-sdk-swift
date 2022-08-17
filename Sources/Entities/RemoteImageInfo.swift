@@ -13,7 +13,7 @@ public struct RemoteImageInfo: Codable {
     /// Gets or sets the community rating.
     public var communityRating: Double?
     /// Gets or sets the height.
-    public var height: Int?
+    public var height: Int32?
     /// Gets or sets the language.
     public var language: String?
     /// Gets or sets the name of the provider.
@@ -27,22 +27,11 @@ public struct RemoteImageInfo: Codable {
     /// Gets or sets the URL.
     public var url: String?
     /// Gets or sets the vote count.
-    public var voteCount: Int?
+    public var voteCount: Int32?
     /// Gets or sets the width.
-    public var width: Int?
+    public var width: Int32?
 
-    public init(
-        communityRating: Double? = nil,
-        height: Int? = nil,
-        language: String? = nil,
-        providerName: String? = nil,
-        ratingType: RatingType? = nil,
-        thumbnailURL: String? = nil,
-        type: ImageType? = nil,
-        url: String? = nil,
-        voteCount: Int? = nil,
-        width: Int? = nil
-    ) {
+    public init(communityRating: Double? = nil, height: Int32? = nil, language: String? = nil, providerName: String? = nil, ratingType: RatingType? = nil, thumbnailURL: String? = nil, type: ImageType? = nil, url: String? = nil, voteCount: Int32? = nil, width: Int32? = nil) {
         self.communityRating = communityRating
         self.height = height
         self.language = language

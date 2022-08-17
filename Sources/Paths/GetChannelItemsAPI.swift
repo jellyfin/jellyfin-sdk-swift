@@ -10,35 +10,23 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get channel items.
-    static func getChannelItems(
-        channelID: String,
-        parameters: GetChannelItemsParameters? = nil
-    ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getChannelItems(channelID: String, parameters: GetChannelItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Channels/\(channelID)/Items", query: parameters?.asQuery, id: "GetChannelItems")
     }
 
-    struct GetChannelItemsParameters {
+    public struct GetChannelItemsParameters {
         public var folderID: UUID?
         public var userID: UUID?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var sortBy: [String]?
         public var fields: [JellyfinAPI.ItemFields]?
 
-        public init(
-            folderID: UUID? = nil,
-            userID: UUID? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
-            sortBy: [String]? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil
-        ) {
+        public init(folderID: UUID? = nil, userID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, sortBy: [String]? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
             self.folderID = folderID
             self.userID = userID
             self.startIndex = startIndex

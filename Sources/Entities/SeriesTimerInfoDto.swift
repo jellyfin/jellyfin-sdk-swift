@@ -36,7 +36,7 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
     /// Gets or sets a value indicating whether this instance is pre padding required.
     public var isPrePaddingRequired: Bool?
     public var keepUntil: KeepUntil?
-    public var keepUpTo: Int?
+    public var keepUpTo: Int32?
     /// Gets or sets the name of the recording.
     public var name: String?
     /// Gets or sets the description of the recording.
@@ -54,11 +54,11 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
     /// Gets or sets the parent thumb item id.
     public var parentThumbItemID: String?
     /// Gets or sets the post padding seconds.
-    public var postPaddingSeconds: Int?
+    public var postPaddingSeconds: Int32?
     /// Gets or sets the pre padding seconds.
-    public var prePaddingSeconds: Int?
+    public var prePaddingSeconds: Int32?
     /// Gets or sets the priority.
-    public var priority: Int?
+    public var priority: Int32?
     /// Gets or sets the program identifier.
     public var programID: String?
     /// Gets or sets a value indicating whether [record any channel].
@@ -76,43 +76,7 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
     public var startDate: Date?
     public var type: String?
 
-    public init(
-        channelID: UUID? = nil,
-        channelName: String? = nil,
-        channelPrimaryImageTag: String? = nil,
-        dayPattern: DayPattern? = nil,
-        days: [DayOfWeek]? = nil,
-        endDate: Date? = nil,
-        externalChannelID: String? = nil,
-        externalID: String? = nil,
-        externalProgramID: String? = nil,
-        id: String? = nil,
-        imageTags: [String: String]? = nil,
-        isPostPaddingRequired: Bool? = nil,
-        isPrePaddingRequired: Bool? = nil,
-        keepUntil: KeepUntil? = nil,
-        keepUpTo: Int? = nil,
-        name: String? = nil,
-        overview: String? = nil,
-        parentBackdropImageTags: [String]? = nil,
-        parentBackdropItemID: String? = nil,
-        parentPrimaryImageItemID: String? = nil,
-        parentPrimaryImageTag: String? = nil,
-        parentThumbImageTag: String? = nil,
-        parentThumbItemID: String? = nil,
-        postPaddingSeconds: Int? = nil,
-        prePaddingSeconds: Int? = nil,
-        priority: Int? = nil,
-        programID: String? = nil,
-        isRecordAnyChannel: Bool? = nil,
-        isRecordAnyTime: Bool? = nil,
-        isRecordNewOnly: Bool? = nil,
-        serverID: String? = nil,
-        serviceName: String? = nil,
-        isSkipEpisodesInLibrary: Bool? = nil,
-        startDate: Date? = nil,
-        type: String? = nil
-    ) {
+    public init(channelID: UUID? = nil, channelName: String? = nil, channelPrimaryImageTag: String? = nil, dayPattern: DayPattern? = nil, days: [DayOfWeek]? = nil, endDate: Date? = nil, externalChannelID: String? = nil, externalID: String? = nil, externalProgramID: String? = nil, id: String? = nil, imageTags: [String: String]? = nil, isPostPaddingRequired: Bool? = nil, isPrePaddingRequired: Bool? = nil, keepUntil: KeepUntil? = nil, keepUpTo: Int32? = nil, name: String? = nil, overview: String? = nil, parentBackdropImageTags: [String]? = nil, parentBackdropItemID: String? = nil, parentPrimaryImageItemID: String? = nil, parentPrimaryImageTag: String? = nil, parentThumbImageTag: String? = nil, parentThumbItemID: String? = nil, postPaddingSeconds: Int32? = nil, prePaddingSeconds: Int32? = nil, priority: Int32? = nil, programID: String? = nil, isRecordAnyChannel: Bool? = nil, isRecordAnyTime: Bool? = nil, isRecordNewOnly: Bool? = nil, serverID: String? = nil, serviceName: String? = nil, isSkipEpisodesInLibrary: Bool? = nil, startDate: Date? = nil, type: String? = nil) {
         self.channelID = channelID
         self.channelName = channelName
         self.channelPrimaryImageTag = channelPrimaryImageTag

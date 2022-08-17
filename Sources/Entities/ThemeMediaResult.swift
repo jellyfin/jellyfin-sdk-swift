@@ -15,11 +15,11 @@ public struct ThemeMediaResult: Codable {
     /// Gets or sets the owner id.
     public var ownerID: UUID?
     /// Gets or sets the index of the first record in Items.
-    public var startIndex: Int?
+    public var startIndex: Int32?
     /// Gets or sets the total number of records available.
-    public var totalRecordCount: Int?
+    public var totalRecordCount: Int32?
 
-    public init(items: [BaseItemDto]? = nil, ownerID: UUID? = nil, startIndex: Int? = nil, totalRecordCount: Int? = nil) {
+    public init(items: [BaseItemDto]? = nil, ownerID: UUID? = nil, startIndex: Int32? = nil, totalRecordCount: Int32? = nil) {
         self.items = items
         self.ownerID = ownerID
         self.startIndex = startIndex

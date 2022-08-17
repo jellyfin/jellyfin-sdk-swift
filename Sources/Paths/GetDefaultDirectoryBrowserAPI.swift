@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get Default directory browser.
-    static var getDefaultDirectoryBrowser: Request<JellyfinAPI.DefaultDirectoryBrowserInfoDto> {
+    static public var getDefaultDirectoryBrowser: Request<JellyfinAPI.DefaultDirectoryBrowserInfoDto> {
         Request(method: "GET", url: "/Environment/DefaultDirectoryBrowser", id: "GetDefaultDirectoryBrowser")
     }
 }

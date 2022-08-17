@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Deletes a tuner host.
-    public static func deleteTunerHost(id: String? = nil) -> Request<Void> {
+    static public func deleteTunerHost(id: String? = nil) -> Request<Void> {
         Request(method: "DELETE", url: "/LiveTv/TunerHosts", query: makeDeleteTunerHostQuery(id), id: "DeleteTunerHost")
     }
 

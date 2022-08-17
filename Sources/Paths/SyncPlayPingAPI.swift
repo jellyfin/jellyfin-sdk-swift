@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Update session ping.
-    static func syncPlayPing(_ body: JellyfinAPI.PingRequestDto) -> Request<Void> {
+    static public func syncPlayPing(_ body: JellyfinAPI.PingRequestDto) -> Request<Void> {
         Request(method: "POST", url: "/SyncPlay/Ping", body: body, id: "SyncPlayPing")
     }
 }

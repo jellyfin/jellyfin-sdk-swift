@@ -10,26 +10,20 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets movie recommendations.
-    static func getMovieRecommendations(parameters: GetMovieRecommendationsParameters? = nil) -> Request<[JellyfinAPI.RecommendationDto]> {
+    static public func getMovieRecommendations(parameters: GetMovieRecommendationsParameters? = nil) -> Request<[JellyfinAPI.RecommendationDto]> {
         Request(method: "GET", url: "/Movies/Recommendations", query: parameters?.asQuery, id: "GetMovieRecommendations")
     }
 
-    struct GetMovieRecommendationsParameters {
+    public struct GetMovieRecommendationsParameters {
         public var userID: UUID?
         public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
-        public var categoryLimit: Int?
-        public var itemLimit: Int?
+        public var categoryLimit: Int32?
+        public var itemLimit: Int32?
 
-        public init(
-            userID: UUID? = nil,
-            parentID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            categoryLimit: Int? = nil,
-            itemLimit: Int? = nil
-        ) {
+        public init(userID: UUID? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, categoryLimit: Int32? = nil, itemLimit: Int32? = nil) {
             self.userID = userID
             self.parentID = parentID
             self.fields = fields

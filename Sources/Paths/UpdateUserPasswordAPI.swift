@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Updates a user's password.
-    static func updateUserPassword(userID: String, _ body: JellyfinAPI.UpdateUserPassword) -> Request<Void> {
+    static public func updateUserPassword(userID: String, _ body: JellyfinAPI.UpdateUserPassword) -> Request<Void> {
         Request(method: "POST", url: "/Users/\(userID)/Password", body: body, id: "UpdateUserPassword")
     }
 }

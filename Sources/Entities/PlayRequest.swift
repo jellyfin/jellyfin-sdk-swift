@@ -10,7 +10,7 @@ import Foundation
 
 /// Class PlayRequest.
 public struct PlayRequest: Codable {
-    public var audioStreamIndex: Int?
+    public var audioStreamIndex: Int32?
     /// Gets or sets the controlling user identifier.
     public var controllingUserID: UUID?
     /// Gets or sets the item ids.
@@ -18,21 +18,12 @@ public struct PlayRequest: Codable {
     public var mediaSourceID: String?
     /// Gets or sets the play command.
     public var playCommand: PlayCommand?
-    public var startIndex: Int?
+    public var startIndex: Int32?
     /// Gets or sets the start position ticks that the first item should be played at.
-    public var startPositionTicks: Int?
-    public var subtitleStreamIndex: Int?
+    public var startPositionTicks: Int64?
+    public var subtitleStreamIndex: Int32?
 
-    public init(
-        audioStreamIndex: Int? = nil,
-        controllingUserID: UUID? = nil,
-        itemIDs: [UUID]? = nil,
-        mediaSourceID: String? = nil,
-        playCommand: PlayCommand? = nil,
-        startIndex: Int? = nil,
-        startPositionTicks: Int? = nil,
-        subtitleStreamIndex: Int? = nil
-    ) {
+    public init(audioStreamIndex: Int32? = nil, controllingUserID: UUID? = nil, itemIDs: [UUID]? = nil, mediaSourceID: String? = nil, playCommand: PlayCommand? = nil, startIndex: Int32? = nil, startPositionTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil) {
         self.audioStreamIndex = audioStreamIndex
         self.controllingUserID = controllingUserID
         self.itemIDs = itemIDs

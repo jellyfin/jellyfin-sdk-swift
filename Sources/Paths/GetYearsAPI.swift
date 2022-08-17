@@ -10,15 +10,15 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get years.
-    static func getYears(parameters: GetYearsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getYears(parameters: GetYearsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Years", query: parameters?.asQuery, id: "GetYears")
     }
 
-    struct GetYearsParameters {
-        public var startIndex: Int?
-        public var limit: Int?
+    public struct GetYearsParameters {
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -27,29 +27,13 @@ public extension Paths {
         public var mediaTypes: [String]?
         public var sortBy: [String]?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var userID: UUID?
         public var isRecursive: Bool?
         public var enableImages: Bool?
 
-        public init(
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
-            parentID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            mediaTypes: [String]? = nil,
-            sortBy: [String]? = nil,
-            enableUserData: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            userID: UUID? = nil,
-            isRecursive: Bool? = nil,
-            enableImages: Bool? = nil
-        ) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil, sortBy: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, userID: UUID? = nil, isRecursive: Bool? = nil, enableImages: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.sortOrder = sortOrder

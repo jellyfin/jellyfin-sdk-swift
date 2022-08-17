@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets all SyncPlay groups.
-    static var syncPlayGetGroups: Request<[JellyfinAPI.GroupInfoDto]> {
+    static public var syncPlayGetGroups: Request<[JellyfinAPI.GroupInfoDto]> {
         Request(method: "GET", url: "/SyncPlay/List", id: "SyncPlayGetGroups")
     }
 }

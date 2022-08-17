@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get General Image.
-    static func getGeneralImage(name: String, type: String) -> Request<Data> {
+    static public func getGeneralImage(name: String, type: String) -> Request<Data> {
         Request(method: "GET", url: "/Images/General/\(name)/\(type)", id: "GetGeneralImage")
     }
 }

@@ -10,27 +10,23 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets live playback media info for an item.
     ///
     /// For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.
-    ///
+    /// 
     /// Query parameters are obsolete.
-    static func getPostedPlaybackInfo(
-        itemID: String,
-        parameters: GetPostedPlaybackInfoParameters? = nil,
-        _ body: JellyfinAPI.PlaybackInfoDto? = nil
-    ) -> Request<JellyfinAPI.PlaybackInfoResponse> {
+    static public func getPostedPlaybackInfo(itemID: String, parameters: GetPostedPlaybackInfoParameters? = nil, _ body: JellyfinAPI.PlaybackInfoDto? = nil) -> Request<JellyfinAPI.PlaybackInfoResponse> {
         Request(method: "POST", url: "/Items/\(itemID)/PlaybackInfo", query: parameters?.asQuery, body: body, id: "GetPostedPlaybackInfo")
     }
 
-    struct GetPostedPlaybackInfoParameters {
+    public struct GetPostedPlaybackInfoParameters {
         public var userID: UUID?
-        public var maxStreamingBitrate: Int?
-        public var startTimeTicks: Int?
-        public var audioStreamIndex: Int?
-        public var subtitleStreamIndex: Int?
-        public var maxAudioChannels: Int?
+        public var maxStreamingBitrate: Int32?
+        public var startTimeTicks: Int64?
+        public var audioStreamIndex: Int32?
+        public var subtitleStreamIndex: Int32?
+        public var maxAudioChannels: Int32?
         public var mediaSourceID: String?
         public var liveStreamID: String?
         public var isAutoOpenLiveStream: Bool?
@@ -40,22 +36,7 @@ public extension Paths {
         public var allowVideoStreamCopy: Bool?
         public var allowAudioStreamCopy: Bool?
 
-        public init(
-            userID: UUID? = nil,
-            maxStreamingBitrate: Int? = nil,
-            startTimeTicks: Int? = nil,
-            audioStreamIndex: Int? = nil,
-            subtitleStreamIndex: Int? = nil,
-            maxAudioChannels: Int? = nil,
-            mediaSourceID: String? = nil,
-            liveStreamID: String? = nil,
-            isAutoOpenLiveStream: Bool? = nil,
-            enableDirectPlay: Bool? = nil,
-            enableDirectStream: Bool? = nil,
-            enableTranscoding: Bool? = nil,
-            allowVideoStreamCopy: Bool? = nil,
-            allowAudioStreamCopy: Bool? = nil
-        ) {
+        public init(userID: UUID? = nil, maxStreamingBitrate: Int32? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, maxAudioChannels: Int32? = nil, mediaSourceID: String? = nil, liveStreamID: String? = nil, isAutoOpenLiveStream: Bool? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, enableTranscoding: Bool? = nil, allowVideoStreamCopy: Bool? = nil, allowAudioStreamCopy: Bool? = nil) {
             self.userID = userID
             self.maxStreamingBitrate = maxStreamingBitrate
             self.startTimeTicks = startTimeTicks

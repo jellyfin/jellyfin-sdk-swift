@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Merges videos into a single record.
-    public static func mergeVersions(ids: [UUID]) -> Request<Void> {
+    static public func mergeVersions(ids: [UUID]) -> Request<Void> {
         Request(method: "POST", url: "/Videos/MergeVersions", query: makeMergeVersionsQuery(ids), id: "MergeVersions")
     }
 

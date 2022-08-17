@@ -11,9 +11,9 @@ import Foundation
 /// Class PingRequestDto.
 public struct PingRequestDto: Codable {
     /// Gets or sets the ping time.
-    public var ping: Int?
+    public var ping: Int64?
 
-    public init(ping: Int? = nil) {
+    public init(ping: Int64? = nil) {
         self.ping = ping
     }
 }

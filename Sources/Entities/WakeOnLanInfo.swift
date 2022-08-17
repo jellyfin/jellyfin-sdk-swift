@@ -13,9 +13,9 @@ public struct WakeOnLanInfo: Codable {
     /// Gets the MAC address of the device.
     public var macAddress: String?
     /// Gets or sets the wake-on-LAN port.
-    public var port: Int?
+    public var port: Int32?
 
-    public init(macAddress: String? = nil, port: Int? = nil) {
+    public init(macAddress: String? = nil, port: Int32? = nil) {
         self.macAddress = macAddress
         self.port = port
     }

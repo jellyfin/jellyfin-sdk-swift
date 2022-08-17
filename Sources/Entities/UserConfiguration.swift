@@ -30,23 +30,7 @@ public struct UserConfiguration: Codable {
     /// An enum representing a subtitle playback mode.
     public var subtitleMode: SubtitlePlaybackMode?
 
-    public init(
-        audioLanguagePreference: String? = nil,
-        isDisplayCollectionsView: Bool? = nil,
-        isDisplayMissingEpisodes: Bool? = nil,
-        enableLocalPassword: Bool? = nil,
-        enableNextEpisodeAutoPlay: Bool? = nil,
-        groupedFolders: [String]? = nil,
-        isHidePlayedInLatest: Bool? = nil,
-        latestItemsExcludes: [String]? = nil,
-        myMediaExcludes: [String]? = nil,
-        orderedViews: [String]? = nil,
-        isPlayDefaultAudioTrack: Bool? = nil,
-        isRememberAudioSelections: Bool? = nil,
-        isRememberSubtitleSelections: Bool? = nil,
-        subtitleLanguagePreference: String? = nil,
-        subtitleMode: SubtitlePlaybackMode? = nil
-    ) {
+    public init(audioLanguagePreference: String? = nil, isDisplayCollectionsView: Bool? = nil, isDisplayMissingEpisodes: Bool? = nil, enableLocalPassword: Bool? = nil, enableNextEpisodeAutoPlay: Bool? = nil, groupedFolders: [String]? = nil, isHidePlayedInLatest: Bool? = nil, latestItemsExcludes: [String]? = nil, myMediaExcludes: [String]? = nil, orderedViews: [String]? = nil, isPlayDefaultAudioTrack: Bool? = nil, isRememberAudioSelections: Bool? = nil, isRememberSubtitleSelections: Bool? = nil, subtitleLanguagePreference: String? = nil, subtitleMode: SubtitlePlaybackMode? = nil) {
         self.audioLanguagePreference = audioLanguagePreference
         self.isDisplayCollectionsView = isDisplayCollectionsView
         self.isDisplayMissingEpisodes = isDisplayMissingEpisodes

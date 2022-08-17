@@ -21,13 +21,7 @@ public struct LibraryTypeOptionsDto: Codable {
     /// Gets or sets the type.
     public var type: String?
 
-    public init(
-        defaultImageOptions: [ImageOption]? = nil,
-        imageFetchers: [LibraryOptionInfoDto]? = nil,
-        metadataFetchers: [LibraryOptionInfoDto]? = nil,
-        supportedImageTypes: [ImageType]? = nil,
-        type: String? = nil
-    ) {
+    public init(defaultImageOptions: [ImageOption]? = nil, imageFetchers: [LibraryOptionInfoDto]? = nil, metadataFetchers: [LibraryOptionInfoDto]? = nil, supportedImageTypes: [ImageType]? = nil, type: String? = nil) {
         self.defaultImageOptions = defaultImageOptions
         self.imageFetchers = imageFetchers
         self.metadataFetchers = metadataFetchers

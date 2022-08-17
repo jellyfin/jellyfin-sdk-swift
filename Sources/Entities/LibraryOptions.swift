@@ -11,7 +11,7 @@ import Foundation
 public struct LibraryOptions: Codable {
     /// An enum representing the options to disable embedded subs.
     public var allowEmbeddedSubtitles: EmbeddedSubtitleOptions?
-    public var automaticRefreshIntervalDays: Int?
+    public var automaticRefreshIntervalDays: Int32?
     public var isAutomaticallyAddToCollection: Bool?
     public var disabledLocalMetadataReaders: [String]?
     public var disabledSubtitleFetchers: [String]?
@@ -41,35 +41,7 @@ public struct LibraryOptions: Codable {
     public var subtitleFetcherOrder: [String]?
     public var typeOptions: [TypeOptions]?
 
-    public init(
-        allowEmbeddedSubtitles: EmbeddedSubtitleOptions? = nil,
-        automaticRefreshIntervalDays: Int? = nil,
-        isAutomaticallyAddToCollection: Bool? = nil,
-        disabledLocalMetadataReaders: [String]? = nil,
-        disabledSubtitleFetchers: [String]? = nil,
-        enableAutomaticSeriesGrouping: Bool? = nil,
-        enableChapterImageExtraction: Bool? = nil,
-        enableEmbeddedEpisodeInfos: Bool? = nil,
-        enableEmbeddedTitles: Bool? = nil,
-        enableInternetProviders: Bool? = nil,
-        enablePhotos: Bool? = nil,
-        enableRealtimeMonitor: Bool? = nil,
-        isExtractChapterImagesDuringLibraryScan: Bool? = nil,
-        localMetadataReaderOrder: [String]? = nil,
-        metadataCountryCode: String? = nil,
-        metadataSavers: [String]? = nil,
-        pathInfos: [MediaPathInfo]? = nil,
-        preferredMetadataLanguage: String? = nil,
-        requirePerfectSubtitleMatch: Bool? = nil,
-        isSaveLocalMetadata: Bool? = nil,
-        isSaveSubtitlesWithMedia: Bool? = nil,
-        seasonZeroDisplayName: String? = nil,
-        isSkipSubtitlesIfAudioTrackMatches: Bool? = nil,
-        isSkipSubtitlesIfEmbeddedSubtitlesPresent: Bool? = nil,
-        subtitleDownloadLanguages: [String]? = nil,
-        subtitleFetcherOrder: [String]? = nil,
-        typeOptions: [TypeOptions]? = nil
-    ) {
+    public init(allowEmbeddedSubtitles: EmbeddedSubtitleOptions? = nil, automaticRefreshIntervalDays: Int32? = nil, isAutomaticallyAddToCollection: Bool? = nil, disabledLocalMetadataReaders: [String]? = nil, disabledSubtitleFetchers: [String]? = nil, enableAutomaticSeriesGrouping: Bool? = nil, enableChapterImageExtraction: Bool? = nil, enableEmbeddedEpisodeInfos: Bool? = nil, enableEmbeddedTitles: Bool? = nil, enableInternetProviders: Bool? = nil, enablePhotos: Bool? = nil, enableRealtimeMonitor: Bool? = nil, isExtractChapterImagesDuringLibraryScan: Bool? = nil, localMetadataReaderOrder: [String]? = nil, metadataCountryCode: String? = nil, metadataSavers: [String]? = nil, pathInfos: [MediaPathInfo]? = nil, preferredMetadataLanguage: String? = nil, requirePerfectSubtitleMatch: Bool? = nil, isSaveLocalMetadata: Bool? = nil, isSaveSubtitlesWithMedia: Bool? = nil, seasonZeroDisplayName: String? = nil, isSkipSubtitlesIfAudioTrackMatches: Bool? = nil, isSkipSubtitlesIfEmbeddedSubtitlesPresent: Bool? = nil, subtitleDownloadLanguages: [String]? = nil, subtitleFetcherOrder: [String]? = nil, typeOptions: [TypeOptions]? = nil) {
         self.allowEmbeddedSubtitles = allowEmbeddedSubtitles
         self.automaticRefreshIntervalDays = automaticRefreshIntervalDays
         self.isAutomaticallyAddToCollection = isAutomaticallyAddToCollection

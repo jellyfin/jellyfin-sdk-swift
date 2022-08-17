@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a user's notification summary.
-    static func getNotificationsSummary(userID: String) -> Request<JellyfinAPI.NotificationsSummaryDto> {
+    static public func getNotificationsSummary(userID: String) -> Request<JellyfinAPI.NotificationsSummaryDto> {
         Request(method: "GET", url: "/Notifications/\(userID)/Summary", id: "GetNotificationsSummary")
     }
 }

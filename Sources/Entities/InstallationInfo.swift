@@ -25,15 +25,7 @@ public struct InstallationInfo: Codable {
     /// Gets or sets the version.
     public var version: String?
 
-    public init(
-        changelog: String? = nil,
-        checksum: String? = nil,
-        guid: UUID? = nil,
-        name: String? = nil,
-        packageInfo: PackageInfo? = nil,
-        sourceURL: String? = nil,
-        version: String? = nil
-    ) {
+    public init(changelog: String? = nil, checksum: String? = nil, guid: UUID? = nil, name: String? = nil, packageInfo: PackageInfo? = nil, sourceURL: String? = nil, version: String? = nil) {
         self.changelog = changelog
         self.checksum = checksum
         self.guid = guid

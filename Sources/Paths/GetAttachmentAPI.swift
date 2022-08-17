@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get video attachment.
-    static func getAttachment(videoID: String, mediaSourceID: String, index: Int) -> Request<Data> {
+    static public func getAttachment(videoID: String, mediaSourceID: String, index: Int) -> Request<Data> {
         Request(method: "GET", url: "/Videos/\(videoID)/\(mediaSourceID)/Attachments/\(index)", id: "GetAttachment")
     }
 }

@@ -10,21 +10,21 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets items based on a query.
-    static func getResumeItems(userID: String, parameters: GetResumeItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getResumeItems(userID: String, parameters: GetResumeItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Users/\(userID)/Items/Resume", query: parameters?.asQuery, id: "GetResumeItems")
     }
 
-    struct GetResumeItemsParameters {
-        public var startIndex: Int?
-        public var limit: Int?
+    public struct GetResumeItemsParameters {
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var searchTerm: String?
         public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var mediaTypes: [String]?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -32,22 +32,7 @@ public extension Paths {
         public var enableImages: Bool?
         public var excludeActiveSessions: Bool?
 
-        public init(
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            searchTerm: String? = nil,
-            parentID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            mediaTypes: [String]? = nil,
-            enableUserData: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            enableTotalRecordCount: Bool? = nil,
-            enableImages: Bool? = nil,
-            excludeActiveSessions: Bool? = nil
-        ) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, mediaTypes: [String]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil, excludeActiveSessions: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.searchTerm = searchTerm

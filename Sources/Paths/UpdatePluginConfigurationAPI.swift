@@ -10,11 +10,11 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Updates plugin configuration.
     ///
     /// Accepts plugin configuration as JSON body.
-    static func updatePluginConfiguration(pluginID: String) -> Request<Void> {
+    static public func updatePluginConfiguration(pluginID: String) -> Request<Void> {
         Request(method: "POST", url: "/Plugins/\(pluginID)/Configuration", id: "UpdatePluginConfiguration")
     }
 }

@@ -10,20 +10,17 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Creates a new playlist.
     ///
     /// For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.
-    ///
+    /// 
     /// Query parameters are obsolete.
-    static func createPlaylist(
-        parameters: CreatePlaylistParameters? = nil,
-        _ body: JellyfinAPI.CreatePlaylistDto? = nil
-    ) -> Request<JellyfinAPI.PlaylistCreationResult> {
+    static public func createPlaylist(parameters: CreatePlaylistParameters? = nil, _ body: JellyfinAPI.CreatePlaylistDto? = nil) -> Request<JellyfinAPI.PlaylistCreationResult> {
         Request(method: "POST", url: "/Playlists", query: parameters?.asQuery, body: body, id: "CreatePlaylist")
     }
 
-    struct CreatePlaylistParameters {
+    public struct CreatePlaylistParameters {
         public var name: String?
         public var ids: [UUID]?
         public var userID: UUID?

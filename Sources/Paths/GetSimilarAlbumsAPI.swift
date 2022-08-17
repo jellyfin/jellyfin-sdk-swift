@@ -10,22 +10,19 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets similar items.
-    static func getSimilarAlbums(
-        itemID: String,
-        parameters: GetSimilarAlbumsParameters? = nil
-    ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getSimilarAlbums(itemID: String, parameters: GetSimilarAlbumsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Albums/\(itemID)/Similar", query: parameters?.asQuery, id: "GetSimilarAlbums")
     }
 
-    struct GetSimilarAlbumsParameters {
+    public struct GetSimilarAlbumsParameters {
         public var excludeArtistIDs: [UUID]?
         public var userID: UUID?
-        public var limit: Int?
+        public var limit: Int32?
         public var fields: [JellyfinAPI.ItemFields]?
 
-        public init(excludeArtistIDs: [UUID]? = nil, userID: UUID? = nil, limit: Int? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
+        public init(excludeArtistIDs: [UUID]? = nil, userID: UUID? = nil, limit: Int32? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
             self.excludeArtistIDs = excludeArtistIDs
             self.userID = userID
             self.limit = limit

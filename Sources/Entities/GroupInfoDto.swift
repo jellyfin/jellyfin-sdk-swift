@@ -21,13 +21,7 @@ public struct GroupInfoDto: Codable {
     /// Gets the group state.
     public var state: GroupStateType?
 
-    public init(
-        groupID: UUID? = nil,
-        groupName: String? = nil,
-        lastUpdatedAt: Date? = nil,
-        participants: [String]? = nil,
-        state: GroupStateType? = nil
-    ) {
+    public init(groupID: UUID? = nil, groupName: String? = nil, lastUpdatedAt: Date? = nil, participants: [String]? = nil, state: GroupStateType? = nil) {
         self.groupID = groupID
         self.groupName = groupName
         self.lastUpdatedAt = lastUpdatedAt

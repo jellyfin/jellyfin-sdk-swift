@@ -25,27 +25,14 @@ public struct AuthenticationInfo: Codable, Identifiable {
     /// Gets or sets the name of the device.
     public var deviceName: String?
     /// Gets or sets the identifier.
-    public var id: Int?
+    public var id: Int64?
     /// Gets or sets a value indicating whether this instance is active.
     public var isActive: Bool?
     /// Gets or sets the user identifier.
     public var userID: UUID?
     public var userName: String?
 
-    public init(
-        accessToken: String? = nil,
-        appName: String? = nil,
-        appVersion: String? = nil,
-        dateCreated: Date? = nil,
-        dateLastActivity: Date? = nil,
-        dateRevoked: Date? = nil,
-        deviceID: String? = nil,
-        deviceName: String? = nil,
-        id: Int? = nil,
-        isActive: Bool? = nil,
-        userID: UUID? = nil,
-        userName: String? = nil
-    ) {
+    public init(accessToken: String? = nil, appName: String? = nil, appVersion: String? = nil, dateCreated: Date? = nil, dateLastActivity: Date? = nil, dateRevoked: Date? = nil, deviceID: String? = nil, deviceName: String? = nil, id: Int64? = nil, isActive: Bool? = nil, userID: UUID? = nil, userName: String? = nil) {
         self.accessToken = accessToken
         self.appName = appName
         self.appVersion = appVersion

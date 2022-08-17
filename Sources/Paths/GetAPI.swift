@@ -10,15 +10,15 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets the search hint result.
-    static func get(parameters: GetParameters) -> Request<JellyfinAPI.SearchHintResult> {
+    static public func get(parameters: GetParameters) -> Request<JellyfinAPI.SearchHintResult> {
         Request(method: "GET", url: "/Search/Hints", query: parameters.asQuery, id: "Get")
     }
 
-    struct GetParameters {
-        public var startIndex: Int?
-        public var limit: Int?
+    public struct GetParameters {
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var userID: UUID?
         public var searchTerm: String
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -36,26 +36,7 @@ public extension Paths {
         public var isIncludeStudios: Bool?
         public var isIncludeArtists: Bool?
 
-        public init(
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            userID: UUID? = nil,
-            searchTerm: String,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            mediaTypes: [String]? = nil,
-            parentID: UUID? = nil,
-            isMovie: Bool? = nil,
-            isSeries: Bool? = nil,
-            isNews: Bool? = nil,
-            isKids: Bool? = nil,
-            isSports: Bool? = nil,
-            isIncludePeople: Bool? = nil,
-            isIncludeMedia: Bool? = nil,
-            isIncludeGenres: Bool? = nil,
-            isIncludeStudios: Bool? = nil,
-            isIncludeArtists: Bool? = nil
-        ) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, userID: UUID? = nil, searchTerm: String, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil, parentID: UUID? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isIncludePeople: Bool? = nil, isIncludeMedia: Bool? = nil, isIncludeGenres: Bool? = nil, isIncludeStudios: Bool? = nil, isIncludeArtists: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.userID = userID

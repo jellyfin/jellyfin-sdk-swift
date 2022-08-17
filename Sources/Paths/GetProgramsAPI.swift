@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets available live tv epgs.
-    static func getPrograms(_ body: JellyfinAPI.GetProgramsDto? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getPrograms(_ body: JellyfinAPI.GetProgramsDto? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "POST", url: "/LiveTv/Programs", body: body, id: "GetPrograms")
     }
 }

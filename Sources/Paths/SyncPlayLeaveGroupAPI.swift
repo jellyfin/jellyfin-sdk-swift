@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Leave the joined SyncPlay group.
-    static var syncPlayLeaveGroup: Request<Void> {
+    static public var syncPlayLeaveGroup: Request<Void> {
         Request(method: "POST", url: "/SyncPlay/Leave", id: "SyncPlayLeaveGroup")
     }
 }

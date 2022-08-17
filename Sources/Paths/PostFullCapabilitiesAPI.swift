@@ -12,14 +12,8 @@ import URLQueryEncoder
 
 extension Paths {
     /// Updates capabilities for a device.
-    public static func postFullCapabilities(id: String? = nil, _ body: JellyfinAPI.ClientCapabilitiesDto) -> Request<Void> {
-        Request(
-            method: "POST",
-            url: "/Sessions/Capabilities/Full",
-            query: makePostFullCapabilitiesQuery(id),
-            body: body,
-            id: "PostFullCapabilities"
-        )
+    static public func postFullCapabilities(id: String? = nil, _ body: JellyfinAPI.ClientCapabilitiesDto) -> Request<Void> {
+        Request(method: "POST", url: "/Sessions/Capabilities/Full", query: makePostFullCapabilitiesQuery(id), body: body, id: "PostFullCapabilities")
     }
 
     private static func makePostFullCapabilitiesQuery(_ id: String?) -> [(String, String?)] {

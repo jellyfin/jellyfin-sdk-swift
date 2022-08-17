@@ -10,24 +10,19 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets legacy query filters.
-    static func getQueryFiltersLegacy(parameters: GetQueryFiltersLegacyParameters? = nil) -> Request<JellyfinAPI.QueryFiltersLegacy> {
+    static public func getQueryFiltersLegacy(parameters: GetQueryFiltersLegacyParameters? = nil) -> Request<JellyfinAPI.QueryFiltersLegacy> {
         Request(method: "GET", url: "/Items/Filters", query: parameters?.asQuery, id: "GetQueryFiltersLegacy")
     }
 
-    struct GetQueryFiltersLegacyParameters {
+    public struct GetQueryFiltersLegacyParameters {
         public var userID: UUID?
         public var parentID: UUID?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var mediaTypes: [String]?
 
-        public init(
-            userID: UUID? = nil,
-            parentID: UUID? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            mediaTypes: [String]? = nil
-        ) {
+        public init(userID: UUID? = nil, parentID: UUID? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, mediaTypes: [String]? = nil) {
             self.userID = userID
             self.parentID = parentID
             self.includeItemTypes = includeItemTypes

@@ -10,13 +10,13 @@ import Foundation
 
 public struct ImageOption: Codable {
     /// Gets or sets the limit.
-    public var limit: Int?
+    public var limit: Int32?
     /// Gets or sets the minimum width.
-    public var minWidth: Int?
+    public var minWidth: Int32?
     /// Gets or sets the type.
     public var type: ImageType?
 
-    public init(limit: Int? = nil, minWidth: Int? = nil, type: ImageType? = nil) {
+    public init(limit: Int32? = nil, minWidth: Int32? = nil, type: ImageType? = nil) {
         self.limit = limit
         self.minWidth = minWidth
         self.type = type

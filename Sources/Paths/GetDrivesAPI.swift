@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets available drives from the server's file system.
-    static var getDrives: Request<[JellyfinAPI.FileSystemEntryInfo]> {
+    static public var getDrives: Request<[JellyfinAPI.FileSystemEntryInfo]> {
         Request(method: "GET", url: "/Environment/Drives", id: "GetDrives")
     }
 }

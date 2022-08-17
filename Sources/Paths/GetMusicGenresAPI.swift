@@ -10,23 +10,23 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets all music genres from a given item, folder, or the entire library.
     @available(*, deprecated, message: "Deprecated")
-    static func getMusicGenres(parameters: GetMusicGenresParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getMusicGenres(parameters: GetMusicGenresParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/MusicGenres", query: parameters?.asQuery, id: "GetMusicGenres")
     }
 
-    struct GetMusicGenresParameters {
-        public var startIndex: Int?
-        public var limit: Int?
+    public struct GetMusicGenresParameters {
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var searchTerm: String?
         public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isFavorite: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var userID: UUID?
         public var nameStartsWithOrGreater: String?
@@ -37,26 +37,7 @@ public extension Paths {
         public var enableImages: Bool?
         public var enableTotalRecordCount: Bool?
 
-        public init(
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            searchTerm: String? = nil,
-            parentID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            isFavorite: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            userID: UUID? = nil,
-            nameStartsWithOrGreater: String? = nil,
-            nameStartsWith: String? = nil,
-            nameLessThan: String? = nil,
-            sortBy: [String]? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
-            enableImages: Bool? = nil,
-            enableTotalRecordCount: Bool? = nil
-        ) {
+        public init(startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isFavorite: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, userID: UUID? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, sortBy: [String]? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.searchTerm = searchTerm

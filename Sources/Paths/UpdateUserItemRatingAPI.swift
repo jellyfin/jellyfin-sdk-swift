@@ -12,13 +12,8 @@ import URLQueryEncoder
 
 extension Paths {
     /// Updates a user's rating for an item.
-    public static func updateUserItemRating(userID: String, itemID: String, isLikes: Bool? = nil) -> Request<JellyfinAPI.UserItemDataDto> {
-        Request(
-            method: "POST",
-            url: "/Users/\(userID)/Items/\(itemID)/Rating",
-            query: makeUpdateUserItemRatingQuery(isLikes),
-            id: "UpdateUserItemRating"
-        )
+    static public func updateUserItemRating(userID: String, itemID: String, isLikes: Bool? = nil) -> Request<JellyfinAPI.UserItemDataDto> {
+        Request(method: "POST", url: "/Users/\(userID)/Items/\(itemID)/Rating", query: makeUpdateUserItemRatingQuery(isLikes), id: "UpdateUserItemRating")
     }
 
     private static func makeUpdateUserItemRatingQuery(_ isLikes: Bool?) -> [(String, String?)] {

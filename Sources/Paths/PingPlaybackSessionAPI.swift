@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Pings a playback session.
-    static func pingPlaybackSession(playSessionID: String) -> Request<Void> {
+    static public func pingPlaybackSession(playSessionID: String) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/Playing/Ping", query: [("playSessionId", playSessionID)], id: "PingPlaybackSession")
     }
 }

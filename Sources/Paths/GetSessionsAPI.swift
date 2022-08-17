@@ -10,18 +10,18 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a list of sessions.
-    static func getSessions(parameters: GetSessionsParameters? = nil) -> Request<[JellyfinAPI.SessionInfo]> {
+    static public func getSessions(parameters: GetSessionsParameters? = nil) -> Request<[JellyfinAPI.SessionInfo]> {
         Request(method: "GET", url: "/Sessions", query: parameters?.asQuery, id: "GetSessions")
     }
 
-    struct GetSessionsParameters {
+    public struct GetSessionsParameters {
         public var controllableByUserID: UUID?
         public var deviceID: String?
-        public var activeWithinSeconds: Int?
+        public var activeWithinSeconds: Int32?
 
-        public init(controllableByUserID: UUID? = nil, deviceID: String? = nil, activeWithinSeconds: Int? = nil) {
+        public init(controllableByUserID: UUID? = nil, deviceID: String? = nil, activeWithinSeconds: Int32? = nil) {
             self.controllableByUserID = controllableByUserID
             self.deviceID = deviceID
             self.activeWithinSeconds = activeWithinSeconds

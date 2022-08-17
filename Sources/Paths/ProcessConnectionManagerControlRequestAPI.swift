@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Process a connection manager control request.
-    static func processConnectionManagerControlRequest(serverID: String) -> Request<String> {
+    static public func processConnectionManagerControlRequest(serverID: String) -> Request<String> {
         Request(method: "POST", url: "/Dlna/\(serverID)/ConnectionManager/Control", id: "ProcessConnectionManagerControlRequest")
     }
 }

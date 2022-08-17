@@ -12,5 +12,5 @@ import Foundation
 public enum SyncPlayUserAccessType: String, Codable, CaseIterable {
     case createAndJoinGroups = "CreateAndJoinGroups"
     case joinGroups = "JoinGroups"
-    case none = "None"
+    case `none` = "None"
 }

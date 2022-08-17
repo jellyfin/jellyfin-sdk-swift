@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Adds an additional user to a session.
-    static func addUserToSession(sessionID: String, userID: String) -> Request<Void> {
+    static public func addUserToSession(sessionID: String, userID: String) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/\(sessionID)/User/\(userID)", id: "AddUserToSession")
     }
 }

@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Remove a media path.
-    static func removeMediaPath(parameters: RemoveMediaPathParameters? = nil) -> Request<Void> {
+    static public func removeMediaPath(parameters: RemoveMediaPathParameters? = nil) -> Request<Void> {
         Request(method: "DELETE", url: "/Library/VirtualFolders/Paths", query: parameters?.asQuery, id: "RemoveMediaPath")
     }
 
-    struct RemoveMediaPathParameters {
+    public struct RemoveMediaPathParameters {
         public var name: String?
         public var path: String?
         public var isRefreshLibrary: Bool?

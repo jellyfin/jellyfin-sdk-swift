@@ -12,11 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Tests the network with a request with the size of the bitrate.
-    public static func getBitrateTestBytes(size: Int? = nil) -> Request<Data> {
+    static public func getBitrateTestBytes(size: Int32? = nil) -> Request<Data> {
         Request(method: "GET", url: "/Playback/BitrateTest", query: makeGetBitrateTestBytesQuery(size), id: "GetBitrateTestBytes")
     }
 
-    private static func makeGetBitrateTestBytesQuery(_ size: Int?) -> [(String, String?)] {
+    private static func makeGetBitrateTestBytesQuery(_ size: Int32?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(size, forKey: "size")
         return encoder.items

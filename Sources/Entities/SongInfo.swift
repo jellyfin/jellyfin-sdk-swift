@@ -12,7 +12,7 @@ public struct SongInfo: Codable {
     public var album: String?
     public var albumArtists: [String]?
     public var artists: [String]?
-    public var indexNumber: Int?
+    public var indexNumber: Int32?
     public var isAutomated: Bool?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
@@ -22,31 +22,16 @@ public struct SongInfo: Codable {
     public var name: String?
     /// Gets or sets the original title.
     public var originalTitle: String?
-    public var parentIndexNumber: Int?
+    public var parentIndexNumber: Int32?
     /// Gets or sets the path.
     public var path: String?
     public var premiereDate: Date?
     /// Gets or sets the provider ids.
     public var providerIDs: [String: String]?
     /// Gets or sets the year.
-    public var year: Int?
+    public var year: Int32?
 
-    public init(
-        album: String? = nil,
-        albumArtists: [String]? = nil,
-        artists: [String]? = nil,
-        indexNumber: Int? = nil,
-        isAutomated: Bool? = nil,
-        metadataCountryCode: String? = nil,
-        metadataLanguage: String? = nil,
-        name: String? = nil,
-        originalTitle: String? = nil,
-        parentIndexNumber: Int? = nil,
-        path: String? = nil,
-        premiereDate: Date? = nil,
-        providerIDs: [String: String]? = nil,
-        year: Int? = nil
-    ) {
+    public init(album: String? = nil, albumArtists: [String]? = nil, artists: [String]? = nil, indexNumber: Int32? = nil, isAutomated: Bool? = nil, metadataCountryCode: String? = nil, metadataLanguage: String? = nil, name: String? = nil, originalTitle: String? = nil, parentIndexNumber: Int32? = nil, path: String? = nil, premiereDate: Date? = nil, providerIDs: [String: String]? = nil, year: Int32? = nil) {
         self.album = album
         self.albumArtists = albumArtists
         self.artists = artists

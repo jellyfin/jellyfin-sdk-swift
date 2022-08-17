@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets the initial startup wizard configuration.
-    static var getStartupConfiguration: Request<JellyfinAPI.StartupConfigurationDto> {
+    static public var getStartupConfiguration: Request<JellyfinAPI.StartupConfigurationDto> {
         Request(method: "GET", url: "/Startup/Configuration", id: "GetStartupConfiguration")
     }
 }

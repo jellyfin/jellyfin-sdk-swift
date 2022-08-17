@@ -12,13 +12,8 @@ import URLQueryEncoder
 
 extension Paths {
     /// Removes items from a collection.
-    public static func removeFromCollection(collectionID: String, ids: [UUID]) -> Request<Void> {
-        Request(
-            method: "DELETE",
-            url: "/Collections/\(collectionID)/Items",
-            query: makeRemoveFromCollectionQuery(ids),
-            id: "RemoveFromCollection"
-        )
+    static public func removeFromCollection(collectionID: String, ids: [UUID]) -> Request<Void> {
+        Request(method: "DELETE", url: "/Collections/\(collectionID)/Items", query: makeRemoveFromCollectionQuery(ids), id: "RemoveFromCollection")
     }
 
     private static func makeRemoveFromCollectionQuery(_ ids: [UUID]) -> [(String, String?)] {

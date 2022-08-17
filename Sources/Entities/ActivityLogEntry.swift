@@ -13,7 +13,7 @@ public struct ActivityLogEntry: Codable, Identifiable {
     /// Gets or sets the date.
     public var date: Date?
     /// Gets or sets the identifier.
-    public var id: Int?
+    public var id: Int64?
     /// Gets or sets the item identifier.
     public var itemID: String?
     /// Gets or sets the name.
@@ -33,18 +33,7 @@ public struct ActivityLogEntry: Codable, Identifiable {
     /// - warning: Deprecated.
     public var userPrimaryImageTag: String?
 
-    public init(
-        date: Date? = nil,
-        id: Int? = nil,
-        itemID: String? = nil,
-        name: String? = nil,
-        overview: String? = nil,
-        severity: LogLevel? = nil,
-        shortOverview: String? = nil,
-        type: String? = nil,
-        userID: UUID? = nil,
-        userPrimaryImageTag: String? = nil
-    ) {
+    public init(date: Date? = nil, id: Int64? = nil, itemID: String? = nil, name: String? = nil, overview: String? = nil, severity: LogLevel? = nil, shortOverview: String? = nil, type: String? = nil, userID: UUID? = nil, userPrimaryImageTag: String? = nil) {
         self.date = date
         self.id = id
         self.itemID = itemID

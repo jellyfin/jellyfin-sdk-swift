@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Delete listing provider.
-    public static func deleteListingProvider(id: String? = nil) -> Request<Void> {
+    static public func deleteListingProvider(id: String? = nil) -> Request<Void> {
         Request(method: "DELETE", url: "/LiveTv/ListingProviders", query: makeDeleteListingProviderQuery(id), id: "DeleteListingProvider")
     }
 

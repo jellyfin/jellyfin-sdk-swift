@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Initiate a new quick connect request.
-    static var initiate: Request<JellyfinAPI.QuickConnectResult> {
+    static public var initiate: Request<JellyfinAPI.QuickConnectResult> {
         Request(method: "GET", url: "/QuickConnect/Initiate", id: "Initiate")
     }
 }

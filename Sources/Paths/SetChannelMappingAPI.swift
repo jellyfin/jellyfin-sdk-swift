@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Set channel mappings.
-    static func setChannelMapping(_ body: JellyfinAPI.SetChannelMappingDto) -> Request<JellyfinAPI.TunerChannelMapping> {
+    static public func setChannelMapping(_ body: JellyfinAPI.SetChannelMappingDto) -> Request<JellyfinAPI.TunerChannelMapping> {
         Request(method: "POST", url: "/LiveTv/ChannelMappings", body: body, id: "SetChannelMapping")
     }
 }

@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets the contents of a given directory in the file system.
-    static func getDirectoryContents(parameters: GetDirectoryContentsParameters) -> Request<[JellyfinAPI.FileSystemEntryInfo]> {
+    static public func getDirectoryContents(parameters: GetDirectoryContentsParameters) -> Request<[JellyfinAPI.FileSystemEntryInfo]> {
         Request(method: "GET", url: "/Environment/DirectoryContents", query: parameters.asQuery, id: "GetDirectoryContents")
     }
 
-    struct GetDirectoryContentsParameters {
+    public struct GetDirectoryContentsParameters {
         public var path: String
         public var isIncludeFiles: Bool?
         public var isIncludeDirectories: Bool?

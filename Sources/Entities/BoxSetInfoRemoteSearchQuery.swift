@@ -16,12 +16,7 @@ public struct BoxSetInfoRemoteSearchQuery: Codable {
     /// Gets or sets the provider name to search within if set.
     public var searchProviderName: String?
 
-    public init(
-        isIncludeDisabledProviders: Bool? = nil,
-        itemID: UUID? = nil,
-        searchInfo: BoxSetInfo? = nil,
-        searchProviderName: String? = nil
-    ) {
+    public init(isIncludeDisabledProviders: Bool? = nil, itemID: UUID? = nil, searchInfo: BoxSetInfo? = nil, searchProviderName: String? = nil) {
         self.isIncludeDisabledProviders = isIncludeDisabledProviders
         self.itemID = itemID
         self.searchInfo = searchInfo

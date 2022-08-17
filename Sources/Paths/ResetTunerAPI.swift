@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Resets a tv tuner.
-    static func resetTuner(tunerID: String) -> Request<Void> {
+    static public func resetTuner(tunerID: String) -> Request<Void> {
         Request(method: "POST", url: "/LiveTv/Tuners/\(tunerID)/Reset", id: "ResetTuner")
     }
 }

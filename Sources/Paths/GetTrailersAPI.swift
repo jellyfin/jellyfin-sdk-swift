@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Finds movies and trailers similar to a given trailer.
-    static func getTrailers(parameters: GetTrailersParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getTrailers(parameters: GetTrailersParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Trailers", query: parameters?.asQuery, id: "GetTrailers")
     }
 
-    struct GetTrailersParameters {
+    public struct GetTrailersParameters {
         public var userID: UUID?
         public var maxOfficialRating: String?
         public var hasThemeSong: Bool?
@@ -25,7 +25,7 @@ public extension Paths {
         public var hasSpecialFeature: Bool?
         public var hasTrailer: Bool?
         public var adjacentTo: String?
-        public var parentIndexNumber: Int?
+        public var parentIndexNumber: Int32?
         public var hasParentalRating: Bool?
         public var isHd: Bool?
         public var isIs4K: Bool?
@@ -49,8 +49,8 @@ public extension Paths {
         public var isKids: Bool?
         public var isSports: Bool?
         public var excludeItemIDs: [UUID]?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var isRecursive: Bool?
         public var searchTerm: String?
         public var sortOrder: [JellyfinAPI.SortOrder]?
@@ -66,9 +66,9 @@ public extension Paths {
         public var genres: [String]?
         public var officialRatings: [String]?
         public var tags: [String]?
-        public var years: [Int]?
+        public var years: [Int32]?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var person: String?
         public var personIDs: [UUID]?
@@ -88,10 +88,10 @@ public extension Paths {
         public var isPlaceHolder: Bool?
         public var hasOfficialRating: Bool?
         public var isCollapseBoxSetItems: Bool?
-        public var minWidth: Int?
-        public var minHeight: Int?
-        public var maxWidth: Int?
-        public var maxHeight: Int?
+        public var minWidth: Int32?
+        public var minHeight: Int32?
+        public var maxWidth: Int32?
+        public var maxHeight: Int32?
         public var isIs3D: Bool?
         public var seriesStatus: [JellyfinAPI.SeriesStatus]?
         public var nameStartsWithOrGreater: String?
@@ -102,92 +102,7 @@ public extension Paths {
         public var enableTotalRecordCount: Bool?
         public var enableImages: Bool?
 
-        public init(
-            userID: UUID? = nil,
-            maxOfficialRating: String? = nil,
-            hasThemeSong: Bool? = nil,
-            hasThemeVideo: Bool? = nil,
-            hasSubtitles: Bool? = nil,
-            hasSpecialFeature: Bool? = nil,
-            hasTrailer: Bool? = nil,
-            adjacentTo: String? = nil,
-            parentIndexNumber: Int? = nil,
-            hasParentalRating: Bool? = nil,
-            isHd: Bool? = nil,
-            isIs4K: Bool? = nil,
-            locationTypes: [JellyfinAPI.LocationType]? = nil,
-            excludeLocationTypes: [JellyfinAPI.LocationType]? = nil,
-            isMissing: Bool? = nil,
-            isUnaired: Bool? = nil,
-            minCommunityRating: Double? = nil,
-            minCriticRating: Double? = nil,
-            minPremiereDate: Date? = nil,
-            minDateLastSaved: Date? = nil,
-            minDateLastSavedForUser: Date? = nil,
-            maxPremiereDate: Date? = nil,
-            hasOverview: Bool? = nil,
-            hasImdbID: Bool? = nil,
-            hasTmdbID: Bool? = nil,
-            hasTvdbID: Bool? = nil,
-            isMovie: Bool? = nil,
-            isSeries: Bool? = nil,
-            isNews: Bool? = nil,
-            isKids: Bool? = nil,
-            isSports: Bool? = nil,
-            excludeItemIDs: [UUID]? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            isRecursive: Bool? = nil,
-            searchTerm: String? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
-            parentID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
-            isFavorite: Bool? = nil,
-            mediaTypes: [String]? = nil,
-            imageTypes: [JellyfinAPI.ImageType]? = nil,
-            sortBy: [String]? = nil,
-            isPlayed: Bool? = nil,
-            genres: [String]? = nil,
-            officialRatings: [String]? = nil,
-            tags: [String]? = nil,
-            years: [Int]? = nil,
-            enableUserData: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            person: String? = nil,
-            personIDs: [UUID]? = nil,
-            personTypes: [String]? = nil,
-            studios: [String]? = nil,
-            artists: [String]? = nil,
-            excludeArtistIDs: [UUID]? = nil,
-            artistIDs: [UUID]? = nil,
-            albumArtistIDs: [UUID]? = nil,
-            contributingArtistIDs: [UUID]? = nil,
-            albums: [String]? = nil,
-            albumIDs: [UUID]? = nil,
-            ids: [UUID]? = nil,
-            videoTypes: [JellyfinAPI.VideoType]? = nil,
-            minOfficialRating: String? = nil,
-            isLocked: Bool? = nil,
-            isPlaceHolder: Bool? = nil,
-            hasOfficialRating: Bool? = nil,
-            isCollapseBoxSetItems: Bool? = nil,
-            minWidth: Int? = nil,
-            minHeight: Int? = nil,
-            maxWidth: Int? = nil,
-            maxHeight: Int? = nil,
-            isIs3D: Bool? = nil,
-            seriesStatus: [JellyfinAPI.SeriesStatus]? = nil,
-            nameStartsWithOrGreater: String? = nil,
-            nameStartsWith: String? = nil,
-            nameLessThan: String? = nil,
-            studioIDs: [UUID]? = nil,
-            genreIDs: [UUID]? = nil,
-            enableTotalRecordCount: Bool? = nil,
-            enableImages: Bool? = nil
-        ) {
+        public init(userID: UUID? = nil, maxOfficialRating: String? = nil, hasThemeSong: Bool? = nil, hasThemeVideo: Bool? = nil, hasSubtitles: Bool? = nil, hasSpecialFeature: Bool? = nil, hasTrailer: Bool? = nil, adjacentTo: String? = nil, parentIndexNumber: Int32? = nil, hasParentalRating: Bool? = nil, isHd: Bool? = nil, isIs4K: Bool? = nil, locationTypes: [JellyfinAPI.LocationType]? = nil, excludeLocationTypes: [JellyfinAPI.LocationType]? = nil, isMissing: Bool? = nil, isUnaired: Bool? = nil, minCommunityRating: Double? = nil, minCriticRating: Double? = nil, minPremiereDate: Date? = nil, minDateLastSaved: Date? = nil, minDateLastSavedForUser: Date? = nil, maxPremiereDate: Date? = nil, hasOverview: Bool? = nil, hasImdbID: Bool? = nil, hasTmdbID: Bool? = nil, hasTvdbID: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, excludeItemIDs: [UUID]? = nil, startIndex: Int32? = nil, limit: Int32? = nil, isRecursive: Bool? = nil, searchTerm: String? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, imageTypes: [JellyfinAPI.ImageType]? = nil, sortBy: [String]? = nil, isPlayed: Bool? = nil, genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int32]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, person: String? = nil, personIDs: [UUID]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, artists: [String]? = nil, excludeArtistIDs: [UUID]? = nil, artistIDs: [UUID]? = nil, albumArtistIDs: [UUID]? = nil, contributingArtistIDs: [UUID]? = nil, albums: [String]? = nil, albumIDs: [UUID]? = nil, ids: [UUID]? = nil, videoTypes: [JellyfinAPI.VideoType]? = nil, minOfficialRating: String? = nil, isLocked: Bool? = nil, isPlaceHolder: Bool? = nil, hasOfficialRating: Bool? = nil, isCollapseBoxSetItems: Bool? = nil, minWidth: Int32? = nil, minHeight: Int32? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, isIs3D: Bool? = nil, seriesStatus: [JellyfinAPI.SeriesStatus]? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, studioIDs: [UUID]? = nil, genreIDs: [UUID]? = nil, enableTotalRecordCount: Bool? = nil, enableImages: Bool? = nil) {
             self.userID = userID
             self.maxOfficialRating = maxOfficialRating
             self.hasThemeSong = hasThemeSong

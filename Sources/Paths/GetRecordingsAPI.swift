@@ -10,22 +10,22 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets live tv recordings.
-    static func getRecordings(parameters: GetRecordingsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getRecordings(parameters: GetRecordingsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Recordings", query: parameters?.asQuery, id: "GetRecordings")
     }
 
-    struct GetRecordingsParameters {
+    public struct GetRecordingsParameters {
         public var channelID: String?
         public var userID: UUID?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var status: Status?
         public var isInProgress: Bool?
         public var seriesTimerID: String?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableUserData: Bool?
@@ -39,27 +39,7 @@ public extension Paths {
 
         public typealias Status = JellyfinAPI.RecordingStatus
 
-        public init(
-            channelID: String? = nil,
-            userID: UUID? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            status: Status? = nil,
-            isInProgress: Bool? = nil,
-            seriesTimerID: String? = nil,
-            enableImages: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            enableUserData: Bool? = nil,
-            isMovie: Bool? = nil,
-            isSeries: Bool? = nil,
-            isKids: Bool? = nil,
-            isSports: Bool? = nil,
-            isNews: Bool? = nil,
-            isLibraryItem: Bool? = nil,
-            enableTotalRecordCount: Bool? = nil
-        ) {
+        public init(channelID: String? = nil, userID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, status: Status? = nil, isInProgress: Bool? = nil, seriesTimerID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, isNews: Bool? = nil, isLibraryItem: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
             self.channelID = channelID
             self.userID = userID
             self.startIndex = startIndex

@@ -17,11 +17,11 @@ public enum AnyJSON: Equatable, Codable {
 
     var value: Any {
         switch self {
-        case let .string(string): return string
-        case let .number(double): return double
-        case let .object(dictionary): return dictionary
-        case let .array(array): return array
-        case let .bool(bool): return bool
+        case .string(let string): return string
+        case .number(let double): return double
+        case .object(let dictionary): return dictionary
+        case .array(let array): return array
+        case .bool(let bool): return bool
         }
     }
 

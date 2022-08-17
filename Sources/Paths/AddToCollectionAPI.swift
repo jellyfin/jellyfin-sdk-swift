@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Adds items to a collection.
-    public static func addToCollection(collectionID: String, ids: [UUID]) -> Request<Void> {
+    static public func addToCollection(collectionID: String, ids: [UUID]) -> Request<Void> {
         Request(method: "POST", url: "/Collections/\(collectionID)/Items", query: makeAddToCollectionQuery(ids), id: "AddToCollection")
     }
 

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Stop specified task.
-    static func stopTask(taskID: String) -> Request<Void> {
+    static public func stopTask(taskID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/ScheduledTasks/Running/\(taskID)", id: "StopTask")
     }
 }

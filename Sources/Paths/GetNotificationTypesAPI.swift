@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets notification types.
-    static var getNotificationTypes: Request<[JellyfinAPI.NotificationTypeInfo]> {
+    static public var getNotificationTypes: Request<[JellyfinAPI.NotificationTypeInfo]> {
         Request(method: "GET", url: "/Notifications/Types", id: "GetNotificationTypes")
     }
 }

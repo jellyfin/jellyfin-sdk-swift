@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Installs a package.
-    static func installPackage(name: String, parameters: InstallPackageParameters? = nil) -> Request<Void> {
+    static public func installPackage(name: String, parameters: InstallPackageParameters? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Packages/Installed/\(name)", query: parameters?.asQuery, id: "InstallPackage")
     }
 
-    struct InstallPackageParameters {
+    public struct InstallPackageParameters {
         public var assemblyGuid: UUID?
         public var version: String?
         public var repositoryURL: String?

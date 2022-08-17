@@ -10,34 +10,24 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets seasons for a tv series.
-    static func getSeasons(seriesID: String, parameters: GetSeasonsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getSeasons(seriesID: String, parameters: GetSeasonsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Shows/\(seriesID)/Seasons", query: parameters?.asQuery, id: "GetSeasons")
     }
 
-    struct GetSeasonsParameters {
+    public struct GetSeasonsParameters {
         public var userID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var isSpecialSeason: Bool?
         public var isMissing: Bool?
         public var adjacentTo: String?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
 
-        public init(
-            userID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            isSpecialSeason: Bool? = nil,
-            isMissing: Bool? = nil,
-            adjacentTo: String? = nil,
-            enableImages: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            enableUserData: Bool? = nil
-        ) {
+        public init(userID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, isSpecialSeason: Bool? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil) {
             self.userID = userID
             self.fields = fields
             self.isSpecialSeason = isSpecialSeason

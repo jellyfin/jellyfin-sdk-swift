@@ -10,44 +10,29 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets episodes for a tv season.
-    static func getEpisodes(seriesID: String, parameters: GetEpisodesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getEpisodes(seriesID: String, parameters: GetEpisodesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Shows/\(seriesID)/Episodes", query: parameters?.asQuery, id: "GetEpisodes")
     }
 
-    struct GetEpisodesParameters {
+    public struct GetEpisodesParameters {
         public var userID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
-        public var season: Int?
+        public var season: Int32?
         public var seasonID: UUID?
         public var isMissing: Bool?
         public var adjacentTo: String?
         public var startItemID: UUID?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
         public var sortBy: String?
 
-        public init(
-            userID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            season: Int? = nil,
-            seasonID: UUID? = nil,
-            isMissing: Bool? = nil,
-            adjacentTo: String? = nil,
-            startItemID: UUID? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            enableImages: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            enableUserData: Bool? = nil,
-            sortBy: String? = nil
-        ) {
+        public init(userID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, season: Int32? = nil, seasonID: UUID? = nil, isMissing: Bool? = nil, adjacentTo: String? = nil, startItemID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, sortBy: String? = nil) {
             self.userID = userID
             self.fields = fields
             self.season = season

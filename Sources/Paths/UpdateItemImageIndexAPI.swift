@@ -10,14 +10,15 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Updates the index for an item image.
-    static func updateItemImageIndex(itemID: String, imageType: String, imageIndex: Int, newIndex: Int) -> Request<Void> {
-        Request(
-            method: "POST",
-            url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/Index",
-            query: [("newIndex", String(newIndex))],
-            id: "UpdateItemImageIndex"
-        )
+    static public func updateItemImageIndex(itemID: String, imageType: String, imageIndex: Int, newIndex: Int32) -> Request<Void> {
+        Request(method: "POST", url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/Index", query: makeUpdateItemImageIndexQuery(newIndex), id: "UpdateItemImageIndex")
+    }
+
+    private static func makeUpdateItemImageIndexQuery(_ newIndex: Int32) -> [(String, String?)] {
+        let encoder = URLQueryEncoder()
+        encoder.encode(newIndex, forKey: "newIndex")
+        return encoder.items
     }
 }

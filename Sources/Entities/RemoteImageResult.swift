@@ -15,9 +15,9 @@ public struct RemoteImageResult: Codable {
     /// Gets or sets the providers.
     public var providers: [String]?
     /// Gets or sets the total record count.
-    public var totalRecordCount: Int?
+    public var totalRecordCount: Int32?
 
-    public init(images: [RemoteImageInfo]? = nil, providers: [String]? = nil, totalRecordCount: Int? = nil) {
+    public init(images: [RemoteImageInfo]? = nil, providers: [String]? = nil, totalRecordCount: Int32? = nil) {
         self.images = images
         self.providers = providers
         self.totalRecordCount = totalRecordCount

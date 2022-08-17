@@ -12,16 +12,8 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets the library options info.
-    public static func getLibraryOptionsInfo(
-        libraryContentType: String? = nil,
-        isNewLibrary: Bool? = nil
-    ) -> Request<JellyfinAPI.LibraryOptionsResultDto> {
-        Request(
-            method: "GET",
-            url: "/Libraries/AvailableOptions",
-            query: makeGetLibraryOptionsInfoQuery(libraryContentType, isNewLibrary),
-            id: "GetLibraryOptionsInfo"
-        )
+    static public func getLibraryOptionsInfo(libraryContentType: String? = nil, isNewLibrary: Bool? = nil) -> Request<JellyfinAPI.LibraryOptionsResultDto> {
+        Request(method: "GET", url: "/Libraries/AvailableOptions", query: makeGetLibraryOptionsInfoQuery(libraryContentType, isNewLibrary), id: "GetLibraryOptionsInfo")
     }
 
     private static func makeGetLibraryOptionsInfoQuery(_ libraryContentType: String?, _ isNewLibrary: Bool?) -> [(String, String?)] {

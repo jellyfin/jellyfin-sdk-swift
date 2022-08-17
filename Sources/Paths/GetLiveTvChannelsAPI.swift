@@ -10,27 +10,27 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets available live tv channels.
-    static func getLiveTvChannels(parameters: GetLiveTvChannelsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getLiveTvChannels(parameters: GetLiveTvChannelsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Channels", query: parameters?.asQuery, id: "GetLiveTvChannels")
     }
 
-    struct GetLiveTvChannelsParameters {
+    public struct GetLiveTvChannelsParameters {
         public var type: `Type`?
         public var userID: UUID?
-        public var startIndex: Int?
+        public var startIndex: Int32?
         public var isMovie: Bool?
         public var isSeries: Bool?
         public var isNews: Bool?
         public var isKids: Bool?
         public var isSports: Bool?
-        public var limit: Int?
+        public var limit: Int32?
         public var isFavorite: Bool?
         public var isLiked: Bool?
         public var isDisliked: Bool?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableUserData: Bool?
@@ -43,29 +43,7 @@ public extension Paths {
 
         public typealias SortOrder = JellyfinAPI.SortOrder
 
-        public init(
-            type: Type? = nil,
-            userID: UUID? = nil,
-            startIndex: Int? = nil,
-            isMovie: Bool? = nil,
-            isSeries: Bool? = nil,
-            isNews: Bool? = nil,
-            isKids: Bool? = nil,
-            isSports: Bool? = nil,
-            limit: Int? = nil,
-            isFavorite: Bool? = nil,
-            isLiked: Bool? = nil,
-            isDisliked: Bool? = nil,
-            enableImages: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            enableUserData: Bool? = nil,
-            sortBy: [String]? = nil,
-            sortOrder: SortOrder? = nil,
-            enableFavoriteSorting: Bool? = nil,
-            isAddCurrentProgram: Bool? = nil
-        ) {
+        public init(type: `Type`? = nil, userID: UUID? = nil, startIndex: Int32? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, limit: Int32? = nil, isFavorite: Bool? = nil, isLiked: Bool? = nil, isDisliked: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, sortBy: [String]? = nil, sortOrder: SortOrder? = nil, enableFavoriteSorting: Bool? = nil, isAddCurrentProgram: Bool? = nil) {
             self.type = type
             self.userID = userID
             self.startIndex = startIndex

@@ -10,10 +10,10 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets critic review for an item.
     @available(*, deprecated, message: "Deprecated")
-    static func getCriticReviews(itemID: String) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getCriticReviews(itemID: String) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Items/\(itemID)/CriticReviews", id: "GetCriticReviews")
     }
 }

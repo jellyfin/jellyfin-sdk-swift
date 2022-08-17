@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets the current UTC time.
-    static var getUtcTime: Request<JellyfinAPI.UtcTimeResponse> {
+    static public var getUtcTime: Request<JellyfinAPI.UtcTimeResponse> {
         Request(method: "GET", url: "/GetUtcTime", id: "GetUtcTime")
     }
 }

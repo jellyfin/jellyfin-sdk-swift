@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Deletes a live tv recording.
-    static func deleteRecording(recordingID: String) -> Request<Void> {
+    static public func deleteRecording(recordingID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/LiveTv/Recordings/\(recordingID)", id: "DeleteRecording")
     }
 }

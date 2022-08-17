@@ -12,21 +12,11 @@ import URLQueryEncoder
 
 extension Paths {
     /// Issues a playstate command to a client.
-    public static func sendPlaystateCommand(
-        sessionID: String,
-        command: String,
-        seekPositionTicks: Int? = nil,
-        controllingUserID: String? = nil
-    ) -> Request<Void> {
-        Request(
-            method: "POST",
-            url: "/Sessions/\(sessionID)/Playing/\(command)",
-            query: makeSendPlaystateCommandQuery(seekPositionTicks, controllingUserID),
-            id: "SendPlaystateCommand"
-        )
+    static public func sendPlaystateCommand(sessionID: String, command: String, seekPositionTicks: Int64? = nil, controllingUserID: String? = nil) -> Request<Void> {
+        Request(method: "POST", url: "/Sessions/\(sessionID)/Playing/\(command)", query: makeSendPlaystateCommandQuery(seekPositionTicks, controllingUserID), id: "SendPlaystateCommand")
     }
 
-    private static func makeSendPlaystateCommandQuery(_ seekPositionTicks: Int?, _ controllingUserID: String?) -> [(String, String?)] {
+    private static func makeSendPlaystateCommandQuery(_ seekPositionTicks: Int64?, _ controllingUserID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(seekPositionTicks, forKey: "seekPositionTicks")
         encoder.encode(controllingUserID, forKey: "controllingUserId")

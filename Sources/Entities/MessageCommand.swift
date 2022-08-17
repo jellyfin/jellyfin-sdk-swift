@@ -11,9 +11,9 @@ import Foundation
 public struct MessageCommand: Codable {
     public var header: String?
     public var text: String
-    public var timeoutMs: Int?
+    public var timeoutMs: Int64?
 
-    public init(header: String? = nil, text: String, timeoutMs: Int? = nil) {
+    public init(header: String? = nil, text: String, timeoutMs: Int64? = nil) {
         self.header = header
         self.text = text
         self.timeoutMs = timeoutMs

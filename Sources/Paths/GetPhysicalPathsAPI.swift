@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a list of physical paths from virtual folders.
-    static var getPhysicalPaths: Request<[String]> {
+    static public var getPhysicalPaths: Request<[String]> {
         Request(method: "GET", url: "/Library/PhysicalPaths", id: "GetPhysicalPaths")
     }
 }

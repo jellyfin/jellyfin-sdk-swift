@@ -10,52 +10,34 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get user profile image.
-    static func headUserImage(userID: String, imageType: String, parameters: HeadUserImageParameters? = nil) -> Request<Data> {
+    static public func headUserImage(userID: String, imageType: String, parameters: HeadUserImageParameters? = nil) -> Request<Data> {
         Request(method: "HEAD", url: "/Users/\(userID)/Images/\(imageType)", query: parameters?.asQuery, id: "HeadUserImage")
     }
 
-    struct HeadUserImageParameters {
+    public struct HeadUserImageParameters {
         public var tag: String?
         public var format: Format?
-        public var maxWidth: Int?
-        public var maxHeight: Int?
+        public var maxWidth: Int32?
+        public var maxHeight: Int32?
         public var percentPlayed: Double?
-        public var unplayedCount: Int?
-        public var width: Int?
-        public var height: Int?
-        public var quality: Int?
-        public var fillWidth: Int?
-        public var fillHeight: Int?
+        public var unplayedCount: Int32?
+        public var width: Int32?
+        public var height: Int32?
+        public var quality: Int32?
+        public var fillWidth: Int32?
+        public var fillHeight: Int32?
         public var isCropWhitespace: Bool?
         public var isAddPlayedIndicator: Bool?
-        public var blur: Int?
+        public var blur: Int32?
         public var backgroundColor: String?
         public var foregroundLayer: String?
-        public var imageIndex: Int?
+        public var imageIndex: Int32?
 
         public typealias Format = JellyfinAPI.ImageFormat
 
-        public init(
-            tag: String? = nil,
-            format: Format? = nil,
-            maxWidth: Int? = nil,
-            maxHeight: Int? = nil,
-            percentPlayed: Double? = nil,
-            unplayedCount: Int? = nil,
-            width: Int? = nil,
-            height: Int? = nil,
-            quality: Int? = nil,
-            fillWidth: Int? = nil,
-            fillHeight: Int? = nil,
-            isCropWhitespace: Bool? = nil,
-            isAddPlayedIndicator: Bool? = nil,
-            blur: Int? = nil,
-            backgroundColor: String? = nil,
-            foregroundLayer: String? = nil,
-            imageIndex: Int? = nil
-        ) {
+        public init(tag: String? = nil, format: Format? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, percentPlayed: Double? = nil, unplayedCount: Int32? = nil, width: Int32? = nil, height: Int32? = nil, quality: Int32? = nil, fillWidth: Int32? = nil, fillHeight: Int32? = nil, isCropWhitespace: Bool? = nil, isAddPlayedIndicator: Bool? = nil, blur: Int32? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, imageIndex: Int32? = nil) {
             self.tag = tag
             self.format = format
             self.maxWidth = maxWidth

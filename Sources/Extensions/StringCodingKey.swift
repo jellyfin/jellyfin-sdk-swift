@@ -12,7 +12,7 @@ struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
     private let string: String
     private var int: Int?
 
-    var stringValue: String { string }
+    var stringValue: String { return string }
 
     init(string: String) {
         self.string = string
@@ -22,7 +22,7 @@ struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
         self.string = stringValue
     }
 
-    var intValue: Int? { int }
+    var intValue: Int? { return int }
 
     init?(intValue: Int) {
         self.string = String(describing: intValue)

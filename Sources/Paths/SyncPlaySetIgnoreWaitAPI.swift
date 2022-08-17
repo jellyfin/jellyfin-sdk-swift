@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Request SyncPlay group to ignore member during group-wait.
-    static func syncPlaySetIgnoreWait(_ body: JellyfinAPI.IgnoreWaitRequestDto) -> Request<Void> {
+    static public func syncPlaySetIgnoreWait(_ body: JellyfinAPI.IgnoreWaitRequestDto) -> Request<Void> {
         Request(method: "POST", url: "/SyncPlay/SetIgnoreWait", body: body, id: "SyncPlaySetIgnoreWait")
     }
 }

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Deletes an item from the library and filesystem.
-    static func deleteItem(itemID: String) -> Request<Void> {
+    static public func deleteItem(itemID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/Items/\(itemID)", id: "DeleteItem")
     }
 }

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get all keys.
-    static var getKeys: Request<JellyfinAPI.AuthenticationInfoQueryResult> {
+    static public var getKeys: Request<JellyfinAPI.AuthenticationInfoQueryResult> {
         Request(method: "GET", url: "/Auth/Keys", id: "GetKeys")
     }
 }

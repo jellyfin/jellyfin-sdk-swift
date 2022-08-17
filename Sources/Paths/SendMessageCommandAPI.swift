@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Issues a command to a client to display a message to the user.
-    static func sendMessageCommand(sessionID: String, _ body: JellyfinAPI.MessageCommand) -> Request<Void> {
+    static public func sendMessageCommand(sessionID: String, _ body: JellyfinAPI.MessageCommand) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/\(sessionID)/Message", body: body, id: "SendMessageCommand")
     }
 }

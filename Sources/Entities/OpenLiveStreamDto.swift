@@ -11,17 +11,17 @@ import Foundation
 /// Open live stream dto.
 public struct OpenLiveStreamDto: Codable {
     /// Gets or sets the audio stream index.
-    public var audioStreamIndex: Int?
+    public var audioStreamIndex: Int32?
     /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to play.
-    ///
+    /// 
     /// <br />
-    ///
+    /// 
     /// Specifically, it defines the supported <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles">containers</see> and
-    ///
+    /// 
     /// <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles">codecs</see> (video and/or audio, including codec profiles and levels)
-    ///
+    /// 
     /// the device is able to direct play (without transcoding or remuxing),
-    ///
+    /// 
     /// as well as which <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles">containers/codecs to transcode to</see> in case it isn't.
     public var deviceProfile: DeviceProfile?
     /// Gets or sets the device play protocols.
@@ -33,35 +33,21 @@ public struct OpenLiveStreamDto: Codable {
     /// Gets or sets the item id.
     public var itemID: UUID?
     /// Gets or sets the max audio channels.
-    public var maxAudioChannels: Int?
+    public var maxAudioChannels: Int32?
     /// Gets or sets the max streaming bitrate.
-    public var maxStreamingBitrate: Int?
+    public var maxStreamingBitrate: Int32?
     /// Gets or sets the open token.
     public var openToken: String?
     /// Gets or sets the play session id.
     public var playSessionID: String?
     /// Gets or sets the start time in ticks.
-    public var startTimeTicks: Int?
+    public var startTimeTicks: Int64?
     /// Gets or sets the subtitle stream index.
-    public var subtitleStreamIndex: Int?
+    public var subtitleStreamIndex: Int32?
     /// Gets or sets the user id.
     public var userID: UUID?
 
-    public init(
-        audioStreamIndex: Int? = nil,
-        deviceProfile: DeviceProfile? = nil,
-        directPlayProtocols: [MediaProtocol]? = nil,
-        enableDirectPlay: Bool? = nil,
-        enableDirectStream: Bool? = nil,
-        itemID: UUID? = nil,
-        maxAudioChannels: Int? = nil,
-        maxStreamingBitrate: Int? = nil,
-        openToken: String? = nil,
-        playSessionID: String? = nil,
-        startTimeTicks: Int? = nil,
-        subtitleStreamIndex: Int? = nil,
-        userID: UUID? = nil
-    ) {
+    public init(audioStreamIndex: Int32? = nil, deviceProfile: DeviceProfile? = nil, directPlayProtocols: [MediaProtocol]? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil, itemID: UUID? = nil, maxAudioChannels: Int32? = nil, maxStreamingBitrate: Int32? = nil, openToken: String? = nil, playSessionID: String? = nil, startTimeTicks: Int64? = nil, subtitleStreamIndex: Int32? = nil, userID: UUID? = nil) {
         self.audioStreamIndex = audioStreamIndex
         self.deviceProfile = deviceProfile
         self.directPlayProtocols = directPlayProtocols

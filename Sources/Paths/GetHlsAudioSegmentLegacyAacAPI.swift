@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets the specified audio segment for an audio item.
-    static func getHlsAudioSegmentLegacyAac(itemID: String, segmentID: String) -> Request<Data> {
+    static public func getHlsAudioSegmentLegacyAac(itemID: String, segmentID: String) -> Request<Data> {
         Request(method: "GET", url: "/Audio/\(itemID)/hls/\(segmentID)/stream.aac", id: "GetHlsAudioSegmentLegacyAac")
     }
 }

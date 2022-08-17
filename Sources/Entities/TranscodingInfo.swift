@@ -9,19 +9,19 @@
 import Foundation
 
 public struct TranscodingInfo: Codable {
-    public var audioChannels: Int?
+    public var audioChannels: Int32?
     public var audioCodec: String?
-    public var bitrate: Int?
+    public var bitrate: Int32?
     public var completionPercentage: Double?
     public var container: String?
-    public var framerate: Double?
+    public var framerate: Float?
     public var hardwareAccelerationType: HardwareEncodingType?
-    public var height: Int?
+    public var height: Int32?
     public var isAudioDirect: Bool?
     public var isVideoDirect: Bool?
     public var transcodeReasons: TranscodeReasons?
     public var videoCodec: String?
-    public var width: Int?
+    public var width: Int32?
 
     public enum TranscodeReasons: String, Codable, CaseIterable {
         case containerNotSupported = "ContainerNotSupported"
@@ -51,21 +51,7 @@ public struct TranscodingInfo: Codable {
         case videoRangeTypeNotSupported = "VideoRangeTypeNotSupported"
     }
 
-    public init(
-        audioChannels: Int? = nil,
-        audioCodec: String? = nil,
-        bitrate: Int? = nil,
-        completionPercentage: Double? = nil,
-        container: String? = nil,
-        framerate: Double? = nil,
-        hardwareAccelerationType: HardwareEncodingType? = nil,
-        height: Int? = nil,
-        isAudioDirect: Bool? = nil,
-        isVideoDirect: Bool? = nil,
-        transcodeReasons: TranscodeReasons? = nil,
-        videoCodec: String? = nil,
-        width: Int? = nil
-    ) {
+    public init(audioChannels: Int32? = nil, audioCodec: String? = nil, bitrate: Int32? = nil, completionPercentage: Double? = nil, container: String? = nil, framerate: Float? = nil, hardwareAccelerationType: HardwareEncodingType? = nil, height: Int32? = nil, isAudioDirect: Bool? = nil, isVideoDirect: Bool? = nil, transcodeReasons: TranscodeReasons? = nil, videoCodec: String? = nil, width: Int32? = nil) {
         self.audioChannels = audioChannels
         self.audioCodec = audioCodec
         self.bitrate = bitrate

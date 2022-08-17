@@ -62,36 +62,9 @@ public struct SystemInfo: Codable, Identifiable {
     /// Gets or sets the web UI resources path.
     public var webPath: String?
     /// Gets or sets the web socket port number.
-    public var webSocketPortNumber: Int?
+    public var webSocketPortNumber: Int32?
 
-    public init(
-        cachePath: String? = nil,
-        canLaunchWebBrowser: Bool? = nil,
-        canSelfRestart: Bool? = nil,
-        completedInstallations: [InstallationInfo]? = nil,
-        encoderLocation: FFmpegLocation? = nil,
-        hasPendingRestart: Bool? = nil,
-        hasUpdateAvailable: Bool? = nil,
-        id: String? = nil,
-        internalMetadataPath: String? = nil,
-        isShuttingDown: Bool? = nil,
-        itemsByNamePath: String? = nil,
-        localAddress: String? = nil,
-        logPath: String? = nil,
-        operatingSystem: String? = nil,
-        operatingSystemDisplayName: String? = nil,
-        packageName: String? = nil,
-        productName: String? = nil,
-        programDataPath: String? = nil,
-        serverName: String? = nil,
-        isStartupWizardCompleted: Bool? = nil,
-        isSupportsLibraryMonitor: Bool? = nil,
-        systemArchitecture: Architecture? = nil,
-        transcodingTempPath: String? = nil,
-        version: String? = nil,
-        webPath: String? = nil,
-        webSocketPortNumber: Int? = nil
-    ) {
+    public init(cachePath: String? = nil, canLaunchWebBrowser: Bool? = nil, canSelfRestart: Bool? = nil, completedInstallations: [InstallationInfo]? = nil, encoderLocation: FFmpegLocation? = nil, hasPendingRestart: Bool? = nil, hasUpdateAvailable: Bool? = nil, id: String? = nil, internalMetadataPath: String? = nil, isShuttingDown: Bool? = nil, itemsByNamePath: String? = nil, localAddress: String? = nil, logPath: String? = nil, operatingSystem: String? = nil, operatingSystemDisplayName: String? = nil, packageName: String? = nil, productName: String? = nil, programDataPath: String? = nil, serverName: String? = nil, isStartupWizardCompleted: Bool? = nil, isSupportsLibraryMonitor: Bool? = nil, systemArchitecture: Architecture? = nil, transcodingTempPath: String? = nil, version: String? = nil, webPath: String? = nil, webSocketPortNumber: Int32? = nil) {
         self.cachePath = cachePath
         self.canLaunchWebBrowser = canLaunchWebBrowser
         self.canSelfRestart = canSelfRestart

@@ -12,17 +12,8 @@ import URLQueryEncoder
 
 extension Paths {
     /// Get Display Preferences.
-    public static func getDisplayPreferences(
-        displayPreferencesID: String,
-        userID: UUID,
-        client: String
-    ) -> Request<JellyfinAPI.DisplayPreferencesDto> {
-        Request(
-            method: "GET",
-            url: "/DisplayPreferences/\(displayPreferencesID)",
-            query: makeGetDisplayPreferencesQuery(userID, client),
-            id: "GetDisplayPreferences"
-        )
+    static public func getDisplayPreferences(displayPreferencesID: String, userID: UUID, client: String) -> Request<JellyfinAPI.DisplayPreferencesDto> {
+        Request(method: "GET", url: "/DisplayPreferences/\(displayPreferencesID)", query: makeGetDisplayPreferencesQuery(userID, client), id: "GetDisplayPreferences")
     }
 
     private static func makeGetDisplayPreferencesQuery(_ userID: UUID, _ client: String) -> [(String, String?)] {

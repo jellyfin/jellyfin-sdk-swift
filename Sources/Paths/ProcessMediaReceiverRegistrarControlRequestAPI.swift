@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Process a media receiver registrar control request.
-    static func processMediaReceiverRegistrarControlRequest(serverID: String) -> Request<String> {
+    static public func processMediaReceiverRegistrarControlRequest(serverID: String) -> Request<String> {
         Request(method: "POST", url: "/Dlna/\(serverID)/MediaReceiverRegistrar/Control", id: "ProcessMediaReceiverRegistrarControlRequest")
     }
 }

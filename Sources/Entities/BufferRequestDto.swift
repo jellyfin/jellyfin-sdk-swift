@@ -15,11 +15,11 @@ public struct BufferRequestDto: Codable {
     /// Gets or sets the playlist item identifier of the playing item.
     public var playlistItemID: UUID?
     /// Gets or sets the position ticks.
-    public var positionTicks: Int?
+    public var positionTicks: Int64?
     /// Gets or sets when the request has been made by the client.
     public var when: Date?
 
-    public init(isPlaying: Bool? = nil, playlistItemID: UUID? = nil, positionTicks: Int? = nil, when: Date? = nil) {
+    public init(isPlaying: Bool? = nil, playlistItemID: UUID? = nil, positionTicks: Int64? = nil, when: Date? = nil) {
         self.isPlaying = isPlaying
         self.playlistItemID = playlistItemID
         self.positionTicks = positionTicks

@@ -12,9 +12,9 @@ public struct QueryFiltersLegacy: Codable {
     public var genres: [String]?
     public var officialRatings: [String]?
     public var tags: [String]?
-    public var years: [Int]?
+    public var years: [Int32]?
 
-    public init(genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil) {
+    public init(genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int32]? = nil) {
         self.genres = genres
         self.officialRatings = officialRatings
         self.tags = tags

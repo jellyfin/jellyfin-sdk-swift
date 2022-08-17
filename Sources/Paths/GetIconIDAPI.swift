@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a server icon.
-    static func getIconID(serverID: String, fileName: String) -> Request<Data> {
+    static public func getIconID(serverID: String, fileName: String) -> Request<Data> {
         Request(method: "GET", url: "/Dlna/\(serverID)/icons/\(fileName)", id: "GetIconId")
     }
 }

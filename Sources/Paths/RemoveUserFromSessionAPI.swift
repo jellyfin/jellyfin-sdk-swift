@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Removes an additional user from a session.
-    static func removeUserFromSession(sessionID: String, userID: String) -> Request<Void> {
+    static public func removeUserFromSession(sessionID: String, userID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/Sessions/\(sessionID)/User/\(userID)", id: "RemoveUserFromSession")
     }
 }

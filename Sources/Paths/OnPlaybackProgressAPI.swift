@@ -10,23 +10,18 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Reports a user's playback progress.
-    static func onPlaybackProgress(userID: String, itemID: String, parameters: OnPlaybackProgressParameters? = nil) -> Request<Void> {
-        Request(
-            method: "POST",
-            url: "/Users/\(userID)/PlayingItems/\(itemID)/Progress",
-            query: parameters?.asQuery,
-            id: "OnPlaybackProgress"
-        )
+    static public func onPlaybackProgress(userID: String, itemID: String, parameters: OnPlaybackProgressParameters? = nil) -> Request<Void> {
+        Request(method: "POST", url: "/Users/\(userID)/PlayingItems/\(itemID)/Progress", query: parameters?.asQuery, id: "OnPlaybackProgress")
     }
 
-    struct OnPlaybackProgressParameters {
+    public struct OnPlaybackProgressParameters {
         public var mediaSourceID: String?
-        public var positionTicks: Int?
-        public var audioStreamIndex: Int?
-        public var subtitleStreamIndex: Int?
-        public var volumeLevel: Int?
+        public var positionTicks: Int64?
+        public var audioStreamIndex: Int32?
+        public var subtitleStreamIndex: Int32?
+        public var volumeLevel: Int32?
         public var playMethod: PlayMethod?
         public var liveStreamID: String?
         public var playSessionID: String?
@@ -38,19 +33,7 @@ public extension Paths {
 
         public typealias RepeatMode = JellyfinAPI.RepeatMode
 
-        public init(
-            mediaSourceID: String? = nil,
-            positionTicks: Int? = nil,
-            audioStreamIndex: Int? = nil,
-            subtitleStreamIndex: Int? = nil,
-            volumeLevel: Int? = nil,
-            playMethod: PlayMethod? = nil,
-            liveStreamID: String? = nil,
-            playSessionID: String? = nil,
-            repeatMode: RepeatMode? = nil,
-            isPaused: Bool? = nil,
-            isMuted: Bool? = nil
-        ) {
+        public init(mediaSourceID: String? = nil, positionTicks: Int64? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, volumeLevel: Int32? = nil, playMethod: PlayMethod? = nil, liveStreamID: String? = nil, playSessionID: String? = nil, repeatMode: RepeatMode? = nil, isPaused: Bool? = nil, isMuted: Bool? = nil) {
             self.mediaSourceID = mediaSourceID
             self.positionTicks = positionTicks
             self.audioStreamIndex = audioStreamIndex

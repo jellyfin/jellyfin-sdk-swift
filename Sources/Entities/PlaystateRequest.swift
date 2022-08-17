@@ -13,9 +13,9 @@ public struct PlaystateRequest: Codable {
     public var command: PlaystateCommand?
     /// Gets or sets the controlling user identifier.
     public var controllingUserID: String?
-    public var seekPositionTicks: Int?
+    public var seekPositionTicks: Int64?
 
-    public init(command: PlaystateCommand? = nil, controllingUserID: String? = nil, seekPositionTicks: Int? = nil) {
+    public init(command: PlaystateCommand? = nil, controllingUserID: String? = nil, seekPositionTicks: Int64? = nil) {
         self.command = command
         self.controllingUserID = controllingUserID
         self.seekPositionTicks = seekPositionTicks

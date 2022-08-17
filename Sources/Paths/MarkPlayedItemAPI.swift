@@ -12,13 +12,8 @@ import URLQueryEncoder
 
 extension Paths {
     /// Marks an item as played for user.
-    public static func markPlayedItem(userID: String, itemID: String, datePlayed: Date? = nil) -> Request<JellyfinAPI.UserItemDataDto> {
-        Request(
-            method: "POST",
-            url: "/Users/\(userID)/PlayedItems/\(itemID)",
-            query: makeMarkPlayedItemQuery(datePlayed),
-            id: "MarkPlayedItem"
-        )
+    static public func markPlayedItem(userID: String, itemID: String, datePlayed: Date? = nil) -> Request<JellyfinAPI.UserItemDataDto> {
+        Request(method: "POST", url: "/Users/\(userID)/PlayedItems/\(itemID)", query: makeMarkPlayedItemQuery(datePlayed), id: "MarkPlayedItem")
     }
 
     private static func makeMarkPlayedItemQuery(_ datePlayed: Date?) -> [(String, String?)] {

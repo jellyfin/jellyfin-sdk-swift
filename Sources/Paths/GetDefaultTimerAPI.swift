@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets the default values for a new timer.
-    public static func getDefaultTimer(programID: String? = nil) -> Request<JellyfinAPI.SeriesTimerInfoDto> {
+    static public func getDefaultTimer(programID: String? = nil) -> Request<JellyfinAPI.SeriesTimerInfoDto> {
         Request(method: "GET", url: "/LiveTv/Timers/Defaults", query: makeGetDefaultTimerQuery(programID), id: "GetDefaultTimer")
     }
 

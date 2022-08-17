@@ -12,11 +12,11 @@ public struct SeriesTimerInfoDtoQueryResult: Codable {
     /// Gets or sets the items.
     public var items: [SeriesTimerInfoDto]?
     /// Gets or sets the index of the first record in Items.
-    public var startIndex: Int?
+    public var startIndex: Int32?
     /// Gets or sets the total number of records available.
-    public var totalRecordCount: Int?
+    public var totalRecordCount: Int32?
 
-    public init(items: [SeriesTimerInfoDto]? = nil, startIndex: Int? = nil, totalRecordCount: Int? = nil) {
+    public init(items: [SeriesTimerInfoDto]? = nil, startIndex: Int32? = nil, totalRecordCount: Int32? = nil) {
         self.items = items
         self.startIndex = startIndex
         self.totalRecordCount = totalRecordCount

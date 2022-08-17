@@ -16,13 +16,7 @@ public struct SubtitleProfile: Codable {
     /// Delivery method to use during playback of a specific subtitle format.
     public var method: SubtitleDeliveryMethod?
 
-    public init(
-        container: String? = nil,
-        didlMode: String? = nil,
-        format: String? = nil,
-        language: String? = nil,
-        method: SubtitleDeliveryMethod? = nil
-    ) {
+    public init(container: String? = nil, didlMode: String? = nil, format: String? = nil, language: String? = nil, method: SubtitleDeliveryMethod? = nil) {
         self.container = container
         self.didlMode = didlMode
         self.format = format

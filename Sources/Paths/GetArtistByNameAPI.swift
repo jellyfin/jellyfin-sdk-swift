@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Gets an artist by name.
-    public static func getArtistByName(name: String, userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDto> {
+    static public func getArtistByName(name: String, userID: UUID? = nil) -> Request<JellyfinAPI.BaseItemDto> {
         Request(method: "GET", url: "/Artists/\(name)", query: makeGetArtistByNameQuery(userID), id: "GetArtistByName")
     }
 

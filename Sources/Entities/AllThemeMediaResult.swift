@@ -16,11 +16,7 @@ public struct AllThemeMediaResult: Codable {
     /// Class ThemeMediaResult.
     public var themeVideosResult: ThemeMediaResult?
 
-    public init(
-        soundtrackSongsResult: ThemeMediaResult? = nil,
-        themeSongsResult: ThemeMediaResult? = nil,
-        themeVideosResult: ThemeMediaResult? = nil
-    ) {
+    public init(soundtrackSongsResult: ThemeMediaResult? = nil, themeSongsResult: ThemeMediaResult? = nil, themeVideosResult: ThemeMediaResult? = nil) {
         self.soundtrackSongsResult = soundtrackSongsResult
         self.themeSongsResult = themeSongsResult
         self.themeVideosResult = themeVideosResult

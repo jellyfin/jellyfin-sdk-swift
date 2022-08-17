@@ -10,42 +10,29 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Generates or gets the splashscreen.
-    static func getSplashscreen(parameters: GetSplashscreenParameters? = nil) -> Request<Data> {
+    static public func getSplashscreen(parameters: GetSplashscreenParameters? = nil) -> Request<Data> {
         Request(method: "GET", url: "/Branding/Splashscreen", query: parameters?.asQuery, id: "GetSplashscreen")
     }
 
-    struct GetSplashscreenParameters {
+    public struct GetSplashscreenParameters {
         public var tag: String?
         public var format: Format?
-        public var maxWidth: Int?
-        public var maxHeight: Int?
-        public var width: Int?
-        public var height: Int?
-        public var fillWidth: Int?
-        public var fillHeight: Int?
-        public var blur: Int?
+        public var maxWidth: Int32?
+        public var maxHeight: Int32?
+        public var width: Int32?
+        public var height: Int32?
+        public var fillWidth: Int32?
+        public var fillHeight: Int32?
+        public var blur: Int32?
         public var backgroundColor: String?
         public var foregroundLayer: String?
-        public var quality: Int?
+        public var quality: Int32?
 
         public typealias Format = JellyfinAPI.ImageFormat
 
-        public init(
-            tag: String? = nil,
-            format: Format? = nil,
-            maxWidth: Int? = nil,
-            maxHeight: Int? = nil,
-            width: Int? = nil,
-            height: Int? = nil,
-            fillWidth: Int? = nil,
-            fillHeight: Int? = nil,
-            blur: Int? = nil,
-            backgroundColor: String? = nil,
-            foregroundLayer: String? = nil,
-            quality: Int? = nil
-        ) {
+        public init(tag: String? = nil, format: Format? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, width: Int32? = nil, height: Int32? = nil, fillWidth: Int32? = nil, fillHeight: Int32? = nil, blur: Int32? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil, quality: Int32? = nil) {
             self.tag = tag
             self.format = format
             self.maxWidth = maxWidth

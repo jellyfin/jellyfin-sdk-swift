@@ -24,15 +24,7 @@ public struct PublicSystemInfo: Codable, Identifiable {
     /// Gets or sets the server version.
     public var version: String?
 
-    public init(
-        id: String? = nil,
-        localAddress: String? = nil,
-        operatingSystem: String? = nil,
-        productName: String? = nil,
-        serverName: String? = nil,
-        isStartupWizardCompleted: Bool? = nil,
-        version: String? = nil
-    ) {
+    public init(id: String? = nil, localAddress: String? = nil, operatingSystem: String? = nil, productName: String? = nil, serverName: String? = nil, isStartupWizardCompleted: Bool? = nil, version: String? = nil) {
         self.id = id
         self.localAddress = localAddress
         self.operatingSystem = operatingSystem

@@ -14,12 +14,7 @@ public struct ProfileCondition: Codable {
     public var property: ProfileConditionValue?
     public var value: String?
 
-    public init(
-        condition: ProfileConditionType? = nil,
-        isRequired: Bool? = nil,
-        property: ProfileConditionValue? = nil,
-        value: String? = nil
-    ) {
+    public init(condition: ProfileConditionType? = nil, isRequired: Bool? = nil, property: ProfileConditionValue? = nil, value: String? = nil) {
         self.condition = condition
         self.isRequired = isRequired
         self.property = property

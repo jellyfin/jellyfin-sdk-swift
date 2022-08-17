@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets available live tv epgs.
-    static func getLiveTvPrograms(parameters: GetLiveTvProgramsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getLiveTvPrograms(parameters: GetLiveTvProgramsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Programs", query: parameters?.asQuery, id: "GetLiveTvPrograms")
     }
 
-    struct GetLiveTvProgramsParameters {
+    public struct GetLiveTvProgramsParameters {
         public var channelIDs: [UUID]?
         public var userID: UUID?
         public var minStartDate: Date?
@@ -30,14 +30,14 @@ public extension Paths {
         public var isNews: Bool?
         public var isKids: Bool?
         public var isSports: Bool?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var sortBy: [String]?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var genres: [String]?
         public var genreIDs: [UUID]?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
         public var seriesTimerID: String?
@@ -45,35 +45,7 @@ public extension Paths {
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableTotalRecordCount: Bool?
 
-        public init(
-            channelIDs: [UUID]? = nil,
-            userID: UUID? = nil,
-            minStartDate: Date? = nil,
-            hasAired: Bool? = nil,
-            isAiring: Bool? = nil,
-            maxStartDate: Date? = nil,
-            minEndDate: Date? = nil,
-            maxEndDate: Date? = nil,
-            isMovie: Bool? = nil,
-            isSeries: Bool? = nil,
-            isNews: Bool? = nil,
-            isKids: Bool? = nil,
-            isSports: Bool? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            sortBy: [String]? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
-            genres: [String]? = nil,
-            genreIDs: [UUID]? = nil,
-            enableImages: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            enableUserData: Bool? = nil,
-            seriesTimerID: String? = nil,
-            librarySeriesID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            enableTotalRecordCount: Bool? = nil
-        ) {
+        public init(channelIDs: [UUID]? = nil, userID: UUID? = nil, minStartDate: Date? = nil, hasAired: Bool? = nil, isAiring: Bool? = nil, maxStartDate: Date? = nil, minEndDate: Date? = nil, maxEndDate: Date? = nil, isMovie: Bool? = nil, isSeries: Bool? = nil, isNews: Bool? = nil, isKids: Bool? = nil, isSports: Bool? = nil, startIndex: Int32? = nil, limit: Int32? = nil, sortBy: [String]? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, genres: [String]? = nil, genreIDs: [UUID]? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, seriesTimerID: String? = nil, librarySeriesID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableTotalRecordCount: Bool? = nil) {
             self.channelIDs = channelIDs
             self.userID = userID
             self.minStartDate = minStartDate

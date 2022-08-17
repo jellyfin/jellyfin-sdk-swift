@@ -27,16 +27,7 @@ public struct NotificationDto: Codable, Identifiable {
     /// Gets or sets the notification's user ID. Defaults to an empty string.
     public var userID: String?
 
-    public init(
-        date: Date? = nil,
-        description: String? = nil,
-        id: String? = nil,
-        isRead: Bool? = nil,
-        level: NotificationLevel? = nil,
-        name: String? = nil,
-        url: String? = nil,
-        userID: String? = nil
-    ) {
+    public init(date: Date? = nil, description: String? = nil, id: String? = nil, isRead: Bool? = nil, level: NotificationLevel? = nil, name: String? = nil, url: String? = nil, userID: String? = nil) {
         self.date = date
         self.description = description
         self.id = id

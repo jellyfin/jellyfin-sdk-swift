@@ -21,19 +21,11 @@ public struct MediaAttachment: Codable {
     /// Gets or sets the filename.
     public var fileName: String?
     /// Gets or sets the index.
-    public var index: Int?
+    public var index: Int32?
     /// Gets or sets the MIME type.
     public var mimeType: String?
 
-    public init(
-        codec: String? = nil,
-        codecTag: String? = nil,
-        comment: String? = nil,
-        deliveryURL: String? = nil,
-        fileName: String? = nil,
-        index: Int? = nil,
-        mimeType: String? = nil
-    ) {
+    public init(codec: String? = nil, codecTag: String? = nil, comment: String? = nil, deliveryURL: String? = nil, fileName: String? = nil, index: Int32? = nil, mimeType: String? = nil) {
         self.codec = codec
         self.codecTag = codecTag
         self.comment = comment

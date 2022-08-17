@@ -13,17 +13,17 @@ public struct MediaStream: Codable {
     /// Gets or sets the aspect ratio.
     public var aspectRatio: String?
     /// Gets or sets the average frame rate.
-    public var averageFrameRate: Double?
+    public var averageFrameRate: Float?
     /// Gets or sets the bit depth.
-    public var bitDepth: Int?
+    public var bitDepth: Int32?
     /// Gets or sets the bit rate.
-    public var bitRate: Int?
+    public var bitRate: Int32?
     /// Gets or sets the Dolby Vision bl present flag.
-    public var blPresentFlag: Int?
+    public var blPresentFlag: Int32?
     /// Gets or sets the channel layout.
     public var channelLayout: String?
     /// Gets or sets the channels.
-    public var channels: Int?
+    public var channels: Int32?
     /// Gets or sets the codec.
     public var codec: String?
     /// Gets or sets the codec tag.
@@ -46,21 +46,21 @@ public struct MediaStream: Codable {
     public var deliveryURL: String?
     public var displayTitle: String?
     /// Gets or sets the Dolby Vision bl signal compatibility id.
-    public var dvBlSignalCompatibilityID: Int?
+    public var dvBlSignalCompatibilityID: Int32?
     /// Gets or sets the Dolby Vision level.
-    public var dvLevel: Int?
+    public var dvLevel: Int32?
     /// Gets or sets the Dolby Vision profile.
-    public var dvProfile: Int?
+    public var dvProfile: Int32?
     /// Gets or sets the Dolby Vision version major.
-    public var dvVersionMajor: Int?
+    public var dvVersionMajor: Int32?
     /// Gets or sets the Dolby Vision version minor.
-    public var dvVersionMinor: Int?
+    public var dvVersionMinor: Int32?
     /// Gets or sets the Dolby Vision el present flag.
-    public var elPresentFlag: Int?
+    public var elPresentFlag: Int32?
     /// Gets or sets the height.
-    public var height: Int?
+    public var height: Int32?
     /// Gets or sets the index.
-    public var index: Int?
+    public var index: Int32?
     public var isAVC: Bool?
     /// Gets or sets whether this instance is anamorphic.
     public var isAnamorphic: Bool?
@@ -85,7 +85,7 @@ public struct MediaStream: Codable {
     public var localizedUndefined: String?
     public var nalLengthSize: String?
     /// Gets or sets the length of the packet.
-    public var packetLength: Int?
+    public var packetLength: Int32?
     /// Gets or sets the filename.
     public var path: String?
     /// Gets or sets the pixel format.
@@ -93,15 +93,15 @@ public struct MediaStream: Codable {
     /// Gets or sets the profile.
     public var profile: String?
     /// Gets or sets the real frame rate.
-    public var realFrameRate: Double?
+    public var realFrameRate: Float?
     /// Gets or sets the reference frames.
-    public var refFrames: Int?
+    public var refFrames: Int32?
     /// Gets or sets the Dolby Vision rpu present flag.
-    public var rpuPresentFlag: Int?
+    public var rpuPresentFlag: Int32?
     /// Gets or sets the sample rate.
-    public var sampleRate: Int?
+    public var sampleRate: Int32?
     /// Gets or sets the score.
-    public var score: Int?
+    public var score: Int32?
     /// Gets or sets a value indicating whether [supports external stream].
     public var isSupportsExternalStream: Bool?
     /// Gets or sets the time base.
@@ -117,68 +117,9 @@ public struct MediaStream: Codable {
     /// Gets the video range type.
     public var videoRangeType: String?
     /// Gets or sets the width.
-    public var width: Int?
+    public var width: Int32?
 
-    public init(
-        aspectRatio: String? = nil,
-        averageFrameRate: Double? = nil,
-        bitDepth: Int? = nil,
-        bitRate: Int? = nil,
-        blPresentFlag: Int? = nil,
-        channelLayout: String? = nil,
-        channels: Int? = nil,
-        codec: String? = nil,
-        codecTag: String? = nil,
-        codecTimeBase: String? = nil,
-        colorPrimaries: String? = nil,
-        colorRange: String? = nil,
-        colorSpace: String? = nil,
-        colorTransfer: String? = nil,
-        comment: String? = nil,
-        deliveryMethod: SubtitleDeliveryMethod? = nil,
-        deliveryURL: String? = nil,
-        displayTitle: String? = nil,
-        dvBlSignalCompatibilityID: Int? = nil,
-        dvLevel: Int? = nil,
-        dvProfile: Int? = nil,
-        dvVersionMajor: Int? = nil,
-        dvVersionMinor: Int? = nil,
-        elPresentFlag: Int? = nil,
-        height: Int? = nil,
-        index: Int? = nil,
-        isAVC: Bool? = nil,
-        isAnamorphic: Bool? = nil,
-        isDefault: Bool? = nil,
-        isExternal: Bool? = nil,
-        isExternalURL: Bool? = nil,
-        isForced: Bool? = nil,
-        isInterlaced: Bool? = nil,
-        isTextSubtitleStream: Bool? = nil,
-        language: String? = nil,
-        level: Double? = nil,
-        localizedDefault: String? = nil,
-        localizedExternal: String? = nil,
-        localizedForced: String? = nil,
-        localizedUndefined: String? = nil,
-        nalLengthSize: String? = nil,
-        packetLength: Int? = nil,
-        path: String? = nil,
-        pixelFormat: String? = nil,
-        profile: String? = nil,
-        realFrameRate: Double? = nil,
-        refFrames: Int? = nil,
-        rpuPresentFlag: Int? = nil,
-        sampleRate: Int? = nil,
-        score: Int? = nil,
-        isSupportsExternalStream: Bool? = nil,
-        timeBase: String? = nil,
-        title: String? = nil,
-        type: MediaStreamType? = nil,
-        videoDoViTitle: String? = nil,
-        videoRange: String? = nil,
-        videoRangeType: String? = nil,
-        width: Int? = nil
-    ) {
+    public init(aspectRatio: String? = nil, averageFrameRate: Float? = nil, bitDepth: Int32? = nil, bitRate: Int32? = nil, blPresentFlag: Int32? = nil, channelLayout: String? = nil, channels: Int32? = nil, codec: String? = nil, codecTag: String? = nil, codecTimeBase: String? = nil, colorPrimaries: String? = nil, colorRange: String? = nil, colorSpace: String? = nil, colorTransfer: String? = nil, comment: String? = nil, deliveryMethod: SubtitleDeliveryMethod? = nil, deliveryURL: String? = nil, displayTitle: String? = nil, dvBlSignalCompatibilityID: Int32? = nil, dvLevel: Int32? = nil, dvProfile: Int32? = nil, dvVersionMajor: Int32? = nil, dvVersionMinor: Int32? = nil, elPresentFlag: Int32? = nil, height: Int32? = nil, index: Int32? = nil, isAVC: Bool? = nil, isAnamorphic: Bool? = nil, isDefault: Bool? = nil, isExternal: Bool? = nil, isExternalURL: Bool? = nil, isForced: Bool? = nil, isInterlaced: Bool? = nil, isTextSubtitleStream: Bool? = nil, language: String? = nil, level: Double? = nil, localizedDefault: String? = nil, localizedExternal: String? = nil, localizedForced: String? = nil, localizedUndefined: String? = nil, nalLengthSize: String? = nil, packetLength: Int32? = nil, path: String? = nil, pixelFormat: String? = nil, profile: String? = nil, realFrameRate: Float? = nil, refFrames: Int32? = nil, rpuPresentFlag: Int32? = nil, sampleRate: Int32? = nil, score: Int32? = nil, isSupportsExternalStream: Bool? = nil, timeBase: String? = nil, title: String? = nil, type: MediaStreamType? = nil, videoDoViTitle: String? = nil, videoRange: String? = nil, videoRangeType: String? = nil, width: Int32? = nil) {
         self.aspectRatio = aspectRatio
         self.averageFrameRate = averageFrameRate
         self.bitDepth = bitDepth

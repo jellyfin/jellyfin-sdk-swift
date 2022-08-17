@@ -10,5 +10,5 @@ import Foundation
 
 public enum PlayAccess: String, Codable, CaseIterable {
     case full = "Full"
-    case none = "None"
+    case `none` = "None"
 }

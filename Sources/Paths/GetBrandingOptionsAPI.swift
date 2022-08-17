@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets branding configuration.
-    static var getBrandingOptions: Request<JellyfinAPI.BrandingOptions> {
+    static public var getBrandingOptions: Request<JellyfinAPI.BrandingOptions> {
         Request(method: "GET", url: "/Branding/Configuration", id: "GetBrandingOptions")
     }
 }

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Issues a general command to a client.
-    static func sendGeneralCommand(sessionID: String, command: String) -> Request<Void> {
+    static public func sendGeneralCommand(sessionID: String, command: String) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/\(sessionID)/Command/\(command)", id: "SendGeneralCommand")
     }
 }

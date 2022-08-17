@@ -12,8 +12,8 @@ import Foundation
 public struct PlaybackStartInfo: Codable {
     public var aspectRatio: String?
     /// Gets or sets the index of the audio stream.
-    public var audioStreamIndex: Int?
-    public var brightness: Int?
+    public var audioStreamIndex: Int32?
+    public var brightness: Int32?
     /// Gets or sets a value indicating whether this instance can seek.
     public var canSeek: Bool?
     /// Gets or sets a value indicating whether this instance is muted.
@@ -33,41 +33,20 @@ public struct PlaybackStartInfo: Codable {
     public var playMethod: PlayMethod?
     /// Gets or sets the play session identifier.
     public var playSessionID: String?
-    public var playbackStartTimeTicks: Int?
+    public var playbackStartTimeTicks: Int64?
     public var playlistItemID: String?
     /// Gets or sets the position ticks.
-    public var positionTicks: Int?
+    public var positionTicks: Int64?
     /// Gets or sets the repeat mode.
     public var repeatMode: RepeatMode?
     /// Gets or sets the session id.
     public var sessionID: String?
     /// Gets or sets the index of the subtitle stream.
-    public var subtitleStreamIndex: Int?
+    public var subtitleStreamIndex: Int32?
     /// Gets or sets the volume level.
-    public var volumeLevel: Int?
+    public var volumeLevel: Int32?
 
-    public init(
-        aspectRatio: String? = nil,
-        audioStreamIndex: Int? = nil,
-        brightness: Int? = nil,
-        canSeek: Bool? = nil,
-        isMuted: Bool? = nil,
-        isPaused: Bool? = nil,
-        item: BaseItemDto? = nil,
-        itemID: UUID? = nil,
-        liveStreamID: String? = nil,
-        mediaSourceID: String? = nil,
-        nowPlayingQueue: [QueueItem]? = nil,
-        playMethod: PlayMethod? = nil,
-        playSessionID: String? = nil,
-        playbackStartTimeTicks: Int? = nil,
-        playlistItemID: String? = nil,
-        positionTicks: Int? = nil,
-        repeatMode: RepeatMode? = nil,
-        sessionID: String? = nil,
-        subtitleStreamIndex: Int? = nil,
-        volumeLevel: Int? = nil
-    ) {
+    public init(aspectRatio: String? = nil, audioStreamIndex: Int32? = nil, brightness: Int32? = nil, canSeek: Bool? = nil, isMuted: Bool? = nil, isPaused: Bool? = nil, item: BaseItemDto? = nil, itemID: UUID? = nil, liveStreamID: String? = nil, mediaSourceID: String? = nil, nowPlayingQueue: [QueueItem]? = nil, playMethod: PlayMethod? = nil, playSessionID: String? = nil, playbackStartTimeTicks: Int64? = nil, playlistItemID: String? = nil, positionTicks: Int64? = nil, repeatMode: RepeatMode? = nil, sessionID: String? = nil, subtitleStreamIndex: Int32? = nil, volumeLevel: Int32? = nil) {
         self.aspectRatio = aspectRatio
         self.audioStreamIndex = audioStreamIndex
         self.brightness = brightness

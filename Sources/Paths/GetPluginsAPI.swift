@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a list of currently installed plugins.
-    static var getPlugins: Request<[JellyfinAPI.PluginInfo]> {
+    static public var getPlugins: Request<[JellyfinAPI.PluginInfo]> {
         Request(method: "GET", url: "/Plugins", id: "GetPlugins")
     }
 }

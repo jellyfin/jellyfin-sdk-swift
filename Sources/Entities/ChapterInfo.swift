@@ -17,15 +17,9 @@ public struct ChapterInfo: Codable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the start position ticks.
-    public var startPositionTicks: Int?
+    public var startPositionTicks: Int64?
 
-    public init(
-        imageDateModified: Date? = nil,
-        imagePath: String? = nil,
-        imageTag: String? = nil,
-        name: String? = nil,
-        startPositionTicks: Int? = nil
-    ) {
+    public init(imageDateModified: Date? = nil, imagePath: String? = nil, imageTag: String? = nil, name: String? = nil, startPositionTicks: Int64? = nil) {
         self.imageDateModified = imageDateModified
         self.imagePath = imagePath
         self.imageTag = imageTag

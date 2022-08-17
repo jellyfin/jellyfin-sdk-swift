@@ -31,18 +31,7 @@ public struct TaskInfo: Codable, Identifiable {
     /// Gets or sets the triggers.
     public var triggers: [TaskTriggerInfo]?
 
-    public init(
-        category: String? = nil,
-        currentProgressPercentage: Double? = nil,
-        description: String? = nil,
-        id: String? = nil,
-        isHidden: Bool? = nil,
-        key: String? = nil,
-        lastExecutionResult: TaskResult? = nil,
-        name: String? = nil,
-        state: TaskState? = nil,
-        triggers: [TaskTriggerInfo]? = nil
-    ) {
+    public init(category: String? = nil, currentProgressPercentage: Double? = nil, description: String? = nil, id: String? = nil, isHidden: Bool? = nil, key: String? = nil, lastExecutionResult: TaskResult? = nil, name: String? = nil, state: TaskState? = nil, triggers: [TaskTriggerInfo]? = nil) {
         self.category = category
         self.currentProgressPercentage = currentProgressPercentage
         self.description = description

@@ -10,24 +10,24 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets live tv recording series.
     @available(*, deprecated, message: "Deprecated")
-    static func getRecordingsSeries(parameters: GetRecordingsSeriesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getRecordingsSeries(parameters: GetRecordingsSeriesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/LiveTv/Recordings/Series", query: parameters?.asQuery, id: "GetRecordingsSeries")
     }
 
-    struct GetRecordingsSeriesParameters {
+    public struct GetRecordingsSeriesParameters {
         public var channelID: String?
         public var userID: UUID?
         public var groupID: String?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var status: Status?
         public var isInProgress: Bool?
         public var seriesTimerID: String?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableUserData: Bool?
@@ -35,22 +35,7 @@ public extension Paths {
 
         public typealias Status = JellyfinAPI.RecordingStatus
 
-        public init(
-            channelID: String? = nil,
-            userID: UUID? = nil,
-            groupID: String? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            status: Status? = nil,
-            isInProgress: Bool? = nil,
-            seriesTimerID: String? = nil,
-            enableImages: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            enableUserData: Bool? = nil,
-            enableTotalRecordCount: Bool? = nil
-        ) {
+        public init(channelID: String? = nil, userID: UUID? = nil, groupID: String? = nil, startIndex: Int32? = nil, limit: Int32? = nil, status: Status? = nil, isInProgress: Bool? = nil, seriesTimerID: String? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, enableUserData: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
             self.channelID = channelID
             self.userID = userID
             self.groupID = groupID

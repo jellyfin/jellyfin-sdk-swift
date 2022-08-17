@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Set item image.
-    static func setItemImageByIndex(itemID: String, imageType: String, imageIndex: Int, _ body: Data? = nil) -> Request<Void> {
+    static public func setItemImageByIndex(itemID: String, imageType: String, imageIndex: Int, _ body: Data? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)", body: body, id: "SetItemImageByIndex")
     }
 }

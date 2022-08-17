@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Cancels a package installation.
-    static func cancelPackageInstallation(packageID: String) -> Request<Void> {
+    static public func cancelPackageInstallation(packageID: String) -> Request<Void> {
         Request(method: "DELETE", url: "/Packages/Installing/\(packageID)", id: "CancelPackageInstallation")
     }
 }

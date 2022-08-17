@@ -27,16 +27,7 @@ public struct PluginInfo: Codable, Identifiable {
     /// Gets or sets the version.
     public var version: String?
 
-    public init(
-        canUninstall: Bool? = nil,
-        configurationFileName: String? = nil,
-        description: String? = nil,
-        hasImage: Bool? = nil,
-        id: UUID? = nil,
-        name: String? = nil,
-        status: PluginStatus? = nil,
-        version: String? = nil
-    ) {
+    public init(canUninstall: Bool? = nil, configurationFileName: String? = nil, description: String? = nil, hasImage: Bool? = nil, id: UUID? = nil, name: String? = nil, status: PluginStatus? = nil, version: String? = nil) {
         self.canUninstall = canUninstall
         self.configurationFileName = configurationFileName
         self.description = description

@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Refreshes metadata for an item.
-    static func refreshItem(itemID: String, parameters: RefreshItemParameters? = nil) -> Request<Void> {
+    static public func refreshItem(itemID: String, parameters: RefreshItemParameters? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Items/\(itemID)/Refresh", query: parameters?.asQuery, id: "RefreshItem")
     }
 
-    struct RefreshItemParameters {
+    public struct RefreshItemParameters {
         public var metadataRefreshMode: MetadataRefreshMode?
         public var imageRefreshMode: ImageRefreshMode?
         public var isReplaceAllMetadata: Bool?
@@ -26,12 +26,7 @@ public extension Paths {
 
         public typealias ImageRefreshMode = JellyfinAPI.MetadataRefreshMode
 
-        public init(
-            metadataRefreshMode: MetadataRefreshMode? = nil,
-            imageRefreshMode: ImageRefreshMode? = nil,
-            isReplaceAllMetadata: Bool? = nil,
-            isReplaceAllImages: Bool? = nil
-        ) {
+        public init(metadataRefreshMode: MetadataRefreshMode? = nil, imageRefreshMode: ImageRefreshMode? = nil, isReplaceAllMetadata: Bool? = nil, isReplaceAllImages: Bool? = nil) {
             self.metadataRefreshMode = metadataRefreshMode
             self.imageRefreshMode = imageRefreshMode
             self.isReplaceAllMetadata = isReplaceAllMetadata

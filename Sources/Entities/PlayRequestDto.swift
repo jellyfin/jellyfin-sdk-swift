@@ -11,13 +11,13 @@ import Foundation
 /// Class PlayRequestDto.
 public struct PlayRequestDto: Codable {
     /// Gets or sets the position of the playing item in the queue.
-    public var playingItemPosition: Int?
+    public var playingItemPosition: Int32?
     /// Gets or sets the playing queue.
     public var playingQueue: [UUID]?
     /// Gets or sets the start position ticks.
-    public var startPositionTicks: Int?
+    public var startPositionTicks: Int64?
 
-    public init(playingItemPosition: Int? = nil, playingQueue: [UUID]? = nil, startPositionTicks: Int? = nil) {
+    public init(playingItemPosition: Int32? = nil, playingQueue: [UUID]? = nil, startPositionTicks: Int64? = nil) {
         self.playingItemPosition = playingItemPosition
         self.playingQueue = playingQueue
         self.startPositionTicks = startPositionTicks

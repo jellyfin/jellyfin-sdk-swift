@@ -10,7 +10,7 @@ import Foundation
 
 public struct ChannelFeatures: Codable, Identifiable {
     /// Gets or sets the automatic refresh levels.
-    public var autoRefreshLevels: Int?
+    public var autoRefreshLevels: Int32?
     /// Gets or sets a value indicating whether this instance can filter.
     public var canFilter: Bool?
     /// Gets or sets a value indicating whether this instance can search.
@@ -22,7 +22,7 @@ public struct ChannelFeatures: Codable, Identifiable {
     /// Gets or sets the identifier.
     public var id: UUID?
     /// Gets or sets the maximum number of records the channel allows retrieving at a time.
-    public var maxPageSize: Int?
+    public var maxPageSize: Int32?
     /// Gets or sets the media types.
     public var mediaTypes: [ChannelMediaType]?
     /// Gets or sets the name.
@@ -34,20 +34,7 @@ public struct ChannelFeatures: Codable, Identifiable {
     /// Gets or sets a value indicating whether a sort ascending/descending toggle is supported.
     public var isSupportsSortOrderToggle: Bool?
 
-    public init(
-        autoRefreshLevels: Int? = nil,
-        canFilter: Bool? = nil,
-        canSearch: Bool? = nil,
-        contentTypes: [ChannelMediaContentType]? = nil,
-        defaultSortFields: [ChannelItemSortField]? = nil,
-        id: UUID? = nil,
-        maxPageSize: Int? = nil,
-        mediaTypes: [ChannelMediaType]? = nil,
-        name: String? = nil,
-        isSupportsContentDownloading: Bool? = nil,
-        isSupportsLatestMedia: Bool? = nil,
-        isSupportsSortOrderToggle: Bool? = nil
-    ) {
+    public init(autoRefreshLevels: Int32? = nil, canFilter: Bool? = nil, canSearch: Bool? = nil, contentTypes: [ChannelMediaContentType]? = nil, defaultSortFields: [ChannelItemSortField]? = nil, id: UUID? = nil, maxPageSize: Int32? = nil, mediaTypes: [ChannelMediaType]? = nil, name: String? = nil, isSupportsContentDownloading: Bool? = nil, isSupportsLatestMedia: Bool? = nil, isSupportsSortOrderToggle: Bool? = nil) {
         self.autoRefreshLevels = autoRefreshLevels
         self.canFilter = canFilter
         self.canSearch = canSearch

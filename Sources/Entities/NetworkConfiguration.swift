@@ -33,19 +33,19 @@ public struct NetworkConfiguration: Codable {
     /// Gets or sets a value indicating whether access outside of the LAN is permitted.
     public var enableRemoteAccess: Bool?
     /// Gets or sets a value indicating whether detailed SSDP logs are sent to the console/log.
-    ///
+    /// 
     /// "Emby.Dlna": "Debug" must be set in logging.default.json for this property to have any effect.
     public var enableSSDPTracing: Bool?
     /// Gets or sets a value indicating whether to enable automatic port forwarding.
     public var enableUPnP: Bool?
     /// Gets or sets the time (in seconds) between the pings of SSDP gateway monitor.
-    public var gatewayMonitorPeriod: Int?
+    public var gatewayMonitorPeriod: Int32?
     /// Gets or sets the ports that HDHomerun uses.
     public var hDHomerunPortRange: String?
     /// Gets or sets the HTTP server port number.
-    public var httpserverPortNumber: Int?
+    public var httpserverPortNumber: Int32?
     /// Gets or sets the HTTPS server port number.
-    public var httpsPortNumber: Int?
+    public var httpsPortNumber: Int32?
     /// Gets or sets a value indicating whether address names that match Jellyfin.Networking.Configuration.NetworkConfiguration.VirtualInterfaceNames should be Ignore for the purposes of binding.
     public var isIgnoreVirtualInterfaces: Bool?
     /// Gets or sets a value indicating whether <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.RemoteIPFilter" /> contains a blacklist or a whitelist. Default is a whitelist.
@@ -57,11 +57,11 @@ public struct NetworkConfiguration: Codable {
     /// Gets or sets the subnets that are deemed to make up the LAN.
     public var localNetworkSubnets: [String]?
     /// Gets or sets the public HTTPS port.
-    public var publicHTTPSPort: Int?
+    public var publicHTTPSPort: Int32?
     /// Gets or sets the public mapped port.
-    public var publicPort: Int?
+    public var publicPort: Int32?
     /// Gets or sets the PublishedServerUriBySubnet
-    ///
+    /// 
     /// Gets or sets PublishedServerUri to advertise for specific subnets.
     public var publishedServerUriBySubnet: [String]?
     /// Gets or sets the filter for remote IP connectivity. Used in conjuntion with <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.IsRemoteIPFilterBlacklist" />.
@@ -69,62 +69,27 @@ public struct NetworkConfiguration: Codable {
     /// Gets or sets a value indicating whether the server should force connections over HTTPS.
     public var requireHTTPS: Bool?
     /// Gets or sets the SSDPTracingFilter
-    ///
+    /// 
     /// Gets or sets a value indicating whether an IP address is to be used to filter the detailed ssdp logs that are being sent to the console/log.
-    ///
+    /// 
     /// If the setting "Emby.Dlna": "Debug" msut be set in logging.default.json for this property to work.
     public var sSDPTracingFilter: String?
     /// Gets or sets a value indicating whether all IPv6 interfaces should be treated as on the internal network.
-    ///
+    /// 
     /// Depending on the address range implemented ULA ranges might not be used.
     public var isTrustAllIP6Interfaces: Bool?
     /// Gets or sets the UDPPortRange.
     public var uDPPortRange: String?
     /// Gets or sets the number of times SSDP UDP messages are sent.
-    public var uDPSendCount: Int?
+    public var uDPSendCount: Int32?
     /// Gets or sets the delay between each groups of SSDP messages (in ms).
-    public var uDPSendDelay: Int?
+    public var uDPSendDelay: Int32?
     /// Gets or sets a value indicating whether the http port should be mapped as part of UPnP automatic port forwarding.
     public var isUPnPCreateHTTPPortMap: Bool?
     /// Gets or sets a value indicating the interfaces that should be ignored. The list can be comma separated. <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.IgnoreVirtualInterfaces" />.
     public var virtualInterfaceNames: String?
 
-    public init(
-        isAutoDiscovery: Bool? = nil,
-        isAutoDiscoveryTracing: Bool? = nil,
-        baseURL: String? = nil,
-        certificatePassword: String? = nil,
-        certificatePath: String? = nil,
-        enableHTTPS: Bool? = nil,
-        enableIPV4: Bool? = nil,
-        enableIPV6: Bool? = nil,
-        enableMultiSocketBinding: Bool? = nil,
-        enablePublishedServerUriByRequest: Bool? = nil,
-        enableRemoteAccess: Bool? = nil,
-        enableSSDPTracing: Bool? = nil,
-        enableUPnP: Bool? = nil,
-        gatewayMonitorPeriod: Int? = nil,
-        hDHomerunPortRange: String? = nil,
-        httpserverPortNumber: Int? = nil,
-        httpsPortNumber: Int? = nil,
-        isIgnoreVirtualInterfaces: Bool? = nil,
-        isRemoteIPFilterBlacklist: Bool? = nil,
-        knownProxies: [String]? = nil,
-        localNetworkAddresses: [String]? = nil,
-        localNetworkSubnets: [String]? = nil,
-        publicHTTPSPort: Int? = nil,
-        publicPort: Int? = nil,
-        publishedServerUriBySubnet: [String]? = nil,
-        remoteIPFilter: [String]? = nil,
-        requireHTTPS: Bool? = nil,
-        sSDPTracingFilter: String? = nil,
-        isTrustAllIP6Interfaces: Bool? = nil,
-        uDPPortRange: String? = nil,
-        uDPSendCount: Int? = nil,
-        uDPSendDelay: Int? = nil,
-        isUPnPCreateHTTPPortMap: Bool? = nil,
-        virtualInterfaceNames: String? = nil
-    ) {
+    public init(isAutoDiscovery: Bool? = nil, isAutoDiscoveryTracing: Bool? = nil, baseURL: String? = nil, certificatePassword: String? = nil, certificatePath: String? = nil, enableHTTPS: Bool? = nil, enableIPV4: Bool? = nil, enableIPV6: Bool? = nil, enableMultiSocketBinding: Bool? = nil, enablePublishedServerUriByRequest: Bool? = nil, enableRemoteAccess: Bool? = nil, enableSSDPTracing: Bool? = nil, enableUPnP: Bool? = nil, gatewayMonitorPeriod: Int32? = nil, hDHomerunPortRange: String? = nil, httpserverPortNumber: Int32? = nil, httpsPortNumber: Int32? = nil, isIgnoreVirtualInterfaces: Bool? = nil, isRemoteIPFilterBlacklist: Bool? = nil, knownProxies: [String]? = nil, localNetworkAddresses: [String]? = nil, localNetworkSubnets: [String]? = nil, publicHTTPSPort: Int32? = nil, publicPort: Int32? = nil, publishedServerUriBySubnet: [String]? = nil, remoteIPFilter: [String]? = nil, requireHTTPS: Bool? = nil, sSDPTracingFilter: String? = nil, isTrustAllIP6Interfaces: Bool? = nil, uDPPortRange: String? = nil, uDPSendCount: Int32? = nil, uDPSendDelay: Int32? = nil, isUPnPCreateHTTPPortMap: Bool? = nil, virtualInterfaceNames: String? = nil) {
         self.isAutoDiscovery = isAutoDiscovery
         self.isAutoDiscoveryTracing = isAutoDiscoveryTracing
         self.baseURL = baseURL

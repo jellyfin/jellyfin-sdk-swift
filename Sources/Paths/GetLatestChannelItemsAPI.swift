@@ -10,28 +10,21 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets latest channel items.
-    static func getLatestChannelItems(parameters: GetLatestChannelItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getLatestChannelItems(parameters: GetLatestChannelItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Channels/Items/Latest", query: parameters?.asQuery, id: "GetLatestChannelItems")
     }
 
-    struct GetLatestChannelItemsParameters {
+    public struct GetLatestChannelItemsParameters {
         public var userID: UUID?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var fields: [JellyfinAPI.ItemFields]?
         public var channelIDs: [UUID]?
 
-        public init(
-            userID: UUID? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            channelIDs: [UUID]? = nil
-        ) {
+        public init(userID: UUID? = nil, startIndex: Int32? = nil, limit: Int32? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, fields: [JellyfinAPI.ItemFields]? = nil, channelIDs: [UUID]? = nil) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit

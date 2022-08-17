@@ -10,36 +10,25 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets latest media.
-    static func getLatestMedia(userID: String, parameters: GetLatestMediaParameters? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
+    static public func getLatestMedia(userID: String, parameters: GetLatestMediaParameters? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
         Request(method: "GET", url: "/Users/\(userID)/Items/Latest", query: parameters?.asQuery, id: "GetLatestMedia")
     }
 
-    struct GetLatestMediaParameters {
+    public struct GetLatestMediaParameters {
         public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isPlayed: Bool?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
-        public var limit: Int?
+        public var limit: Int32?
         public var isGroupItems: Bool?
 
-        public init(
-            parentID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            isPlayed: Bool? = nil,
-            enableImages: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            enableUserData: Bool? = nil,
-            limit: Int? = nil,
-            isGroupItems: Bool? = nil
-        ) {
+        public init(parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, isPlayed: Bool? = nil, enableImages: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, enableUserData: Bool? = nil, limit: Int32? = nil, isGroupItems: Bool? = nil) {
             self.parentID = parentID
             self.fields = fields
             self.includeItemTypes = includeItemTypes

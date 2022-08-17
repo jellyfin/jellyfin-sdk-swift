@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get profile infos.
-    static var getProfileInfos: Request<[JellyfinAPI.DeviceProfileInfo]> {
+    static public var getProfileInfos: Request<[JellyfinAPI.DeviceProfileInfo]> {
         Request(method: "GET", url: "/Dlna/ProfileInfos", id: "GetProfileInfos")
     }
 }

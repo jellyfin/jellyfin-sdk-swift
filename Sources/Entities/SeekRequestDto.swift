@@ -11,9 +11,9 @@ import Foundation
 /// Class SeekRequestDto.
 public struct SeekRequestDto: Codable {
     /// Gets or sets the position ticks.
-    public var positionTicks: Int?
+    public var positionTicks: Int64?
 
-    public init(positionTicks: Int? = nil) {
+    public init(positionTicks: Int64? = nil) {
         self.positionTicks = positionTicks
     }
 }

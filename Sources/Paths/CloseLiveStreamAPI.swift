@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Closes a media source.
-    static func closeLiveStream(liveStreamID: String) -> Request<Void> {
+    static public func closeLiveStream(liveStreamID: String) -> Request<Void> {
         Request(method: "POST", url: "/LiveStreams/Close", query: [("liveStreamId", liveStreamID)], id: "CloseLiveStream")
     }
 }

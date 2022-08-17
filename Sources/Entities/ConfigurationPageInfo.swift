@@ -23,14 +23,7 @@ public struct ConfigurationPageInfo: Codable {
     /// Gets or sets the plugin id.
     public var pluginID: UUID?
 
-    public init(
-        displayName: String? = nil,
-        enableInMainMenu: Bool? = nil,
-        menuIcon: String? = nil,
-        menuSection: String? = nil,
-        name: String? = nil,
-        pluginID: UUID? = nil
-    ) {
+    public init(displayName: String? = nil, enableInMainMenu: Bool? = nil, menuIcon: String? = nil, menuSection: String? = nil, name: String? = nil, pluginID: UUID? = nil) {
         self.displayName = displayName
         self.enableInMainMenu = enableInMainMenu
         self.menuIcon = menuIcon

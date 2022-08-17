@@ -28,17 +28,7 @@ public struct DeviceIdentification: Codable {
     /// Gets or sets the serial number.
     public var serialNumber: String?
 
-    public init(
-        friendlyName: String? = nil,
-        headers: [HTTPHeaderInfo]? = nil,
-        manufacturer: String? = nil,
-        manufacturerURL: String? = nil,
-        modelDescription: String? = nil,
-        modelName: String? = nil,
-        modelNumber: String? = nil,
-        modelURL: String? = nil,
-        serialNumber: String? = nil
-    ) {
+    public init(friendlyName: String? = nil, headers: [HTTPHeaderInfo]? = nil, manufacturer: String? = nil, manufacturerURL: String? = nil, modelDescription: String? = nil, modelName: String? = nil, modelNumber: String? = nil, modelURL: String? = nil, serialNumber: String? = nil) {
         self.friendlyName = friendlyName
         self.headers = headers
         self.manufacturer = manufacturer

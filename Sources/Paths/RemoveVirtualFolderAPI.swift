@@ -12,13 +12,8 @@ import URLQueryEncoder
 
 extension Paths {
     /// Removes a virtual folder.
-    public static func removeVirtualFolder(name: String? = nil, isRefreshLibrary: Bool? = nil) -> Request<Void> {
-        Request(
-            method: "DELETE",
-            url: "/Library/VirtualFolders",
-            query: makeRemoveVirtualFolderQuery(name, isRefreshLibrary),
-            id: "RemoveVirtualFolder"
-        )
+    static public func removeVirtualFolder(name: String? = nil, isRefreshLibrary: Bool? = nil) -> Request<Void> {
+        Request(method: "DELETE", url: "/Library/VirtualFolders", query: makeRemoveVirtualFolderQuery(name, isRefreshLibrary), id: "RemoveVirtualFolder")
     }
 
     private static func makeRemoveVirtualFolderQuery(_ name: String?, _ isRefreshLibrary: Bool?) -> [(String, String?)] {

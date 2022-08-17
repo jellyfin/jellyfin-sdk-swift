@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a list of available fallback font files.
-    static var getFallbackFontList: Request<[JellyfinAPI.FontFile]> {
+    static public var getFallbackFontList: Request<[JellyfinAPI.FontFile]> {
         Request(method: "GET", url: "/FallbackFont/Fonts", id: "GetFallbackFontList")
     }
 }

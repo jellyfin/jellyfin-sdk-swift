@@ -10,44 +10,23 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets subtitles in a specified format.
-    static func getSubtitleWithTicks(
-        routeItemID: String,
-        routeMediaSourceID: String,
-        routeIndex: Int,
-        routeStartPositionTicks: Int,
-        routeFormat: String,
-        parameters: GetSubtitleWithTicksParameters? = nil
-    ) -> Request<String> {
-        Request(
-            method: "GET",
-            url: "/Videos/\(routeItemID)/\(routeMediaSourceID)/Subtitles/\(routeIndex)/\(routeStartPositionTicks)/Stream.\(routeFormat)",
-            query: parameters?.asQuery,
-            id: "GetSubtitleWithTicks"
-        )
+    static public func getSubtitleWithTicks(routeItemID: String, routeMediaSourceID: String, routeIndex: Int, routeStartPositionTicks: Int, routeFormat: String, parameters: GetSubtitleWithTicksParameters? = nil) -> Request<String> {
+        Request(method: "GET", url: "/Videos/\(routeItemID)/\(routeMediaSourceID)/Subtitles/\(routeIndex)/\(routeStartPositionTicks)/Stream.\(routeFormat)", query: parameters?.asQuery, id: "GetSubtitleWithTicks")
     }
 
-    struct GetSubtitleWithTicksParameters {
+    public struct GetSubtitleWithTicksParameters {
         public var itemID: UUID?
         public var mediaSourceID: String?
-        public var index: Int?
-        public var startPositionTicks: Int?
+        public var index: Int32?
+        public var startPositionTicks: Int64?
         public var format: String?
-        public var endPositionTicks: Int?
+        public var endPositionTicks: Int64?
         public var isCopyTimestamps: Bool?
         public var isAddVttTimeMap: Bool?
 
-        public init(
-            itemID: UUID? = nil,
-            mediaSourceID: String? = nil,
-            index: Int? = nil,
-            startPositionTicks: Int? = nil,
-            format: String? = nil,
-            endPositionTicks: Int? = nil,
-            isCopyTimestamps: Bool? = nil,
-            isAddVttTimeMap: Bool? = nil
-        ) {
+        public init(itemID: UUID? = nil, mediaSourceID: String? = nil, index: Int32? = nil, startPositionTicks: Int64? = nil, format: String? = nil, endPositionTicks: Int64? = nil, isCopyTimestamps: Bool? = nil, isAddVttTimeMap: Bool? = nil) {
             self.itemID = itemID
             self.mediaSourceID = mediaSourceID
             self.index = index

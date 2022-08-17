@@ -19,9 +19,9 @@ public struct DisplayPreferencesDto: Codable, Identifiable {
     /// Gets or sets the index by.
     public var indexBy: String?
     /// Gets or sets the height of the primary image.
-    public var primaryImageHeight: Int?
+    public var primaryImageHeight: Int32?
     /// Gets or sets the width of the primary image.
-    public var primaryImageWidth: Int?
+    public var primaryImageWidth: Int32?
     /// Gets or sets a value indicating whether [remember indexing].
     public var isRememberIndexing: Bool?
     /// Gets or sets a value indicating whether [remember sorting].
@@ -39,22 +39,7 @@ public struct DisplayPreferencesDto: Codable, Identifiable {
     /// Gets or sets the type of the view.
     public var viewType: String?
 
-    public init(
-        client: String? = nil,
-        customPrefs: [String: String]? = nil,
-        id: String? = nil,
-        indexBy: String? = nil,
-        primaryImageHeight: Int? = nil,
-        primaryImageWidth: Int? = nil,
-        isRememberIndexing: Bool? = nil,
-        isRememberSorting: Bool? = nil,
-        scrollDirection: ScrollDirection? = nil,
-        isShowBackdrop: Bool? = nil,
-        isShowSidebar: Bool? = nil,
-        sortBy: String? = nil,
-        sortOrder: SortOrder? = nil,
-        viewType: String? = nil
-    ) {
+    public init(client: String? = nil, customPrefs: [String: String]? = nil, id: String? = nil, indexBy: String? = nil, primaryImageHeight: Int32? = nil, primaryImageWidth: Int32? = nil, isRememberIndexing: Bool? = nil, isRememberSorting: Bool? = nil, scrollDirection: ScrollDirection? = nil, isShowBackdrop: Bool? = nil, isShowSidebar: Bool? = nil, sortBy: String? = nil, sortOrder: SortOrder? = nil, viewType: String? = nil) {
         self.client = client
         self.customPrefs = customPrefs
         self.id = id

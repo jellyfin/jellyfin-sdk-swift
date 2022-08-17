@@ -11,11 +11,11 @@ import Foundation
 /// Class MovePlaylistItemRequestDto.
 public struct MovePlaylistItemRequestDto: Codable {
     /// Gets or sets the new position.
-    public var newIndex: Int?
+    public var newIndex: Int32?
     /// Gets or sets the playlist identifier of the item.
     public var playlistItemID: UUID?
 
-    public init(newIndex: Int? = nil, playlistItemID: UUID? = nil) {
+    public init(newIndex: Int32? = nil, playlistItemID: UUID? = nil) {
         self.newIndex = newIndex
         self.playlistItemID = playlistItemID
     }

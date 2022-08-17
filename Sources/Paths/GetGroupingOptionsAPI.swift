@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get user view grouping options.
-    static func getGroupingOptions(userID: String) -> Request<[JellyfinAPI.SpecialViewOptionDto]> {
+    static public func getGroupingOptions(userID: String) -> Request<[JellyfinAPI.SpecialViewOptionDto]> {
         Request(method: "GET", url: "/Users/\(userID)/GroupingOptions", id: "GetGroupingOptions")
     }
 }

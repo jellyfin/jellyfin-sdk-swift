@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get item image infos.
-    static func getItemImageInfos(itemID: String) -> Request<[JellyfinAPI.ImageInfo]> {
+    static public func getItemImageInfos(itemID: String) -> Request<[JellyfinAPI.ImageInfo]> {
         Request(method: "GET", url: "/Items/\(itemID)/Images", id: "GetItemImageInfos")
     }
 }

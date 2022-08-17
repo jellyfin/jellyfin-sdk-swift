@@ -10,16 +10,16 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets all album artists from a given item, folder, or the entire library.
-    static func getAlbumArtists(parameters: GetAlbumArtistsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getAlbumArtists(parameters: GetAlbumArtistsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Artists/AlbumArtists", query: parameters?.asQuery, id: "GetAlbumArtists")
     }
 
-    struct GetAlbumArtistsParameters {
+    public struct GetAlbumArtistsParameters {
         public var minCommunityRating: Double?
-        public var startIndex: Int?
-        public var limit: Int?
+        public var startIndex: Int32?
+        public var limit: Int32?
         public var searchTerm: String?
         public var parentID: UUID?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -32,9 +32,9 @@ public extension Paths {
         public var genreIDs: [UUID]?
         public var officialRatings: [String]?
         public var tags: [String]?
-        public var years: [Int]?
+        public var years: [Int32]?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var person: String?
         public var personIDs: [UUID]?
@@ -50,40 +50,7 @@ public extension Paths {
         public var enableImages: Bool?
         public var enableTotalRecordCount: Bool?
 
-        public init(
-            minCommunityRating: Double? = nil,
-            startIndex: Int? = nil,
-            limit: Int? = nil,
-            searchTerm: String? = nil,
-            parentID: UUID? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
-            isFavorite: Bool? = nil,
-            mediaTypes: [String]? = nil,
-            genres: [String]? = nil,
-            genreIDs: [UUID]? = nil,
-            officialRatings: [String]? = nil,
-            tags: [String]? = nil,
-            years: [Int]? = nil,
-            enableUserData: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            person: String? = nil,
-            personIDs: [UUID]? = nil,
-            personTypes: [String]? = nil,
-            studios: [String]? = nil,
-            studioIDs: [UUID]? = nil,
-            userID: UUID? = nil,
-            nameStartsWithOrGreater: String? = nil,
-            nameStartsWith: String? = nil,
-            nameLessThan: String? = nil,
-            sortBy: [String]? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
-            enableImages: Bool? = nil,
-            enableTotalRecordCount: Bool? = nil
-        ) {
+        public init(minCommunityRating: Double? = nil, startIndex: Int32? = nil, limit: Int32? = nil, searchTerm: String? = nil, parentID: UUID? = nil, fields: [JellyfinAPI.ItemFields]? = nil, excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, isFavorite: Bool? = nil, mediaTypes: [String]? = nil, genres: [String]? = nil, genreIDs: [UUID]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int32]? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, person: String? = nil, personIDs: [UUID]? = nil, personTypes: [String]? = nil, studios: [String]? = nil, studioIDs: [UUID]? = nil, userID: UUID? = nil, nameStartsWithOrGreater: String? = nil, nameStartsWith: String? = nil, nameLessThan: String? = nil, sortBy: [String]? = nil, sortOrder: [JellyfinAPI.SortOrder]? = nil, enableImages: Bool? = nil, enableTotalRecordCount: Bool? = nil) {
             self.minCommunityRating = minCommunityRating
             self.startIndex = startIndex
             self.limit = limit

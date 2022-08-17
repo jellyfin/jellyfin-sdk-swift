@@ -11,44 +11,31 @@ import Foundation
 /// Class LibrarySummary.
 public struct ItemCounts: Codable {
     /// Gets or sets the album count.
-    public var albumCount: Int?
+    public var albumCount: Int32?
     /// Gets or sets the artist count.
-    public var artistCount: Int?
+    public var artistCount: Int32?
     /// Gets or sets the book count.
-    public var bookCount: Int?
+    public var bookCount: Int32?
     /// Gets or sets the box set count.
-    public var boxSetCount: Int?
+    public var boxSetCount: Int32?
     /// Gets or sets the episode count.
-    public var episodeCount: Int?
+    public var episodeCount: Int32?
     /// Gets or sets the item count.
-    public var itemCount: Int?
+    public var itemCount: Int32?
     /// Gets or sets the movie count.
-    public var movieCount: Int?
+    public var movieCount: Int32?
     /// Gets or sets the music video count.
-    public var musicVideoCount: Int?
+    public var musicVideoCount: Int32?
     /// Gets or sets the program count.
-    public var programCount: Int?
+    public var programCount: Int32?
     /// Gets or sets the series count.
-    public var seriesCount: Int?
+    public var seriesCount: Int32?
     /// Gets or sets the song count.
-    public var songCount: Int?
+    public var songCount: Int32?
     /// Gets or sets the trailer count.
-    public var trailerCount: Int?
+    public var trailerCount: Int32?
 
-    public init(
-        albumCount: Int? = nil,
-        artistCount: Int? = nil,
-        bookCount: Int? = nil,
-        boxSetCount: Int? = nil,
-        episodeCount: Int? = nil,
-        itemCount: Int? = nil,
-        movieCount: Int? = nil,
-        musicVideoCount: Int? = nil,
-        programCount: Int? = nil,
-        seriesCount: Int? = nil,
-        songCount: Int? = nil,
-        trailerCount: Int? = nil
-    ) {
+    public init(albumCount: Int32? = nil, artistCount: Int32? = nil, bookCount: Int32? = nil, boxSetCount: Int32? = nil, episodeCount: Int32? = nil, itemCount: Int32? = nil, movieCount: Int32? = nil, musicVideoCount: Int32? = nil, programCount: Int32? = nil, seriesCount: Int32? = nil, songCount: Int32? = nil, trailerCount: Int32? = nil) {
         self.albumCount = albumCount
         self.artistCount = artistCount
         self.bookCount = bookCount

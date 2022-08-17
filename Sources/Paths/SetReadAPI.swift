@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Sets notifications as read.
-    static func setRead(userID: String) -> Request<Void> {
+    static public func setRead(userID: String) -> Request<Void> {
         Request(method: "POST", url: "/Notifications/\(userID)/Read", id: "SetRead")
     }
 }

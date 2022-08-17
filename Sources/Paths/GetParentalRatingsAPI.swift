@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets known parental ratings.
-    static var getParentalRatings: Request<[JellyfinAPI.ParentalRating]> {
+    static public var getParentalRatings: Request<[JellyfinAPI.ParentalRating]> {
         Request(method: "GET", url: "/Localization/ParentalRatings", id: "GetParentalRatings")
     }
 }

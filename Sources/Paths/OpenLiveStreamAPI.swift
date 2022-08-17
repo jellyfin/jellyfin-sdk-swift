@@ -10,41 +10,26 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Opens a media source.
-    static func openLiveStream(
-        parameters: OpenLiveStreamParameters? = nil,
-        _ body: JellyfinAPI.OpenLiveStreamDto? = nil
-    ) -> Request<JellyfinAPI.LiveStreamResponse> {
+    static public func openLiveStream(parameters: OpenLiveStreamParameters? = nil, _ body: JellyfinAPI.OpenLiveStreamDto? = nil) -> Request<JellyfinAPI.LiveStreamResponse> {
         Request(method: "POST", url: "/LiveStreams/Open", query: parameters?.asQuery, body: body, id: "OpenLiveStream")
     }
 
-    struct OpenLiveStreamParameters {
+    public struct OpenLiveStreamParameters {
         public var openToken: String?
         public var userID: UUID?
         public var playSessionID: String?
-        public var maxStreamingBitrate: Int?
-        public var startTimeTicks: Int?
-        public var audioStreamIndex: Int?
-        public var subtitleStreamIndex: Int?
-        public var maxAudioChannels: Int?
+        public var maxStreamingBitrate: Int32?
+        public var startTimeTicks: Int64?
+        public var audioStreamIndex: Int32?
+        public var subtitleStreamIndex: Int32?
+        public var maxAudioChannels: Int32?
         public var itemID: UUID?
         public var enableDirectPlay: Bool?
         public var enableDirectStream: Bool?
 
-        public init(
-            openToken: String? = nil,
-            userID: UUID? = nil,
-            playSessionID: String? = nil,
-            maxStreamingBitrate: Int? = nil,
-            startTimeTicks: Int? = nil,
-            audioStreamIndex: Int? = nil,
-            subtitleStreamIndex: Int? = nil,
-            maxAudioChannels: Int? = nil,
-            itemID: UUID? = nil,
-            enableDirectPlay: Bool? = nil,
-            enableDirectStream: Bool? = nil
-        ) {
+        public init(openToken: String? = nil, userID: UUID? = nil, playSessionID: String? = nil, maxStreamingBitrate: Int32? = nil, startTimeTicks: Int64? = nil, audioStreamIndex: Int32? = nil, subtitleStreamIndex: Int32? = nil, maxAudioChannels: Int32? = nil, itemID: UUID? = nil, enableDirectPlay: Bool? = nil, enableDirectStream: Bool? = nil) {
             self.openToken = openToken
             self.userID = userID
             self.playSessionID = playSessionID

@@ -10,16 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Adds a virtual folder.
-    static func addVirtualFolder(
-        parameters: AddVirtualFolderParameters? = nil,
-        _ body: JellyfinAPI.AddVirtualFolderDto? = nil
-    ) -> Request<Void> {
+    static public func addVirtualFolder(parameters: AddVirtualFolderParameters? = nil, _ body: JellyfinAPI.AddVirtualFolderDto? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Library/VirtualFolders", query: parameters?.asQuery, body: body, id: "AddVirtualFolder")
     }
 
-    struct AddVirtualFolderParameters {
+    public struct AddVirtualFolderParameters {
         public var name: String?
         public var collectionType: CollectionType?
         public var paths: [String]?

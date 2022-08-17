@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get the item's external id info.
-    static func getExternalIDInfos(itemID: String) -> Request<[JellyfinAPI.ExternalIDInfo]> {
+    static public func getExternalIDInfos(itemID: String) -> Request<[JellyfinAPI.ExternalIDInfo]> {
         Request(method: "GET", url: "/Items/\(itemID)/ExternalIdInfos", id: "GetExternalIdInfos")
     }
 }

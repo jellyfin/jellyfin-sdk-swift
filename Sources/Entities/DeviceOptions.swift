@@ -15,9 +15,9 @@ public struct DeviceOptions: Codable, Identifiable {
     /// Gets the device id.
     public var deviceID: String?
     /// Gets the id.
-    public var id: Int?
+    public var id: Int32?
 
-    public init(customName: String? = nil, deviceID: String? = nil, id: Int? = nil) {
+    public init(customName: String? = nil, deviceID: String? = nil, id: Int32? = nil) {
         self.customName = customName
         self.deviceID = deviceID
         self.id = id

@@ -9,12 +9,12 @@
 import Foundation
 
 public struct MediaSourceInfo: Codable, Identifiable {
-    public var analyzeDurationMs: Int?
-    public var bitrate: Int?
-    public var bufferMs: Int?
+    public var analyzeDurationMs: Int32?
+    public var bitrate: Int32?
+    public var bufferMs: Int32?
     public var container: String?
-    public var defaultAudioStreamIndex: Int?
-    public var defaultSubtitleStreamIndex: Int?
+    public var defaultAudioStreamIndex: Int32?
+    public var defaultSubtitleStreamIndex: Int32?
     public var eTag: String?
     public var encoderPath: String?
     public var encoderProtocol: MediaProtocol?
@@ -25,7 +25,7 @@ public struct MediaSourceInfo: Codable, Identifiable {
     public var isIgnoreIndex: Bool?
     public var isInfiniteStream: Bool?
     /// Gets or sets a value indicating whether the media is remote.
-    ///
+    /// 
     /// Differentiate internet url vs local network.
     public var isRemote: Bool?
     public var isoType: IsoType?
@@ -41,8 +41,8 @@ public struct MediaSourceInfo: Codable, Identifiable {
     public var requiresClosing: Bool?
     public var requiresLooping: Bool?
     public var requiresOpening: Bool?
-    public var runTimeTicks: Int?
-    public var size: Int?
+    public var runTimeTicks: Int64?
+    public var size: Int64?
     public var isSupportsDirectPlay: Bool?
     public var isSupportsDirectStream: Bool?
     public var isSupportsProbing: Bool?
@@ -55,50 +55,7 @@ public struct MediaSourceInfo: Codable, Identifiable {
     public var video3DFormat: Video3DFormat?
     public var videoType: VideoType?
 
-    public init(
-        analyzeDurationMs: Int? = nil,
-        bitrate: Int? = nil,
-        bufferMs: Int? = nil,
-        container: String? = nil,
-        defaultAudioStreamIndex: Int? = nil,
-        defaultSubtitleStreamIndex: Int? = nil,
-        eTag: String? = nil,
-        encoderPath: String? = nil,
-        encoderProtocol: MediaProtocol? = nil,
-        formats: [String]? = nil,
-        isGenPtsInput: Bool? = nil,
-        id: String? = nil,
-        isIgnoreDts: Bool? = nil,
-        isIgnoreIndex: Bool? = nil,
-        isInfiniteStream: Bool? = nil,
-        isRemote: Bool? = nil,
-        isoType: IsoType? = nil,
-        liveStreamID: String? = nil,
-        mediaAttachments: [MediaAttachment]? = nil,
-        mediaStreams: [MediaStream]? = nil,
-        name: String? = nil,
-        openToken: String? = nil,
-        path: String? = nil,
-        protocol: MediaProtocol? = nil,
-        isReadAtNativeFramerate: Bool? = nil,
-        requiredHTTPHeaders: [String: String]? = nil,
-        requiresClosing: Bool? = nil,
-        requiresLooping: Bool? = nil,
-        requiresOpening: Bool? = nil,
-        runTimeTicks: Int? = nil,
-        size: Int? = nil,
-        isSupportsDirectPlay: Bool? = nil,
-        isSupportsDirectStream: Bool? = nil,
-        isSupportsProbing: Bool? = nil,
-        isSupportsTranscoding: Bool? = nil,
-        timestamp: TransportStreamTimestamp? = nil,
-        transcodingContainer: String? = nil,
-        transcodingSubProtocol: String? = nil,
-        transcodingURL: String? = nil,
-        type: MediaSourceType? = nil,
-        video3DFormat: Video3DFormat? = nil,
-        videoType: VideoType? = nil
-    ) {
+    public init(analyzeDurationMs: Int32? = nil, bitrate: Int32? = nil, bufferMs: Int32? = nil, container: String? = nil, defaultAudioStreamIndex: Int32? = nil, defaultSubtitleStreamIndex: Int32? = nil, eTag: String? = nil, encoderPath: String? = nil, encoderProtocol: MediaProtocol? = nil, formats: [String]? = nil, isGenPtsInput: Bool? = nil, id: String? = nil, isIgnoreDts: Bool? = nil, isIgnoreIndex: Bool? = nil, isInfiniteStream: Bool? = nil, isRemote: Bool? = nil, isoType: IsoType? = nil, liveStreamID: String? = nil, mediaAttachments: [MediaAttachment]? = nil, mediaStreams: [MediaStream]? = nil, name: String? = nil, openToken: String? = nil, path: String? = nil, `protocol`: MediaProtocol? = nil, isReadAtNativeFramerate: Bool? = nil, requiredHTTPHeaders: [String: String]? = nil, requiresClosing: Bool? = nil, requiresLooping: Bool? = nil, requiresOpening: Bool? = nil, runTimeTicks: Int64? = nil, size: Int64? = nil, isSupportsDirectPlay: Bool? = nil, isSupportsDirectStream: Bool? = nil, isSupportsProbing: Bool? = nil, isSupportsTranscoding: Bool? = nil, timestamp: TransportStreamTimestamp? = nil, transcodingContainer: String? = nil, transcodingSubProtocol: String? = nil, transcodingURL: String? = nil, type: MediaSourceType? = nil, video3DFormat: Video3DFormat? = nil, videoType: VideoType? = nil) {
         self.analyzeDurationMs = analyzeDurationMs
         self.bitrate = bitrate
         self.bufferMs = bufferMs

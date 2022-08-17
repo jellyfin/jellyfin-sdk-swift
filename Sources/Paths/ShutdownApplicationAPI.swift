@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Shuts down the application.
-    static var shutdownApplication: Request<Void> {
+    static public var shutdownApplication: Request<Void> {
         Request(method: "POST", url: "/System/Shutdown", id: "ShutdownApplication")
     }
 }

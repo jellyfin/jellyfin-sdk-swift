@@ -12,18 +12,8 @@ import URLQueryEncoder
 
 extension Paths {
     /// Applies search criteria to an item and refreshes metadata.
-    public static func applySearchCriteria(
-        itemID: String,
-        isReplaceAllImages: Bool? = nil,
-        _ body: JellyfinAPI.RemoteSearchResult
-    ) -> Request<Void> {
-        Request(
-            method: "POST",
-            url: "/Items/RemoteSearch/Apply/\(itemID)",
-            query: makeApplySearchCriteriaQuery(isReplaceAllImages),
-            body: body,
-            id: "ApplySearchCriteria"
-        )
+    static public func applySearchCriteria(itemID: String, isReplaceAllImages: Bool? = nil, _ body: JellyfinAPI.RemoteSearchResult) -> Request<Void> {
+        Request(method: "POST", url: "/Items/RemoteSearch/Apply/\(itemID)", query: makeApplySearchCriteriaQuery(isReplaceAllImages), body: body, id: "ApplySearchCriteria")
     }
 
     private static func makeApplySearchCriteriaQuery(_ isReplaceAllImages: Bool?) -> [(String, String?)] {

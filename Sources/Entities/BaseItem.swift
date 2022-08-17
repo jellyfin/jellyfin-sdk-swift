@@ -13,29 +13,17 @@ public struct BaseItem: Codable {
     public var container: String?
     public var dateLastSaved: Date?
     public var extraIDs: [UUID]?
-    public var height: Int?
+    public var height: Int32?
     public var isHD: Bool?
     public var isShortcut: Bool?
     /// Gets or sets the remote trailers.
     public var remoteTrailers: [MediaURL]?
     public var shortcutPath: String?
-    public var size: Int?
+    public var size: Int64?
     public var isSupportsExternalTransfer: Bool?
-    public var width: Int?
+    public var width: Int32?
 
-    public init(
-        container: String? = nil,
-        dateLastSaved: Date? = nil,
-        extraIDs: [UUID]? = nil,
-        height: Int? = nil,
-        isHD: Bool? = nil,
-        isShortcut: Bool? = nil,
-        remoteTrailers: [MediaURL]? = nil,
-        shortcutPath: String? = nil,
-        size: Int? = nil,
-        isSupportsExternalTransfer: Bool? = nil,
-        width: Int? = nil
-    ) {
+    public init(container: String? = nil, dateLastSaved: Date? = nil, extraIDs: [UUID]? = nil, height: Int32? = nil, isHD: Bool? = nil, isShortcut: Bool? = nil, remoteTrailers: [MediaURL]? = nil, shortcutPath: String? = nil, size: Int64? = nil, isSupportsExternalTransfer: Bool? = nil, width: Int32? = nil) {
         self.container = container
         self.dateLastSaved = dateLastSaved
         self.extraIDs = extraIDs

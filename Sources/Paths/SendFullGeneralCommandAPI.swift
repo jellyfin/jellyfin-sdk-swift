@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Issues a full general command to a client.
-    static func sendFullGeneralCommand(sessionID: String, _ body: JellyfinAPI.GeneralCommand) -> Request<Void> {
+    static public func sendFullGeneralCommand(sessionID: String, _ body: JellyfinAPI.GeneralCommand) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/\(sessionID)/Command", body: body, id: "SendFullGeneralCommand")
     }
 }

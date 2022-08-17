@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets the parent path of a given path.
-    static func getParentPath(path: String) -> Request<String> {
+    static public func getParentPath(path: String) -> Request<String> {
         Request(method: "GET", url: "/Environment/ParentPath", query: [("path", path)], id: "GetParentPath")
     }
 }

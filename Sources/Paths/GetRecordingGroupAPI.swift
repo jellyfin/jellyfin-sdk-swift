@@ -10,10 +10,10 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get recording group.
     @available(*, deprecated, message: "Deprecated")
-    static func getRecordingGroup(groupID: String) -> Request<Void> {
+    static public func getRecordingGroup(groupID: String) -> Request<Void> {
         Request(method: "GET", url: "/LiveTv/Recordings/Groups/\(groupID)", id: "GetRecordingGroup")
     }
 }

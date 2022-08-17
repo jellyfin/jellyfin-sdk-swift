@@ -10,60 +10,33 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get artist image by name.
-    static func headArtistImage(
-        name: String,
-        imageType: String,
-        imageIndex: Int,
-        parameters: HeadArtistImageParameters? = nil
-    ) -> Request<Data> {
-        Request(
-            method: "HEAD",
-            url: "/Artists/\(name)/Images/\(imageType)/\(imageIndex)",
-            query: parameters?.asQuery,
-            id: "HeadArtistImage"
-        )
+    static public func headArtistImage(name: String, imageType: String, imageIndex: Int, parameters: HeadArtistImageParameters? = nil) -> Request<Data> {
+        Request(method: "HEAD", url: "/Artists/\(name)/Images/\(imageType)/\(imageIndex)", query: parameters?.asQuery, id: "HeadArtistImage")
     }
 
-    struct HeadArtistImageParameters {
+    public struct HeadArtistImageParameters {
         public var tag: String?
         public var format: Format?
-        public var maxWidth: Int?
-        public var maxHeight: Int?
+        public var maxWidth: Int32?
+        public var maxHeight: Int32?
         public var percentPlayed: Double?
-        public var unplayedCount: Int?
-        public var width: Int?
-        public var height: Int?
-        public var quality: Int?
-        public var fillWidth: Int?
-        public var fillHeight: Int?
+        public var unplayedCount: Int32?
+        public var width: Int32?
+        public var height: Int32?
+        public var quality: Int32?
+        public var fillWidth: Int32?
+        public var fillHeight: Int32?
         public var isCropWhitespace: Bool?
         public var isAddPlayedIndicator: Bool?
-        public var blur: Int?
+        public var blur: Int32?
         public var backgroundColor: String?
         public var foregroundLayer: String?
 
         public typealias Format = JellyfinAPI.ImageFormat
 
-        public init(
-            tag: String? = nil,
-            format: Format? = nil,
-            maxWidth: Int? = nil,
-            maxHeight: Int? = nil,
-            percentPlayed: Double? = nil,
-            unplayedCount: Int? = nil,
-            width: Int? = nil,
-            height: Int? = nil,
-            quality: Int? = nil,
-            fillWidth: Int? = nil,
-            fillHeight: Int? = nil,
-            isCropWhitespace: Bool? = nil,
-            isAddPlayedIndicator: Bool? = nil,
-            blur: Int? = nil,
-            backgroundColor: String? = nil,
-            foregroundLayer: String? = nil
-        ) {
+        public init(tag: String? = nil, format: Format? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, percentPlayed: Double? = nil, unplayedCount: Int32? = nil, width: Int32? = nil, height: Int32? = nil, quality: Int32? = nil, fillWidth: Int32? = nil, fillHeight: Int32? = nil, isCropWhitespace: Bool? = nil, isAddPlayedIndicator: Bool? = nil, blur: Int32? = nil, backgroundColor: String? = nil, foregroundLayer: String? = nil) {
             self.tag = tag
             self.format = format
             self.maxWidth = maxWidth

@@ -26,16 +26,7 @@ public struct LiveTvServiceInfo: Codable {
     /// Gets or sets the version.
     public var version: String?
 
-    public init(
-        hasUpdateAvailable: Bool? = nil,
-        homePageURL: String? = nil,
-        isVisible: Bool? = nil,
-        name: String? = nil,
-        status: LiveTvServiceStatus? = nil,
-        statusMessage: String? = nil,
-        tuners: [String]? = nil,
-        version: String? = nil
-    ) {
+    public init(hasUpdateAvailable: Bool? = nil, homePageURL: String? = nil, isVisible: Bool? = nil, name: String? = nil, status: LiveTvServiceStatus? = nil, statusMessage: String? = nil, tuners: [String]? = nil, version: String? = nil) {
         self.hasUpdateAvailable = hasUpdateAvailable
         self.homePageURL = homePageURL
         self.isVisible = isVisible

@@ -8,37 +8,52 @@
 
 import Foundation
 import Get
-import UIKit
 
-public actor JellyfinClient {
+public final class JellyfinClient {
 
     public var accessToken: String?
-//    public let configuration: Configuration
+    public let configuration: Configuration
 
     private var _apiClient: APIClient!
 
-//    init(configuration: Configuration) {
-//        self.configuration = configuration
-//    }
-
-    public init() {
-        let configuration = APIClient.Configuration(baseURL: nil, sessionConfiguration: .default, delegate: nil)
-        self._apiClient = APIClient(configuration: configuration)
+    public init(configuration: Configuration) {
+        self.configuration = configuration
+        
+        let apiClientConfiguration = APIClient.Configuration(baseURL: configuration.url, sessionConfiguration: .default, delegate: self)
+        self._apiClient = APIClient(configuration: apiClientConfiguration)
     }
 
     public struct Configuration {
+        
+        public let url: URL
 
-        /// Client platform OS
-        let platform: String
+        /// Client name
+        ///
+        /// Example: Jellyfin iOS
+        public let client: String
 
         /// Client device name
-        let deviceName: String
+        public let deviceName: String
 
-        /// Unique device ID. You can use the provided
-        let deviceID: String
+        /// Unique device ID
+        public let deviceID: String
 
         /// Current app version
-        let appVersion: String
+        public let appVersion: String
+        
+        public init(
+            url: URL,
+            client: String,
+            deviceName: String,
+            deviceID: String,
+            version: String
+        ) {
+            self.url = url
+            self.client = client
+            self.deviceName = deviceName
+            self.deviceID = deviceID
+            self.appVersion = version
+        }
     }
 
     public func send<T>(
@@ -79,15 +94,36 @@ public actor JellyfinClient {
     ) async throws -> Response<URL> {
         try await _apiClient.download(resumeFrom: resumeData, delegate: delegate)
     }
+    
+    public func authHeaders() -> String {
+        let fields = [
+            "DeviceId": configuration.deviceID,
+            "Device": configuration.deviceName,
+            "Client": configuration.client,
+            "Version": configuration.appVersion,
+        ]
+            .updatingValue(accessToken ?? "", forKey: "Token", if: accessToken != nil)
+            .map { "\($0.key)=\($0.value)" }
+            .joined(separator: ", ")
+        
+        return "MediaBrowser \(fields)"
+    }
 }
 
-// public func JellyfinClient(serverURL: URL) -> APIClient {
-//    let configuration = APIClient.Configuration(baseURL: serverURL, sessionConfiguration: .default, delegate: nil)
-//    return APIClient(configuration: configuration)
-// }
+extension JellyfinClient: APIClientDelegate {
+    public func client(_ client: APIClient, willSendRequest request: inout URLRequest) async throws {
+        request.addValue("Authorization", forHTTPHeaderField: authHeaders())
+    }
+}
 
-extension UIDevice {
-    static var vendorUUIDString: String {
-        current.identifierForVendor!.uuidString
+extension Dictionary {
+    func updatingValue(_ value: Value, forKey key: Key, if condition: Bool) -> Self {
+        var copy = self
+        
+        if condition {
+            copy.updateValue(value, forKey: key)
+        }
+        
+        return copy
     }
 }

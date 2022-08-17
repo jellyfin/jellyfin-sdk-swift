@@ -19,18 +19,11 @@ public struct SendCommand: Codable {
     /// Gets the playlist identifier of the playing item.
     public var playlistItemID: UUID?
     /// Gets the position ticks.
-    public var positionTicks: Int?
+    public var positionTicks: Int64?
     /// Gets or sets the UTC time when to execute the command.
     public var when: Date?
 
-    public init(
-        command: SendCommandType? = nil,
-        emittedAt: Date? = nil,
-        groupID: UUID? = nil,
-        playlistItemID: UUID? = nil,
-        positionTicks: Int? = nil,
-        when: Date? = nil
-    ) {
+    public init(command: SendCommandType? = nil, emittedAt: Date? = nil, groupID: UUID? = nil, playlistItemID: UUID? = nil, positionTicks: Int64? = nil, when: Date? = nil) {
         self.command = command
         self.emittedAt = emittedAt
         self.groupID = groupID

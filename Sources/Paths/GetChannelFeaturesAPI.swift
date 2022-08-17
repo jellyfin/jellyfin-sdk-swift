@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Get channel features.
-    static func getChannelFeatures(channelID: String) -> Request<JellyfinAPI.ChannelFeatures> {
+    static public func getChannelFeatures(channelID: String) -> Request<JellyfinAPI.ChannelFeatures> {
         Request(method: "GET", url: "/Channels/\(channelID)/Features", id: "GetChannelFeatures")
     }
 }

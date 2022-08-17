@@ -13,9 +13,9 @@ public struct ImageInfo: Codable {
     /// Gets or sets the blurhash.
     public var blurHash: String?
     /// Gets or sets the height.
-    public var height: Int?
+    public var height: Int32?
     /// Gets or sets the index of the image.
-    public var imageIndex: Int?
+    public var imageIndex: Int32?
     /// Gets or sets the image tag.
     public var imageTag: String?
     /// Gets or sets the type of the image.
@@ -23,20 +23,11 @@ public struct ImageInfo: Codable {
     /// Gets or sets the path.
     public var path: String?
     /// Gets or sets the size.
-    public var size: Int?
+    public var size: Int64?
     /// Gets or sets the width.
-    public var width: Int?
+    public var width: Int32?
 
-    public init(
-        blurHash: String? = nil,
-        height: Int? = nil,
-        imageIndex: Int? = nil,
-        imageTag: String? = nil,
-        imageType: ImageType? = nil,
-        path: String? = nil,
-        size: Int? = nil,
-        width: Int? = nil
-    ) {
+    public init(blurHash: String? = nil, height: Int32? = nil, imageIndex: Int32? = nil, imageTag: String? = nil, imageType: ImageType? = nil, path: String? = nil, size: Int64? = nil, width: Int32? = nil) {
         self.blurHash = blurHash
         self.height = height
         self.imageIndex = imageIndex

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Remove an api key.
-    static func revokeKey(key: String) -> Request<Void> {
+    static public func revokeKey(key: String) -> Request<Void> {
         Request(method: "DELETE", url: "/Auth/Keys/\(key)", id: "RevokeKey")
     }
 }

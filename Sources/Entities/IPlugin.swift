@@ -25,15 +25,7 @@ public struct IPlugin: Codable, Identifiable {
     /// Gets the plugin version.
     public var version: String?
 
-    public init(
-        assemblyFilePath: String? = nil,
-        canUninstall: Bool? = nil,
-        dataFolderPath: String? = nil,
-        description: String? = nil,
-        id: UUID? = nil,
-        name: String? = nil,
-        version: String? = nil
-    ) {
+    public init(assemblyFilePath: String? = nil, canUninstall: Bool? = nil, dataFolderPath: String? = nil, description: String? = nil, id: UUID? = nil, name: String? = nil, version: String? = nil) {
         self.assemblyFilePath = assemblyFilePath
         self.canUninstall = canUninstall
         self.dataFolderPath = dataFolderPath

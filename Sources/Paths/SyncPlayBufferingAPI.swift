@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Notify SyncPlay group that member is buffering.
-    static func syncPlayBuffering(_ body: JellyfinAPI.BufferRequestDto) -> Request<Void> {
+    static public func syncPlayBuffering(_ body: JellyfinAPI.BufferRequestDto) -> Request<Void> {
         Request(method: "POST", url: "/SyncPlay/Buffering", body: body, id: "SyncPlayBuffering")
     }
 }

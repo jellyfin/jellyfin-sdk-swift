@@ -12,7 +12,7 @@ public struct ImageByNameInfo: Codable {
     /// Gets or sets the context.
     public var context: String?
     /// Gets or sets the length of the file.
-    public var fileLength: Int?
+    public var fileLength: Int64?
     /// Gets or sets the format.
     public var format: String?
     /// Gets or sets the name.
@@ -20,7 +20,7 @@ public struct ImageByNameInfo: Codable {
     /// Gets or sets the theme.
     public var theme: String?
 
-    public init(context: String? = nil, fileLength: Int? = nil, format: String? = nil, name: String? = nil, theme: String? = nil) {
+    public init(context: String? = nil, fileLength: Int64? = nil, format: String? = nil, name: String? = nil, theme: String? = nil) {
         self.context = context
         self.fileLength = fileLength
         self.format = format

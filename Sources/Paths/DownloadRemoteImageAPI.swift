@@ -10,20 +10,20 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Downloads a remote image for an item.
-    static func downloadRemoteImage(itemID: String, parameters: DownloadRemoteImageParameters) -> Request<Void> {
+    static public func downloadRemoteImage(itemID: String, parameters: DownloadRemoteImageParameters) -> Request<Void> {
         Request(method: "POST", url: "/Items/\(itemID)/RemoteImages/Download", query: parameters.asQuery, id: "DownloadRemoteImage")
     }
 
-    struct DownloadRemoteImageParameters {
+    public struct DownloadRemoteImageParameters {
         /// Enum ImageType.
         public var type: `Type`
         public var imageURL: String?
 
         public typealias `Type` = JellyfinAPI.ImageType
 
-        public init(type: Type, imageURL: String? = nil) {
+        public init(type: `Type`, imageURL: String? = nil) {
             self.type = type
             self.imageURL = imageURL
         }

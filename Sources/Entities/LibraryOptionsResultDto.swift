@@ -19,12 +19,7 @@ public struct LibraryOptionsResultDto: Codable {
     /// Gets or sets the type options.
     public var typeOptions: [LibraryTypeOptionsDto]?
 
-    public init(
-        metadataReaders: [LibraryOptionInfoDto]? = nil,
-        metadataSavers: [LibraryOptionInfoDto]? = nil,
-        subtitleFetchers: [LibraryOptionInfoDto]? = nil,
-        typeOptions: [LibraryTypeOptionsDto]? = nil
-    ) {
+    public init(metadataReaders: [LibraryOptionInfoDto]? = nil, metadataSavers: [LibraryOptionInfoDto]? = nil, subtitleFetchers: [LibraryOptionInfoDto]? = nil, typeOptions: [LibraryTypeOptionsDto]? = nil) {
         self.metadataReaders = metadataReaders
         self.metadataSavers = metadataSavers
         self.subtitleFetchers = subtitleFetchers

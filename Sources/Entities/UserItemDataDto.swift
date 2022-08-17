@@ -21,9 +21,9 @@ public struct UserItemDataDto: Codable {
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Dto.UserItemDataDto is likes.
     public var isLikes: Bool?
     /// Gets or sets the play count.
-    public var playCount: Int?
+    public var playCount: Int32?
     /// Gets or sets the playback position ticks.
-    public var playbackPositionTicks: Int?
+    public var playbackPositionTicks: Int64?
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Dto.UserItemDataDto is played.
     public var isPlayed: Bool?
     /// Gets or sets the played percentage.
@@ -31,21 +31,9 @@ public struct UserItemDataDto: Codable {
     /// Gets or sets the rating.
     public var rating: Double?
     /// Gets or sets the unplayed item count.
-    public var unplayedItemCount: Int?
+    public var unplayedItemCount: Int32?
 
-    public init(
-        isFavorite: Bool? = nil,
-        itemID: String? = nil,
-        key: String? = nil,
-        lastPlayedDate: Date? = nil,
-        isLikes: Bool? = nil,
-        playCount: Int? = nil,
-        playbackPositionTicks: Int? = nil,
-        isPlayed: Bool? = nil,
-        playedPercentage: Double? = nil,
-        rating: Double? = nil,
-        unplayedItemCount: Int? = nil
-    ) {
+    public init(isFavorite: Bool? = nil, itemID: String? = nil, key: String? = nil, lastPlayedDate: Date? = nil, isLikes: Bool? = nil, playCount: Int32? = nil, playbackPositionTicks: Int64? = nil, isPlayed: Bool? = nil, playedPercentage: Double? = nil, rating: Double? = nil, unplayedItemCount: Int32? = nil) {
         self.isFavorite = isFavorite
         self.itemID = itemID
         self.key = key

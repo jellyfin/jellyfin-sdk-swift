@@ -10,20 +10,20 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets all persons.
-    static func getPersons(parameters: GetPersonsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static public func getPersons(parameters: GetPersonsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
         Request(method: "GET", url: "/Persons", query: parameters?.asQuery, id: "GetPersons")
     }
 
-    struct GetPersonsParameters {
-        public var limit: Int?
+    public struct GetPersonsParameters {
+        public var limit: Int32?
         public var searchTerm: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var isFavorite: Bool?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int?
+        public var imageTypeLimit: Int32?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var excludePersonTypes: [String]?
         public var personTypes: [String]?
@@ -31,21 +31,7 @@ public extension Paths {
         public var userID: UUID?
         public var enableImages: Bool?
 
-        public init(
-            limit: Int? = nil,
-            searchTerm: String? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
-            isFavorite: Bool? = nil,
-            enableUserData: Bool? = nil,
-            imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            excludePersonTypes: [String]? = nil,
-            personTypes: [String]? = nil,
-            appearsInItemID: UUID? = nil,
-            userID: UUID? = nil,
-            enableImages: Bool? = nil
-        ) {
+        public init(limit: Int32? = nil, searchTerm: String? = nil, fields: [JellyfinAPI.ItemFields]? = nil, filters: [JellyfinAPI.ItemFilter]? = nil, isFavorite: Bool? = nil, enableUserData: Bool? = nil, imageTypeLimit: Int32? = nil, enableImageTypes: [JellyfinAPI.ImageType]? = nil, excludePersonTypes: [String]? = nil, personTypes: [String]? = nil, appearsInItemID: UUID? = nil, userID: UUID? = nil, enableImages: Bool? = nil) {
             self.limit = limit
             self.searchTerm = searchTerm
             self.fields = fields

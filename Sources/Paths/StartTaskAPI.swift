@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Start specified task.
-    static func startTask(taskID: String) -> Request<Void> {
+    static public func startTask(taskID: String) -> Request<Void> {
         Request(method: "POST", url: "/ScheduledTasks/Running/\(taskID)", id: "StartTask")
     }
 }

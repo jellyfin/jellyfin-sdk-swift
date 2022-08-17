@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets application configuration.
-    static var getConfiguration: Request<JellyfinAPI.ServerConfiguration> {
+    static public var getConfiguration: Request<JellyfinAPI.ServerConfiguration> {
         Request(method: "GET", url: "/System/Configuration", id: "GetConfiguration")
     }
 }

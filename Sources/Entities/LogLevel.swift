@@ -15,5 +15,5 @@ public enum LogLevel: String, Codable, CaseIterable {
     case warning = "Warning"
     case error = "Error"
     case critical = "Critical"
-    case none = "None"
+    case `none` = "None"
 }

@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Updates a live tv timer.
-    static func updateTimer(timerID: String, _ body: JellyfinAPI.TimerInfoDto? = nil) -> Request<Void> {
+    static public func updateTimer(timerID: String, _ body: JellyfinAPI.TimerInfoDto? = nil) -> Request<Void> {
         Request(method: "POST", url: "/LiveTv/Timers/\(timerID)", body: body, id: "UpdateTimer")
     }
 }

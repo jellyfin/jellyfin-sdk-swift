@@ -16,9 +16,9 @@ public struct LogFile: Codable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the size.
-    public var size: Int?
+    public var size: Int64?
 
-    public init(dateCreated: Date? = nil, dateModified: Date? = nil, name: String? = nil, size: Int? = nil) {
+    public init(dateCreated: Date? = nil, dateModified: Date? = nil, name: String? = nil, size: Int64? = nil) {
         self.dateCreated = dateCreated
         self.dateModified = dateModified
         self.name = name

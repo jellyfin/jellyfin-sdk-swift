@@ -15,13 +15,13 @@ public struct AccessSchedule: Codable, Identifiable {
     /// Gets or sets the end hour.
     public var endHour: Double?
     /// Gets the id of this instance.
-    public var id: Int?
+    public var id: Int32?
     /// Gets or sets the start hour.
     public var startHour: Double?
     /// Gets the id of the associated user.
     public var userID: UUID?
 
-    public init(dayOfWeek: DynamicDayOfWeek? = nil, endHour: Double? = nil, id: Int? = nil, startHour: Double? = nil, userID: UUID? = nil) {
+    public init(dayOfWeek: DynamicDayOfWeek? = nil, endHour: Double? = nil, id: Int32? = nil, startHour: Double? = nil, userID: UUID? = nil) {
         self.dayOfWeek = dayOfWeek
         self.endHour = endHour
         self.id = id

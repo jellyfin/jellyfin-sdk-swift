@@ -10,13 +10,13 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Instructs a session to browse to an item or view.
-    static func displayContent(sessionID: String, parameters: DisplayContentParameters) -> Request<Void> {
+    static public func displayContent(sessionID: String, parameters: DisplayContentParameters) -> Request<Void> {
         Request(method: "POST", url: "/Sessions/\(sessionID)/Viewing", query: parameters.asQuery, id: "DisplayContent")
     }
 
-    struct DisplayContentParameters {
+    public struct DisplayContentParameters {
         /// The base item kind.
         public var itemType: ItemType
         public var itemID: String

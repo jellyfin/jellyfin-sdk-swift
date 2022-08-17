@@ -39,63 +39,23 @@ public struct UserPolicy: Codable {
     public var enabledDevices: [String]?
     public var enabledFolders: [UUID]?
     public var isForceRemoteSourceTranscoding: Bool?
-    public var invalidLoginAttemptCount: Int?
+    public var invalidLoginAttemptCount: Int32?
     /// Gets or sets a value indicating whether this instance is administrator.
     public var isAdministrator: Bool?
     /// Gets or sets a value indicating whether this instance is disabled.
     public var isDisabled: Bool?
     /// Gets or sets a value indicating whether this instance is hidden.
     public var isHidden: Bool?
-    public var loginAttemptsBeforeLockout: Int?
-    public var maxActiveSessions: Int?
+    public var loginAttemptsBeforeLockout: Int32?
+    public var maxActiveSessions: Int32?
     /// Gets or sets the max parental rating.
-    public var maxParentalRating: Int?
+    public var maxParentalRating: Int32?
     public var passwordResetProviderID: String?
-    public var remoteClientBitrateLimit: Int?
+    public var remoteClientBitrateLimit: Int32?
     /// Gets or sets a value indicating what SyncPlay features the user can access.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
-    public init(
-        accessSchedules: [AccessSchedule]? = nil,
-        authenticationProviderID: String? = nil,
-        blockUnratedItems: [UnratedItem]? = nil,
-        blockedChannels: [UUID]? = nil,
-        blockedMediaFolders: [UUID]? = nil,
-        blockedTags: [String]? = nil,
-        enableAllChannels: Bool? = nil,
-        enableAllDevices: Bool? = nil,
-        enableAllFolders: Bool? = nil,
-        enableAudioPlaybackTranscoding: Bool? = nil,
-        enableContentDeletion: Bool? = nil,
-        enableContentDeletionFromFolders: [String]? = nil,
-        enableContentDownloading: Bool? = nil,
-        enableLiveTvAccess: Bool? = nil,
-        enableLiveTvManagement: Bool? = nil,
-        enableMediaConversion: Bool? = nil,
-        enableMediaPlayback: Bool? = nil,
-        enablePlaybackRemuxing: Bool? = nil,
-        enablePublicSharing: Bool? = nil,
-        enableRemoteAccess: Bool? = nil,
-        enableRemoteControlOfOtherUsers: Bool? = nil,
-        enableSharedDeviceControl: Bool? = nil,
-        enableSyncTranscoding: Bool? = nil,
-        enableUserPreferenceAccess: Bool? = nil,
-        enableVideoPlaybackTranscoding: Bool? = nil,
-        enabledChannels: [UUID]? = nil,
-        enabledDevices: [String]? = nil,
-        enabledFolders: [UUID]? = nil,
-        isForceRemoteSourceTranscoding: Bool? = nil,
-        invalidLoginAttemptCount: Int? = nil,
-        isAdministrator: Bool? = nil,
-        isDisabled: Bool? = nil,
-        isHidden: Bool? = nil,
-        loginAttemptsBeforeLockout: Int? = nil,
-        maxActiveSessions: Int? = nil,
-        maxParentalRating: Int? = nil,
-        passwordResetProviderID: String? = nil,
-        remoteClientBitrateLimit: Int? = nil,
-        syncPlayAccess: SyncPlayUserAccessType? = nil
-    ) {
+    public init(accessSchedules: [AccessSchedule]? = nil, authenticationProviderID: String? = nil, blockUnratedItems: [UnratedItem]? = nil, blockedChannels: [UUID]? = nil, blockedMediaFolders: [UUID]? = nil, blockedTags: [String]? = nil, enableAllChannels: Bool? = nil, enableAllDevices: Bool? = nil, enableAllFolders: Bool? = nil, enableAudioPlaybackTranscoding: Bool? = nil, enableContentDeletion: Bool? = nil, enableContentDeletionFromFolders: [String]? = nil, enableContentDownloading: Bool? = nil, enableLiveTvAccess: Bool? = nil, enableLiveTvManagement: Bool? = nil, enableMediaConversion: Bool? = nil, enableMediaPlayback: Bool? = nil, enablePlaybackRemuxing: Bool? = nil, enablePublicSharing: Bool? = nil, enableRemoteAccess: Bool? = nil, enableRemoteControlOfOtherUsers: Bool? = nil, enableSharedDeviceControl: Bool? = nil, enableSyncTranscoding: Bool? = nil, enableUserPreferenceAccess: Bool? = nil, enableVideoPlaybackTranscoding: Bool? = nil, enabledChannels: [UUID]? = nil, enabledDevices: [String]? = nil, enabledFolders: [UUID]? = nil, isForceRemoteSourceTranscoding: Bool? = nil, invalidLoginAttemptCount: Int32? = nil, isAdministrator: Bool? = nil, isDisabled: Bool? = nil, isHidden: Bool? = nil, loginAttemptsBeforeLockout: Int32? = nil, maxActiveSessions: Int32? = nil, maxParentalRating: Int32? = nil, passwordResetProviderID: String? = nil, remoteClientBitrateLimit: Int32? = nil, syncPlayAccess: SyncPlayUserAccessType? = nil) {
         self.accessSchedules = accessSchedules
         self.authenticationProviderID = authenticationProviderID
         self.blockUnratedItems = blockUnratedItems

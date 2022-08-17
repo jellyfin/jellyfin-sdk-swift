@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Authenticates a user with quick connect.
-    static func authenticateWithQuickConnect(_ body: JellyfinAPI.QuickConnectDto) -> Request<JellyfinAPI.AuthenticationResult> {
+    static public func authenticateWithQuickConnect(_ body: JellyfinAPI.QuickConnectDto) -> Request<JellyfinAPI.AuthenticationResult> {
         Request(method: "POST", url: "/Users/AuthenticateWithQuickConnect", body: body, id: "AuthenticateWithQuickConnect")
     }
 }

@@ -10,11 +10,11 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Uploads a custom splashscreen.
-    ///
+    /// 
     /// The body is expected to the image contents base64 encoded.
-    static func uploadCustomSplashscreen(_ body: Data? = nil) -> Request<Void> {
+    static public func uploadCustomSplashscreen(_ body: Data? = nil) -> Request<Void> {
         Request(method: "POST", url: "/Branding/Splashscreen", body: body, id: "UploadCustomSplashscreen")
     }
 }

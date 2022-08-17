@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Request to queue items to the playlist of a SyncPlay group.
-    static func syncPlayQueue(_ body: JellyfinAPI.QueueRequestDto) -> Request<Void> {
+    static public func syncPlayQueue(_ body: JellyfinAPI.QueueRequestDto) -> Request<Void> {
         Request(method: "POST", url: "/SyncPlay/Queue", body: body, id: "SyncPlayQueue")
     }
 }

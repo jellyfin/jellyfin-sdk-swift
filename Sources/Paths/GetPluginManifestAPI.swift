@@ -10,9 +10,9 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets a plugin's manifest.
-    static func getPluginManifest(pluginID: String) -> Request<Void> {
+    static public func getPluginManifest(pluginID: String) -> Request<Void> {
         Request(method: "POST", url: "/Plugins/\(pluginID)/Manifest", id: "GetPluginManifest")
     }
 }
