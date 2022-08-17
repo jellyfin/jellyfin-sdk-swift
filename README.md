@@ -20,7 +20,7 @@ let response = jellyfinClient.signIn(username: "jelly", password: "fin")
 
 ## Generation
 
-Generating the Entities, Extensions, and Paths with CreateAPI is provided as an Xcode command plugin.
+Generating and updating the Entities, Extensions, and Paths with CreateAPI is provided as an Xcode command plugin.
 
 1. Download [the latest Jellyfin schema](https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json)
 2. Move the schema to **/Sources**

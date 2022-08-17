@@ -9,13 +9,13 @@
 import Foundation
 import Get
 
-/// Basic wrapper of `Get.APIClient` with helper methods for interfacing with the
-/// `JellyfinAPI` package, like injecting required headers for server calls.
+/// Basic wrapper of `Get.APIClient` with helper methods for interfacing with the `JellyfinAPI` package,
+/// like injecting required headers for API calls with the current access token.
 public final class JellyfinClient {
 
     /// Current user access token
-    private(set) public var accessToken: String?
-    
+    public private(set) var accessToken: String?
+
     /// Configuration for this instance of `JellyfinClient`
     public let configuration: Configuration
 
@@ -24,10 +24,12 @@ public final class JellyfinClient {
     private let delegate: APIClientDelegate?
 
     /// Create a `JellyfinClient` instance given a configuration and optional access token
-    public init(configuration: Configuration,
-                sessionConfiguration: URLSessionConfiguration = .default,
-                delegate: APIClientDelegate? = nil,
-                accessToken: String? = nil) {
+    public init(
+        configuration: Configuration,
+        sessionConfiguration: URLSessionConfiguration = .default,
+        delegate: APIClientDelegate? = nil,
+        accessToken: String? = nil
+    ) {
         self.configuration = configuration
         self.sessionConfiguration = sessionConfiguration
         self.delegate = delegate
@@ -36,13 +38,13 @@ public final class JellyfinClient {
         self._apiClient = APIClient(baseURL: configuration.url) { configuration in
             configuration.sessionConfiguration = sessionConfiguration
             configuration.delegate = self
-            
+
             let isoDateFormatter: DateFormatter = OpenISO8601DateFormatter()
-            
+
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .formatted(isoDateFormatter)
             configuration.decoder = decoder
-            
+
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .formatted(isoDateFormatter)
             encoder.outputFormatting = .prettyPrinted
@@ -51,7 +53,7 @@ public final class JellyfinClient {
     }
 
     public struct Configuration {
-        
+
         /// Server URL
         public let url: URL
 
@@ -72,7 +74,7 @@ public final class JellyfinClient {
         ///
         /// - Example: `1.2.3`
         public let version: String
-        
+
         public init(
             url: URL,
             client: String,
@@ -127,18 +129,18 @@ public final class JellyfinClient {
     ) async throws -> Response<URL> {
         try await _apiClient.download(resumeFrom: resumeData, delegate: delegate)
     }
-    
+
     private func authHeaders() -> String {
         let fields = [
             "DeviceId": configuration.deviceID,
             "Device": configuration.deviceName,
             "Client": configuration.client,
             "Version": configuration.version,
-            "Token": accessToken ?? ""
+            "Token": accessToken ?? "",
         ]
             .map { "\($0.key)=\($0.value)" }
             .joined(separator: ", ")
-        
+
         return "MediaBrowser \(fields)"
     }
 }
@@ -146,7 +148,7 @@ public final class JellyfinClient {
 // MARK: APIClientDelegate
 
 extension JellyfinClient: APIClientDelegate {
-    
+
     /// Allows you to modify the request right before it is sent.
     /// Also injects required Jellyfin headers for every request.
     ///
@@ -159,10 +161,10 @@ extension JellyfinClient: APIClientDelegate {
     public func client(_ client: APIClient, willSendRequest request: inout URLRequest) async throws {
         // Inject required headers
         request.addValue(authHeaders(), forHTTPHeaderField: "Authorization")
-        
+
         try await delegate?.client(_apiClient, willSendRequest: &request)
     }
-    
+
     /// Validates response for the given request.
     ///
     /// - parameters:
@@ -178,12 +180,12 @@ extension JellyfinClient: APIClientDelegate {
         if let delegate = delegate {
             try delegate.client(_apiClient, validateResponse: response, data: data, task: task)
         } else {
-            guard (200..<300).contains(response.statusCode) else {
+            guard (200 ..< 300).contains(response.statusCode) else {
                 throw APIError.unacceptableStatusCode(response.statusCode)
             }
         }
     }
-    
+
     /// Gets called after a networking failure. Only one retry attempt is allowed.
     ///
     /// - important: This method will only be called for network requests, but not for
@@ -200,7 +202,7 @@ extension JellyfinClient: APIClientDelegate {
     public func client(_ client: APIClient, shouldRetry task: URLSessionTask, error: Error, attempts: Int) async throws -> Bool {
         try await delegate?.client(_apiClient, shouldRetry: task, error: error, attempts: attempts) ?? false
     }
-    
+
     /// Constructs URL for the given request.
     ///
     /// - parameters:
@@ -217,10 +219,11 @@ extension JellyfinClient: APIClientDelegate {
 
 // MARK: Helpers
 
-extension JellyfinClient {
-    
-    /// Signs in a user given a username and password. On a successful authentication response the `accessToken` is set to the supplied access token.
-    /// Overrides the current access token if one was set prior.
+public extension JellyfinClient {
+
+    /// Signs in a user given a username and password. On a successful response `accessToken` is set to the given access token.
+    ///
+    /// - Note: Overrides the current access token if one was previously set. Save this token locally or revoke it with `signOut` for proper access token management.
     ///
     /// - Parameters:
     ///   - username: username of the user
@@ -228,25 +231,25 @@ extension JellyfinClient {
     ///
     /// - Throws: `ClientError.noAccessTokenInResponse` if no access token was supplied in a successful authentication response
     @discardableResult
-    public func signIn(username: String, password: String) async throws -> AuthenticationResult {
+    func signIn(username: String, password: String) async throws -> AuthenticationResult {
         let authenticateUserRequest = Paths.authenticateUserByName(.init(password: password, pw: nil, username: "epippin"))
         let response = try await send(authenticateUserRequest).value
-        
+
         if let accessToken = response.accessToken {
             self.accessToken = accessToken
         } else {
             throw ClientError.noAccessTokenInResponse
         }
-        
+
         return response
     }
-    
+
     /// Signs out the current user with the server by revoking the current access token
     ///
     /// - Throws: `ClientError.noAccessTokenSet` if no access token has currently been set
-    public func signOut() async throws {
+    func signOut() async throws {
         guard let accessToken = self.accessToken else { throw ClientError.noAccessTokenSet }
-        
+
         let revokeKeyRequest = Paths.revokeKey(key: accessToken)
         try await send(revokeKeyRequest)
         self.accessToken = nil
@@ -256,17 +259,17 @@ extension JellyfinClient {
 // MARK: ClientError
 
 extension JellyfinClient {
-    
+
     enum ClientError: Error {
         case noAccessTokenInResponse
         case noAccessTokenSet
-        
+
         var localizedDescription: String {
             switch self {
             case .noAccessTokenInResponse:
                 return "No access token in authenticated response"
             case .noAccessTokenSet:
-                return "No access token currently set"
+                return "No access token to revoke"
             }
         }
     }
