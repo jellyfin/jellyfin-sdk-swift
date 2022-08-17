@@ -14,20 +14,17 @@ let jellyfinClient = JellyfinClient(configuration: configuration)
 let response = jellyfinClient.signIn(username: "jelly", password: "fin")
 ```
 
-## Documentation
-
-- [ ] TODO: host .doccarchive on GH Pages
-
 ## Generation
 
-Generating and updating the Entities, Extensions, and Paths with CreateAPI is provided as an Xcode command plugin.
+Generating and updating the **Entities**, **Extensions**, and **Paths** with CreateAPI is provided as an Xcode command plugin.
 
 1. Download [the latest Jellyfin schema](https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json)
 2. Move the schema to **/Sources**
-3. Delete the current Entities, Extensions, and Paths folders
-4. Run the following command in the repo directory:
+3. Delete the current **Entities**, **Extensions**, and **Paths** directories
+4. Run the following command in the package directory:
 
+```bash
+# runs the CreateAPI Xcode command plugin
+$ swift package --allow-writing-to-package-directory generate-api
 ```
-swift package --allow-writing-to-package-directory generate-api
-```
-5. New Entities, Extensions, and Paths folders should be generated within the package.
+5. New **Entities**, **Extensions**, and **Paths** directories should be available within the package
