@@ -190,7 +190,7 @@ extension JellyfinClient: APIClientDelegate {
     ///
     /// - important: This method will only be called for network requests, but not for
     /// response body decoding failures or failures with creating requests using
-    /// ``client(_:makeURLFor:query:)-9bylj`` and ``client(_:willSendRequest:)-2d1ke``.
+    /// ``client(_:makeURLFor:query:)`` and ``client(_:willSendRequest:)``.
     ///
     /// - parameters:
     ///   - client: The client that sent the request.
