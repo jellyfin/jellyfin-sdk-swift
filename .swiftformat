@@ -1,0 +1,46 @@
+# version: 0.49.11
+
+--swiftversion 5.6
+
+--tabwidth 4
+--xcodeindentation enabled
+--semicolons never
+--stripunusedargs closure-only
+--maxwidth 140
+--assetliterals visual-width
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapconditions after-first
+--funcattributes prev-line
+--typeattributes prev-line
+--varattributes prev-line
+--trailingclosures
+--shortoptionals "always"
+
+--enable isEmpty,           \
+    leadingDelimiters,      \
+    wrapEnumCases,          \
+    typeSugar,              \
+    void,                   \
+    trailingSpace,          \
+    spaceInsideParens,      \
+    spaceInsideGenerics,    \
+    spaceInsideComments,    \
+    spaceInsideBrackets,    \
+    spaceInsideBraces,      \
+    blankLinesAroundMark,   \
+    redundantLet,           \
+    redundantInit,          \
+    blankLinesAroundMark
+
+--disable strongOutlets,    \
+    yodaConditions,         \
+    blankLinesAtStartOfScope,\
+    andOperator,            \
+    redundantFileprivate,   \
+    redundantSelf,          \
+    redundantClosure,       \
+    redundantType
+
+--header "\njellyfin-sdk-swift is subject to the terms of the Mozilla Public\nLicense, v2.0. If a copy of the MPL was not distributed with this\nfile, you can obtain one at https://mozilla.org/MPL/2.0/.\n\nCopyright (c) {year} Jellyfin & Jellyfin Contributors\n"

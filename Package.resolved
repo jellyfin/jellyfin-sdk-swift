@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Get",
+        "repositoryURL": "https://github.com/kean/Get",
+        "state": {
+          "branch": null,
+          "revision": "db5248ce985c703c5ea0030b7c4d3f908db304c9",
+          "version": "1.0.2"
+        }
+      },
+      {
+        "package": "URLQueryEncoder",
+        "repositoryURL": "https://github.com/CreateAPI/URLQueryEncoder",
+        "state": {
+          "branch": null,
+          "revision": "4cc975d4d075d0e62699a796a08284e217d4ee93",
+          "version": "0.2.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
