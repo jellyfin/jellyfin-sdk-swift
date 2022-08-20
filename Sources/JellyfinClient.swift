@@ -232,7 +232,7 @@ public extension JellyfinClient {
     /// - Throws: `ClientError.noAccessTokenInResponse` if no access token was supplied in a successful authentication response
     @discardableResult
     func signIn(username: String, password: String) async throws -> AuthenticationResult {
-        let authenticateUserRequest = Paths.authenticateUserByName(.init(password: password, pw: nil, username: "epippin"))
+        let authenticateUserRequest = Paths.authenticateUserByName(.init(password: password, pw: nil, username: username))
         let response = try await send(authenticateUserRequest).value
 
         if let accessToken = response.accessToken {
