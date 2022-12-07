@@ -12,7 +12,7 @@ import Foundation
 public struct QueueRequestDto: Codable {
     /// Gets or sets the items to enqueue.
     public var itemIDs: [String]?
-    /// Enum GroupQueueMode.
+    /// Gets or sets the mode in which to add the new items.
     public var mode: GroupQueueMode?
 
     public init(itemIDs: [String]? = nil, mode: GroupQueueMode? = nil) {
