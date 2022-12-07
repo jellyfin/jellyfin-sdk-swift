@@ -19,37 +19,9 @@ public struct TranscodingInfo: Codable {
     public var height: Int32?
     public var isAudioDirect: Bool?
     public var isVideoDirect: Bool?
-    public var transcodeReasons: TranscodeReasons?
+    public var transcodeReasons: [TranscodeReason]?
     public var videoCodec: String?
     public var width: Int32?
-
-    public enum TranscodeReasons: String, Codable, CaseIterable {
-        case containerNotSupported = "ContainerNotSupported"
-        case videoCodecNotSupported = "VideoCodecNotSupported"
-        case audioCodecNotSupported = "AudioCodecNotSupported"
-        case subtitleCodecNotSupported = "SubtitleCodecNotSupported"
-        case audioIsExternal = "AudioIsExternal"
-        case secondaryAudioNotSupported = "SecondaryAudioNotSupported"
-        case videoProfileNotSupported = "VideoProfileNotSupported"
-        case videoLevelNotSupported = "VideoLevelNotSupported"
-        case videoResolutionNotSupported = "VideoResolutionNotSupported"
-        case videoBitDepthNotSupported = "VideoBitDepthNotSupported"
-        case videoFramerateNotSupported = "VideoFramerateNotSupported"
-        case refFramesNotSupported = "RefFramesNotSupported"
-        case anamorphicVideoNotSupported = "AnamorphicVideoNotSupported"
-        case interlacedVideoNotSupported = "InterlacedVideoNotSupported"
-        case audioChannelsNotSupported = "AudioChannelsNotSupported"
-        case audioProfileNotSupported = "AudioProfileNotSupported"
-        case audioSampleRateNotSupported = "AudioSampleRateNotSupported"
-        case audioBitDepthNotSupported = "AudioBitDepthNotSupported"
-        case containerBitrateExceedsLimit = "ContainerBitrateExceedsLimit"
-        case videoBitrateNotSupported = "VideoBitrateNotSupported"
-        case audioBitrateNotSupported = "AudioBitrateNotSupported"
-        case unknownVideoStreamInfo = "UnknownVideoStreamInfo"
-        case unknownAudioStreamInfo = "UnknownAudioStreamInfo"
-        case directPlayError = "DirectPlayError"
-        case videoRangeTypeNotSupported = "VideoRangeTypeNotSupported"
-    }
 
     public init(
         audioChannels: Int32? = nil,
@@ -62,7 +34,7 @@ public struct TranscodingInfo: Codable {
         height: Int32? = nil,
         isAudioDirect: Bool? = nil,
         isVideoDirect: Bool? = nil,
-        transcodeReasons: TranscodeReasons? = nil,
+        transcodeReasons: [TranscodeReason]? = nil,
         videoCodec: String? = nil,
         width: Int32? = nil
     ) {
@@ -93,7 +65,7 @@ public struct TranscodingInfo: Codable {
         self.height = try values.decodeIfPresent(Int32.self, forKey: "Height")
         self.isAudioDirect = try values.decodeIfPresent(Bool.self, forKey: "IsAudioDirect")
         self.isVideoDirect = try values.decodeIfPresent(Bool.self, forKey: "IsVideoDirect")
-        self.transcodeReasons = try values.decodeIfPresent(TranscodeReasons.self, forKey: "TranscodeReasons")
+        self.transcodeReasons = try values.decodeIfPresent([TranscodeReason].self, forKey: "TranscodeReasons")
         self.videoCodec = try values.decodeIfPresent(String.self, forKey: "VideoCodec")
         self.width = try values.decodeIfPresent(Int32.self, forKey: "Width")
     }
