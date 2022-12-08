@@ -27,6 +27,7 @@ public final class JellyfinClient {
     public init(
         configuration: Configuration,
         sessionConfiguration: URLSessionConfiguration = .default,
+        sessionDelegate: URLSessionDelegate? = nil,
         delegate: APIClientDelegate? = nil,
         accessToken: String? = nil
     ) {
@@ -38,6 +39,7 @@ public final class JellyfinClient {
         self._apiClient = APIClient(baseURL: configuration.url) { configuration in
             configuration.sessionConfiguration = sessionConfiguration
             configuration.delegate = self
+            configuration.sessionDelegate = sessionDelegate
 
             let isoDateFormatter: DateFormatter = OpenISO8601DateFormatter()
 
@@ -67,7 +69,9 @@ public final class JellyfinClient {
         /// - Example: `iPhone 13 Pro`
         public let deviceName: String
 
-        /// Unique device ID. A `UUID` is recommended.
+        /// Unique device ID
+        ///
+        /// - Note: This ID should be consistent for proper device management
         public let deviceID: String
 
         /// Version of your application
