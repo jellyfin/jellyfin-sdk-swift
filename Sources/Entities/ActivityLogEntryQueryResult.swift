@@ -12,11 +12,11 @@ public struct ActivityLogEntryQueryResult: Codable, Hashable {
     /// Gets or sets the items.
     public var items: [ActivityLogEntry]?
     /// Gets or sets the index of the first record in Items.
-    public var startIndex: Int32?
+    public var startIndex: Int?
     /// Gets or sets the total number of records available.
-    public var totalRecordCount: Int32?
+    public var totalRecordCount: Int?
 
-    public init(items: [ActivityLogEntry]? = nil, startIndex: Int32? = nil, totalRecordCount: Int32? = nil) {
+    public init(items: [ActivityLogEntry]? = nil, startIndex: Int? = nil, totalRecordCount: Int? = nil) {
         self.items = items
         self.startIndex = startIndex
         self.totalRecordCount = totalRecordCount
@@ -25,8 +25,8 @@ public struct ActivityLogEntryQueryResult: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.items = try values.decodeIfPresent([ActivityLogEntry].self, forKey: "Items")
-        self.startIndex = try values.decodeIfPresent(Int32.self, forKey: "StartIndex")
-        self.totalRecordCount = try values.decodeIfPresent(Int32.self, forKey: "TotalRecordCount")
+        self.startIndex = try values.decodeIfPresent(Int.self, forKey: "StartIndex")
+        self.totalRecordCount = try values.decodeIfPresent(Int.self, forKey: "TotalRecordCount")
     }
 
     public func encode(to encoder: Encoder) throws {

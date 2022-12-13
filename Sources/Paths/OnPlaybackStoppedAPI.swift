@@ -19,14 +19,14 @@ public extension Paths {
     struct OnPlaybackStoppedParameters {
         public var mediaSourceID: String?
         public var nextMediaType: String?
-        public var positionTicks: Int64?
+        public var positionTicks: Int?
         public var liveStreamID: String?
         public var playSessionID: String?
 
         public init(
             mediaSourceID: String? = nil,
             nextMediaType: String? = nil,
-            positionTicks: Int64? = nil,
+            positionTicks: Int? = nil,
             liveStreamID: String? = nil,
             playSessionID: String? = nil
         ) {

@@ -41,7 +41,7 @@ public struct GetProgramsDto: Codable, Hashable {
     /// Gets or sets the max number of images to return, per image type.
     ///
     /// Optional.
-    public var imageTypeLimit: Int32?
+    public var imageTypeLimit: Int?
     /// Gets or sets filter by programs that are currently airing, or not.
     ///
     /// Optional.
@@ -73,7 +73,7 @@ public struct GetProgramsDto: Codable, Hashable {
     /// Gets or sets the maximum number of records to return.
     ///
     /// Optional.
-    public var limit: Int32?
+    public var limit: Int?
     /// Gets or sets the maximum premiere end date.
     ///
     /// Optional.
@@ -103,7 +103,7 @@ public struct GetProgramsDto: Codable, Hashable {
     /// Gets or sets the record index to start at. All items with a lower index will be dropped from the results.
     ///
     /// Optional.
-    public var startIndex: Int32?
+    public var startIndex: Int?
     /// Gets or sets optional. Filter by user id.
     public var userID: String?
 
@@ -117,7 +117,7 @@ public struct GetProgramsDto: Codable, Hashable {
         genreIDs: [String]? = nil,
         genres: [String]? = nil,
         hasAired: Bool? = nil,
-        imageTypeLimit: Int32? = nil,
+        imageTypeLimit: Int? = nil,
         isAiring: Bool? = nil,
         isKids: Bool? = nil,
         isMovie: Bool? = nil,
@@ -125,7 +125,7 @@ public struct GetProgramsDto: Codable, Hashable {
         isSeries: Bool? = nil,
         isSports: Bool? = nil,
         librarySeriesID: String? = nil,
-        limit: Int32? = nil,
+        limit: Int? = nil,
         maxEndDate: Date? = nil,
         maxStartDate: Date? = nil,
         minEndDate: Date? = nil,
@@ -133,7 +133,7 @@ public struct GetProgramsDto: Codable, Hashable {
         seriesTimerID: String? = nil,
         sortBy: [String]? = nil,
         sortOrder: [SortOrder]? = nil,
-        startIndex: Int32? = nil,
+        startIndex: Int? = nil,
         userID: String? = nil
     ) {
         self.channelIDs = channelIDs
@@ -176,7 +176,7 @@ public struct GetProgramsDto: Codable, Hashable {
         self.genreIDs = try values.decodeIfPresent([String].self, forKey: "GenreIds")
         self.genres = try values.decodeIfPresent([String].self, forKey: "Genres")
         self.hasAired = try values.decodeIfPresent(Bool.self, forKey: "HasAired")
-        self.imageTypeLimit = try values.decodeIfPresent(Int32.self, forKey: "ImageTypeLimit")
+        self.imageTypeLimit = try values.decodeIfPresent(Int.self, forKey: "ImageTypeLimit")
         self.isAiring = try values.decodeIfPresent(Bool.self, forKey: "IsAiring")
         self.isKids = try values.decodeIfPresent(Bool.self, forKey: "IsKids")
         self.isMovie = try values.decodeIfPresent(Bool.self, forKey: "IsMovie")
@@ -184,7 +184,7 @@ public struct GetProgramsDto: Codable, Hashable {
         self.isSeries = try values.decodeIfPresent(Bool.self, forKey: "IsSeries")
         self.isSports = try values.decodeIfPresent(Bool.self, forKey: "IsSports")
         self.librarySeriesID = try values.decodeIfPresent(String.self, forKey: "LibrarySeriesId")
-        self.limit = try values.decodeIfPresent(Int32.self, forKey: "Limit")
+        self.limit = try values.decodeIfPresent(Int.self, forKey: "Limit")
         self.maxEndDate = try values.decodeIfPresent(Date.self, forKey: "MaxEndDate")
         self.maxStartDate = try values.decodeIfPresent(Date.self, forKey: "MaxStartDate")
         self.minEndDate = try values.decodeIfPresent(Date.self, forKey: "MinEndDate")
@@ -192,7 +192,7 @@ public struct GetProgramsDto: Codable, Hashable {
         self.seriesTimerID = try values.decodeIfPresent(String.self, forKey: "SeriesTimerId")
         self.sortBy = try values.decodeIfPresent([String].self, forKey: "SortBy")
         self.sortOrder = try values.decodeIfPresent([SortOrder].self, forKey: "SortOrder")
-        self.startIndex = try values.decodeIfPresent(Int32.self, forKey: "StartIndex")
+        self.startIndex = try values.decodeIfPresent(Int.self, forKey: "StartIndex")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
 

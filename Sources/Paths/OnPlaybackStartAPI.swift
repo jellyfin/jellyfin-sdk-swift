@@ -18,8 +18,8 @@ public extension Paths {
 
     struct OnPlaybackStartParameters {
         public var mediaSourceID: String?
-        public var audioStreamIndex: Int32?
-        public var subtitleStreamIndex: Int32?
+        public var audioStreamIndex: Int?
+        public var subtitleStreamIndex: Int?
         public var playMethod: PlayMethod?
         public var liveStreamID: String?
         public var playSessionID: String?
@@ -29,8 +29,8 @@ public extension Paths {
 
         public init(
             mediaSourceID: String? = nil,
-            audioStreamIndex: Int32? = nil,
-            subtitleStreamIndex: Int32? = nil,
+            audioStreamIndex: Int? = nil,
+            subtitleStreamIndex: Int? = nil,
             playMethod: PlayMethod? = nil,
             liveStreamID: String? = nil,
             playSessionID: String? = nil,

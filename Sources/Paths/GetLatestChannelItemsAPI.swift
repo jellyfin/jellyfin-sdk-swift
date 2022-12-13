@@ -18,16 +18,16 @@ public extension Paths {
 
     struct GetLatestChannelItemsParameters {
         public var userID: String?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var fields: [JellyfinAPI.ItemFields]?
         public var channelIDs: [String]?
 
         public init(
             userID: String? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             filters: [JellyfinAPI.ItemFilter]? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             channelIDs: [String]? = nil

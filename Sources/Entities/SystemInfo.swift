@@ -62,7 +62,7 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the web UI resources path.
     public var webPath: String?
     /// Gets or sets the web socket port number.
-    public var webSocketPortNumber: Int32?
+    public var webSocketPortNumber: Int?
 
     public init(
         cachePath: String? = nil,
@@ -90,7 +90,7 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         transcodingTempPath: String? = nil,
         version: String? = nil,
         webPath: String? = nil,
-        webSocketPortNumber: Int32? = nil
+        webSocketPortNumber: Int? = nil
     ) {
         self.cachePath = cachePath
         self.canLaunchWebBrowser = canLaunchWebBrowser
@@ -147,7 +147,7 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         self.transcodingTempPath = try values.decodeIfPresent(String.self, forKey: "TranscodingTempPath")
         self.version = try values.decodeIfPresent(String.self, forKey: "Version")
         self.webPath = try values.decodeIfPresent(String.self, forKey: "WebPath")
-        self.webSocketPortNumber = try values.decodeIfPresent(Int32.self, forKey: "WebSocketPortNumber")
+        self.webSocketPortNumber = try values.decodeIfPresent(Int.self, forKey: "WebSocketPortNumber")
     }
 
     public func encode(to encoder: Encoder) throws {

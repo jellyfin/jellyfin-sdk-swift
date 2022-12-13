@@ -21,9 +21,9 @@ public struct UserItemDataDto: Codable, Hashable {
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Dto.UserItemDataDto is likes.
     public var isLikes: Bool?
     /// Gets or sets the play count.
-    public var playCount: Int32?
+    public var playCount: Int?
     /// Gets or sets the playback position ticks.
-    public var playbackPositionTicks: Int64?
+    public var playbackPositionTicks: Int?
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Dto.UserItemDataDto is played.
     public var isPlayed: Bool?
     /// Gets or sets the played percentage.
@@ -31,7 +31,7 @@ public struct UserItemDataDto: Codable, Hashable {
     /// Gets or sets the rating.
     public var rating: Double?
     /// Gets or sets the unplayed item count.
-    public var unplayedItemCount: Int32?
+    public var unplayedItemCount: Int?
 
     public init(
         isFavorite: Bool? = nil,
@@ -39,12 +39,12 @@ public struct UserItemDataDto: Codable, Hashable {
         key: String? = nil,
         lastPlayedDate: Date? = nil,
         isLikes: Bool? = nil,
-        playCount: Int32? = nil,
-        playbackPositionTicks: Int64? = nil,
+        playCount: Int? = nil,
+        playbackPositionTicks: Int? = nil,
         isPlayed: Bool? = nil,
         playedPercentage: Double? = nil,
         rating: Double? = nil,
-        unplayedItemCount: Int32? = nil
+        unplayedItemCount: Int? = nil
     ) {
         self.isFavorite = isFavorite
         self.itemID = itemID
@@ -66,12 +66,12 @@ public struct UserItemDataDto: Codable, Hashable {
         self.key = try values.decodeIfPresent(String.self, forKey: "Key")
         self.lastPlayedDate = try values.decodeIfPresent(Date.self, forKey: "LastPlayedDate")
         self.isLikes = try values.decodeIfPresent(Bool.self, forKey: "Likes")
-        self.playCount = try values.decodeIfPresent(Int32.self, forKey: "PlayCount")
-        self.playbackPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "PlaybackPositionTicks")
+        self.playCount = try values.decodeIfPresent(Int.self, forKey: "PlayCount")
+        self.playbackPositionTicks = try values.decodeIfPresent(Int.self, forKey: "PlaybackPositionTicks")
         self.isPlayed = try values.decodeIfPresent(Bool.self, forKey: "Played")
         self.playedPercentage = try values.decodeIfPresent(Double.self, forKey: "PlayedPercentage")
         self.rating = try values.decodeIfPresent(Double.self, forKey: "Rating")
-        self.unplayedItemCount = try values.decodeIfPresent(Int32.self, forKey: "UnplayedItemCount")
+        self.unplayedItemCount = try values.decodeIfPresent(Int.self, forKey: "UnplayedItemCount")
     }
 
     public func encode(to encoder: Encoder) throws {

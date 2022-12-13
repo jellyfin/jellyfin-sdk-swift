@@ -13,19 +13,19 @@ public struct TaskTriggerInfo: Codable, Hashable {
     /// Gets or sets the day of week.
     public var dayOfWeek: DayOfWeek?
     /// Gets or sets the interval.
-    public var intervalTicks: Int64?
+    public var intervalTicks: Int?
     /// Gets or sets the maximum runtime ticks.
-    public var maxRuntimeTicks: Int64?
+    public var maxRuntimeTicks: Int?
     /// Gets or sets the time of day.
-    public var timeOfDayTicks: Int64?
+    public var timeOfDayTicks: Int?
     /// Gets or sets the type.
     public var type: String?
 
     public init(
         dayOfWeek: DayOfWeek? = nil,
-        intervalTicks: Int64? = nil,
-        maxRuntimeTicks: Int64? = nil,
-        timeOfDayTicks: Int64? = nil,
+        intervalTicks: Int? = nil,
+        maxRuntimeTicks: Int? = nil,
+        timeOfDayTicks: Int? = nil,
         type: String? = nil
     ) {
         self.dayOfWeek = dayOfWeek
@@ -38,9 +38,9 @@ public struct TaskTriggerInfo: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.dayOfWeek = try values.decodeIfPresent(DayOfWeek.self, forKey: "DayOfWeek")
-        self.intervalTicks = try values.decodeIfPresent(Int64.self, forKey: "IntervalTicks")
-        self.maxRuntimeTicks = try values.decodeIfPresent(Int64.self, forKey: "MaxRuntimeTicks")
-        self.timeOfDayTicks = try values.decodeIfPresent(Int64.self, forKey: "TimeOfDayTicks")
+        self.intervalTicks = try values.decodeIfPresent(Int.self, forKey: "IntervalTicks")
+        self.maxRuntimeTicks = try values.decodeIfPresent(Int.self, forKey: "MaxRuntimeTicks")
+        self.timeOfDayTicks = try values.decodeIfPresent(Int.self, forKey: "TimeOfDayTicks")
         self.type = try values.decodeIfPresent(String.self, forKey: "Type")
     }
 

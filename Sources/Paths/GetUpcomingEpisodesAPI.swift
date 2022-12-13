@@ -18,23 +18,23 @@ public extension Paths {
 
     struct GetUpcomingEpisodesParameters {
         public var userID: String?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var fields: [JellyfinAPI.ItemFields]?
         public var parentID: String?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
 
         public init(
             userID: String? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             parentID: String? = nil,
             enableImages: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             enableUserData: Bool? = nil
         ) {

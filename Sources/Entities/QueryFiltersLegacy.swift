@@ -12,9 +12,9 @@ public struct QueryFiltersLegacy: Codable, Hashable {
     public var genres: [String]?
     public var officialRatings: [String]?
     public var tags: [String]?
-    public var years: [Int32]?
+    public var years: [Int]?
 
-    public init(genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int32]? = nil) {
+    public init(genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil) {
         self.genres = genres
         self.officialRatings = officialRatings
         self.tags = tags
@@ -26,7 +26,7 @@ public struct QueryFiltersLegacy: Codable, Hashable {
         self.genres = try values.decodeIfPresent([String].self, forKey: "Genres")
         self.officialRatings = try values.decodeIfPresent([String].self, forKey: "OfficialRatings")
         self.tags = try values.decodeIfPresent([String].self, forKey: "Tags")
-        self.years = try values.decodeIfPresent([Int32].self, forKey: "Years")
+        self.years = try values.decodeIfPresent([Int].self, forKey: "Years")
     }
 
     public func encode(to encoder: Encoder) throws {

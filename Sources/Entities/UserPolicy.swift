@@ -39,19 +39,19 @@ public struct UserPolicy: Codable, Hashable {
     public var enabledDevices: [String]?
     public var enabledFolders: [String]?
     public var isForceRemoteSourceTranscoding: Bool?
-    public var invalidLoginAttemptCount: Int32?
+    public var invalidLoginAttemptCount: Int?
     /// Gets or sets a value indicating whether this instance is administrator.
     public var isAdministrator: Bool?
     /// Gets or sets a value indicating whether this instance is disabled.
     public var isDisabled: Bool?
     /// Gets or sets a value indicating whether this instance is hidden.
     public var isHidden: Bool?
-    public var loginAttemptsBeforeLockout: Int32?
-    public var maxActiveSessions: Int32?
+    public var loginAttemptsBeforeLockout: Int?
+    public var maxActiveSessions: Int?
     /// Gets or sets the max parental rating.
-    public var maxParentalRating: Int32?
+    public var maxParentalRating: Int?
     public var passwordResetProviderID: String?
-    public var remoteClientBitrateLimit: Int32?
+    public var remoteClientBitrateLimit: Int?
     /// Enum SyncPlayUserAccessType.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
@@ -85,15 +85,15 @@ public struct UserPolicy: Codable, Hashable {
         enabledDevices: [String]? = nil,
         enabledFolders: [String]? = nil,
         isForceRemoteSourceTranscoding: Bool? = nil,
-        invalidLoginAttemptCount: Int32? = nil,
+        invalidLoginAttemptCount: Int? = nil,
         isAdministrator: Bool? = nil,
         isDisabled: Bool? = nil,
         isHidden: Bool? = nil,
-        loginAttemptsBeforeLockout: Int32? = nil,
-        maxActiveSessions: Int32? = nil,
-        maxParentalRating: Int32? = nil,
+        loginAttemptsBeforeLockout: Int? = nil,
+        maxActiveSessions: Int? = nil,
+        maxParentalRating: Int? = nil,
         passwordResetProviderID: String? = nil,
-        remoteClientBitrateLimit: Int32? = nil,
+        remoteClientBitrateLimit: Int? = nil,
         syncPlayAccess: SyncPlayUserAccessType? = nil
     ) {
         self.accessSchedules = accessSchedules
@@ -168,15 +168,15 @@ public struct UserPolicy: Codable, Hashable {
         self.enabledDevices = try values.decodeIfPresent([String].self, forKey: "EnabledDevices")
         self.enabledFolders = try values.decodeIfPresent([String].self, forKey: "EnabledFolders")
         self.isForceRemoteSourceTranscoding = try values.decodeIfPresent(Bool.self, forKey: "ForceRemoteSourceTranscoding")
-        self.invalidLoginAttemptCount = try values.decodeIfPresent(Int32.self, forKey: "InvalidLoginAttemptCount")
+        self.invalidLoginAttemptCount = try values.decodeIfPresent(Int.self, forKey: "InvalidLoginAttemptCount")
         self.isAdministrator = try values.decodeIfPresent(Bool.self, forKey: "IsAdministrator")
         self.isDisabled = try values.decodeIfPresent(Bool.self, forKey: "IsDisabled")
         self.isHidden = try values.decodeIfPresent(Bool.self, forKey: "IsHidden")
-        self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int32.self, forKey: "LoginAttemptsBeforeLockout")
-        self.maxActiveSessions = try values.decodeIfPresent(Int32.self, forKey: "MaxActiveSessions")
-        self.maxParentalRating = try values.decodeIfPresent(Int32.self, forKey: "MaxParentalRating")
+        self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int.self, forKey: "LoginAttemptsBeforeLockout")
+        self.maxActiveSessions = try values.decodeIfPresent(Int.self, forKey: "MaxActiveSessions")
+        self.maxParentalRating = try values.decodeIfPresent(Int.self, forKey: "MaxParentalRating")
         self.passwordResetProviderID = try values.decodeIfPresent(String.self, forKey: "PasswordResetProviderId")
-        self.remoteClientBitrateLimit = try values.decodeIfPresent(Int32.self, forKey: "RemoteClientBitrateLimit")
+        self.remoteClientBitrateLimit = try values.decodeIfPresent(Int.self, forKey: "RemoteClientBitrateLimit")
         self.syncPlayAccess = try values.decodeIfPresent(SyncPlayUserAccessType.self, forKey: "SyncPlayAccess")
     }
 

@@ -12,15 +12,15 @@ public final class RemoteSearchResult: Codable {
     public let albumArtist: RemoteSearchResult?
     public let artists: [RemoteSearchResult]?
     public let imageURL: String?
-    public let indexNumber: Int32?
-    public let indexNumberEnd: Int32?
+    public let indexNumber: Int?
+    public let indexNumberEnd: Int?
     /// Gets or sets the name.
     public let name: String?
     public let overview: String?
-    public let parentIndexNumber: Int32?
+    public let parentIndexNumber: Int?
     public let premiereDate: Date?
     /// Gets or sets the year.
-    public let productionYear: Int32?
+    public let productionYear: Int?
     /// Gets or sets the provider ids.
     public let providerIDs: [String: String]?
     public let searchProviderName: String?
@@ -29,13 +29,13 @@ public final class RemoteSearchResult: Codable {
         albumArtist: RemoteSearchResult? = nil,
         artists: [RemoteSearchResult]? = nil,
         imageURL: String? = nil,
-        indexNumber: Int32? = nil,
-        indexNumberEnd: Int32? = nil,
+        indexNumber: Int? = nil,
+        indexNumberEnd: Int? = nil,
         name: String? = nil,
         overview: String? = nil,
-        parentIndexNumber: Int32? = nil,
+        parentIndexNumber: Int? = nil,
         premiereDate: Date? = nil,
-        productionYear: Int32? = nil,
+        productionYear: Int? = nil,
         providerIDs: [String: String]? = nil,
         searchProviderName: String? = nil
     ) {
@@ -58,13 +58,13 @@ public final class RemoteSearchResult: Codable {
         self.albumArtist = try values.decodeIfPresent(RemoteSearchResult.self, forKey: "AlbumArtist")
         self.artists = try values.decodeIfPresent([RemoteSearchResult].self, forKey: "Artists")
         self.imageURL = try values.decodeIfPresent(String.self, forKey: "ImageUrl")
-        self.indexNumber = try values.decodeIfPresent(Int32.self, forKey: "IndexNumber")
-        self.indexNumberEnd = try values.decodeIfPresent(Int32.self, forKey: "IndexNumberEnd")
+        self.indexNumber = try values.decodeIfPresent(Int.self, forKey: "IndexNumber")
+        self.indexNumberEnd = try values.decodeIfPresent(Int.self, forKey: "IndexNumberEnd")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.overview = try values.decodeIfPresent(String.self, forKey: "Overview")
-        self.parentIndexNumber = try values.decodeIfPresent(Int32.self, forKey: "ParentIndexNumber")
+        self.parentIndexNumber = try values.decodeIfPresent(Int.self, forKey: "ParentIndexNumber")
         self.premiereDate = try values.decodeIfPresent(Date.self, forKey: "PremiereDate")
-        self.productionYear = try values.decodeIfPresent(Int32.self, forKey: "ProductionYear")
+        self.productionYear = try values.decodeIfPresent(Int.self, forKey: "ProductionYear")
         self.providerIDs = try values.decodeIfPresent([String: String].self, forKey: "ProviderIds")
         self.searchProviderName = try values.decodeIfPresent(String.self, forKey: "SearchProviderName")
     }

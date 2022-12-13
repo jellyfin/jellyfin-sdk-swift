@@ -17,8 +17,8 @@ public extension Paths {
     }
 
     struct GetYearsParameters {
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -27,15 +27,15 @@ public extension Paths {
         public var mediaTypes: [String]?
         public var sortBy: [String]?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var userID: String?
         public var isRecursive: Bool?
         public var enableImages: Bool?
 
         public init(
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             parentID: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
@@ -44,7 +44,7 @@ public extension Paths {
             mediaTypes: [String]? = nil,
             sortBy: [String]? = nil,
             enableUserData: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             userID: String? = nil,
             isRecursive: Bool? = nil,

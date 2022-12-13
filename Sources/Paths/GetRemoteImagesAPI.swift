@@ -18,8 +18,8 @@ public extension Paths {
 
     struct GetRemoteImagesParameters {
         public var type: `Type`?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var providerName: String?
         public var isIncludeAllLanguages: Bool?
 
@@ -27,8 +27,8 @@ public extension Paths {
 
         public init(
             type: Type? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             providerName: String? = nil,
             isIncludeAllLanguages: Bool? = nil
         ) {

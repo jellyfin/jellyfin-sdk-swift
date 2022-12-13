@@ -12,8 +12,8 @@ import Foundation
 public struct PlaybackStartInfo: Codable, Hashable {
     public var aspectRatio: String?
     /// Gets or sets the index of the audio stream.
-    public var audioStreamIndex: Int32?
-    public var brightness: Int32?
+    public var audioStreamIndex: Int?
+    public var brightness: Int?
     /// Gets or sets a value indicating whether this instance can seek.
     public var canSeek: Bool?
     /// Gets or sets a value indicating whether this instance is muted.
@@ -33,23 +33,23 @@ public struct PlaybackStartInfo: Codable, Hashable {
     public var playMethod: PlayMethod?
     /// Gets or sets the play session identifier.
     public var playSessionID: String?
-    public var playbackStartTimeTicks: Int64?
+    public var playbackStartTimeTicks: Int?
     public var playlistItemID: String?
     /// Gets or sets the position ticks.
-    public var positionTicks: Int64?
+    public var positionTicks: Int?
     /// Gets or sets the repeat mode.
     public var repeatMode: RepeatMode?
     /// Gets or sets the session id.
     public var sessionID: String?
     /// Gets or sets the index of the subtitle stream.
-    public var subtitleStreamIndex: Int32?
+    public var subtitleStreamIndex: Int?
     /// Gets or sets the volume level.
-    public var volumeLevel: Int32?
+    public var volumeLevel: Int?
 
     public init(
         aspectRatio: String? = nil,
-        audioStreamIndex: Int32? = nil,
-        brightness: Int32? = nil,
+        audioStreamIndex: Int? = nil,
+        brightness: Int? = nil,
         canSeek: Bool? = nil,
         isMuted: Bool? = nil,
         isPaused: Bool? = nil,
@@ -60,13 +60,13 @@ public struct PlaybackStartInfo: Codable, Hashable {
         nowPlayingQueue: [QueueItem]? = nil,
         playMethod: PlayMethod? = nil,
         playSessionID: String? = nil,
-        playbackStartTimeTicks: Int64? = nil,
+        playbackStartTimeTicks: Int? = nil,
         playlistItemID: String? = nil,
-        positionTicks: Int64? = nil,
+        positionTicks: Int? = nil,
         repeatMode: RepeatMode? = nil,
         sessionID: String? = nil,
-        subtitleStreamIndex: Int32? = nil,
-        volumeLevel: Int32? = nil
+        subtitleStreamIndex: Int? = nil,
+        volumeLevel: Int? = nil
     ) {
         self.aspectRatio = aspectRatio
         self.audioStreamIndex = audioStreamIndex
@@ -93,8 +93,8 @@ public struct PlaybackStartInfo: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.aspectRatio = try values.decodeIfPresent(String.self, forKey: "AspectRatio")
-        self.audioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "AudioStreamIndex")
-        self.brightness = try values.decodeIfPresent(Int32.self, forKey: "Brightness")
+        self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
+        self.brightness = try values.decodeIfPresent(Int.self, forKey: "Brightness")
         self.canSeek = try values.decodeIfPresent(Bool.self, forKey: "CanSeek")
         self.isMuted = try values.decodeIfPresent(Bool.self, forKey: "IsMuted")
         self.isPaused = try values.decodeIfPresent(Bool.self, forKey: "IsPaused")
@@ -105,13 +105,13 @@ public struct PlaybackStartInfo: Codable, Hashable {
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
         self.playMethod = try values.decodeIfPresent(PlayMethod.self, forKey: "PlayMethod")
         self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
-        self.playbackStartTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "PlaybackStartTimeTicks")
+        self.playbackStartTimeTicks = try values.decodeIfPresent(Int.self, forKey: "PlaybackStartTimeTicks")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
-        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
         self.repeatMode = try values.decodeIfPresent(RepeatMode.self, forKey: "RepeatMode")
         self.sessionID = try values.decodeIfPresent(String.self, forKey: "SessionId")
-        self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
-        self.volumeLevel = try values.decodeIfPresent(Int32.self, forKey: "VolumeLevel")
+        self.subtitleStreamIndex = try values.decodeIfPresent(Int.self, forKey: "SubtitleStreamIndex")
+        self.volumeLevel = try values.decodeIfPresent(Int.self, forKey: "VolumeLevel")
     }
 
     public func encode(to encoder: Encoder) throws {

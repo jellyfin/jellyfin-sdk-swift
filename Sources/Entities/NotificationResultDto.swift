@@ -13,9 +13,9 @@ public struct NotificationResultDto: Codable, Hashable {
     /// Gets or sets the current page of notifications.
     public var notifications: [NotificationDto]?
     /// Gets or sets the total number of notifications.
-    public var totalRecordCount: Int32?
+    public var totalRecordCount: Int?
 
-    public init(notifications: [NotificationDto]? = nil, totalRecordCount: Int32? = nil) {
+    public init(notifications: [NotificationDto]? = nil, totalRecordCount: Int? = nil) {
         self.notifications = notifications
         self.totalRecordCount = totalRecordCount
     }
@@ -23,7 +23,7 @@ public struct NotificationResultDto: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.notifications = try values.decodeIfPresent([NotificationDto].self, forKey: "Notifications")
-        self.totalRecordCount = try values.decodeIfPresent(Int32.self, forKey: "TotalRecordCount")
+        self.totalRecordCount = try values.decodeIfPresent(Int.self, forKey: "TotalRecordCount")
     }
 
     public func encode(to encoder: Encoder) throws {

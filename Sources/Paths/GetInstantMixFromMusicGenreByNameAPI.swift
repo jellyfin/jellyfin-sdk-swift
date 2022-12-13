@@ -21,20 +21,20 @@ public extension Paths {
 
     struct GetInstantMixFromMusicGenreByNameParameters {
         public var userID: String?
-        public var limit: Int32?
+        public var limit: Int?
         public var fields: [JellyfinAPI.ItemFields]?
         public var enableImages: Bool?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
 
         public init(
             userID: String? = nil,
-            limit: Int32? = nil,
+            limit: Int? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             enableImages: Bool? = nil,
             enableUserData: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil
         ) {
             self.userID = userID

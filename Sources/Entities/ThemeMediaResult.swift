@@ -15,11 +15,11 @@ public struct ThemeMediaResult: Codable, Hashable {
     /// Gets or sets the owner id.
     public var ownerID: String?
     /// Gets or sets the index of the first record in Items.
-    public var startIndex: Int32?
+    public var startIndex: Int?
     /// Gets or sets the total number of records available.
-    public var totalRecordCount: Int32?
+    public var totalRecordCount: Int?
 
-    public init(items: [BaseItemDto]? = nil, ownerID: String? = nil, startIndex: Int32? = nil, totalRecordCount: Int32? = nil) {
+    public init(items: [BaseItemDto]? = nil, ownerID: String? = nil, startIndex: Int? = nil, totalRecordCount: Int? = nil) {
         self.items = items
         self.ownerID = ownerID
         self.startIndex = startIndex
@@ -30,8 +30,8 @@ public struct ThemeMediaResult: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.items = try values.decodeIfPresent([BaseItemDto].self, forKey: "Items")
         self.ownerID = try values.decodeIfPresent(String.self, forKey: "OwnerId")
-        self.startIndex = try values.decodeIfPresent(Int32.self, forKey: "StartIndex")
-        self.totalRecordCount = try values.decodeIfPresent(Int32.self, forKey: "TotalRecordCount")
+        self.startIndex = try values.decodeIfPresent(Int.self, forKey: "StartIndex")
+        self.totalRecordCount = try values.decodeIfPresent(Int.self, forKey: "TotalRecordCount")
     }
 
     public func encode(to encoder: Encoder) throws {

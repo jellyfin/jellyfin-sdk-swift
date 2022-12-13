@@ -26,7 +26,7 @@ public struct PlaybackStopInfo: Codable, Hashable {
     public var playSessionID: String?
     public var playlistItemID: String?
     /// Gets or sets the position ticks.
-    public var positionTicks: Int64?
+    public var positionTicks: Int?
     /// Gets or sets the session id.
     public var sessionID: String?
 
@@ -40,7 +40,7 @@ public struct PlaybackStopInfo: Codable, Hashable {
         nowPlayingQueue: [QueueItem]? = nil,
         playSessionID: String? = nil,
         playlistItemID: String? = nil,
-        positionTicks: Int64? = nil,
+        positionTicks: Int? = nil,
         sessionID: String? = nil
     ) {
         self.isFailed = isFailed
@@ -67,7 +67,7 @@ public struct PlaybackStopInfo: Codable, Hashable {
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
         self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
-        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
         self.sessionID = try values.decodeIfPresent(String.self, forKey: "SessionId")
     }
 

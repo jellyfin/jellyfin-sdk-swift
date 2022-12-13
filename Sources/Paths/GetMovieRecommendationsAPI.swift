@@ -20,15 +20,15 @@ public extension Paths {
         public var userID: String?
         public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
-        public var categoryLimit: Int32?
-        public var itemLimit: Int32?
+        public var categoryLimit: Int?
+        public var itemLimit: Int?
 
         public init(
             userID: String? = nil,
             parentID: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
-            categoryLimit: Int32? = nil,
-            itemLimit: Int32? = nil
+            categoryLimit: Int? = nil,
+            itemLimit: Int? = nil
         ) {
             self.userID = userID
             self.parentID = parentID

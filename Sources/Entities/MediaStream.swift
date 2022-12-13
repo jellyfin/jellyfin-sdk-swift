@@ -15,15 +15,15 @@ public struct MediaStream: Codable, Hashable {
     /// Gets or sets the average frame rate.
     public var averageFrameRate: Float?
     /// Gets or sets the bit depth.
-    public var bitDepth: Int32?
+    public var bitDepth: Int?
     /// Gets or sets the bit rate.
-    public var bitRate: Int32?
+    public var bitRate: Int?
     /// Gets or sets the Dolby Vision bl present flag.
-    public var blPresentFlag: Int32?
+    public var blPresentFlag: Int?
     /// Gets or sets the channel layout.
     public var channelLayout: String?
     /// Gets or sets the channels.
-    public var channels: Int32?
+    public var channels: Int?
     /// Gets or sets the codec.
     public var codec: String?
     /// Gets or sets the codec tag.
@@ -46,21 +46,21 @@ public struct MediaStream: Codable, Hashable {
     public var deliveryURL: String?
     public var displayTitle: String?
     /// Gets or sets the Dolby Vision bl signal compatibility id.
-    public var dvBlSignalCompatibilityID: Int32?
+    public var dvBlSignalCompatibilityID: Int?
     /// Gets or sets the Dolby Vision level.
-    public var dvLevel: Int32?
+    public var dvLevel: Int?
     /// Gets or sets the Dolby Vision profile.
-    public var dvProfile: Int32?
+    public var dvProfile: Int?
     /// Gets or sets the Dolby Vision version major.
-    public var dvVersionMajor: Int32?
+    public var dvVersionMajor: Int?
     /// Gets or sets the Dolby Vision version minor.
-    public var dvVersionMinor: Int32?
+    public var dvVersionMinor: Int?
     /// Gets or sets the Dolby Vision el present flag.
-    public var elPresentFlag: Int32?
+    public var elPresentFlag: Int?
     /// Gets or sets the height.
-    public var height: Int32?
+    public var height: Int?
     /// Gets or sets the index.
-    public var index: Int32?
+    public var index: Int?
     public var isAVC: Bool?
     /// Gets or sets whether this instance is anamorphic.
     public var isAnamorphic: Bool?
@@ -85,7 +85,7 @@ public struct MediaStream: Codable, Hashable {
     public var localizedUndefined: String?
     public var nalLengthSize: String?
     /// Gets or sets the length of the packet.
-    public var packetLength: Int32?
+    public var packetLength: Int?
     /// Gets or sets the filename.
     public var path: String?
     /// Gets or sets the pixel format.
@@ -95,13 +95,13 @@ public struct MediaStream: Codable, Hashable {
     /// Gets or sets the real frame rate.
     public var realFrameRate: Float?
     /// Gets or sets the reference frames.
-    public var refFrames: Int32?
+    public var refFrames: Int?
     /// Gets or sets the Dolby Vision rpu present flag.
-    public var rpuPresentFlag: Int32?
+    public var rpuPresentFlag: Int?
     /// Gets or sets the sample rate.
-    public var sampleRate: Int32?
+    public var sampleRate: Int?
     /// Gets or sets the score.
-    public var score: Int32?
+    public var score: Int?
     /// Gets or sets a value indicating whether [supports external stream].
     public var isSupportsExternalStream: Bool?
     /// Gets or sets the time base.
@@ -117,16 +117,16 @@ public struct MediaStream: Codable, Hashable {
     /// Gets the video range type.
     public var videoRangeType: String?
     /// Gets or sets the width.
-    public var width: Int32?
+    public var width: Int?
 
     public init(
         aspectRatio: String? = nil,
         averageFrameRate: Float? = nil,
-        bitDepth: Int32? = nil,
-        bitRate: Int32? = nil,
-        blPresentFlag: Int32? = nil,
+        bitDepth: Int? = nil,
+        bitRate: Int? = nil,
+        blPresentFlag: Int? = nil,
         channelLayout: String? = nil,
-        channels: Int32? = nil,
+        channels: Int? = nil,
         codec: String? = nil,
         codecTag: String? = nil,
         codecTimeBase: String? = nil,
@@ -138,14 +138,14 @@ public struct MediaStream: Codable, Hashable {
         deliveryMethod: SubtitleDeliveryMethod? = nil,
         deliveryURL: String? = nil,
         displayTitle: String? = nil,
-        dvBlSignalCompatibilityID: Int32? = nil,
-        dvLevel: Int32? = nil,
-        dvProfile: Int32? = nil,
-        dvVersionMajor: Int32? = nil,
-        dvVersionMinor: Int32? = nil,
-        elPresentFlag: Int32? = nil,
-        height: Int32? = nil,
-        index: Int32? = nil,
+        dvBlSignalCompatibilityID: Int? = nil,
+        dvLevel: Int? = nil,
+        dvProfile: Int? = nil,
+        dvVersionMajor: Int? = nil,
+        dvVersionMinor: Int? = nil,
+        elPresentFlag: Int? = nil,
+        height: Int? = nil,
+        index: Int? = nil,
         isAVC: Bool? = nil,
         isAnamorphic: Bool? = nil,
         isDefault: Bool? = nil,
@@ -161,15 +161,15 @@ public struct MediaStream: Codable, Hashable {
         localizedForced: String? = nil,
         localizedUndefined: String? = nil,
         nalLengthSize: String? = nil,
-        packetLength: Int32? = nil,
+        packetLength: Int? = nil,
         path: String? = nil,
         pixelFormat: String? = nil,
         profile: String? = nil,
         realFrameRate: Float? = nil,
-        refFrames: Int32? = nil,
-        rpuPresentFlag: Int32? = nil,
-        sampleRate: Int32? = nil,
-        score: Int32? = nil,
+        refFrames: Int? = nil,
+        rpuPresentFlag: Int? = nil,
+        sampleRate: Int? = nil,
+        score: Int? = nil,
         isSupportsExternalStream: Bool? = nil,
         timeBase: String? = nil,
         title: String? = nil,
@@ -177,7 +177,7 @@ public struct MediaStream: Codable, Hashable {
         videoDoViTitle: String? = nil,
         videoRange: String? = nil,
         videoRangeType: String? = nil,
-        width: Int32? = nil
+        width: Int? = nil
     ) {
         self.aspectRatio = aspectRatio
         self.averageFrameRate = averageFrameRate
@@ -243,11 +243,11 @@ public struct MediaStream: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.aspectRatio = try values.decodeIfPresent(String.self, forKey: "AspectRatio")
         self.averageFrameRate = try values.decodeIfPresent(Float.self, forKey: "AverageFrameRate")
-        self.bitDepth = try values.decodeIfPresent(Int32.self, forKey: "BitDepth")
-        self.bitRate = try values.decodeIfPresent(Int32.self, forKey: "BitRate")
-        self.blPresentFlag = try values.decodeIfPresent(Int32.self, forKey: "BlPresentFlag")
+        self.bitDepth = try values.decodeIfPresent(Int.self, forKey: "BitDepth")
+        self.bitRate = try values.decodeIfPresent(Int.self, forKey: "BitRate")
+        self.blPresentFlag = try values.decodeIfPresent(Int.self, forKey: "BlPresentFlag")
         self.channelLayout = try values.decodeIfPresent(String.self, forKey: "ChannelLayout")
-        self.channels = try values.decodeIfPresent(Int32.self, forKey: "Channels")
+        self.channels = try values.decodeIfPresent(Int.self, forKey: "Channels")
         self.codec = try values.decodeIfPresent(String.self, forKey: "Codec")
         self.codecTag = try values.decodeIfPresent(String.self, forKey: "CodecTag")
         self.codecTimeBase = try values.decodeIfPresent(String.self, forKey: "CodecTimeBase")
@@ -259,14 +259,14 @@ public struct MediaStream: Codable, Hashable {
         self.deliveryMethod = try values.decodeIfPresent(SubtitleDeliveryMethod.self, forKey: "DeliveryMethod")
         self.deliveryURL = try values.decodeIfPresent(String.self, forKey: "DeliveryUrl")
         self.displayTitle = try values.decodeIfPresent(String.self, forKey: "DisplayTitle")
-        self.dvBlSignalCompatibilityID = try values.decodeIfPresent(Int32.self, forKey: "DvBlSignalCompatibilityId")
-        self.dvLevel = try values.decodeIfPresent(Int32.self, forKey: "DvLevel")
-        self.dvProfile = try values.decodeIfPresent(Int32.self, forKey: "DvProfile")
-        self.dvVersionMajor = try values.decodeIfPresent(Int32.self, forKey: "DvVersionMajor")
-        self.dvVersionMinor = try values.decodeIfPresent(Int32.self, forKey: "DvVersionMinor")
-        self.elPresentFlag = try values.decodeIfPresent(Int32.self, forKey: "ElPresentFlag")
-        self.height = try values.decodeIfPresent(Int32.self, forKey: "Height")
-        self.index = try values.decodeIfPresent(Int32.self, forKey: "Index")
+        self.dvBlSignalCompatibilityID = try values.decodeIfPresent(Int.self, forKey: "DvBlSignalCompatibilityId")
+        self.dvLevel = try values.decodeIfPresent(Int.self, forKey: "DvLevel")
+        self.dvProfile = try values.decodeIfPresent(Int.self, forKey: "DvProfile")
+        self.dvVersionMajor = try values.decodeIfPresent(Int.self, forKey: "DvVersionMajor")
+        self.dvVersionMinor = try values.decodeIfPresent(Int.self, forKey: "DvVersionMinor")
+        self.elPresentFlag = try values.decodeIfPresent(Int.self, forKey: "ElPresentFlag")
+        self.height = try values.decodeIfPresent(Int.self, forKey: "Height")
+        self.index = try values.decodeIfPresent(Int.self, forKey: "Index")
         self.isAVC = try values.decodeIfPresent(Bool.self, forKey: "IsAVC")
         self.isAnamorphic = try values.decodeIfPresent(Bool.self, forKey: "IsAnamorphic")
         self.isDefault = try values.decodeIfPresent(Bool.self, forKey: "IsDefault")
@@ -282,15 +282,15 @@ public struct MediaStream: Codable, Hashable {
         self.localizedForced = try values.decodeIfPresent(String.self, forKey: "LocalizedForced")
         self.localizedUndefined = try values.decodeIfPresent(String.self, forKey: "LocalizedUndefined")
         self.nalLengthSize = try values.decodeIfPresent(String.self, forKey: "NalLengthSize")
-        self.packetLength = try values.decodeIfPresent(Int32.self, forKey: "PacketLength")
+        self.packetLength = try values.decodeIfPresent(Int.self, forKey: "PacketLength")
         self.path = try values.decodeIfPresent(String.self, forKey: "Path")
         self.pixelFormat = try values.decodeIfPresent(String.self, forKey: "PixelFormat")
         self.profile = try values.decodeIfPresent(String.self, forKey: "Profile")
         self.realFrameRate = try values.decodeIfPresent(Float.self, forKey: "RealFrameRate")
-        self.refFrames = try values.decodeIfPresent(Int32.self, forKey: "RefFrames")
-        self.rpuPresentFlag = try values.decodeIfPresent(Int32.self, forKey: "RpuPresentFlag")
-        self.sampleRate = try values.decodeIfPresent(Int32.self, forKey: "SampleRate")
-        self.score = try values.decodeIfPresent(Int32.self, forKey: "Score")
+        self.refFrames = try values.decodeIfPresent(Int.self, forKey: "RefFrames")
+        self.rpuPresentFlag = try values.decodeIfPresent(Int.self, forKey: "RpuPresentFlag")
+        self.sampleRate = try values.decodeIfPresent(Int.self, forKey: "SampleRate")
+        self.score = try values.decodeIfPresent(Int.self, forKey: "Score")
         self.isSupportsExternalStream = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalStream")
         self.timeBase = try values.decodeIfPresent(String.self, forKey: "TimeBase")
         self.title = try values.decodeIfPresent(String.self, forKey: "Title")
@@ -298,7 +298,7 @@ public struct MediaStream: Codable, Hashable {
         self.videoDoViTitle = try values.decodeIfPresent(String.self, forKey: "VideoDoViTitle")
         self.videoRange = try values.decodeIfPresent(String.self, forKey: "VideoRange")
         self.videoRangeType = try values.decodeIfPresent(String.self, forKey: "VideoRangeType")
-        self.width = try values.decodeIfPresent(Int32.self, forKey: "Width")
+        self.width = try values.decodeIfPresent(Int.self, forKey: "Width")
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -22,8 +22,8 @@ public extension Paths {
     struct GetChannelItemsParameters {
         public var folderID: String?
         public var userID: String?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var sortBy: [String]?
@@ -32,8 +32,8 @@ public extension Paths {
         public init(
             folderID: String? = nil,
             userID: String? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             filters: [JellyfinAPI.ItemFilter]? = nil,
             sortBy: [String]? = nil,

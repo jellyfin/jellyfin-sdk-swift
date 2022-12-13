@@ -12,6 +12,9 @@ fileHeaderComment: |
   // Copyright (c) 2022 Jellyfin & Jellyfin Contributors
   //
 dataTypes:
+  integer:
+    int32: Int
+    int64: Int
   string:
     uuid: String
 entities:

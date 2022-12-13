@@ -20,22 +20,22 @@ public extension Paths {
         /// Enum PlayCommand.
         public var playCommand: PlayCommand
         public var itemIDs: [String]
-        public var startPositionTicks: Int64?
+        public var startPositionTicks: Int?
         public var mediaSourceID: String?
-        public var audioStreamIndex: Int32?
-        public var subtitleStreamIndex: Int32?
-        public var startIndex: Int32?
+        public var audioStreamIndex: Int?
+        public var subtitleStreamIndex: Int?
+        public var startIndex: Int?
 
         public typealias PlayCommand = JellyfinAPI.PlayCommand
 
         public init(
             playCommand: PlayCommand,
             itemIDs: [String],
-            startPositionTicks: Int64? = nil,
+            startPositionTicks: Int? = nil,
             mediaSourceID: String? = nil,
-            audioStreamIndex: Int32? = nil,
-            subtitleStreamIndex: Int32? = nil,
-            startIndex: Int32? = nil
+            audioStreamIndex: Int? = nil,
+            subtitleStreamIndex: Int? = nil,
+            startIndex: Int? = nil
         ) {
             self.playCommand = playCommand
             self.itemIDs = itemIDs

@@ -33,26 +33,26 @@ public extension Paths {
     }
 
     struct HeadItemImage2Parameters {
-        public var width: Int32?
-        public var height: Int32?
-        public var quality: Int32?
-        public var fillWidth: Int32?
-        public var fillHeight: Int32?
+        public var width: Int?
+        public var height: Int?
+        public var quality: Int?
+        public var fillWidth: Int?
+        public var fillHeight: Int?
         public var isCropWhitespace: Bool?
         public var isAddPlayedIndicator: Bool?
-        public var blur: Int32?
+        public var blur: Int?
         public var backgroundColor: String?
         public var foregroundLayer: String?
 
         public init(
-            width: Int32? = nil,
-            height: Int32? = nil,
-            quality: Int32? = nil,
-            fillWidth: Int32? = nil,
-            fillHeight: Int32? = nil,
+            width: Int? = nil,
+            height: Int? = nil,
+            quality: Int? = nil,
+            fillWidth: Int? = nil,
+            fillHeight: Int? = nil,
             isCropWhitespace: Bool? = nil,
             isAddPlayedIndicator: Bool? = nil,
-            blur: Int32? = nil,
+            blur: Int? = nil,
             backgroundColor: String? = nil,
             foregroundLayer: String? = nil
         ) {

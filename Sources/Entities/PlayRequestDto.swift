@@ -11,13 +11,13 @@ import Foundation
 /// Class PlayRequestDto.
 public struct PlayRequestDto: Codable, Hashable {
     /// Gets or sets the position of the playing item in the queue.
-    public var playingItemPosition: Int32?
+    public var playingItemPosition: Int?
     /// Gets or sets the playing queue.
     public var playingQueue: [String]?
     /// Gets or sets the start position ticks.
-    public var startPositionTicks: Int64?
+    public var startPositionTicks: Int?
 
-    public init(playingItemPosition: Int32? = nil, playingQueue: [String]? = nil, startPositionTicks: Int64? = nil) {
+    public init(playingItemPosition: Int? = nil, playingQueue: [String]? = nil, startPositionTicks: Int? = nil) {
         self.playingItemPosition = playingItemPosition
         self.playingQueue = playingQueue
         self.startPositionTicks = startPositionTicks
@@ -25,9 +25,9 @@ public struct PlayRequestDto: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.playingItemPosition = try values.decodeIfPresent(Int32.self, forKey: "PlayingItemPosition")
+        self.playingItemPosition = try values.decodeIfPresent(Int.self, forKey: "PlayingItemPosition")
         self.playingQueue = try values.decodeIfPresent([String].self, forKey: "PlayingQueue")
-        self.startPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "StartPositionTicks")
+        self.startPositionTicks = try values.decodeIfPresent(Int.self, forKey: "StartPositionTicks")
     }
 
     public func encode(to encoder: Encoder) throws {

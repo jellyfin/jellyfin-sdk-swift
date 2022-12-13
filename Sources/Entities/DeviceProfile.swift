@@ -49,19 +49,19 @@ public struct DeviceProfile: Codable, Hashable, Identifiable {
     /// Gets or sets an url for the manufacturer of the device which this profile represents.
     public var manufacturerURL: String?
     /// Gets or sets the MaxAlbumArtHeight.
-    public var maxAlbumArtHeight: Int32?
+    public var maxAlbumArtHeight: Int?
     /// Gets or sets the MaxAlbumArtWidth.
-    public var maxAlbumArtWidth: Int32?
+    public var maxAlbumArtWidth: Int?
     /// Gets or sets the maximum allowed height of embedded icons.
-    public var maxIconHeight: Int32?
+    public var maxIconHeight: Int?
     /// Gets or sets the maximum allowed width of embedded icons.
-    public var maxIconWidth: Int32?
+    public var maxIconWidth: Int?
     /// Gets or sets the maximum allowed bitrate for statically streamed content (= direct played files).
-    public var maxStaticBitrate: Int32?
+    public var maxStaticBitrate: Int?
     /// Gets or sets the maximum allowed bitrate for statically streamed (= direct played) music files.
-    public var maxStaticMusicBitrate: Int32?
+    public var maxStaticMusicBitrate: Int?
     /// Gets or sets the maximum allowed bitrate for all streamed content.
-    public var maxStreamingBitrate: Int32?
+    public var maxStreamingBitrate: Int?
     /// Gets or sets the model description of the device which this profile represents.
     public var modelDescription: String?
     /// Gets or sets the model name of the device which this profile represents.
@@ -71,7 +71,7 @@ public struct DeviceProfile: Codable, Hashable, Identifiable {
     /// Gets or sets the ModelUrl.
     public var modelURL: String?
     /// Gets or sets the maximum allowed bitrate for transcoded music streams.
-    public var musicStreamingTranscodingBitrate: Int32?
+    public var musicStreamingTranscodingBitrate: Int?
     /// Gets or sets the name of this device profile.
     public var name: String?
     /// Gets or sets the ProtocolInfo.
@@ -91,7 +91,7 @@ public struct DeviceProfile: Codable, Hashable, Identifiable {
     /// Gets or sets the SupportedMediaTypes.
     public var supportedMediaTypes: String?
     /// Gets or sets the TimelineOffsetSeconds.
-    public var timelineOffsetSeconds: Int32?
+    public var timelineOffsetSeconds: Int?
     /// Gets or sets the transcoding profiles.
     public var transcodingProfiles: [TranscodingProfile]?
     /// Gets or sets the UserId.
@@ -114,18 +114,18 @@ public struct DeviceProfile: Codable, Hashable, Identifiable {
         isIgnoreTranscodeByteRangeRequests: Bool? = nil,
         manufacturer: String? = nil,
         manufacturerURL: String? = nil,
-        maxAlbumArtHeight: Int32? = nil,
-        maxAlbumArtWidth: Int32? = nil,
-        maxIconHeight: Int32? = nil,
-        maxIconWidth: Int32? = nil,
-        maxStaticBitrate: Int32? = nil,
-        maxStaticMusicBitrate: Int32? = nil,
-        maxStreamingBitrate: Int32? = nil,
+        maxAlbumArtHeight: Int? = nil,
+        maxAlbumArtWidth: Int? = nil,
+        maxIconHeight: Int? = nil,
+        maxIconWidth: Int? = nil,
+        maxStaticBitrate: Int? = nil,
+        maxStaticMusicBitrate: Int? = nil,
+        maxStreamingBitrate: Int? = nil,
         modelDescription: String? = nil,
         modelName: String? = nil,
         modelNumber: String? = nil,
         modelURL: String? = nil,
-        musicStreamingTranscodingBitrate: Int32? = nil,
+        musicStreamingTranscodingBitrate: Int? = nil,
         name: String? = nil,
         protocolInfo: String? = nil,
         requiresPlainFolders: Bool? = nil,
@@ -135,7 +135,7 @@ public struct DeviceProfile: Codable, Hashable, Identifiable {
         sonyAggregationFlags: String? = nil,
         subtitleProfiles: [SubtitleProfile]? = nil,
         supportedMediaTypes: String? = nil,
-        timelineOffsetSeconds: Int32? = nil,
+        timelineOffsetSeconds: Int? = nil,
         transcodingProfiles: [TranscodingProfile]? = nil,
         userID: String? = nil,
         xmlRootAttributes: [XmlAttribute]? = nil
@@ -197,18 +197,18 @@ public struct DeviceProfile: Codable, Hashable, Identifiable {
         self.isIgnoreTranscodeByteRangeRequests = try values.decodeIfPresent(Bool.self, forKey: "IgnoreTranscodeByteRangeRequests") ?? false
         self.manufacturer = try values.decodeIfPresent(String.self, forKey: "Manufacturer")
         self.manufacturerURL = try values.decodeIfPresent(String.self, forKey: "ManufacturerUrl")
-        self.maxAlbumArtHeight = try values.decodeIfPresent(Int32.self, forKey: "MaxAlbumArtHeight")
-        self.maxAlbumArtWidth = try values.decodeIfPresent(Int32.self, forKey: "MaxAlbumArtWidth")
-        self.maxIconHeight = try values.decodeIfPresent(Int32.self, forKey: "MaxIconHeight")
-        self.maxIconWidth = try values.decodeIfPresent(Int32.self, forKey: "MaxIconWidth")
-        self.maxStaticBitrate = try values.decodeIfPresent(Int32.self, forKey: "MaxStaticBitrate")
-        self.maxStaticMusicBitrate = try values.decodeIfPresent(Int32.self, forKey: "MaxStaticMusicBitrate")
-        self.maxStreamingBitrate = try values.decodeIfPresent(Int32.self, forKey: "MaxStreamingBitrate")
+        self.maxAlbumArtHeight = try values.decodeIfPresent(Int.self, forKey: "MaxAlbumArtHeight")
+        self.maxAlbumArtWidth = try values.decodeIfPresent(Int.self, forKey: "MaxAlbumArtWidth")
+        self.maxIconHeight = try values.decodeIfPresent(Int.self, forKey: "MaxIconHeight")
+        self.maxIconWidth = try values.decodeIfPresent(Int.self, forKey: "MaxIconWidth")
+        self.maxStaticBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStaticBitrate")
+        self.maxStaticMusicBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStaticMusicBitrate")
+        self.maxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStreamingBitrate")
         self.modelDescription = try values.decodeIfPresent(String.self, forKey: "ModelDescription")
         self.modelName = try values.decodeIfPresent(String.self, forKey: "ModelName")
         self.modelNumber = try values.decodeIfPresent(String.self, forKey: "ModelNumber")
         self.modelURL = try values.decodeIfPresent(String.self, forKey: "ModelUrl")
-        self.musicStreamingTranscodingBitrate = try values.decodeIfPresent(Int32.self, forKey: "MusicStreamingTranscodingBitrate")
+        self.musicStreamingTranscodingBitrate = try values.decodeIfPresent(Int.self, forKey: "MusicStreamingTranscodingBitrate")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.protocolInfo = try values.decodeIfPresent(String.self, forKey: "ProtocolInfo")
         self.requiresPlainFolders = try values.decodeIfPresent(Bool.self, forKey: "RequiresPlainFolders") ?? false
@@ -218,7 +218,7 @@ public struct DeviceProfile: Codable, Hashable, Identifiable {
         self.sonyAggregationFlags = try values.decodeIfPresent(String.self, forKey: "SonyAggregationFlags")
         self.subtitleProfiles = try values.decodeIfPresent([SubtitleProfile].self, forKey: "SubtitleProfiles")
         self.supportedMediaTypes = try values.decodeIfPresent(String.self, forKey: "SupportedMediaTypes")
-        self.timelineOffsetSeconds = try values.decodeIfPresent(Int32.self, forKey: "TimelineOffsetSeconds")
+        self.timelineOffsetSeconds = try values.decodeIfPresent(Int.self, forKey: "TimelineOffsetSeconds")
         self.transcodingProfiles = try values.decodeIfPresent([TranscodingProfile].self, forKey: "TranscodingProfiles")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
         self.xmlRootAttributes = try values.decodeIfPresent([XmlAttribute].self, forKey: "XmlRootAttributes")

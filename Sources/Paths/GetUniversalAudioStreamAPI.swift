@@ -22,15 +22,15 @@ public extension Paths {
         public var deviceID: String?
         public var userID: String?
         public var audioCodec: String?
-        public var maxAudioChannels: Int32?
-        public var transcodingAudioChannels: Int32?
-        public var maxStreamingBitrate: Int32?
-        public var audioBitRate: Int32?
-        public var startTimeTicks: Int64?
+        public var maxAudioChannels: Int?
+        public var transcodingAudioChannels: Int?
+        public var maxStreamingBitrate: Int?
+        public var audioBitRate: Int?
+        public var startTimeTicks: Int?
         public var transcodingContainer: String?
         public var transcodingProtocol: String?
-        public var maxAudioSampleRate: Int32?
-        public var maxAudioBitDepth: Int32?
+        public var maxAudioSampleRate: Int?
+        public var maxAudioBitDepth: Int?
         public var enableRemoteMedia: Bool?
         public var isBreakOnNonKeyFrames: Bool?
         public var enableRedirection: Bool?
@@ -41,15 +41,15 @@ public extension Paths {
             deviceID: String? = nil,
             userID: String? = nil,
             audioCodec: String? = nil,
-            maxAudioChannels: Int32? = nil,
-            transcodingAudioChannels: Int32? = nil,
-            maxStreamingBitrate: Int32? = nil,
-            audioBitRate: Int32? = nil,
-            startTimeTicks: Int64? = nil,
+            maxAudioChannels: Int? = nil,
+            transcodingAudioChannels: Int? = nil,
+            maxStreamingBitrate: Int? = nil,
+            audioBitRate: Int? = nil,
+            startTimeTicks: Int? = nil,
             transcodingContainer: String? = nil,
             transcodingProtocol: String? = nil,
-            maxAudioSampleRate: Int32? = nil,
-            maxAudioBitDepth: Int32? = nil,
+            maxAudioSampleRate: Int? = nil,
+            maxAudioBitDepth: Int? = nil,
             enableRemoteMedia: Bool? = nil,
             isBreakOnNonKeyFrames: Bool? = nil,
             enableRedirection: Bool? = nil

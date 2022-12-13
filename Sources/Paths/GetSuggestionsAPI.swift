@@ -19,15 +19,15 @@ public extension Paths {
     struct GetSuggestionsParameters {
         public var mediaType: [String]?
         public var type: [JellyfinAPI.BaseItemKind]?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var enableTotalRecordCount: Bool?
 
         public init(
             mediaType: [String]? = nil,
             type: [JellyfinAPI.BaseItemKind]? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             enableTotalRecordCount: Bool? = nil
         ) {
             self.mediaType = mediaType

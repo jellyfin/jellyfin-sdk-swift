@@ -15,7 +15,7 @@ public struct PlaybackInfoDto: Codable, Hashable {
     /// Gets or sets a value indicating whether to enable video stream copy.
     public var allowVideoStreamCopy: Bool?
     /// Gets or sets the audio stream index.
-    public var audioStreamIndex: Int32?
+    public var audioStreamIndex: Int?
     /// Gets or sets a value indicating whether to auto open the live stream.
     public var isAutoOpenLiveStream: Bool?
     /// Gets or sets the device profile.
@@ -29,33 +29,33 @@ public struct PlaybackInfoDto: Codable, Hashable {
     /// Gets or sets the live stream id.
     public var liveStreamID: String?
     /// Gets or sets the max audio channels.
-    public var maxAudioChannels: Int32?
+    public var maxAudioChannels: Int?
     /// Gets or sets the max streaming bitrate.
-    public var maxStreamingBitrate: Int32?
+    public var maxStreamingBitrate: Int?
     /// Gets or sets the media source id.
     public var mediaSourceID: String?
     /// Gets or sets the start time in ticks.
-    public var startTimeTicks: Int64?
+    public var startTimeTicks: Int?
     /// Gets or sets the subtitle stream index.
-    public var subtitleStreamIndex: Int32?
+    public var subtitleStreamIndex: Int?
     /// Gets or sets the playback userId.
     public var userID: String?
 
     public init(
         allowAudioStreamCopy: Bool? = nil,
         allowVideoStreamCopy: Bool? = nil,
-        audioStreamIndex: Int32? = nil,
+        audioStreamIndex: Int? = nil,
         isAutoOpenLiveStream: Bool? = nil,
         deviceProfile: DeviceProfile? = nil,
         enableDirectPlay: Bool? = nil,
         enableDirectStream: Bool? = nil,
         enableTranscoding: Bool? = nil,
         liveStreamID: String? = nil,
-        maxAudioChannels: Int32? = nil,
-        maxStreamingBitrate: Int32? = nil,
+        maxAudioChannels: Int? = nil,
+        maxStreamingBitrate: Int? = nil,
         mediaSourceID: String? = nil,
-        startTimeTicks: Int64? = nil,
-        subtitleStreamIndex: Int32? = nil,
+        startTimeTicks: Int? = nil,
+        subtitleStreamIndex: Int? = nil,
         userID: String? = nil
     ) {
         self.allowAudioStreamCopy = allowAudioStreamCopy
@@ -79,18 +79,18 @@ public struct PlaybackInfoDto: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.allowAudioStreamCopy = try values.decodeIfPresent(Bool.self, forKey: "AllowAudioStreamCopy")
         self.allowVideoStreamCopy = try values.decodeIfPresent(Bool.self, forKey: "AllowVideoStreamCopy")
-        self.audioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "AudioStreamIndex")
+        self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
         self.isAutoOpenLiveStream = try values.decodeIfPresent(Bool.self, forKey: "AutoOpenLiveStream")
         self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
         self.enableDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectPlay")
         self.enableDirectStream = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectStream")
         self.enableTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableTranscoding")
         self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
-        self.maxAudioChannels = try values.decodeIfPresent(Int32.self, forKey: "MaxAudioChannels")
-        self.maxStreamingBitrate = try values.decodeIfPresent(Int32.self, forKey: "MaxStreamingBitrate")
+        self.maxAudioChannels = try values.decodeIfPresent(Int.self, forKey: "MaxAudioChannels")
+        self.maxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStreamingBitrate")
         self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
-        self.startTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "StartTimeTicks")
-        self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
+        self.startTimeTicks = try values.decodeIfPresent(Int.self, forKey: "StartTimeTicks")
+        self.subtitleStreamIndex = try values.decodeIfPresent(Int.self, forKey: "SubtitleStreamIndex")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
 

@@ -27,8 +27,8 @@ public extension Paths {
         public var deviceProfileID: String?
         public var playSessionID: String?
         public var segmentContainer: String?
-        public var segmentLength: Int32?
-        public var minSegments: Int32?
+        public var segmentLength: Int?
+        public var minSegments: Int?
         public var mediaSourceID: String?
         public var deviceID: String?
         public var audioCodec: String?
@@ -36,36 +36,36 @@ public extension Paths {
         public var allowVideoStreamCopy: Bool?
         public var allowAudioStreamCopy: Bool?
         public var isBreakOnNonKeyFrames: Bool?
-        public var audioSampleRate: Int32?
-        public var maxAudioBitDepth: Int32?
-        public var audioBitRate: Int32?
-        public var audioChannels: Int32?
-        public var maxAudioChannels: Int32?
+        public var audioSampleRate: Int?
+        public var maxAudioBitDepth: Int?
+        public var audioBitRate: Int?
+        public var audioChannels: Int?
+        public var maxAudioChannels: Int?
         public var profile: String?
         public var level: String?
         public var framerate: Float?
         public var maxFramerate: Float?
         public var isCopyTimestamps: Bool?
-        public var startTimeTicks: Int64?
-        public var width: Int32?
-        public var height: Int32?
-        public var videoBitRate: Int32?
-        public var subtitleStreamIndex: Int32?
+        public var startTimeTicks: Int?
+        public var width: Int?
+        public var height: Int?
+        public var videoBitRate: Int?
+        public var subtitleStreamIndex: Int?
         public var subtitleMethod: SubtitleMethod?
-        public var maxRefFrames: Int32?
-        public var maxVideoBitDepth: Int32?
+        public var maxRefFrames: Int?
+        public var maxVideoBitDepth: Int?
         public var requireAvc: Bool?
         public var isDeInterlace: Bool?
         public var requireNonAnamorphic: Bool?
-        public var transcodingMaxAudioChannels: Int32?
-        public var cpuCoreLimit: Int32?
+        public var transcodingMaxAudioChannels: Int?
+        public var cpuCoreLimit: Int?
         public var liveStreamID: String?
         public var enableMpegtsM2TsMode: Bool?
         public var videoCodec: String?
         public var subtitleCodec: String?
         public var transcodeReasons: String?
-        public var audioStreamIndex: Int32?
-        public var videoStreamIndex: Int32?
+        public var audioStreamIndex: Int?
+        public var videoStreamIndex: Int?
         public var context: Context?
         public var streamOptions: StreamOptions?
 
@@ -82,8 +82,8 @@ public extension Paths {
             deviceProfileID: String? = nil,
             playSessionID: String? = nil,
             segmentContainer: String? = nil,
-            segmentLength: Int32? = nil,
-            minSegments: Int32? = nil,
+            segmentLength: Int? = nil,
+            minSegments: Int? = nil,
             mediaSourceID: String? = nil,
             deviceID: String? = nil,
             audioCodec: String? = nil,
@@ -91,36 +91,36 @@ public extension Paths {
             allowVideoStreamCopy: Bool? = nil,
             allowAudioStreamCopy: Bool? = nil,
             isBreakOnNonKeyFrames: Bool? = nil,
-            audioSampleRate: Int32? = nil,
-            maxAudioBitDepth: Int32? = nil,
-            audioBitRate: Int32? = nil,
-            audioChannels: Int32? = nil,
-            maxAudioChannels: Int32? = nil,
+            audioSampleRate: Int? = nil,
+            maxAudioBitDepth: Int? = nil,
+            audioBitRate: Int? = nil,
+            audioChannels: Int? = nil,
+            maxAudioChannels: Int? = nil,
             profile: String? = nil,
             level: String? = nil,
             framerate: Float? = nil,
             maxFramerate: Float? = nil,
             isCopyTimestamps: Bool? = nil,
-            startTimeTicks: Int64? = nil,
-            width: Int32? = nil,
-            height: Int32? = nil,
-            videoBitRate: Int32? = nil,
-            subtitleStreamIndex: Int32? = nil,
+            startTimeTicks: Int? = nil,
+            width: Int? = nil,
+            height: Int? = nil,
+            videoBitRate: Int? = nil,
+            subtitleStreamIndex: Int? = nil,
             subtitleMethod: SubtitleMethod? = nil,
-            maxRefFrames: Int32? = nil,
-            maxVideoBitDepth: Int32? = nil,
+            maxRefFrames: Int? = nil,
+            maxVideoBitDepth: Int? = nil,
             requireAvc: Bool? = nil,
             isDeInterlace: Bool? = nil,
             requireNonAnamorphic: Bool? = nil,
-            transcodingMaxAudioChannels: Int32? = nil,
-            cpuCoreLimit: Int32? = nil,
+            transcodingMaxAudioChannels: Int? = nil,
+            cpuCoreLimit: Int? = nil,
             liveStreamID: String? = nil,
             enableMpegtsM2TsMode: Bool? = nil,
             videoCodec: String? = nil,
             subtitleCodec: String? = nil,
             transcodeReasons: String? = nil,
-            audioStreamIndex: Int32? = nil,
-            videoStreamIndex: Int32? = nil,
+            audioStreamIndex: Int? = nil,
+            videoStreamIndex: Int? = nil,
             context: Context? = nil,
             streamOptions: StreamOptions? = nil
         ) {

@@ -22,10 +22,10 @@ public extension Paths {
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isPlayed: Bool?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
-        public var limit: Int32?
+        public var limit: Int?
         public var isGroupItems: Bool?
 
         public init(
@@ -34,10 +34,10 @@ public extension Paths {
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             isPlayed: Bool? = nil,
             enableImages: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             enableUserData: Bool? = nil,
-            limit: Int32? = nil,
+            limit: Int? = nil,
             isGroupItems: Bool? = nil
         ) {
             self.parentID = parentID

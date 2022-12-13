@@ -11,9 +11,9 @@ import Foundation
 public struct MessageCommand: Codable, Hashable {
     public var header: String?
     public var text: String
-    public var timeoutMs: Int64?
+    public var timeoutMs: Int?
 
-    public init(header: String? = nil, text: String, timeoutMs: Int64? = nil) {
+    public init(header: String? = nil, text: String, timeoutMs: Int? = nil) {
         self.header = header
         self.text = text
         self.timeoutMs = timeoutMs
@@ -23,7 +23,7 @@ public struct MessageCommand: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.header = try values.decodeIfPresent(String.self, forKey: "Header")
         self.text = try values.decode(String.self, forKey: "Text")
-        self.timeoutMs = try values.decodeIfPresent(Int64.self, forKey: "TimeoutMs")
+        self.timeoutMs = try values.decodeIfPresent(Int.self, forKey: "TimeoutMs")
     }
 
     public func encode(to encoder: Encoder) throws {

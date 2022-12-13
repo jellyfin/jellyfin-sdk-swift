@@ -13,9 +13,9 @@ public struct PlaystateRequest: Codable, Hashable {
     public var command: PlaystateCommand?
     /// Gets or sets the controlling user identifier.
     public var controllingUserID: String?
-    public var seekPositionTicks: Int64?
+    public var seekPositionTicks: Int?
 
-    public init(command: PlaystateCommand? = nil, controllingUserID: String? = nil, seekPositionTicks: Int64? = nil) {
+    public init(command: PlaystateCommand? = nil, controllingUserID: String? = nil, seekPositionTicks: Int? = nil) {
         self.command = command
         self.controllingUserID = controllingUserID
         self.seekPositionTicks = seekPositionTicks
@@ -25,7 +25,7 @@ public struct PlaystateRequest: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.command = try values.decodeIfPresent(PlaystateCommand.self, forKey: "Command")
         self.controllingUserID = try values.decodeIfPresent(String.self, forKey: "ControllingUserId")
-        self.seekPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "SeekPositionTicks")
+        self.seekPositionTicks = try values.decodeIfPresent(Int.self, forKey: "SeekPositionTicks")
     }
 
     public func encode(to encoder: Encoder) throws {

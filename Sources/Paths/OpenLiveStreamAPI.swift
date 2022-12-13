@@ -23,11 +23,11 @@ public extension Paths {
         public var openToken: String?
         public var userID: String?
         public var playSessionID: String?
-        public var maxStreamingBitrate: Int32?
-        public var startTimeTicks: Int64?
-        public var audioStreamIndex: Int32?
-        public var subtitleStreamIndex: Int32?
-        public var maxAudioChannels: Int32?
+        public var maxStreamingBitrate: Int?
+        public var startTimeTicks: Int?
+        public var audioStreamIndex: Int?
+        public var subtitleStreamIndex: Int?
+        public var maxAudioChannels: Int?
         public var itemID: String?
         public var enableDirectPlay: Bool?
         public var enableDirectStream: Bool?
@@ -36,11 +36,11 @@ public extension Paths {
             openToken: String? = nil,
             userID: String? = nil,
             playSessionID: String? = nil,
-            maxStreamingBitrate: Int32? = nil,
-            startTimeTicks: Int64? = nil,
-            audioStreamIndex: Int32? = nil,
-            subtitleStreamIndex: Int32? = nil,
-            maxAudioChannels: Int32? = nil,
+            maxStreamingBitrate: Int? = nil,
+            startTimeTicks: Int? = nil,
+            audioStreamIndex: Int? = nil,
+            subtitleStreamIndex: Int? = nil,
+            maxAudioChannels: Int? = nil,
             itemID: String? = nil,
             enableDirectPlay: Bool? = nil,
             enableDirectStream: Bool? = nil

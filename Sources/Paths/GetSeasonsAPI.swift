@@ -23,7 +23,7 @@ public extension Paths {
         public var isMissing: Bool?
         public var adjacentTo: String?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
 
@@ -34,7 +34,7 @@ public extension Paths {
             isMissing: Bool? = nil,
             adjacentTo: String? = nil,
             enableImages: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             enableUserData: Bool? = nil
         ) {

@@ -9,7 +9,7 @@
 import Foundation
 
 public struct PersonLookupInfo: Codable, Hashable {
-    public var indexNumber: Int32?
+    public var indexNumber: Int?
     public var isAutomated: Bool?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
@@ -19,27 +19,27 @@ public struct PersonLookupInfo: Codable, Hashable {
     public var name: String?
     /// Gets or sets the original title.
     public var originalTitle: String?
-    public var parentIndexNumber: Int32?
+    public var parentIndexNumber: Int?
     /// Gets or sets the path.
     public var path: String?
     public var premiereDate: Date?
     /// Gets or sets the provider ids.
     public var providerIDs: [String: String]?
     /// Gets or sets the year.
-    public var year: Int32?
+    public var year: Int?
 
     public init(
-        indexNumber: Int32? = nil,
+        indexNumber: Int? = nil,
         isAutomated: Bool? = nil,
         metadataCountryCode: String? = nil,
         metadataLanguage: String? = nil,
         name: String? = nil,
         originalTitle: String? = nil,
-        parentIndexNumber: Int32? = nil,
+        parentIndexNumber: Int? = nil,
         path: String? = nil,
         premiereDate: Date? = nil,
         providerIDs: [String: String]? = nil,
-        year: Int32? = nil
+        year: Int? = nil
     ) {
         self.indexNumber = indexNumber
         self.isAutomated = isAutomated
@@ -56,17 +56,17 @@ public struct PersonLookupInfo: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.indexNumber = try values.decodeIfPresent(Int32.self, forKey: "IndexNumber")
+        self.indexNumber = try values.decodeIfPresent(Int.self, forKey: "IndexNumber")
         self.isAutomated = try values.decodeIfPresent(Bool.self, forKey: "IsAutomated")
         self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
         self.metadataLanguage = try values.decodeIfPresent(String.self, forKey: "MetadataLanguage")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.originalTitle = try values.decodeIfPresent(String.self, forKey: "OriginalTitle")
-        self.parentIndexNumber = try values.decodeIfPresent(Int32.self, forKey: "ParentIndexNumber")
+        self.parentIndexNumber = try values.decodeIfPresent(Int.self, forKey: "ParentIndexNumber")
         self.path = try values.decodeIfPresent(String.self, forKey: "Path")
         self.premiereDate = try values.decodeIfPresent(Date.self, forKey: "PremiereDate")
         self.providerIDs = try values.decodeIfPresent([String: String].self, forKey: "ProviderIds")
-        self.year = try values.decodeIfPresent(Int32.self, forKey: "Year")
+        self.year = try values.decodeIfPresent(Int.self, forKey: "Year")
     }
 
     public func encode(to encoder: Encoder) throws {

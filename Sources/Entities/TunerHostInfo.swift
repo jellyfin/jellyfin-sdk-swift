@@ -16,7 +16,7 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
     public var id: String?
     public var isImportFavoritesOnly: Bool?
     public var source: String?
-    public var tunerCount: Int32?
+    public var tunerCount: Int?
     public var type: String?
     public var url: String?
     public var userAgent: String?
@@ -29,7 +29,7 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         id: String? = nil,
         isImportFavoritesOnly: Bool? = nil,
         source: String? = nil,
-        tunerCount: Int32? = nil,
+        tunerCount: Int? = nil,
         type: String? = nil,
         url: String? = nil,
         userAgent: String? = nil
@@ -56,7 +56,7 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isImportFavoritesOnly = try values.decodeIfPresent(Bool.self, forKey: "ImportFavoritesOnly")
         self.source = try values.decodeIfPresent(String.self, forKey: "Source")
-        self.tunerCount = try values.decodeIfPresent(Int32.self, forKey: "TunerCount")
+        self.tunerCount = try values.decodeIfPresent(Int.self, forKey: "TunerCount")
         self.type = try values.decodeIfPresent(String.self, forKey: "Type")
         self.url = try values.decodeIfPresent(String.self, forKey: "Url")
         self.userAgent = try values.decodeIfPresent(String.self, forKey: "UserAgent")

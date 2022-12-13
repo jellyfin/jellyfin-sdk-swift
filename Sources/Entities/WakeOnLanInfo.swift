@@ -13,9 +13,9 @@ public struct WakeOnLanInfo: Codable, Hashable {
     /// Gets the MAC address of the device.
     public var macAddress: String?
     /// Gets or sets the wake-on-LAN port.
-    public var port: Int32?
+    public var port: Int?
 
-    public init(macAddress: String? = nil, port: Int32? = nil) {
+    public init(macAddress: String? = nil, port: Int? = nil) {
         self.macAddress = macAddress
         self.port = port
     }
@@ -23,7 +23,7 @@ public struct WakeOnLanInfo: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.macAddress = try values.decodeIfPresent(String.self, forKey: "MacAddress")
-        self.port = try values.decodeIfPresent(Int32.self, forKey: "Port")
+        self.port = try values.decodeIfPresent(Int.self, forKey: "Port")
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -11,7 +11,7 @@ import Foundation
 public struct LibraryOptions: Codable, Hashable {
     /// An enum representing the options to disable embedded subs.
     public var allowEmbeddedSubtitles: EmbeddedSubtitleOptions?
-    public var automaticRefreshIntervalDays: Int32?
+    public var automaticRefreshIntervalDays: Int?
     public var isAutomaticallyAddToCollection: Bool?
     public var disabledLocalMetadataReaders: [String]?
     public var disabledSubtitleFetchers: [String]?
@@ -43,7 +43,7 @@ public struct LibraryOptions: Codable, Hashable {
 
     public init(
         allowEmbeddedSubtitles: EmbeddedSubtitleOptions? = nil,
-        automaticRefreshIntervalDays: Int32? = nil,
+        automaticRefreshIntervalDays: Int? = nil,
         isAutomaticallyAddToCollection: Bool? = nil,
         disabledLocalMetadataReaders: [String]? = nil,
         disabledSubtitleFetchers: [String]? = nil,
@@ -102,7 +102,7 @@ public struct LibraryOptions: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.allowEmbeddedSubtitles = try values.decodeIfPresent(EmbeddedSubtitleOptions.self, forKey: "AllowEmbeddedSubtitles")
-        self.automaticRefreshIntervalDays = try values.decodeIfPresent(Int32.self, forKey: "AutomaticRefreshIntervalDays")
+        self.automaticRefreshIntervalDays = try values.decodeIfPresent(Int.self, forKey: "AutomaticRefreshIntervalDays")
         self.isAutomaticallyAddToCollection = try values.decodeIfPresent(Bool.self, forKey: "AutomaticallyAddToCollection")
         self.disabledLocalMetadataReaders = try values.decodeIfPresent([String].self, forKey: "DisabledLocalMetadataReaders")
         self.disabledSubtitleFetchers = try values.decodeIfPresent([String].self, forKey: "DisabledSubtitleFetchers")

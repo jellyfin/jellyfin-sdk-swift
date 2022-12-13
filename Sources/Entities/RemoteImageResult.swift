@@ -15,9 +15,9 @@ public struct RemoteImageResult: Codable, Hashable {
     /// Gets or sets the providers.
     public var providers: [String]?
     /// Gets or sets the total record count.
-    public var totalRecordCount: Int32?
+    public var totalRecordCount: Int?
 
-    public init(images: [RemoteImageInfo]? = nil, providers: [String]? = nil, totalRecordCount: Int32? = nil) {
+    public init(images: [RemoteImageInfo]? = nil, providers: [String]? = nil, totalRecordCount: Int? = nil) {
         self.images = images
         self.providers = providers
         self.totalRecordCount = totalRecordCount
@@ -27,7 +27,7 @@ public struct RemoteImageResult: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.images = try values.decodeIfPresent([RemoteImageInfo].self, forKey: "Images")
         self.providers = try values.decodeIfPresent([String].self, forKey: "Providers")
-        self.totalRecordCount = try values.decodeIfPresent(Int32.self, forKey: "TotalRecordCount")
+        self.totalRecordCount = try values.decodeIfPresent(Int.self, forKey: "TotalRecordCount")
     }
 
     public func encode(to encoder: Encoder) throws {

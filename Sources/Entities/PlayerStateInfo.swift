@@ -10,7 +10,7 @@ import Foundation
 
 public struct PlayerStateInfo: Codable, Hashable {
     /// Gets or sets the index of the now playing audio stream.
-    public var audioStreamIndex: Int32?
+    public var audioStreamIndex: Int?
     /// Gets or sets a value indicating whether this instance can seek.
     public var canSeek: Bool?
     /// Gets or sets a value indicating whether this instance is muted.
@@ -24,26 +24,26 @@ public struct PlayerStateInfo: Codable, Hashable {
     /// Gets or sets the play method.
     public var playMethod: PlayMethod?
     /// Gets or sets the now playing position ticks.
-    public var positionTicks: Int64?
+    public var positionTicks: Int?
     /// Gets or sets the repeat mode.
     public var repeatMode: RepeatMode?
     /// Gets or sets the index of the now playing subtitle stream.
-    public var subtitleStreamIndex: Int32?
+    public var subtitleStreamIndex: Int?
     /// Gets or sets the volume level.
-    public var volumeLevel: Int32?
+    public var volumeLevel: Int?
 
     public init(
-        audioStreamIndex: Int32? = nil,
+        audioStreamIndex: Int? = nil,
         canSeek: Bool? = nil,
         isMuted: Bool? = nil,
         isPaused: Bool? = nil,
         liveStreamID: String? = nil,
         mediaSourceID: String? = nil,
         playMethod: PlayMethod? = nil,
-        positionTicks: Int64? = nil,
+        positionTicks: Int? = nil,
         repeatMode: RepeatMode? = nil,
-        subtitleStreamIndex: Int32? = nil,
-        volumeLevel: Int32? = nil
+        subtitleStreamIndex: Int? = nil,
+        volumeLevel: Int? = nil
     ) {
         self.audioStreamIndex = audioStreamIndex
         self.canSeek = canSeek
@@ -60,17 +60,17 @@ public struct PlayerStateInfo: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.audioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "AudioStreamIndex")
+        self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
         self.canSeek = try values.decodeIfPresent(Bool.self, forKey: "CanSeek")
         self.isMuted = try values.decodeIfPresent(Bool.self, forKey: "IsMuted")
         self.isPaused = try values.decodeIfPresent(Bool.self, forKey: "IsPaused")
         self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
         self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
         self.playMethod = try values.decodeIfPresent(PlayMethod.self, forKey: "PlayMethod")
-        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
         self.repeatMode = try values.decodeIfPresent(RepeatMode.self, forKey: "RepeatMode")
-        self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
-        self.volumeLevel = try values.decodeIfPresent(Int32.self, forKey: "VolumeLevel")
+        self.subtitleStreamIndex = try values.decodeIfPresent(Int.self, forKey: "SubtitleStreamIndex")
+        self.volumeLevel = try values.decodeIfPresent(Int.self, forKey: "VolumeLevel")
     }
 
     public func encode(to encoder: Encoder) throws {

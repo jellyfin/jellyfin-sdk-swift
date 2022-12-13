@@ -17,14 +17,14 @@ public struct ChapterInfo: Codable, Hashable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the start position ticks.
-    public var startPositionTicks: Int64?
+    public var startPositionTicks: Int?
 
     public init(
         imageDateModified: Date? = nil,
         imagePath: String? = nil,
         imageTag: String? = nil,
         name: String? = nil,
-        startPositionTicks: Int64? = nil
+        startPositionTicks: Int? = nil
     ) {
         self.imageDateModified = imageDateModified
         self.imagePath = imagePath
@@ -39,7 +39,7 @@ public struct ChapterInfo: Codable, Hashable {
         self.imagePath = try values.decodeIfPresent(String.self, forKey: "ImagePath")
         self.imageTag = try values.decodeIfPresent(String.self, forKey: "ImageTag")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.startPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "StartPositionTicks")
+        self.startPositionTicks = try values.decodeIfPresent(Int.self, forKey: "StartPositionTicks")
     }
 
     public func encode(to encoder: Encoder) throws {

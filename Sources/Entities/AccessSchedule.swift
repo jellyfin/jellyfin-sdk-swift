@@ -15,7 +15,7 @@ public struct AccessSchedule: Codable, Hashable, Identifiable {
     /// Gets or sets the end hour.
     public var endHour: Double?
     /// Gets the id of this instance.
-    public var id: Int32?
+    public var id: Int?
     /// Gets or sets the start hour.
     public var startHour: Double?
     /// Gets the id of the associated user.
@@ -24,7 +24,7 @@ public struct AccessSchedule: Codable, Hashable, Identifiable {
     public init(
         dayOfWeek: DynamicDayOfWeek? = nil,
         endHour: Double? = nil,
-        id: Int32? = nil,
+        id: Int? = nil,
         startHour: Double? = nil,
         userID: String? = nil
     ) {
@@ -39,7 +39,7 @@ public struct AccessSchedule: Codable, Hashable, Identifiable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.dayOfWeek = try values.decodeIfPresent(DynamicDayOfWeek.self, forKey: "DayOfWeek")
         self.endHour = try values.decodeIfPresent(Double.self, forKey: "EndHour")
-        self.id = try values.decodeIfPresent(Int32.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(Int.self, forKey: "Id")
         self.startHour = try values.decodeIfPresent(Double.self, forKey: "StartHour")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }

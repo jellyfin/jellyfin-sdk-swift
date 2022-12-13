@@ -17,8 +17,8 @@ public extension Paths {
     }
 
     struct GetParameters {
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var userID: String?
         public var searchTerm: String
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -37,8 +37,8 @@ public extension Paths {
         public var isIncludeArtists: Bool?
 
         public init(
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             userID: String? = nil,
             searchTerm: String,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,

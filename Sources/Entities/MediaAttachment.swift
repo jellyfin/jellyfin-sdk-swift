@@ -21,7 +21,7 @@ public struct MediaAttachment: Codable, Hashable {
     /// Gets or sets the filename.
     public var fileName: String?
     /// Gets or sets the index.
-    public var index: Int32?
+    public var index: Int?
     /// Gets or sets the MIME type.
     public var mimeType: String?
 
@@ -31,7 +31,7 @@ public struct MediaAttachment: Codable, Hashable {
         comment: String? = nil,
         deliveryURL: String? = nil,
         fileName: String? = nil,
-        index: Int32? = nil,
+        index: Int? = nil,
         mimeType: String? = nil
     ) {
         self.codec = codec
@@ -50,7 +50,7 @@ public struct MediaAttachment: Codable, Hashable {
         self.comment = try values.decodeIfPresent(String.self, forKey: "Comment")
         self.deliveryURL = try values.decodeIfPresent(String.self, forKey: "DeliveryUrl")
         self.fileName = try values.decodeIfPresent(String.self, forKey: "FileName")
-        self.index = try values.decodeIfPresent(Int32.self, forKey: "Index")
+        self.index = try values.decodeIfPresent(Int.self, forKey: "Index")
         self.mimeType = try values.decodeIfPresent(String.self, forKey: "MimeType")
     }
 

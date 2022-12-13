@@ -19,32 +19,32 @@ public extension Paths {
     struct GetSplashscreenParameters {
         public var tag: String?
         public var format: Format?
-        public var maxWidth: Int32?
-        public var maxHeight: Int32?
-        public var width: Int32?
-        public var height: Int32?
-        public var fillWidth: Int32?
-        public var fillHeight: Int32?
-        public var blur: Int32?
+        public var maxWidth: Int?
+        public var maxHeight: Int?
+        public var width: Int?
+        public var height: Int?
+        public var fillWidth: Int?
+        public var fillHeight: Int?
+        public var blur: Int?
         public var backgroundColor: String?
         public var foregroundLayer: String?
-        public var quality: Int32?
+        public var quality: Int?
 
         public typealias Format = JellyfinAPI.ImageFormat
 
         public init(
             tag: String? = nil,
             format: Format? = nil,
-            maxWidth: Int32? = nil,
-            maxHeight: Int32? = nil,
-            width: Int32? = nil,
-            height: Int32? = nil,
-            fillWidth: Int32? = nil,
-            fillHeight: Int32? = nil,
-            blur: Int32? = nil,
+            maxWidth: Int? = nil,
+            maxHeight: Int? = nil,
+            width: Int? = nil,
+            height: Int? = nil,
+            fillWidth: Int? = nil,
+            fillHeight: Int? = nil,
+            blur: Int? = nil,
             backgroundColor: String? = nil,
             foregroundLayer: String? = nil,
-            quality: Int32? = nil
+            quality: Int? = nil
         ) {
             self.tag = tag
             self.format = format

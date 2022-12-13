@@ -30,15 +30,15 @@ public struct EncodingOptions: Codable, Hashable {
     /// Gets or sets the current FFmpeg path being used by the system and displayed on the transcode page.
     public var encoderAppPathDisplay: String?
     public var encoderPreset: String?
-    public var encodingThreadCount: Int32?
+    public var encodingThreadCount: Int?
     public var fallbackFontPath: String?
-    public var h264Crf: Int32?
-    public var h265Crf: Int32?
+    public var h264Crf: Int?
+    public var h265Crf: Int?
     public var hardwareAccelerationType: String?
     public var hardwareDecodingCodecs: [String]?
-    public var maxMuxingQueueSize: Int32?
+    public var maxMuxingQueueSize: Int?
     public var isPreferSystemNativeHwDecoder: Bool?
-    public var throttleDelaySeconds: Int32?
+    public var throttleDelaySeconds: Int?
     public var tonemappingAlgorithm: String?
     public var tonemappingDesat: Double?
     public var tonemappingParam: Double?
@@ -70,15 +70,15 @@ public struct EncodingOptions: Codable, Hashable {
         encoderAppPath: String? = nil,
         encoderAppPathDisplay: String? = nil,
         encoderPreset: String? = nil,
-        encodingThreadCount: Int32? = nil,
+        encodingThreadCount: Int? = nil,
         fallbackFontPath: String? = nil,
-        h264Crf: Int32? = nil,
-        h265Crf: Int32? = nil,
+        h264Crf: Int? = nil,
+        h265Crf: Int? = nil,
         hardwareAccelerationType: String? = nil,
         hardwareDecodingCodecs: [String]? = nil,
-        maxMuxingQueueSize: Int32? = nil,
+        maxMuxingQueueSize: Int? = nil,
         isPreferSystemNativeHwDecoder: Bool? = nil,
-        throttleDelaySeconds: Int32? = nil,
+        throttleDelaySeconds: Int? = nil,
         tonemappingAlgorithm: String? = nil,
         tonemappingDesat: Double? = nil,
         tonemappingParam: Double? = nil,
@@ -154,15 +154,15 @@ public struct EncodingOptions: Codable, Hashable {
         self.encoderAppPath = try values.decodeIfPresent(String.self, forKey: "EncoderAppPath")
         self.encoderAppPathDisplay = try values.decodeIfPresent(String.self, forKey: "EncoderAppPathDisplay")
         self.encoderPreset = try values.decodeIfPresent(String.self, forKey: "EncoderPreset")
-        self.encodingThreadCount = try values.decodeIfPresent(Int32.self, forKey: "EncodingThreadCount")
+        self.encodingThreadCount = try values.decodeIfPresent(Int.self, forKey: "EncodingThreadCount")
         self.fallbackFontPath = try values.decodeIfPresent(String.self, forKey: "FallbackFontPath")
-        self.h264Crf = try values.decodeIfPresent(Int32.self, forKey: "H264Crf")
-        self.h265Crf = try values.decodeIfPresent(Int32.self, forKey: "H265Crf")
+        self.h264Crf = try values.decodeIfPresent(Int.self, forKey: "H264Crf")
+        self.h265Crf = try values.decodeIfPresent(Int.self, forKey: "H265Crf")
         self.hardwareAccelerationType = try values.decodeIfPresent(String.self, forKey: "HardwareAccelerationType")
         self.hardwareDecodingCodecs = try values.decodeIfPresent([String].self, forKey: "HardwareDecodingCodecs")
-        self.maxMuxingQueueSize = try values.decodeIfPresent(Int32.self, forKey: "MaxMuxingQueueSize")
+        self.maxMuxingQueueSize = try values.decodeIfPresent(Int.self, forKey: "MaxMuxingQueueSize")
         self.isPreferSystemNativeHwDecoder = try values.decodeIfPresent(Bool.self, forKey: "PreferSystemNativeHwDecoder")
-        self.throttleDelaySeconds = try values.decodeIfPresent(Int32.self, forKey: "ThrottleDelaySeconds")
+        self.throttleDelaySeconds = try values.decodeIfPresent(Int.self, forKey: "ThrottleDelaySeconds")
         self.tonemappingAlgorithm = try values.decodeIfPresent(String.self, forKey: "TonemappingAlgorithm")
         self.tonemappingDesat = try values.decodeIfPresent(Double.self, forKey: "TonemappingDesat")
         self.tonemappingParam = try values.decodeIfPresent(Double.self, forKey: "TonemappingParam")

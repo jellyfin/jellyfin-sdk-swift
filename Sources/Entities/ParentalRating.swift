@@ -13,9 +13,9 @@ public struct ParentalRating: Codable, Hashable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the value.
-    public var value: Int32?
+    public var value: Int?
 
-    public init(name: String? = nil, value: Int32? = nil) {
+    public init(name: String? = nil, value: Int? = nil) {
         self.name = name
         self.value = value
     }
@@ -23,7 +23,7 @@ public struct ParentalRating: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.value = try values.decodeIfPresent(Int32.self, forKey: "Value")
+        self.value = try values.decodeIfPresent(Int.self, forKey: "Value")
     }
 
     public func encode(to encoder: Encoder) throws {

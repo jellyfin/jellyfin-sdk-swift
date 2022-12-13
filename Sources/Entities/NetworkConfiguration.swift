@@ -39,13 +39,13 @@ public struct NetworkConfiguration: Codable, Hashable {
     /// Gets or sets a value indicating whether to enable automatic port forwarding.
     public var enableUPnP: Bool?
     /// Gets or sets the time (in seconds) between the pings of SSDP gateway monitor.
-    public var gatewayMonitorPeriod: Int32?
+    public var gatewayMonitorPeriod: Int?
     /// Gets or sets the ports that HDHomerun uses.
     public var hDHomerunPortRange: String?
     /// Gets or sets the HTTP server port number.
-    public var httpserverPortNumber: Int32?
+    public var httpserverPortNumber: Int?
     /// Gets or sets the HTTPS server port number.
-    public var httpsPortNumber: Int32?
+    public var httpsPortNumber: Int?
     /// Gets or sets a value indicating whether address names that match Jellyfin.Networking.Configuration.NetworkConfiguration.VirtualInterfaceNames should be Ignore for the purposes of binding.
     public var isIgnoreVirtualInterfaces: Bool?
     /// Gets or sets a value indicating whether <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.RemoteIPFilter" /> contains a blacklist or a whitelist. Default is a whitelist.
@@ -57,9 +57,9 @@ public struct NetworkConfiguration: Codable, Hashable {
     /// Gets or sets the subnets that are deemed to make up the LAN.
     public var localNetworkSubnets: [String]?
     /// Gets or sets the public HTTPS port.
-    public var publicHTTPSPort: Int32?
+    public var publicHTTPSPort: Int?
     /// Gets or sets the public mapped port.
-    public var publicPort: Int32?
+    public var publicPort: Int?
     /// Gets or sets the PublishedServerUriBySubnet
     ///
     /// Gets or sets PublishedServerUri to advertise for specific subnets.
@@ -81,9 +81,9 @@ public struct NetworkConfiguration: Codable, Hashable {
     /// Gets or sets the UDPPortRange.
     public var uDPPortRange: String?
     /// Gets or sets the number of times SSDP UDP messages are sent.
-    public var uDPSendCount: Int32?
+    public var uDPSendCount: Int?
     /// Gets or sets the delay between each groups of SSDP messages (in ms).
-    public var uDPSendDelay: Int32?
+    public var uDPSendDelay: Int?
     /// Gets or sets a value indicating whether the http port should be mapped as part of UPnP automatic port forwarding.
     public var isUPnPCreateHTTPPortMap: Bool?
     /// Gets or sets a value indicating the interfaces that should be ignored. The list can be comma separated. <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.IgnoreVirtualInterfaces" />.
@@ -103,25 +103,25 @@ public struct NetworkConfiguration: Codable, Hashable {
         enableRemoteAccess: Bool? = nil,
         enableSSDPTracing: Bool? = nil,
         enableUPnP: Bool? = nil,
-        gatewayMonitorPeriod: Int32? = nil,
+        gatewayMonitorPeriod: Int? = nil,
         hDHomerunPortRange: String? = nil,
-        httpserverPortNumber: Int32? = nil,
-        httpsPortNumber: Int32? = nil,
+        httpserverPortNumber: Int? = nil,
+        httpsPortNumber: Int? = nil,
         isIgnoreVirtualInterfaces: Bool? = nil,
         isRemoteIPFilterBlacklist: Bool? = nil,
         knownProxies: [String]? = nil,
         localNetworkAddresses: [String]? = nil,
         localNetworkSubnets: [String]? = nil,
-        publicHTTPSPort: Int32? = nil,
-        publicPort: Int32? = nil,
+        publicHTTPSPort: Int? = nil,
+        publicPort: Int? = nil,
         publishedServerUriBySubnet: [String]? = nil,
         remoteIPFilter: [String]? = nil,
         requireHTTPS: Bool? = nil,
         sSDPTracingFilter: String? = nil,
         isTrustAllIP6Interfaces: Bool? = nil,
         uDPPortRange: String? = nil,
-        uDPSendCount: Int32? = nil,
-        uDPSendDelay: Int32? = nil,
+        uDPSendCount: Int? = nil,
+        uDPSendDelay: Int? = nil,
         isUPnPCreateHTTPPortMap: Bool? = nil,
         virtualInterfaceNames: String? = nil
     ) {
@@ -176,25 +176,25 @@ public struct NetworkConfiguration: Codable, Hashable {
         self.enableRemoteAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableRemoteAccess")
         self.enableSSDPTracing = try values.decodeIfPresent(Bool.self, forKey: "EnableSSDPTracing")
         self.enableUPnP = try values.decodeIfPresent(Bool.self, forKey: "EnableUPnP")
-        self.gatewayMonitorPeriod = try values.decodeIfPresent(Int32.self, forKey: "GatewayMonitorPeriod")
+        self.gatewayMonitorPeriod = try values.decodeIfPresent(Int.self, forKey: "GatewayMonitorPeriod")
         self.hDHomerunPortRange = try values.decodeIfPresent(String.self, forKey: "HDHomerunPortRange")
-        self.httpserverPortNumber = try values.decodeIfPresent(Int32.self, forKey: "HttpServerPortNumber")
-        self.httpsPortNumber = try values.decodeIfPresent(Int32.self, forKey: "HttpsPortNumber")
+        self.httpserverPortNumber = try values.decodeIfPresent(Int.self, forKey: "HttpServerPortNumber")
+        self.httpsPortNumber = try values.decodeIfPresent(Int.self, forKey: "HttpsPortNumber")
         self.isIgnoreVirtualInterfaces = try values.decodeIfPresent(Bool.self, forKey: "IgnoreVirtualInterfaces")
         self.isRemoteIPFilterBlacklist = try values.decodeIfPresent(Bool.self, forKey: "IsRemoteIPFilterBlacklist")
         self.knownProxies = try values.decodeIfPresent([String].self, forKey: "KnownProxies")
         self.localNetworkAddresses = try values.decodeIfPresent([String].self, forKey: "LocalNetworkAddresses")
         self.localNetworkSubnets = try values.decodeIfPresent([String].self, forKey: "LocalNetworkSubnets")
-        self.publicHTTPSPort = try values.decodeIfPresent(Int32.self, forKey: "PublicHttpsPort")
-        self.publicPort = try values.decodeIfPresent(Int32.self, forKey: "PublicPort")
+        self.publicHTTPSPort = try values.decodeIfPresent(Int.self, forKey: "PublicHttpsPort")
+        self.publicPort = try values.decodeIfPresent(Int.self, forKey: "PublicPort")
         self.publishedServerUriBySubnet = try values.decodeIfPresent([String].self, forKey: "PublishedServerUriBySubnet")
         self.remoteIPFilter = try values.decodeIfPresent([String].self, forKey: "RemoteIPFilter")
         self.requireHTTPS = try values.decodeIfPresent(Bool.self, forKey: "RequireHttps")
         self.sSDPTracingFilter = try values.decodeIfPresent(String.self, forKey: "SSDPTracingFilter")
         self.isTrustAllIP6Interfaces = try values.decodeIfPresent(Bool.self, forKey: "TrustAllIP6Interfaces")
         self.uDPPortRange = try values.decodeIfPresent(String.self, forKey: "UDPPortRange")
-        self.uDPSendCount = try values.decodeIfPresent(Int32.self, forKey: "UDPSendCount")
-        self.uDPSendDelay = try values.decodeIfPresent(Int32.self, forKey: "UDPSendDelay")
+        self.uDPSendCount = try values.decodeIfPresent(Int.self, forKey: "UDPSendCount")
+        self.uDPSendDelay = try values.decodeIfPresent(Int.self, forKey: "UDPSendDelay")
         self.isUPnPCreateHTTPPortMap = try values.decodeIfPresent(Bool.self, forKey: "UPnPCreateHttpPortMap")
         self.virtualInterfaceNames = try values.decodeIfPresent(String.self, forKey: "VirtualInterfaceNames")
     }

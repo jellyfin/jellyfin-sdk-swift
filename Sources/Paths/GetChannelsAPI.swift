@@ -18,16 +18,16 @@ public extension Paths {
 
     struct GetChannelsParameters {
         public var userID: String?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var isSupportsLatestItems: Bool?
         public var isSupportsMediaDeletion: Bool?
         public var isFavorite: Bool?
 
         public init(
             userID: String? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             isSupportsLatestItems: Bool? = nil,
             isSupportsMediaDeletion: Bool? = nil,
             isFavorite: Bool? = nil

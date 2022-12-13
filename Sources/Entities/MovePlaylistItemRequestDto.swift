@@ -11,18 +11,18 @@ import Foundation
 /// Class MovePlaylistItemRequestDto.
 public struct MovePlaylistItemRequestDto: Codable, Hashable {
     /// Gets or sets the new position.
-    public var newIndex: Int32?
+    public var newIndex: Int?
     /// Gets or sets the playlist identifier of the item.
     public var playlistItemID: String?
 
-    public init(newIndex: Int32? = nil, playlistItemID: String? = nil) {
+    public init(newIndex: Int? = nil, playlistItemID: String? = nil) {
         self.newIndex = newIndex
         self.playlistItemID = playlistItemID
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.newIndex = try values.decodeIfPresent(Int32.self, forKey: "NewIndex")
+        self.newIndex = try values.decodeIfPresent(Int.self, forKey: "NewIndex")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
     }
 

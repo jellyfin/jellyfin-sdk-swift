@@ -17,9 +17,9 @@ public struct FontFile: Codable, Hashable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the size.
-    public var size: Int64?
+    public var size: Int?
 
-    public init(dateCreated: Date? = nil, dateModified: Date? = nil, name: String? = nil, size: Int64? = nil) {
+    public init(dateCreated: Date? = nil, dateModified: Date? = nil, name: String? = nil, size: Int? = nil) {
         self.dateCreated = dateCreated
         self.dateModified = dateModified
         self.name = name
@@ -31,7 +31,7 @@ public struct FontFile: Codable, Hashable {
         self.dateCreated = try values.decodeIfPresent(Date.self, forKey: "DateCreated")
         self.dateModified = try values.decodeIfPresent(Date.self, forKey: "DateModified")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.size = try values.decodeIfPresent(Int64.self, forKey: "Size")
+        self.size = try values.decodeIfPresent(Int.self, forKey: "Size")
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -25,7 +25,7 @@ public struct AuthenticationInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the name of the device.
     public var deviceName: String?
     /// Gets or sets the identifier.
-    public var id: Int64?
+    public var id: Int?
     /// Gets or sets a value indicating whether this instance is active.
     public var isActive: Bool?
     /// Gets or sets the user identifier.
@@ -41,7 +41,7 @@ public struct AuthenticationInfo: Codable, Hashable, Identifiable {
         dateRevoked: Date? = nil,
         deviceID: String? = nil,
         deviceName: String? = nil,
-        id: Int64? = nil,
+        id: Int? = nil,
         isActive: Bool? = nil,
         userID: String? = nil,
         userName: String? = nil
@@ -70,7 +70,7 @@ public struct AuthenticationInfo: Codable, Hashable, Identifiable {
         self.dateRevoked = try values.decodeIfPresent(Date.self, forKey: "DateRevoked")
         self.deviceID = try values.decodeIfPresent(String.self, forKey: "DeviceId")
         self.deviceName = try values.decodeIfPresent(String.self, forKey: "DeviceName")
-        self.id = try values.decodeIfPresent(Int64.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(Int.self, forKey: "Id")
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
         self.userName = try values.decodeIfPresent(String.self, forKey: "UserName")

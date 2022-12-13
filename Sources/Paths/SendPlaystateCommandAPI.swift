@@ -15,7 +15,7 @@ extension Paths {
     public static func sendPlaystateCommand(
         sessionID: String,
         command: String,
-        seekPositionTicks: Int64? = nil,
+        seekPositionTicks: Int? = nil,
         controllingUserID: String? = nil
     ) -> Request<Void> {
         Request(
@@ -26,7 +26,7 @@ extension Paths {
         )
     }
 
-    private static func makeSendPlaystateCommandQuery(_ seekPositionTicks: Int64?, _ controllingUserID: String?) -> [(String, String?)] {
+    private static func makeSendPlaystateCommandQuery(_ seekPositionTicks: Int?, _ controllingUserID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(seekPositionTicks, forKey: "seekPositionTicks")
         encoder.encode(controllingUserID, forKey: "controllingUserId")

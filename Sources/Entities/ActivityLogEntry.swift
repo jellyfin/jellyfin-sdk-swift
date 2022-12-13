@@ -13,7 +13,7 @@ public struct ActivityLogEntry: Codable, Hashable, Identifiable {
     /// Gets or sets the date.
     public var date: Date?
     /// Gets or sets the identifier.
-    public var id: Int64?
+    public var id: Int?
     /// Gets or sets the item identifier.
     public var itemID: String?
     /// Gets or sets the name.
@@ -35,7 +35,7 @@ public struct ActivityLogEntry: Codable, Hashable, Identifiable {
 
     public init(
         date: Date? = nil,
-        id: Int64? = nil,
+        id: Int? = nil,
         itemID: String? = nil,
         name: String? = nil,
         overview: String? = nil,
@@ -60,7 +60,7 @@ public struct ActivityLogEntry: Codable, Hashable, Identifiable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.date = try values.decodeIfPresent(Date.self, forKey: "Date")
-        self.id = try values.decodeIfPresent(Int64.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(Int.self, forKey: "Id")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.overview = try values.decodeIfPresent(String.self, forKey: "Overview")

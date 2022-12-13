@@ -10,20 +10,14 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets an HLS subtitle playlist.
-    public static func getSubtitlePlaylist(itemID: String, index: Int, mediaSourceID: String, segmentLength: Int32) -> Request<Data> {
+    static func getSubtitlePlaylist(itemID: String, index: Int, mediaSourceID: String, segmentLength: Int) -> Request<Data> {
         Request(
             method: "GET",
             url: "/Videos/\(itemID)/\(mediaSourceID)/Subtitles/\(index)/subtitles.m3u8",
-            query: makeGetSubtitlePlaylistQuery(segmentLength),
+            query: [("segmentLength", String(segmentLength))],
             id: "GetSubtitlePlaylist"
         )
-    }
-
-    private static func makeGetSubtitlePlaylistQuery(_ segmentLength: Int32) -> [(String, String?)] {
-        let encoder = URLQueryEncoder()
-        encoder.encode(segmentLength, forKey: "segmentLength")
-        return encoder.items
     }
 }

@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 extension Paths {
     /// Sets the user image.
-    public static func postUserImage(userID: String, imageType: String, index: Int32? = nil, _ body: Data? = nil) -> Request<Void> {
+    public static func postUserImage(userID: String, imageType: String, index: Int? = nil, _ body: Data? = nil) -> Request<Void> {
         Request(
             method: "POST",
             url: "/Users/\(userID)/Images/\(imageType)",
@@ -22,7 +22,7 @@ extension Paths {
         )
     }
 
-    private static func makePostUserImageQuery(_ index: Int32?) -> [(String, String?)] {
+    private static func makePostUserImageQuery(_ index: Int?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(index, forKey: "index")
         return encoder.items

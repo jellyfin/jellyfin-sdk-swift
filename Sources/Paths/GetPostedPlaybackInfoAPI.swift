@@ -26,11 +26,11 @@ public extension Paths {
 
     struct GetPostedPlaybackInfoParameters {
         public var userID: String?
-        public var maxStreamingBitrate: Int32?
-        public var startTimeTicks: Int64?
-        public var audioStreamIndex: Int32?
-        public var subtitleStreamIndex: Int32?
-        public var maxAudioChannels: Int32?
+        public var maxStreamingBitrate: Int?
+        public var startTimeTicks: Int?
+        public var audioStreamIndex: Int?
+        public var subtitleStreamIndex: Int?
+        public var maxAudioChannels: Int?
         public var mediaSourceID: String?
         public var liveStreamID: String?
         public var isAutoOpenLiveStream: Bool?
@@ -42,11 +42,11 @@ public extension Paths {
 
         public init(
             userID: String? = nil,
-            maxStreamingBitrate: Int32? = nil,
-            startTimeTicks: Int64? = nil,
-            audioStreamIndex: Int32? = nil,
-            subtitleStreamIndex: Int32? = nil,
-            maxAudioChannels: Int32? = nil,
+            maxStreamingBitrate: Int? = nil,
+            startTimeTicks: Int? = nil,
+            audioStreamIndex: Int? = nil,
+            subtitleStreamIndex: Int? = nil,
+            maxAudioChannels: Int? = nil,
             mediaSourceID: String? = nil,
             liveStreamID: String? = nil,
             isAutoOpenLiveStream: Bool? = nil,

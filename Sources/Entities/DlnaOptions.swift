@@ -11,17 +11,17 @@ import Foundation
 /// The DlnaOptions class contains the user definable parameters for the dlna subsystems.
 public struct DlnaOptions: Codable, Hashable {
     /// Gets or sets the frequency at which ssdp alive notifications are transmitted.
-    public var aliveMessageIntervalSeconds: Int32?
+    public var aliveMessageIntervalSeconds: Int?
     /// Gets or sets a value indicating whether playTo device profiles should be created.
     public var isAutoCreatePlayToProfiles: Bool?
     /// Gets or sets the frequency at which ssdp alive notifications are transmitted. MIGRATING - TO BE REMOVED ONCE WEB HAS BEEN ALTERED.
-    public var blastAliveMessageIntervalSeconds: Int32?
+    public var blastAliveMessageIntervalSeconds: Int?
     /// Gets or sets a value indicating whether to blast alive messages.
     public var isBlastAliveMessages: Bool?
     /// Gets or sets the ssdp client discovery interval time (in seconds).
     ///
     /// This is the time after which the server will send a ssdp search request.
-    public var clientDiscoveryIntervalSeconds: Int32?
+    public var clientDiscoveryIntervalSeconds: Int?
     /// Gets or sets the default user account that the dlna server uses.
     public var defaultUserID: String?
     /// Gets or sets a value indicating whether detailed dlna server logs are sent to the console/log.
@@ -40,11 +40,11 @@ public struct DlnaOptions: Codable, Hashable {
     public var isSendOnlyMatchedHost: Bool?
 
     public init(
-        aliveMessageIntervalSeconds: Int32? = nil,
+        aliveMessageIntervalSeconds: Int? = nil,
         isAutoCreatePlayToProfiles: Bool? = nil,
-        blastAliveMessageIntervalSeconds: Int32? = nil,
+        blastAliveMessageIntervalSeconds: Int? = nil,
         isBlastAliveMessages: Bool? = nil,
-        clientDiscoveryIntervalSeconds: Int32? = nil,
+        clientDiscoveryIntervalSeconds: Int? = nil,
         defaultUserID: String? = nil,
         enableDebugLog: Bool? = nil,
         enablePlayTo: Bool? = nil,
@@ -67,11 +67,11 @@ public struct DlnaOptions: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.aliveMessageIntervalSeconds = try values.decodeIfPresent(Int32.self, forKey: "AliveMessageIntervalSeconds")
+        self.aliveMessageIntervalSeconds = try values.decodeIfPresent(Int.self, forKey: "AliveMessageIntervalSeconds")
         self.isAutoCreatePlayToProfiles = try values.decodeIfPresent(Bool.self, forKey: "AutoCreatePlayToProfiles")
-        self.blastAliveMessageIntervalSeconds = try values.decodeIfPresent(Int32.self, forKey: "BlastAliveMessageIntervalSeconds")
+        self.blastAliveMessageIntervalSeconds = try values.decodeIfPresent(Int.self, forKey: "BlastAliveMessageIntervalSeconds")
         self.isBlastAliveMessages = try values.decodeIfPresent(Bool.self, forKey: "BlastAliveMessages")
-        self.clientDiscoveryIntervalSeconds = try values.decodeIfPresent(Int32.self, forKey: "ClientDiscoveryIntervalSeconds")
+        self.clientDiscoveryIntervalSeconds = try values.decodeIfPresent(Int.self, forKey: "ClientDiscoveryIntervalSeconds")
         self.defaultUserID = try values.decodeIfPresent(String.self, forKey: "DefaultUserId")
         self.enableDebugLog = try values.decodeIfPresent(Bool.self, forKey: "EnableDebugLog")
         self.enablePlayTo = try values.decodeIfPresent(Bool.self, forKey: "EnablePlayTo")

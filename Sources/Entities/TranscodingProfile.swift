@@ -19,9 +19,9 @@ public struct TranscodingProfile: Codable, Hashable {
     public var enableSubtitlesInManifest: Bool
     public var isEstimateContentLength: Bool
     public var maxAudioChannels: String?
-    public var minSegments: Int32?
+    public var minSegments: Int?
     public var `protocol`: String?
-    public var segmentLength: Int32?
+    public var segmentLength: Int?
     public var transcodeSeekInfo: TranscodeSeekInfo?
     public var type: DlnaProfileType?
     public var videoCodec: String?
@@ -37,9 +37,9 @@ public struct TranscodingProfile: Codable, Hashable {
         enableSubtitlesInManifest: Bool? = nil,
         isEstimateContentLength: Bool? = nil,
         maxAudioChannels: String? = nil,
-        minSegments: Int32? = nil,
+        minSegments: Int? = nil,
         protocol: String? = nil,
-        segmentLength: Int32? = nil,
+        segmentLength: Int? = nil,
         transcodeSeekInfo: TranscodeSeekInfo? = nil,
         type: DlnaProfileType? = nil,
         videoCodec: String? = nil
@@ -74,9 +74,9 @@ public struct TranscodingProfile: Codable, Hashable {
         self.enableSubtitlesInManifest = try values.decodeIfPresent(Bool.self, forKey: "EnableSubtitlesInManifest") ?? false
         self.isEstimateContentLength = try values.decodeIfPresent(Bool.self, forKey: "EstimateContentLength") ?? false
         self.maxAudioChannels = try values.decodeIfPresent(String.self, forKey: "MaxAudioChannels")
-        self.minSegments = try values.decodeIfPresent(Int32.self, forKey: "MinSegments")
+        self.minSegments = try values.decodeIfPresent(Int.self, forKey: "MinSegments")
         self.protocol = try values.decodeIfPresent(String.self, forKey: "Protocol")
-        self.segmentLength = try values.decodeIfPresent(Int32.self, forKey: "SegmentLength")
+        self.segmentLength = try values.decodeIfPresent(Int.self, forKey: "SegmentLength")
         self.transcodeSeekInfo = try values.decodeIfPresent(TranscodeSeekInfo.self, forKey: "TranscodeSeekInfo")
         self.type = try values.decodeIfPresent(DlnaProfileType.self, forKey: "Type")
         self.videoCodec = try values.decodeIfPresent(String.self, forKey: "VideoCodec")

@@ -11,12 +11,12 @@ import Foundation
 public struct LiveTvOptions: Codable, Hashable {
     public var enableOriginalAudioWithEncodedRecordings: Bool?
     public var enableRecordingSubfolders: Bool?
-    public var guideDays: Int32?
+    public var guideDays: Int?
     public var listingProviders: [ListingsProviderInfo]?
     public var mediaLocationsCreated: [String]?
     public var movieRecordingPath: String?
-    public var postPaddingSeconds: Int32?
-    public var prePaddingSeconds: Int32?
+    public var postPaddingSeconds: Int?
+    public var prePaddingSeconds: Int?
     public var recordingPath: String?
     public var recordingPostProcessor: String?
     public var recordingPostProcessorArguments: String?
@@ -26,12 +26,12 @@ public struct LiveTvOptions: Codable, Hashable {
     public init(
         enableOriginalAudioWithEncodedRecordings: Bool? = nil,
         enableRecordingSubfolders: Bool? = nil,
-        guideDays: Int32? = nil,
+        guideDays: Int? = nil,
         listingProviders: [ListingsProviderInfo]? = nil,
         mediaLocationsCreated: [String]? = nil,
         movieRecordingPath: String? = nil,
-        postPaddingSeconds: Int32? = nil,
-        prePaddingSeconds: Int32? = nil,
+        postPaddingSeconds: Int? = nil,
+        prePaddingSeconds: Int? = nil,
         recordingPath: String? = nil,
         recordingPostProcessor: String? = nil,
         recordingPostProcessorArguments: String? = nil,
@@ -60,12 +60,12 @@ public struct LiveTvOptions: Codable, Hashable {
             forKey: "EnableOriginalAudioWithEncodedRecordings"
         )
         self.enableRecordingSubfolders = try values.decodeIfPresent(Bool.self, forKey: "EnableRecordingSubfolders")
-        self.guideDays = try values.decodeIfPresent(Int32.self, forKey: "GuideDays")
+        self.guideDays = try values.decodeIfPresent(Int.self, forKey: "GuideDays")
         self.listingProviders = try values.decodeIfPresent([ListingsProviderInfo].self, forKey: "ListingProviders")
         self.mediaLocationsCreated = try values.decodeIfPresent([String].self, forKey: "MediaLocationsCreated")
         self.movieRecordingPath = try values.decodeIfPresent(String.self, forKey: "MovieRecordingPath")
-        self.postPaddingSeconds = try values.decodeIfPresent(Int32.self, forKey: "PostPaddingSeconds")
-        self.prePaddingSeconds = try values.decodeIfPresent(Int32.self, forKey: "PrePaddingSeconds")
+        self.postPaddingSeconds = try values.decodeIfPresent(Int.self, forKey: "PostPaddingSeconds")
+        self.prePaddingSeconds = try values.decodeIfPresent(Int.self, forKey: "PrePaddingSeconds")
         self.recordingPath = try values.decodeIfPresent(String.self, forKey: "RecordingPath")
         self.recordingPostProcessor = try values.decodeIfPresent(String.self, forKey: "RecordingPostProcessor")
         self.recordingPostProcessorArguments = try values.decodeIfPresent(String.self, forKey: "RecordingPostProcessorArguments")

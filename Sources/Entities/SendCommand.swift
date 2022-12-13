@@ -19,7 +19,7 @@ public struct SendCommand: Codable, Hashable {
     /// Gets the playlist identifier of the playing item.
     public var playlistItemID: String?
     /// Gets the position ticks.
-    public var positionTicks: Int64?
+    public var positionTicks: Int?
     /// Gets or sets the UTC time when to execute the command.
     public var when: Date?
 
@@ -28,7 +28,7 @@ public struct SendCommand: Codable, Hashable {
         emittedAt: Date? = nil,
         groupID: String? = nil,
         playlistItemID: String? = nil,
-        positionTicks: Int64? = nil,
+        positionTicks: Int? = nil,
         when: Date? = nil
     ) {
         self.command = command
@@ -45,7 +45,7 @@ public struct SendCommand: Codable, Hashable {
         self.emittedAt = try values.decodeIfPresent(Date.self, forKey: "EmittedAt")
         self.groupID = try values.decodeIfPresent(String.self, forKey: "GroupId")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
-        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
         self.when = try values.decodeIfPresent(Date.self, forKey: "When")
     }
 

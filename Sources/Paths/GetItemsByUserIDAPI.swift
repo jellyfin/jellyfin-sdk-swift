@@ -27,7 +27,7 @@ public extension Paths {
         public var hasSpecialFeature: Bool?
         public var hasTrailer: Bool?
         public var adjacentTo: String?
-        public var parentIndexNumber: Int32?
+        public var parentIndexNumber: Int?
         public var hasParentalRating: Bool?
         public var isHd: Bool?
         public var isIs4K: Bool?
@@ -51,8 +51,8 @@ public extension Paths {
         public var isKids: Bool?
         public var isSports: Bool?
         public var excludeItemIDs: [String]?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var isRecursive: Bool?
         public var searchTerm: String?
         public var sortOrder: [JellyfinAPI.SortOrder]?
@@ -69,9 +69,9 @@ public extension Paths {
         public var genres: [String]?
         public var officialRatings: [String]?
         public var tags: [String]?
-        public var years: [Int32]?
+        public var years: [Int]?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var person: String?
         public var personIDs: [String]?
@@ -91,10 +91,10 @@ public extension Paths {
         public var isPlaceHolder: Bool?
         public var hasOfficialRating: Bool?
         public var isCollapseBoxSetItems: Bool?
-        public var minWidth: Int32?
-        public var minHeight: Int32?
-        public var maxWidth: Int32?
-        public var maxHeight: Int32?
+        public var minWidth: Int?
+        public var minHeight: Int?
+        public var maxWidth: Int?
+        public var maxHeight: Int?
         public var isIs3D: Bool?
         public var seriesStatus: [JellyfinAPI.SeriesStatus]?
         public var nameStartsWithOrGreater: String?
@@ -113,7 +113,7 @@ public extension Paths {
             hasSpecialFeature: Bool? = nil,
             hasTrailer: Bool? = nil,
             adjacentTo: String? = nil,
-            parentIndexNumber: Int32? = nil,
+            parentIndexNumber: Int? = nil,
             hasParentalRating: Bool? = nil,
             isHd: Bool? = nil,
             isIs4K: Bool? = nil,
@@ -137,8 +137,8 @@ public extension Paths {
             isKids: Bool? = nil,
             isSports: Bool? = nil,
             excludeItemIDs: [String]? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             isRecursive: Bool? = nil,
             searchTerm: String? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
@@ -155,9 +155,9 @@ public extension Paths {
             genres: [String]? = nil,
             officialRatings: [String]? = nil,
             tags: [String]? = nil,
-            years: [Int32]? = nil,
+            years: [Int]? = nil,
             enableUserData: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             person: String? = nil,
             personIDs: [String]? = nil,
@@ -177,10 +177,10 @@ public extension Paths {
             isPlaceHolder: Bool? = nil,
             hasOfficialRating: Bool? = nil,
             isCollapseBoxSetItems: Bool? = nil,
-            minWidth: Int32? = nil,
-            minHeight: Int32? = nil,
-            maxWidth: Int32? = nil,
-            maxHeight: Int32? = nil,
+            minWidth: Int? = nil,
+            minHeight: Int? = nil,
+            maxWidth: Int? = nil,
+            maxHeight: Int? = nil,
             isIs3D: Bool? = nil,
             seriesStatus: [JellyfinAPI.SeriesStatus]? = nil,
             nameStartsWithOrGreater: String? = nil,
