@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class ThemeMediaResult.
-public struct ThemeMediaResult: Codable {
+public struct ThemeMediaResult: Codable, Hashable {
     /// Gets or sets the items.
     public var items: [BaseItemDto]?
     /// Gets or sets the owner id.

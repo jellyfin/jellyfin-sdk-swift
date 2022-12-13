@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct NotificationTypeInfo: Codable {
+public struct NotificationTypeInfo: Codable, Hashable {
     public var category: String?
     public var isEnabled: Bool?
     public var isBasedOnUserEvent: Bool?

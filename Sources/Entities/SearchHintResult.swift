@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SearchHintResult.
-public struct SearchHintResult: Codable {
+public struct SearchHintResult: Codable, Hashable {
     /// Gets the search hints.
     public var searchHints: [SearchHint]?
     /// Gets the total record count.

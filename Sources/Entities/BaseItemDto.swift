@@ -11,7 +11,7 @@ import Foundation
 /// This is strictly used as a data transfer object from the api layer.
 ///
 /// This holds information about a BaseItem in a format that is convenient for the client.
-public struct BaseItemDto: Codable, Identifiable {
+public struct BaseItemDto: Codable, Hashable, Identifiable {
     /// Gets or sets the air days.
     public var airDays: [DayOfWeek]?
     /// Gets or sets the air time.
@@ -283,7 +283,7 @@ public struct BaseItemDto: Codable, Identifiable {
     /// Gets or sets the blurhashes for the image tags.
     ///
     /// Maps image type to dictionary mapping image tag to blurhash value.
-    public struct ImageBlurHashes: Codable {
+    public struct ImageBlurHashes: Codable, Hashable {
         public var art: [String: String]?
         public var backdrop: [String: String]?
         public var banner: [String: String]?

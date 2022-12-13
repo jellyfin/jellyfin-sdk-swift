@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class RemoteImageResult.
-public struct RemoteImageResult: Codable {
+public struct RemoteImageResult: Codable, Hashable {
     /// Gets or sets the images.
     public var images: [RemoteImageInfo]?
     /// Gets or sets the providers.

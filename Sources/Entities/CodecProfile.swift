@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CodecProfile: Codable {
+public struct CodecProfile: Codable, Hashable {
     public var applyConditions: [ProfileCondition]?
     public var codec: String?
     public var conditions: [ProfileCondition]?

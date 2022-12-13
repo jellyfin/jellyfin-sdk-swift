@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct HTTPHeaderInfo: Codable {
+public struct HTTPHeaderInfo: Codable, Hashable {
     public var match: HeaderMatchType?
     public var name: String?
     public var value: String?

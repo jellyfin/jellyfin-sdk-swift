@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CollectionCreationResult: Codable, Identifiable {
+public struct CollectionCreationResult: Codable, Hashable, Identifiable {
     public var id: String?
 
     public init(id: String? = nil) {

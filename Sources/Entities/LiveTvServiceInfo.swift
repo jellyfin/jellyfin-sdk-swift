@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class ServiceInfo.
-public struct LiveTvServiceInfo: Codable {
+public struct LiveTvServiceInfo: Codable, Hashable {
     /// Gets or sets a value indicating whether this instance has update available.
     public var hasUpdateAvailable: Bool?
     /// Gets or sets the home page URL.

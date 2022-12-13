@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TranscodingInfo: Codable {
+public struct TranscodingInfo: Codable, Hashable {
     public var audioChannels: Int32?
     public var audioCodec: String?
     public var bitrate: Int32?

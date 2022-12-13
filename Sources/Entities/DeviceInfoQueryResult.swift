@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DeviceInfoQueryResult: Codable {
+public struct DeviceInfoQueryResult: Codable, Hashable {
     /// Gets or sets the items.
     public var items: [DeviceInfo]?
     /// Gets or sets the index of the first record in Items.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// An entity representing a user's access schedule.
-public struct AccessSchedule: Codable, Identifiable {
+public struct AccessSchedule: Codable, Hashable, Identifiable {
     /// Gets or sets the day of week.
     public var dayOfWeek: DynamicDayOfWeek?
     /// Gets or sets the end hour.

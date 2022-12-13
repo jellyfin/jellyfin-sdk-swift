@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct AuthenticationInfoQueryResult: Codable {
+public struct AuthenticationInfoQueryResult: Codable, Hashable {
     /// Gets or sets the items.
     public var items: [AuthenticationInfo]?
     /// Gets or sets the index of the first record in Items.

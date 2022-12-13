@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SubtitleOptions: Codable {
+public struct SubtitleOptions: Codable, Hashable {
     public var isDownloadEpisodeSubtitles: Bool?
     public var downloadLanguages: [String]?
     public var isDownloadMovieSubtitles: Bool?

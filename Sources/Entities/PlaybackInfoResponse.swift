@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class PlaybackInfoResponse.
-public struct PlaybackInfoResponse: Codable {
+public struct PlaybackInfoResponse: Codable, Hashable {
     /// Gets or sets the error code.
     public var errorCode: PlaybackErrorCode?
     /// Gets or sets the media sources.

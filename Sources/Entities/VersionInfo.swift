@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines the MediaBrowser.Model.Updates.VersionInfo class.
-public struct VersionInfo: Codable {
+public struct VersionInfo: Codable, Hashable {
     /// Gets the version as a System.Version.
     public var versionNumber: String?
     /// Gets or sets the changelog for this version.

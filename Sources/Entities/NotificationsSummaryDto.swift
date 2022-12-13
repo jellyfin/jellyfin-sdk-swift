@@ -9,7 +9,7 @@
 import Foundation
 
 /// The notification summary DTO.
-public struct NotificationsSummaryDto: Codable {
+public struct NotificationsSummaryDto: Codable, Hashable {
     /// Gets or sets the maximum unread notification level.
     public var maxUnreadNotificationLevel: NotificationLevel?
     /// Gets or sets the number of unread notifications.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents the server configuration.
-public struct ServerConfiguration: Codable {
+public struct ServerConfiguration: Codable, Hashable {
     /// Gets or sets the number of days we should retain activity logs.
     public var activityLogRetentionDays: Int32?
     /// Gets or sets a value indicating whether clients should be allowed to upload logs.

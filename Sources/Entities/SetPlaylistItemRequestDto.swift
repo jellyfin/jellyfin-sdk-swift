@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SetPlaylistItemRequestDto.
-public struct SetPlaylistItemRequestDto: Codable {
+public struct SetPlaylistItemRequestDto: Codable, Hashable {
     /// Gets or sets the playlist identifier of the playing item.
     public var playlistItemID: String?
 

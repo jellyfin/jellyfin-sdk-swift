@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct LiveTvOptions: Codable {
+public struct LiveTvOptions: Codable, Hashable {
     public var enableOriginalAudioWithEncodedRecordings: Bool?
     public var enableRecordingSubfolders: Bool?
     public var guideDays: Int32?

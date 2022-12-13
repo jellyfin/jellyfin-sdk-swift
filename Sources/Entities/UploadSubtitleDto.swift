@@ -9,7 +9,7 @@
 import Foundation
 
 /// Upload subtitles dto.
-public struct UploadSubtitleDto: Codable {
+public struct UploadSubtitleDto: Codable, Hashable {
     /// Gets or sets the subtitle data.
     public var data: String
     /// Gets or sets the subtitle format.

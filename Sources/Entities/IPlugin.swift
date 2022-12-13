@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines the MediaBrowser.Common.Plugins.IPlugin.
-public struct IPlugin: Codable, Identifiable {
+public struct IPlugin: Codable, Hashable, Identifiable {
     /// Gets the path to the assembly file.
     public var assemblyFilePath: String?
     /// Gets a value indicating whether the plugin can be uninstalled.

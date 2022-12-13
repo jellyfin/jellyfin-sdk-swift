@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ImageByNameInfo: Codable {
+public struct ImageByNameInfo: Codable, Hashable {
     /// Gets or sets the context.
     public var context: String?
     /// Gets or sets the length of the file.

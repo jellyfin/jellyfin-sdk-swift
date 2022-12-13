@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class PlayRequestDto.
-public struct PlayRequestDto: Codable {
+public struct PlayRequestDto: Codable, Hashable {
     /// Gets or sets the position of the playing item in the queue.
     public var playingItemPosition: Int32?
     /// Gets or sets the playing queue.

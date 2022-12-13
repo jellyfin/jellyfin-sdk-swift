@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class JoinGroupRequestDto.
-public struct JoinGroupRequestDto: Codable {
+public struct JoinGroupRequestDto: Codable, Hashable {
     /// Gets or sets the group identifier.
     public var groupID: String?
 

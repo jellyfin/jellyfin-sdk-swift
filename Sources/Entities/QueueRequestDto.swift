@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class QueueRequestDto.
-public struct QueueRequestDto: Codable {
+public struct QueueRequestDto: Codable, Hashable {
     /// Gets or sets the items to enqueue.
     public var itemIDs: [String]?
     /// Gets or sets the mode in which to add the new items.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class NextItemRequestDto.
-public struct NextItemRequestDto: Codable {
+public struct NextItemRequestDto: Codable, Hashable {
     /// Gets or sets the playing item identifier.
     public var playlistItemID: String?
 

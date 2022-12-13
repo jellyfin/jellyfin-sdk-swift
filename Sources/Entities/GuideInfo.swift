@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct GuideInfo: Codable {
+public struct GuideInfo: Codable, Hashable {
     /// Gets or sets the end date.
     public var endDate: Date?
     /// Gets or sets the start date.

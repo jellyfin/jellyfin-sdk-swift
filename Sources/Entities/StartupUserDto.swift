@@ -9,7 +9,7 @@
 import Foundation
 
 /// The startup user DTO.
-public struct StartupUserDto: Codable {
+public struct StartupUserDto: Codable, Hashable {
     /// Gets or sets the username.
     public var name: String?
     /// Gets or sets the user's password.

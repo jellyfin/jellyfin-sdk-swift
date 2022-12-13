@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct AllThemeMediaResult: Codable {
+public struct AllThemeMediaResult: Codable, Hashable {
     /// Class ThemeMediaResult.
     public var soundtrackSongsResult: ThemeMediaResult?
     /// Class ThemeMediaResult.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SessionInfo.
-public struct SessionInfo: Codable, Identifiable {
+public struct SessionInfo: Codable, Hashable, Identifiable {
     public var additionalUsers: [SessionUserInfo]?
     /// Gets or sets the application version.
     public var applicationVersion: String?

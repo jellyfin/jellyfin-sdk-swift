@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MetadataConfiguration: Codable {
+public struct MetadataConfiguration: Codable, Hashable {
     public var useFileCreationTimeForDateAdded: Bool?
 
     public init(useFileCreationTimeForDateAdded: Bool? = nil) {

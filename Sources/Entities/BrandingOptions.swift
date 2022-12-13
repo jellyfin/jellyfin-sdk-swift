@@ -9,7 +9,7 @@
 import Foundation
 
 /// The branding options.
-public struct BrandingOptions: Codable {
+public struct BrandingOptions: Codable, Hashable {
     /// Gets or sets the custom CSS.
     public var customCss: String?
     /// Gets or sets the login disclaimer.

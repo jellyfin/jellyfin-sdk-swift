@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct LogFile: Codable {
+public struct LogFile: Codable, Hashable {
     /// Gets or sets the date created.
     public var dateCreated: Date?
     /// Gets or sets the date modified.

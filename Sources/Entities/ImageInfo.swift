@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class ImageInfo.
-public struct ImageInfo: Codable {
+public struct ImageInfo: Codable, Hashable {
     /// Gets or sets the blurhash.
     public var blurHash: String?
     /// Gets or sets the height.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// The authenticate user by name request body.
-public struct AuthenticateUserByName: Codable {
+public struct AuthenticateUserByName: Codable, Hashable {
     /// Gets or sets the sha1-hashed password.
     ///
     /// - warning: Deprecated.

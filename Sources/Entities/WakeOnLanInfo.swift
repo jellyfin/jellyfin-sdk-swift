@@ -9,7 +9,7 @@
 import Foundation
 
 /// Provides the MAC address and port for wake-on-LAN functionality.
-public struct WakeOnLanInfo: Codable {
+public struct WakeOnLanInfo: Codable, Hashable {
     /// Gets the MAC address of the device.
     public var macAddress: String?
     /// Gets or sets the wake-on-LAN port.

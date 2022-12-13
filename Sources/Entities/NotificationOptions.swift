@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct NotificationOptions: Codable {
+public struct NotificationOptions: Codable, Hashable {
     public var options: [NotificationOption]?
 
     public init(options: [NotificationOption]? = nil) {

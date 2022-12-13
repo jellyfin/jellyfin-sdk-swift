@@ -9,7 +9,7 @@
 import Foundation
 
 /// Library options result dto.
-public struct LibraryOptionsResultDto: Codable {
+public struct LibraryOptionsResultDto: Codable, Hashable {
     /// Gets or sets the metadata readers.
     public var metadataReaders: [LibraryOptionInfoDto]?
     /// Gets or sets the metadata savers.

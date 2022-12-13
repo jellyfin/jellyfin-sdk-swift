@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct NameGuidPair: Codable, Identifiable {
+public struct NameGuidPair: Codable, Hashable, Identifiable {
     public var id: String?
     public var name: String?
 

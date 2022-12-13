@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PersonLookupInfoRemoteSearchQuery: Codable {
+public struct PersonLookupInfoRemoteSearchQuery: Codable, Hashable {
     /// Gets or sets a value indicating whether disabled providers should be included.
     public var isIncludeDisabledProviders: Bool?
     public var itemID: String?

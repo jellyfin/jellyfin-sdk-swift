@@ -9,7 +9,7 @@
 import Foundation
 
 /// Set channel mapping dto.
-public struct SetChannelMappingDto: Codable {
+public struct SetChannelMappingDto: Codable, Hashable {
     /// Gets or sets the provider channel id.
     public var providerChannelID: String
     /// Gets or sets the provider id.

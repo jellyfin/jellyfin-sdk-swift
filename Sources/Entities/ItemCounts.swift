@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class LibrarySummary.
-public struct ItemCounts: Codable {
+public struct ItemCounts: Codable, Hashable {
     /// Gets or sets the album count.
     public var albumCount: Int32?
     /// Gets or sets the artist count.

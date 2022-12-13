@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MetadataEditorInfo: Codable {
+public struct MetadataEditorInfo: Codable, Hashable {
     public var contentType: String?
     public var contentTypeOptions: [NameValuePair]?
     public var countries: [CountryInfo]?

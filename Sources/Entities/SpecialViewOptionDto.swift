@@ -9,7 +9,7 @@
 import Foundation
 
 /// Special view option dto.
-public struct SpecialViewOptionDto: Codable, Identifiable {
+public struct SpecialViewOptionDto: Codable, Hashable, Identifiable {
     /// Gets or sets view option id.
     public var id: String?
     /// Gets or sets view option name.

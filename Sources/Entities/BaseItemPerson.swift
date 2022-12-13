@@ -9,7 +9,7 @@
 import Foundation
 
 /// This is used by the api to get information about a Person within a BaseItem.
-public struct BaseItemPerson: Codable, Identifiable {
+public struct BaseItemPerson: Codable, Hashable, Identifiable {
     /// Gets or sets the identifier.
     public var id: String?
     /// Gets or sets the primary image blurhash.
@@ -24,7 +24,7 @@ public struct BaseItemPerson: Codable, Identifiable {
     public var type: String?
 
     /// Gets or sets the primary image blurhash.
-    public struct ImageBlurHashes: Codable {
+    public struct ImageBlurHashes: Codable, Hashable {
         public var art: [String: String]?
         public var backdrop: [String: String]?
         public var banner: [String: String]?

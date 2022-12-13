@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ControlResponse: Codable {
+public struct ControlResponse: Codable, Hashable {
     public var headers: [String: String]?
     public var isSuccessful: Bool?
     public var xml: String?

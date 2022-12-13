@@ -9,7 +9,7 @@
 import Foundation
 
 /// The notification DTO.
-public struct NotificationDto: Codable, Identifiable {
+public struct NotificationDto: Codable, Hashable, Identifiable {
     /// Gets or sets the notification date.
     public var date: Date?
     /// Gets or sets the notification's description. Defaults to an empty string.

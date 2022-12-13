@@ -9,7 +9,7 @@
 import Foundation
 
 /// Create new playlist dto.
-public struct CreatePlaylistDto: Codable {
+public struct CreatePlaylistDto: Codable, Hashable {
     /// Gets or sets item ids to add to the playlist.
     public var ids: [String]?
     /// Gets or sets the media type.

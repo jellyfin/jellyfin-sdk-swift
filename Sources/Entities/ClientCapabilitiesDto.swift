@@ -9,7 +9,7 @@
 import Foundation
 
 /// Client capabilities dto.
-public struct ClientCapabilitiesDto: Codable {
+public struct ClientCapabilitiesDto: Codable, Hashable {
     /// Gets or sets the app store url.
     public var appStoreURL: String?
     /// Gets or sets the device profile.

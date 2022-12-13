@@ -15,6 +15,7 @@ dataTypes:
   string:
     uuid: String
 entities:
+  protocols: ["Codable", "Hashable"]
   includeIdentifiableConformance: true
   sortPropertiesAlphabetically: true
   exclude:

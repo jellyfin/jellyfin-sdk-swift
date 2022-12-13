@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ExternalURL: Codable {
+public struct ExternalURL: Codable, Hashable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the type of the item.

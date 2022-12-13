@@ -9,7 +9,7 @@
 import Foundation
 
 /// Add virtual folder dto.
-public struct AddVirtualFolderDto: Codable {
+public struct AddVirtualFolderDto: Codable, Hashable {
     /// Gets or sets library options.
     public var libraryOptions: LibraryOptions?
 

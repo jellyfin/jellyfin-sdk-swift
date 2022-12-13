@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class PackageInfo.
-public struct PackageInfo: Codable {
+public struct PackageInfo: Codable, Hashable {
     /// Gets or sets the category.
     public var category: String?
     /// Gets or sets a long description of the plugin containing features or helpful explanations.

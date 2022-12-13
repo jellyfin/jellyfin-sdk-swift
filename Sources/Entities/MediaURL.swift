@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MediaURL: Codable {
+public struct MediaURL: Codable, Hashable {
     public var name: String?
     public var url: String?
 

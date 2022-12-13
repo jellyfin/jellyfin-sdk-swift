@@ -9,7 +9,7 @@
 import Foundation
 
 /// The DlnaOptions class contains the user definable parameters for the dlna subsystems.
-public struct DlnaOptions: Codable {
+public struct DlnaOptions: Codable, Hashable {
     /// Gets or sets the frequency at which ssdp alive notifications are transmitted.
     public var aliveMessageIntervalSeconds: Int32?
     /// Gets or sets a value indicating whether playTo device profiles should be created.

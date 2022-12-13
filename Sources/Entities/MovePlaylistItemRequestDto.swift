@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class MovePlaylistItemRequestDto.
-public struct MovePlaylistItemRequestDto: Codable {
+public struct MovePlaylistItemRequestDto: Codable, Hashable {
     /// Gets or sets the new position.
     public var newIndex: Int32?
     /// Gets or sets the playlist identifier of the item.

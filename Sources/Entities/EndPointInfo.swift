@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct EndPointInfo: Codable {
+public struct EndPointInfo: Codable, Hashable {
     public var isInNetwork: Bool?
     public var isLocal: Bool?
 

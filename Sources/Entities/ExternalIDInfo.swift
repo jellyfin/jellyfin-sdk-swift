@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents the external id information for serialization to the client.
-public struct ExternalIDInfo: Codable {
+public struct ExternalIDInfo: Codable, Hashable {
     /// Gets or sets the unique key for this id. This key should be unique across all providers.
     public var key: String?
     /// Gets or sets the display name of the external id provider (IE: IMDB, MusicBrainz, etc).

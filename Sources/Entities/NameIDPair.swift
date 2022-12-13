@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct NameIDPair: Codable, Identifiable {
+public struct NameIDPair: Codable, Hashable, Identifiable {
     /// Gets or sets the identifier.
     public var id: String?
     /// Gets or sets the name.

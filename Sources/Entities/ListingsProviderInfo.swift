@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ListingsProviderInfo: Codable, Identifiable {
+public struct ListingsProviderInfo: Codable, Hashable, Identifiable {
     public var channelMappings: [NameValuePair]?
     public var country: String?
     public var enableAllTuners: Bool?

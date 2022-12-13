@@ -9,7 +9,7 @@
 import Foundation
 
 /// The media update info path.
-public struct MediaUpdateInfoPathDto: Codable {
+public struct MediaUpdateInfoPathDto: Codable, Hashable {
     /// Gets or sets media path.
     public var path: String?
     /// Gets or sets media update type.

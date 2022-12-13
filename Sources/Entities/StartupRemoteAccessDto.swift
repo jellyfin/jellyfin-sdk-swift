@@ -9,7 +9,7 @@
 import Foundation
 
 /// Startup remote access dto.
-public struct StartupRemoteAccessDto: Codable {
+public struct StartupRemoteAccessDto: Codable, Hashable {
     /// Gets or sets a value indicating whether enable automatic port mapping.
     public var enableAutomaticPortMapping: Bool
     /// Gets or sets a value indicating whether enable remote access.

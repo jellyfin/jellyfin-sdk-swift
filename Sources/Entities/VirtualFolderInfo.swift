@@ -9,7 +9,7 @@
 import Foundation
 
 /// Used to hold information about a user's list of configured virtual folders.
-public struct VirtualFolderInfo: Codable {
+public struct VirtualFolderInfo: Codable, Hashable {
     /// Gets or sets the type of the collection.
     public var collectionType: CollectionTypeOptions?
     /// Gets or sets the item identifier.

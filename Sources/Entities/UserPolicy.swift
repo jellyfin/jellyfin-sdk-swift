@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct UserPolicy: Codable {
+public struct UserPolicy: Codable, Hashable {
     public var accessSchedules: [AccessSchedule]?
     public var authenticationProviderID: String?
     public var blockUnratedItems: [UnratedItem]?

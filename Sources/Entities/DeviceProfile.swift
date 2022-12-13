@@ -19,7 +19,7 @@ import Foundation
 /// the device is able to direct play (without transcoding or remuxing),
 ///
 /// as well as which <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles">containers/codecs to transcode to</see> in case it isn't.
-public struct DeviceProfile: Codable, Identifiable {
+public struct DeviceProfile: Codable, Hashable, Identifiable {
     /// Gets or sets the AlbumArtPn.
     public var albumArtPn: String?
     /// Gets or sets the codec profiles.

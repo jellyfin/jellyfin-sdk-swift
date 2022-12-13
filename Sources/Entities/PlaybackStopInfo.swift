@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class PlaybackStopInfo.
-public struct PlaybackStopInfo: Codable {
+public struct PlaybackStopInfo: Codable, Hashable {
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Session.PlaybackStopInfo is failed.
     public var isFailed: Bool?
     /// Gets or sets the item.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class FileSystemEntryInfo.
-public struct FileSystemEntryInfo: Codable {
+public struct FileSystemEntryInfo: Codable, Hashable {
     /// Gets the name.
     public var name: String?
     /// Gets the path.

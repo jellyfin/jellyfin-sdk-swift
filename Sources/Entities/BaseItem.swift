@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class BaseItem.
-public struct BaseItem: Codable {
+public struct BaseItem: Codable, Hashable {
     public var container: String?
     public var dateLastSaved: Date?
     public var extraIDs: [String]?

@@ -9,7 +9,7 @@
 import Foundation
 
 /// The admin notification dto.
-public struct AdminNotificationDto: Codable {
+public struct AdminNotificationDto: Codable, Hashable {
     /// Gets or sets the notification description.
     public var description: String?
     /// Gets or sets the notification name.

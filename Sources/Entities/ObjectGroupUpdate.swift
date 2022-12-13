@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class GroupUpdate.
-public struct ObjectGroupUpdate: Codable {
+public struct ObjectGroupUpdate: Codable, Hashable {
     /// Gets the update data.
     public var data: AnyJSON?
     /// Gets the group identifier.

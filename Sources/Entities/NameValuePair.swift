@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct NameValuePair: Codable {
+public struct NameValuePair: Codable, Hashable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the value.

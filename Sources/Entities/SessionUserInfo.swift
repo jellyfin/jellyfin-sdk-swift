@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SessionUserInfo.
-public struct SessionUserInfo: Codable {
+public struct SessionUserInfo: Codable, Hashable {
     /// Gets or sets the user identifier.
     public var userID: String?
     /// Gets or sets the name of the user.

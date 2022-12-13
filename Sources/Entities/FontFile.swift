@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class FontFile.
-public struct FontFile: Codable {
+public struct FontFile: Codable, Hashable {
     /// Gets or sets the date created.
     public var dateCreated: Date?
     /// Gets or sets the date modified.

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TranscodingProfile: Codable {
+public struct TranscodingProfile: Codable, Hashable {
     public var audioCodec: String?
     public var isBreakOnNonKeyFrames: Bool
     public var conditions: [ProfileCondition]?

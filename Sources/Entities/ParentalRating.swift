@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class ParentalRating.
-public struct ParentalRating: Codable {
+public struct ParentalRating: Codable, Hashable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the value.

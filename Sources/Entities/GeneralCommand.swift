@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct GeneralCommand: Codable {
+public struct GeneralCommand: Codable, Hashable {
     public var arguments: [String: String]?
     public var controllingUserID: String?
     /// This exists simply to identify a set of known commands.

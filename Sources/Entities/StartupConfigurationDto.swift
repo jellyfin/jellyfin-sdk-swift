@@ -9,7 +9,7 @@
 import Foundation
 
 /// The startup configuration DTO.
-public struct StartupConfigurationDto: Codable {
+public struct StartupConfigurationDto: Codable, Hashable {
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
     /// Gets or sets the preferred language for the metadata.

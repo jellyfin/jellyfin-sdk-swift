@@ -9,7 +9,7 @@
 import Foundation
 
 /// Validate path object.
-public struct ValidatePathDto: Codable {
+public struct ValidatePathDto: Codable, Hashable {
     /// Gets or sets is path file.
     public var isFile: Bool?
     /// Gets or sets the path.

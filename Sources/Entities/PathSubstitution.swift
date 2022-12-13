@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines the MediaBrowser.Model.Configuration.PathSubstitution.
-public struct PathSubstitution: Codable {
+public struct PathSubstitution: Codable, Hashable {
     /// Gets or sets the value to substitute.
     public var from: String?
     /// Gets or sets the value to substitution with.

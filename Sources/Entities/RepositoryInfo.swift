@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class RepositoryInfo.
-public struct RepositoryInfo: Codable {
+public struct RepositoryInfo: Codable, Hashable {
     /// Gets or sets a value indicating whether the repository is enabled.
     public var isEnabled: Bool?
     /// Gets or sets the name.

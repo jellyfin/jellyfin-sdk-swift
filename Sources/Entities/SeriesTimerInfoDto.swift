@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SeriesTimerInfoDto.
-public struct SeriesTimerInfoDto: Codable, Identifiable {
+public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
     /// Gets or sets the channel id of the recording.
     public var channelID: String?
     /// Gets or sets the channel name of the recording.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class CultureDto.
-public struct CultureDto: Codable {
+public struct CultureDto: Codable, Hashable {
     /// Gets the display name.
     public var displayName: String?
     /// Gets the name.

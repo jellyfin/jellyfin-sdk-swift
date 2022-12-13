@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PlaylistCreationResult: Codable, Identifiable {
+public struct PlaylistCreationResult: Codable, Hashable, Identifiable {
     public var id: String?
 
     public init(id: String? = nil) {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ConfigImageTypes: Codable {
+public struct ConfigImageTypes: Codable, Hashable {
     public var backdropSizes: [String]?
     public var baseURL: String?
     public var logoSizes: [String]?

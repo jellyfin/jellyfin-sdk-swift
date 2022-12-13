@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class UserConfiguration.
-public struct UserConfiguration: Codable {
+public struct UserConfiguration: Codable, Hashable {
     /// Gets or sets the audio language preference.
     public var audioLanguagePreference: String?
     public var isDisplayCollectionsView: Bool?

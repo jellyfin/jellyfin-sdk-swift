@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ChannelFeatures: Codable, Identifiable {
+public struct ChannelFeatures: Codable, Hashable, Identifiable {
     /// Gets or sets the automatic refresh levels.
     public var autoRefreshLevels: Int32?
     /// Gets or sets a value indicating whether this instance can filter.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class MediaAttachment.
-public struct MediaAttachment: Codable {
+public struct MediaAttachment: Codable, Hashable {
     /// Gets or sets the codec.
     public var codec: String?
     /// Gets or sets the codec tag.

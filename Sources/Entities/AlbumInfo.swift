@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct AlbumInfo: Codable {
+public struct AlbumInfo: Codable, Hashable {
     /// Gets or sets the album artist.
     public var albumArtists: [String]?
     /// Gets or sets the artist provider ids.

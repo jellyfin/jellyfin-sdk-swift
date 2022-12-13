@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TunerChannelMapping: Codable, Identifiable {
+public struct TunerChannelMapping: Codable, Hashable, Identifiable {
     public var id: String?
     public var name: String?
     public var providerChannelID: String?

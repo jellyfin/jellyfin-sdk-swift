@@ -9,7 +9,7 @@
 import Foundation
 
 /// Open live stream dto.
-public struct OpenLiveStreamDto: Codable {
+public struct OpenLiveStreamDto: Codable, Hashable {
     /// Gets or sets the audio stream index.
     public var audioStreamIndex: Int32?
     /// Gets or sets the device profile.

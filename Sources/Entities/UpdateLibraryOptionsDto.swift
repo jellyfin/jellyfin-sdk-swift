@@ -9,7 +9,7 @@
 import Foundation
 
 /// Update library options dto.
-public struct UpdateLibraryOptionsDto: Codable, Identifiable {
+public struct UpdateLibraryOptionsDto: Codable, Hashable, Identifiable {
     /// Gets or sets the library item id.
     public var id: String?
     /// Gets or sets library options.

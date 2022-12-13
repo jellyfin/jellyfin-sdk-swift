@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class TaskInfo.
-public struct TaskInfo: Codable, Identifiable {
+public struct TaskInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the category.
     public var category: String?
     /// Gets or sets the progress.

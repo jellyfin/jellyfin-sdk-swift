@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SearchHintResult.
-public struct SearchHint: Codable, Identifiable {
+public struct SearchHint: Codable, Hashable, Identifiable {
     /// Gets or sets the album.
     public var album: String?
     /// Gets or sets the album artist.

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TypeOptions: Codable {
+public struct TypeOptions: Codable, Hashable {
     public var imageFetcherOrder: [String]?
     public var imageFetchers: [String]?
     public var imageOptions: [ImageOption]?

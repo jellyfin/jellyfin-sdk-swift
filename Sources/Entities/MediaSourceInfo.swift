@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MediaSourceInfo: Codable, Identifiable {
+public struct MediaSourceInfo: Codable, Hashable, Identifiable {
     public var analyzeDurationMs: Int32?
     public var bitrate: Int32?
     public var bufferMs: Int32?

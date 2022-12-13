@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TimerInfoDto: Codable, Identifiable {
+public struct TimerInfoDto: Codable, Hashable, Identifiable {
     /// Gets or sets the channel id of the recording.
     public var channelID: String?
     /// Gets or sets the channel name of the recording.

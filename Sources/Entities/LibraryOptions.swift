@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct LibraryOptions: Codable {
+public struct LibraryOptions: Codable, Hashable {
     /// An enum representing the options to disable embedded subs.
     public var allowEmbeddedSubtitles: EmbeddedSubtitleOptions?
     public var automaticRefreshIntervalDays: Int32?

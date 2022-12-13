@@ -9,7 +9,7 @@
 import Foundation
 
 /// Default directory browser info.
-public struct DefaultDirectoryBrowserInfoDto: Codable {
+public struct DefaultDirectoryBrowserInfoDto: Codable, Hashable {
     /// Gets or sets the path.
     public var path: String?
 

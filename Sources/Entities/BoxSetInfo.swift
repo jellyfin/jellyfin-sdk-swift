@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BoxSetInfo: Codable {
+public struct BoxSetInfo: Codable, Hashable {
     public var indexNumber: Int32?
     public var isAutomated: Bool?
     /// Gets or sets the metadata country code.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class ChapterInfo.
-public struct ChapterInfo: Codable {
+public struct ChapterInfo: Codable, Hashable {
     public var imageDateModified: Date?
     /// Gets or sets the image path.
     public var imagePath: String?

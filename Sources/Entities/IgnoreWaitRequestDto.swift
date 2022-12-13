@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class IgnoreWaitRequestDto.
-public struct IgnoreWaitRequestDto: Codable {
+public struct IgnoreWaitRequestDto: Codable, Hashable {
     /// Gets or sets a value indicating whether the client should be ignored.
     public var isIgnoreWait: Bool?
 

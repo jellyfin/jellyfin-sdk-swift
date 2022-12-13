@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines the Jellyfin.Networking.Configuration.NetworkConfiguration.
-public struct NetworkConfiguration: Codable {
+public struct NetworkConfiguration: Codable, Hashable {
     /// Gets or sets a value indicating whether Autodiscovery is enabled.
     public var isAutoDiscovery: Bool?
     /// Gets or sets a value indicating whether Autodiscovery tracing is enabled.

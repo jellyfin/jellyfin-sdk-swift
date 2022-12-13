@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SendCommand.
-public struct SendCommand: Codable {
+public struct SendCommand: Codable, Hashable {
     /// Gets the command.
     public var command: SendCommandType?
     /// Gets the UTC time when this command has been emitted.

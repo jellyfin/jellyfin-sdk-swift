@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DirectPlayProfile: Codable {
+public struct DirectPlayProfile: Codable, Hashable {
     public var audioCodec: String?
     public var container: String?
     public var type: DlnaProfileType?

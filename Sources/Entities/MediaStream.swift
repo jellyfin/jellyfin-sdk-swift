@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class MediaStream.
-public struct MediaStream: Codable {
+public struct MediaStream: Codable, Hashable {
     /// Gets or sets the aspect ratio.
     public var aspectRatio: String?
     /// Gets or sets the average frame rate.

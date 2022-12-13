@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class UtcTimeResponse.
-public struct UtcTimeResponse: Codable {
+public struct UtcTimeResponse: Codable, Hashable {
     /// Gets the UTC time when request has been received.
     public var requestReceptionTime: Date?
     /// Gets the UTC time when response has been sent.

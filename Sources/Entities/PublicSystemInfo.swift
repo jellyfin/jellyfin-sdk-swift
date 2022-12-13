@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PublicSystemInfo: Codable, Identifiable {
+public struct PublicSystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the id.
     public var id: String?
     /// Gets or sets the local address.

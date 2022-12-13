@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SeriesTimerInfoDtoQueryResult: Codable {
+public struct SeriesTimerInfoDtoQueryResult: Codable, Hashable {
     /// Gets or sets the items.
     public var items: [SeriesTimerInfoDto]?
     /// Gets or sets the index of the first record in Items.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class GroupInfoDto.
-public struct GroupInfoDto: Codable {
+public struct GroupInfoDto: Codable, Hashable {
     /// Gets the group identifier.
     public var groupID: String?
     /// Gets the group name.

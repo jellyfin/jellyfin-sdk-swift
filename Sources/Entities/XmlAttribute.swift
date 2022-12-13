@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines the MediaBrowser.Model.Dlna.XmlAttribute.
-public struct XmlAttribute: Codable {
+public struct XmlAttribute: Codable, Hashable {
     /// Gets or sets the name of the attribute.
     public var name: String?
     /// Gets or sets the value of the attribute.

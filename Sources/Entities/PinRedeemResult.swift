@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PinRedeemResult: Codable {
+public struct PinRedeemResult: Codable, Hashable {
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Users.PinRedeemResult is success.
     public var isSuccess: Bool?
     /// Gets or sets the users reset.

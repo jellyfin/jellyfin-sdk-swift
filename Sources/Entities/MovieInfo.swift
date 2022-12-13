@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MovieInfo: Codable {
+public struct MovieInfo: Codable, Hashable {
     public var indexNumber: Int32?
     public var isAutomated: Bool?
     /// Gets or sets the metadata country code.

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BaseItemDtoQueryResult: Codable {
+public struct BaseItemDtoQueryResult: Codable, Hashable {
     /// Gets or sets the items.
     public var items: [BaseItemDto]?
     /// Gets or sets the index of the first record in Items.

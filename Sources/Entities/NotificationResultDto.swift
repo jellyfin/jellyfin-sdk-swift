@@ -9,7 +9,7 @@
 import Foundation
 
 /// A list of notifications with the total record count for pagination.
-public struct NotificationResultDto: Codable {
+public struct NotificationResultDto: Codable, Hashable {
     /// Gets or sets the current page of notifications.
     public var notifications: [NotificationDto]?
     /// Gets or sets the total number of notifications.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Library type options dto.
-public struct LibraryTypeOptionsDto: Codable {
+public struct LibraryTypeOptionsDto: Codable, Hashable {
     /// Gets or sets the default image options.
     public var defaultImageOptions: [ImageOption]?
     /// Gets or sets the image fetchers.

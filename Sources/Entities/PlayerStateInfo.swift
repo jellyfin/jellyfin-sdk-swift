@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PlayerStateInfo: Codable {
+public struct PlayerStateInfo: Codable, Hashable {
     /// Gets or sets the index of the now playing audio stream.
     public var audioStreamIndex: Int32?
     /// Gets or sets a value indicating whether this instance can seek.

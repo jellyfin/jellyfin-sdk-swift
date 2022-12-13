@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SetShuffleModeRequestDto.
-public struct SetShuffleModeRequestDto: Codable {
+public struct SetShuffleModeRequestDto: Codable, Hashable {
     /// Gets or sets the shuffle mode.
     public var mode: GroupShuffleMode?
 

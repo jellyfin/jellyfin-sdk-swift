@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DeviceInfo: Codable, Identifiable {
+public struct DeviceInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the access token.
     public var accessToken: String?
     /// Gets or sets the name of the application.

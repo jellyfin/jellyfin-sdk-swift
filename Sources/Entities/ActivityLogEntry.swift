@@ -9,7 +9,7 @@
 import Foundation
 
 /// An activity log entry.
-public struct ActivityLogEntry: Codable, Identifiable {
+public struct ActivityLogEntry: Codable, Hashable, Identifiable {
     /// Gets or sets the date.
     public var date: Date?
     /// Gets or sets the identifier.

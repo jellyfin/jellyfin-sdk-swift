@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct AuthenticationResult: Codable {
+public struct AuthenticationResult: Codable, Hashable {
     public var accessToken: String?
     public var serverID: String?
     /// Class SessionInfo.

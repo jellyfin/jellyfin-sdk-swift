@@ -9,7 +9,7 @@
 import Foundation
 
 /// The quick connect request body.
-public struct QuickConnectDto: Codable {
+public struct QuickConnectDto: Codable, Hashable {
     /// Gets or sets the quick connect secret.
     public var secret: String
 

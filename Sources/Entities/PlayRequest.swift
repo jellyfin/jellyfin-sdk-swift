@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class PlayRequest.
-public struct PlayRequest: Codable {
+public struct PlayRequest: Codable, Hashable {
     public var audioStreamIndex: Int32?
     /// Gets or sets the controlling user identifier.
     public var controllingUserID: String?

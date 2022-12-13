@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct EncodingOptions: Codable {
+public struct EncodingOptions: Codable, Hashable {
     public var allowHevcEncoding: Bool?
     public var allowOnDemandMetadataBasedKeyframeExtractionForExtensions: [String]?
     public var isDeinterlaceDoubleRate: Bool?

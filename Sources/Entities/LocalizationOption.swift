@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct LocalizationOption: Codable {
+public struct LocalizationOption: Codable, Hashable {
     public var name: String?
     public var value: String?
 

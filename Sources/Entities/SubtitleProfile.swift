@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SubtitleProfile: Codable {
+public struct SubtitleProfile: Codable, Hashable {
     public var container: String?
     public var didlMode: String?
     public var format: String?

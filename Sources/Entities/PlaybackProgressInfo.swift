@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class PlaybackProgressInfo.
-public struct PlaybackProgressInfo: Codable {
+public struct PlaybackProgressInfo: Codable, Hashable {
     public var aspectRatio: String?
     /// Gets or sets the index of the audio stream.
     public var audioStreamIndex: Int32?

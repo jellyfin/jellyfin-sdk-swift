@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class UserItemDataDto.
-public struct UserItemDataDto: Codable {
+public struct UserItemDataDto: Codable, Hashable {
     /// Gets or sets a value indicating whether this instance is favorite.
     public var isFavorite: Bool?
     /// Gets or sets the item identifier.

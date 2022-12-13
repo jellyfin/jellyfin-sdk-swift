@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class PingRequestDto.
-public struct PingRequestDto: Codable {
+public struct PingRequestDto: Codable, Hashable {
     /// Gets or sets the ping time.
     public var ping: Int64?
 

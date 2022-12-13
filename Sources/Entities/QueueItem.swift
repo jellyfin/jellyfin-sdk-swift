@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct QueueItem: Codable, Identifiable {
+public struct QueueItem: Codable, Hashable, Identifiable {
     public var id: String?
     public var playlistItemID: String?
 

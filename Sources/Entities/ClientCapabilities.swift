@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ClientCapabilities: Codable {
+public struct ClientCapabilities: Codable, Hashable {
     public var appStoreURL: String?
     /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to play.
     ///

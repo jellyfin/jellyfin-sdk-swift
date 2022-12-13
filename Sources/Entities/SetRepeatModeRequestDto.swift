@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SetRepeatModeRequestDto.
-public struct SetRepeatModeRequestDto: Codable {
+public struct SetRepeatModeRequestDto: Codable, Hashable {
     /// Gets or sets the repeat mode.
     public var mode: GroupRepeatMode?
 

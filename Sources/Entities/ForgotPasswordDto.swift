@@ -9,7 +9,7 @@
 import Foundation
 
 /// Forgot Password request body DTO.
-public struct ForgotPasswordDto: Codable {
+public struct ForgotPasswordDto: Codable, Hashable {
     /// Gets or sets the entered username to have its password reset.
     public var enteredUsername: String
 

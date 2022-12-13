@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class TaskTriggerInfo.
-public struct TaskTriggerInfo: Codable {
+public struct TaskTriggerInfo: Codable, Hashable {
     /// Gets or sets the day of week.
     public var dayOfWeek: DayOfWeek?
     /// Gets or sets the interval.

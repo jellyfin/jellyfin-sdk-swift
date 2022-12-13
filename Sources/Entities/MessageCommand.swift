@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MessageCommand: Codable {
+public struct MessageCommand: Codable, Hashable {
     public var header: String?
     public var text: String
     public var timeoutMs: Int64?

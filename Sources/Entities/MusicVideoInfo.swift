@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MusicVideoInfo: Codable {
+public struct MusicVideoInfo: Codable, Hashable {
     public var artists: [String]?
     public var indexNumber: Int32?
     public var isAutomated: Bool?

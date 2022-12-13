@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PlaystateRequest: Codable {
+public struct PlaystateRequest: Codable, Hashable {
     /// Enum PlaystateCommand.
     public var command: PlaystateCommand?
     /// Gets or sets the controlling user identifier.

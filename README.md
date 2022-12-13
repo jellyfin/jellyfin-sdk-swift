@@ -6,9 +6,9 @@ Swift SDK to work with Jellyfin servers.
 
 ## Usage
 
-The provided `JellyfinClient` uses an underlying [Get APIClient](https://github.com/kean/Get) to provide basic functionality for interfacing with a Jellyfin server:
-- inject required headers for every request
-- encoding/decoding of all `Date` values to expected
+`JellyfinClient` uses an underlying [Get APIClient](https://github.com/kean/Get) to provide basic functionality for interfacing with a Jellyfin server:
+- inject required `Authorization` header for every request
+- encoding/decoding of expected `Date` values
 - `signIn` for generating a session access token
 - `signOut` for revoking the current access token
 
@@ -20,7 +20,7 @@ let jellyfinClient = JellyfinClient(configuration: configuration)
 let response = jellyfinClient.signIn(username: "jelly", password: "fin")
 ```
 
-You can forego `JellyfinClient` and use your own network stack, using the provided **Entities** and **Paths**.
+Alternatively, you can use your own network stack with the provided **Entities** and **Paths**.
 
 ## Generation
 
@@ -36,5 +36,8 @@ The mechanism for generating **Entities**, **Extensions**, and **Paths** with Cr
 $ swift package --allow-writing-to-package-directory generate-api
 ```
 5. New **Entities**, **Extensions**, and **Paths** directories should be available within the package
+6. Apply the following manual patches:
+  - `Entities/RemoteSearchResult.swift`: remove `Hashable`
+  - `Extensions/AnyJSON.swift`: replace `Equatable` with `Hashable`
 
 Alternatively, you can generate your own Swift Jellyfin SDK using [CreateAPI](https://github.com/CreateAPI/CreateAPI) or any other OpenAPI generator.

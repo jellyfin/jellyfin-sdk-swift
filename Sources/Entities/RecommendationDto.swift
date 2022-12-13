@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct RecommendationDto: Codable {
+public struct RecommendationDto: Codable, Hashable {
     public var baselineItemName: String?
     public var categoryID: String?
     public var items: [BaseItemDto]?

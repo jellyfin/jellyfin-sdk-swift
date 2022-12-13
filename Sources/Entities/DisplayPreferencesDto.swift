@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines the display preferences for any item that supports them (usually Folders).
-public struct DisplayPreferencesDto: Codable, Identifiable {
+public struct DisplayPreferencesDto: Codable, Hashable, Identifiable {
     /// Gets or sets the client.
     public var client: String?
     /// Gets or sets the custom prefs.

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Library option info dto.
-public struct LibraryOptionInfoDto: Codable {
+public struct LibraryOptionInfoDto: Codable, Hashable {
     /// Gets or sets a value indicating whether default enabled.
     public var isDefaultEnabled: Bool?
     /// Gets or sets name.

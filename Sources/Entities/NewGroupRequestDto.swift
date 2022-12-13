@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class NewGroupRequestDto.
-public struct NewGroupRequestDto: Codable {
+public struct NewGroupRequestDto: Codable, Hashable {
     /// Gets or sets the group name.
     public var groupName: String?
 

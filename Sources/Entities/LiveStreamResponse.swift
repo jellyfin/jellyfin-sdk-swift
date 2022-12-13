@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct LiveStreamResponse: Codable {
+public struct LiveStreamResponse: Codable, Hashable {
     public var mediaSource: MediaSourceInfo?
 
     public init(mediaSource: MediaSourceInfo? = nil) {

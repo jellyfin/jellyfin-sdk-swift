@@ -9,7 +9,7 @@
 import Foundation
 
 /// Channel mapping options dto.
-public struct ChannelMappingOptionsDto: Codable {
+public struct ChannelMappingOptionsDto: Codable, Hashable {
     /// Gets or sets list of mappings.
     public var mappings: [NameValuePair]?
     /// Gets or sets list of provider channels.

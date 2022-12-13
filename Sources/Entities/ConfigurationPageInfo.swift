@@ -9,7 +9,7 @@
 import Foundation
 
 /// The configuration page info.
-public struct ConfigurationPageInfo: Codable {
+public struct ConfigurationPageInfo: Codable, Hashable {
     /// Gets or sets the display name.
     public var displayName: String?
     /// Gets or sets a value indicating whether the configurations page is enabled in the main menu.

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct NotificationOption: Codable {
+public struct NotificationOption: Codable, Hashable {
     /// Gets or sets user Ids to not monitor (it's opt out).
     public var disabledMonitorUsers: [String]?
     /// Gets or sets the disabled services.

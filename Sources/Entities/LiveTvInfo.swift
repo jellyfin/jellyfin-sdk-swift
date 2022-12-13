@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct LiveTvInfo: Codable {
+public struct LiveTvInfo: Codable, Hashable {
     /// Gets or sets the enabled users.
     public var enabledUsers: [String]?
     /// Gets or sets a value indicating whether this instance is enabled.

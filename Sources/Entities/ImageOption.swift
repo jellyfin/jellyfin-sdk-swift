@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ImageOption: Codable {
+public struct ImageOption: Codable, Hashable {
     /// Gets or sets the limit.
     public var limit: Int32?
     /// Gets or sets the minimum width.

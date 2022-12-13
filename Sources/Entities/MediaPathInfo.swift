@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MediaPathInfo: Codable {
+public struct MediaPathInfo: Codable, Hashable {
     public var networkPath: String?
     public var path: String?
 

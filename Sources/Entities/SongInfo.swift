@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SongInfo: Codable {
+public struct SongInfo: Codable, Hashable {
     public var album: String?
     public var albumArtists: [String]?
     public var artists: [String]?

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Media Encoder Path Dto.
-public struct MediaEncoderPathDto: Codable {
+public struct MediaEncoderPathDto: Codable, Hashable {
     /// Gets or sets media encoder path.
     public var path: String?
     /// Gets or sets media encoder path type.

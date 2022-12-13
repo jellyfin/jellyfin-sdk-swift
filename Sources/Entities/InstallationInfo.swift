@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class InstallationInfo.
-public struct InstallationInfo: Codable {
+public struct InstallationInfo: Codable, Hashable {
     /// Gets or sets the changelog for this version.
     public var changelog: String?
     /// Gets or sets a checksum for the binary.

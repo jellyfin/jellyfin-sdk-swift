@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class RemoteImageInfo.
-public struct RemoteImageInfo: Codable {
+public struct RemoteImageInfo: Codable, Hashable {
     /// Gets or sets the community rating.
     public var communityRating: Double?
     /// Gets or sets the height.

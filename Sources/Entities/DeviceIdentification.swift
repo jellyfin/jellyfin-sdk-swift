@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DeviceIdentification: Codable {
+public struct DeviceIdentification: Codable, Hashable {
     /// Gets or sets the name of the friendly.
     public var friendlyName: String?
     /// Gets or sets the headers.

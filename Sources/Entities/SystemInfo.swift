@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SystemInfo.
-public struct SystemInfo: Codable, Identifiable {
+public struct SystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the cache path.
     public var cachePath: String?
     public var canLaunchWebBrowser: Bool?

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct XbmcMetadataOptions: Codable {
+public struct XbmcMetadataOptions: Codable, Hashable {
     public var enableExtraThumbsDuplication: Bool?
     public var enablePathSubstitution: Bool?
     public var releaseDateFormat: String?

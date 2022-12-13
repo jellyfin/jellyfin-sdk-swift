@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct QueryFilters: Codable {
+public struct QueryFilters: Codable, Hashable {
     public var genres: [NameGuidPair]?
     public var tags: [String]?
 

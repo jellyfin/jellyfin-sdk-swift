@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class UserDto.
-public struct UserDto: Codable, Identifiable {
+public struct UserDto: Codable, Hashable, Identifiable {
     /// Gets or sets the configuration.
     public var configuration: UserConfiguration?
     /// Gets or sets whether async login is enabled or not.

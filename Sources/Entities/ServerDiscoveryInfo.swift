@@ -9,7 +9,7 @@
 import Foundation
 
 /// The server discovery info model.
-public struct ServerDiscoveryInfo: Codable, Identifiable {
+public struct ServerDiscoveryInfo: Codable, Hashable, Identifiable {
     /// Gets the address.
     public var address: String?
     /// Gets the endpoint address.

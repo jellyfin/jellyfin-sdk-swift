@@ -9,7 +9,7 @@
 import Foundation
 
 /// The create user by name request body.
-public struct CreateUserByName: Codable {
+public struct CreateUserByName: Codable, Hashable {
     /// Gets or sets the username.
     public var name: String?
     /// Gets or sets the password.

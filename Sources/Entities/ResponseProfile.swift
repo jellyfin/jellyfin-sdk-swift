@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ResponseProfile: Codable {
+public struct ResponseProfile: Codable, Hashable {
     public var audioCodec: String?
     public var conditions: [ProfileCondition]?
     public var container: String?

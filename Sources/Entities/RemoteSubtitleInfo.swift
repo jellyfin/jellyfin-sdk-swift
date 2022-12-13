@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct RemoteSubtitleInfo: Codable, Identifiable {
+public struct RemoteSubtitleInfo: Codable, Hashable, Identifiable {
     public var author: String?
     public var comment: String?
     public var communityRating: Float?

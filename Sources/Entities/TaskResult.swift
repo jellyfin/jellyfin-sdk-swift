@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class TaskExecutionInfo.
-public struct TaskResult: Codable, Identifiable {
+public struct TaskResult: Codable, Hashable, Identifiable {
     /// Gets or sets the end time UTC.
     public var endTimeUtc: Date?
     /// Gets or sets the error message.

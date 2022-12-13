@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class ImageProviderInfo.
-public struct ImageProviderInfo: Codable {
+public struct ImageProviderInfo: Codable, Hashable {
     /// Gets the name.
     public var name: String?
     /// Gets the supported image types.

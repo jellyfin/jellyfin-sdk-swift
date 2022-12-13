@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class LibraryUpdateInfo.
-public struct LibraryUpdateInfo: Codable {
+public struct LibraryUpdateInfo: Codable, Hashable {
     public var collectionFolders: [String]?
     /// Gets or sets the folders added to.
     public var foldersAddedTo: [String]?

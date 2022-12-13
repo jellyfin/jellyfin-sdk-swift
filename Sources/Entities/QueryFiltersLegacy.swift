@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct QueryFiltersLegacy: Codable {
+public struct QueryFiltersLegacy: Codable, Hashable {
     public var genres: [String]?
     public var officialRatings: [String]?
     public var tags: [String]?

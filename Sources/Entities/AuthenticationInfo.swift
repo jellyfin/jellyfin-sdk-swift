@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct AuthenticationInfo: Codable, Identifiable {
+public struct AuthenticationInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the access token.
     public var accessToken: String?
     /// Gets or sets the name of the application.

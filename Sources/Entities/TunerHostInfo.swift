@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TunerHostInfo: Codable, Identifiable {
+public struct TunerHostInfo: Codable, Hashable, Identifiable {
     public var allowHWTranscoding: Bool?
     public var deviceID: String?
     public var enableStreamLooping: Bool?

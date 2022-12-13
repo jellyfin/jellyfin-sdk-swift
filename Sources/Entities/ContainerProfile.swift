@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ContainerProfile: Codable {
+public struct ContainerProfile: Codable, Hashable {
     public var conditions: [ProfileCondition]?
     public var container: String?
     public var type: DlnaProfileType?

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class CountryInfo.
-public struct CountryInfo: Codable {
+public struct CountryInfo: Codable, Hashable {
     /// Gets or sets the display name.
     public var displayName: String?
     /// Gets or sets the name.

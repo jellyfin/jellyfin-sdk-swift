@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TimerEventInfo: Codable, Identifiable {
+public struct TimerEventInfo: Codable, Hashable, Identifiable {
     public var id: String?
     public var programID: String?
 

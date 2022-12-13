@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ForgotPasswordResult: Codable {
+public struct ForgotPasswordResult: Codable, Hashable {
     /// Gets or sets the action.
     public var action: ForgotPasswordAction?
     /// Gets or sets the pin expiration date.

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ProfileCondition: Codable {
+public struct ProfileCondition: Codable, Hashable {
     public var condition: ProfileConditionType?
     public var isRequired: Bool?
     public var property: ProfileConditionValue?

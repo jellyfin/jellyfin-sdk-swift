@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class MetadataOptions.
-public struct MetadataOptions: Codable {
+public struct MetadataOptions: Codable, Hashable {
     public var disabledImageFetchers: [String]?
     public var disabledMetadataFetchers: [String]?
     public var disabledMetadataSavers: [String]?

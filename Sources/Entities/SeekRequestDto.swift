@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class SeekRequestDto.
-public struct SeekRequestDto: Codable {
+public struct SeekRequestDto: Codable, Hashable {
     /// Gets or sets the position ticks.
     public var positionTicks: Int64?
 

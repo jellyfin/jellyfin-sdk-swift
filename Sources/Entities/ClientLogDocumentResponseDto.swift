@@ -9,7 +9,7 @@
 import Foundation
 
 /// Client log document response dto.
-public struct ClientLogDocumentResponseDto: Codable {
+public struct ClientLogDocumentResponseDto: Codable, Hashable {
     /// Gets the resulting filename.
     public var fileName: String?
 

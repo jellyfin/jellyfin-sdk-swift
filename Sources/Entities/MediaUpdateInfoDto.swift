@@ -9,7 +9,7 @@
 import Foundation
 
 /// Media Update Info Dto.
-public struct MediaUpdateInfoDto: Codable {
+public struct MediaUpdateInfoDto: Codable, Hashable {
     /// Gets or sets the list of updates.
     public var updates: [MediaUpdateInfoPathDto]?
 

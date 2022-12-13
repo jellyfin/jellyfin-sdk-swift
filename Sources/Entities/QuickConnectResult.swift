@@ -9,7 +9,7 @@
 import Foundation
 
 /// Stores the state of an quick connect request.
-public struct QuickConnectResult: Codable {
+public struct QuickConnectResult: Codable, Hashable {
     /// Gets the requesting app name.
     public var appName: String?
     /// Gets the requesting app version.

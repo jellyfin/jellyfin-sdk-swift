@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ActivityLogEntryQueryResult: Codable {
+public struct ActivityLogEntryQueryResult: Codable, Hashable {
     /// Gets or sets the items.
     public var items: [ActivityLogEntry]?
     /// Gets or sets the index of the first record in Items.

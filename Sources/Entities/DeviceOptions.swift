@@ -9,7 +9,7 @@
 import Foundation
 
 /// An entity representing custom options for a device.
-public struct DeviceOptions: Codable, Identifiable {
+public struct DeviceOptions: Codable, Hashable, Identifiable {
     /// Gets or sets the custom name.
     public var customName: String?
     /// Gets the device id.

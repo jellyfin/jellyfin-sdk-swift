@@ -9,7 +9,7 @@
 import Foundation
 
 /// Get programs dto.
-public struct GetProgramsDto: Codable {
+public struct GetProgramsDto: Codable, Hashable {
     /// Gets or sets the channels to return guide information for.
     public var channelIDs: [String]?
     /// Gets or sets the image types to include in the output.

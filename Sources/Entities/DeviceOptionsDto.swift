@@ -9,7 +9,7 @@
 import Foundation
 
 /// A dto representing custom options for a device.
-public struct DeviceOptionsDto: Codable, Identifiable {
+public struct DeviceOptionsDto: Codable, Hashable, Identifiable {
     /// Gets or sets the custom name.
     public var customName: String?
     /// Gets or sets the device id.
