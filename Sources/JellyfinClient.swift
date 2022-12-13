@@ -248,14 +248,36 @@ public extension JellyfinClient {
         return response
     }
 
-    /// Signs out the current user with the server by revoking the current access token
+    /// Signs in a user given a Quick Connect secret.
     ///
-    /// - Throws: `ClientError.noAccessTokenSet` if no access token has currently been set
-    func signOut() async throws {
-        guard let accessToken = self.accessToken else { throw ClientError.noAccessTokenSet }
+    /// - Note: Overrides the current access token if one was previously set. Save this token locally or revoke it with `signOut` for proper access token management.
+    ///
+    /// - Parameters:
+    ///   - quickConnectSecret: current Quick Connect secret
+    ///
+    /// - Throws: `ClientError.noAccessTokenInResponse` if no access token was supplied in a successful authentication response
+    @discardableResult
+    func signIn(quickConnectSecret: String) async throws -> AuthenticationResult {
+        let quickConnectRequest = Paths.authenticateWithQuickConnect(.init(secret: quickConnectSecret))
+        let response = try await send(quickConnectRequest).value
 
-        let revokeKeyRequest = Paths.revokeKey(key: accessToken)
-        try await send(revokeKeyRequest)
+        if let accessToken = response.accessToken {
+            self.accessToken = accessToken
+        } else {
+            throw ClientError.noAccessTokenInResponse
+        }
+
+        return response
+    }
+
+    /// Signs out the current user with the server by revoking the current access token if one is set.
+    /// Overrides the current access token if the revoke was successful.
+    func signOut() async throws {
+        if let accessToken {
+            let revokeKeyRequest = Paths.revokeKey(key: accessToken)
+            try await send(revokeKeyRequest)
+        }
+
         self.accessToken = nil
     }
 }
@@ -266,14 +288,11 @@ extension JellyfinClient {
 
     enum ClientError: Error {
         case noAccessTokenInResponse
-        case noAccessTokenSet
 
         var localizedDescription: String {
             switch self {
             case .noAccessTokenInResponse:
                 return "No access token in authenticated response"
-            case .noAccessTokenSet:
-                return "No access token to revoke"
             }
         }
     }
