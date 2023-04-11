@@ -61,7 +61,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     /// Gets or sets the child count.
     public var childCount: Int?
     /// Gets or sets the type of the collection.
-    public var collectionType: String?
+    public var collectionType: CollectionTypeOptions?
     /// Gets or sets the community rating.
     public var communityRating: Float?
     /// Gets or sets the completion percentage.
@@ -92,7 +92,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var exposureTime: Double?
     /// Gets or sets the external urls.
     public var externalURLs: [ExternalURL]?
-    public var extraType: String?
+    public var extraType: SpecialFeatureType?
     public var focalLength: Double?
     public var forcedSortName: String?
     public var genreItems: [NameGuidPair]?
@@ -394,7 +394,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         channelType: ChannelType? = nil,
         chapters: [ChapterInfo]? = nil,
         childCount: Int? = nil,
-        collectionType: String? = nil,
+        collectionType: CollectionTypeOptions? = nil,
         communityRating: Float? = nil,
         completionPercentage: Double? = nil,
         container: String? = nil,
@@ -412,7 +412,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         etag: String? = nil,
         exposureTime: Double? = nil,
         externalURLs: [ExternalURL]? = nil,
-        extraType: String? = nil,
+        extraType: SpecialFeatureType? = nil,
         focalLength: Double? = nil,
         forcedSortName: String? = nil,
         genreItems: [NameGuidPair]? = nil,
@@ -699,7 +699,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.channelType = try values.decodeIfPresent(ChannelType.self, forKey: "ChannelType")
         self.chapters = try values.decodeIfPresent([ChapterInfo].self, forKey: "Chapters")
         self.childCount = try values.decodeIfPresent(Int.self, forKey: "ChildCount")
-        self.collectionType = try values.decodeIfPresent(String.self, forKey: "CollectionType")
+        self.collectionType = try values.decodeIfPresent(CollectionTypeOptions.self, forKey: "CollectionType")
         self.communityRating = try values.decodeIfPresent(Float.self, forKey: "CommunityRating")
         self.completionPercentage = try values.decodeIfPresent(Double.self, forKey: "CompletionPercentage")
         self.container = try values.decodeIfPresent(String.self, forKey: "Container")
@@ -717,7 +717,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.etag = try values.decodeIfPresent(String.self, forKey: "Etag")
         self.exposureTime = try values.decodeIfPresent(Double.self, forKey: "ExposureTime")
         self.externalURLs = try values.decodeIfPresent([ExternalURL].self, forKey: "ExternalUrls")
-        self.extraType = try values.decodeIfPresent(String.self, forKey: "ExtraType")
+        self.extraType = try values.decodeIfPresent(SpecialFeatureType.self, forKey: "ExtraType")
         self.focalLength = try values.decodeIfPresent(Double.self, forKey: "FocalLength")
         self.forcedSortName = try values.decodeIfPresent(String.self, forKey: "ForcedSortName")
         self.genreItems = try values.decodeIfPresent([NameGuidPair].self, forKey: "GenreItems")
