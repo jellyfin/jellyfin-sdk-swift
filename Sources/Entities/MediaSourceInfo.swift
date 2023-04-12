@@ -3,18 +3,18 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct MediaSourceInfo: Codable, Identifiable {
-    public var analyzeDurationMs: Int32?
-    public var bitrate: Int32?
-    public var bufferMs: Int32?
+public struct MediaSourceInfo: Codable, Hashable, Identifiable {
+    public var analyzeDurationMs: Int?
+    public var bitrate: Int?
+    public var bufferMs: Int?
     public var container: String?
-    public var defaultAudioStreamIndex: Int32?
-    public var defaultSubtitleStreamIndex: Int32?
+    public var defaultAudioStreamIndex: Int?
+    public var defaultSubtitleStreamIndex: Int?
     public var eTag: String?
     public var encoderPath: String?
     public var encoderProtocol: MediaProtocol?
@@ -41,8 +41,8 @@ public struct MediaSourceInfo: Codable, Identifiable {
     public var requiresClosing: Bool?
     public var requiresLooping: Bool?
     public var requiresOpening: Bool?
-    public var runTimeTicks: Int64?
-    public var size: Int64?
+    public var runTimeTicks: Int?
+    public var size: Int?
     public var isSupportsDirectPlay: Bool?
     public var isSupportsDirectStream: Bool?
     public var isSupportsProbing: Bool?
@@ -56,12 +56,12 @@ public struct MediaSourceInfo: Codable, Identifiable {
     public var videoType: VideoType?
 
     public init(
-        analyzeDurationMs: Int32? = nil,
-        bitrate: Int32? = nil,
-        bufferMs: Int32? = nil,
+        analyzeDurationMs: Int? = nil,
+        bitrate: Int? = nil,
+        bufferMs: Int? = nil,
         container: String? = nil,
-        defaultAudioStreamIndex: Int32? = nil,
-        defaultSubtitleStreamIndex: Int32? = nil,
+        defaultAudioStreamIndex: Int? = nil,
+        defaultSubtitleStreamIndex: Int? = nil,
         eTag: String? = nil,
         encoderPath: String? = nil,
         encoderProtocol: MediaProtocol? = nil,
@@ -85,8 +85,8 @@ public struct MediaSourceInfo: Codable, Identifiable {
         requiresClosing: Bool? = nil,
         requiresLooping: Bool? = nil,
         requiresOpening: Bool? = nil,
-        runTimeTicks: Int64? = nil,
-        size: Int64? = nil,
+        runTimeTicks: Int? = nil,
+        size: Int? = nil,
         isSupportsDirectPlay: Bool? = nil,
         isSupportsDirectStream: Bool? = nil,
         isSupportsProbing: Bool? = nil,
@@ -145,12 +145,12 @@ public struct MediaSourceInfo: Codable, Identifiable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.analyzeDurationMs = try values.decodeIfPresent(Int32.self, forKey: "AnalyzeDurationMs")
-        self.bitrate = try values.decodeIfPresent(Int32.self, forKey: "Bitrate")
-        self.bufferMs = try values.decodeIfPresent(Int32.self, forKey: "BufferMs")
+        self.analyzeDurationMs = try values.decodeIfPresent(Int.self, forKey: "AnalyzeDurationMs")
+        self.bitrate = try values.decodeIfPresent(Int.self, forKey: "Bitrate")
+        self.bufferMs = try values.decodeIfPresent(Int.self, forKey: "BufferMs")
         self.container = try values.decodeIfPresent(String.self, forKey: "Container")
-        self.defaultAudioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "DefaultAudioStreamIndex")
-        self.defaultSubtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "DefaultSubtitleStreamIndex")
+        self.defaultAudioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "DefaultAudioStreamIndex")
+        self.defaultSubtitleStreamIndex = try values.decodeIfPresent(Int.self, forKey: "DefaultSubtitleStreamIndex")
         self.eTag = try values.decodeIfPresent(String.self, forKey: "ETag")
         self.encoderPath = try values.decodeIfPresent(String.self, forKey: "EncoderPath")
         self.encoderProtocol = try values.decodeIfPresent(MediaProtocol.self, forKey: "EncoderProtocol")
@@ -174,8 +174,8 @@ public struct MediaSourceInfo: Codable, Identifiable {
         self.requiresClosing = try values.decodeIfPresent(Bool.self, forKey: "RequiresClosing")
         self.requiresLooping = try values.decodeIfPresent(Bool.self, forKey: "RequiresLooping")
         self.requiresOpening = try values.decodeIfPresent(Bool.self, forKey: "RequiresOpening")
-        self.runTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "RunTimeTicks")
-        self.size = try values.decodeIfPresent(Int64.self, forKey: "Size")
+        self.runTimeTicks = try values.decodeIfPresent(Int.self, forKey: "RunTimeTicks")
+        self.size = try values.decodeIfPresent(Int.self, forKey: "Size")
         self.isSupportsDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "SupportsDirectPlay")
         self.isSupportsDirectStream = try values.decodeIfPresent(Bool.self, forKey: "SupportsDirectStream")
         self.isSupportsProbing = try values.decodeIfPresent(Bool.self, forKey: "SupportsProbing")

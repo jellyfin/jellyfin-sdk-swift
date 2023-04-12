@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SystemInfo.
-public struct SystemInfo: Codable, Identifiable {
+public struct SystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the cache path.
     public var cachePath: String?
     public var canLaunchWebBrowser: Bool?
@@ -62,7 +62,7 @@ public struct SystemInfo: Codable, Identifiable {
     /// Gets or sets the web UI resources path.
     public var webPath: String?
     /// Gets or sets the web socket port number.
-    public var webSocketPortNumber: Int32?
+    public var webSocketPortNumber: Int?
 
     public init(
         cachePath: String? = nil,
@@ -90,7 +90,7 @@ public struct SystemInfo: Codable, Identifiable {
         transcodingTempPath: String? = nil,
         version: String? = nil,
         webPath: String? = nil,
-        webSocketPortNumber: Int32? = nil
+        webSocketPortNumber: Int? = nil
     ) {
         self.cachePath = cachePath
         self.canLaunchWebBrowser = canLaunchWebBrowser
@@ -147,7 +147,7 @@ public struct SystemInfo: Codable, Identifiable {
         self.transcodingTempPath = try values.decodeIfPresent(String.self, forKey: "TranscodingTempPath")
         self.version = try values.decodeIfPresent(String.self, forKey: "Version")
         self.webPath = try values.decodeIfPresent(String.self, forKey: "WebPath")
-        self.webSocketPortNumber = try values.decodeIfPresent(Int32.self, forKey: "WebSocketPortNumber")
+        self.webSocketPortNumber = try values.decodeIfPresent(Int.self, forKey: "WebSocketPortNumber")
     }
 
     public func encode(to encoder: Encoder) throws {

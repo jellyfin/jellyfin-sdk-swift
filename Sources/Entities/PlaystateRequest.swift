@@ -3,19 +3,19 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct PlaystateRequest: Codable {
+public struct PlaystateRequest: Codable, Hashable {
     /// Enum PlaystateCommand.
     public var command: PlaystateCommand?
     /// Gets or sets the controlling user identifier.
     public var controllingUserID: String?
-    public var seekPositionTicks: Int64?
+    public var seekPositionTicks: Int?
 
-    public init(command: PlaystateCommand? = nil, controllingUserID: String? = nil, seekPositionTicks: Int64? = nil) {
+    public init(command: PlaystateCommand? = nil, controllingUserID: String? = nil, seekPositionTicks: Int? = nil) {
         self.command = command
         self.controllingUserID = controllingUserID
         self.seekPositionTicks = seekPositionTicks
@@ -25,7 +25,7 @@ public struct PlaystateRequest: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.command = try values.decodeIfPresent(PlaystateCommand.self, forKey: "Command")
         self.controllingUserID = try values.decodeIfPresent(String.self, forKey: "ControllingUserId")
-        self.seekPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "SeekPositionTicks")
+        self.seekPositionTicks = try values.decodeIfPresent(Int.self, forKey: "SeekPositionTicks")
     }
 
     public func encode(to encoder: Encoder) throws {

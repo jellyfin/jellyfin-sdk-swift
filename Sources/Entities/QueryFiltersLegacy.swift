@@ -3,18 +3,18 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct QueryFiltersLegacy: Codable {
+public struct QueryFiltersLegacy: Codable, Hashable {
     public var genres: [String]?
     public var officialRatings: [String]?
     public var tags: [String]?
-    public var years: [Int32]?
+    public var years: [Int]?
 
-    public init(genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int32]? = nil) {
+    public init(genres: [String]? = nil, officialRatings: [String]? = nil, tags: [String]? = nil, years: [Int]? = nil) {
         self.genres = genres
         self.officialRatings = officialRatings
         self.tags = tags
@@ -26,7 +26,7 @@ public struct QueryFiltersLegacy: Codable {
         self.genres = try values.decodeIfPresent([String].self, forKey: "Genres")
         self.officialRatings = try values.decodeIfPresent([String].self, forKey: "OfficialRatings")
         self.tags = try values.decodeIfPresent([String].self, forKey: "Tags")
-        self.years = try values.decodeIfPresent([Int32].self, forKey: "Years")
+        self.years = try values.decodeIfPresent([Int].self, forKey: "Years")
     }
 
     public func encode(to encoder: Encoder) throws {

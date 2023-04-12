@@ -3,12 +3,12 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct ListingsProviderInfo: Codable, Identifiable {
+public struct ListingsProviderInfo: Codable, Hashable, Identifiable {
     public var channelMappings: [NameValuePair]?
     public var country: String?
     public var enableAllTuners: Bool?

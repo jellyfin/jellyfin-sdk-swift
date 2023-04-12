@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -30,14 +30,14 @@ public extension Paths {
         public var isNews: Bool?
         public var isKids: Bool?
         public var isSports: Bool?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var sortBy: [String]?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var genres: [String]?
         public var genreIDs: [String]?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
         public var seriesTimerID: String?
@@ -59,14 +59,14 @@ public extension Paths {
             isNews: Bool? = nil,
             isKids: Bool? = nil,
             isSports: Bool? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             sortBy: [String]? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             genres: [String]? = nil,
             genreIDs: [String]? = nil,
             enableImages: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             enableUserData: Bool? = nil,
             seriesTimerID: String? = nil,

@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SearchHintResult.
-public struct SearchHint: Codable, Identifiable {
+public struct SearchHint: Codable, Hashable, Identifiable {
     /// Gets or sets the album.
     public var album: String?
     /// Gets or sets the album artist.
@@ -27,10 +27,10 @@ public struct SearchHint: Codable, Identifiable {
     public var channelName: String?
     public var endDate: Date?
     /// Gets or sets the episode count.
-    public var episodeCount: Int32?
+    public var episodeCount: Int?
     public var id: String?
     /// Gets or sets the index number.
-    public var indexNumber: Int32?
+    public var indexNumber: Int?
     public var isFolder: Bool?
     /// Gets or sets the item id.
     public var itemID: String?
@@ -41,19 +41,19 @@ public struct SearchHint: Codable, Identifiable {
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the parent index number.
-    public var parentIndexNumber: Int32?
+    public var parentIndexNumber: Int?
     /// Gets or sets the primary image aspect ratio.
     public var primaryImageAspectRatio: Double?
     /// Gets or sets the image tag.
     public var primaryImageTag: String?
     /// Gets or sets the production year.
-    public var productionYear: Int32?
+    public var productionYear: Int?
     /// Gets or sets the run time ticks.
-    public var runTimeTicks: Int64?
+    public var runTimeTicks: Int?
     /// Gets or sets the series.
     public var series: String?
     /// Gets or sets the song count.
-    public var songCount: Int32?
+    public var songCount: Int?
     public var startDate: Date?
     public var status: String?
     /// Gets or sets the thumb image item identifier.
@@ -73,21 +73,21 @@ public struct SearchHint: Codable, Identifiable {
         channelID: String? = nil,
         channelName: String? = nil,
         endDate: Date? = nil,
-        episodeCount: Int32? = nil,
+        episodeCount: Int? = nil,
         id: String? = nil,
-        indexNumber: Int32? = nil,
+        indexNumber: Int? = nil,
         isFolder: Bool? = nil,
         itemID: String? = nil,
         matchedTerm: String? = nil,
         mediaType: String? = nil,
         name: String? = nil,
-        parentIndexNumber: Int32? = nil,
+        parentIndexNumber: Int? = nil,
         primaryImageAspectRatio: Double? = nil,
         primaryImageTag: String? = nil,
-        productionYear: Int32? = nil,
-        runTimeTicks: Int64? = nil,
+        productionYear: Int? = nil,
+        runTimeTicks: Int? = nil,
         series: String? = nil,
-        songCount: Int32? = nil,
+        songCount: Int? = nil,
         startDate: Date? = nil,
         status: String? = nil,
         thumbImageItemID: String? = nil,
@@ -136,21 +136,21 @@ public struct SearchHint: Codable, Identifiable {
         self.channelID = try values.decodeIfPresent(String.self, forKey: "ChannelId")
         self.channelName = try values.decodeIfPresent(String.self, forKey: "ChannelName")
         self.endDate = try values.decodeIfPresent(Date.self, forKey: "EndDate")
-        self.episodeCount = try values.decodeIfPresent(Int32.self, forKey: "EpisodeCount")
+        self.episodeCount = try values.decodeIfPresent(Int.self, forKey: "EpisodeCount")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.indexNumber = try values.decodeIfPresent(Int32.self, forKey: "IndexNumber")
+        self.indexNumber = try values.decodeIfPresent(Int.self, forKey: "IndexNumber")
         self.isFolder = try values.decodeIfPresent(Bool.self, forKey: "IsFolder")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.matchedTerm = try values.decodeIfPresent(String.self, forKey: "MatchedTerm")
         self.mediaType = try values.decodeIfPresent(String.self, forKey: "MediaType")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.parentIndexNumber = try values.decodeIfPresent(Int32.self, forKey: "ParentIndexNumber")
+        self.parentIndexNumber = try values.decodeIfPresent(Int.self, forKey: "ParentIndexNumber")
         self.primaryImageAspectRatio = try values.decodeIfPresent(Double.self, forKey: "PrimaryImageAspectRatio")
         self.primaryImageTag = try values.decodeIfPresent(String.self, forKey: "PrimaryImageTag")
-        self.productionYear = try values.decodeIfPresent(Int32.self, forKey: "ProductionYear")
-        self.runTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "RunTimeTicks")
+        self.productionYear = try values.decodeIfPresent(Int.self, forKey: "ProductionYear")
+        self.runTimeTicks = try values.decodeIfPresent(Int.self, forKey: "RunTimeTicks")
         self.series = try values.decodeIfPresent(String.self, forKey: "Series")
-        self.songCount = try values.decodeIfPresent(Int32.self, forKey: "SongCount")
+        self.songCount = try values.decodeIfPresent(Int.self, forKey: "SongCount")
         self.startDate = try values.decodeIfPresent(Date.self, forKey: "StartDate")
         self.status = try values.decodeIfPresent(String.self, forKey: "Status")
         self.thumbImageItemID = try values.decodeIfPresent(String.self, forKey: "ThumbImageItemId")

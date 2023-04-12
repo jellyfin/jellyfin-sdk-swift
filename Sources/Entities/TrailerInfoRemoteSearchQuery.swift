@@ -3,12 +3,12 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct TrailerInfoRemoteSearchQuery: Codable {
+public struct TrailerInfoRemoteSearchQuery: Codable, Hashable {
     /// Gets or sets a value indicating whether disabled providers should be included.
     public var isIncludeDisabledProviders: Bool?
     public var itemID: String?

@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -18,7 +18,7 @@ public extension Paths {
 
     struct GetRecommendedProgramsParameters {
         public var userID: String?
-        public var limit: Int32?
+        public var limit: Int?
         public var isAiring: Bool?
         public var hasAired: Bool?
         public var isSeries: Bool?
@@ -27,7 +27,7 @@ public extension Paths {
         public var isKids: Bool?
         public var isSports: Bool?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var genreIDs: [String]?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -36,7 +36,7 @@ public extension Paths {
 
         public init(
             userID: String? = nil,
-            limit: Int32? = nil,
+            limit: Int? = nil,
             isAiring: Bool? = nil,
             hasAired: Bool? = nil,
             isSeries: Bool? = nil,
@@ -45,7 +45,7 @@ public extension Paths {
             isKids: Bool? = nil,
             isSports: Bool? = nil,
             enableImages: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             genreIDs: [String]? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,

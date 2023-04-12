@@ -3,20 +3,20 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct ImageOption: Codable {
+public struct ImageOption: Codable, Hashable {
     /// Gets or sets the limit.
-    public var limit: Int32?
+    public var limit: Int?
     /// Gets or sets the minimum width.
-    public var minWidth: Int32?
+    public var minWidth: Int?
     /// Gets or sets the type.
     public var type: ImageType?
 
-    public init(limit: Int32? = nil, minWidth: Int32? = nil, type: ImageType? = nil) {
+    public init(limit: Int? = nil, minWidth: Int? = nil, type: ImageType? = nil) {
         self.limit = limit
         self.minWidth = minWidth
         self.type = type
@@ -24,8 +24,8 @@ public struct ImageOption: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.limit = try values.decodeIfPresent(Int32.self, forKey: "Limit")
-        self.minWidth = try values.decodeIfPresent(Int32.self, forKey: "MinWidth")
+        self.limit = try values.decodeIfPresent(Int.self, forKey: "Limit")
+        self.minWidth = try values.decodeIfPresent(Int.self, forKey: "MinWidth")
         self.type = try values.decodeIfPresent(ImageType.self, forKey: "Type")
     }
 

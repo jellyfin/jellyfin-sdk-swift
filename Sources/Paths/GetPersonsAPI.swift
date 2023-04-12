@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -17,13 +17,13 @@ public extension Paths {
     }
 
     struct GetPersonsParameters {
-        public var limit: Int32?
+        public var limit: Int?
         public var searchTerm: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var isFavorite: Bool?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var excludePersonTypes: [String]?
         public var personTypes: [String]?
@@ -32,13 +32,13 @@ public extension Paths {
         public var enableImages: Bool?
 
         public init(
-            limit: Int32? = nil,
+            limit: Int? = nil,
             searchTerm: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             filters: [JellyfinAPI.ItemFilter]? = nil,
             isFavorite: Bool? = nil,
             enableUserData: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             excludePersonTypes: [String]? = nil,
             personTypes: [String]? = nil,

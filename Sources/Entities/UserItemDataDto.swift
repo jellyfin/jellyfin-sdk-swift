@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class UserItemDataDto.
-public struct UserItemDataDto: Codable {
+public struct UserItemDataDto: Codable, Hashable {
     /// Gets or sets a value indicating whether this instance is favorite.
     public var isFavorite: Bool?
     /// Gets or sets the item identifier.
@@ -21,9 +21,9 @@ public struct UserItemDataDto: Codable {
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Dto.UserItemDataDto is likes.
     public var isLikes: Bool?
     /// Gets or sets the play count.
-    public var playCount: Int32?
+    public var playCount: Int?
     /// Gets or sets the playback position ticks.
-    public var playbackPositionTicks: Int64?
+    public var playbackPositionTicks: Int?
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Dto.UserItemDataDto is played.
     public var isPlayed: Bool?
     /// Gets or sets the played percentage.
@@ -31,7 +31,7 @@ public struct UserItemDataDto: Codable {
     /// Gets or sets the rating.
     public var rating: Double?
     /// Gets or sets the unplayed item count.
-    public var unplayedItemCount: Int32?
+    public var unplayedItemCount: Int?
 
     public init(
         isFavorite: Bool? = nil,
@@ -39,12 +39,12 @@ public struct UserItemDataDto: Codable {
         key: String? = nil,
         lastPlayedDate: Date? = nil,
         isLikes: Bool? = nil,
-        playCount: Int32? = nil,
-        playbackPositionTicks: Int64? = nil,
+        playCount: Int? = nil,
+        playbackPositionTicks: Int? = nil,
         isPlayed: Bool? = nil,
         playedPercentage: Double? = nil,
         rating: Double? = nil,
-        unplayedItemCount: Int32? = nil
+        unplayedItemCount: Int? = nil
     ) {
         self.isFavorite = isFavorite
         self.itemID = itemID
@@ -66,12 +66,12 @@ public struct UserItemDataDto: Codable {
         self.key = try values.decodeIfPresent(String.self, forKey: "Key")
         self.lastPlayedDate = try values.decodeIfPresent(Date.self, forKey: "LastPlayedDate")
         self.isLikes = try values.decodeIfPresent(Bool.self, forKey: "Likes")
-        self.playCount = try values.decodeIfPresent(Int32.self, forKey: "PlayCount")
-        self.playbackPositionTicks = try values.decodeIfPresent(Int64.self, forKey: "PlaybackPositionTicks")
+        self.playCount = try values.decodeIfPresent(Int.self, forKey: "PlayCount")
+        self.playbackPositionTicks = try values.decodeIfPresent(Int.self, forKey: "PlaybackPositionTicks")
         self.isPlayed = try values.decodeIfPresent(Bool.self, forKey: "Played")
         self.playedPercentage = try values.decodeIfPresent(Double.self, forKey: "PlayedPercentage")
         self.rating = try values.decodeIfPresent(Double.self, forKey: "Rating")
-        self.unplayedItemCount = try values.decodeIfPresent(Int32.self, forKey: "UnplayedItemCount")
+        self.unplayedItemCount = try values.decodeIfPresent(Int.self, forKey: "UnplayedItemCount")
     }
 
     public func encode(to encoder: Encoder) throws {

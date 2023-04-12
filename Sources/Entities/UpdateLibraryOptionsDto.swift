@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Update library options dto.
-public struct UpdateLibraryOptionsDto: Codable, Identifiable {
+public struct UpdateLibraryOptionsDto: Codable, Hashable, Identifiable {
     /// Gets or sets the library item id.
     public var id: String?
     /// Gets or sets library options.

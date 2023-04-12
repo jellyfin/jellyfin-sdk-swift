@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -19,15 +19,15 @@ public extension Paths {
     struct GetEpisodesParameters {
         public var userID: String?
         public var fields: [JellyfinAPI.ItemFields]?
-        public var season: Int32?
+        public var season: Int?
         public var seasonID: String?
         public var isMissing: Bool?
         public var adjacentTo: String?
         public var startItemID: String?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var enableImages: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
         public var sortBy: String?
@@ -35,15 +35,15 @@ public extension Paths {
         public init(
             userID: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
-            season: Int32? = nil,
+            season: Int? = nil,
             seasonID: String? = nil,
             isMissing: Bool? = nil,
             adjacentTo: String? = nil,
             startItemID: String? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             enableImages: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             enableUserData: Bool? = nil,
             sortBy: String? = nil

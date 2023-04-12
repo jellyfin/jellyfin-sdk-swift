@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -17,15 +17,15 @@ public extension Paths {
     }
 
     struct GetGenresParameters {
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var searchTerm: String?
         public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var isFavorite: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var userID: String?
         public var nameStartsWithOrGreater: String?
@@ -37,15 +37,15 @@ public extension Paths {
         public var enableTotalRecordCount: Bool?
 
         public init(
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             searchTerm: String? = nil,
             parentID: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             isFavorite: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             userID: String? = nil,
             nameStartsWithOrGreater: String? = nil,

@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// This is a serializable stub class that is used by the api to provide information about installed plugins.
-public struct PluginInfo: Codable, Identifiable {
+public struct PluginInfo: Codable, Hashable, Identifiable {
     /// Gets or sets a value indicating whether the plugin can be uninstalled.
     public var canUninstall: Bool?
     /// Gets or sets the name of the configuration file.

@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SendCommand.
-public struct SendCommand: Codable {
+public struct SendCommand: Codable, Hashable {
     /// Gets the command.
     public var command: SendCommandType?
     /// Gets the UTC time when this command has been emitted.
@@ -19,7 +19,7 @@ public struct SendCommand: Codable {
     /// Gets the playlist identifier of the playing item.
     public var playlistItemID: String?
     /// Gets the position ticks.
-    public var positionTicks: Int64?
+    public var positionTicks: Int?
     /// Gets or sets the UTC time when to execute the command.
     public var when: Date?
 
@@ -28,7 +28,7 @@ public struct SendCommand: Codable {
         emittedAt: Date? = nil,
         groupID: String? = nil,
         playlistItemID: String? = nil,
-        positionTicks: Int64? = nil,
+        positionTicks: Int? = nil,
         when: Date? = nil
     ) {
         self.command = command
@@ -45,7 +45,7 @@ public struct SendCommand: Codable {
         self.emittedAt = try values.decodeIfPresent(Date.self, forKey: "EmittedAt")
         self.groupID = try values.decodeIfPresent(String.self, forKey: "GroupId")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
-        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
         self.when = try values.decodeIfPresent(Date.self, forKey: "When")
     }
 

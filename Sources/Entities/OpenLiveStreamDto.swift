@@ -3,15 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Open live stream dto.
-public struct OpenLiveStreamDto: Codable {
+public struct OpenLiveStreamDto: Codable, Hashable {
     /// Gets or sets the audio stream index.
-    public var audioStreamIndex: Int32?
+    public var audioStreamIndex: Int?
     /// Gets or sets the device profile.
     public var deviceProfile: DeviceProfile?
     /// Gets or sets the device play protocols.
@@ -23,33 +23,33 @@ public struct OpenLiveStreamDto: Codable {
     /// Gets or sets the item id.
     public var itemID: String?
     /// Gets or sets the max audio channels.
-    public var maxAudioChannels: Int32?
+    public var maxAudioChannels: Int?
     /// Gets or sets the max streaming bitrate.
-    public var maxStreamingBitrate: Int32?
+    public var maxStreamingBitrate: Int?
     /// Gets or sets the open token.
     public var openToken: String?
     /// Gets or sets the play session id.
     public var playSessionID: String?
     /// Gets or sets the start time in ticks.
-    public var startTimeTicks: Int64?
+    public var startTimeTicks: Int?
     /// Gets or sets the subtitle stream index.
-    public var subtitleStreamIndex: Int32?
+    public var subtitleStreamIndex: Int?
     /// Gets or sets the user id.
     public var userID: String?
 
     public init(
-        audioStreamIndex: Int32? = nil,
+        audioStreamIndex: Int? = nil,
         deviceProfile: DeviceProfile? = nil,
         directPlayProtocols: [MediaProtocol]? = nil,
         enableDirectPlay: Bool? = nil,
         enableDirectStream: Bool? = nil,
         itemID: String? = nil,
-        maxAudioChannels: Int32? = nil,
-        maxStreamingBitrate: Int32? = nil,
+        maxAudioChannels: Int? = nil,
+        maxStreamingBitrate: Int? = nil,
         openToken: String? = nil,
         playSessionID: String? = nil,
-        startTimeTicks: Int64? = nil,
-        subtitleStreamIndex: Int32? = nil,
+        startTimeTicks: Int? = nil,
+        subtitleStreamIndex: Int? = nil,
         userID: String? = nil
     ) {
         self.audioStreamIndex = audioStreamIndex
@@ -69,18 +69,18 @@ public struct OpenLiveStreamDto: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.audioStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "AudioStreamIndex")
+        self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
         self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
         self.directPlayProtocols = try values.decodeIfPresent([MediaProtocol].self, forKey: "DirectPlayProtocols")
         self.enableDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectPlay")
         self.enableDirectStream = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectStream")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
-        self.maxAudioChannels = try values.decodeIfPresent(Int32.self, forKey: "MaxAudioChannels")
-        self.maxStreamingBitrate = try values.decodeIfPresent(Int32.self, forKey: "MaxStreamingBitrate")
+        self.maxAudioChannels = try values.decodeIfPresent(Int.self, forKey: "MaxAudioChannels")
+        self.maxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStreamingBitrate")
         self.openToken = try values.decodeIfPresent(String.self, forKey: "OpenToken")
         self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
-        self.startTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "StartTimeTicks")
-        self.subtitleStreamIndex = try values.decodeIfPresent(Int32.self, forKey: "SubtitleStreamIndex")
+        self.startTimeTicks = try values.decodeIfPresent(Int.self, forKey: "StartTimeTicks")
+        self.subtitleStreamIndex = try values.decodeIfPresent(Int.self, forKey: "SubtitleStreamIndex")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
 

@@ -3,12 +3,12 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct TimerInfoDto: Codable, Identifiable {
+public struct TimerInfoDto: Codable, Hashable, Identifiable {
     /// Gets or sets the channel id of the recording.
     public var channelID: String?
     /// Gets or sets the channel name of the recording.
@@ -40,17 +40,17 @@ public struct TimerInfoDto: Codable, Identifiable {
     /// Gets or sets the Id of the Parent that has a backdrop if the item does not have one.
     public var parentBackdropItemID: String?
     /// Gets or sets the post padding seconds.
-    public var postPaddingSeconds: Int32?
+    public var postPaddingSeconds: Int?
     /// Gets or sets the pre padding seconds.
-    public var prePaddingSeconds: Int32?
+    public var prePaddingSeconds: Int?
     /// Gets or sets the priority.
-    public var priority: Int32?
+    public var priority: Int?
     /// Gets or sets the program identifier.
     public var programID: String?
     /// Gets or sets the program information.
     public var programInfo: BaseItemDto?
     /// Gets or sets the run time ticks.
-    public var runTimeTicks: Int64?
+    public var runTimeTicks: Int?
     /// Gets or sets the series timer identifier.
     public var seriesTimerID: String?
     /// Gets or sets the server identifier.
@@ -80,12 +80,12 @@ public struct TimerInfoDto: Codable, Identifiable {
         overview: String? = nil,
         parentBackdropImageTags: [String]? = nil,
         parentBackdropItemID: String? = nil,
-        postPaddingSeconds: Int32? = nil,
-        prePaddingSeconds: Int32? = nil,
-        priority: Int32? = nil,
+        postPaddingSeconds: Int? = nil,
+        prePaddingSeconds: Int? = nil,
+        priority: Int? = nil,
         programID: String? = nil,
         programInfo: BaseItemDto? = nil,
-        runTimeTicks: Int64? = nil,
+        runTimeTicks: Int? = nil,
         seriesTimerID: String? = nil,
         serverID: String? = nil,
         serviceName: String? = nil,
@@ -141,12 +141,12 @@ public struct TimerInfoDto: Codable, Identifiable {
         self.overview = try values.decodeIfPresent(String.self, forKey: "Overview")
         self.parentBackdropImageTags = try values.decodeIfPresent([String].self, forKey: "ParentBackdropImageTags")
         self.parentBackdropItemID = try values.decodeIfPresent(String.self, forKey: "ParentBackdropItemId")
-        self.postPaddingSeconds = try values.decodeIfPresent(Int32.self, forKey: "PostPaddingSeconds")
-        self.prePaddingSeconds = try values.decodeIfPresent(Int32.self, forKey: "PrePaddingSeconds")
-        self.priority = try values.decodeIfPresent(Int32.self, forKey: "Priority")
+        self.postPaddingSeconds = try values.decodeIfPresent(Int.self, forKey: "PostPaddingSeconds")
+        self.prePaddingSeconds = try values.decodeIfPresent(Int.self, forKey: "PrePaddingSeconds")
+        self.priority = try values.decodeIfPresent(Int.self, forKey: "Priority")
         self.programID = try values.decodeIfPresent(String.self, forKey: "ProgramId")
         self.programInfo = try values.decodeIfPresent(BaseItemDto.self, forKey: "ProgramInfo")
-        self.runTimeTicks = try values.decodeIfPresent(Int64.self, forKey: "RunTimeTicks")
+        self.runTimeTicks = try values.decodeIfPresent(Int.self, forKey: "RunTimeTicks")
         self.seriesTimerID = try values.decodeIfPresent(String.self, forKey: "SeriesTimerId")
         self.serverID = try values.decodeIfPresent(String.self, forKey: "ServerId")
         self.serviceName = try values.decodeIfPresent(String.self, forKey: "ServiceName")

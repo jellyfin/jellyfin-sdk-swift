@@ -3,12 +3,12 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct UserPolicy: Codable {
+public struct UserPolicy: Codable, Hashable {
     public var accessSchedules: [AccessSchedule]?
     public var authenticationProviderID: String?
     public var blockUnratedItems: [UnratedItem]?
@@ -39,20 +39,20 @@ public struct UserPolicy: Codable {
     public var enabledDevices: [String]?
     public var enabledFolders: [String]?
     public var isForceRemoteSourceTranscoding: Bool?
-    public var invalidLoginAttemptCount: Int32?
+    public var invalidLoginAttemptCount: Int?
     /// Gets or sets a value indicating whether this instance is administrator.
     public var isAdministrator: Bool?
     /// Gets or sets a value indicating whether this instance is disabled.
     public var isDisabled: Bool?
     /// Gets or sets a value indicating whether this instance is hidden.
     public var isHidden: Bool?
-    public var loginAttemptsBeforeLockout: Int32?
-    public var maxActiveSessions: Int32?
+    public var loginAttemptsBeforeLockout: Int?
+    public var maxActiveSessions: Int?
     /// Gets or sets the max parental rating.
-    public var maxParentalRating: Int32?
+    public var maxParentalRating: Int?
     public var passwordResetProviderID: String?
-    public var remoteClientBitrateLimit: Int32?
-    /// Enum SyncPlayUserAccessType.
+    public var remoteClientBitrateLimit: Int?
+    /// Gets or sets a value indicating what SyncPlay features the user can access.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
     public init(
@@ -85,15 +85,15 @@ public struct UserPolicy: Codable {
         enabledDevices: [String]? = nil,
         enabledFolders: [String]? = nil,
         isForceRemoteSourceTranscoding: Bool? = nil,
-        invalidLoginAttemptCount: Int32? = nil,
+        invalidLoginAttemptCount: Int? = nil,
         isAdministrator: Bool? = nil,
         isDisabled: Bool? = nil,
         isHidden: Bool? = nil,
-        loginAttemptsBeforeLockout: Int32? = nil,
-        maxActiveSessions: Int32? = nil,
-        maxParentalRating: Int32? = nil,
+        loginAttemptsBeforeLockout: Int? = nil,
+        maxActiveSessions: Int? = nil,
+        maxParentalRating: Int? = nil,
         passwordResetProviderID: String? = nil,
-        remoteClientBitrateLimit: Int32? = nil,
+        remoteClientBitrateLimit: Int? = nil,
         syncPlayAccess: SyncPlayUserAccessType? = nil
     ) {
         self.accessSchedules = accessSchedules
@@ -168,15 +168,15 @@ public struct UserPolicy: Codable {
         self.enabledDevices = try values.decodeIfPresent([String].self, forKey: "EnabledDevices")
         self.enabledFolders = try values.decodeIfPresent([String].self, forKey: "EnabledFolders")
         self.isForceRemoteSourceTranscoding = try values.decodeIfPresent(Bool.self, forKey: "ForceRemoteSourceTranscoding")
-        self.invalidLoginAttemptCount = try values.decodeIfPresent(Int32.self, forKey: "InvalidLoginAttemptCount")
+        self.invalidLoginAttemptCount = try values.decodeIfPresent(Int.self, forKey: "InvalidLoginAttemptCount")
         self.isAdministrator = try values.decodeIfPresent(Bool.self, forKey: "IsAdministrator")
         self.isDisabled = try values.decodeIfPresent(Bool.self, forKey: "IsDisabled")
         self.isHidden = try values.decodeIfPresent(Bool.self, forKey: "IsHidden")
-        self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int32.self, forKey: "LoginAttemptsBeforeLockout")
-        self.maxActiveSessions = try values.decodeIfPresent(Int32.self, forKey: "MaxActiveSessions")
-        self.maxParentalRating = try values.decodeIfPresent(Int32.self, forKey: "MaxParentalRating")
+        self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int.self, forKey: "LoginAttemptsBeforeLockout")
+        self.maxActiveSessions = try values.decodeIfPresent(Int.self, forKey: "MaxActiveSessions")
+        self.maxParentalRating = try values.decodeIfPresent(Int.self, forKey: "MaxParentalRating")
         self.passwordResetProviderID = try values.decodeIfPresent(String.self, forKey: "PasswordResetProviderId")
-        self.remoteClientBitrateLimit = try values.decodeIfPresent(Int32.self, forKey: "RemoteClientBitrateLimit")
+        self.remoteClientBitrateLimit = try values.decodeIfPresent(Int.self, forKey: "RemoteClientBitrateLimit")
         self.syncPlayAccess = try values.decodeIfPresent(SyncPlayUserAccessType.self, forKey: "SyncPlayAccess")
     }
 

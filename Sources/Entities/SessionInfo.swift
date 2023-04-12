@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SessionInfo.
-public struct SessionInfo: Codable, Identifiable {
+public struct SessionInfo: Codable, Hashable, Identifiable {
     public var additionalUsers: [SessionUserInfo]?
     /// Gets or sets the application version.
     public var applicationVersion: String?
@@ -33,7 +33,9 @@ public struct SessionInfo: Codable, Identifiable {
     public var lastActivityDate: Date?
     /// Gets or sets the last playback check in.
     public var lastPlaybackCheckIn: Date?
-    /// Gets or sets the now playing item.
+    /// This is strictly used as a data transfer object from the api layer.
+    ///
+    /// This holds information about a BaseItem in a format that is convenient for the client.
     public var nowPlayingItem: BaseItemDto?
     public var nowPlayingQueue: [QueueItem]?
     public var nowPlayingQueueFullItems: [BaseItemDto]?

@@ -3,15 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Represents the server configuration.
-public struct ServerConfiguration: Codable {
+public struct ServerConfiguration: Codable, Hashable {
     /// Gets or sets the number of days we should retain activity logs.
-    public var activityLogRetentionDays: Int32?
+    public var activityLogRetentionDays: Int?
     /// Gets or sets a value indicating whether clients should be allowed to upload logs.
     public var allowClientLogUpload: Bool?
     /// Gets or sets the cache path.
@@ -32,7 +32,7 @@ public struct ServerConfiguration: Codable {
     public var enableNormalizedItemByNameIDs: Bool?
     /// Gets or sets a value indicating whether slow server responses should be logged as a warning.
     public var enableSlowResponseWarning: Bool?
-    public var imageExtractionTimeoutMs: Int32?
+    public var imageExtractionTimeoutMs: Int?
     /// Gets or sets the image saving convention.
     public var imageSavingConvention: ImageSavingConvention?
     /// Gets or sets a value indicating whether this instance is port authorized.
@@ -40,21 +40,21 @@ public struct ServerConfiguration: Codable {
     /// Gets or sets a value indicating whether this instance is first run.
     public var isStartupWizardCompleted: Bool?
     /// Gets or sets the how many metadata refreshes can run concurrently.
-    public var libraryMetadataRefreshConcurrency: Int32?
+    public var libraryMetadataRefreshConcurrency: Int?
     /// Gets or sets the delay in seconds that we will wait after a file system change to try and discover what has been added/removed
     ///
     /// Some delay is necessary with some items because their creation is not atomic.  It involves the creation of several
     ///
     /// different directories and files.
-    public var libraryMonitorDelay: Int32?
+    public var libraryMonitorDelay: Int?
     /// Gets or sets the how the library scan fans out.
-    public var libraryScanFanoutConcurrency: Int32?
+    public var libraryScanFanoutConcurrency: Int?
     /// Gets or sets the number of days we should retain log files.
-    public var logFileRetentionDays: Int32?
+    public var logFileRetentionDays: Int?
     /// Gets or sets the remaining minutes of a book that can be played while still saving playstate. If this percentage is crossed playstate will be reset to the beginning and the item will be marked watched.
-    public var maxAudiobookResume: Int32?
+    public var maxAudiobookResume: Int?
     /// Gets or sets the maximum percentage of an item that can be played while still saving playstate. If this percentage is crossed playstate will be reset to the beginning and the item will be marked watched.
-    public var maxResumePct: Int32?
+    public var maxResumePct: Int?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
     public var metadataNetworkPath: String?
@@ -62,11 +62,11 @@ public struct ServerConfiguration: Codable {
     /// Gets or sets the metadata path.
     public var metadataPath: String?
     /// Gets or sets the minimum minutes of a book that must be played in order for playstate to be updated.
-    public var minAudiobookResume: Int32?
+    public var minAudiobookResume: Int?
     /// Gets or sets the minimum duration that an item must have in order to be eligible for playstate updates..
-    public var minResumeDurationSeconds: Int32?
+    public var minResumeDurationSeconds: Int?
     /// Gets or sets the minimum percentage of an item that must be played in order for playstate to be updated.
-    public var minResumePct: Int32?
+    public var minResumePct: Int?
     public var pathSubstitutions: [PathSubstitution]?
     public var pluginRepositories: [RepositoryInfo]?
     /// Gets or sets the preferred metadata language.
@@ -79,14 +79,14 @@ public struct ServerConfiguration: Codable {
     public var previousVersionStr: String?
     /// Gets or sets a value indicating whether quick connect is available for use on this server.
     public var isQuickConnectAvailable: Bool?
-    public var remoteClientBitrateLimit: Int32?
+    public var remoteClientBitrateLimit: Int?
     /// Gets or sets a value indicating whether older plugins should automatically be deleted from the plugin folder.
     public var isRemoveOldPlugins: Bool?
     public var isSaveMetadataHidden: Bool?
     public var serverName: String?
     public var isSkipDeserializationForBasicTypes: Bool?
     /// Gets or sets the threshold for the slow response time warning in ms.
-    public var slowResponseThresholdMs: Int64?
+    public var slowResponseThresholdMs: Int?
     /// Gets or sets characters to be removed from strings to create a sort name.
     public var sortRemoveCharacters: [String]?
     /// Gets or sets words to be removed from strings to create a sort name.
@@ -96,7 +96,7 @@ public struct ServerConfiguration: Codable {
     public var uICulture: String?
 
     public init(
-        activityLogRetentionDays: Int32? = nil,
+        activityLogRetentionDays: Int? = nil,
         allowClientLogUpload: Bool? = nil,
         cachePath: String? = nil,
         codecsUsed: [String]? = nil,
@@ -111,35 +111,35 @@ public struct ServerConfiguration: Codable {
         enableMetrics: Bool? = nil,
         enableNormalizedItemByNameIDs: Bool? = nil,
         enableSlowResponseWarning: Bool? = nil,
-        imageExtractionTimeoutMs: Int32? = nil,
+        imageExtractionTimeoutMs: Int? = nil,
         imageSavingConvention: ImageSavingConvention? = nil,
         isPortAuthorized: Bool? = nil,
         isStartupWizardCompleted: Bool? = nil,
-        libraryMetadataRefreshConcurrency: Int32? = nil,
-        libraryMonitorDelay: Int32? = nil,
-        libraryScanFanoutConcurrency: Int32? = nil,
-        logFileRetentionDays: Int32? = nil,
-        maxAudiobookResume: Int32? = nil,
-        maxResumePct: Int32? = nil,
+        libraryMetadataRefreshConcurrency: Int? = nil,
+        libraryMonitorDelay: Int? = nil,
+        libraryScanFanoutConcurrency: Int? = nil,
+        logFileRetentionDays: Int? = nil,
+        maxAudiobookResume: Int? = nil,
+        maxResumePct: Int? = nil,
         metadataCountryCode: String? = nil,
         metadataNetworkPath: String? = nil,
         metadataOptions: [MetadataOptions]? = nil,
         metadataPath: String? = nil,
-        minAudiobookResume: Int32? = nil,
-        minResumeDurationSeconds: Int32? = nil,
-        minResumePct: Int32? = nil,
+        minAudiobookResume: Int? = nil,
+        minResumeDurationSeconds: Int? = nil,
+        minResumePct: Int? = nil,
         pathSubstitutions: [PathSubstitution]? = nil,
         pluginRepositories: [RepositoryInfo]? = nil,
         preferredMetadataLanguage: String? = nil,
         previousVersion: String? = nil,
         previousVersionStr: String? = nil,
         isQuickConnectAvailable: Bool? = nil,
-        remoteClientBitrateLimit: Int32? = nil,
+        remoteClientBitrateLimit: Int? = nil,
         isRemoveOldPlugins: Bool? = nil,
         isSaveMetadataHidden: Bool? = nil,
         serverName: String? = nil,
         isSkipDeserializationForBasicTypes: Bool? = nil,
-        slowResponseThresholdMs: Int64? = nil,
+        slowResponseThresholdMs: Int? = nil,
         sortRemoveCharacters: [String]? = nil,
         sortRemoveWords: [String]? = nil,
         sortReplaceCharacters: [String]? = nil,
@@ -197,7 +197,7 @@ public struct ServerConfiguration: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.activityLogRetentionDays = try values.decodeIfPresent(Int32.self, forKey: "ActivityLogRetentionDays")
+        self.activityLogRetentionDays = try values.decodeIfPresent(Int.self, forKey: "ActivityLogRetentionDays")
         self.allowClientLogUpload = try values.decodeIfPresent(Bool.self, forKey: "AllowClientLogUpload")
         self.cachePath = try values.decodeIfPresent(String.self, forKey: "CachePath")
         self.codecsUsed = try values.decodeIfPresent([String].self, forKey: "CodecsUsed")
@@ -212,35 +212,35 @@ public struct ServerConfiguration: Codable {
         self.enableMetrics = try values.decodeIfPresent(Bool.self, forKey: "EnableMetrics")
         self.enableNormalizedItemByNameIDs = try values.decodeIfPresent(Bool.self, forKey: "EnableNormalizedItemByNameIds")
         self.enableSlowResponseWarning = try values.decodeIfPresent(Bool.self, forKey: "EnableSlowResponseWarning")
-        self.imageExtractionTimeoutMs = try values.decodeIfPresent(Int32.self, forKey: "ImageExtractionTimeoutMs")
+        self.imageExtractionTimeoutMs = try values.decodeIfPresent(Int.self, forKey: "ImageExtractionTimeoutMs")
         self.imageSavingConvention = try values.decodeIfPresent(ImageSavingConvention.self, forKey: "ImageSavingConvention")
         self.isPortAuthorized = try values.decodeIfPresent(Bool.self, forKey: "IsPortAuthorized")
         self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "IsStartupWizardCompleted")
-        self.libraryMetadataRefreshConcurrency = try values.decodeIfPresent(Int32.self, forKey: "LibraryMetadataRefreshConcurrency")
-        self.libraryMonitorDelay = try values.decodeIfPresent(Int32.self, forKey: "LibraryMonitorDelay")
-        self.libraryScanFanoutConcurrency = try values.decodeIfPresent(Int32.self, forKey: "LibraryScanFanoutConcurrency")
-        self.logFileRetentionDays = try values.decodeIfPresent(Int32.self, forKey: "LogFileRetentionDays")
-        self.maxAudiobookResume = try values.decodeIfPresent(Int32.self, forKey: "MaxAudiobookResume")
-        self.maxResumePct = try values.decodeIfPresent(Int32.self, forKey: "MaxResumePct")
+        self.libraryMetadataRefreshConcurrency = try values.decodeIfPresent(Int.self, forKey: "LibraryMetadataRefreshConcurrency")
+        self.libraryMonitorDelay = try values.decodeIfPresent(Int.self, forKey: "LibraryMonitorDelay")
+        self.libraryScanFanoutConcurrency = try values.decodeIfPresent(Int.self, forKey: "LibraryScanFanoutConcurrency")
+        self.logFileRetentionDays = try values.decodeIfPresent(Int.self, forKey: "LogFileRetentionDays")
+        self.maxAudiobookResume = try values.decodeIfPresent(Int.self, forKey: "MaxAudiobookResume")
+        self.maxResumePct = try values.decodeIfPresent(Int.self, forKey: "MaxResumePct")
         self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
         self.metadataNetworkPath = try values.decodeIfPresent(String.self, forKey: "MetadataNetworkPath")
         self.metadataOptions = try values.decodeIfPresent([MetadataOptions].self, forKey: "MetadataOptions")
         self.metadataPath = try values.decodeIfPresent(String.self, forKey: "MetadataPath")
-        self.minAudiobookResume = try values.decodeIfPresent(Int32.self, forKey: "MinAudiobookResume")
-        self.minResumeDurationSeconds = try values.decodeIfPresent(Int32.self, forKey: "MinResumeDurationSeconds")
-        self.minResumePct = try values.decodeIfPresent(Int32.self, forKey: "MinResumePct")
+        self.minAudiobookResume = try values.decodeIfPresent(Int.self, forKey: "MinAudiobookResume")
+        self.minResumeDurationSeconds = try values.decodeIfPresent(Int.self, forKey: "MinResumeDurationSeconds")
+        self.minResumePct = try values.decodeIfPresent(Int.self, forKey: "MinResumePct")
         self.pathSubstitutions = try values.decodeIfPresent([PathSubstitution].self, forKey: "PathSubstitutions")
         self.pluginRepositories = try values.decodeIfPresent([RepositoryInfo].self, forKey: "PluginRepositories")
         self.preferredMetadataLanguage = try values.decodeIfPresent(String.self, forKey: "PreferredMetadataLanguage")
         self.previousVersion = try values.decodeIfPresent(String.self, forKey: "PreviousVersion")
         self.previousVersionStr = try values.decodeIfPresent(String.self, forKey: "PreviousVersionStr")
         self.isQuickConnectAvailable = try values.decodeIfPresent(Bool.self, forKey: "QuickConnectAvailable")
-        self.remoteClientBitrateLimit = try values.decodeIfPresent(Int32.self, forKey: "RemoteClientBitrateLimit")
+        self.remoteClientBitrateLimit = try values.decodeIfPresent(Int.self, forKey: "RemoteClientBitrateLimit")
         self.isRemoveOldPlugins = try values.decodeIfPresent(Bool.self, forKey: "RemoveOldPlugins")
         self.isSaveMetadataHidden = try values.decodeIfPresent(Bool.self, forKey: "SaveMetadataHidden")
         self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
         self.isSkipDeserializationForBasicTypes = try values.decodeIfPresent(Bool.self, forKey: "SkipDeserializationForBasicTypes")
-        self.slowResponseThresholdMs = try values.decodeIfPresent(Int64.self, forKey: "SlowResponseThresholdMs")
+        self.slowResponseThresholdMs = try values.decodeIfPresent(Int.self, forKey: "SlowResponseThresholdMs")
         self.sortRemoveCharacters = try values.decodeIfPresent([String].self, forKey: "SortRemoveCharacters")
         self.sortRemoveWords = try values.decodeIfPresent([String].self, forKey: "SortRemoveWords")
         self.sortReplaceCharacters = try values.decodeIfPresent([String].self, forKey: "SortReplaceCharacters")

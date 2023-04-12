@@ -3,17 +3,17 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class RemoteImageInfo.
-public struct RemoteImageInfo: Codable {
+public struct RemoteImageInfo: Codable, Hashable {
     /// Gets or sets the community rating.
     public var communityRating: Double?
     /// Gets or sets the height.
-    public var height: Int32?
+    public var height: Int?
     /// Gets or sets the language.
     public var language: String?
     /// Gets or sets the name of the provider.
@@ -27,21 +27,21 @@ public struct RemoteImageInfo: Codable {
     /// Gets or sets the URL.
     public var url: String?
     /// Gets or sets the vote count.
-    public var voteCount: Int32?
+    public var voteCount: Int?
     /// Gets or sets the width.
-    public var width: Int32?
+    public var width: Int?
 
     public init(
         communityRating: Double? = nil,
-        height: Int32? = nil,
+        height: Int? = nil,
         language: String? = nil,
         providerName: String? = nil,
         ratingType: RatingType? = nil,
         thumbnailURL: String? = nil,
         type: ImageType? = nil,
         url: String? = nil,
-        voteCount: Int32? = nil,
-        width: Int32? = nil
+        voteCount: Int? = nil,
+        width: Int? = nil
     ) {
         self.communityRating = communityRating
         self.height = height
@@ -58,15 +58,15 @@ public struct RemoteImageInfo: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.communityRating = try values.decodeIfPresent(Double.self, forKey: "CommunityRating")
-        self.height = try values.decodeIfPresent(Int32.self, forKey: "Height")
+        self.height = try values.decodeIfPresent(Int.self, forKey: "Height")
         self.language = try values.decodeIfPresent(String.self, forKey: "Language")
         self.providerName = try values.decodeIfPresent(String.self, forKey: "ProviderName")
         self.ratingType = try values.decodeIfPresent(RatingType.self, forKey: "RatingType")
         self.thumbnailURL = try values.decodeIfPresent(String.self, forKey: "ThumbnailUrl")
         self.type = try values.decodeIfPresent(ImageType.self, forKey: "Type")
         self.url = try values.decodeIfPresent(String.self, forKey: "Url")
-        self.voteCount = try values.decodeIfPresent(Int32.self, forKey: "VoteCount")
-        self.width = try values.decodeIfPresent(Int32.self, forKey: "Width")
+        self.voteCount = try values.decodeIfPresent(Int.self, forKey: "VoteCount")
+        self.width = try values.decodeIfPresent(Int.self, forKey: "Width")
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -18,8 +18,8 @@ public extension Paths {
 
     struct GetAlbumArtistsParameters {
         public var minCommunityRating: Double?
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var searchTerm: String?
         public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -32,9 +32,9 @@ public extension Paths {
         public var genreIDs: [String]?
         public var officialRatings: [String]?
         public var tags: [String]?
-        public var years: [Int32]?
+        public var years: [Int]?
         public var enableUserData: Bool?
-        public var imageTypeLimit: Int32?
+        public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var person: String?
         public var personIDs: [String]?
@@ -52,8 +52,8 @@ public extension Paths {
 
         public init(
             minCommunityRating: Double? = nil,
-            startIndex: Int32? = nil,
-            limit: Int32? = nil,
+            startIndex: Int? = nil,
+            limit: Int? = nil,
             searchTerm: String? = nil,
             parentID: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
@@ -66,9 +66,9 @@ public extension Paths {
             genreIDs: [String]? = nil,
             officialRatings: [String]? = nil,
             tags: [String]? = nil,
-            years: [Int32]? = nil,
+            years: [Int]? = nil,
             enableUserData: Bool? = nil,
-            imageTypeLimit: Int32? = nil,
+            imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             person: String? = nil,
             personIDs: [String]? = nil,

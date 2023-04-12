@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -23,10 +23,10 @@ public extension Paths {
 
     struct OnPlaybackProgressParameters {
         public var mediaSourceID: String?
-        public var positionTicks: Int64?
-        public var audioStreamIndex: Int32?
-        public var subtitleStreamIndex: Int32?
-        public var volumeLevel: Int32?
+        public var positionTicks: Int?
+        public var audioStreamIndex: Int?
+        public var subtitleStreamIndex: Int?
+        public var volumeLevel: Int?
         public var playMethod: PlayMethod?
         public var liveStreamID: String?
         public var playSessionID: String?
@@ -40,10 +40,10 @@ public extension Paths {
 
         public init(
             mediaSourceID: String? = nil,
-            positionTicks: Int64? = nil,
-            audioStreamIndex: Int32? = nil,
-            subtitleStreamIndex: Int32? = nil,
-            volumeLevel: Int32? = nil,
+            positionTicks: Int? = nil,
+            audioStreamIndex: Int? = nil,
+            subtitleStreamIndex: Int? = nil,
+            volumeLevel: Int? = nil,
             playMethod: PlayMethod? = nil,
             liveStreamID: String? = nil,
             playSessionID: String? = nil,

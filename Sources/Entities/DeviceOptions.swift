@@ -3,21 +3,21 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// An entity representing custom options for a device.
-public struct DeviceOptions: Codable, Identifiable {
+public struct DeviceOptions: Codable, Hashable, Identifiable {
     /// Gets or sets the custom name.
     public var customName: String?
     /// Gets the device id.
     public var deviceID: String?
     /// Gets the id.
-    public var id: Int32?
+    public var id: Int?
 
-    public init(customName: String? = nil, deviceID: String? = nil, id: Int32? = nil) {
+    public init(customName: String? = nil, deviceID: String? = nil, id: Int? = nil) {
         self.customName = customName
         self.deviceID = deviceID
         self.id = id
@@ -27,7 +27,7 @@ public struct DeviceOptions: Codable, Identifiable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.customName = try values.decodeIfPresent(String.self, forKey: "CustomName")
         self.deviceID = try values.decodeIfPresent(String.self, forKey: "DeviceId")
-        self.id = try values.decodeIfPresent(Int32.self, forKey: "Id")
+        self.id = try values.decodeIfPresent(Int.self, forKey: "Id")
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class PackageInfo.
-public struct PackageInfo: Codable {
+public struct PackageInfo: Codable, Hashable {
     /// Gets or sets the category.
     public var category: String?
     /// Gets or sets a long description of the plugin containing features or helpful explanations.

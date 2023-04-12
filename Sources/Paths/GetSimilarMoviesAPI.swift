@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -22,15 +22,10 @@ public extension Paths {
     struct GetSimilarMoviesParameters {
         public var excludeArtistIDs: [String]?
         public var userID: String?
-        public var limit: Int32?
+        public var limit: Int?
         public var fields: [JellyfinAPI.ItemFields]?
 
-        public init(
-            excludeArtistIDs: [String]? = nil,
-            userID: String? = nil,
-            limit: Int32? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil
-        ) {
+        public init(excludeArtistIDs: [String]? = nil, userID: String? = nil, limit: Int? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
             self.excludeArtistIDs = excludeArtistIDs
             self.userID = userID
             self.limit = limit

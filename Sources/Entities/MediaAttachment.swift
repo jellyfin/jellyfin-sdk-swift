@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class MediaAttachment.
-public struct MediaAttachment: Codable {
+public struct MediaAttachment: Codable, Hashable {
     /// Gets or sets the codec.
     public var codec: String?
     /// Gets or sets the codec tag.
@@ -21,7 +21,7 @@ public struct MediaAttachment: Codable {
     /// Gets or sets the filename.
     public var fileName: String?
     /// Gets or sets the index.
-    public var index: Int32?
+    public var index: Int?
     /// Gets or sets the MIME type.
     public var mimeType: String?
 
@@ -31,7 +31,7 @@ public struct MediaAttachment: Codable {
         comment: String? = nil,
         deliveryURL: String? = nil,
         fileName: String? = nil,
-        index: Int32? = nil,
+        index: Int? = nil,
         mimeType: String? = nil
     ) {
         self.codec = codec
@@ -50,7 +50,7 @@ public struct MediaAttachment: Codable {
         self.comment = try values.decodeIfPresent(String.self, forKey: "Comment")
         self.deliveryURL = try values.decodeIfPresent(String.self, forKey: "DeliveryUrl")
         self.fileName = try values.decodeIfPresent(String.self, forKey: "FileName")
-        self.index = try values.decodeIfPresent(Int32.self, forKey: "Index")
+        self.index = try values.decodeIfPresent(Int.self, forKey: "Index")
         self.mimeType = try values.decodeIfPresent(String.self, forKey: "MimeType")
     }
 

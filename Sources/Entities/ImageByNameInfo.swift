@@ -3,16 +3,16 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct ImageByNameInfo: Codable {
+public struct ImageByNameInfo: Codable, Hashable {
     /// Gets or sets the context.
     public var context: String?
     /// Gets or sets the length of the file.
-    public var fileLength: Int64?
+    public var fileLength: Int?
     /// Gets or sets the format.
     public var format: String?
     /// Gets or sets the name.
@@ -20,7 +20,7 @@ public struct ImageByNameInfo: Codable {
     /// Gets or sets the theme.
     public var theme: String?
 
-    public init(context: String? = nil, fileLength: Int64? = nil, format: String? = nil, name: String? = nil, theme: String? = nil) {
+    public init(context: String? = nil, fileLength: Int? = nil, format: String? = nil, name: String? = nil, theme: String? = nil) {
         self.context = context
         self.fileLength = fileLength
         self.format = format
@@ -31,7 +31,7 @@ public struct ImageByNameInfo: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.context = try values.decodeIfPresent(String.self, forKey: "Context")
-        self.fileLength = try values.decodeIfPresent(Int64.self, forKey: "FileLength")
+        self.fileLength = try values.decodeIfPresent(Int.self, forKey: "FileLength")
         self.format = try values.decodeIfPresent(String.self, forKey: "Format")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.theme = try values.decodeIfPresent(String.self, forKey: "Theme")

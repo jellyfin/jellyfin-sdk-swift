@@ -3,12 +3,12 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct PinRedeemResult: Codable {
+public struct PinRedeemResult: Codable, Hashable {
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Users.PinRedeemResult is success.
     public var isSuccess: Bool?
     /// Gets or sets the users reset.

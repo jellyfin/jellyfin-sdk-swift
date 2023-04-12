@@ -3,17 +3,17 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct RemoteSubtitleInfo: Codable, Identifiable {
+public struct RemoteSubtitleInfo: Codable, Hashable, Identifiable {
     public var author: String?
     public var comment: String?
     public var communityRating: Float?
     public var dateCreated: Date?
-    public var downloadCount: Int32?
+    public var downloadCount: Int?
     public var format: String?
     public var id: String?
     public var isHashMatch: Bool?
@@ -26,7 +26,7 @@ public struct RemoteSubtitleInfo: Codable, Identifiable {
         comment: String? = nil,
         communityRating: Float? = nil,
         dateCreated: Date? = nil,
-        downloadCount: Int32? = nil,
+        downloadCount: Int? = nil,
         format: String? = nil,
         id: String? = nil,
         isHashMatch: Bool? = nil,
@@ -53,7 +53,7 @@ public struct RemoteSubtitleInfo: Codable, Identifiable {
         self.comment = try values.decodeIfPresent(String.self, forKey: "Comment")
         self.communityRating = try values.decodeIfPresent(Float.self, forKey: "CommunityRating")
         self.dateCreated = try values.decodeIfPresent(Date.self, forKey: "DateCreated")
-        self.downloadCount = try values.decodeIfPresent(Int32.self, forKey: "DownloadCount")
+        self.downloadCount = try values.decodeIfPresent(Int.self, forKey: "DownloadCount")
         self.format = try values.decodeIfPresent(String.self, forKey: "Format")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isHashMatch = try values.decodeIfPresent(Bool.self, forKey: "IsHashMatch")

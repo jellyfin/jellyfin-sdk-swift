@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -17,12 +17,12 @@ public extension Paths {
     }
 
     struct GetLogEntriesParameters {
-        public var startIndex: Int32?
-        public var limit: Int32?
+        public var startIndex: Int?
+        public var limit: Int?
         public var minDate: Date?
         public var hasUserID: Bool?
 
-        public init(startIndex: Int32? = nil, limit: Int32? = nil, minDate: Date? = nil, hasUserID: Bool? = nil) {
+        public init(startIndex: Int? = nil, limit: Int? = nil, minDate: Date? = nil, hasUserID: Bool? = nil) {
             self.startIndex = startIndex
             self.limit = limit
             self.minDate = minDate

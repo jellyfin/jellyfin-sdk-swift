@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Library type options dto.
-public struct LibraryTypeOptionsDto: Codable {
+public struct LibraryTypeOptionsDto: Codable, Hashable {
     /// Gets or sets the default image options.
     public var defaultImageOptions: [ImageOption]?
     /// Gets or sets the image fetchers.

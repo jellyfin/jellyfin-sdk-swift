@@ -3,23 +3,23 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class ThemeMediaResult.
-public struct ThemeMediaResult: Codable {
+public struct ThemeMediaResult: Codable, Hashable {
     /// Gets or sets the items.
     public var items: [BaseItemDto]?
     /// Gets or sets the owner id.
     public var ownerID: String?
     /// Gets or sets the index of the first record in Items.
-    public var startIndex: Int32?
+    public var startIndex: Int?
     /// Gets or sets the total number of records available.
-    public var totalRecordCount: Int32?
+    public var totalRecordCount: Int?
 
-    public init(items: [BaseItemDto]? = nil, ownerID: String? = nil, startIndex: Int32? = nil, totalRecordCount: Int32? = nil) {
+    public init(items: [BaseItemDto]? = nil, ownerID: String? = nil, startIndex: Int? = nil, totalRecordCount: Int? = nil) {
         self.items = items
         self.ownerID = ownerID
         self.startIndex = startIndex
@@ -30,8 +30,8 @@ public struct ThemeMediaResult: Codable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.items = try values.decodeIfPresent([BaseItemDto].self, forKey: "Items")
         self.ownerID = try values.decodeIfPresent(String.self, forKey: "OwnerId")
-        self.startIndex = try values.decodeIfPresent(Int32.self, forKey: "StartIndex")
-        self.totalRecordCount = try values.decodeIfPresent(Int32.self, forKey: "TotalRecordCount")
+        self.startIndex = try values.decodeIfPresent(Int.self, forKey: "StartIndex")
+        self.totalRecordCount = try values.decodeIfPresent(Int.self, forKey: "TotalRecordCount")
     }
 
     public func encode(to encoder: Encoder) throws {

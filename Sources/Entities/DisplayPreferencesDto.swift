@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Defines the display preferences for any item that supports them (usually Folders).
-public struct DisplayPreferencesDto: Codable, Identifiable {
+public struct DisplayPreferencesDto: Codable, Hashable, Identifiable {
     /// Gets or sets the client.
     public var client: String?
     /// Gets or sets the custom prefs.
@@ -19,14 +19,14 @@ public struct DisplayPreferencesDto: Codable, Identifiable {
     /// Gets or sets the index by.
     public var indexBy: String?
     /// Gets or sets the height of the primary image.
-    public var primaryImageHeight: Int32?
+    public var primaryImageHeight: Int?
     /// Gets or sets the width of the primary image.
-    public var primaryImageWidth: Int32?
+    public var primaryImageWidth: Int?
     /// Gets or sets a value indicating whether [remember indexing].
     public var isRememberIndexing: Bool?
     /// Gets or sets a value indicating whether [remember sorting].
     public var isRememberSorting: Bool?
-    /// An enum representing the axis that should be scrolled.
+    /// Gets or sets the scroll direction.
     public var scrollDirection: ScrollDirection?
     /// Gets or sets a value indicating whether to show backdrops on this item.
     public var isShowBackdrop: Bool?
@@ -34,7 +34,7 @@ public struct DisplayPreferencesDto: Codable, Identifiable {
     public var isShowSidebar: Bool?
     /// Gets or sets the sort by.
     public var sortBy: String?
-    /// An enum representing the sorting order.
+    /// Gets or sets the sort order.
     public var sortOrder: SortOrder?
     /// Gets or sets the type of the view.
     public var viewType: String?
@@ -44,8 +44,8 @@ public struct DisplayPreferencesDto: Codable, Identifiable {
         customPrefs: [String: String]? = nil,
         id: String? = nil,
         indexBy: String? = nil,
-        primaryImageHeight: Int32? = nil,
-        primaryImageWidth: Int32? = nil,
+        primaryImageHeight: Int? = nil,
+        primaryImageWidth: Int? = nil,
         isRememberIndexing: Bool? = nil,
         isRememberSorting: Bool? = nil,
         scrollDirection: ScrollDirection? = nil,
@@ -77,8 +77,8 @@ public struct DisplayPreferencesDto: Codable, Identifiable {
         self.customPrefs = try values.decodeIfPresent([String: String].self, forKey: "CustomPrefs")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.indexBy = try values.decodeIfPresent(String.self, forKey: "IndexBy")
-        self.primaryImageHeight = try values.decodeIfPresent(Int32.self, forKey: "PrimaryImageHeight")
-        self.primaryImageWidth = try values.decodeIfPresent(Int32.self, forKey: "PrimaryImageWidth")
+        self.primaryImageHeight = try values.decodeIfPresent(Int.self, forKey: "PrimaryImageHeight")
+        self.primaryImageWidth = try values.decodeIfPresent(Int.self, forKey: "PrimaryImageWidth")
         self.isRememberIndexing = try values.decodeIfPresent(Bool.self, forKey: "RememberIndexing")
         self.isRememberSorting = try values.decodeIfPresent(Bool.self, forKey: "RememberSorting")
         self.scrollDirection = try values.decodeIfPresent(ScrollDirection.self, forKey: "ScrollDirection")

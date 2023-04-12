@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Represents the external id information for serialization to the client.
-public struct ExternalIDInfo: Codable {
+public struct ExternalIDInfo: Codable, Hashable {
     /// Gets or sets the unique key for this id. This key should be unique across all providers.
     public var key: String?
     /// Gets or sets the display name of the external id provider (IE: IMDB, MusicBrainz, etc).

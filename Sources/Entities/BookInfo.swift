@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct BookInfo: Codable {
-    public var indexNumber: Int32?
+public struct BookInfo: Codable, Hashable {
+    public var indexNumber: Int?
     public var isAutomated: Bool?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
@@ -19,7 +19,7 @@ public struct BookInfo: Codable {
     public var name: String?
     /// Gets or sets the original title.
     public var originalTitle: String?
-    public var parentIndexNumber: Int32?
+    public var parentIndexNumber: Int?
     /// Gets or sets the path.
     public var path: String?
     public var premiereDate: Date?
@@ -27,21 +27,21 @@ public struct BookInfo: Codable {
     public var providerIDs: [String: String]?
     public var seriesName: String?
     /// Gets or sets the year.
-    public var year: Int32?
+    public var year: Int?
 
     public init(
-        indexNumber: Int32? = nil,
+        indexNumber: Int? = nil,
         isAutomated: Bool? = nil,
         metadataCountryCode: String? = nil,
         metadataLanguage: String? = nil,
         name: String? = nil,
         originalTitle: String? = nil,
-        parentIndexNumber: Int32? = nil,
+        parentIndexNumber: Int? = nil,
         path: String? = nil,
         premiereDate: Date? = nil,
         providerIDs: [String: String]? = nil,
         seriesName: String? = nil,
-        year: Int32? = nil
+        year: Int? = nil
     ) {
         self.indexNumber = indexNumber
         self.isAutomated = isAutomated
@@ -59,18 +59,18 @@ public struct BookInfo: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.indexNumber = try values.decodeIfPresent(Int32.self, forKey: "IndexNumber")
+        self.indexNumber = try values.decodeIfPresent(Int.self, forKey: "IndexNumber")
         self.isAutomated = try values.decodeIfPresent(Bool.self, forKey: "IsAutomated")
         self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
         self.metadataLanguage = try values.decodeIfPresent(String.self, forKey: "MetadataLanguage")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.originalTitle = try values.decodeIfPresent(String.self, forKey: "OriginalTitle")
-        self.parentIndexNumber = try values.decodeIfPresent(Int32.self, forKey: "ParentIndexNumber")
+        self.parentIndexNumber = try values.decodeIfPresent(Int.self, forKey: "ParentIndexNumber")
         self.path = try values.decodeIfPresent(String.self, forKey: "Path")
         self.premiereDate = try values.decodeIfPresent(Date.self, forKey: "PremiereDate")
         self.providerIDs = try values.decodeIfPresent([String: String].self, forKey: "ProviderIds")
         self.seriesName = try values.decodeIfPresent(String.self, forKey: "SeriesName")
-        self.year = try values.decodeIfPresent(Int32.self, forKey: "Year")
+        self.year = try values.decodeIfPresent(Int.self, forKey: "Year")
     }
 
     public func encode(to encoder: Encoder) throws {

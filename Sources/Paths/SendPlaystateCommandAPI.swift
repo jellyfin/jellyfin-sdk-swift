@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -15,7 +15,7 @@ extension Paths {
     public static func sendPlaystateCommand(
         sessionID: String,
         command: String,
-        seekPositionTicks: Int64? = nil,
+        seekPositionTicks: Int? = nil,
         controllingUserID: String? = nil
     ) -> Request<Void> {
         Request(
@@ -26,7 +26,7 @@ extension Paths {
         )
     }
 
-    private static func makeSendPlaystateCommandQuery(_ seekPositionTicks: Int64?, _ controllingUserID: String?) -> [(String, String?)] {
+    private static func makeSendPlaystateCommandQuery(_ seekPositionTicks: Int?, _ controllingUserID: String?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(seekPositionTicks, forKey: "seekPositionTicks")
         encoder.encode(controllingUserID, forKey: "controllingUserId")

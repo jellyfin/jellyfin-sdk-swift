@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -30,22 +30,22 @@ public extension Paths {
     struct GetSubtitleParameters {
         public var itemID: String?
         public var mediaSourceID: String?
-        public var index: Int32?
+        public var index: Int?
         public var format: String?
-        public var endPositionTicks: Int64?
+        public var endPositionTicks: Int?
         public var isCopyTimestamps: Bool?
         public var isAddVttTimeMap: Bool?
-        public var startPositionTicks: Int64?
+        public var startPositionTicks: Int?
 
         public init(
             itemID: String? = nil,
             mediaSourceID: String? = nil,
-            index: Int32? = nil,
+            index: Int? = nil,
             format: String? = nil,
-            endPositionTicks: Int64? = nil,
+            endPositionTicks: Int? = nil,
             isCopyTimestamps: Bool? = nil,
             isAddVttTimeMap: Bool? = nil,
-            startPositionTicks: Int64? = nil
+            startPositionTicks: Int? = nil
         ) {
             self.itemID = itemID
             self.mediaSourceID = mediaSourceID

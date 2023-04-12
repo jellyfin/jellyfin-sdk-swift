@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SeriesTimerInfoDto.
-public struct SeriesTimerInfoDto: Codable, Identifiable {
+public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
     /// Gets or sets the channel id of the recording.
     public var channelID: String?
     /// Gets or sets the channel name of the recording.
@@ -36,7 +36,7 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
     /// Gets or sets a value indicating whether this instance is pre padding required.
     public var isPrePaddingRequired: Bool?
     public var keepUntil: KeepUntil?
-    public var keepUpTo: Int32?
+    public var keepUpTo: Int?
     /// Gets or sets the name of the recording.
     public var name: String?
     /// Gets or sets the description of the recording.
@@ -54,11 +54,11 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
     /// Gets or sets the parent thumb item id.
     public var parentThumbItemID: String?
     /// Gets or sets the post padding seconds.
-    public var postPaddingSeconds: Int32?
+    public var postPaddingSeconds: Int?
     /// Gets or sets the pre padding seconds.
-    public var prePaddingSeconds: Int32?
+    public var prePaddingSeconds: Int?
     /// Gets or sets the priority.
-    public var priority: Int32?
+    public var priority: Int?
     /// Gets or sets the program identifier.
     public var programID: String?
     /// Gets or sets a value indicating whether [record any channel].
@@ -91,7 +91,7 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
         isPostPaddingRequired: Bool? = nil,
         isPrePaddingRequired: Bool? = nil,
         keepUntil: KeepUntil? = nil,
-        keepUpTo: Int32? = nil,
+        keepUpTo: Int? = nil,
         name: String? = nil,
         overview: String? = nil,
         parentBackdropImageTags: [String]? = nil,
@@ -100,9 +100,9 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
         parentPrimaryImageTag: String? = nil,
         parentThumbImageTag: String? = nil,
         parentThumbItemID: String? = nil,
-        postPaddingSeconds: Int32? = nil,
-        prePaddingSeconds: Int32? = nil,
-        priority: Int32? = nil,
+        postPaddingSeconds: Int? = nil,
+        prePaddingSeconds: Int? = nil,
+        priority: Int? = nil,
         programID: String? = nil,
         isRecordAnyChannel: Bool? = nil,
         isRecordAnyTime: Bool? = nil,
@@ -166,7 +166,7 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
         self.isPostPaddingRequired = try values.decodeIfPresent(Bool.self, forKey: "IsPostPaddingRequired")
         self.isPrePaddingRequired = try values.decodeIfPresent(Bool.self, forKey: "IsPrePaddingRequired")
         self.keepUntil = try values.decodeIfPresent(KeepUntil.self, forKey: "KeepUntil")
-        self.keepUpTo = try values.decodeIfPresent(Int32.self, forKey: "KeepUpTo")
+        self.keepUpTo = try values.decodeIfPresent(Int.self, forKey: "KeepUpTo")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.overview = try values.decodeIfPresent(String.self, forKey: "Overview")
         self.parentBackdropImageTags = try values.decodeIfPresent([String].self, forKey: "ParentBackdropImageTags")
@@ -175,9 +175,9 @@ public struct SeriesTimerInfoDto: Codable, Identifiable {
         self.parentPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "ParentPrimaryImageTag")
         self.parentThumbImageTag = try values.decodeIfPresent(String.self, forKey: "ParentThumbImageTag")
         self.parentThumbItemID = try values.decodeIfPresent(String.self, forKey: "ParentThumbItemId")
-        self.postPaddingSeconds = try values.decodeIfPresent(Int32.self, forKey: "PostPaddingSeconds")
-        self.prePaddingSeconds = try values.decodeIfPresent(Int32.self, forKey: "PrePaddingSeconds")
-        self.priority = try values.decodeIfPresent(Int32.self, forKey: "Priority")
+        self.postPaddingSeconds = try values.decodeIfPresent(Int.self, forKey: "PostPaddingSeconds")
+        self.prePaddingSeconds = try values.decodeIfPresent(Int.self, forKey: "PrePaddingSeconds")
+        self.priority = try values.decodeIfPresent(Int.self, forKey: "Priority")
         self.programID = try values.decodeIfPresent(String.self, forKey: "ProgramId")
         self.isRecordAnyChannel = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyChannel")
         self.isRecordAnyTime = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyTime")

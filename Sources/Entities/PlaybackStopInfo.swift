@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2022 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class PlaybackStopInfo.
-public struct PlaybackStopInfo: Codable {
+public struct PlaybackStopInfo: Codable, Hashable {
     /// Gets or sets a value indicating whether this MediaBrowser.Model.Session.PlaybackStopInfo is failed.
     public var isFailed: Bool?
     /// Gets or sets the item.
@@ -26,7 +26,7 @@ public struct PlaybackStopInfo: Codable {
     public var playSessionID: String?
     public var playlistItemID: String?
     /// Gets or sets the position ticks.
-    public var positionTicks: Int64?
+    public var positionTicks: Int?
     /// Gets or sets the session id.
     public var sessionID: String?
 
@@ -40,7 +40,7 @@ public struct PlaybackStopInfo: Codable {
         nowPlayingQueue: [QueueItem]? = nil,
         playSessionID: String? = nil,
         playlistItemID: String? = nil,
-        positionTicks: Int64? = nil,
+        positionTicks: Int? = nil,
         sessionID: String? = nil
     ) {
         self.isFailed = isFailed
@@ -67,7 +67,7 @@ public struct PlaybackStopInfo: Codable {
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
         self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
-        self.positionTicks = try values.decodeIfPresent(Int64.self, forKey: "PositionTicks")
+        self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
         self.sessionID = try values.decodeIfPresent(String.self, forKey: "SessionId")
     }
 
