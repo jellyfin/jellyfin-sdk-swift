@@ -12,6 +12,25 @@ import PackagePlugin
 @main
 struct Plugin: CommandPlugin {
 
+    func performCommand(context: PluginContext, arguments: [String]) async throws {
+
+        // Apply schema pre patches
+        try await patchBaseItemDtoSchema(context: context)
+
+        try await generate(context: context)
+
+        // Apply post patches
+        try await patchRemoteSearchResult(context: context)
+        try await patchAnyJSON(context: context)
+
+        // Move patch files
+        try await addSpecialFeatureType(context: context)
+
+        try await lint(context: context)
+
+        try await deletePatchedSchema(context: context)
+    }
+
     private func runProcess(_ commandLine: String, context: PluginContext, workingDirectory: String? = nil) throws {
 
         var arguments = commandLine.split(separator: " ").map { String($0) }
@@ -34,25 +53,6 @@ struct Plugin: CommandPlugin {
 
         try process.run()
         process.waitUntilExit()
-    }
-
-    func performCommand(context: PluginContext, arguments: [String]) async throws {
-
-        // Apply schema pre patches
-        try await patchBaseItemDtoSchema(context: context)
-
-        try await generate(context: context)
-
-        // Apply post patches
-        try await patchRemoteSearchResult(context: context)
-        try await patchAnyJSON(context: context)
-
-        // Move patch files
-        try await addSpecialFeatureType(context: context)
-
-        try await lint(context: context)
-
-        try await deletePatchedSchema(context: context)
     }
 
     private func generate(context: PluginContext) async throws {
@@ -122,13 +122,15 @@ struct Plugin: CommandPlugin {
             ]
         )
 
-        properties["CollectionType"] = AnyJSON.object(
-            [
-                "allOf": .array([.object(["$ref": .string("#/components/schemas/CollectionTypeOptions")])]),
-                "nullable": .bool(true),
-                "description": .string("Gets or sets the type of the collection."),
-            ]
-        )
+        // TODO: Uncomment once Swiftfin has refactored how it uses the existing CollectionType
+        //       property for library management
+//        properties["CollectionType"] = AnyJSON.object(
+//            [
+//                "allOf": .array([.object(["$ref": .string("#/components/schemas/CollectionTypeOptions")])]),
+//                "nullable": .bool(true),
+//                "description": .string("Gets or sets the type of the collection."),
+//            ]
+//        )
 
         baseItemDto["properties"] = .object(properties)
         schemas["BaseItemDto"] = .object(baseItemDto)

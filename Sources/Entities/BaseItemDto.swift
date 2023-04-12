@@ -61,7 +61,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     /// Gets or sets the child count.
     public var childCount: Int?
     /// Gets or sets the type of the collection.
-    public var collectionType: CollectionTypeOptions?
+    public var collectionType: String?
     /// Gets or sets the community rating.
     public var communityRating: Float?
     /// Gets or sets the completion percentage.
@@ -394,7 +394,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         channelType: ChannelType? = nil,
         chapters: [ChapterInfo]? = nil,
         childCount: Int? = nil,
-        collectionType: CollectionTypeOptions? = nil,
+        collectionType: String? = nil,
         communityRating: Float? = nil,
         completionPercentage: Double? = nil,
         container: String? = nil,
@@ -699,7 +699,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.channelType = try values.decodeIfPresent(ChannelType.self, forKey: "ChannelType")
         self.chapters = try values.decodeIfPresent([ChapterInfo].self, forKey: "Chapters")
         self.childCount = try values.decodeIfPresent(Int.self, forKey: "ChildCount")
-        self.collectionType = try values.decodeIfPresent(CollectionTypeOptions.self, forKey: "CollectionType")
+        self.collectionType = try values.decodeIfPresent(String.self, forKey: "CollectionType")
         self.communityRating = try values.decodeIfPresent(Float.self, forKey: "CommunityRating")
         self.completionPercentage = try values.decodeIfPresent(Double.self, forKey: "CompletionPercentage")
         self.container = try values.decodeIfPresent(String.self, forKey: "Container")
