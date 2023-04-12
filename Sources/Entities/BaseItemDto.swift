@@ -270,7 +270,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var timerID: String?
     /// Gets or sets the trailer count.
     public var trailerCount: Int?
-    /// The base item kind.
+    /// Gets or sets the type.
     public var type: BaseItemKind?
     /// Gets or sets the user data for this item based on the user it's being requested for.
     public var userData: UserItemDataDto?

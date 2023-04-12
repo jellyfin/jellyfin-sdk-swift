@@ -33,7 +33,9 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
     public var lastActivityDate: Date?
     /// Gets or sets the last playback check in.
     public var lastPlaybackCheckIn: Date?
-    /// Gets or sets the now playing item.
+    /// This is strictly used as a data transfer object from the api layer.
+    ///
+    /// This holds information about a BaseItem in a format that is convenient for the client.
     public var nowPlayingItem: BaseItemDto?
     public var nowPlayingQueue: [QueueItem]?
     public var nowPlayingQueueFullItems: [BaseItemDto]?

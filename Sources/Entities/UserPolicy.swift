@@ -52,7 +52,7 @@ public struct UserPolicy: Codable, Hashable {
     public var maxParentalRating: Int?
     public var passwordResetProviderID: String?
     public var remoteClientBitrateLimit: Int?
-    /// Enum SyncPlayUserAccessType.
+    /// Gets or sets a value indicating what SyncPlay features the user can access.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
     public init(

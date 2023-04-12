@@ -108,11 +108,11 @@ struct Plugin: CommandPlugin {
     private func patchBaseItemDtoSchema(context: PluginContext) async throws {
         let contents = try await parseOriginalSchema(context: context)
 
-        guard var file = contents.value as? [String: AnyJSON] else { return }
-        guard var components = file["components"]?.value as? [String: AnyJSON] else { return }
-        guard var schemas = components["schemas"]?.value as? [String: AnyJSON] else { return }
-        guard var baseItemDto = schemas["BaseItemDto"]?.value as? [String: AnyJSON] else { return }
-        guard var properties = baseItemDto["properties"]?.value as? [String: AnyJSON] else { return }
+        guard case var .object(file) = contents else { return }
+        guard case var .object(components) = file["components"] else { return }
+        guard case var .object(schemas) = components["schemas"] else { return }
+        guard case var .object(baseItemDto) = schemas["BaseItemDto"] else { return }
+        guard case var .object(properties) = baseItemDto["properties"] else { return }
 
         properties["ExtraType"] = AnyJSON.object(
             [

@@ -2,8 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Jellyfin API",
-    "version": "10.8.8",
-    "x-jellyfin-version": "10.8.8"
+    "version": "10.8.9",
+    "x-jellyfin-version": "10.8.9"
   },
   "servers": [
     {
@@ -25361,7 +25361,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -25441,7 +25441,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -25678,7 +25678,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -25743,7 +25743,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -25787,7 +25787,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -25831,7 +25831,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -25935,7 +25935,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -25970,7 +25970,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -26014,7 +26014,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -26101,7 +26101,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -26136,7 +26136,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -26546,7 +26546,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -26623,7 +26623,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -26687,7 +26687,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -26875,7 +26875,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27088,7 +27088,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27153,7 +27153,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27210,7 +27210,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -27265,7 +27265,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27321,7 +27321,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27378,7 +27378,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27552,7 +27552,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27618,7 +27618,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27678,7 +27678,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -27753,7 +27753,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27789,7 +27789,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -27860,7 +27860,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -27938,7 +27938,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -27995,7 +27995,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -28050,7 +28050,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -28086,7 +28086,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -28154,7 +28154,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -28208,7 +28208,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -28284,7 +28284,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -28319,7 +28319,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -28372,7 +28372,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvAccess"
             ]
           }
         ]
@@ -28410,7 +28410,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -28474,7 +28474,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -28538,7 +28538,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "LiveTvManagement"
             ]
           }
         ]
@@ -45013,7 +45013,7 @@
                 "$ref": "#/components/schemas/BaseItemKind"
               }
             ],
-            "description": "The base item kind."
+            "description": "Gets or sets the type."
           },
           "People": {
             "type": "array",
@@ -47230,7 +47230,7 @@
                 "$ref": "#/components/schemas/ScrollDirection"
               }
             ],
-            "description": "An enum representing the axis that should be scrolled."
+            "description": "Gets or sets the scroll direction."
           },
           "ShowBackdrop": {
             "type": "boolean",
@@ -47246,7 +47246,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "An enum representing the sorting order."
+            "description": "Gets or sets the sort order."
           },
           "ShowSidebar": {
             "type": "boolean",
@@ -53218,7 +53218,7 @@
                 "$ref": "#/components/schemas/BaseItemDto"
               }
             ],
-            "description": "Gets or sets the now playing item.",
+            "description": "This is strictly used as a data transfer object from the api layer.\r\nThis holds information about a BaseItem in a format that is convenient for the client.",
             "nullable": true
           },
           "FullNowPlayingItem": {
@@ -55170,7 +55170,7 @@
                 "$ref": "#/components/schemas/SyncPlayUserAccessType"
               }
             ],
-            "description": "Enum SyncPlayUserAccessType."
+            "description": "Gets or sets a value indicating what SyncPlay features the user can access."
           }
         },
         "additionalProperties": false
