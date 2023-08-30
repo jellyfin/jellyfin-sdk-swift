@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get the item's external id info.
     static func getExternalIDInfos(itemID: String) -> Request<[JellyfinAPI.ExternalIDInfo]> {
-        Request(method: "GET", url: "/Items/\(itemID)/ExternalIdInfos", id: "GetExternalIdInfos")
+        Request(path: "/Items/\(itemID)/ExternalIdInfos", method: "GET", id: "GetExternalIdInfos")
     }
 }

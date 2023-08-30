@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Renames a virtual folder.
     static func renameVirtualFolder(parameters: RenameVirtualFolderParameters? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Library/VirtualFolders/Name", query: parameters?.asQuery, id: "RenameVirtualFolder")
+        Request(path: "/Library/VirtualFolders/Name", method: "POST", query: parameters?.asQuery, id: "RenameVirtualFolder")
     }
 
     struct RenameVirtualFolderParameters {

@@ -19,8 +19,8 @@ public extension Paths {
         parameters: GetStudioImageByIndexParameters? = nil
     ) -> Request<Data> {
         Request(
+            path: "/Studios/\(name)/Images/\(imageType)/\(imageIndex)",
             method: "GET",
-            url: "/Studios/\(name)/Images/\(imageType)/\(imageIndex)",
             query: parameters?.asQuery,
             id: "GetStudioImageByIndex"
         )

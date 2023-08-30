@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the first user.
     static var getFirstUser: Request<JellyfinAPI.StartupUserDto> {
-        Request(method: "GET", url: "/Startup/User", id: "GetFirstUser")
+        Request(path: "/Startup/User", method: "GET", id: "GetFirstUser")
     }
 }

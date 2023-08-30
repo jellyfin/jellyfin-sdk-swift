@@ -25,8 +25,8 @@ public extension Paths {
         parameters: HeadItemImage2Parameters? = nil
     ) -> Request<Data> {
         Request(
+            path: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/\(tag)/\(format)/\(maxWidth)/\(maxHeight)/\(percentPlayed)/\(unplayedCount)",
             method: "HEAD",
-            url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/\(tag)/\(format)/\(maxWidth)/\(maxHeight)/\(percentPlayed)/\(unplayedCount)",
             query: parameters?.asQuery,
             id: "HeadItemImage2"
         )

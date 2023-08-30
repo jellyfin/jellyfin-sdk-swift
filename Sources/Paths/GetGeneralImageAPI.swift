@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get General Image.
     static func getGeneralImage(name: String, type: String) -> Request<Data> {
-        Request(method: "GET", url: "/Images/General/\(name)/\(type)", id: "GetGeneralImage")
+        Request(path: "/Images/General/\(name)/\(type)", method: "GET", id: "GetGeneralImage")
     }
 }

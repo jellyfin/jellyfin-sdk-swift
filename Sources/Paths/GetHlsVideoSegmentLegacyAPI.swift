@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a hls video segment.
     static func getHlsVideoSegmentLegacy(itemID: String, playlistID: String, segmentID: String, segmentContainer: String) -> Request<Data> {
-        Request(method: "GET", url: "/Videos/\(itemID)/hls/\(playlistID)/\(segmentID).\(segmentContainer)", id: "GetHlsVideoSegmentLegacy")
+        Request(path: "/Videos/\(itemID)/hls/\(playlistID)/\(segmentID).\(segmentContainer)", method: "GET", id: "GetHlsVideoSegmentLegacy")
     }
 }

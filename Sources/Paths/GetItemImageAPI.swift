@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the item's image.
     static func getItemImage(itemID: String, imageType: String, parameters: GetItemImageParameters? = nil) -> Request<Data> {
-        Request(method: "GET", url: "/Items/\(itemID)/Images/\(imageType)", query: parameters?.asQuery, id: "GetItemImage")
+        Request(path: "/Items/\(itemID)/Images/\(imageType)", method: "GET", query: parameters?.asQuery, id: "GetItemImage")
     }
 
     struct GetItemImageParameters {

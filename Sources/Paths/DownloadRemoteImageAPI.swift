@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Downloads a remote image for an item.
     static func downloadRemoteImage(itemID: String, parameters: DownloadRemoteImageParameters) -> Request<Void> {
-        Request(method: "POST", url: "/Items/\(itemID)/RemoteImages/Download", query: parameters.asQuery, id: "DownloadRemoteImage")
+        Request(path: "/Items/\(itemID)/RemoteImages/Download", method: "POST", query: parameters.asQuery, id: "DownloadRemoteImage")
     }
 
     struct DownloadRemoteImageParameters {

@@ -14,8 +14,8 @@ extension Paths {
     /// Updates a user's rating for an item.
     public static func updateUserItemRating(userID: String, itemID: String, isLikes: Bool? = nil) -> Request<JellyfinAPI.UserItemDataDto> {
         Request(
+            path: "/Users/\(userID)/Items/\(itemID)/Rating",
             method: "POST",
-            url: "/Users/\(userID)/Items/\(itemID)/Rating",
             query: makeUpdateUserItemRatingQuery(isLikes),
             id: "UpdateUserItemRating"
         )

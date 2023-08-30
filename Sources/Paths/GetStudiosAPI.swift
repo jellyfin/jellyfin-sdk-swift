@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets all studios from a given item, folder, or the entire library.
     static func getStudios(parameters: GetStudiosParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Studios", query: parameters?.asQuery, id: "GetStudios")
+        Request(path: "/Studios", method: "GET", query: parameters?.asQuery, id: "GetStudios")
     }
 
     struct GetStudiosParameters {

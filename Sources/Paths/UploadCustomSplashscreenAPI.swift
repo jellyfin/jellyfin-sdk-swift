@@ -15,6 +15,6 @@ public extension Paths {
     ///
     /// The body is expected to the image contents base64 encoded.
     static func uploadCustomSplashscreen(_ body: Data? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Branding/Splashscreen", body: body, id: "UploadCustomSplashscreen")
+        Request(path: "/Branding/Splashscreen", method: "POST", body: body, id: "UploadCustomSplashscreen")
     }
 }

@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets latest media.
     static func getLatestMedia(userID: String, parameters: GetLatestMediaParameters? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
-        Request(method: "GET", url: "/Users/\(userID)/Items/Latest", query: parameters?.asQuery, id: "GetLatestMedia")
+        Request(path: "/Users/\(userID)/Items/Latest", method: "GET", query: parameters?.asQuery, id: "GetLatestMedia")
     }
 
     struct GetLatestMediaParameters {

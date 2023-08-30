@@ -16,7 +16,7 @@ public extension Paths {
         parameters: AddVirtualFolderParameters? = nil,
         _ body: JellyfinAPI.AddVirtualFolderDto? = nil
     ) -> Request<Void> {
-        Request(method: "POST", url: "/Library/VirtualFolders", query: parameters?.asQuery, body: body, id: "AddVirtualFolder")
+        Request(path: "/Library/VirtualFolders", method: "POST", query: parameters?.asQuery, body: body, id: "AddVirtualFolder")
     }
 
     struct AddVirtualFolderParameters {

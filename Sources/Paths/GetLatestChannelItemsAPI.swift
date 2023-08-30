@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets latest channel items.
     static func getLatestChannelItems(parameters: GetLatestChannelItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Channels/Items/Latest", query: parameters?.asQuery, id: "GetLatestChannelItems")
+        Request(path: "/Channels/Items/Latest", method: "GET", query: parameters?.asQuery, id: "GetLatestChannelItems")
     }
 
     struct GetLatestChannelItemsParameters {

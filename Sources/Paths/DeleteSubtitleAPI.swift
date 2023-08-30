@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Deletes an external subtitle file.
     static func deleteSubtitle(itemID: String, index: Int) -> Request<Void> {
-        Request(method: "DELETE", url: "/Videos/\(itemID)/Subtitles/\(index)", id: "DeleteSubtitle")
+        Request(path: "/Videos/\(itemID)/Subtitles/\(index)", method: "DELETE", id: "DeleteSubtitle")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Moves a playlist item.
     static func moveItem(playlistID: String, itemID: String, newIndex: Int) -> Request<Void> {
-        Request(method: "POST", url: "/Playlists/\(playlistID)/Items/\(itemID)/Move/\(newIndex)", id: "MoveItem")
+        Request(path: "/Playlists/\(playlistID)/Items/\(itemID)/Move/\(newIndex)", method: "POST", id: "MoveItem")
     }
 }

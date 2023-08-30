@@ -16,7 +16,8 @@ public struct NetworkConfiguration: Codable, Hashable {
     public var isAutoDiscoveryTracing: Bool?
     /// Gets or sets a value used to specify the URL prefix that your Jellyfin instance can be accessed at.
     public var baseURL: String?
-    /// Gets or sets the password required to access the X.509 certificate data in the file specified by Jellyfin.Networking.Configuration.NetworkConfiguration.CertificatePath.
+    /// Gets or sets the password required to access the X.509 certificate data in the file specified by
+    /// Jellyfin.Networking.Configuration.NetworkConfiguration.CertificatePath.
     public var certificatePassword: String?
     /// Gets or sets the filesystem path of an X.509 certificate to use for SSL.
     public var certificatePath: String?
@@ -46,9 +47,11 @@ public struct NetworkConfiguration: Codable, Hashable {
     public var httpserverPortNumber: Int?
     /// Gets or sets the HTTPS server port number.
     public var httpsPortNumber: Int?
-    /// Gets or sets a value indicating whether address names that match Jellyfin.Networking.Configuration.NetworkConfiguration.VirtualInterfaceNames should be Ignore for the purposes of binding.
+    /// Gets or sets a value indicating whether address names that match
+    /// Jellyfin.Networking.Configuration.NetworkConfiguration.VirtualInterfaceNames should be Ignore for the purposes of binding.
     public var isIgnoreVirtualInterfaces: Bool?
-    /// Gets or sets a value indicating whether <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.RemoteIPFilter" /> contains a blacklist or a whitelist. Default is a whitelist.
+    /// Gets or sets a value indicating whether <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.RemoteIPFilter" />
+    /// contains a blacklist or a whitelist. Default is a whitelist.
     public var isRemoteIPFilterBlacklist: Bool?
     /// Gets or sets the known proxies. If the proxy is a network, it's added to the KnownNetworks.
     public var knownProxies: [String]?
@@ -64,13 +67,15 @@ public struct NetworkConfiguration: Codable, Hashable {
     ///
     /// Gets or sets PublishedServerUri to advertise for specific subnets.
     public var publishedServerUriBySubnet: [String]?
-    /// Gets or sets the filter for remote IP connectivity. Used in conjuntion with <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.IsRemoteIPFilterBlacklist" />.
+    /// Gets or sets the filter for remote IP connectivity. Used in conjuntion with <seealso
+    /// cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.IsRemoteIPFilterBlacklist" />.
     public var remoteIPFilter: [String]?
     /// Gets or sets a value indicating whether the server should force connections over HTTPS.
     public var requireHTTPS: Bool?
     /// Gets or sets the SSDPTracingFilter
     ///
-    /// Gets or sets a value indicating whether an IP address is to be used to filter the detailed ssdp logs that are being sent to the console/log.
+    /// Gets or sets a value indicating whether an IP address is to be used to filter the detailed ssdp logs that are being sent to the
+    /// console/log.
     ///
     /// If the setting "Emby.Dlna": "Debug" msut be set in logging.default.json for this property to work.
     public var sSDPTracingFilter: String?
@@ -86,7 +91,8 @@ public struct NetworkConfiguration: Codable, Hashable {
     public var uDPSendDelay: Int?
     /// Gets or sets a value indicating whether the http port should be mapped as part of UPnP automatic port forwarding.
     public var isUPnPCreateHTTPPortMap: Bool?
-    /// Gets or sets a value indicating the interfaces that should be ignored. The list can be comma separated. <seealso cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.IgnoreVirtualInterfaces" />.
+    /// Gets or sets a value indicating the interfaces that should be ignored. The list can be comma separated. <seealso
+    /// cref="P:Jellyfin.Networking.Configuration.NetworkConfiguration.IgnoreVirtualInterfaces" />.
     public var virtualInterfaceNames: String?
 
     public init(

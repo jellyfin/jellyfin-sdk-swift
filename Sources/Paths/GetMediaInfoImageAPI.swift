@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get media info image.
     static func getMediaInfoImage(theme: String, name: String) -> Request<Data> {
-        Request(method: "GET", url: "/Images/MediaInfo/\(theme)/\(name)", id: "GetMediaInfoImage")
+        Request(path: "/Images/MediaInfo/\(theme)/\(name)", method: "GET", id: "GetMediaInfoImage")
     }
 }

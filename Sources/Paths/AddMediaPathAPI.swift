@@ -14,8 +14,8 @@ extension Paths {
     /// Add a media path to a library.
     public static func addMediaPath(isRefreshLibrary: Bool? = nil, _ body: JellyfinAPI.MediaPathDto) -> Request<Void> {
         Request(
+            path: "/Library/VirtualFolders/Paths",
             method: "POST",
-            url: "/Library/VirtualFolders/Paths",
             query: makeAddMediaPathQuery(isRefreshLibrary),
             body: body,
             id: "AddMediaPath"

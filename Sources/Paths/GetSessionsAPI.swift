@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a list of sessions.
     static func getSessions(parameters: GetSessionsParameters? = nil) -> Request<[JellyfinAPI.SessionInfo]> {
-        Request(method: "GET", url: "/Sessions", query: parameters?.asQuery, id: "GetSessions")
+        Request(path: "/Sessions", method: "GET", query: parameters?.asQuery, id: "GetSessions")
     }
 
     struct GetSessionsParameters {

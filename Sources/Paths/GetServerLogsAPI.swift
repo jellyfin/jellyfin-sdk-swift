@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a list of available server log files.
     static var getServerLogs: Request<[JellyfinAPI.LogFile]> {
-        Request(method: "GET", url: "/System/Logs", id: "GetServerLogs")
+        Request(path: "/System/Logs", method: "GET", id: "GetServerLogs")
     }
 }

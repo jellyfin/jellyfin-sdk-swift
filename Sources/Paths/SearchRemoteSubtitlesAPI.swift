@@ -18,8 +18,8 @@ extension Paths {
         isPerfectMatch: Bool? = nil
     ) -> Request<[JellyfinAPI.RemoteSubtitleInfo]> {
         Request(
+            path: "/Items/\(itemID)/RemoteSearch/Subtitles/\(language)",
             method: "GET",
-            url: "/Items/\(itemID)/RemoteSearch/Subtitles/\(language)",
             query: makeSearchRemoteSubtitlesQuery(isPerfectMatch),
             id: "SearchRemoteSubtitles"
         )

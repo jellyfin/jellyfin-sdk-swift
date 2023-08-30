@@ -2,8 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Jellyfin API",
-    "version": "10.8.9",
-    "x-jellyfin-version": "10.8.9"
+    "version": "10.8.10",
+    "x-jellyfin-version": "10.8.10"
   },
   "servers": [
     {
@@ -45013,7 +45013,7 @@
                 "$ref": "#/components/schemas/BaseItemKind"
               }
             ],
-            "description": "Gets or sets the type."
+            "description": "The base item kind."
           },
           "People": {
             "type": "array",
@@ -47230,7 +47230,7 @@
                 "$ref": "#/components/schemas/ScrollDirection"
               }
             ],
-            "description": "Gets or sets the scroll direction."
+            "description": "An enum representing the axis that should be scrolled."
           },
           "ShowBackdrop": {
             "type": "boolean",
@@ -47246,7 +47246,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "Gets or sets the sort order."
+            "description": "An enum representing the sorting order."
           },
           "ShowSidebar": {
             "type": "boolean",
@@ -47419,15 +47419,15 @@
             "type": "string",
             "nullable": true
           },
+          "TonemappingMode": {
+            "type": "string",
+            "nullable": true
+          },
           "TonemappingRange": {
             "type": "string",
             "nullable": true
           },
           "TonemappingDesat": {
-            "type": "number",
-            "format": "double"
-          },
-          "TonemappingThreshold": {
             "type": "number",
             "format": "double"
           },
@@ -53218,7 +53218,7 @@
                 "$ref": "#/components/schemas/BaseItemDto"
               }
             ],
-            "description": "This is strictly used as a data transfer object from the api layer.\r\nThis holds information about a BaseItem in a format that is convenient for the client.",
+            "description": "Gets or sets the now playing item.",
             "nullable": true
           },
           "FullNowPlayingItem": {
@@ -55170,7 +55170,7 @@
                 "$ref": "#/components/schemas/SyncPlayUserAccessType"
               }
             ],
-            "description": "Gets or sets a value indicating what SyncPlay features the user can access."
+            "description": "Enum SyncPlayUserAccessType."
           }
         },
         "additionalProperties": false

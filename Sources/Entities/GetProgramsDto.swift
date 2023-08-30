@@ -26,7 +26,9 @@ public struct GetProgramsDto: Codable, Hashable {
     ///
     /// Optional.
     public var enableUserData: Bool?
-    /// Gets or sets specify additional fields of information to return in the output. This allows multiple, comma delimited. Options: Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds, PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines.
+    /// Gets or sets specify additional fields of information to return in the output. This allows multiple, comma delimited. Options:
+    /// Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds,
+    /// PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines.
     ///
     /// Optional.
     public var fields: [ItemFields]?

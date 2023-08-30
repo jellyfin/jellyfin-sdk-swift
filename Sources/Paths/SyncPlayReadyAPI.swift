@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Notify SyncPlay group that member is ready for playback.
     static func syncPlayReady(_ body: JellyfinAPI.ReadyRequestDto) -> Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/Ready", body: body, id: "SyncPlayReady")
+        Request(path: "/SyncPlay/Ready", method: "POST", body: body, id: "SyncPlayReady")
     }
 }

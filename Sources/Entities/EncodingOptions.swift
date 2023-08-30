@@ -41,10 +41,10 @@ public struct EncodingOptions: Codable, Hashable {
     public var throttleDelaySeconds: Int?
     public var tonemappingAlgorithm: String?
     public var tonemappingDesat: Double?
+    public var tonemappingMode: String?
     public var tonemappingParam: Double?
     public var tonemappingPeak: Double?
     public var tonemappingRange: String?
-    public var tonemappingThreshold: Double?
     public var transcodingTempPath: String?
     public var vaapiDevice: String?
     public var vppTonemappingBrightness: Double?
@@ -81,10 +81,10 @@ public struct EncodingOptions: Codable, Hashable {
         throttleDelaySeconds: Int? = nil,
         tonemappingAlgorithm: String? = nil,
         tonemappingDesat: Double? = nil,
+        tonemappingMode: String? = nil,
         tonemappingParam: Double? = nil,
         tonemappingPeak: Double? = nil,
         tonemappingRange: String? = nil,
-        tonemappingThreshold: Double? = nil,
         transcodingTempPath: String? = nil,
         vaapiDevice: String? = nil,
         vppTonemappingBrightness: Double? = nil,
@@ -120,10 +120,10 @@ public struct EncodingOptions: Codable, Hashable {
         self.throttleDelaySeconds = throttleDelaySeconds
         self.tonemappingAlgorithm = tonemappingAlgorithm
         self.tonemappingDesat = tonemappingDesat
+        self.tonemappingMode = tonemappingMode
         self.tonemappingParam = tonemappingParam
         self.tonemappingPeak = tonemappingPeak
         self.tonemappingRange = tonemappingRange
-        self.tonemappingThreshold = tonemappingThreshold
         self.transcodingTempPath = transcodingTempPath
         self.vaapiDevice = vaapiDevice
         self.vppTonemappingBrightness = vppTonemappingBrightness
@@ -165,10 +165,10 @@ public struct EncodingOptions: Codable, Hashable {
         self.throttleDelaySeconds = try values.decodeIfPresent(Int.self, forKey: "ThrottleDelaySeconds")
         self.tonemappingAlgorithm = try values.decodeIfPresent(String.self, forKey: "TonemappingAlgorithm")
         self.tonemappingDesat = try values.decodeIfPresent(Double.self, forKey: "TonemappingDesat")
+        self.tonemappingMode = try values.decodeIfPresent(String.self, forKey: "TonemappingMode")
         self.tonemappingParam = try values.decodeIfPresent(Double.self, forKey: "TonemappingParam")
         self.tonemappingPeak = try values.decodeIfPresent(Double.self, forKey: "TonemappingPeak")
         self.tonemappingRange = try values.decodeIfPresent(String.self, forKey: "TonemappingRange")
-        self.tonemappingThreshold = try values.decodeIfPresent(Double.self, forKey: "TonemappingThreshold")
         self.transcodingTempPath = try values.decodeIfPresent(String.self, forKey: "TranscodingTempPath")
         self.vaapiDevice = try values.decodeIfPresent(String.self, forKey: "VaapiDevice")
         self.vppTonemappingBrightness = try values.decodeIfPresent(Double.self, forKey: "VppTonemappingBrightness")
@@ -210,10 +210,10 @@ public struct EncodingOptions: Codable, Hashable {
         try values.encodeIfPresent(throttleDelaySeconds, forKey: "ThrottleDelaySeconds")
         try values.encodeIfPresent(tonemappingAlgorithm, forKey: "TonemappingAlgorithm")
         try values.encodeIfPresent(tonemappingDesat, forKey: "TonemappingDesat")
+        try values.encodeIfPresent(tonemappingMode, forKey: "TonemappingMode")
         try values.encodeIfPresent(tonemappingParam, forKey: "TonemappingParam")
         try values.encodeIfPresent(tonemappingPeak, forKey: "TonemappingPeak")
         try values.encodeIfPresent(tonemappingRange, forKey: "TonemappingRange")
-        try values.encodeIfPresent(tonemappingThreshold, forKey: "TonemappingThreshold")
         try values.encodeIfPresent(transcodingTempPath, forKey: "TranscodingTempPath")
         try values.encodeIfPresent(vaapiDevice, forKey: "VaapiDevice")
         try values.encodeIfPresent(vppTonemappingBrightness, forKey: "VppTonemappingBrightness")

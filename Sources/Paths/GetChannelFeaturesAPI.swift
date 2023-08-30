@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get channel features.
     static func getChannelFeatures(channelID: String) -> Request<JellyfinAPI.ChannelFeatures> {
-        Request(method: "GET", url: "/Channels/\(channelID)/Features", id: "GetChannelFeatures")
+        Request(path: "/Channels/\(channelID)/Features", method: "GET", id: "GetChannelFeatures")
     }
 }

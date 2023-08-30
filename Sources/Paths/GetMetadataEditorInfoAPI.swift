@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets metadata editor info for an item.
     static func getMetadataEditorInfo(itemID: String) -> Request<JellyfinAPI.MetadataEditorInfo> {
-        Request(method: "GET", url: "/Items/\(itemID)/MetadataEditor", id: "GetMetadataEditorInfo")
+        Request(path: "/Items/\(itemID)/MetadataEditor", method: "GET", id: "GetMetadataEditorInfo")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Process a content directory control request.
     static func processContentDirectoryControlRequest(serverID: String) -> Request<String> {
-        Request(method: "POST", url: "/Dlna/\(serverID)/ContentDirectory/Control", id: "ProcessContentDirectoryControlRequest")
+        Request(path: "/Dlna/\(serverID)/ContentDirectory/Control", method: "POST", id: "ProcessContentDirectoryControlRequest")
     }
 }

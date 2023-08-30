@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get all auth providers.
     static var getAuthProviders: Request<[JellyfinAPI.NameIDPair]> {
-        Request(method: "GET", url: "/Auth/Providers", id: "GetAuthProviders")
+        Request(path: "/Auth/Providers", method: "GET", id: "GetAuthProviders")
     }
 }

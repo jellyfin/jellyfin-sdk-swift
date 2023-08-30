@@ -17,8 +17,8 @@ extension Paths {
         isNewLibrary: Bool? = nil
     ) -> Request<JellyfinAPI.LibraryOptionsResultDto> {
         Request(
+            path: "/Libraries/AvailableOptions",
             method: "GET",
-            url: "/Libraries/AvailableOptions",
             query: makeGetLibraryOptionsInfoQuery(libraryContentType, isNewLibrary),
             id: "GetLibraryOptionsInfo"
         )

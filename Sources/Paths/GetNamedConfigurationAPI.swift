@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Gets a named configuration.
-    static func getNamedConfiguration(key: String) -> Request<String> {
-        Request(method: "GET", url: "/System/Configuration/\(key)", id: "GetNamedConfiguration")
+    static func getNamedConfiguration(key: String) -> Request<Data> {
+        Request(path: "/System/Configuration/\(key)", method: "GET", id: "GetNamedConfiguration")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Updates a media path.
     static func updateMediaPath(_ body: JellyfinAPI.UpdateMediaPathRequestDto) -> Request<Void> {
-        Request(method: "POST", url: "/Library/VirtualFolders/Paths/Update", body: body, id: "UpdateMediaPath")
+        Request(path: "/Library/VirtualFolders/Paths/Update", method: "POST", body: body, id: "UpdateMediaPath")
     }
 }

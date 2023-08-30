@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets special features for an item.
     static func getSpecialFeatures(userID: String, itemID: String) -> Request<[JellyfinAPI.BaseItemDto]> {
-        Request(method: "GET", url: "/Users/\(userID)/Items/\(itemID)/SpecialFeatures", id: "GetSpecialFeatures")
+        Request(path: "/Users/\(userID)/Items/\(itemID)/SpecialFeatures", method: "GET", id: "GetSpecialFeatures")
     }
 }

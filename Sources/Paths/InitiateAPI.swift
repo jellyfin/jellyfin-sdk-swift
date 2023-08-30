@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Initiate a new quick connect request.
     static var initiate: Request<JellyfinAPI.QuickConnectResult> {
-        Request(method: "GET", url: "/QuickConnect/Initiate", id: "Initiate")
+        Request(path: "/QuickConnect/Initiate", method: "GET", id: "Initiate")
     }
 }

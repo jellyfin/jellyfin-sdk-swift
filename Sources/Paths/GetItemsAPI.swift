@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets items based on a query.
     static func getItems(parameters: GetItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Items", query: parameters?.asQuery, id: "GetItems")
+        Request(path: "/Items", method: "GET", query: parameters?.asQuery, id: "GetItems")
     }
 
     struct GetItemsParameters {

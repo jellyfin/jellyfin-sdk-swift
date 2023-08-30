@@ -51,9 +51,11 @@ public struct ServerConfiguration: Codable, Hashable {
     public var libraryScanFanoutConcurrency: Int?
     /// Gets or sets the number of days we should retain log files.
     public var logFileRetentionDays: Int?
-    /// Gets or sets the remaining minutes of a book that can be played while still saving playstate. If this percentage is crossed playstate will be reset to the beginning and the item will be marked watched.
+    /// Gets or sets the remaining minutes of a book that can be played while still saving playstate. If this percentage is crossed
+    /// playstate will be reset to the beginning and the item will be marked watched.
     public var maxAudiobookResume: Int?
-    /// Gets or sets the maximum percentage of an item that can be played while still saving playstate. If this percentage is crossed playstate will be reset to the beginning and the item will be marked watched.
+    /// Gets or sets the maximum percentage of an item that can be played while still saving playstate. If this percentage is crossed
+    /// playstate will be reset to the beginning and the item will be marked watched.
     public var maxResumePct: Int?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?

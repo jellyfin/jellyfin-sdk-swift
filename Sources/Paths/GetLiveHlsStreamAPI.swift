@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a hls live stream.
     static func getLiveHlsStream(itemID: String, parameters: GetLiveHlsStreamParameters? = nil) -> Request<Data> {
-        Request(method: "GET", url: "/Videos/\(itemID)/live.m3u8", query: parameters?.asQuery, id: "GetLiveHlsStream")
+        Request(path: "/Videos/\(itemID)/live.m3u8", method: "GET", query: parameters?.asQuery, id: "GetLiveHlsStream")
     }
 
     struct GetLiveHlsStreamParameters {

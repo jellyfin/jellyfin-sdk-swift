@@ -19,8 +19,8 @@ public extension Paths {
         parameters: HeadGenreImageByIndexParameters? = nil
     ) -> Request<Data> {
         Request(
+            path: "/Genres/\(name)/Images/\(imageType)/\(imageIndex)",
             method: "HEAD",
-            url: "/Genres/\(name)/Images/\(imageType)/\(imageIndex)",
             query: parameters?.asQuery,
             id: "HeadGenreImageByIndex"
         )

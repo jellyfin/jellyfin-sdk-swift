@@ -13,7 +13,7 @@ import URLQueryEncoder
 extension Paths {
     /// Tests the network with a request with the size of the bitrate.
     public static func getBitrateTestBytes(size: Int? = nil) -> Request<Data> {
-        Request(method: "GET", url: "/Playback/BitrateTest", query: makeGetBitrateTestBytesQuery(size), id: "GetBitrateTestBytes")
+        Request(path: "/Playback/BitrateTest", method: "GET", query: makeGetBitrateTestBytesQuery(size), id: "GetBitrateTestBytes")
     }
 
     private static func makeGetBitrateTestBytesQuery(_ size: Int?) -> [(String, String?)] {

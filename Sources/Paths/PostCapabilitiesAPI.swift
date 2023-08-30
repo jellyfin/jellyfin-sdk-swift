@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Updates capabilities for a device.
     static func postCapabilities(parameters: PostCapabilitiesParameters? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/Capabilities", query: parameters?.asQuery, id: "PostCapabilities")
+        Request(path: "/Sessions/Capabilities", method: "POST", query: parameters?.asQuery, id: "PostCapabilities")
     }
 
     struct PostCapabilitiesParameters {

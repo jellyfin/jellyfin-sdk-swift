@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a hls video playlist.
     static func getHlsPlaylistLegacy(itemID: String, playlistID: String) -> Request<Data> {
-        Request(method: "GET", url: "/Videos/\(itemID)/hls/\(playlistID)/stream.m3u8", id: "GetHlsPlaylistLegacy")
+        Request(path: "/Videos/\(itemID)/hls/\(playlistID)/stream.m3u8", method: "GET", id: "GetHlsPlaylistLegacy")
     }
 }

@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Get music genre image by name.
     static func headMusicGenreImage(name: String, imageType: String, parameters: HeadMusicGenreImageParameters? = nil) -> Request<Data> {
-        Request(method: "HEAD", url: "/MusicGenres/\(name)/Images/\(imageType)", query: parameters?.asQuery, id: "HeadMusicGenreImage")
+        Request(path: "/MusicGenres/\(name)/Images/\(imageType)", method: "HEAD", query: parameters?.asQuery, id: "HeadMusicGenreImage")
     }
 
     struct HeadMusicGenreImageParameters {

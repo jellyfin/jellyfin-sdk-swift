@@ -16,7 +16,7 @@ public extension Paths {
         itemID: String,
         parameters: GetSimilarTrailersParameters? = nil
     ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Trailers/\(itemID)/Similar", query: parameters?.asQuery, id: "GetSimilarTrailers")
+        Request(path: "/Trailers/\(itemID)/Similar", method: "GET", query: parameters?.asQuery, id: "GetSimilarTrailers")
     }
 
     struct GetSimilarTrailersParameters {

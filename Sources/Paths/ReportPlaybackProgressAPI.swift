@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Reports playback progress within a session.
     static func reportPlaybackProgress(_ body: JellyfinAPI.PlaybackProgressInfo? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/Playing/Progress", body: body, id: "ReportPlaybackProgress")
+        Request(path: "/Sessions/Playing/Progress", method: "POST", body: body, id: "ReportPlaybackProgress")
     }
 }

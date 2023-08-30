@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the user based on auth token.
     static var getCurrentUser: Request<JellyfinAPI.UserDto> {
-        Request(method: "GET", url: "/Users/Me", id: "GetCurrentUser")
+        Request(path: "/Users/Me", method: "GET", id: "GetCurrentUser")
     }
 }

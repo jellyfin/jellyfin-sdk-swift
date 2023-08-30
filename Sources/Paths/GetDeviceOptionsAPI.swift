@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get options for a device.
     static func getDeviceOptions(id: String) -> Request<JellyfinAPI.DeviceOptions> {
-        Request(method: "GET", url: "/Devices/Options", query: [("id", id)], id: "GetDeviceOptions")
+        Request(path: "/Devices/Options", method: "GET", query: [("id", id)], id: "GetDeviceOptions")
     }
 }

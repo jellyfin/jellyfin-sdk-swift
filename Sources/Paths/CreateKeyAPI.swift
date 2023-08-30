@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Create a new api key.
     static func createKey(app: String) -> Request<Void> {
-        Request(method: "POST", url: "/Auth/Keys", query: [("app", app)], id: "CreateKey")
+        Request(path: "/Auth/Keys", method: "POST", query: [("app", app)], id: "CreateKey")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Request to remove items from the playlist in SyncPlay group.
     static func syncPlayRemoveFromPlaylist(_ body: JellyfinAPI.RemoveFromPlaylistRequestDto) -> Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/RemoveFromPlaylist", body: body, id: "SyncPlayRemoveFromPlaylist")
+        Request(path: "/SyncPlay/RemoveFromPlaylist", method: "POST", body: body, id: "SyncPlayRemoveFromPlaylist")
     }
 }

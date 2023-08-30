@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Issues a general command to a client.
     static func sendGeneralCommand(sessionID: String, command: String) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/\(sessionID)/Command/\(command)", id: "SendGeneralCommand")
+        Request(path: "/Sessions/\(sessionID)/Command/\(command)", method: "POST", id: "SendGeneralCommand")
     }
 }

@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets query filters.
     static func getQueryFilters(parameters: GetQueryFiltersParameters? = nil) -> Request<JellyfinAPI.QueryFilters> {
-        Request(method: "GET", url: "/Items/Filters2", query: parameters?.asQuery, id: "GetQueryFilters")
+        Request(path: "/Items/Filters2", method: "GET", query: parameters?.asQuery, id: "GetQueryFilters")
     }
 
     struct GetQueryFiltersParameters {

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a live tv series timer.
     static func getSeriesTimer(timerID: String) -> Request<JellyfinAPI.SeriesTimerInfoDto> {
-        Request(method: "GET", url: "/LiveTv/SeriesTimers/\(timerID)", id: "GetSeriesTimer")
+        Request(path: "/LiveTv/SeriesTimers/\(timerID)", method: "GET", id: "GetSeriesTimer")
     }
 }

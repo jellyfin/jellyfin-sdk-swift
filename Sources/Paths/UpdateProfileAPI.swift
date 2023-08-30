@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Updates a profile.
     static func updateProfile(profileID: String, _ body: JellyfinAPI.DeviceProfile? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Dlna/Profiles/\(profileID)", body: body, id: "UpdateProfile")
+        Request(path: "/Dlna/Profiles/\(profileID)", method: "POST", body: body, id: "UpdateProfile")
     }
 }

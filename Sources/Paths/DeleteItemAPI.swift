@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Deletes an item from the library and filesystem.
     static func deleteItem(itemID: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Items/\(itemID)", id: "DeleteItem")
+        Request(path: "/Items/\(itemID)", method: "DELETE", id: "DeleteItem")
     }
 }

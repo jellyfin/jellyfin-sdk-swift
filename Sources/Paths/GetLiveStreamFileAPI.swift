@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a live tv channel stream.
     static func getLiveStreamFile(streamID: String, container: String) -> Request<Data> {
-        Request(method: "GET", url: "/LiveTv/LiveStreamFiles/\(streamID)/stream.\(container)", id: "GetLiveStreamFile")
+        Request(path: "/LiveTv/LiveStreamFiles/\(streamID)/stream.\(container)", method: "GET", id: "GetLiveStreamFile")
     }
 }

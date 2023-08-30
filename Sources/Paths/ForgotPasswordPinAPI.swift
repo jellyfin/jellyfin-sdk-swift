@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Redeems a forgot password pin.
     static func forgotPasswordPin(_ body: JellyfinAPI.ForgotPasswordPinDto) -> Request<JellyfinAPI.PinRedeemResult> {
-        Request(method: "POST", url: "/Users/ForgotPassword/Pin", body: body, id: "ForgotPasswordPin")
+        Request(path: "/Users/ForgotPassword/Pin", method: "POST", body: body, id: "ForgotPasswordPin")
     }
 }

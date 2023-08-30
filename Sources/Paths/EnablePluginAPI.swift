@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Enables a disabled plugin.
     static func enablePlugin(pluginID: String, version: String) -> Request<Void> {
-        Request(method: "POST", url: "/Plugins/\(pluginID)/\(version)/Enable", id: "EnablePlugin")
+        Request(path: "/Plugins/\(pluginID)/\(version)/Enable", method: "POST", id: "EnablePlugin")
     }
 }

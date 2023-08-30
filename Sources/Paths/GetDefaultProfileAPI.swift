@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the default profile.
     static var getDefaultProfile: Request<JellyfinAPI.DeviceProfile> {
-        Request(method: "GET", url: "/Dlna/Profiles/Default", id: "GetDefaultProfile")
+        Request(path: "/Dlna/Profiles/Default", method: "GET", id: "GetDefaultProfile")
     }
 }

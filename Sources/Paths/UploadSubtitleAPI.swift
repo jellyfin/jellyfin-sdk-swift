@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Upload an external subtitle file.
     static func uploadSubtitle(itemID: String, _ body: JellyfinAPI.UploadSubtitleDto) -> Request<Void> {
-        Request(method: "POST", url: "/Videos/\(itemID)/Subtitles", body: body, id: "UploadSubtitle")
+        Request(path: "/Videos/\(itemID)/Subtitles", method: "POST", body: body, id: "UploadSubtitle")
     }
 }

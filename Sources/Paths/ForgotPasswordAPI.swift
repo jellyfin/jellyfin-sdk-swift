@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Initiates the forgot password process for a local user.
     static func forgotPassword(_ body: JellyfinAPI.ForgotPasswordDto) -> Request<JellyfinAPI.ForgotPasswordResult> {
-        Request(method: "POST", url: "/Users/ForgotPassword", body: body, id: "ForgotPassword")
+        Request(path: "/Users/ForgotPassword", method: "POST", body: body, id: "ForgotPassword")
     }
 }

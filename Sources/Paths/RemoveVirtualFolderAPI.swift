@@ -14,8 +14,8 @@ extension Paths {
     /// Removes a virtual folder.
     public static func removeVirtualFolder(name: String? = nil, isRefreshLibrary: Bool? = nil) -> Request<Void> {
         Request(
+            path: "/Library/VirtualFolders",
             method: "DELETE",
-            url: "/Library/VirtualFolders",
             query: makeRemoveVirtualFolderQuery(name, isRefreshLibrary),
             id: "RemoveVirtualFolder"
         )

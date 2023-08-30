@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Uninstalls a plugin by version.
     static func uninstallPluginByVersion(pluginID: String, version: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Plugins/\(pluginID)/\(version)", id: "UninstallPluginByVersion")
+        Request(path: "/Plugins/\(pluginID)/\(version)", method: "DELETE", id: "UninstallPluginByVersion")
     }
 }

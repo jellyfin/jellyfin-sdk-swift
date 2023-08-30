@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Deletes a device.
     static func deleteDevice(id: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Devices", query: [("id", id)], id: "DeleteDevice")
+        Request(path: "/Devices", method: "DELETE", query: [("id", id)], id: "DeleteDevice")
     }
 }

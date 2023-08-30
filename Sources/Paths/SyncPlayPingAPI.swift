@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Update session ping.
     static func syncPlayPing(_ body: JellyfinAPI.PingRequestDto) -> Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/Ping", body: body, id: "SyncPlayPing")
+        Request(path: "/SyncPlay/Ping", method: "POST", body: body, id: "SyncPlayPing")
     }
 }

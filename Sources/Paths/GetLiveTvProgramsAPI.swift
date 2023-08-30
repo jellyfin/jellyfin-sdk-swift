@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets available live tv epgs.
     static func getLiveTvPrograms(parameters: GetLiveTvProgramsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/LiveTv/Programs", query: parameters?.asQuery, id: "GetLiveTvPrograms")
+        Request(path: "/LiveTv/Programs", method: "GET", query: parameters?.asQuery, id: "GetLiveTvPrograms")
     }
 
     struct GetLiveTvProgramsParameters {

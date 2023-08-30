@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Resets a tv tuner.
     static func resetTuner(tunerID: String) -> Request<Void> {
-        Request(method: "POST", url: "/LiveTv/Tuners/\(tunerID)/Reset", id: "ResetTuner")
+        Request(path: "/LiveTv/Tuners/\(tunerID)/Reset", method: "POST", id: "ResetTuner")
     }
 }

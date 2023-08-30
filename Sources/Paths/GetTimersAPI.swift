@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the live tv timers.
     static func getTimers(parameters: GetTimersParameters? = nil) -> Request<JellyfinAPI.TimerInfoDtoQueryResult> {
-        Request(method: "GET", url: "/LiveTv/Timers", query: parameters?.asQuery, id: "GetTimers")
+        Request(path: "/LiveTv/Timers", method: "GET", query: parameters?.asQuery, id: "GetTimers")
     }
 
     struct GetTimersParameters {

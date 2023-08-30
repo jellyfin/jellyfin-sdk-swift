@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get movie remote search.
     static func getMovieRemoteSearchResults(_ body: JellyfinAPI.MovieInfoRemoteSearchQuery) -> Request<[JellyfinAPI.RemoteSearchResult]> {
-        Request(method: "POST", url: "/Items/RemoteSearch/Movie", body: body, id: "GetMovieRemoteSearchResults")
+        Request(path: "/Items/RemoteSearch/Movie", method: "POST", body: body, id: "GetMovieRemoteSearchResults")
     }
 }

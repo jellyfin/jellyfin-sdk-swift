@@ -13,7 +13,7 @@ import URLQueryEncoder
 extension Paths {
     /// Gets a year.
     public static func getYear(year: Int, userID: String? = nil) -> Request<JellyfinAPI.BaseItemDto> {
-        Request(method: "GET", url: "/Years/\(year)", query: makeGetYearQuery(userID), id: "GetYear")
+        Request(path: "/Years/\(year)", method: "GET", query: makeGetYearQuery(userID), id: "GetYear")
     }
 
     private static func makeGetYearQuery(_ userID: String?) -> [(String, String?)] {

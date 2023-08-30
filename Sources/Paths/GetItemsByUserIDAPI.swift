@@ -16,7 +16,7 @@ public extension Paths {
         userID: String,
         parameters: GetItemsByUserIDParameters? = nil
     ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Users/\(userID)/Items", query: parameters?.asQuery, id: "GetItemsByUserId")
+        Request(path: "/Users/\(userID)/Items", method: "GET", query: parameters?.asQuery, id: "GetItemsByUserId")
     }
 
     struct GetItemsByUserIDParameters {

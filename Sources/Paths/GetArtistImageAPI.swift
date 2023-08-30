@@ -18,7 +18,7 @@ public extension Paths {
         imageIndex: Int,
         parameters: GetArtistImageParameters? = nil
     ) -> Request<Data> {
-        Request(method: "GET", url: "/Artists/\(name)/Images/\(imageType)/\(imageIndex)", query: parameters?.asQuery, id: "GetArtistImage")
+        Request(path: "/Artists/\(name)/Images/\(imageType)/\(imageIndex)", method: "GET", query: parameters?.asQuery, id: "GetArtistImage")
     }
 
     struct GetArtistImageParameters {

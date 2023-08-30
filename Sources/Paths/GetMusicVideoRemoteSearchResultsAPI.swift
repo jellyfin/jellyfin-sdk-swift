@@ -16,6 +16,6 @@ public extension Paths {
         _ body: JellyfinAPI
             .MusicVideoInfoRemoteSearchQuery
     ) -> Request<[JellyfinAPI.RemoteSearchResult]> {
-        Request(method: "POST", url: "/Items/RemoteSearch/MusicVideo", body: body, id: "GetMusicVideoRemoteSearchResults")
+        Request(path: "/Items/RemoteSearch/MusicVideo", method: "POST", body: body, id: "GetMusicVideoRemoteSearchResults")
     }
 }

@@ -14,6 +14,6 @@ public extension Paths {
     /// Gets critic review for an item.
     @available(*, deprecated, message: "Deprecated")
     static func getCriticReviews(itemID: String) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Items/\(itemID)/CriticReviews", id: "GetCriticReviews")
+        Request(path: "/Items/\(itemID)/CriticReviews", method: "GET", id: "GetCriticReviews")
     }
 }

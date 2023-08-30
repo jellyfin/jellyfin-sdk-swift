@@ -13,7 +13,7 @@ import URLQueryEncoder
 extension Paths {
     /// Reports that a session is viewing an item.
     public static func reportViewing(sessionID: String? = nil, itemID: String) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/Viewing", query: makeReportViewingQuery(sessionID, itemID), id: "ReportViewing")
+        Request(path: "/Sessions/Viewing", method: "POST", query: makeReportViewingQuery(sessionID, itemID), id: "ReportViewing")
     }
 
     private static func makeReportViewingQuery(_ sessionID: String?, _ itemID: String) -> [(String, String?)] {

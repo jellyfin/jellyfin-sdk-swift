@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Shuts down the application.
     static var shutdownApplication: Request<Void> {
-        Request(method: "POST", url: "/System/Shutdown", id: "ShutdownApplication")
+        Request(path: "/System/Shutdown", method: "POST", id: "ShutdownApplication")
     }
 }

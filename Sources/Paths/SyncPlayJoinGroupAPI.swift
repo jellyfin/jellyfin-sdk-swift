@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Join an existing SyncPlay group.
     static func syncPlayJoinGroup(_ body: JellyfinAPI.JoinGroupRequestDto) -> Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/Join", body: body, id: "SyncPlayJoinGroup")
+        Request(path: "/SyncPlay/Join", method: "POST", body: body, id: "SyncPlayJoinGroup")
     }
 }

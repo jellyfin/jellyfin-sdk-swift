@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets legacy query filters.
     static func getQueryFiltersLegacy(parameters: GetQueryFiltersLegacyParameters? = nil) -> Request<JellyfinAPI.QueryFiltersLegacy> {
-        Request(method: "GET", url: "/Items/Filters", query: parameters?.asQuery, id: "GetQueryFiltersLegacy")
+        Request(path: "/Items/Filters", method: "GET", query: parameters?.asQuery, id: "GetQueryFiltersLegacy")
     }
 
     struct GetQueryFiltersLegacyParameters {

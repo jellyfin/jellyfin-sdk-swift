@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Disable a plugin.
     static func disablePlugin(pluginID: String, version: String) -> Request<Void> {
-        Request(method: "POST", url: "/Plugins/\(pluginID)/\(version)/Disable", id: "DisablePlugin")
+        Request(path: "/Plugins/\(pluginID)/\(version)/Disable", method: "POST", id: "DisablePlugin")
     }
 }

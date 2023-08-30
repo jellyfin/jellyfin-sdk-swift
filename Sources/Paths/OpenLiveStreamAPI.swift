@@ -16,7 +16,7 @@ public extension Paths {
         parameters: OpenLiveStreamParameters? = nil,
         _ body: JellyfinAPI.OpenLiveStreamDto? = nil
     ) -> Request<JellyfinAPI.LiveStreamResponse> {
-        Request(method: "POST", url: "/LiveStreams/Open", query: parameters?.asQuery, body: body, id: "OpenLiveStream")
+        Request(path: "/LiveStreams/Open", method: "POST", query: parameters?.asQuery, body: body, id: "OpenLiveStream")
     }
 
     struct OpenLiveStreamParameters {

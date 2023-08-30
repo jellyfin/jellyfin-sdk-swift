@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets an audio stream using HTTP live streaming.
     static func getVariantHlsAudioPlaylist(itemID: String, parameters: GetVariantHlsAudioPlaylistParameters? = nil) -> Request<Data> {
-        Request(method: "GET", url: "/Audio/\(itemID)/main.m3u8", query: parameters?.asQuery, id: "GetVariantHlsAudioPlaylist")
+        Request(path: "/Audio/\(itemID)/main.m3u8", method: "GET", query: parameters?.asQuery, id: "GetVariantHlsAudioPlaylist")
     }
 
     struct GetVariantHlsAudioPlaylistParameters {

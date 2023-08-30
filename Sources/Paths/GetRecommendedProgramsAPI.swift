@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets recommended live tv epgs.
     static func getRecommendedPrograms(parameters: GetRecommendedProgramsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/LiveTv/Programs/Recommended", query: parameters?.asQuery, id: "GetRecommendedPrograms")
+        Request(path: "/LiveTv/Programs/Recommended", method: "GET", query: parameters?.asQuery, id: "GetRecommendedPrograms")
     }
 
     struct GetRecommendedProgramsParameters {

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets an item from a user's library.
     static func getItem(userID: String, itemID: String) -> Request<JellyfinAPI.BaseItemDto> {
-        Request(method: "GET", url: "/Users/\(userID)/Items/\(itemID)", id: "GetItem")
+        Request(path: "/Users/\(userID)/Items/\(itemID)", method: "GET", id: "GetItem")
     }
 }

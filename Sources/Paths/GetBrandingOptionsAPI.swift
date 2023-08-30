@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets branding configuration.
     static var getBrandingOptions: Request<JellyfinAPI.BrandingOptions> {
-        Request(method: "GET", url: "/Branding/Configuration", id: "GetBrandingOptions")
+        Request(path: "/Branding/Configuration", method: "GET", id: "GetBrandingOptions")
     }
 }

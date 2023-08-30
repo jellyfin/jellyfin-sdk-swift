@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets suggestions.
     static func getSuggestions(userID: String, parameters: GetSuggestionsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Users/\(userID)/Suggestions", query: parameters?.asQuery, id: "GetSuggestions")
+        Request(path: "/Users/\(userID)/Suggestions", method: "GET", query: parameters?.asQuery, id: "GetSuggestions")
     }
 
     struct GetSuggestionsParameters {

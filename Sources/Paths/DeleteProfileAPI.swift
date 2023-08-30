@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Deletes a profile.
     static func deleteProfile(profileID: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Dlna/Profiles/\(profileID)", id: "DeleteProfile")
+        Request(path: "/Dlna/Profiles/\(profileID)", method: "DELETE", id: "DeleteProfile")
     }
 }

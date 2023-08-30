@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Upload a document.
     static func logFile(_ body: String? = nil) -> Request<JellyfinAPI.ClientLogDocumentResponseDto> {
-        Request(method: "POST", url: "/ClientLog/Document", body: body, id: "LogFile")
+        Request(path: "/ClientLog/Document", method: "POST", body: body, id: "LogFile")
     }
 }

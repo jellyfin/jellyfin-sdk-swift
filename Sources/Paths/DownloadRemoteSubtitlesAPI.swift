@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Downloads a remote subtitle.
     static func downloadRemoteSubtitles(itemID: String, subtitleID: String) -> Request<Void> {
-        Request(method: "POST", url: "/Items/\(itemID)/RemoteSearch/Subtitles/\(subtitleID)", id: "DownloadRemoteSubtitles")
+        Request(path: "/Items/\(itemID)/RemoteSearch/Subtitles/\(subtitleID)", method: "POST", id: "DownloadRemoteSubtitles")
     }
 }

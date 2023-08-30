@@ -17,7 +17,7 @@ public extension Paths {
         container: String,
         parameters: GetVideoStreamByContainerParameters? = nil
     ) -> Request<Data> {
-        Request(method: "GET", url: "/Videos/\(itemID)/stream.\(container)", query: parameters?.asQuery, id: "GetVideoStreamByContainer")
+        Request(path: "/Videos/\(itemID)/stream.\(container)", method: "GET", query: parameters?.asQuery, id: "GetVideoStreamByContainer")
     }
 
     struct GetVideoStreamByContainerParameters {

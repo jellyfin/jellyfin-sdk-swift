@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get Description Xml.
     static func getDescriptionXml(serverID: String) -> Request<String> {
-        Request(method: "GET", url: "/Dlna/\(serverID)/description", id: "GetDescriptionXml")
+        Request(path: "/Dlna/\(serverID)/description", method: "GET", id: "GetDescriptionXml")
     }
 }

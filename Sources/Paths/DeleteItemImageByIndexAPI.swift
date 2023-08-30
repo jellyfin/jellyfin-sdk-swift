@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Delete an item's image.
     static func deleteItemImageByIndex(itemID: String, imageType: String, imageIndex: Int) -> Request<Void> {
-        Request(method: "DELETE", url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)", id: "DeleteItemImageByIndex")
+        Request(path: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)", method: "DELETE", id: "DeleteItemImageByIndex")
     }
 }

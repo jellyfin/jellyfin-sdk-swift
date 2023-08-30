@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets information about the server.
     static var getSystemInfo: Request<JellyfinAPI.SystemInfo> {
-        Request(method: "GET", url: "/System/Info", id: "GetSystemInfo")
+        Request(path: "/System/Info", method: "GET", id: "GetSystemInfo")
     }
 }

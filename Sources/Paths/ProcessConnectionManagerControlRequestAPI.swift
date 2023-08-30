@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Process a connection manager control request.
     static func processConnectionManagerControlRequest(serverID: String) -> Request<String> {
-        Request(method: "POST", url: "/Dlna/\(serverID)/ConnectionManager/Control", id: "ProcessConnectionManagerControlRequest")
+        Request(path: "/Dlna/\(serverID)/ConnectionManager/Control", method: "POST", id: "ProcessConnectionManagerControlRequest")
     }
 }

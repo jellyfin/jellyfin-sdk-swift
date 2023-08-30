@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get profile infos.
     static var getProfileInfos: Request<[JellyfinAPI.DeviceProfileInfo]> {
-        Request(method: "GET", url: "/Dlna/ProfileInfos", id: "GetProfileInfos")
+        Request(path: "/Dlna/ProfileInfos", method: "GET", id: "GetProfileInfos")
     }
 }

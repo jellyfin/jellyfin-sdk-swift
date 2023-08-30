@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets all album artists from a given item, folder, or the entire library.
     static func getAlbumArtists(parameters: GetAlbumArtistsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Artists/AlbumArtists", query: parameters?.asQuery, id: "GetAlbumArtists")
+        Request(path: "/Artists/AlbumArtists", method: "GET", query: parameters?.asQuery, id: "GetAlbumArtists")
     }
 
     struct GetAlbumArtistsParameters {

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Authorizes a pending quick connect request.
     static func authorize(code: String) -> Request<Data> {
-        Request(method: "POST", url: "/QuickConnect/Authorize", query: [("code", code)], id: "Authorize")
+        Request(path: "/QuickConnect/Authorize", method: "POST", query: [("code", code)], id: "Authorize")
     }
 }

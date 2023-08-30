@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a default MetadataOptions object.
     static var getDefaultMetadataOptions: Request<JellyfinAPI.MetadataOptions> {
-        Request(method: "GET", url: "/System/Configuration/MetadataOptions/Default", id: "GetDefaultMetadataOptions")
+        Request(path: "/System/Configuration/MetadataOptions/Default", method: "GET", id: "GetDefaultMetadataOptions")
     }
 }

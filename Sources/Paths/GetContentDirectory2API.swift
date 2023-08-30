@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets Dlna content directory xml.
     static func getContentDirectory2(serverID: String) -> Request<String> {
-        Request(method: "GET", url: "/Dlna/\(serverID)/ContentDirectory/ContentDirectory", id: "GetContentDirectory_2")
+        Request(path: "/Dlna/\(serverID)/ContentDirectory/ContentDirectory", method: "GET", id: "GetContentDirectory_2")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Start specified task.
     static func startTask(taskID: String) -> Request<Void> {
-        Request(method: "POST", url: "/ScheduledTasks/Running/\(taskID)", id: "StartTask")
+        Request(path: "/ScheduledTasks/Running/\(taskID)", method: "POST", id: "StartTask")
     }
 }

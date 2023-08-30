@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Adds a tuner host.
     static func addTunerHost(_ body: JellyfinAPI.TunerHostInfo? = nil) -> Request<JellyfinAPI.TunerHostInfo> {
-        Request(method: "POST", url: "/LiveTv/TunerHosts", body: body, id: "AddTunerHost")
+        Request(path: "/LiveTv/TunerHosts", method: "POST", body: body, id: "AddTunerHost")
     }
 }

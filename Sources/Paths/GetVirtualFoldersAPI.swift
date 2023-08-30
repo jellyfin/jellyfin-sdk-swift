@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets all virtual folders.
     static var getVirtualFolders: Request<[JellyfinAPI.VirtualFolderInfo]> {
-        Request(method: "GET", url: "/Library/VirtualFolders", id: "GetVirtualFolders")
+        Request(path: "/Library/VirtualFolders", method: "GET", id: "GetVirtualFolders")
     }
 }

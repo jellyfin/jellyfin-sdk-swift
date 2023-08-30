@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets seasons for a tv series.
     static func getSeasons(seriesID: String, parameters: GetSeasonsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Shows/\(seriesID)/Seasons", query: parameters?.asQuery, id: "GetSeasons")
+        Request(path: "/Shows/\(seriesID)/Seasons", method: "GET", query: parameters?.asQuery, id: "GetSeasons")
     }
 
     struct GetSeasonsParameters {

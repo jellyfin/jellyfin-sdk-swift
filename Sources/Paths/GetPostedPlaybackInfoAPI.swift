@@ -21,7 +21,7 @@ public extension Paths {
         parameters: GetPostedPlaybackInfoParameters? = nil,
         _ body: JellyfinAPI.PlaybackInfoDto? = nil
     ) -> Request<JellyfinAPI.PlaybackInfoResponse> {
-        Request(method: "POST", url: "/Items/\(itemID)/PlaybackInfo", query: parameters?.asQuery, body: body, id: "GetPostedPlaybackInfo")
+        Request(path: "/Items/\(itemID)/PlaybackInfo", method: "POST", query: parameters?.asQuery, body: body, id: "GetPostedPlaybackInfo")
     }
 
     struct GetPostedPlaybackInfoParameters {

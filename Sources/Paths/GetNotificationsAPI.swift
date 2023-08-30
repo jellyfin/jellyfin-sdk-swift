@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a user's notifications.
     static func getNotifications(userID: String) -> Request<JellyfinAPI.NotificationResultDto> {
-        Request(method: "GET", url: "/Notifications/\(userID)", id: "GetNotifications")
+        Request(path: "/Notifications/\(userID)", method: "GET", id: "GetNotifications")
     }
 }

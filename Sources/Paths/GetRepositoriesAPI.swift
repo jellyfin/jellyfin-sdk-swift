@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets all package repositories.
     static var getRepositories: Request<[JellyfinAPI.RepositoryInfo]> {
-        Request(method: "GET", url: "/Repositories", id: "GetRepositories")
+        Request(path: "/Repositories", method: "GET", id: "GetRepositories")
     }
 }

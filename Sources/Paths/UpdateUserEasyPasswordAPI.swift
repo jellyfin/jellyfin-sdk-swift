@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Updates a user's easy password.
     static func updateUserEasyPassword(userID: String, _ body: JellyfinAPI.UpdateUserEasyPassword) -> Request<Void> {
-        Request(method: "POST", url: "/Users/\(userID)/EasyPassword", body: body, id: "UpdateUserEasyPassword")
+        Request(path: "/Users/\(userID)/EasyPassword", method: "POST", body: body, id: "UpdateUserEasyPassword")
     }
 }

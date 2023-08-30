@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Creates a live tv timer.
     static func createTimer(_ body: JellyfinAPI.TimerInfoDto? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/LiveTv/Timers", body: body, id: "CreateTimer")
+        Request(path: "/LiveTv/Timers", method: "POST", body: body, id: "CreateTimer")
     }
 }

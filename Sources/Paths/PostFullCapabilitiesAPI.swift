@@ -14,8 +14,8 @@ extension Paths {
     /// Updates capabilities for a device.
     public static func postFullCapabilities(id: String? = nil, _ body: JellyfinAPI.ClientCapabilitiesDto) -> Request<Void> {
         Request(
+            path: "/Sessions/Capabilities/Full",
             method: "POST",
-            url: "/Sessions/Capabilities/Full",
             query: makePostFullCapabilitiesQuery(id),
             body: body,
             id: "PostFullCapabilities"

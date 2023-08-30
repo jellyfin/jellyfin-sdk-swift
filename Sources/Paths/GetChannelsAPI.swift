@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets available channels.
     static func getChannels(parameters: GetChannelsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Channels", query: parameters?.asQuery, id: "GetChannels")
+        Request(path: "/Channels", method: "GET", query: parameters?.asQuery, id: "GetChannels")
     }
 
     struct GetChannelsParameters {

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get item image infos.
     static func getItemImageInfos(itemID: String) -> Request<[JellyfinAPI.ImageInfo]> {
-        Request(method: "GET", url: "/Items/\(itemID)/Images", id: "GetItemImageInfos")
+        Request(path: "/Items/\(itemID)/Images", method: "GET", id: "GetItemImageInfos")
     }
 }

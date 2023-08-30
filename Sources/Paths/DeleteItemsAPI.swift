@@ -13,7 +13,7 @@ import URLQueryEncoder
 extension Paths {
     /// Deletes items from the library and filesystem.
     public static func deleteItems(ids: [String]? = nil) -> Request<Void> {
-        Request(method: "DELETE", url: "/Items", query: makeDeleteItemsQuery(ids), id: "DeleteItems")
+        Request(path: "/Items", method: "DELETE", query: makeDeleteItemsQuery(ids), id: "DeleteItems")
     }
 
     private static func makeDeleteItemsQuery(_ ids: [String]?) -> [(String, String?)] {

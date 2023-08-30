@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Notify SyncPlay group that member is buffering.
     static func syncPlayBuffering(_ body: JellyfinAPI.BufferRequestDto) -> Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/Buffering", body: body, id: "SyncPlayBuffering")
+        Request(path: "/SyncPlay/Buffering", method: "POST", body: body, id: "SyncPlayBuffering")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets available live tv services.
     static var getLiveTvInfo: Request<JellyfinAPI.LiveTvInfo> {
-        Request(method: "GET", url: "/LiveTv/Info", id: "GetLiveTvInfo")
+        Request(path: "/LiveTv/Info", method: "GET", id: "GetLiveTvInfo")
     }
 }

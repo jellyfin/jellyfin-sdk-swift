@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the root folder from a user's library.
     static func getRootFolder(userID: String) -> Request<JellyfinAPI.BaseItemDto> {
-        Request(method: "GET", url: "/Users/\(userID)/Items/Root", id: "GetRootFolder")
+        Request(path: "/Users/\(userID)/Items/Root", method: "GET", id: "GetRootFolder")
     }
 }

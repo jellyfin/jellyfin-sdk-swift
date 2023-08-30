@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets information about the request endpoint.
     static var getEndpointInfo: Request<JellyfinAPI.EndPointInfo> {
-        Request(method: "GET", url: "/System/Endpoint", id: "GetEndpointInfo")
+        Request(path: "/System/Endpoint", method: "GET", id: "GetEndpointInfo")
     }
 }

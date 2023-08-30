@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Update device options.
     static func updateDeviceOptions(id: String, _ body: JellyfinAPI.DeviceOptionsDto) -> Request<Void> {
-        Request(method: "POST", url: "/Devices/Options", query: [("id", id)], body: body, id: "UpdateDeviceOptions")
+        Request(path: "/Devices/Options", method: "POST", query: [("id", id)], body: body, id: "UpdateDeviceOptions")
     }
 }
