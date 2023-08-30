@@ -18,8 +18,8 @@ extension Paths {
         isInheritFromParent: Bool? = nil
     ) -> Request<JellyfinAPI.ThemeMediaResult> {
         Request(
+            path: "/Items/\(itemID)/ThemeSongs",
             method: "GET",
-            url: "/Items/\(itemID)/ThemeSongs",
             query: makeGetThemeSongsQuery(userID, isInheritFromParent),
             id: "GetThemeSongs"
         )

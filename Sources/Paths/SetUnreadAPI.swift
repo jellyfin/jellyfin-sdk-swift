@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Sets notifications as unread.
     static func setUnread(userID: String) -> Request<Void> {
-        Request(method: "POST", url: "/Notifications/\(userID)/Unread", id: "SetUnread")
+        Request(path: "/Notifications/\(userID)/Unread", method: "POST", id: "SetUnread")
     }
 }

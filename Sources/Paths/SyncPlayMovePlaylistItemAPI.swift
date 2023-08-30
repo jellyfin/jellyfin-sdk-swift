@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Request to move an item in the playlist in SyncPlay group.
     static func syncPlayMovePlaylistItem(_ body: JellyfinAPI.MovePlaylistItemRequestDto) -> Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/MovePlaylistItem", body: body, id: "SyncPlayMovePlaylistItem")
+        Request(path: "/SyncPlay/MovePlaylistItem", method: "POST", body: body, id: "SyncPlayMovePlaylistItem")
     }
 }

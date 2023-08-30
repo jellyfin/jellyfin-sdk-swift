@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Sets remote access and UPnP.
     static func setRemoteAccess(_ body: JellyfinAPI.StartupRemoteAccessDto) -> Request<Void> {
-        Request(method: "POST", url: "/Startup/RemoteAccess", body: body, id: "SetRemoteAccess")
+        Request(path: "/Startup/RemoteAccess", method: "POST", body: body, id: "SetRemoteAccess")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the specified audio segment for an audio item.
     static func getHlsAudioSegmentLegacyMp3(itemID: String, segmentID: String) -> Request<Data> {
-        Request(method: "GET", url: "/Audio/\(itemID)/hls/\(segmentID)/stream.mp3", id: "GetHlsAudioSegmentLegacyMp3")
+        Request(path: "/Audio/\(itemID)/hls/\(segmentID)/stream.mp3", method: "GET", id: "GetHlsAudioSegmentLegacyMp3")
     }
 }

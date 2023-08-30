@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Updates the path to the media encoder.
     static func updateMediaEncoderPath(_ body: JellyfinAPI.MediaEncoderPathDto) -> Request<Void> {
-        Request(method: "POST", url: "/System/MediaEncoder/Path", body: body, id: "UpdateMediaEncoderPath")
+        Request(path: "/System/MediaEncoder/Path", method: "POST", body: body, id: "UpdateMediaEncoderPath")
     }
 }

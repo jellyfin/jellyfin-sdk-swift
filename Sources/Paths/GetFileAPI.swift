@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get the original file of an item.
     static func getFile(itemID: String) -> Request<Data> {
-        Request(method: "GET", url: "/Items/\(itemID)/File", id: "GetFile")
+        Request(path: "/Items/\(itemID)/File", method: "GET", id: "GetFile")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Creates a profile.
     static func createProfile(_ body: JellyfinAPI.DeviceProfile? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Dlna/Profiles", body: body, id: "CreateProfile")
+        Request(path: "/Dlna/Profiles", method: "POST", body: body, id: "CreateProfile")
     }
 }

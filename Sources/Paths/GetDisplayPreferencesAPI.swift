@@ -18,8 +18,8 @@ public extension Paths {
         client: String
     ) -> Request<JellyfinAPI.DisplayPreferencesDto> {
         Request(
+            path: "/DisplayPreferences/\(displayPreferencesID)",
             method: "GET",
-            url: "/DisplayPreferences/\(displayPreferencesID)",
             query: [("userId", userID), ("client", client)],
             id: "GetDisplayPreferences"
         )

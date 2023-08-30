@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Request to set shuffle mode in SyncPlay group.
     static func syncPlaySetShuffleMode(_ body: JellyfinAPI.SetShuffleModeRequestDto) -> Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/SetShuffleMode", body: body, id: "SyncPlaySetShuffleMode")
+        Request(path: "/SyncPlay/SetShuffleMode", method: "POST", body: body, id: "SyncPlaySetShuffleMode")
     }
 }

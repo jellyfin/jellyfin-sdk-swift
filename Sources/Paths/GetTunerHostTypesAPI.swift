@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get tuner host types.
     static var getTunerHostTypes: Request<[JellyfinAPI.NameIDPair]> {
-        Request(method: "GET", url: "/LiveTv/TunerHosts/Types", id: "GetTunerHostTypes")
+        Request(path: "/LiveTv/TunerHosts/Types", method: "GET", id: "GetTunerHostTypes")
     }
 }

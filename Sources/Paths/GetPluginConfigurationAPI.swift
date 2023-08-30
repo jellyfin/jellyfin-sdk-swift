@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets plugin configuration.
     static func getPluginConfiguration(pluginID: String) -> Request<Void> {
-        Request(method: "GET", url: "/Plugins/\(pluginID)/Configuration", id: "GetPluginConfiguration")
+        Request(path: "/Plugins/\(pluginID)/Configuration", method: "GET", id: "GetPluginConfiguration")
     }
 }

@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a list of next up episodes.
     static func getNextUp(parameters: GetNextUpParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Shows/NextUp", query: parameters?.asQuery, id: "GetNextUp")
+        Request(path: "/Shows/NextUp", method: "GET", query: parameters?.asQuery, id: "GetNextUp")
     }
 
     struct GetNextUpParameters {

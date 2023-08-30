@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Cancels a package installation.
     static func cancelPackageInstallation(packageID: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Packages/Installing/\(packageID)", id: "CancelPackageInstallation")
+        Request(path: "/Packages/Installing/\(packageID)", method: "DELETE", id: "CancelPackageInstallation")
     }
 }

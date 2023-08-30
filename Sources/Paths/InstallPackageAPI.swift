@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Installs a package.
     static func installPackage(name: String, parameters: InstallPackageParameters? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Packages/Installed/\(name)", query: parameters?.asQuery, id: "InstallPackage")
+        Request(path: "/Packages/Installed/\(name)", method: "POST", query: parameters?.asQuery, id: "InstallPackage")
     }
 
     struct InstallPackageParameters {

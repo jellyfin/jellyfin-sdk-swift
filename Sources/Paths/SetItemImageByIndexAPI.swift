@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Set item image.
     static func setItemImageByIndex(itemID: String, imageType: String, imageIndex: Int, _ body: Data? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)", body: body, id: "SetItemImageByIndex")
+        Request(path: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)", method: "POST", body: body, id: "SetItemImageByIndex")
     }
 }

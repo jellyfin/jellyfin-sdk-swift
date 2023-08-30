@@ -14,8 +14,8 @@ extension Paths {
     /// Sets the user image.
     public static func postUserImage(userID: String, imageType: String, index: Int? = nil, _ body: Data? = nil) -> Request<Void> {
         Request(
+            path: "/Users/\(userID)/Images/\(imageType)",
             method: "POST",
-            url: "/Users/\(userID)/Images/\(imageType)",
             query: makePostUserImageQuery(index),
             body: body,
             id: "PostUserImage"

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get video attachment.
     static func getAttachment(videoID: String, mediaSourceID: String, index: Int) -> Request<Data> {
-        Request(method: "GET", url: "/Videos/\(videoID)/\(mediaSourceID)/Attachments/\(index)", id: "GetAttachment")
+        Request(path: "/Videos/\(videoID)/\(mediaSourceID)/Attachments/\(index)", method: "GET", id: "GetAttachment")
     }
 }

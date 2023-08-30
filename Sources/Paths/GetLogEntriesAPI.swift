@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets activity log entries.
     static func getLogEntries(parameters: GetLogEntriesParameters? = nil) -> Request<JellyfinAPI.ActivityLogEntryQueryResult> {
-        Request(method: "GET", url: "/System/ActivityLog/Entries", query: parameters?.asQuery, id: "GetLogEntries")
+        Request(path: "/System/ActivityLog/Entries", method: "GET", query: parameters?.asQuery, id: "GetLogEntries")
     }
 
     struct GetLogEntriesParameters {

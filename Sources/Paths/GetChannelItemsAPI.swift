@@ -16,7 +16,7 @@ public extension Paths {
         channelID: String,
         parameters: GetChannelItemsParameters? = nil
     ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Channels/\(channelID)/Items", query: parameters?.asQuery, id: "GetChannelItems")
+        Request(path: "/Channels/\(channelID)/Items", method: "GET", query: parameters?.asQuery, id: "GetChannelItems")
     }
 
     struct GetChannelItemsParameters {

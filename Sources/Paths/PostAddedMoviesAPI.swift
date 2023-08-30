@@ -13,7 +13,7 @@ import URLQueryEncoder
 extension Paths {
     /// Reports that new movies have been added by an external source.
     public static func postAddedMovies(tmdbID: String? = nil, imdbID: String? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Library/Movies/Added", query: makePostAddedMoviesQuery(tmdbID, imdbID), id: "PostAddedMovies")
+        Request(path: "/Library/Movies/Added", method: "POST", query: makePostAddedMoviesQuery(tmdbID, imdbID), id: "PostAddedMovies")
     }
 
     private static func makePostAddedMoviesQuery(_ tmdbID: String?, _ imdbID: String?) -> [(String, String?)] {

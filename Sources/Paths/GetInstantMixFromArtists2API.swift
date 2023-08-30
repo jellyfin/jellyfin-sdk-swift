@@ -14,7 +14,7 @@ public extension Paths {
     /// Creates an instant playlist based on a given artist.
     @available(*, deprecated, message: "Deprecated")
     static func getInstantMixFromArtists2(parameters: GetInstantMixFromArtists2Parameters) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Artists/InstantMix", query: parameters.asQuery, id: "GetInstantMixFromArtists2")
+        Request(path: "/Artists/InstantMix", method: "GET", query: parameters.asQuery, id: "GetInstantMixFromArtists2")
     }
 
     struct GetInstantMixFromArtists2Parameters {

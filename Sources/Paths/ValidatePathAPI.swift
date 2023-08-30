@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Validates path.
     static func validatePath(_ body: JellyfinAPI.ValidatePathDto) -> Request<Void> {
-        Request(method: "POST", url: "/Environment/ValidatePath", body: body, id: "ValidatePath")
+        Request(path: "/Environment/ValidatePath", method: "POST", body: body, id: "ValidatePath")
     }
 }

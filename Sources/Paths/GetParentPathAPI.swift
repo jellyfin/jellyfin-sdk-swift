@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the parent path of a given path.
     static func getParentPath(path: String) -> Request<String> {
-        Request(method: "GET", url: "/Environment/ParentPath", query: [("path", path)], id: "GetParentPath")
+        Request(path: "/Environment/ParentPath", method: "GET", query: [("path", path)], id: "GetParentPath")
     }
 }

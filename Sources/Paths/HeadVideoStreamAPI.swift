@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a video stream.
     static func headVideoStream(itemID: String, parameters: HeadVideoStreamParameters? = nil) -> Request<Data> {
-        Request(method: "HEAD", url: "/Videos/\(itemID)/stream", query: parameters?.asQuery, id: "HeadVideoStream")
+        Request(path: "/Videos/\(itemID)/stream", method: "HEAD", query: parameters?.asQuery, id: "HeadVideoStream")
     }
 
     struct HeadVideoStreamParameters {

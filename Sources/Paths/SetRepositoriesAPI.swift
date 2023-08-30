@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Sets the enabled and existing package repositories.
     static func setRepositories(_ body: [JellyfinAPI.RepositoryInfo]) -> Request<Void> {
-        Request(method: "POST", url: "/Repositories", body: body, id: "SetRepositories")
+        Request(path: "/Repositories", method: "POST", body: body, id: "SetRepositories")
     }
 }

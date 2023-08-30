@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets known countries.
     static var getCountries: Request<[JellyfinAPI.CountryInfo]> {
-        Request(method: "GET", url: "/Localization/Countries", id: "GetCountries")
+        Request(path: "/Localization/Countries", method: "GET", id: "GetCountries")
     }
 }

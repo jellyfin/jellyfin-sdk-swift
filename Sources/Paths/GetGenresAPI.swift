@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets all genres from a given item, folder, or the entire library.
     static func getGenres(parameters: GetGenresParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Genres", query: parameters?.asQuery, id: "GetGenres")
+        Request(path: "/Genres", method: "GET", query: parameters?.asQuery, id: "GetGenres")
     }
 
     struct GetGenresParameters {

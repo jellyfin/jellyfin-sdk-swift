@@ -16,6 +16,6 @@ public extension Paths {
         _ body: JellyfinAPI
             .TrailerInfoRemoteSearchQuery
     ) -> Request<[JellyfinAPI.RemoteSearchResult]> {
-        Request(method: "POST", url: "/Items/RemoteSearch/Trailer", body: body, id: "GetTrailerRemoteSearchResults")
+        Request(path: "/Items/RemoteSearch/Trailer", method: "POST", body: body, id: "GetTrailerRemoteSearchResults")
     }
 }

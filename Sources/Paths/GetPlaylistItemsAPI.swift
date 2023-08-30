@@ -16,7 +16,7 @@ public extension Paths {
         playlistID: String,
         parameters: GetPlaylistItemsParameters
     ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Playlists/\(playlistID)/Items", query: parameters.asQuery, id: "GetPlaylistItems")
+        Request(path: "/Playlists/\(playlistID)/Items", method: "GET", query: parameters.asQuery, id: "GetPlaylistItems")
     }
 
     struct GetPlaylistItemsParameters {

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Updates application configuration.
     static func updateConfiguration(_ body: JellyfinAPI.ServerConfiguration) -> Request<Void> {
-        Request(method: "POST", url: "/System/Configuration", body: body, id: "UpdateConfiguration")
+        Request(path: "/System/Configuration", method: "POST", body: body, id: "UpdateConfiguration")
     }
 }

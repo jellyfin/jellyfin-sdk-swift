@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Remove an api key.
     static func revokeKey(key: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Auth/Keys/\(key)", id: "RevokeKey")
+        Request(path: "/Auth/Keys/\(key)", method: "DELETE", id: "RevokeKey")
     }
 }

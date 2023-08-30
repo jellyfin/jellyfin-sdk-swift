@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Get user profile image.
     static func headUserImage(userID: String, imageType: String, parameters: HeadUserImageParameters? = nil) -> Request<Data> {
-        Request(method: "HEAD", url: "/Users/\(userID)/Images/\(imageType)", query: parameters?.asQuery, id: "HeadUserImage")
+        Request(path: "/Users/\(userID)/Images/\(imageType)", method: "HEAD", query: parameters?.asQuery, id: "HeadUserImage")
     }
 
     struct HeadUserImageParameters {

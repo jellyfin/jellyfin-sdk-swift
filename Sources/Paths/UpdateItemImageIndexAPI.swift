@@ -14,8 +14,8 @@ public extension Paths {
     /// Updates the index for an item image.
     static func updateItemImageIndex(itemID: String, imageType: String, imageIndex: Int, newIndex: Int) -> Request<Void> {
         Request(
+            path: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/Index",
             method: "POST",
-            url: "/Items/\(itemID)/Images/\(imageType)/\(imageIndex)/Index",
             query: [("newIndex", String(newIndex))],
             id: "UpdateItemImageIndex"
         )

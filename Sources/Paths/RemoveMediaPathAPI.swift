@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Remove a media path.
     static func removeMediaPath(parameters: RemoveMediaPathParameters? = nil) -> Request<Void> {
-        Request(method: "DELETE", url: "/Library/VirtualFolders/Paths", query: parameters?.asQuery, id: "RemoveMediaPath")
+        Request(path: "/Library/VirtualFolders/Paths", method: "DELETE", query: parameters?.asQuery, id: "RemoveMediaPath")
     }
 
     struct RemoveMediaPathParameters {

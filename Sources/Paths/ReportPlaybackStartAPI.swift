@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Reports playback has started within a session.
     static func reportPlaybackStart(_ body: JellyfinAPI.PlaybackStartInfo? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/Playing", body: body, id: "ReportPlaybackStart")
+        Request(path: "/Sessions/Playing", method: "POST", body: body, id: "ReportPlaybackStart")
     }
 }

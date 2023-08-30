@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Refreshes metadata for an item.
     static func refreshItem(itemID: String, parameters: RefreshItemParameters? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Items/\(itemID)/Refresh", query: parameters?.asQuery, id: "RefreshItem")
+        Request(path: "/Items/\(itemID)/Refresh", method: "POST", query: parameters?.asQuery, id: "RefreshItem")
     }
 
     struct RefreshItemParameters {

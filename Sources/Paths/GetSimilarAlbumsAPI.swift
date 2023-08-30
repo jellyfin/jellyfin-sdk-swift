@@ -16,7 +16,7 @@ public extension Paths {
         itemID: String,
         parameters: GetSimilarAlbumsParameters? = nil
     ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Albums/\(itemID)/Similar", query: parameters?.asQuery, id: "GetSimilarAlbums")
+        Request(path: "/Albums/\(itemID)/Similar", method: "GET", query: parameters?.asQuery, id: "GetSimilarAlbums")
     }
 
     struct GetSimilarAlbumsParameters {

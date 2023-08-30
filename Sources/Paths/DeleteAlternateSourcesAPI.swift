@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Removes alternate video sources.
     static func deleteAlternateSources(itemID: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Videos/\(itemID)/AlternateSources", id: "DeleteAlternateSources")
+        Request(path: "/Videos/\(itemID)/AlternateSources", method: "DELETE", id: "DeleteAlternateSources")
     }
 }

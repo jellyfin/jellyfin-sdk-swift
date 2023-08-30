@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets branding css.
     static var getBrandingCss: Request<String> {
-        Request(method: "GET", url: "/Branding/Css", id: "GetBrandingCss")
+        Request(path: "/Branding/Css", method: "GET", id: "GetBrandingCss")
     }
 }

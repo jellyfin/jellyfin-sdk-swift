@@ -14,6 +14,6 @@ public extension Paths {
     /// Get recording group.
     @available(*, deprecated, message: "Deprecated")
     static func getRecordingGroup(groupID: String) -> Request<Void> {
-        Request(method: "GET", url: "/LiveTv/Recordings/Groups/\(groupID)", id: "GetRecordingGroup")
+        Request(path: "/LiveTv/Recordings/Groups/\(groupID)", method: "GET", id: "GetRecordingGroup")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets available packages.
     static var getPackages: Request<[JellyfinAPI.PackageInfo]> {
-        Request(method: "GET", url: "/Packages", id: "GetPackages")
+        Request(path: "/Packages", method: "GET", id: "GetPackages")
     }
 }

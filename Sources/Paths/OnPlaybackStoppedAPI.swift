@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Reports that a user has stopped playing an item.
     static func onPlaybackStopped(userID: String, itemID: String, parameters: OnPlaybackStoppedParameters? = nil) -> Request<Void> {
-        Request(method: "DELETE", url: "/Users/\(userID)/PlayingItems/\(itemID)", query: parameters?.asQuery, id: "OnPlaybackStopped")
+        Request(path: "/Users/\(userID)/PlayingItems/\(itemID)", method: "DELETE", query: parameters?.asQuery, id: "OnPlaybackStopped")
     }
 
     struct OnPlaybackStoppedParameters {

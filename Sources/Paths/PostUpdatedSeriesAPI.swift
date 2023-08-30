@@ -13,7 +13,7 @@ import URLQueryEncoder
 extension Paths {
     /// Reports that new episodes of a series have been added by an external source.
     public static func postUpdatedSeries(tvdbID: String? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Library/Series/Updated", query: makePostUpdatedSeriesQuery(tvdbID), id: "PostUpdatedSeries")
+        Request(path: "/Library/Series/Updated", method: "POST", query: makePostUpdatedSeriesQuery(tvdbID), id: "PostUpdatedSeries")
     }
 
     private static func makePostUpdatedSeriesQuery(_ tvdbID: String?) -> [(String, String?)] {

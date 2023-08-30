@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the TMDb image configuration options.
     static var tmdbClientConfiguration: Request<JellyfinAPI.ConfigImageTypes> {
-        Request(method: "GET", url: "/Tmdb/ClientConfiguration", id: "TmdbClientConfiguration")
+        Request(path: "/Tmdb/ClientConfiguration", method: "GET", id: "TmdbClientConfiguration")
     }
 }

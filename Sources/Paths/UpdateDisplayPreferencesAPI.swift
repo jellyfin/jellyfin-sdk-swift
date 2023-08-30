@@ -19,8 +19,8 @@ public extension Paths {
         _ body: JellyfinAPI.DisplayPreferencesDto
     ) -> Request<Void> {
         Request(
+            path: "/DisplayPreferences/\(displayPreferencesID)",
             method: "POST",
-            url: "/DisplayPreferences/\(displayPreferencesID)",
             query: [("userId", userID), ("client", client)],
             body: body,
             id: "UpdateDisplayPreferences"

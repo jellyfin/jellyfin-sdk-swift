@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Process a media receiver registrar control request.
     static func processMediaReceiverRegistrarControlRequest(serverID: String) -> Request<String> {
-        Request(method: "POST", url: "/Dlna/\(serverID)/MediaReceiverRegistrar/Control", id: "ProcessMediaReceiverRegistrarControlRequest")
+        Request(path: "/Dlna/\(serverID)/MediaReceiverRegistrar/Control", method: "POST", id: "ProcessMediaReceiverRegistrarControlRequest")
     }
 }

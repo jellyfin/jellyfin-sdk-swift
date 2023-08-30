@@ -16,6 +16,6 @@ public extension Paths {
         _ body: JellyfinAPI
             .PersonLookupInfoRemoteSearchQuery
     ) -> Request<[JellyfinAPI.RemoteSearchResult]> {
-        Request(method: "POST", url: "/Items/RemoteSearch/Person", body: body, id: "GetPersonRemoteSearchResults")
+        Request(path: "/Items/RemoteSearch/Person", method: "POST", body: body, id: "GetPersonRemoteSearchResults")
     }
 }

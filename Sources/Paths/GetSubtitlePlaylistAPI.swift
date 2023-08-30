@@ -14,8 +14,8 @@ public extension Paths {
     /// Gets an HLS subtitle playlist.
     static func getSubtitlePlaylist(itemID: String, index: Int, mediaSourceID: String, segmentLength: Int) -> Request<Data> {
         Request(
+            path: "/Videos/\(itemID)/\(mediaSourceID)/Subtitles/\(index)/subtitles.m3u8",
             method: "GET",
-            url: "/Videos/\(itemID)/\(mediaSourceID)/Subtitles/\(index)/subtitles.m3u8",
             query: [("segmentLength", String(segmentLength))],
             id: "GetSubtitlePlaylist"
         )

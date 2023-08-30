@@ -16,7 +16,7 @@ public extension Paths {
         parameters: AddListingProviderParameters? = nil,
         _ body: JellyfinAPI.ListingsProviderInfo? = nil
     ) -> Request<JellyfinAPI.ListingsProviderInfo> {
-        Request(method: "POST", url: "/LiveTv/ListingProviders", query: parameters?.asQuery, body: body, id: "AddListingProvider")
+        Request(path: "/LiveTv/ListingProviders", method: "POST", query: parameters?.asQuery, body: body, id: "AddListingProvider")
     }
 
     struct AddListingProviderParameters {

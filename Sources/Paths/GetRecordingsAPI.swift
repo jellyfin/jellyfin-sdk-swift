@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets live tv recordings.
     static func getRecordings(parameters: GetRecordingsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/LiveTv/Recordings", query: parameters?.asQuery, id: "GetRecordings")
+        Request(path: "/LiveTv/Recordings", method: "GET", query: parameters?.asQuery, id: "GetRecordings")
     }
 
     struct GetRecordingsParameters {

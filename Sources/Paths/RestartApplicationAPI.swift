@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Restarts the application.
     static var restartApplication: Request<Void> {
-        Request(method: "POST", url: "/System/Restart", id: "RestartApplication")
+        Request(path: "/System/Restart", method: "POST", id: "RestartApplication")
     }
 }

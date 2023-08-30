@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets available remote images for an item.
     static func getRemoteImages(itemID: String, parameters: GetRemoteImagesParameters? = nil) -> Request<JellyfinAPI.RemoteImageResult> {
-        Request(method: "GET", url: "/Items/\(itemID)/RemoteImages", query: parameters?.asQuery, id: "GetRemoteImages")
+        Request(path: "/Items/\(itemID)/RemoteImages", method: "GET", query: parameters?.asQuery, id: "GetRemoteImages")
     }
 
     struct GetRemoteImagesParameters {

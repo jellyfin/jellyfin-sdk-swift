@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Issues a full general command to a client.
     static func sendFullGeneralCommand(sessionID: String, _ body: JellyfinAPI.GeneralCommand) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/\(sessionID)/Command", body: body, id: "SendFullGeneralCommand")
+        Request(path: "/Sessions/\(sessionID)/Command", method: "POST", body: body, id: "SendFullGeneralCommand")
     }
 }

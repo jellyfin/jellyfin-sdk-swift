@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Pings the system.
     static var getPingSystem: Request<String> {
-        Request(method: "GET", url: "/System/Ping", id: "GetPingSystem")
+        Request(path: "/System/Ping", method: "GET", id: "GetPingSystem")
     }
 }

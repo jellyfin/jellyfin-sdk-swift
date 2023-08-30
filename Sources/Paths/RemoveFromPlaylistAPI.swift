@@ -14,8 +14,8 @@ extension Paths {
     /// Removes items from a playlist.
     public static func removeFromPlaylist(playlistID: String, entryIDs: [String]? = nil) -> Request<Void> {
         Request(
+            path: "/Playlists/\(playlistID)/Items",
             method: "DELETE",
-            url: "/Playlists/\(playlistID)/Items",
             query: makeRemoveFromPlaylistQuery(entryIDs),
             id: "RemoveFromPlaylist"
         )

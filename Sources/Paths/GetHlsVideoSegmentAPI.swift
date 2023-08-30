@@ -20,8 +20,8 @@ public extension Paths {
         parameters: GetHlsVideoSegmentParameters
     ) -> Request<Data> {
         Request(
+            path: "/Videos/\(itemID)/hls1/\(playlistID)/\(segmentID).\(container)",
             method: "GET",
-            url: "/Videos/\(itemID)/hls1/\(playlistID)/\(segmentID).\(container)",
             query: parameters.asQuery,
             id: "GetHlsVideoSegment"
         )

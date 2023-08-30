@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Starts a library scan.
     static var refreshLibrary: Request<Void> {
-        Request(method: "POST", url: "/Library/Refresh", id: "RefreshLibrary")
+        Request(path: "/Library/Refresh", method: "POST", id: "RefreshLibrary")
     }
 }

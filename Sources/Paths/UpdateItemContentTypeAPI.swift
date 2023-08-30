@@ -14,8 +14,8 @@ extension Paths {
     /// Updates an item's content type.
     public static func updateItemContentType(itemID: String, contentType: String? = nil) -> Request<Void> {
         Request(
+            path: "/Items/\(itemID)/ContentType",
             method: "POST",
-            url: "/Items/\(itemID)/ContentType",
             query: makeUpdateItemContentTypeQuery(contentType),
             id: "UpdateItemContentType"
         )

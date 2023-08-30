@@ -14,8 +14,8 @@ public extension Paths {
     /// Stops an active encoding.
     static func stopEncodingProcess(deviceID: String, playSessionID: String) -> Request<Void> {
         Request(
+            path: "/Videos/ActiveEncodings",
             method: "DELETE",
-            url: "/Videos/ActiveEncodings",
             query: [("deviceId", deviceID), ("playSessionId", playSessionID)],
             id: "StopEncodingProcess"
         )

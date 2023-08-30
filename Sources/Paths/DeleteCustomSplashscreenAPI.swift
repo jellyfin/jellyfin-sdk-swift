@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Delete a custom splashscreen.
     static var deleteCustomSplashscreen: Request<Void> {
-        Request(method: "DELETE", url: "/Branding/Splashscreen", id: "DeleteCustomSplashscreen")
+        Request(path: "/Branding/Splashscreen", method: "DELETE", id: "DeleteCustomSplashscreen")
     }
 }

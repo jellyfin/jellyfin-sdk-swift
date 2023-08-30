@@ -14,8 +14,8 @@ extension Paths {
     /// Get channel mapping options.
     public static func getChannelMappingOptions(providerID: String? = nil) -> Request<JellyfinAPI.ChannelMappingOptionsDto> {
         Request(
+            path: "/LiveTv/ChannelMappingOptions",
             method: "GET",
-            url: "/LiveTv/ChannelMappingOptions",
             query: makeGetChannelMappingOptionsQuery(providerID),
             id: "GetChannelMappingOptions"
         )

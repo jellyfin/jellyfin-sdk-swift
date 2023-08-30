@@ -16,7 +16,7 @@ public extension Paths {
         id: String,
         parameters: GetInstantMixFromPlaylistParameters? = nil
     ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Playlists/\(id)/InstantMix", query: parameters?.asQuery, id: "GetInstantMixFromPlaylist")
+        Request(path: "/Playlists/\(id)/InstantMix", method: "GET", query: parameters?.asQuery, id: "GetInstantMixFromPlaylist")
     }
 
     struct GetInstantMixFromPlaylistParameters {

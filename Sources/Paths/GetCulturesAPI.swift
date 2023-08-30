@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets known cultures.
     static var getCultures: Request<[JellyfinAPI.CultureDto]> {
-        Request(method: "GET", url: "/Localization/Cultures", id: "GetCultures")
+        Request(path: "/Localization/Cultures", method: "GET", id: "GetCultures")
     }
 }

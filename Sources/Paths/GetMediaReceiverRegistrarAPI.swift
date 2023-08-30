@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets Dlna media receiver registrar xml.
     static func getMediaReceiverRegistrar(serverID: String) -> Request<String> {
-        Request(method: "GET", url: "/Dlna/\(serverID)/MediaReceiverRegistrar", id: "GetMediaReceiverRegistrar")
+        Request(path: "/Dlna/\(serverID)/MediaReceiverRegistrar", method: "GET", id: "GetMediaReceiverRegistrar")
     }
 }

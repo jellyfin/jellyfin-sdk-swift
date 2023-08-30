@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Cancels a live tv series timer.
     static func cancelSeriesTimer(timerID: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/LiveTv/SeriesTimers/\(timerID)", id: "CancelSeriesTimer")
+        Request(path: "/LiveTv/SeriesTimers/\(timerID)", method: "DELETE", id: "CancelSeriesTimer")
     }
 }

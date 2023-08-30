@@ -14,6 +14,6 @@ public extension Paths {
     /// Uninstalls a plugin.
     @available(*, deprecated, message: "Deprecated")
     static func uninstallPlugin(pluginID: String) -> Request<Void> {
-        Request(method: "DELETE", url: "/Plugins/\(pluginID)", id: "UninstallPlugin")
+        Request(path: "/Plugins/\(pluginID)", method: "DELETE", id: "UninstallPlugin")
     }
 }

@@ -14,8 +14,8 @@ extension Paths {
     /// Gets a dashboard configuration page.
     public static func getDashboardConfigurationPage(name: String? = nil) -> Request<String> {
         Request(
+            path: "/web/ConfigurationPage",
             method: "GET",
-            url: "/web/ConfigurationPage",
             query: makeGetDashboardConfigurationPageQuery(name),
             id: "GetDashboardConfigurationPage"
         )

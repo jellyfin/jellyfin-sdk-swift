@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get box set remote search.
     static func getBoxSetRemoteSearchResults(_ body: JellyfinAPI.BoxSetInfoRemoteSearchQuery) -> Request<[JellyfinAPI.RemoteSearchResult]> {
-        Request(method: "POST", url: "/Items/RemoteSearch/BoxSet", body: body, id: "GetBoxSetRemoteSearchResults")
+        Request(path: "/Items/RemoteSearch/BoxSet", method: "POST", body: body, id: "GetBoxSetRemoteSearchResults")
     }
 }

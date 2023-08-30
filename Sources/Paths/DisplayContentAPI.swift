@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Instructs a session to browse to an item or view.
     static func displayContent(sessionID: String, parameters: DisplayContentParameters) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/\(sessionID)/Viewing", query: parameters.asQuery, id: "DisplayContent")
+        Request(path: "/Sessions/\(sessionID)/Viewing", method: "POST", query: parameters.asQuery, id: "DisplayContent")
     }
 
     struct DisplayContentParameters {

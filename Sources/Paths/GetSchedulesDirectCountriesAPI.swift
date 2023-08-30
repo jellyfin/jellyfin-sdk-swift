@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Gets available countries.
-    static var getSchedulesDirectCountries: Request<String> {
-        Request(method: "GET", url: "/LiveTv/ListingProviders/SchedulesDirect/Countries", id: "GetSchedulesDirectCountries")
+    static var getSchedulesDirectCountries: Request<Data> {
+        Request(path: "/LiveTv/ListingProviders/SchedulesDirect/Countries", method: "GET", id: "GetSchedulesDirectCountries")
     }
 }

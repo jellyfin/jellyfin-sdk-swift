@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets application configuration.
     static var getConfiguration: Request<JellyfinAPI.ServerConfiguration> {
-        Request(method: "GET", url: "/System/Configuration", id: "GetConfiguration")
+        Request(path: "/System/Configuration", method: "GET", id: "GetConfiguration")
     }
 }

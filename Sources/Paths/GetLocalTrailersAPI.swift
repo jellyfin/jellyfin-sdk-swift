@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets local trailers for an item.
     static func getLocalTrailers(userID: String, itemID: String) -> Request<[JellyfinAPI.BaseItemDto]> {
-        Request(method: "GET", url: "/Users/\(userID)/Items/\(itemID)/LocalTrailers", id: "GetLocalTrailers")
+        Request(path: "/Users/\(userID)/Items/\(itemID)/LocalTrailers", method: "GET", id: "GetLocalTrailers")
     }
 }

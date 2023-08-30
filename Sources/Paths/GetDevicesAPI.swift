@@ -13,7 +13,7 @@ import URLQueryEncoder
 extension Paths {
     /// Get Devices.
     public static func getDevices(isSupportsSync: Bool? = nil, userID: String? = nil) -> Request<JellyfinAPI.DeviceInfoQueryResult> {
-        Request(method: "GET", url: "/Devices", query: makeGetDevicesQuery(isSupportsSync, userID), id: "GetDevices")
+        Request(path: "/Devices", method: "GET", query: makeGetDevicesQuery(isSupportsSync, userID), id: "GetDevices")
     }
 
     private static func makeGetDevicesQuery(_ isSupportsSync: Bool?, _ userID: String?) -> [(String, String?)] {

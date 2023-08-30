@@ -77,7 +77,7 @@ struct Plugin: CommandPlugin {
             .appending(["Sources", "jellyfin-openapi-stable.json"])
 
         let decoder = JSONDecoder()
-        let data = Data(referencing: try NSData(contentsOfFile: filePath.string))
+        let data = try Data(referencing: NSData(contentsOfFile: filePath.string))
         return try decoder.decode(AnyJSON.self, from: data)
     }
 
@@ -186,7 +186,7 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Plugins", "CreateAPI", "PatchFiles", "SpecialFeatureType.swift"])
 
-        let sourceData = Data(referencing: try NSData(contentsOfFile: sourceFilePath.string))
+        let sourceData = try Data(referencing: NSData(contentsOfFile: sourceFilePath.string))
 
         let finalFilePath = context
             .package

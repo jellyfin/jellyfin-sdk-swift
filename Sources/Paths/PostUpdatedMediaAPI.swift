@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Reports that new movies have been added by an external source.
     static func postUpdatedMedia(_ body: JellyfinAPI.MediaUpdateInfoDto) -> Request<Void> {
-        Request(method: "POST", url: "/Library/Media/Updated", body: body, id: "PostUpdatedMedia")
+        Request(path: "/Library/Media/Updated", method: "POST", body: body, id: "PostUpdatedMedia")
     }
 }

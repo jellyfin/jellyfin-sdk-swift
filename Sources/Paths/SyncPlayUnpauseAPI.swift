@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Request unpause in SyncPlay group.
     static var syncPlayUnpause: Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/Unpause", id: "SyncPlayUnpause")
+        Request(path: "/SyncPlay/Unpause", method: "POST", id: "SyncPlayUnpause")
     }
 }

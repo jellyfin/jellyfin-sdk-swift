@@ -14,8 +14,8 @@ public extension Paths {
     /// Gets Dlna media receiver registrar xml.
     static func getMediaReceiverRegistrar3(serverID: String) -> Request<String> {
         Request(
+            path: "/Dlna/\(serverID)/MediaReceiverRegistrar/MediaReceiverRegistrar.xml",
             method: "GET",
-            url: "/Dlna/\(serverID)/MediaReceiverRegistrar/MediaReceiverRegistrar.xml",
             id: "GetMediaReceiverRegistrar_3"
         )
     }

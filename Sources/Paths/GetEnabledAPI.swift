@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the current quick connect state.
     static var getEnabled: Request<Data> {
-        Request(method: "GET", url: "/QuickConnect/Enabled", id: "GetEnabled")
+        Request(path: "/QuickConnect/Enabled", method: "GET", id: "GetEnabled")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets localization options.
     static var getLocalizationOptions: Request<[JellyfinAPI.LocalizationOption]> {
-        Request(method: "GET", url: "/Localization/Options", id: "GetLocalizationOptions")
+        Request(path: "/Localization/Options", method: "GET", id: "GetLocalizationOptions")
     }
 }

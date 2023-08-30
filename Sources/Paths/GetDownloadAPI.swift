@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Downloads item media.
     static func getDownload(itemID: String) -> Request<Data> {
-        Request(method: "GET", url: "/Items/\(itemID)/Download", id: "GetDownload")
+        Request(path: "/Items/\(itemID)/Download", method: "GET", id: "GetDownload")
     }
 }

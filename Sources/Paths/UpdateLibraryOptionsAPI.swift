@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Update library options.
     static func updateLibraryOptions(_ body: JellyfinAPI.UpdateLibraryOptionsDto? = nil) -> Request<Void> {
-        Request(method: "POST", url: "/Library/VirtualFolders/LibraryOptions", body: body, id: "UpdateLibraryOptions")
+        Request(path: "/Library/VirtualFolders/LibraryOptions", method: "POST", body: body, id: "UpdateLibraryOptions")
     }
 }

@@ -20,7 +20,7 @@ public extension Paths {
         parameters: CreatePlaylistParameters? = nil,
         _ body: JellyfinAPI.CreatePlaylistDto? = nil
     ) -> Request<JellyfinAPI.PlaylistCreationResult> {
-        Request(method: "POST", url: "/Playlists", query: parameters?.asQuery, body: body, id: "CreatePlaylist")
+        Request(path: "/Playlists", method: "POST", query: parameters?.asQuery, body: body, id: "CreatePlaylist")
     }
 
     struct CreatePlaylistParameters {

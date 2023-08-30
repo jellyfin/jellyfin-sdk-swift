@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Unmarks item as a favorite.
     static func unmarkFavoriteItem(userID: String, itemID: String) -> Request<JellyfinAPI.UserItemDataDto> {
-        Request(method: "DELETE", url: "/Users/\(userID)/FavoriteItems/\(itemID)", id: "UnmarkFavoriteItem")
+        Request(path: "/Users/\(userID)/FavoriteItems/\(itemID)", method: "DELETE", id: "UnmarkFavoriteItem")
     }
 }

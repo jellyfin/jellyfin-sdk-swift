@@ -14,8 +14,8 @@ extension Paths {
     /// Removes items from a collection.
     public static func removeFromCollection(collectionID: String, ids: [String]) -> Request<Void> {
         Request(
+            path: "/Collections/\(collectionID)/Items",
             method: "DELETE",
-            url: "/Collections/\(collectionID)/Items",
             query: makeRemoveFromCollectionQuery(ids),
             id: "RemoveFromCollection"
         )

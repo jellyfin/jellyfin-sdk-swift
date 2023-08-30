@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Generates or gets the splashscreen.
     static func getSplashscreen(parameters: GetSplashscreenParameters? = nil) -> Request<Data> {
-        Request(method: "GET", url: "/Branding/Splashscreen", query: parameters?.asQuery, id: "GetSplashscreen")
+        Request(path: "/Branding/Splashscreen", method: "GET", query: parameters?.asQuery, id: "GetSplashscreen")
     }
 
     struct GetSplashscreenParameters {

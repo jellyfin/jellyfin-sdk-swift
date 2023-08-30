@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Issues a command to a client to display a message to the user.
     static func sendMessageCommand(sessionID: String, _ body: JellyfinAPI.MessageCommand) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/\(sessionID)/Message", body: body, id: "SendMessageCommand")
+        Request(path: "/Sessions/\(sessionID)/Message", method: "POST", body: body, id: "SendMessageCommand")
     }
 }

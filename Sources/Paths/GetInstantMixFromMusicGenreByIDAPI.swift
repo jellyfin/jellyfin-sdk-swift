@@ -14,7 +14,7 @@ public extension Paths {
     /// Creates an instant playlist based on a given genre.
     static func getInstantMixFromMusicGenreByID(parameters: GetInstantMixFromMusicGenreByIDParameters)
     -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/MusicGenres/InstantMix", query: parameters.asQuery, id: "GetInstantMixFromMusicGenreById")
+        Request(path: "/MusicGenres/InstantMix", method: "GET", query: parameters.asQuery, id: "GetInstantMixFromMusicGenreById")
     }
 
     struct GetInstantMixFromMusicGenreByIDParameters {

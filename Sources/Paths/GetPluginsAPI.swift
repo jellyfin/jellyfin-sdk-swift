@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a list of currently installed plugins.
     static var getPlugins: Request<[JellyfinAPI.PluginInfo]> {
-        Request(method: "GET", url: "/Plugins", id: "GetPlugins")
+        Request(path: "/Plugins", method: "GET", id: "GetPlugins")
     }
 }

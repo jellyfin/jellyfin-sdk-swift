@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets intros to play before the main media item plays.
     static func getIntros(userID: String, itemID: String) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Users/\(userID)/Items/\(itemID)/Intros", id: "GetIntros")
+        Request(path: "/Users/\(userID)/Items/\(itemID)/Intros", method: "GET", id: "GetIntros")
     }
 }

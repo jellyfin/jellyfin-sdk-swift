@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Finds movies and trailers similar to a given trailer.
     static func getTrailers(parameters: GetTrailersParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Trailers", query: parameters?.asQuery, id: "GetTrailers")
+        Request(path: "/Trailers", method: "GET", query: parameters?.asQuery, id: "GetTrailers")
     }
 
     struct GetTrailersParameters {

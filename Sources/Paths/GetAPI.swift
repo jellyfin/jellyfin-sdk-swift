@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets the search hint result.
     static func get(parameters: GetParameters) -> Request<JellyfinAPI.SearchHintResult> {
-        Request(method: "GET", url: "/Search/Hints", query: parameters.asQuery, id: "Get")
+        Request(path: "/Search/Hints", method: "GET", query: parameters.asQuery, id: "Get")
     }
 
     struct GetParameters {

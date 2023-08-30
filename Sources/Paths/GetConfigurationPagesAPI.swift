@@ -14,8 +14,8 @@ extension Paths {
     /// Gets the configuration pages.
     public static func getConfigurationPages(enableInMainMenu: Bool? = nil) -> Request<[JellyfinAPI.ConfigurationPageInfo]> {
         Request(
+            path: "/web/ConfigurationPages",
             method: "GET",
-            url: "/web/ConfigurationPages",
             query: makeGetConfigurationPagesQuery(enableInMainMenu),
             id: "GetConfigurationPages"
         )

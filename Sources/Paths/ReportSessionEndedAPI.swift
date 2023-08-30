@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Reports that a session has ended.
     static var reportSessionEnded: Request<Void> {
-        Request(method: "POST", url: "/Sessions/Logout", id: "ReportSessionEnded")
+        Request(path: "/Sessions/Logout", method: "POST", id: "ReportSessionEnded")
     }
 }

@@ -13,7 +13,7 @@ import URLQueryEncoder
 extension Paths {
     /// Gets a list of users.
     public static func getUsers(isHidden: Bool? = nil, isDisabled: Bool? = nil) -> Request<[JellyfinAPI.UserDto]> {
-        Request(method: "GET", url: "/Users", query: makeGetUsersQuery(isHidden, isDisabled), id: "GetUsers")
+        Request(path: "/Users", method: "GET", query: makeGetUsersQuery(isHidden, isDisabled), id: "GetUsers")
     }
 
     private static func makeGetUsersQuery(_ isHidden: Bool?, _ isDisabled: Bool?) -> [(String, String?)] {

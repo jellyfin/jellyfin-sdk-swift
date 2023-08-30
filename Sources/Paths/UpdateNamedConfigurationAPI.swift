@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Updates named configuration.
     static func updateNamedConfiguration(key: String, _ body: AnyJSON) -> Request<Void> {
-        Request(method: "POST", url: "/System/Configuration/\(key)", body: body, id: "UpdateNamedConfiguration")
+        Request(path: "/System/Configuration/\(key)", method: "POST", body: body, id: "UpdateNamedConfiguration")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get rating image.
     static func getRatingImage(theme: String, name: String) -> Request<Data> {
-        Request(method: "GET", url: "/Images/Ratings/\(theme)/\(name)", id: "GetRatingImage")
+        Request(path: "/Images/Ratings/\(theme)/\(name)", method: "GET", id: "GetRatingImage")
     }
 }

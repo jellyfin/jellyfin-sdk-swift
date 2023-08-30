@@ -15,6 +15,6 @@ public extension Paths {
     ///
     /// Accepts plugin configuration as JSON body.
     static func updatePluginConfiguration(pluginID: String) -> Request<Void> {
-        Request(method: "POST", url: "/Plugins/\(pluginID)/Configuration", id: "UpdatePluginConfiguration")
+        Request(path: "/Plugins/\(pluginID)/Configuration", method: "POST", id: "UpdatePluginConfiguration")
     }
 }

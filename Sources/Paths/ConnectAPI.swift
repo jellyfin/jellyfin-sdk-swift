@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Attempts to retrieve authentication information.
     static func connect(secret: String) -> Request<JellyfinAPI.QuickConnectResult> {
-        Request(method: "GET", url: "/QuickConnect/Connect", query: [("secret", secret)], id: "Connect")
+        Request(path: "/QuickConnect/Connect", method: "GET", query: [("secret", secret)], id: "Connect")
     }
 }

@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Get user views.
     static func getUserViews(userID: String, parameters: GetUserViewsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/Users/\(userID)/Views", query: parameters?.asQuery, id: "GetUserViews")
+        Request(path: "/Users/\(userID)/Views", method: "GET", query: parameters?.asQuery, id: "GetUserViews")
     }
 
     struct GetUserViewsParameters {

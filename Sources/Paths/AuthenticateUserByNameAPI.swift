@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Authenticates a user by name.
     static func authenticateUserByName(_ body: JellyfinAPI.AuthenticateUserByName) -> Request<JellyfinAPI.AuthenticationResult> {
-        Request(method: "POST", url: "/Users/AuthenticateByName", body: body, id: "AuthenticateUserByName")
+        Request(path: "/Users/AuthenticateByName", method: "POST", body: body, id: "AuthenticateUserByName")
     }
 }

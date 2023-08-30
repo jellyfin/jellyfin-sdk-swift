@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Instructs a session to play an item.
     static func play(sessionID: String, parameters: PlayParameters) -> Request<Void> {
-        Request(method: "POST", url: "/Sessions/\(sessionID)/Playing", query: parameters.asQuery, id: "Play")
+        Request(path: "/Sessions/\(sessionID)/Playing", method: "POST", query: parameters.asQuery, id: "Play")
     }
 
     struct PlayParameters {

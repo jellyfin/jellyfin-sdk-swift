@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Update specified task triggers.
     static func updateTask(taskID: String, _ body: [JellyfinAPI.TaskTriggerInfo]) -> Request<Void> {
-        Request(method: "POST", url: "/ScheduledTasks/\(taskID)/Triggers", body: body, id: "UpdateTask")
+        Request(path: "/ScheduledTasks/\(taskID)/Triggers", method: "POST", body: body, id: "UpdateTask")
     }
 }

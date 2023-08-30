@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Sets the initial startup wizard configuration.
     static func updateInitialConfiguration(_ body: JellyfinAPI.StartupConfigurationDto) -> Request<Void> {
-        Request(method: "POST", url: "/Startup/Configuration", body: body, id: "UpdateInitialConfiguration")
+        Request(path: "/Startup/Configuration", method: "POST", body: body, id: "UpdateInitialConfiguration")
     }
 }

@@ -14,8 +14,8 @@ public extension Paths {
     /// Reports a user's playback progress.
     static func onPlaybackProgress(userID: String, itemID: String, parameters: OnPlaybackProgressParameters? = nil) -> Request<Void> {
         Request(
+            path: "/Users/\(userID)/PlayingItems/\(itemID)/Progress",
             method: "POST",
-            url: "/Users/\(userID)/PlayingItems/\(itemID)/Progress",
             query: parameters?.asQuery,
             id: "OnPlaybackProgress"
         )

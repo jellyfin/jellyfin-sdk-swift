@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get guid info.
     static var getGuideInfo: Request<JellyfinAPI.GuideInfo> {
-        Request(method: "GET", url: "/LiveTv/GuideInfo", id: "GetGuideInfo")
+        Request(path: "/LiveTv/GuideInfo", method: "GET", id: "GetGuideInfo")
     }
 }

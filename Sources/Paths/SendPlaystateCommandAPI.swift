@@ -19,8 +19,8 @@ extension Paths {
         controllingUserID: String? = nil
     ) -> Request<Void> {
         Request(
+            path: "/Sessions/\(sessionID)/Playing/\(command)",
             method: "POST",
-            url: "/Sessions/\(sessionID)/Playing/\(command)",
             query: makeSendPlaystateCommandQuery(seekPositionTicks, controllingUserID),
             id: "SendPlaystateCommand"
         )

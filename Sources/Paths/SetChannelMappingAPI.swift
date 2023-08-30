@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Set channel mappings.
     static func setChannelMapping(_ body: JellyfinAPI.SetChannelMappingDto) -> Request<JellyfinAPI.TunerChannelMapping> {
-        Request(method: "POST", url: "/LiveTv/ChannelMappings", body: body, id: "SetChannelMapping")
+        Request(path: "/LiveTv/ChannelMappings", method: "POST", body: body, id: "SetChannelMapping")
     }
 }

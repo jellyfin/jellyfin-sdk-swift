@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets default listings provider info.
     static var getDefaultListingProvider: Request<JellyfinAPI.ListingsProviderInfo> {
-        Request(method: "GET", url: "/LiveTv/ListingProviders/Default", id: "GetDefaultListingProvider")
+        Request(path: "/LiveTv/ListingProviders/Default", method: "GET", id: "GetDefaultListingProvider")
     }
 }

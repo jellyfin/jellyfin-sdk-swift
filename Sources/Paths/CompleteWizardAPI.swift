@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Completes the startup wizard.
     static var completeWizard: Request<Void> {
-        Request(method: "POST", url: "/Startup/Complete", id: "CompleteWizard")
+        Request(path: "/Startup/Complete", method: "POST", id: "CompleteWizard")
     }
 }

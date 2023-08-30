@@ -18,8 +18,8 @@ extension Paths {
         _ body: JellyfinAPI.RemoteSearchResult
     ) -> Request<Void> {
         Request(
+            path: "/Items/RemoteSearch/Apply/\(itemID)",
             method: "POST",
-            url: "/Items/RemoteSearch/Apply/\(itemID)",
             query: makeApplySearchCriteriaQuery(isReplaceAllImages),
             body: body,
             id: "ApplySearchCriteria"

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get all general images.
     static var getRatingImages: Request<[JellyfinAPI.ImageByNameInfo]> {
-        Request(method: "GET", url: "/Images/Ratings", id: "GetRatingImages")
+        Request(path: "/Images/Ratings", method: "GET", id: "GetRatingImages")
     }
 }

@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a plugin's manifest.
     static func getPluginManifest(pluginID: String) -> Request<Void> {
-        Request(method: "POST", url: "/Plugins/\(pluginID)/Manifest", id: "GetPluginManifest")
+        Request(path: "/Plugins/\(pluginID)/Manifest", method: "POST", id: "GetPluginManifest")
     }
 }

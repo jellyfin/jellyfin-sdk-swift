@@ -21,8 +21,8 @@ public extension Paths {
         parameters: GetSubtitleWithTicksParameters? = nil
     ) -> Request<String> {
         Request(
+            path: "/Videos/\(routeItemID)/\(routeMediaSourceID)/Subtitles/\(routeIndex)/\(routeStartPositionTicks)/Stream.\(routeFormat)",
             method: "GET",
-            url: "/Videos/\(routeItemID)/\(routeMediaSourceID)/Subtitles/\(routeIndex)/\(routeStartPositionTicks)/Stream.\(routeFormat)",
             query: parameters?.asQuery,
             id: "GetSubtitleWithTicks"
         )

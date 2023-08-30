@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a server icon.
     static func getIconID(serverID: String, fileName: String) -> Request<Data> {
-        Request(method: "GET", url: "/Dlna/\(serverID)/icons/\(fileName)", id: "GetIconId")
+        Request(path: "/Dlna/\(serverID)/icons/\(fileName)", method: "GET", id: "GetIconId")
     }
 }

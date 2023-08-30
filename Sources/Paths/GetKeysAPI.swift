@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Get all keys.
     static var getKeys: Request<JellyfinAPI.AuthenticationInfoQueryResult> {
-        Request(method: "GET", url: "/Auth/Keys", id: "GetKeys")
+        Request(path: "/Auth/Keys", method: "GET", id: "GetKeys")
     }
 }

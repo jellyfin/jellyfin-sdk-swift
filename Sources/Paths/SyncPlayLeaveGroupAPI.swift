@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Leave the joined SyncPlay group.
     static var syncPlayLeaveGroup: Request<Void> {
-        Request(method: "POST", url: "/SyncPlay/Leave", id: "SyncPlayLeaveGroup")
+        Request(path: "/SyncPlay/Leave", method: "POST", id: "SyncPlayLeaveGroup")
     }
 }

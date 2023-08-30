@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets an audio stream.
     static func headUniversalAudioStream(itemID: String, parameters: HeadUniversalAudioStreamParameters? = nil) -> Request<Data> {
-        Request(method: "HEAD", url: "/Audio/\(itemID)/universal", query: parameters?.asQuery, id: "HeadUniversalAudioStream")
+        Request(path: "/Audio/\(itemID)/universal", method: "HEAD", query: parameters?.asQuery, id: "HeadUniversalAudioStream")
     }
 
     struct HeadUniversalAudioStreamParameters {

@@ -14,7 +14,7 @@ public extension Paths {
     /// Gets live tv recording series.
     @available(*, deprecated, message: "Deprecated")
     static func getRecordingsSeries(parameters: GetRecordingsSeriesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/LiveTv/Recordings/Series", query: parameters?.asQuery, id: "GetRecordingsSeries")
+        Request(path: "/LiveTv/Recordings/Series", method: "GET", query: parameters?.asQuery, id: "GetRecordingsSeries")
     }
 
     struct GetRecordingsSeriesParameters {

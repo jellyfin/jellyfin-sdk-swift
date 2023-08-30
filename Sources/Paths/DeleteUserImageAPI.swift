@@ -14,8 +14,8 @@ extension Paths {
     /// Delete the user's image.
     public static func deleteUserImage(userID: String, imageType: String, index: Int? = nil) -> Request<Void> {
         Request(
+            path: "/Users/\(userID)/Images/\(imageType)",
             method: "DELETE",
-            url: "/Users/\(userID)/Images/\(imageType)",
             query: makeDeleteUserImageQuery(index),
             id: "DeleteUserImage"
         )

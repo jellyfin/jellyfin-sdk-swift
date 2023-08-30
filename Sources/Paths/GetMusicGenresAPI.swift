@@ -14,7 +14,7 @@ public extension Paths {
     /// Gets all music genres from a given item, folder, or the entire library.
     @available(*, deprecated, message: "Deprecated")
     static func getMusicGenres(parameters: GetMusicGenresParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/MusicGenres", query: parameters?.asQuery, id: "GetMusicGenres")
+        Request(path: "/MusicGenres", method: "GET", query: parameters?.asQuery, id: "GetMusicGenres")
     }
 
     struct GetMusicGenresParameters {

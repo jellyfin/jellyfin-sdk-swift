@@ -14,8 +14,8 @@ extension Paths {
     /// Authenticates a user.
     public static func authenticateUser(userID: String, pw: String, password: String? = nil) -> Request<JellyfinAPI.AuthenticationResult> {
         Request(
+            path: "/Users/\(userID)/Authenticate",
             method: "POST",
-            url: "/Users/\(userID)/Authenticate",
             query: makeAuthenticateUserQuery(pw, password),
             id: "AuthenticateUser"
         )

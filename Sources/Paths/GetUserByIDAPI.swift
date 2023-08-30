@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets a user by Id.
     static func getUserByID(userID: String) -> Request<JellyfinAPI.UserDto> {
-        Request(method: "GET", url: "/Users/\(userID)", id: "GetUserById")
+        Request(path: "/Users/\(userID)", method: "GET", id: "GetUserById")
     }
 }

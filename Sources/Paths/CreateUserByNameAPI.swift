@@ -13,6 +13,6 @@ import URLQueryEncoder
 public extension Paths {
     /// Creates a user.
     static func createUserByName(_ body: JellyfinAPI.CreateUserByName) -> Request<JellyfinAPI.UserDto> {
-        Request(method: "POST", url: "/Users/New", body: body, id: "CreateUserByName")
+        Request(path: "/Users/New", method: "POST", body: body, id: "CreateUserByName")
     }
 }

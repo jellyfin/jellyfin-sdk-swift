@@ -14,7 +14,7 @@ extension Paths {
     /// Gets live tv recording groups.
     @available(*, deprecated, message: "Deprecated")
     public static func getRecordingGroups(userID: String? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(method: "GET", url: "/LiveTv/Recordings/Groups", query: makeGetRecordingGroupsQuery(userID), id: "GetRecordingGroups")
+        Request(path: "/LiveTv/Recordings/Groups", method: "GET", query: makeGetRecordingGroupsQuery(userID), id: "GetRecordingGroups")
     }
 
     private static func makeGetRecordingGroupsQuery(_ userID: String?) -> [(String, String?)] {

@@ -13,7 +13,7 @@ import URLQueryEncoder
 public extension Paths {
     /// Gets movie recommendations.
     static func getMovieRecommendations(parameters: GetMovieRecommendationsParameters? = nil) -> Request<[JellyfinAPI.RecommendationDto]> {
-        Request(method: "GET", url: "/Movies/Recommendations", query: parameters?.asQuery, id: "GetMovieRecommendations")
+        Request(path: "/Movies/Recommendations", method: "GET", query: parameters?.asQuery, id: "GetMovieRecommendations")
     }
 
     struct GetMovieRecommendationsParameters {
