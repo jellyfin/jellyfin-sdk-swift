@@ -16,7 +16,7 @@ let package = Package(
         .library(name: "JellyfinAPI", targets: ["JellyfinAPI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", from: "1.0.4"),
+        .package(url: "https://github.com/kean/Get", from: "2.1.6"),
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0"),
     ],
     targets: [
