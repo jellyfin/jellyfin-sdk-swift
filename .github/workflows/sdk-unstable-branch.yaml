@@ -40,7 +40,7 @@ jobs:
       run: |
         git config user.name jellyfin-bot
         git config user.email team@jellyfin.org
-        git checkout -B openapi-unstable
+        git checkout -B unstable
         git add .
-        git commit --allow-empty -m "Update OpenAPI to unstable"
+        git commit --allow-empty -m "Update unstable generation"
         git push --force origin openapi-unstable
