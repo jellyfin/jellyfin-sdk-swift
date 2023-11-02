@@ -32,10 +32,6 @@ jobs:
         cd $GITHUB_WORKSPACE
         swift package --allow-writing-to-package-directory generate-api
 
-    - name: Build
-      run: |
-        swift build
-
     - name: Commit changes
       run: |
         git config user.name jellyfin-bot
