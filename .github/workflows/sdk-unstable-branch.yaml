@@ -21,16 +21,11 @@ jobs:
       with:
         ref: main
         token: ${{ secrets.JF_BOT_TOKEN }}
-    
-    - name: Download unstable OpenAPI schema
-      run: |
-        curl -sL https://repo.jellyfin.org/releases/openapi/jellyfin-openapi-unstable.json -o jellyfin-openapi-stable.json
-        cp -rf jellyfin-openapi-stable.json $GITHUB_WORKSPACE/Sources
 
     - name: Generate API
       run: |
         cd $GITHUB_WORKSPACE
-        swift package --allow-writing-to-package-directory generate-api
+        make update
 
     - name: Commit changes
       run: |
