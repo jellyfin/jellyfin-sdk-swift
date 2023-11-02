@@ -25,7 +25,7 @@ jobs:
     - name: Generate API
       run: |
         cd $GITHUB_WORKSPACE
-        make update
+        make update-unstable
 
     - name: Commit changes
       run: |
@@ -34,4 +34,4 @@ jobs:
         git checkout -B unstable
         git add .
         git commit --allow-empty -m "Update unstable generation"
-        git push --force origin openapi-unstable
+        git push --force origin unstable
