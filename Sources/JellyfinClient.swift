@@ -41,7 +41,8 @@ public final class JellyfinClient {
             configuration.delegate = self
             configuration.sessionDelegate = sessionDelegate
 
-            let isoDateFormatter: DateFormatter = OpenISO8601DateFormatter()
+            let isoDateFormatter: DateFormatter = ISO8601DateFormatter()
+            isoDateFormatter.formatOptions = .withFractionalSeconds
 
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .formatted(isoDateFormatter)
