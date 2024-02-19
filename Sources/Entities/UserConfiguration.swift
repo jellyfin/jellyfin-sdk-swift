@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -12,6 +12,8 @@ import Foundation
 public struct UserConfiguration: Codable, Hashable {
     /// Gets or sets the audio language preference.
     public var audioLanguagePreference: String?
+    /// Gets or sets the id of the selected cast receiver.
+    public var castReceiverID: String?
     public var isDisplayCollectionsView: Bool?
     public var isDisplayMissingEpisodes: Bool?
     public var enableLocalPassword: Bool?
@@ -32,6 +34,7 @@ public struct UserConfiguration: Codable, Hashable {
 
     public init(
         audioLanguagePreference: String? = nil,
+        castReceiverID: String? = nil,
         isDisplayCollectionsView: Bool? = nil,
         isDisplayMissingEpisodes: Bool? = nil,
         enableLocalPassword: Bool? = nil,
@@ -48,6 +51,7 @@ public struct UserConfiguration: Codable, Hashable {
         subtitleMode: SubtitlePlaybackMode? = nil
     ) {
         self.audioLanguagePreference = audioLanguagePreference
+        self.castReceiverID = castReceiverID
         self.isDisplayCollectionsView = isDisplayCollectionsView
         self.isDisplayMissingEpisodes = isDisplayMissingEpisodes
         self.enableLocalPassword = enableLocalPassword
@@ -67,6 +71,7 @@ public struct UserConfiguration: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.audioLanguagePreference = try values.decodeIfPresent(String.self, forKey: "AudioLanguagePreference")
+        self.castReceiverID = try values.decodeIfPresent(String.self, forKey: "CastReceiverId")
         self.isDisplayCollectionsView = try values.decodeIfPresent(Bool.self, forKey: "DisplayCollectionsView")
         self.isDisplayMissingEpisodes = try values.decodeIfPresent(Bool.self, forKey: "DisplayMissingEpisodes")
         self.enableLocalPassword = try values.decodeIfPresent(Bool.self, forKey: "EnableLocalPassword")
@@ -86,6 +91,7 @@ public struct UserConfiguration: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(audioLanguagePreference, forKey: "AudioLanguagePreference")
+        try values.encodeIfPresent(castReceiverID, forKey: "CastReceiverId")
         try values.encodeIfPresent(isDisplayCollectionsView, forKey: "DisplayCollectionsView")
         try values.encodeIfPresent(isDisplayMissingEpisodes, forKey: "DisplayMissingEpisodes")
         try values.encodeIfPresent(enableLocalPassword, forKey: "EnableLocalPassword")

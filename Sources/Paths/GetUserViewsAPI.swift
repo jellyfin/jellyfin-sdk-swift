@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -18,10 +18,10 @@ public extension Paths {
 
     struct GetUserViewsParameters {
         public var isIncludeExternalContent: Bool?
-        public var presetViews: [String]?
+        public var presetViews: [JellyfinAPI.CollectionType]?
         public var isIncludeHidden: Bool?
 
-        public init(isIncludeExternalContent: Bool? = nil, presetViews: [String]? = nil, isIncludeHidden: Bool? = nil) {
+        public init(isIncludeExternalContent: Bool? = nil, presetViews: [JellyfinAPI.CollectionType]? = nil, isIncludeHidden: Bool? = nil) {
             self.isIncludeExternalContent = isIncludeExternalContent
             self.presetViews = presetViews
             self.isIncludeHidden = isIncludeHidden

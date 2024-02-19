@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -15,6 +15,7 @@ public enum ItemFields: String, Codable, CaseIterable {
     case canDownload = "CanDownload"
     case channelInfo = "ChannelInfo"
     case chapters = "Chapters"
+    case trickplay = "Trickplay"
     case childCount = "ChildCount"
     case cumulativeRunTimeTicks = "CumulativeRunTimeTicks"
     case customRating = "CustomRating"
@@ -45,8 +46,6 @@ public enum ItemFields: String, Codable, CaseIterable {
     case sortName = "SortName"
     case specialEpisodeNumbers = "SpecialEpisodeNumbers"
     case studios = "Studios"
-    case basicSyncInfo = "BasicSyncInfo"
-    case syncInfo = "SyncInfo"
     case taglines = "Taglines"
     case tags = "Tags"
     case remoteTrailers = "RemoteTrailers"

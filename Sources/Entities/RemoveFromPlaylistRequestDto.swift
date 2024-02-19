@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -14,7 +14,7 @@ public struct RemoveFromPlaylistRequestDto: Codable, Hashable {
     public var isClearPlayingItem: Bool?
     /// Gets or sets a value indicating whether the entire playlist should be cleared.
     public var isClearPlaylist: Bool?
-    /// Gets or sets the playlist identifiers ot the items. Ignored when clearing the playlist.
+    /// Gets or sets the playlist identifiers of the items. Ignored when clearing the playlist.
     public var playlistItemIDs: [String]?
 
     public init(isClearPlayingItem: Bool? = nil, isClearPlaylist: Bool? = nil, playlistItemIDs: [String]? = nil) {

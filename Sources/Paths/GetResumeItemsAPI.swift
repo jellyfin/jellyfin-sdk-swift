@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -22,7 +22,7 @@ public extension Paths {
         public var searchTerm: String?
         public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
-        public var mediaTypes: [String]?
+        public var mediaTypes: [JellyfinAPI.MediaType]?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
@@ -38,7 +38,7 @@ public extension Paths {
             searchTerm: String? = nil,
             parentID: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
-            mediaTypes: [String]? = nil,
+            mediaTypes: [JellyfinAPI.MediaType]? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,

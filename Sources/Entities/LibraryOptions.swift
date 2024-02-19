@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -18,12 +18,16 @@ public struct LibraryOptions: Codable, Hashable {
     public var enableAutomaticSeriesGrouping: Bool?
     public var enableChapterImageExtraction: Bool?
     public var enableEmbeddedEpisodeInfos: Bool?
+    public var enableEmbeddedExtrasTitles: Bool?
     public var enableEmbeddedTitles: Bool?
     /// - warning: Deprecated.
     public var enableInternetProviders: Bool?
+    public var enableLUFSScan: Bool?
     public var enablePhotos: Bool?
     public var enableRealtimeMonitor: Bool?
+    public var enableTrickplayImageExtraction: Bool?
     public var isExtractChapterImagesDuringLibraryScan: Bool?
+    public var isExtractTrickplayImagesDuringLibraryScan: Bool?
     public var localMetadataReaderOrder: [String]?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
@@ -40,6 +44,7 @@ public struct LibraryOptions: Codable, Hashable {
     public var subtitleDownloadLanguages: [String]?
     public var subtitleFetcherOrder: [String]?
     public var typeOptions: [TypeOptions]?
+    public var useReplayGainTags: Bool?
 
     public init(
         allowEmbeddedSubtitles: EmbeddedSubtitleOptions? = nil,
@@ -50,11 +55,15 @@ public struct LibraryOptions: Codable, Hashable {
         enableAutomaticSeriesGrouping: Bool? = nil,
         enableChapterImageExtraction: Bool? = nil,
         enableEmbeddedEpisodeInfos: Bool? = nil,
+        enableEmbeddedExtrasTitles: Bool? = nil,
         enableEmbeddedTitles: Bool? = nil,
         enableInternetProviders: Bool? = nil,
+        enableLUFSScan: Bool? = nil,
         enablePhotos: Bool? = nil,
         enableRealtimeMonitor: Bool? = nil,
+        enableTrickplayImageExtraction: Bool? = nil,
         isExtractChapterImagesDuringLibraryScan: Bool? = nil,
+        isExtractTrickplayImagesDuringLibraryScan: Bool? = nil,
         localMetadataReaderOrder: [String]? = nil,
         metadataCountryCode: String? = nil,
         metadataSavers: [String]? = nil,
@@ -68,7 +77,8 @@ public struct LibraryOptions: Codable, Hashable {
         isSkipSubtitlesIfEmbeddedSubtitlesPresent: Bool? = nil,
         subtitleDownloadLanguages: [String]? = nil,
         subtitleFetcherOrder: [String]? = nil,
-        typeOptions: [TypeOptions]? = nil
+        typeOptions: [TypeOptions]? = nil,
+        useReplayGainTags: Bool? = nil
     ) {
         self.allowEmbeddedSubtitles = allowEmbeddedSubtitles
         self.automaticRefreshIntervalDays = automaticRefreshIntervalDays
@@ -78,11 +88,15 @@ public struct LibraryOptions: Codable, Hashable {
         self.enableAutomaticSeriesGrouping = enableAutomaticSeriesGrouping
         self.enableChapterImageExtraction = enableChapterImageExtraction
         self.enableEmbeddedEpisodeInfos = enableEmbeddedEpisodeInfos
+        self.enableEmbeddedExtrasTitles = enableEmbeddedExtrasTitles
         self.enableEmbeddedTitles = enableEmbeddedTitles
         self.enableInternetProviders = enableInternetProviders
+        self.enableLUFSScan = enableLUFSScan
         self.enablePhotos = enablePhotos
         self.enableRealtimeMonitor = enableRealtimeMonitor
+        self.enableTrickplayImageExtraction = enableTrickplayImageExtraction
         self.isExtractChapterImagesDuringLibraryScan = isExtractChapterImagesDuringLibraryScan
+        self.isExtractTrickplayImagesDuringLibraryScan = isExtractTrickplayImagesDuringLibraryScan
         self.localMetadataReaderOrder = localMetadataReaderOrder
         self.metadataCountryCode = metadataCountryCode
         self.metadataSavers = metadataSavers
@@ -97,6 +111,7 @@ public struct LibraryOptions: Codable, Hashable {
         self.subtitleDownloadLanguages = subtitleDownloadLanguages
         self.subtitleFetcherOrder = subtitleFetcherOrder
         self.typeOptions = typeOptions
+        self.useReplayGainTags = useReplayGainTags
     }
 
     public init(from decoder: Decoder) throws {
@@ -109,13 +124,20 @@ public struct LibraryOptions: Codable, Hashable {
         self.enableAutomaticSeriesGrouping = try values.decodeIfPresent(Bool.self, forKey: "EnableAutomaticSeriesGrouping")
         self.enableChapterImageExtraction = try values.decodeIfPresent(Bool.self, forKey: "EnableChapterImageExtraction")
         self.enableEmbeddedEpisodeInfos = try values.decodeIfPresent(Bool.self, forKey: "EnableEmbeddedEpisodeInfos")
+        self.enableEmbeddedExtrasTitles = try values.decodeIfPresent(Bool.self, forKey: "EnableEmbeddedExtrasTitles")
         self.enableEmbeddedTitles = try values.decodeIfPresent(Bool.self, forKey: "EnableEmbeddedTitles")
         self.enableInternetProviders = try values.decodeIfPresent(Bool.self, forKey: "EnableInternetProviders")
+        self.enableLUFSScan = try values.decodeIfPresent(Bool.self, forKey: "EnableLUFSScan")
         self.enablePhotos = try values.decodeIfPresent(Bool.self, forKey: "EnablePhotos")
         self.enableRealtimeMonitor = try values.decodeIfPresent(Bool.self, forKey: "EnableRealtimeMonitor")
+        self.enableTrickplayImageExtraction = try values.decodeIfPresent(Bool.self, forKey: "EnableTrickplayImageExtraction")
         self.isExtractChapterImagesDuringLibraryScan = try values.decodeIfPresent(
             Bool.self,
             forKey: "ExtractChapterImagesDuringLibraryScan"
+        )
+        self.isExtractTrickplayImagesDuringLibraryScan = try values.decodeIfPresent(
+            Bool.self,
+            forKey: "ExtractTrickplayImagesDuringLibraryScan"
         )
         self.localMetadataReaderOrder = try values.decodeIfPresent([String].self, forKey: "LocalMetadataReaderOrder")
         self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
@@ -134,6 +156,7 @@ public struct LibraryOptions: Codable, Hashable {
         self.subtitleDownloadLanguages = try values.decodeIfPresent([String].self, forKey: "SubtitleDownloadLanguages")
         self.subtitleFetcherOrder = try values.decodeIfPresent([String].self, forKey: "SubtitleFetcherOrder")
         self.typeOptions = try values.decodeIfPresent([TypeOptions].self, forKey: "TypeOptions")
+        self.useReplayGainTags = try values.decodeIfPresent(Bool.self, forKey: "UseReplayGainTags")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -146,11 +169,15 @@ public struct LibraryOptions: Codable, Hashable {
         try values.encodeIfPresent(enableAutomaticSeriesGrouping, forKey: "EnableAutomaticSeriesGrouping")
         try values.encodeIfPresent(enableChapterImageExtraction, forKey: "EnableChapterImageExtraction")
         try values.encodeIfPresent(enableEmbeddedEpisodeInfos, forKey: "EnableEmbeddedEpisodeInfos")
+        try values.encodeIfPresent(enableEmbeddedExtrasTitles, forKey: "EnableEmbeddedExtrasTitles")
         try values.encodeIfPresent(enableEmbeddedTitles, forKey: "EnableEmbeddedTitles")
         try values.encodeIfPresent(enableInternetProviders, forKey: "EnableInternetProviders")
+        try values.encodeIfPresent(enableLUFSScan, forKey: "EnableLUFSScan")
         try values.encodeIfPresent(enablePhotos, forKey: "EnablePhotos")
         try values.encodeIfPresent(enableRealtimeMonitor, forKey: "EnableRealtimeMonitor")
+        try values.encodeIfPresent(enableTrickplayImageExtraction, forKey: "EnableTrickplayImageExtraction")
         try values.encodeIfPresent(isExtractChapterImagesDuringLibraryScan, forKey: "ExtractChapterImagesDuringLibraryScan")
+        try values.encodeIfPresent(isExtractTrickplayImagesDuringLibraryScan, forKey: "ExtractTrickplayImagesDuringLibraryScan")
         try values.encodeIfPresent(localMetadataReaderOrder, forKey: "LocalMetadataReaderOrder")
         try values.encodeIfPresent(metadataCountryCode, forKey: "MetadataCountryCode")
         try values.encodeIfPresent(metadataSavers, forKey: "MetadataSavers")
@@ -165,5 +192,6 @@ public struct LibraryOptions: Codable, Hashable {
         try values.encodeIfPresent(subtitleDownloadLanguages, forKey: "SubtitleDownloadLanguages")
         try values.encodeIfPresent(subtitleFetcherOrder, forKey: "SubtitleFetcherOrder")
         try values.encodeIfPresent(typeOptions, forKey: "TypeOptions")
+        try values.encodeIfPresent(useReplayGainTags, forKey: "UseReplayGainTags")
     }
 }

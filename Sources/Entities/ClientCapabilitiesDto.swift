@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -16,27 +16,24 @@ public struct ClientCapabilitiesDto: Codable, Hashable {
     public var deviceProfile: DeviceProfile?
     /// Gets or sets the icon url.
     public var iconURL: String?
-    /// Gets or sets the message callback url.
-    public var messageCallbackURL: String?
     /// Gets or sets the list of playable media types.
-    public var playableMediaTypes: [String]?
+    public var playableMediaTypes: [MediaType]?
     /// Gets or sets the list of supported commands.
     public var supportedCommands: [GeneralCommandType]?
-    /// Gets or sets a value indicating whether session supports content uploading.
-    public var isSupportsContentUploading: Bool?
+    /// - warning: Deprecated.
+    public var isSupportsContentUploading: Bool
     /// Gets or sets a value indicating whether session supports media control.
     public var isSupportsMediaControl: Bool?
     /// Gets or sets a value indicating whether session supports a persistent identifier.
     public var isSupportsPersistentIdentifier: Bool?
-    /// Gets or sets a value indicating whether session supports sync.
-    public var isSupportsSync: Bool?
+    /// - warning: Deprecated.
+    public var isSupportsSync: Bool
 
     public init(
         appStoreURL: String? = nil,
         deviceProfile: DeviceProfile? = nil,
         iconURL: String? = nil,
-        messageCallbackURL: String? = nil,
-        playableMediaTypes: [String]? = nil,
+        playableMediaTypes: [MediaType]? = nil,
         supportedCommands: [GeneralCommandType]? = nil,
         isSupportsContentUploading: Bool? = nil,
         isSupportsMediaControl: Bool? = nil,
@@ -46,13 +43,12 @@ public struct ClientCapabilitiesDto: Codable, Hashable {
         self.appStoreURL = appStoreURL
         self.deviceProfile = deviceProfile
         self.iconURL = iconURL
-        self.messageCallbackURL = messageCallbackURL
         self.playableMediaTypes = playableMediaTypes
         self.supportedCommands = supportedCommands
-        self.isSupportsContentUploading = isSupportsContentUploading
+        self.isSupportsContentUploading = isSupportsContentUploading ?? false
         self.isSupportsMediaControl = isSupportsMediaControl
         self.isSupportsPersistentIdentifier = isSupportsPersistentIdentifier
-        self.isSupportsSync = isSupportsSync
+        self.isSupportsSync = isSupportsSync ?? false
     }
 
     public init(from decoder: Decoder) throws {
@@ -60,13 +56,12 @@ public struct ClientCapabilitiesDto: Codable, Hashable {
         self.appStoreURL = try values.decodeIfPresent(String.self, forKey: "AppStoreUrl")
         self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
         self.iconURL = try values.decodeIfPresent(String.self, forKey: "IconUrl")
-        self.messageCallbackURL = try values.decodeIfPresent(String.self, forKey: "MessageCallbackUrl")
-        self.playableMediaTypes = try values.decodeIfPresent([String].self, forKey: "PlayableMediaTypes")
+        self.playableMediaTypes = try values.decodeIfPresent([MediaType].self, forKey: "PlayableMediaTypes")
         self.supportedCommands = try values.decodeIfPresent([GeneralCommandType].self, forKey: "SupportedCommands")
-        self.isSupportsContentUploading = try values.decodeIfPresent(Bool.self, forKey: "SupportsContentUploading")
+        self.isSupportsContentUploading = try values.decodeIfPresent(Bool.self, forKey: "SupportsContentUploading") ?? false
         self.isSupportsMediaControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
         self.isSupportsPersistentIdentifier = try values.decodeIfPresent(Bool.self, forKey: "SupportsPersistentIdentifier")
-        self.isSupportsSync = try values.decodeIfPresent(Bool.self, forKey: "SupportsSync")
+        self.isSupportsSync = try values.decodeIfPresent(Bool.self, forKey: "SupportsSync") ?? false
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -74,7 +69,6 @@ public struct ClientCapabilitiesDto: Codable, Hashable {
         try values.encodeIfPresent(appStoreURL, forKey: "AppStoreUrl")
         try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")
         try values.encodeIfPresent(iconURL, forKey: "IconUrl")
-        try values.encodeIfPresent(messageCallbackURL, forKey: "MessageCallbackUrl")
         try values.encodeIfPresent(playableMediaTypes, forKey: "PlayableMediaTypes")
         try values.encodeIfPresent(supportedCommands, forKey: "SupportedCommands")
         try values.encodeIfPresent(isSupportsContentUploading, forKey: "SupportsContentUploading")

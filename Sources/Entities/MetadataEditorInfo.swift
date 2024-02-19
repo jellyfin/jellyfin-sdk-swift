@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 public struct MetadataEditorInfo: Codable, Hashable {
-    public var contentType: String?
+    public var contentType: CollectionType?
     public var contentTypeOptions: [NameValuePair]?
     public var countries: [CountryInfo]?
     public var cultures: [CultureDto]?
@@ -17,7 +17,7 @@ public struct MetadataEditorInfo: Codable, Hashable {
     public var parentalRatingOptions: [ParentalRating]?
 
     public init(
-        contentType: String? = nil,
+        contentType: CollectionType? = nil,
         contentTypeOptions: [NameValuePair]? = nil,
         countries: [CountryInfo]? = nil,
         cultures: [CultureDto]? = nil,
@@ -34,7 +34,7 @@ public struct MetadataEditorInfo: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.contentType = try values.decodeIfPresent(String.self, forKey: "ContentType")
+        self.contentType = try values.decodeIfPresent(CollectionType.self, forKey: "ContentType")
         self.contentTypeOptions = try values.decodeIfPresent([NameValuePair].self, forKey: "ContentTypeOptions")
         self.countries = try values.decodeIfPresent([CountryInfo].self, forKey: "Countries")
         self.cultures = try values.decodeIfPresent([CultureDto].self, forKey: "Cultures")

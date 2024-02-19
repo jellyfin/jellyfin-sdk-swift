@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -26,7 +26,7 @@ public extension Paths {
         public var limit: Int?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var filters: [JellyfinAPI.ItemFilter]?
-        public var sortBy: [String]?
+        public var sortBy: [JellyfinAPI.ItemSortBy]?
         public var fields: [JellyfinAPI.ItemFields]?
 
         public init(
@@ -36,7 +36,7 @@ public extension Paths {
             limit: Int? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             filters: [JellyfinAPI.ItemFilter]? = nil,
-            sortBy: [String]? = nil,
+            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil
         ) {
             self.folderID = folderID

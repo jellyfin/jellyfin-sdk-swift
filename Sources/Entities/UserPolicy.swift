@@ -3,14 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 public struct UserPolicy: Codable, Hashable {
     public var accessSchedules: [AccessSchedule]?
-    public var authenticationProviderID: String?
+    public var allowedTags: [String]?
+    public var authenticationProviderID: String
     public var blockUnratedItems: [UnratedItem]?
     public var blockedChannels: [String]?
     public var blockedMediaFolders: [String]?
@@ -19,6 +20,8 @@ public struct UserPolicy: Codable, Hashable {
     public var enableAllDevices: Bool?
     public var enableAllFolders: Bool?
     public var enableAudioPlaybackTranscoding: Bool?
+    /// Gets or sets a value indicating whether this instance can manage collections.
+    public var enableCollectionManagement: Bool
     public var enableContentDeletion: Bool?
     public var enableContentDeletionFromFolders: [String]?
     public var enableContentDownloading: Bool?
@@ -31,6 +34,8 @@ public struct UserPolicy: Codable, Hashable {
     public var enableRemoteAccess: Bool?
     public var enableRemoteControlOfOtherUsers: Bool?
     public var enableSharedDeviceControl: Bool?
+    /// Gets or sets a value indicating whether this instance can manage subtitles.
+    public var enableSubtitleManagement: Bool
     /// Gets or sets a value indicating whether [enable synchronize].
     public var enableSyncTranscoding: Bool?
     public var enableUserPreferenceAccess: Bool?
@@ -50,14 +55,15 @@ public struct UserPolicy: Codable, Hashable {
     public var maxActiveSessions: Int?
     /// Gets or sets the max parental rating.
     public var maxParentalRating: Int?
-    public var passwordResetProviderID: String?
+    public var passwordResetProviderID: String
     public var remoteClientBitrateLimit: Int?
     /// Enum SyncPlayUserAccessType.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
     public init(
         accessSchedules: [AccessSchedule]? = nil,
-        authenticationProviderID: String? = nil,
+        allowedTags: [String]? = nil,
+        authenticationProviderID: String,
         blockUnratedItems: [UnratedItem]? = nil,
         blockedChannels: [String]? = nil,
         blockedMediaFolders: [String]? = nil,
@@ -66,6 +72,7 @@ public struct UserPolicy: Codable, Hashable {
         enableAllDevices: Bool? = nil,
         enableAllFolders: Bool? = nil,
         enableAudioPlaybackTranscoding: Bool? = nil,
+        enableCollectionManagement: Bool? = nil,
         enableContentDeletion: Bool? = nil,
         enableContentDeletionFromFolders: [String]? = nil,
         enableContentDownloading: Bool? = nil,
@@ -78,6 +85,7 @@ public struct UserPolicy: Codable, Hashable {
         enableRemoteAccess: Bool? = nil,
         enableRemoteControlOfOtherUsers: Bool? = nil,
         enableSharedDeviceControl: Bool? = nil,
+        enableSubtitleManagement: Bool? = nil,
         enableSyncTranscoding: Bool? = nil,
         enableUserPreferenceAccess: Bool? = nil,
         enableVideoPlaybackTranscoding: Bool? = nil,
@@ -92,11 +100,12 @@ public struct UserPolicy: Codable, Hashable {
         loginAttemptsBeforeLockout: Int? = nil,
         maxActiveSessions: Int? = nil,
         maxParentalRating: Int? = nil,
-        passwordResetProviderID: String? = nil,
+        passwordResetProviderID: String,
         remoteClientBitrateLimit: Int? = nil,
         syncPlayAccess: SyncPlayUserAccessType? = nil
     ) {
         self.accessSchedules = accessSchedules
+        self.allowedTags = allowedTags
         self.authenticationProviderID = authenticationProviderID
         self.blockUnratedItems = blockUnratedItems
         self.blockedChannels = blockedChannels
@@ -106,6 +115,7 @@ public struct UserPolicy: Codable, Hashable {
         self.enableAllDevices = enableAllDevices
         self.enableAllFolders = enableAllFolders
         self.enableAudioPlaybackTranscoding = enableAudioPlaybackTranscoding
+        self.enableCollectionManagement = enableCollectionManagement ?? false
         self.enableContentDeletion = enableContentDeletion
         self.enableContentDeletionFromFolders = enableContentDeletionFromFolders
         self.enableContentDownloading = enableContentDownloading
@@ -118,6 +128,7 @@ public struct UserPolicy: Codable, Hashable {
         self.enableRemoteAccess = enableRemoteAccess
         self.enableRemoteControlOfOtherUsers = enableRemoteControlOfOtherUsers
         self.enableSharedDeviceControl = enableSharedDeviceControl
+        self.enableSubtitleManagement = enableSubtitleManagement ?? false
         self.enableSyncTranscoding = enableSyncTranscoding
         self.enableUserPreferenceAccess = enableUserPreferenceAccess
         self.enableVideoPlaybackTranscoding = enableVideoPlaybackTranscoding
@@ -140,7 +151,8 @@ public struct UserPolicy: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.accessSchedules = try values.decodeIfPresent([AccessSchedule].self, forKey: "AccessSchedules")
-        self.authenticationProviderID = try values.decodeIfPresent(String.self, forKey: "AuthenticationProviderId")
+        self.allowedTags = try values.decodeIfPresent([String].self, forKey: "AllowedTags")
+        self.authenticationProviderID = try values.decode(String.self, forKey: "AuthenticationProviderId")
         self.blockUnratedItems = try values.decodeIfPresent([UnratedItem].self, forKey: "BlockUnratedItems")
         self.blockedChannels = try values.decodeIfPresent([String].self, forKey: "BlockedChannels")
         self.blockedMediaFolders = try values.decodeIfPresent([String].self, forKey: "BlockedMediaFolders")
@@ -149,6 +161,7 @@ public struct UserPolicy: Codable, Hashable {
         self.enableAllDevices = try values.decodeIfPresent(Bool.self, forKey: "EnableAllDevices")
         self.enableAllFolders = try values.decodeIfPresent(Bool.self, forKey: "EnableAllFolders")
         self.enableAudioPlaybackTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableAudioPlaybackTranscoding")
+        self.enableCollectionManagement = try values.decodeIfPresent(Bool.self, forKey: "EnableCollectionManagement") ?? false
         self.enableContentDeletion = try values.decodeIfPresent(Bool.self, forKey: "EnableContentDeletion")
         self.enableContentDeletionFromFolders = try values.decodeIfPresent([String].self, forKey: "EnableContentDeletionFromFolders")
         self.enableContentDownloading = try values.decodeIfPresent(Bool.self, forKey: "EnableContentDownloading")
@@ -161,6 +174,7 @@ public struct UserPolicy: Codable, Hashable {
         self.enableRemoteAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableRemoteAccess")
         self.enableRemoteControlOfOtherUsers = try values.decodeIfPresent(Bool.self, forKey: "EnableRemoteControlOfOtherUsers")
         self.enableSharedDeviceControl = try values.decodeIfPresent(Bool.self, forKey: "EnableSharedDeviceControl")
+        self.enableSubtitleManagement = try values.decodeIfPresent(Bool.self, forKey: "EnableSubtitleManagement") ?? false
         self.enableSyncTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableSyncTranscoding")
         self.enableUserPreferenceAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableUserPreferenceAccess")
         self.enableVideoPlaybackTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableVideoPlaybackTranscoding")
@@ -175,7 +189,7 @@ public struct UserPolicy: Codable, Hashable {
         self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int.self, forKey: "LoginAttemptsBeforeLockout")
         self.maxActiveSessions = try values.decodeIfPresent(Int.self, forKey: "MaxActiveSessions")
         self.maxParentalRating = try values.decodeIfPresent(Int.self, forKey: "MaxParentalRating")
-        self.passwordResetProviderID = try values.decodeIfPresent(String.self, forKey: "PasswordResetProviderId")
+        self.passwordResetProviderID = try values.decode(String.self, forKey: "PasswordResetProviderId")
         self.remoteClientBitrateLimit = try values.decodeIfPresent(Int.self, forKey: "RemoteClientBitrateLimit")
         self.syncPlayAccess = try values.decodeIfPresent(SyncPlayUserAccessType.self, forKey: "SyncPlayAccess")
     }
@@ -183,7 +197,8 @@ public struct UserPolicy: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(accessSchedules, forKey: "AccessSchedules")
-        try values.encodeIfPresent(authenticationProviderID, forKey: "AuthenticationProviderId")
+        try values.encodeIfPresent(allowedTags, forKey: "AllowedTags")
+        try values.encode(authenticationProviderID, forKey: "AuthenticationProviderId")
         try values.encodeIfPresent(blockUnratedItems, forKey: "BlockUnratedItems")
         try values.encodeIfPresent(blockedChannels, forKey: "BlockedChannels")
         try values.encodeIfPresent(blockedMediaFolders, forKey: "BlockedMediaFolders")
@@ -192,6 +207,7 @@ public struct UserPolicy: Codable, Hashable {
         try values.encodeIfPresent(enableAllDevices, forKey: "EnableAllDevices")
         try values.encodeIfPresent(enableAllFolders, forKey: "EnableAllFolders")
         try values.encodeIfPresent(enableAudioPlaybackTranscoding, forKey: "EnableAudioPlaybackTranscoding")
+        try values.encodeIfPresent(enableCollectionManagement, forKey: "EnableCollectionManagement")
         try values.encodeIfPresent(enableContentDeletion, forKey: "EnableContentDeletion")
         try values.encodeIfPresent(enableContentDeletionFromFolders, forKey: "EnableContentDeletionFromFolders")
         try values.encodeIfPresent(enableContentDownloading, forKey: "EnableContentDownloading")
@@ -204,6 +220,7 @@ public struct UserPolicy: Codable, Hashable {
         try values.encodeIfPresent(enableRemoteAccess, forKey: "EnableRemoteAccess")
         try values.encodeIfPresent(enableRemoteControlOfOtherUsers, forKey: "EnableRemoteControlOfOtherUsers")
         try values.encodeIfPresent(enableSharedDeviceControl, forKey: "EnableSharedDeviceControl")
+        try values.encodeIfPresent(enableSubtitleManagement, forKey: "EnableSubtitleManagement")
         try values.encodeIfPresent(enableSyncTranscoding, forKey: "EnableSyncTranscoding")
         try values.encodeIfPresent(enableUserPreferenceAccess, forKey: "EnableUserPreferenceAccess")
         try values.encodeIfPresent(enableVideoPlaybackTranscoding, forKey: "EnableVideoPlaybackTranscoding")
@@ -218,7 +235,7 @@ public struct UserPolicy: Codable, Hashable {
         try values.encodeIfPresent(loginAttemptsBeforeLockout, forKey: "LoginAttemptsBeforeLockout")
         try values.encodeIfPresent(maxActiveSessions, forKey: "MaxActiveSessions")
         try values.encodeIfPresent(maxParentalRating, forKey: "MaxParentalRating")
-        try values.encodeIfPresent(passwordResetProviderID, forKey: "PasswordResetProviderId")
+        try values.encode(passwordResetProviderID, forKey: "PasswordResetProviderId")
         try values.encodeIfPresent(remoteClientBitrateLimit, forKey: "RemoteClientBitrateLimit")
         try values.encodeIfPresent(syncPlayAccess, forKey: "SyncPlayAccess")
     }

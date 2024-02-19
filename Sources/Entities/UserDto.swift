@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -15,6 +15,8 @@ public struct UserDto: Codable, Hashable, Identifiable {
     /// Gets or sets whether async login is enabled or not.
     public var enableAutoLogin: Bool?
     /// Gets or sets a value indicating whether this instance has configured easy password.
+    ///
+    /// - warning: Deprecated.
     public var hasConfiguredEasyPassword: Bool?
     /// Gets or sets a value indicating whether this instance has configured password.
     public var hasConfiguredPassword: Bool?

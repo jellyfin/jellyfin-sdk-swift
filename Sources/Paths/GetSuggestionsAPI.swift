@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -17,14 +17,14 @@ public extension Paths {
     }
 
     struct GetSuggestionsParameters {
-        public var mediaType: [String]?
+        public var mediaType: [JellyfinAPI.MediaType]?
         public var type: [JellyfinAPI.BaseItemKind]?
         public var startIndex: Int?
         public var limit: Int?
         public var enableTotalRecordCount: Bool?
 
         public init(
-            mediaType: [String]? = nil,
+            mediaType: [JellyfinAPI.MediaType]? = nil,
             type: [JellyfinAPI.BaseItemKind]? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,

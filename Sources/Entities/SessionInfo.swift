@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -31,6 +31,8 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
     public var isActive: Bool?
     /// Gets or sets the last activity date.
     public var lastActivityDate: Date?
+    /// Gets or sets the last paused date.
+    public var lastPausedDate: Date?
     /// Gets or sets the last playback check in.
     public var lastPlaybackCheckIn: Date?
     /// Gets or sets the now playing item.
@@ -43,7 +45,7 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
     public var nowViewingItem: BaseItemDto?
     public var playState: PlayerStateInfo?
     /// Gets the playable media types.
-    public var playableMediaTypes: [String]?
+    public var playableMediaTypes: [MediaType]?
     public var playlistItemID: String?
     /// Gets or sets the remote end point.
     public var remoteEndPoint: String?
@@ -72,13 +74,14 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
         id: String? = nil,
         isActive: Bool? = nil,
         lastActivityDate: Date? = nil,
+        lastPausedDate: Date? = nil,
         lastPlaybackCheckIn: Date? = nil,
         nowPlayingItem: BaseItemDto? = nil,
         nowPlayingQueue: [QueueItem]? = nil,
         nowPlayingQueueFullItems: [BaseItemDto]? = nil,
         nowViewingItem: BaseItemDto? = nil,
         playState: PlayerStateInfo? = nil,
-        playableMediaTypes: [String]? = nil,
+        playableMediaTypes: [MediaType]? = nil,
         playlistItemID: String? = nil,
         remoteEndPoint: String? = nil,
         serverID: String? = nil,
@@ -102,6 +105,7 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
         self.id = id
         self.isActive = isActive
         self.lastActivityDate = lastActivityDate
+        self.lastPausedDate = lastPausedDate
         self.lastPlaybackCheckIn = lastPlaybackCheckIn
         self.nowPlayingItem = nowPlayingItem
         self.nowPlayingQueue = nowPlayingQueue
@@ -135,13 +139,14 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
         self.lastActivityDate = try values.decodeIfPresent(Date.self, forKey: "LastActivityDate")
+        self.lastPausedDate = try values.decodeIfPresent(Date.self, forKey: "LastPausedDate")
         self.lastPlaybackCheckIn = try values.decodeIfPresent(Date.self, forKey: "LastPlaybackCheckIn")
         self.nowPlayingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowPlayingItem")
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
         self.nowPlayingQueueFullItems = try values.decodeIfPresent([BaseItemDto].self, forKey: "NowPlayingQueueFullItems")
         self.nowViewingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowViewingItem")
         self.playState = try values.decodeIfPresent(PlayerStateInfo.self, forKey: "PlayState")
-        self.playableMediaTypes = try values.decodeIfPresent([String].self, forKey: "PlayableMediaTypes")
+        self.playableMediaTypes = try values.decodeIfPresent([MediaType].self, forKey: "PlayableMediaTypes")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
         self.remoteEndPoint = try values.decodeIfPresent(String.self, forKey: "RemoteEndPoint")
         self.serverID = try values.decodeIfPresent(String.self, forKey: "ServerId")
@@ -168,6 +173,7 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(isActive, forKey: "IsActive")
         try values.encodeIfPresent(lastActivityDate, forKey: "LastActivityDate")
+        try values.encodeIfPresent(lastPausedDate, forKey: "LastPausedDate")
         try values.encodeIfPresent(lastPlaybackCheckIn, forKey: "LastPlaybackCheckIn")
         try values.encodeIfPresent(nowPlayingItem, forKey: "NowPlayingItem")
         try values.encodeIfPresent(nowPlayingQueue, forKey: "NowPlayingQueue")

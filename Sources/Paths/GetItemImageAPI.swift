@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -27,7 +27,6 @@ public extension Paths {
         public var tag: String?
         public var isCropWhitespace: Bool?
         public var format: Format?
-        public var isAddPlayedIndicator: Bool?
         public var percentPlayed: Double?
         public var unplayedCount: Int?
         public var blur: Int?
@@ -48,7 +47,6 @@ public extension Paths {
             tag: String? = nil,
             isCropWhitespace: Bool? = nil,
             format: Format? = nil,
-            isAddPlayedIndicator: Bool? = nil,
             percentPlayed: Double? = nil,
             unplayedCount: Int? = nil,
             blur: Int? = nil,
@@ -66,7 +64,6 @@ public extension Paths {
             self.tag = tag
             self.isCropWhitespace = isCropWhitespace
             self.format = format
-            self.isAddPlayedIndicator = isAddPlayedIndicator
             self.percentPlayed = percentPlayed
             self.unplayedCount = unplayedCount
             self.blur = blur
@@ -87,7 +84,6 @@ public extension Paths {
             encoder.encode(tag, forKey: "tag")
             encoder.encode(isCropWhitespace, forKey: "cropWhitespace")
             encoder.encode(format, forKey: "format")
-            encoder.encode(isAddPlayedIndicator, forKey: "addPlayedIndicator")
             encoder.encode(percentPlayed, forKey: "percentPlayed")
             encoder.encode(unplayedCount, forKey: "unplayedCount")
             encoder.encode(blur, forKey: "blur")

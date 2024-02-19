@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -24,8 +24,8 @@ public extension Paths {
         public var fields: [JellyfinAPI.ItemFields]?
         public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var mediaTypes: [String]?
-        public var sortBy: [String]?
+        public var mediaTypes: [JellyfinAPI.MediaType]?
+        public var sortBy: [JellyfinAPI.ItemSortBy]?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
@@ -41,8 +41,8 @@ public extension Paths {
             fields: [JellyfinAPI.ItemFields]? = nil,
             excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            mediaTypes: [String]? = nil,
-            sortBy: [String]? = nil,
+            mediaTypes: [JellyfinAPI.MediaType]? = nil,
+            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,

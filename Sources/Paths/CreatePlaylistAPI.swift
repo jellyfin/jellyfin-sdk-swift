@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -27,9 +27,11 @@ public extension Paths {
         public var name: String?
         public var ids: [String]?
         public var userID: String?
-        public var mediaType: String?
+        public var mediaType: MediaType?
 
-        public init(name: String? = nil, ids: [String]? = nil, userID: String? = nil, mediaType: String? = nil) {
+        public typealias MediaType = JellyfinAPI.MediaType
+
+        public init(name: String? = nil, ids: [String]? = nil, userID: String? = nil, mediaType: MediaType? = nil) {
             self.name = name
             self.ids = ids
             self.userID = userID

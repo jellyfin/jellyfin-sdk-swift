@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -20,7 +20,6 @@ public struct BaseItem: Codable, Hashable {
     public var remoteTrailers: [MediaURL]?
     public var shortcutPath: String?
     public var size: Int?
-    public var isSupportsExternalTransfer: Bool?
     public var width: Int?
 
     public init(
@@ -33,7 +32,6 @@ public struct BaseItem: Codable, Hashable {
         remoteTrailers: [MediaURL]? = nil,
         shortcutPath: String? = nil,
         size: Int? = nil,
-        isSupportsExternalTransfer: Bool? = nil,
         width: Int? = nil
     ) {
         self.container = container
@@ -45,7 +43,6 @@ public struct BaseItem: Codable, Hashable {
         self.remoteTrailers = remoteTrailers
         self.shortcutPath = shortcutPath
         self.size = size
-        self.isSupportsExternalTransfer = isSupportsExternalTransfer
         self.width = width
     }
 
@@ -60,7 +57,6 @@ public struct BaseItem: Codable, Hashable {
         self.remoteTrailers = try values.decodeIfPresent([MediaURL].self, forKey: "RemoteTrailers")
         self.shortcutPath = try values.decodeIfPresent(String.self, forKey: "ShortcutPath")
         self.size = try values.decodeIfPresent(Int.self, forKey: "Size")
-        self.isSupportsExternalTransfer = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalTransfer")
         self.width = try values.decodeIfPresent(Int.self, forKey: "Width")
     }
 
@@ -75,7 +71,6 @@ public struct BaseItem: Codable, Hashable {
         try values.encodeIfPresent(remoteTrailers, forKey: "RemoteTrailers")
         try values.encodeIfPresent(shortcutPath, forKey: "ShortcutPath")
         try values.encodeIfPresent(size, forKey: "Size")
-        try values.encodeIfPresent(isSupportsExternalTransfer, forKey: "SupportsExternalTransfer")
         try values.encodeIfPresent(width, forKey: "Width")
     }
 }
