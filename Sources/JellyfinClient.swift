@@ -44,7 +44,6 @@ public final class JellyfinClient {
             let isoDateFormatter: DateFormatter = OpenISO8601DateFormatter()
 
             let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .forma
             decoder.dateDecodingStrategy = .formatted(isoDateFormatter)
             configuration.decoder = decoder
 
