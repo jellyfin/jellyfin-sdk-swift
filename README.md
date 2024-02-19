@@ -4,6 +4,10 @@ Swift SDK to work with Jellyfin servers.
 
 > Generated using [CreateAPI](https://github.com/CreateAPI/CreateAPI)
 
+## Documentation
+
+Documentation is available on [Swift Package Index](https://swiftpackageindex.com/jellyfin/jellyfin-sdk-swift/main/documentation/jellyfinapi).
+
 ## Usage
 
 `JellyfinClient` uses an underlying [Get APIClient](https://github.com/kean/Get) to provide basic functionality for interfacing with a Jellyfin server:
