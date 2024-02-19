@@ -3,9 +3,16 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
+//
+// jellyfin-sdk-swift is subject to the terms of the Mozilla Public
+// License, v2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at https://mozilla.org/MPL/2.0/.
+//
+// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+//
 import Foundation
 
 public enum AnyJSON: Hashable, Codable {
@@ -16,11 +23,11 @@ public enum AnyJSON: Hashable, Codable {
     case bool(Bool)
     var value: Any {
         switch self {
-        case let .string(string): return string
-        case let .number(double): return double
-        case let .object(dictionary): return dictionary
-        case let .array(array): return array
-        case let .bool(bool): return bool
+        case let .string(string): string
+        case let .number(double): double
+        case let .object(dictionary): dictionary
+        case let .array(array): array
+        case let .bool(bool): bool
         }
     }
 

@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -270,7 +270,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var timerID: String?
     /// Gets or sets the trailer count.
     public var trailerCount: Int?
-    /// The base item kind.
+    /// Gets or sets the type.
     public var type: BaseItemKind?
     /// Gets or sets the user data for this item based on the user it's being requested for.
     public var userData: UserItemDataDto?

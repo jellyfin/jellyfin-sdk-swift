@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -52,7 +52,7 @@ public struct UserPolicy: Codable, Hashable {
     public var maxParentalRating: Int?
     public var passwordResetProviderID: String?
     public var remoteClientBitrateLimit: Int?
-    /// Enum SyncPlayUserAccessType.
+    /// Gets or sets a value indicating what SyncPlay features the user can access.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
     public init(

@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2023 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -41,10 +41,11 @@ public final class JellyfinClient {
             configuration.delegate = self
             configuration.sessionDelegate = sessionDelegate
 
-            let isoDateFormatter: DateFormatter = ISO8601DateFormatter()
+            let isoDateFormatter = ISO8601DateFormatter()
             isoDateFormatter.formatOptions = .withFractionalSeconds
 
             let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .forma
             decoder.dateDecodingStrategy = .formatted(isoDateFormatter)
             configuration.decoder = decoder
 
@@ -112,16 +113,16 @@ public final class JellyfinClient {
         try await _apiClient.send(request, delegate: delegate, configure: configure)
     }
 
-    public func data<T>(
-        for request: Request<T>,
+    public func data(
+        for request: Request<some Any>,
         delegate: URLSessionDataDelegate? = nil,
         configure: ((inout URLRequest) throws -> Void)? = nil
     ) async throws -> Response<Data> {
         try await _apiClient.data(for: request, delegate: delegate, configure: configure)
     }
 
-    public func download<T>(
-        for request: Request<T>,
+    public func download(
+        for request: Request<some Any>,
         delegate: URLSessionDownloadDelegate? = nil,
         configure: ((inout URLRequest) throws -> Void)? = nil
     ) async throws -> Response<URL> {
@@ -162,7 +163,7 @@ extension JellyfinClient: APIClientDelegate {
     }
 
     public func client(_ client: APIClient, validateResponse response: HTTPURLResponse, data: Data, task: URLSessionTask) throws {
-        if let delegate = delegate {
+        if let delegate {
             try delegate.client(_apiClient, validateResponse: response, data: data, task: task)
         } else {
             guard (200 ..< 300).contains(response.statusCode) else {
@@ -175,7 +176,7 @@ extension JellyfinClient: APIClientDelegate {
         try await delegate?.client(_apiClient, shouldRetry: task, error: error, attempts: attempts) ?? false
     }
 
-    public func client<T>(_ client: APIClient, makeURLForRequest request: Request<T>) throws -> URL? {
+    public func client(_ client: APIClient, makeURLForRequest request: Request<some Any>) throws -> URL? {
         try delegate?.client(_apiClient, makeURLForRequest: request)
     }
 }
@@ -253,7 +254,7 @@ extension JellyfinClient {
         var localizedDescription: String {
             switch self {
             case .noAccessTokenInResponse:
-                return "No access token in authenticated response"
+                "No access token in authenticated response"
             }
         }
     }
