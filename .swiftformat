@@ -1,6 +1,6 @@
-# version: 0.49.11
+# version: 0.53.2
 
---swiftversion 5.6
+--swiftversion 5.9
 
 --tabwidth 4
 --xcodeindentation enabled
@@ -41,6 +41,7 @@
     redundantFileprivate,   \
     redundantSelf,          \
     redundantClosure,       \
-    redundantType
+    redundantType,          \
+    conditionalAssignment
 
 --header "\njellyfin-sdk-swift is subject to the terms of the Mozilla Public\nLicense, v2.0. If a copy of the MPL was not distributed with this\nfile, you can obtain one at https://mozilla.org/MPL/2.0/.\n\nCopyright (c) {year} Jellyfin & Jellyfin Contributors\n"
