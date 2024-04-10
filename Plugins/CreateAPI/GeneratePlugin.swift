@@ -104,8 +104,8 @@ struct Plugin: CommandPlugin {
         try FileManager.default.removeItem(atPath: filePath.string)
     }
 
-    // BaseItemDto: add SpecialFeatureType string format and CollectionTypeOptions
-    //              object reference to properties prior to generation
+    // TODO: remove when BaseItemDto uses `ExtraType` or other
+    // BaseItemDto: add SpecialFeatureType string format to property prior to generation
     private func patchBaseItemDtoSchema(context: PluginContext) async throws {
         let contents = try await parseOriginalSchema(context: context)
 
@@ -187,8 +187,8 @@ struct Plugin: CommandPlugin {
         try sourceData.write(to: URL(fileURLWithPath: finalFilePath.string))
     }
 
+    // TODO: Remove if/when fixed within CreateAPI
     // Entities/GroupUpdate.swift: change generated `Type` name to `_Type`
-    // Issue is with CreateAPI.
     private func patchGroupUpdateDiscriminator(context: PluginContext) async throws {
         let filePath = context
             .package
