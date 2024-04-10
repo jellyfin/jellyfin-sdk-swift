@@ -201,16 +201,5 @@ struct Plugin: CommandPlugin {
         try contents
             .data(using: .utf8)?
             .write(to: URL(fileURLWithPath: filePath.string))
-
-//        var lines = contents
-//            .split(separator: "\n")
-//            .map { String($0) }
-//
-//        lines[20] = "\npublic final class RemoteSearchResult: Codable {"
-//
-//        try lines
-//            .joined(separator: "\n")
-//            .data(using: .utf8)?
-//            .write(to: URL(fileURLWithPath: filePath.string))
     }
 }
