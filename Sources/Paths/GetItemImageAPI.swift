@@ -25,9 +25,7 @@ public extension Paths {
         public var fillWidth: Int?
         public var fillHeight: Int?
         public var tag: String?
-        public var isCropWhitespace: Bool?
         public var format: Format?
-        public var isAddPlayedIndicator: Bool?
         public var percentPlayed: Double?
         public var unplayedCount: Int?
         public var blur: Int?
@@ -46,9 +44,7 @@ public extension Paths {
             fillWidth: Int? = nil,
             fillHeight: Int? = nil,
             tag: String? = nil,
-            isCropWhitespace: Bool? = nil,
             format: Format? = nil,
-            isAddPlayedIndicator: Bool? = nil,
             percentPlayed: Double? = nil,
             unplayedCount: Int? = nil,
             blur: Int? = nil,
@@ -64,9 +60,7 @@ public extension Paths {
             self.fillWidth = fillWidth
             self.fillHeight = fillHeight
             self.tag = tag
-            self.isCropWhitespace = isCropWhitespace
             self.format = format
-            self.isAddPlayedIndicator = isAddPlayedIndicator
             self.percentPlayed = percentPlayed
             self.unplayedCount = unplayedCount
             self.blur = blur
@@ -85,9 +79,7 @@ public extension Paths {
             encoder.encode(fillWidth, forKey: "fillWidth")
             encoder.encode(fillHeight, forKey: "fillHeight")
             encoder.encode(tag, forKey: "tag")
-            encoder.encode(isCropWhitespace, forKey: "cropWhitespace")
             encoder.encode(format, forKey: "format")
-            encoder.encode(isAddPlayedIndicator, forKey: "addPlayedIndicator")
             encoder.encode(percentPlayed, forKey: "percentPlayed")
             encoder.encode(unplayedCount, forKey: "unplayedCount")
             encoder.encode(blur, forKey: "blur")

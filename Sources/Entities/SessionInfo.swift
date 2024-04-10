@@ -22,8 +22,6 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
     public var deviceName: String?
     /// Gets or sets the type of the device.
     public var deviceType: String?
-    /// Class BaseItem.
-    public var fullNowPlayingItem: BaseItem?
     public var hasCustomDeviceName: Bool?
     /// Gets or sets the id.
     public var id: String?
@@ -31,9 +29,13 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
     public var isActive: Bool?
     /// Gets or sets the last activity date.
     public var lastActivityDate: Date?
+    /// Gets or sets the last paused date.
+    public var lastPausedDate: Date?
     /// Gets or sets the last playback check in.
     public var lastPlaybackCheckIn: Date?
-    /// Gets or sets the now playing item.
+    /// This is strictly used as a data transfer object from the api layer.
+    ///
+    /// This holds information about a BaseItem in a format that is convenient for the client.
     public var nowPlayingItem: BaseItemDto?
     public var nowPlayingQueue: [QueueItem]?
     public var nowPlayingQueueFullItems: [BaseItemDto]?
@@ -43,7 +45,7 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
     public var nowViewingItem: BaseItemDto?
     public var playState: PlayerStateInfo?
     /// Gets the playable media types.
-    public var playableMediaTypes: [String]?
+    public var playableMediaTypes: [MediaType]?
     public var playlistItemID: String?
     /// Gets or sets the remote end point.
     public var remoteEndPoint: String?
@@ -67,18 +69,18 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
         deviceID: String? = nil,
         deviceName: String? = nil,
         deviceType: String? = nil,
-        fullNowPlayingItem: BaseItem? = nil,
         hasCustomDeviceName: Bool? = nil,
         id: String? = nil,
         isActive: Bool? = nil,
         lastActivityDate: Date? = nil,
+        lastPausedDate: Date? = nil,
         lastPlaybackCheckIn: Date? = nil,
         nowPlayingItem: BaseItemDto? = nil,
         nowPlayingQueue: [QueueItem]? = nil,
         nowPlayingQueueFullItems: [BaseItemDto]? = nil,
         nowViewingItem: BaseItemDto? = nil,
         playState: PlayerStateInfo? = nil,
-        playableMediaTypes: [String]? = nil,
+        playableMediaTypes: [MediaType]? = nil,
         playlistItemID: String? = nil,
         remoteEndPoint: String? = nil,
         serverID: String? = nil,
@@ -97,11 +99,11 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
         self.deviceID = deviceID
         self.deviceName = deviceName
         self.deviceType = deviceType
-        self.fullNowPlayingItem = fullNowPlayingItem
         self.hasCustomDeviceName = hasCustomDeviceName
         self.id = id
         self.isActive = isActive
         self.lastActivityDate = lastActivityDate
+        self.lastPausedDate = lastPausedDate
         self.lastPlaybackCheckIn = lastPlaybackCheckIn
         self.nowPlayingItem = nowPlayingItem
         self.nowPlayingQueue = nowPlayingQueue
@@ -130,18 +132,18 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
         self.deviceID = try values.decodeIfPresent(String.self, forKey: "DeviceId")
         self.deviceName = try values.decodeIfPresent(String.self, forKey: "DeviceName")
         self.deviceType = try values.decodeIfPresent(String.self, forKey: "DeviceType")
-        self.fullNowPlayingItem = try values.decodeIfPresent(BaseItem.self, forKey: "FullNowPlayingItem")
         self.hasCustomDeviceName = try values.decodeIfPresent(Bool.self, forKey: "HasCustomDeviceName")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
         self.lastActivityDate = try values.decodeIfPresent(Date.self, forKey: "LastActivityDate")
+        self.lastPausedDate = try values.decodeIfPresent(Date.self, forKey: "LastPausedDate")
         self.lastPlaybackCheckIn = try values.decodeIfPresent(Date.self, forKey: "LastPlaybackCheckIn")
         self.nowPlayingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowPlayingItem")
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
         self.nowPlayingQueueFullItems = try values.decodeIfPresent([BaseItemDto].self, forKey: "NowPlayingQueueFullItems")
         self.nowViewingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowViewingItem")
         self.playState = try values.decodeIfPresent(PlayerStateInfo.self, forKey: "PlayState")
-        self.playableMediaTypes = try values.decodeIfPresent([String].self, forKey: "PlayableMediaTypes")
+        self.playableMediaTypes = try values.decodeIfPresent([MediaType].self, forKey: "PlayableMediaTypes")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
         self.remoteEndPoint = try values.decodeIfPresent(String.self, forKey: "RemoteEndPoint")
         self.serverID = try values.decodeIfPresent(String.self, forKey: "ServerId")
@@ -163,11 +165,11 @@ public struct SessionInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(deviceID, forKey: "DeviceId")
         try values.encodeIfPresent(deviceName, forKey: "DeviceName")
         try values.encodeIfPresent(deviceType, forKey: "DeviceType")
-        try values.encodeIfPresent(fullNowPlayingItem, forKey: "FullNowPlayingItem")
         try values.encodeIfPresent(hasCustomDeviceName, forKey: "HasCustomDeviceName")
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(isActive, forKey: "IsActive")
         try values.encodeIfPresent(lastActivityDate, forKey: "LastActivityDate")
+        try values.encodeIfPresent(lastPausedDate, forKey: "LastPausedDate")
         try values.encodeIfPresent(lastPlaybackCheckIn, forKey: "LastPlaybackCheckIn")
         try values.encodeIfPresent(nowPlayingItem, forKey: "NowPlayingItem")
         try values.encodeIfPresent(nowPlayingQueue, forKey: "NowPlayingQueue")

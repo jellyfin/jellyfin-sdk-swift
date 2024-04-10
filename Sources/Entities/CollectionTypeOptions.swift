@@ -8,13 +8,14 @@
 
 import Foundation
 
+/// The collection type options.
 public enum CollectionTypeOptions: String, Codable, CaseIterable {
-    case movies = "Movies"
-    case tvShows = "TvShows"
-    case music = "Music"
-    case musicVideos = "MusicVideos"
-    case homeVideos = "HomeVideos"
-    case boxSets = "BoxSets"
-    case books = "Books"
-    case mixed = "Mixed"
+    case movies
+    case tvshows
+    case music
+    case musicvideos
+    case homevideos
+    case boxsets
+    case books
+    case mixed
 }

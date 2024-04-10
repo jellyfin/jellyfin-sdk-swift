@@ -14,6 +14,8 @@ public struct PublicSystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the local address.
     public var localAddress: String?
     /// Gets or sets the operating system.
+    ///
+    /// - warning: Deprecated.
     public var operatingSystem: String?
     /// Gets or sets the product name. This is the AssemblyProduct name.
     public var productName: String?

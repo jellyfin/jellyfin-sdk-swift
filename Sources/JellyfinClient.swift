@@ -195,8 +195,8 @@ public extension JellyfinClient {
     /// - Throws: `ClientError.noAccessTokenInResponse` if no access token was supplied in a successful authentication response
     @discardableResult
     func signIn(username: String, password: String) async throws -> AuthenticationResult {
-        let authenticateUserRequest = Paths.authenticateUserByName(.init(password: nil, pw: password, username: username))
-        let response = try await send(authenticateUserRequest).value
+        let request = Paths.authenticateUserByName(.init(pw: password, username: username))
+        let response = try await send(request).value
 
         if let accessToken = response.accessToken {
             self.accessToken = accessToken
@@ -218,8 +218,8 @@ public extension JellyfinClient {
     /// - Throws: `ClientError.noAccessTokenInResponse` if no access token was supplied in a successful authentication response
     @discardableResult
     func signIn(quickConnectSecret: String) async throws -> AuthenticationResult {
-        let quickConnectRequest = Paths.authenticateWithQuickConnect(.init(secret: quickConnectSecret))
-        let response = try await send(quickConnectRequest).value
+        let request = Paths.authenticateWithQuickConnect(.init(secret: quickConnectSecret))
+        let response = try await send(request).value
 
         if let accessToken = response.accessToken {
             self.accessToken = accessToken

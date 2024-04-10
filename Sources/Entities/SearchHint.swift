@@ -14,6 +14,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     public var album: String?
     /// Gets or sets the album artist.
     public var albumArtist: String?
+    /// Gets or sets the album id.
     public var albumID: String?
     /// Gets or sets the artists.
     public var artists: [String]?
@@ -25,19 +26,24 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     public var channelID: String?
     /// Gets or sets the name of the channel.
     public var channelName: String?
+    /// Gets or sets the end date.
     public var endDate: Date?
     /// Gets or sets the episode count.
     public var episodeCount: Int?
+    /// Gets or sets the item id.
     public var id: String?
     /// Gets or sets the index number.
     public var indexNumber: Int?
+    /// Gets or sets a value indicating whether this instance is folder.
     public var isFolder: Bool?
     /// Gets or sets the item id.
+    ///
+    /// - warning: Deprecated.
     public var itemID: String?
     /// Gets or sets the matched term.
     public var matchedTerm: String?
-    /// Gets or sets the type of the media.
-    public var mediaType: String?
+    /// Media types.
+    public var mediaType: MediaType?
     /// Gets or sets the name.
     public var name: String?
     /// Gets or sets the parent index number.
@@ -54,14 +60,16 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     public var series: String?
     /// Gets or sets the song count.
     public var songCount: Int?
+    /// Gets or sets the start date.
     public var startDate: Date?
+    /// Gets or sets the status.
     public var status: String?
     /// Gets or sets the thumb image item identifier.
     public var thumbImageItemID: String?
     /// Gets or sets the thumb image tag.
     public var thumbImageTag: String?
-    /// Gets or sets the type.
-    public var type: String?
+    /// The base item kind.
+    public var type: BaseItemKind?
 
     public init(
         album: String? = nil,
@@ -79,7 +87,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
         isFolder: Bool? = nil,
         itemID: String? = nil,
         matchedTerm: String? = nil,
-        mediaType: String? = nil,
+        mediaType: MediaType? = nil,
         name: String? = nil,
         parentIndexNumber: Int? = nil,
         primaryImageAspectRatio: Double? = nil,
@@ -92,7 +100,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
         status: String? = nil,
         thumbImageItemID: String? = nil,
         thumbImageTag: String? = nil,
-        type: String? = nil
+        type: BaseItemKind? = nil
     ) {
         self.album = album
         self.albumArtist = albumArtist
@@ -142,7 +150,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
         self.isFolder = try values.decodeIfPresent(Bool.self, forKey: "IsFolder")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.matchedTerm = try values.decodeIfPresent(String.self, forKey: "MatchedTerm")
-        self.mediaType = try values.decodeIfPresent(String.self, forKey: "MediaType")
+        self.mediaType = try values.decodeIfPresent(MediaType.self, forKey: "MediaType")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.parentIndexNumber = try values.decodeIfPresent(Int.self, forKey: "ParentIndexNumber")
         self.primaryImageAspectRatio = try values.decodeIfPresent(Double.self, forKey: "PrimaryImageAspectRatio")
@@ -155,7 +163,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
         self.status = try values.decodeIfPresent(String.self, forKey: "Status")
         self.thumbImageItemID = try values.decodeIfPresent(String.self, forKey: "ThumbImageItemId")
         self.thumbImageTag = try values.decodeIfPresent(String.self, forKey: "ThumbImageTag")
-        self.type = try values.decodeIfPresent(String.self, forKey: "Type")
+        self.type = try values.decodeIfPresent(BaseItemKind.self, forKey: "Type")
     }
 
     public func encode(to encoder: Encoder) throws {

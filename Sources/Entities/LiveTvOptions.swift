@@ -20,6 +20,8 @@ public struct LiveTvOptions: Codable, Hashable {
     public var recordingPath: String?
     public var recordingPostProcessor: String?
     public var recordingPostProcessorArguments: String?
+    public var isSaveRecordingImages: Bool?
+    public var isSaveRecordingNFO: Bool?
     public var seriesRecordingPath: String?
     public var tunerHosts: [TunerHostInfo]?
 
@@ -35,6 +37,8 @@ public struct LiveTvOptions: Codable, Hashable {
         recordingPath: String? = nil,
         recordingPostProcessor: String? = nil,
         recordingPostProcessorArguments: String? = nil,
+        isSaveRecordingImages: Bool? = nil,
+        isSaveRecordingNFO: Bool? = nil,
         seriesRecordingPath: String? = nil,
         tunerHosts: [TunerHostInfo]? = nil
     ) {
@@ -49,6 +53,8 @@ public struct LiveTvOptions: Codable, Hashable {
         self.recordingPath = recordingPath
         self.recordingPostProcessor = recordingPostProcessor
         self.recordingPostProcessorArguments = recordingPostProcessorArguments
+        self.isSaveRecordingImages = isSaveRecordingImages
+        self.isSaveRecordingNFO = isSaveRecordingNFO
         self.seriesRecordingPath = seriesRecordingPath
         self.tunerHosts = tunerHosts
     }
@@ -69,6 +75,8 @@ public struct LiveTvOptions: Codable, Hashable {
         self.recordingPath = try values.decodeIfPresent(String.self, forKey: "RecordingPath")
         self.recordingPostProcessor = try values.decodeIfPresent(String.self, forKey: "RecordingPostProcessor")
         self.recordingPostProcessorArguments = try values.decodeIfPresent(String.self, forKey: "RecordingPostProcessorArguments")
+        self.isSaveRecordingImages = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingImages")
+        self.isSaveRecordingNFO = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingNFO")
         self.seriesRecordingPath = try values.decodeIfPresent(String.self, forKey: "SeriesRecordingPath")
         self.tunerHosts = try values.decodeIfPresent([TunerHostInfo].self, forKey: "TunerHosts")
     }
@@ -86,6 +94,8 @@ public struct LiveTvOptions: Codable, Hashable {
         try values.encodeIfPresent(recordingPath, forKey: "RecordingPath")
         try values.encodeIfPresent(recordingPostProcessor, forKey: "RecordingPostProcessor")
         try values.encodeIfPresent(recordingPostProcessorArguments, forKey: "RecordingPostProcessorArguments")
+        try values.encodeIfPresent(isSaveRecordingImages, forKey: "SaveRecordingImages")
+        try values.encodeIfPresent(isSaveRecordingNFO, forKey: "SaveRecordingNFO")
         try values.encodeIfPresent(seriesRecordingPath, forKey: "SeriesRecordingPath")
         try values.encodeIfPresent(tunerHosts, forKey: "TunerHosts")
     }

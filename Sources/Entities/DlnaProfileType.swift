@@ -13,4 +13,5 @@ public enum DlnaProfileType: String, Codable, CaseIterable {
     case video = "Video"
     case photo = "Photo"
     case subtitle = "Subtitle"
+    case lyric = "Lyric"
 }

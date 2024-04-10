@@ -22,6 +22,7 @@ struct Plugin: CommandPlugin {
         // Apply post patches
         try await patchRemoteSearchResult(context: context)
         try await patchAnyJSON(context: context)
+        try await patchGroupUpdateDiscriminator(context: context)
 
         // Move patch files
         try await addSpecialFeatureType(context: context)
@@ -122,16 +123,6 @@ struct Plugin: CommandPlugin {
             ]
         )
 
-        // TODO: Uncomment once Swiftfin has refactored how it uses the existing CollectionType
-        //       property for library management
-//        properties["CollectionType"] = AnyJSON.object(
-//            [
-//                "allOf": .array([.object(["$ref": .string("#/components/schemas/CollectionTypeOptions")])]),
-//                "nullable": .bool(true),
-//                "description": .string("Gets or sets the type of the collection."),
-//            ]
-//        )
-
         baseItemDto["properties"] = .object(properties)
         schemas["BaseItemDto"] = .object(baseItemDto)
         components["schemas"] = .object(schemas)
@@ -194,5 +185,32 @@ struct Plugin: CommandPlugin {
             .appending(["Sources", "Entities", "SpecialFeatureType.swift"])
 
         try sourceData.write(to: URL(fileURLWithPath: finalFilePath.string))
+    }
+
+    // Entities/GroupUpdate.swift: change generated `Type` name to `_Type`
+    // Issue is with CreateAPI.
+    private func patchGroupUpdateDiscriminator(context: PluginContext) async throws {
+        let filePath = context
+            .package
+            .directory
+            .appending(["Sources", "Entities", "GroupUpdate.swift"])
+
+        let contents = try String(contentsOfFile: filePath.string)
+            .replacingOccurrences(of: "Type", with: "_Type")
+
+        try contents
+            .data(using: .utf8)?
+            .write(to: URL(fileURLWithPath: filePath.string))
+
+//        var lines = contents
+//            .split(separator: "\n")
+//            .map { String($0) }
+//
+//        lines[20] = "\npublic final class RemoteSearchResult: Codable {"
+//
+//        try lines
+//            .joined(separator: "\n")
+//            .data(using: .utf8)?
+//            .write(to: URL(fileURLWithPath: filePath.string))
     }
 }

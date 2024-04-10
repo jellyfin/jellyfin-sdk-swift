@@ -14,13 +14,13 @@ public extension Paths {
     /// Gets the original items of a playlist.
     static func getPlaylistItems(
         playlistID: String,
-        parameters: GetPlaylistItemsParameters
+        parameters: GetPlaylistItemsParameters? = nil
     ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(path: "/Playlists/\(playlistID)/Items", method: "GET", query: parameters.asQuery, id: "GetPlaylistItems")
+        Request(path: "/Playlists/\(playlistID)/Items", method: "GET", query: parameters?.asQuery, id: "GetPlaylistItems")
     }
 
     struct GetPlaylistItemsParameters {
-        public var userID: String
+        public var userID: String?
         public var startIndex: Int?
         public var limit: Int?
         public var fields: [JellyfinAPI.ItemFields]?
@@ -30,7 +30,7 @@ public extension Paths {
         public var enableImageTypes: [JellyfinAPI.ImageType]?
 
         public init(
-            userID: String,
+            userID: String? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,

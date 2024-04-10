@@ -26,7 +26,7 @@ public extension Paths {
         public var limit: Int?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var filters: [JellyfinAPI.ItemFilter]?
-        public var sortBy: [String]?
+        public var sortBy: [JellyfinAPI.ItemSortBy]?
         public var fields: [JellyfinAPI.ItemFields]?
 
         public init(
@@ -36,7 +36,7 @@ public extension Paths {
             limit: Int? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             filters: [JellyfinAPI.ItemFilter]? = nil,
-            sortBy: [String]? = nil,
+            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil
         ) {
             self.folderID = folderID

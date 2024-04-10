@@ -11,9 +11,9 @@ import Get
 import URLQueryEncoder
 
 public extension Paths {
-    /// Reports that a user has begun playing an item.
-    static func onPlaybackStart(userID: String, itemID: String, parameters: OnPlaybackStartParameters? = nil) -> Request<Void> {
-        Request(path: "/Users/\(userID)/PlayingItems/\(itemID)", method: "POST", query: parameters?.asQuery, id: "OnPlaybackStart")
+    /// Reports that a session has begun playing an item.
+    static func onPlaybackStart(itemID: String, parameters: OnPlaybackStartParameters? = nil) -> Request<Void> {
+        Request(path: "/PlayingItems/\(itemID)", method: "POST", query: parameters?.asQuery, id: "OnPlaybackStart")
     }
 
     struct OnPlaybackStartParameters {

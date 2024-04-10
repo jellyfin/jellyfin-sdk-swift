@@ -20,7 +20,10 @@ public struct TranscodingProfile: Codable, Hashable {
     public var isEstimateContentLength: Bool
     public var maxAudioChannels: String?
     public var minSegments: Int?
-    public var `protocol`: String?
+    /// Media streaming protocol.
+    ///
+    /// Lowercase for backwards compatibility.
+    public var `protocol`: MediaStreamProtocol?
     public var segmentLength: Int?
     public var transcodeSeekInfo: TranscodeSeekInfo?
     public var type: DlnaProfileType?
@@ -38,7 +41,7 @@ public struct TranscodingProfile: Codable, Hashable {
         isEstimateContentLength: Bool? = nil,
         maxAudioChannels: String? = nil,
         minSegments: Int? = nil,
-        protocol: String? = nil,
+        protocol: MediaStreamProtocol? = nil,
         segmentLength: Int? = nil,
         transcodeSeekInfo: TranscodeSeekInfo? = nil,
         type: DlnaProfileType? = nil,
@@ -75,7 +78,7 @@ public struct TranscodingProfile: Codable, Hashable {
         self.isEstimateContentLength = try values.decodeIfPresent(Bool.self, forKey: "EstimateContentLength") ?? false
         self.maxAudioChannels = try values.decodeIfPresent(String.self, forKey: "MaxAudioChannels")
         self.minSegments = try values.decodeIfPresent(Int.self, forKey: "MinSegments")
-        self.protocol = try values.decodeIfPresent(String.self, forKey: "Protocol")
+        self.protocol = try values.decodeIfPresent(MediaStreamProtocol.self, forKey: "Protocol")
         self.segmentLength = try values.decodeIfPresent(Int.self, forKey: "SegmentLength")
         self.transcodeSeekInfo = try values.decodeIfPresent(TranscodeSeekInfo.self, forKey: "TranscodeSeekInfo")
         self.type = try values.decodeIfPresent(DlnaProfileType.self, forKey: "Type")

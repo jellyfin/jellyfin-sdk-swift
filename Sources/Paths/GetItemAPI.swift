@@ -10,9 +10,15 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets an item from a user's library.
-    static func getItem(userID: String, itemID: String) -> Request<JellyfinAPI.BaseItemDto> {
-        Request(path: "/Users/\(userID)/Items/\(itemID)", method: "GET", id: "GetItem")
+    public static func getItem(itemID: String, userID: String? = nil) -> Request<JellyfinAPI.BaseItemDto> {
+        Request(path: "/Items/\(itemID)", method: "GET", query: makeGetItemQuery(userID), id: "GetItem")
+    }
+
+    private static func makeGetItemQuery(_ userID: String?) -> [(String, String?)] {
+        let encoder = URLQueryEncoder()
+        encoder.encode(userID, forKey: "userId")
+        return encoder.items
     }
 }

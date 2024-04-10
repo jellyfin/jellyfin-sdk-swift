@@ -15,4 +15,5 @@ public enum MediaStreamType: String, Codable, CaseIterable {
     case subtitle = "Subtitle"
     case embeddedImage = "EmbeddedImage"
     case data = "Data"
+    case lyric = "Lyric"
 }

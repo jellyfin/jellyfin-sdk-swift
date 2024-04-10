@@ -12,11 +12,12 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Get user profile image.
-    static func getUserImage(userID: String, imageType: String, parameters: GetUserImageParameters? = nil) -> Request<Data> {
-        Request(path: "/Users/\(userID)/Images/\(imageType)", method: "GET", query: parameters?.asQuery, id: "GetUserImage")
+    static func getUserImage(parameters: GetUserImageParameters? = nil) -> Request<Data> {
+        Request(path: "/UserImage", method: "GET", query: parameters?.asQuery, id: "GetUserImage")
     }
 
     struct GetUserImageParameters {
+        public var userID: String?
         public var tag: String?
         public var format: Format?
         public var maxWidth: Int?
@@ -28,8 +29,6 @@ public extension Paths {
         public var quality: Int?
         public var fillWidth: Int?
         public var fillHeight: Int?
-        public var isCropWhitespace: Bool?
-        public var isAddPlayedIndicator: Bool?
         public var blur: Int?
         public var backgroundColor: String?
         public var foregroundLayer: String?
@@ -38,6 +37,7 @@ public extension Paths {
         public typealias Format = JellyfinAPI.ImageFormat
 
         public init(
+            userID: String? = nil,
             tag: String? = nil,
             format: Format? = nil,
             maxWidth: Int? = nil,
@@ -49,13 +49,12 @@ public extension Paths {
             quality: Int? = nil,
             fillWidth: Int? = nil,
             fillHeight: Int? = nil,
-            isCropWhitespace: Bool? = nil,
-            isAddPlayedIndicator: Bool? = nil,
             blur: Int? = nil,
             backgroundColor: String? = nil,
             foregroundLayer: String? = nil,
             imageIndex: Int? = nil
         ) {
+            self.userID = userID
             self.tag = tag
             self.format = format
             self.maxWidth = maxWidth
@@ -67,8 +66,6 @@ public extension Paths {
             self.quality = quality
             self.fillWidth = fillWidth
             self.fillHeight = fillHeight
-            self.isCropWhitespace = isCropWhitespace
-            self.isAddPlayedIndicator = isAddPlayedIndicator
             self.blur = blur
             self.backgroundColor = backgroundColor
             self.foregroundLayer = foregroundLayer
@@ -77,6 +74,7 @@ public extension Paths {
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
+            encoder.encode(userID, forKey: "userId")
             encoder.encode(tag, forKey: "tag")
             encoder.encode(format, forKey: "format")
             encoder.encode(maxWidth, forKey: "maxWidth")
@@ -88,8 +86,6 @@ public extension Paths {
             encoder.encode(quality, forKey: "quality")
             encoder.encode(fillWidth, forKey: "fillWidth")
             encoder.encode(fillHeight, forKey: "fillHeight")
-            encoder.encode(isCropWhitespace, forKey: "cropWhitespace")
-            encoder.encode(isAddPlayedIndicator, forKey: "addPlayedIndicator")
             encoder.encode(blur, forKey: "blur")
             encoder.encode(backgroundColor, forKey: "backgroundColor")
             encoder.encode(foregroundLayer, forKey: "foregroundLayer")

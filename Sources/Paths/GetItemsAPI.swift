@@ -60,9 +60,9 @@ public extension Paths {
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var isFavorite: Bool?
-        public var mediaTypes: [String]?
+        public var mediaTypes: [JellyfinAPI.MediaType]?
         public var imageTypes: [JellyfinAPI.ImageType]?
-        public var sortBy: [String]?
+        public var sortBy: [JellyfinAPI.ItemSortBy]?
         public var isPlayed: Bool?
         public var genres: [String]?
         public var officialRatings: [String]?
@@ -147,9 +147,9 @@ public extension Paths {
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             filters: [JellyfinAPI.ItemFilter]? = nil,
             isFavorite: Bool? = nil,
-            mediaTypes: [String]? = nil,
+            mediaTypes: [JellyfinAPI.MediaType]? = nil,
             imageTypes: [JellyfinAPI.ImageType]? = nil,
-            sortBy: [String]? = nil,
+            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
             isPlayed: Bool? = nil,
             genres: [String]? = nil,
             officialRatings: [String]? = nil,

@@ -16,12 +16,18 @@ public struct ServerConfiguration: Codable, Hashable {
     public var allowClientLogUpload: Bool?
     /// Gets or sets the cache path.
     public var cachePath: String?
+    /// Gets or sets the list of cast receiver applications.
+    public var castReceiverApplications: [CastReceiverApplication]?
+    /// Gets or sets the chapter image resolution.
+    public var chapterImageResolution: ImageResolution?
     public var codecsUsed: [String]?
     public var contentTypes: [NameValuePair]?
     /// Gets or sets the cors hosts.
     public var corsHosts: [String]?
     public var isDisableLiveTvChannelUserDataName: Bool?
     public var isDisplaySpecialsWithinSeasons: Bool?
+    /// Gets or sets the dummy chapter duration in seconds, use 0 (zero) or less to disable generation alltogether.
+    public var dummyChapterDuration: Int?
     /// Gets or sets a value indicating whether [enable case sensitive item ids].
     public var enableCaseSensitiveItemIDs: Bool?
     public var enableExternalContentInSuggestions: Bool?
@@ -35,6 +41,10 @@ public struct ServerConfiguration: Codable, Hashable {
     public var imageExtractionTimeoutMs: Int?
     /// Gets or sets the image saving convention.
     public var imageSavingConvention: ImageSavingConvention?
+    /// Gets or sets the threshold in minutes after a inactive session gets closed automatically.
+    ///
+    /// If set to 0 the check for inactive sessions gets disabled.
+    public var inactiveSessionThreshold: Int?
     /// Gets or sets a value indicating whether this instance is port authorized.
     public var isPortAuthorized: Bool?
     /// Gets or sets a value indicating whether this instance is first run.
@@ -49,6 +59,9 @@ public struct ServerConfiguration: Codable, Hashable {
     public var libraryMonitorDelay: Int?
     /// Gets or sets the how the library scan fans out.
     public var libraryScanFanoutConcurrency: Int?
+    /// Gets or sets the duration in seconds that we will wait after a library updated event before executing the library changed
+    /// notification.
+    public var libraryUpdateDuration: Int?
     /// Gets or sets the number of days we should retain log files.
     public var logFileRetentionDays: Int?
     /// Gets or sets the remaining minutes of a book that can be played while still saving playstate. If this percentage is crossed
@@ -69,6 +82,8 @@ public struct ServerConfiguration: Codable, Hashable {
     public var minResumeDurationSeconds: Int?
     /// Gets or sets the minimum percentage of an item that must be played in order for playstate to be updated.
     public var minResumePct: Int?
+    /// Gets or sets the limit for parallel image encoding.
+    public var parallelImageEncodingLimit: Int?
     public var pathSubstitutions: [PathSubstitution]?
     public var pluginRepositories: [RepositoryInfo]?
     /// Gets or sets the preferred metadata language.
@@ -95,17 +110,22 @@ public struct ServerConfiguration: Codable, Hashable {
     public var sortRemoveWords: [String]?
     /// Gets or sets characters to be replaced with a ' ' in strings to create a sort name.
     public var sortReplaceCharacters: [String]?
+    /// Gets or sets the trickplay options.
+    public var trickplayOptions: TrickplayOptions?
     public var uICulture: String?
 
     public init(
         activityLogRetentionDays: Int? = nil,
         allowClientLogUpload: Bool? = nil,
         cachePath: String? = nil,
+        castReceiverApplications: [CastReceiverApplication]? = nil,
+        chapterImageResolution: ImageResolution? = nil,
         codecsUsed: [String]? = nil,
         contentTypes: [NameValuePair]? = nil,
         corsHosts: [String]? = nil,
         isDisableLiveTvChannelUserDataName: Bool? = nil,
         isDisplaySpecialsWithinSeasons: Bool? = nil,
+        dummyChapterDuration: Int? = nil,
         enableCaseSensitiveItemIDs: Bool? = nil,
         enableExternalContentInSuggestions: Bool? = nil,
         enableFolderView: Bool? = nil,
@@ -115,11 +135,13 @@ public struct ServerConfiguration: Codable, Hashable {
         enableSlowResponseWarning: Bool? = nil,
         imageExtractionTimeoutMs: Int? = nil,
         imageSavingConvention: ImageSavingConvention? = nil,
+        inactiveSessionThreshold: Int? = nil,
         isPortAuthorized: Bool? = nil,
         isStartupWizardCompleted: Bool? = nil,
         libraryMetadataRefreshConcurrency: Int? = nil,
         libraryMonitorDelay: Int? = nil,
         libraryScanFanoutConcurrency: Int? = nil,
+        libraryUpdateDuration: Int? = nil,
         logFileRetentionDays: Int? = nil,
         maxAudiobookResume: Int? = nil,
         maxResumePct: Int? = nil,
@@ -130,6 +152,7 @@ public struct ServerConfiguration: Codable, Hashable {
         minAudiobookResume: Int? = nil,
         minResumeDurationSeconds: Int? = nil,
         minResumePct: Int? = nil,
+        parallelImageEncodingLimit: Int? = nil,
         pathSubstitutions: [PathSubstitution]? = nil,
         pluginRepositories: [RepositoryInfo]? = nil,
         preferredMetadataLanguage: String? = nil,
@@ -145,16 +168,20 @@ public struct ServerConfiguration: Codable, Hashable {
         sortRemoveCharacters: [String]? = nil,
         sortRemoveWords: [String]? = nil,
         sortReplaceCharacters: [String]? = nil,
+        trickplayOptions: TrickplayOptions? = nil,
         uICulture: String? = nil
     ) {
         self.activityLogRetentionDays = activityLogRetentionDays
         self.allowClientLogUpload = allowClientLogUpload
         self.cachePath = cachePath
+        self.castReceiverApplications = castReceiverApplications
+        self.chapterImageResolution = chapterImageResolution
         self.codecsUsed = codecsUsed
         self.contentTypes = contentTypes
         self.corsHosts = corsHosts
         self.isDisableLiveTvChannelUserDataName = isDisableLiveTvChannelUserDataName
         self.isDisplaySpecialsWithinSeasons = isDisplaySpecialsWithinSeasons
+        self.dummyChapterDuration = dummyChapterDuration
         self.enableCaseSensitiveItemIDs = enableCaseSensitiveItemIDs
         self.enableExternalContentInSuggestions = enableExternalContentInSuggestions
         self.enableFolderView = enableFolderView
@@ -164,11 +191,13 @@ public struct ServerConfiguration: Codable, Hashable {
         self.enableSlowResponseWarning = enableSlowResponseWarning
         self.imageExtractionTimeoutMs = imageExtractionTimeoutMs
         self.imageSavingConvention = imageSavingConvention
+        self.inactiveSessionThreshold = inactiveSessionThreshold
         self.isPortAuthorized = isPortAuthorized
         self.isStartupWizardCompleted = isStartupWizardCompleted
         self.libraryMetadataRefreshConcurrency = libraryMetadataRefreshConcurrency
         self.libraryMonitorDelay = libraryMonitorDelay
         self.libraryScanFanoutConcurrency = libraryScanFanoutConcurrency
+        self.libraryUpdateDuration = libraryUpdateDuration
         self.logFileRetentionDays = logFileRetentionDays
         self.maxAudiobookResume = maxAudiobookResume
         self.maxResumePct = maxResumePct
@@ -179,6 +208,7 @@ public struct ServerConfiguration: Codable, Hashable {
         self.minAudiobookResume = minAudiobookResume
         self.minResumeDurationSeconds = minResumeDurationSeconds
         self.minResumePct = minResumePct
+        self.parallelImageEncodingLimit = parallelImageEncodingLimit
         self.pathSubstitutions = pathSubstitutions
         self.pluginRepositories = pluginRepositories
         self.preferredMetadataLanguage = preferredMetadataLanguage
@@ -194,6 +224,7 @@ public struct ServerConfiguration: Codable, Hashable {
         self.sortRemoveCharacters = sortRemoveCharacters
         self.sortRemoveWords = sortRemoveWords
         self.sortReplaceCharacters = sortReplaceCharacters
+        self.trickplayOptions = trickplayOptions
         self.uICulture = uICulture
     }
 
@@ -202,11 +233,14 @@ public struct ServerConfiguration: Codable, Hashable {
         self.activityLogRetentionDays = try values.decodeIfPresent(Int.self, forKey: "ActivityLogRetentionDays")
         self.allowClientLogUpload = try values.decodeIfPresent(Bool.self, forKey: "AllowClientLogUpload")
         self.cachePath = try values.decodeIfPresent(String.self, forKey: "CachePath")
+        self.castReceiverApplications = try values.decodeIfPresent([CastReceiverApplication].self, forKey: "CastReceiverApplications")
+        self.chapterImageResolution = try values.decodeIfPresent(ImageResolution.self, forKey: "ChapterImageResolution")
         self.codecsUsed = try values.decodeIfPresent([String].self, forKey: "CodecsUsed")
         self.contentTypes = try values.decodeIfPresent([NameValuePair].self, forKey: "ContentTypes")
         self.corsHosts = try values.decodeIfPresent([String].self, forKey: "CorsHosts")
         self.isDisableLiveTvChannelUserDataName = try values.decodeIfPresent(Bool.self, forKey: "DisableLiveTvChannelUserDataName")
         self.isDisplaySpecialsWithinSeasons = try values.decodeIfPresent(Bool.self, forKey: "DisplaySpecialsWithinSeasons")
+        self.dummyChapterDuration = try values.decodeIfPresent(Int.self, forKey: "DummyChapterDuration")
         self.enableCaseSensitiveItemIDs = try values.decodeIfPresent(Bool.self, forKey: "EnableCaseSensitiveItemIds")
         self.enableExternalContentInSuggestions = try values.decodeIfPresent(Bool.self, forKey: "EnableExternalContentInSuggestions")
         self.enableFolderView = try values.decodeIfPresent(Bool.self, forKey: "EnableFolderView")
@@ -216,11 +250,13 @@ public struct ServerConfiguration: Codable, Hashable {
         self.enableSlowResponseWarning = try values.decodeIfPresent(Bool.self, forKey: "EnableSlowResponseWarning")
         self.imageExtractionTimeoutMs = try values.decodeIfPresent(Int.self, forKey: "ImageExtractionTimeoutMs")
         self.imageSavingConvention = try values.decodeIfPresent(ImageSavingConvention.self, forKey: "ImageSavingConvention")
+        self.inactiveSessionThreshold = try values.decodeIfPresent(Int.self, forKey: "InactiveSessionThreshold")
         self.isPortAuthorized = try values.decodeIfPresent(Bool.self, forKey: "IsPortAuthorized")
         self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "IsStartupWizardCompleted")
         self.libraryMetadataRefreshConcurrency = try values.decodeIfPresent(Int.self, forKey: "LibraryMetadataRefreshConcurrency")
         self.libraryMonitorDelay = try values.decodeIfPresent(Int.self, forKey: "LibraryMonitorDelay")
         self.libraryScanFanoutConcurrency = try values.decodeIfPresent(Int.self, forKey: "LibraryScanFanoutConcurrency")
+        self.libraryUpdateDuration = try values.decodeIfPresent(Int.self, forKey: "LibraryUpdateDuration")
         self.logFileRetentionDays = try values.decodeIfPresent(Int.self, forKey: "LogFileRetentionDays")
         self.maxAudiobookResume = try values.decodeIfPresent(Int.self, forKey: "MaxAudiobookResume")
         self.maxResumePct = try values.decodeIfPresent(Int.self, forKey: "MaxResumePct")
@@ -231,6 +267,7 @@ public struct ServerConfiguration: Codable, Hashable {
         self.minAudiobookResume = try values.decodeIfPresent(Int.self, forKey: "MinAudiobookResume")
         self.minResumeDurationSeconds = try values.decodeIfPresent(Int.self, forKey: "MinResumeDurationSeconds")
         self.minResumePct = try values.decodeIfPresent(Int.self, forKey: "MinResumePct")
+        self.parallelImageEncodingLimit = try values.decodeIfPresent(Int.self, forKey: "ParallelImageEncodingLimit")
         self.pathSubstitutions = try values.decodeIfPresent([PathSubstitution].self, forKey: "PathSubstitutions")
         self.pluginRepositories = try values.decodeIfPresent([RepositoryInfo].self, forKey: "PluginRepositories")
         self.preferredMetadataLanguage = try values.decodeIfPresent(String.self, forKey: "PreferredMetadataLanguage")
@@ -246,6 +283,7 @@ public struct ServerConfiguration: Codable, Hashable {
         self.sortRemoveCharacters = try values.decodeIfPresent([String].self, forKey: "SortRemoveCharacters")
         self.sortRemoveWords = try values.decodeIfPresent([String].self, forKey: "SortRemoveWords")
         self.sortReplaceCharacters = try values.decodeIfPresent([String].self, forKey: "SortReplaceCharacters")
+        self.trickplayOptions = try values.decodeIfPresent(TrickplayOptions.self, forKey: "TrickplayOptions")
         self.uICulture = try values.decodeIfPresent(String.self, forKey: "UICulture")
     }
 
@@ -254,11 +292,14 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(activityLogRetentionDays, forKey: "ActivityLogRetentionDays")
         try values.encodeIfPresent(allowClientLogUpload, forKey: "AllowClientLogUpload")
         try values.encodeIfPresent(cachePath, forKey: "CachePath")
+        try values.encodeIfPresent(castReceiverApplications, forKey: "CastReceiverApplications")
+        try values.encodeIfPresent(chapterImageResolution, forKey: "ChapterImageResolution")
         try values.encodeIfPresent(codecsUsed, forKey: "CodecsUsed")
         try values.encodeIfPresent(contentTypes, forKey: "ContentTypes")
         try values.encodeIfPresent(corsHosts, forKey: "CorsHosts")
         try values.encodeIfPresent(isDisableLiveTvChannelUserDataName, forKey: "DisableLiveTvChannelUserDataName")
         try values.encodeIfPresent(isDisplaySpecialsWithinSeasons, forKey: "DisplaySpecialsWithinSeasons")
+        try values.encodeIfPresent(dummyChapterDuration, forKey: "DummyChapterDuration")
         try values.encodeIfPresent(enableCaseSensitiveItemIDs, forKey: "EnableCaseSensitiveItemIds")
         try values.encodeIfPresent(enableExternalContentInSuggestions, forKey: "EnableExternalContentInSuggestions")
         try values.encodeIfPresent(enableFolderView, forKey: "EnableFolderView")
@@ -268,11 +309,13 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(enableSlowResponseWarning, forKey: "EnableSlowResponseWarning")
         try values.encodeIfPresent(imageExtractionTimeoutMs, forKey: "ImageExtractionTimeoutMs")
         try values.encodeIfPresent(imageSavingConvention, forKey: "ImageSavingConvention")
+        try values.encodeIfPresent(inactiveSessionThreshold, forKey: "InactiveSessionThreshold")
         try values.encodeIfPresent(isPortAuthorized, forKey: "IsPortAuthorized")
         try values.encodeIfPresent(isStartupWizardCompleted, forKey: "IsStartupWizardCompleted")
         try values.encodeIfPresent(libraryMetadataRefreshConcurrency, forKey: "LibraryMetadataRefreshConcurrency")
         try values.encodeIfPresent(libraryMonitorDelay, forKey: "LibraryMonitorDelay")
         try values.encodeIfPresent(libraryScanFanoutConcurrency, forKey: "LibraryScanFanoutConcurrency")
+        try values.encodeIfPresent(libraryUpdateDuration, forKey: "LibraryUpdateDuration")
         try values.encodeIfPresent(logFileRetentionDays, forKey: "LogFileRetentionDays")
         try values.encodeIfPresent(maxAudiobookResume, forKey: "MaxAudiobookResume")
         try values.encodeIfPresent(maxResumePct, forKey: "MaxResumePct")
@@ -283,6 +326,7 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(minAudiobookResume, forKey: "MinAudiobookResume")
         try values.encodeIfPresent(minResumeDurationSeconds, forKey: "MinResumeDurationSeconds")
         try values.encodeIfPresent(minResumePct, forKey: "MinResumePct")
+        try values.encodeIfPresent(parallelImageEncodingLimit, forKey: "ParallelImageEncodingLimit")
         try values.encodeIfPresent(pathSubstitutions, forKey: "PathSubstitutions")
         try values.encodeIfPresent(pluginRepositories, forKey: "PluginRepositories")
         try values.encodeIfPresent(preferredMetadataLanguage, forKey: "PreferredMetadataLanguage")
@@ -298,6 +342,7 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(sortRemoveCharacters, forKey: "SortRemoveCharacters")
         try values.encodeIfPresent(sortRemoveWords, forKey: "SortRemoveWords")
         try values.encodeIfPresent(sortReplaceCharacters, forKey: "SortReplaceCharacters")
+        try values.encodeIfPresent(trickplayOptions, forKey: "TrickplayOptions")
         try values.encodeIfPresent(uICulture, forKey: "UICulture")
     }
 }

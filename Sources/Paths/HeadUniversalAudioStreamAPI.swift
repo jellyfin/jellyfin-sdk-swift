@@ -28,12 +28,14 @@ public extension Paths {
         public var audioBitRate: Int?
         public var startTimeTicks: Int?
         public var transcodingContainer: String?
-        public var transcodingProtocol: String?
+        public var transcodingProtocol: TranscodingProtocol?
         public var maxAudioSampleRate: Int?
         public var maxAudioBitDepth: Int?
         public var enableRemoteMedia: Bool?
         public var isBreakOnNonKeyFrames: Bool?
         public var enableRedirection: Bool?
+
+        public typealias TranscodingProtocol = JellyfinAPI.MediaStreamProtocol
 
         public init(
             container: [String]? = nil,
@@ -47,7 +49,7 @@ public extension Paths {
             audioBitRate: Int? = nil,
             startTimeTicks: Int? = nil,
             transcodingContainer: String? = nil,
-            transcodingProtocol: String? = nil,
+            transcodingProtocol: TranscodingProtocol? = nil,
             maxAudioSampleRate: Int? = nil,
             maxAudioBitDepth: Int? = nil,
             enableRemoteMedia: Bool? = nil,

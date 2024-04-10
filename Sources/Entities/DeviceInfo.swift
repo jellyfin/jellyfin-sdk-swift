@@ -17,6 +17,7 @@ public struct DeviceInfo: Codable, Hashable, Identifiable {
     public var appVersion: String?
     /// Gets or sets the capabilities.
     public var capabilities: ClientCapabilities?
+    public var customName: String?
     /// Gets or sets the date last modified.
     public var dateLastActivity: Date?
     public var iconURL: String?
@@ -33,6 +34,7 @@ public struct DeviceInfo: Codable, Hashable, Identifiable {
         appName: String? = nil,
         appVersion: String? = nil,
         capabilities: ClientCapabilities? = nil,
+        customName: String? = nil,
         dateLastActivity: Date? = nil,
         iconURL: String? = nil,
         id: String? = nil,
@@ -44,6 +46,7 @@ public struct DeviceInfo: Codable, Hashable, Identifiable {
         self.appName = appName
         self.appVersion = appVersion
         self.capabilities = capabilities
+        self.customName = customName
         self.dateLastActivity = dateLastActivity
         self.iconURL = iconURL
         self.id = id
@@ -58,6 +61,7 @@ public struct DeviceInfo: Codable, Hashable, Identifiable {
         self.appName = try values.decodeIfPresent(String.self, forKey: "AppName")
         self.appVersion = try values.decodeIfPresent(String.self, forKey: "AppVersion")
         self.capabilities = try values.decodeIfPresent(ClientCapabilities.self, forKey: "Capabilities")
+        self.customName = try values.decodeIfPresent(String.self, forKey: "CustomName")
         self.dateLastActivity = try values.decodeIfPresent(Date.self, forKey: "DateLastActivity")
         self.iconURL = try values.decodeIfPresent(String.self, forKey: "IconUrl")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
@@ -72,6 +76,7 @@ public struct DeviceInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(appName, forKey: "AppName")
         try values.encodeIfPresent(appVersion, forKey: "AppVersion")
         try values.encodeIfPresent(capabilities, forKey: "Capabilities")
+        try values.encodeIfPresent(customName, forKey: "CustomName")
         try values.encodeIfPresent(dateLastActivity, forKey: "DateLastActivity")
         try values.encodeIfPresent(iconURL, forKey: "IconUrl")
         try values.encodeIfPresent(id, forKey: "Id")
