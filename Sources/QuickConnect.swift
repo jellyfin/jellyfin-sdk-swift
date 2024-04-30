@@ -9,6 +9,12 @@
 import Foundation
 
 /// A provider for the Quick Connect authorization flow.
+/// 
+/// To start the authorization flow, call `start()`. The `state` variable
+/// will be updated to the current flow state and can be subscribed to with
+/// async/await or Combine. See `QuickConnect.State` for all possible states.
+/// 
+/// To stop the authorization flow, typically for user cancellation, call `stop()`.
 public final class QuickConnect: ObservableObject {
 
     // MARK: State
