@@ -139,6 +139,8 @@ public final class QuickConnect: ObservableObject {
             await MainActor.run {
                 state = .error(error)
             }
+        } catch is CancellationError {
+            // Task was cancelled, not an issue
         } catch {
             await MainActor.run {
                 state = .error(.other(error.localizedDescription))
