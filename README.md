@@ -26,6 +26,32 @@ let response = jellyfinClient.signIn(username: "jelly", password: "fin")
 
 Alternatively, you can use your own network stack with the generated **Entities** and **Paths**.
 
+## Quick Connect
+
+The `QuickConnect` object has been provided to perform the Quick Connect authorization flow.
+
+```swift
+/// Create a QuickConnect object with a JellyfinClient
+let quickConnect = QuickConnect(client: client)
+
+let quickConnectState = Task {
+	/// Listen to QuickConnect states with async/await or Combine
+	for await state in quickConnect.$state.values {
+		switch state {
+		/// Other cases ommitted
+		case let .polling(code: code):
+			print(code)
+		case let .authenticated(secret: secret):
+			/// Sign in with the Quick Connect secret
+			client.signIn(quickConnectSecret: secret)
+		}
+	}
+}
+
+/// Start the Quick Connect authorization flow
+quickConnect.start()
+```
+
 ## Generation
 
 ```bash
