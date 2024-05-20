@@ -12,11 +12,12 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Gets latest media.
-    static func getLatestMedia(userID: String, parameters: GetLatestMediaParameters? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
-        Request(path: "/Users/\(userID)/Items/Latest", method: "GET", query: parameters?.asQuery, id: "GetLatestMedia")
+    static func getLatestMedia(parameters: GetLatestMediaParameters? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
+        Request(path: "/Items/Latest", method: "GET", query: parameters?.asQuery, id: "GetLatestMedia")
     }
 
     struct GetLatestMediaParameters {
+        public var userID: String?
         public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
@@ -29,6 +30,7 @@ public extension Paths {
         public var isGroupItems: Bool?
 
         public init(
+            userID: String? = nil,
             parentID: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
@@ -40,6 +42,7 @@ public extension Paths {
             limit: Int? = nil,
             isGroupItems: Bool? = nil
         ) {
+            self.userID = userID
             self.parentID = parentID
             self.fields = fields
             self.includeItemTypes = includeItemTypes
@@ -54,6 +57,7 @@ public extension Paths {
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
+            encoder.encode(userID, forKey: "userId")
             encoder.encode(parentID, forKey: "parentId")
             encoder.encode(fields, forKey: "fields")
             encoder.encode(includeItemTypes, forKey: "includeItemTypes")

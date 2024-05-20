@@ -18,12 +18,17 @@ public struct LibraryOptions: Codable, Hashable {
     public var enableAutomaticSeriesGrouping: Bool?
     public var enableChapterImageExtraction: Bool?
     public var enableEmbeddedEpisodeInfos: Bool?
+    public var enableEmbeddedExtrasTitles: Bool?
     public var enableEmbeddedTitles: Bool?
     /// - warning: Deprecated.
     public var enableInternetProviders: Bool?
+    public var enableLUFSScan: Bool?
     public var enablePhotos: Bool?
     public var enableRealtimeMonitor: Bool?
+    public var enableTrickplayImageExtraction: Bool?
+    public var isEnabled: Bool?
     public var isExtractChapterImagesDuringLibraryScan: Bool?
+    public var isExtractTrickplayImagesDuringLibraryScan: Bool?
     public var localMetadataReaderOrder: [String]?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
@@ -33,6 +38,7 @@ public struct LibraryOptions: Codable, Hashable {
     public var preferredMetadataLanguage: String?
     public var requirePerfectSubtitleMatch: Bool?
     public var isSaveLocalMetadata: Bool?
+    public var isSaveLyricsWithMedia: Bool
     public var isSaveSubtitlesWithMedia: Bool?
     public var seasonZeroDisplayName: String?
     public var isSkipSubtitlesIfAudioTrackMatches: Bool?
@@ -50,11 +56,16 @@ public struct LibraryOptions: Codable, Hashable {
         enableAutomaticSeriesGrouping: Bool? = nil,
         enableChapterImageExtraction: Bool? = nil,
         enableEmbeddedEpisodeInfos: Bool? = nil,
+        enableEmbeddedExtrasTitles: Bool? = nil,
         enableEmbeddedTitles: Bool? = nil,
         enableInternetProviders: Bool? = nil,
+        enableLUFSScan: Bool? = nil,
         enablePhotos: Bool? = nil,
         enableRealtimeMonitor: Bool? = nil,
+        enableTrickplayImageExtraction: Bool? = nil,
+        isEnabled: Bool? = nil,
         isExtractChapterImagesDuringLibraryScan: Bool? = nil,
+        isExtractTrickplayImagesDuringLibraryScan: Bool? = nil,
         localMetadataReaderOrder: [String]? = nil,
         metadataCountryCode: String? = nil,
         metadataSavers: [String]? = nil,
@@ -62,6 +73,7 @@ public struct LibraryOptions: Codable, Hashable {
         preferredMetadataLanguage: String? = nil,
         requirePerfectSubtitleMatch: Bool? = nil,
         isSaveLocalMetadata: Bool? = nil,
+        isSaveLyricsWithMedia: Bool? = nil,
         isSaveSubtitlesWithMedia: Bool? = nil,
         seasonZeroDisplayName: String? = nil,
         isSkipSubtitlesIfAudioTrackMatches: Bool? = nil,
@@ -78,11 +90,16 @@ public struct LibraryOptions: Codable, Hashable {
         self.enableAutomaticSeriesGrouping = enableAutomaticSeriesGrouping
         self.enableChapterImageExtraction = enableChapterImageExtraction
         self.enableEmbeddedEpisodeInfos = enableEmbeddedEpisodeInfos
+        self.enableEmbeddedExtrasTitles = enableEmbeddedExtrasTitles
         self.enableEmbeddedTitles = enableEmbeddedTitles
         self.enableInternetProviders = enableInternetProviders
+        self.enableLUFSScan = enableLUFSScan
         self.enablePhotos = enablePhotos
         self.enableRealtimeMonitor = enableRealtimeMonitor
+        self.enableTrickplayImageExtraction = enableTrickplayImageExtraction
+        self.isEnabled = isEnabled
         self.isExtractChapterImagesDuringLibraryScan = isExtractChapterImagesDuringLibraryScan
+        self.isExtractTrickplayImagesDuringLibraryScan = isExtractTrickplayImagesDuringLibraryScan
         self.localMetadataReaderOrder = localMetadataReaderOrder
         self.metadataCountryCode = metadataCountryCode
         self.metadataSavers = metadataSavers
@@ -90,6 +107,7 @@ public struct LibraryOptions: Codable, Hashable {
         self.preferredMetadataLanguage = preferredMetadataLanguage
         self.requirePerfectSubtitleMatch = requirePerfectSubtitleMatch
         self.isSaveLocalMetadata = isSaveLocalMetadata
+        self.isSaveLyricsWithMedia = isSaveLyricsWithMedia ?? false
         self.isSaveSubtitlesWithMedia = isSaveSubtitlesWithMedia
         self.seasonZeroDisplayName = seasonZeroDisplayName
         self.isSkipSubtitlesIfAudioTrackMatches = isSkipSubtitlesIfAudioTrackMatches
@@ -109,13 +127,21 @@ public struct LibraryOptions: Codable, Hashable {
         self.enableAutomaticSeriesGrouping = try values.decodeIfPresent(Bool.self, forKey: "EnableAutomaticSeriesGrouping")
         self.enableChapterImageExtraction = try values.decodeIfPresent(Bool.self, forKey: "EnableChapterImageExtraction")
         self.enableEmbeddedEpisodeInfos = try values.decodeIfPresent(Bool.self, forKey: "EnableEmbeddedEpisodeInfos")
+        self.enableEmbeddedExtrasTitles = try values.decodeIfPresent(Bool.self, forKey: "EnableEmbeddedExtrasTitles")
         self.enableEmbeddedTitles = try values.decodeIfPresent(Bool.self, forKey: "EnableEmbeddedTitles")
         self.enableInternetProviders = try values.decodeIfPresent(Bool.self, forKey: "EnableInternetProviders")
+        self.enableLUFSScan = try values.decodeIfPresent(Bool.self, forKey: "EnableLUFSScan")
         self.enablePhotos = try values.decodeIfPresent(Bool.self, forKey: "EnablePhotos")
         self.enableRealtimeMonitor = try values.decodeIfPresent(Bool.self, forKey: "EnableRealtimeMonitor")
+        self.enableTrickplayImageExtraction = try values.decodeIfPresent(Bool.self, forKey: "EnableTrickplayImageExtraction")
+        self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "Enabled")
         self.isExtractChapterImagesDuringLibraryScan = try values.decodeIfPresent(
             Bool.self,
             forKey: "ExtractChapterImagesDuringLibraryScan"
+        )
+        self.isExtractTrickplayImagesDuringLibraryScan = try values.decodeIfPresent(
+            Bool.self,
+            forKey: "ExtractTrickplayImagesDuringLibraryScan"
         )
         self.localMetadataReaderOrder = try values.decodeIfPresent([String].self, forKey: "LocalMetadataReaderOrder")
         self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
@@ -124,6 +150,7 @@ public struct LibraryOptions: Codable, Hashable {
         self.preferredMetadataLanguage = try values.decodeIfPresent(String.self, forKey: "PreferredMetadataLanguage")
         self.requirePerfectSubtitleMatch = try values.decodeIfPresent(Bool.self, forKey: "RequirePerfectSubtitleMatch")
         self.isSaveLocalMetadata = try values.decodeIfPresent(Bool.self, forKey: "SaveLocalMetadata")
+        self.isSaveLyricsWithMedia = try values.decodeIfPresent(Bool.self, forKey: "SaveLyricsWithMedia") ?? false
         self.isSaveSubtitlesWithMedia = try values.decodeIfPresent(Bool.self, forKey: "SaveSubtitlesWithMedia")
         self.seasonZeroDisplayName = try values.decodeIfPresent(String.self, forKey: "SeasonZeroDisplayName")
         self.isSkipSubtitlesIfAudioTrackMatches = try values.decodeIfPresent(Bool.self, forKey: "SkipSubtitlesIfAudioTrackMatches")
@@ -146,11 +173,16 @@ public struct LibraryOptions: Codable, Hashable {
         try values.encodeIfPresent(enableAutomaticSeriesGrouping, forKey: "EnableAutomaticSeriesGrouping")
         try values.encodeIfPresent(enableChapterImageExtraction, forKey: "EnableChapterImageExtraction")
         try values.encodeIfPresent(enableEmbeddedEpisodeInfos, forKey: "EnableEmbeddedEpisodeInfos")
+        try values.encodeIfPresent(enableEmbeddedExtrasTitles, forKey: "EnableEmbeddedExtrasTitles")
         try values.encodeIfPresent(enableEmbeddedTitles, forKey: "EnableEmbeddedTitles")
         try values.encodeIfPresent(enableInternetProviders, forKey: "EnableInternetProviders")
+        try values.encodeIfPresent(enableLUFSScan, forKey: "EnableLUFSScan")
         try values.encodeIfPresent(enablePhotos, forKey: "EnablePhotos")
         try values.encodeIfPresent(enableRealtimeMonitor, forKey: "EnableRealtimeMonitor")
+        try values.encodeIfPresent(enableTrickplayImageExtraction, forKey: "EnableTrickplayImageExtraction")
+        try values.encodeIfPresent(isEnabled, forKey: "Enabled")
         try values.encodeIfPresent(isExtractChapterImagesDuringLibraryScan, forKey: "ExtractChapterImagesDuringLibraryScan")
+        try values.encodeIfPresent(isExtractTrickplayImagesDuringLibraryScan, forKey: "ExtractTrickplayImagesDuringLibraryScan")
         try values.encodeIfPresent(localMetadataReaderOrder, forKey: "LocalMetadataReaderOrder")
         try values.encodeIfPresent(metadataCountryCode, forKey: "MetadataCountryCode")
         try values.encodeIfPresent(metadataSavers, forKey: "MetadataSavers")
@@ -158,6 +190,7 @@ public struct LibraryOptions: Codable, Hashable {
         try values.encodeIfPresent(preferredMetadataLanguage, forKey: "PreferredMetadataLanguage")
         try values.encodeIfPresent(requirePerfectSubtitleMatch, forKey: "RequirePerfectSubtitleMatch")
         try values.encodeIfPresent(isSaveLocalMetadata, forKey: "SaveLocalMetadata")
+        try values.encodeIfPresent(isSaveLyricsWithMedia, forKey: "SaveLyricsWithMedia")
         try values.encodeIfPresent(isSaveSubtitlesWithMedia, forKey: "SaveSubtitlesWithMedia")
         try values.encodeIfPresent(seasonZeroDisplayName, forKey: "SeasonZeroDisplayName")
         try values.encodeIfPresent(isSkipSubtitlesIfAudioTrackMatches, forKey: "SkipSubtitlesIfAudioTrackMatches")

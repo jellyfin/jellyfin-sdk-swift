@@ -10,20 +10,27 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Update Display Preferences.
-    static func updateDisplayPreferences(
+    public static func updateDisplayPreferences(
         displayPreferencesID: String,
-        userID: String,
+        userID: String? = nil,
         client: String,
         _ body: JellyfinAPI.DisplayPreferencesDto
     ) -> Request<Void> {
         Request(
             path: "/DisplayPreferences/\(displayPreferencesID)",
             method: "POST",
-            query: [("userId", userID), ("client", client)],
+            query: makeUpdateDisplayPreferencesQuery(userID, client),
             body: body,
             id: "UpdateDisplayPreferences"
         )
+    }
+
+    private static func makeUpdateDisplayPreferencesQuery(_ userID: String?, _ client: String) -> [(String, String?)] {
+        let encoder = URLQueryEncoder()
+        encoder.encode(userID, forKey: "userId")
+        encoder.encode(client, forKey: "client")
+        return encoder.items
     }
 }

@@ -52,4 +52,5 @@ public enum GeneralCommandType: String, Codable, CaseIterable {
     case toggleOsdMenu = "ToggleOsdMenu"
     case play = "Play"
     case setMaxStreamingBitrate = "SetMaxStreamingBitrate"
+    case setPlaybackOrder = "SetPlaybackOrder"
 }

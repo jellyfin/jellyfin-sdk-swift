@@ -8,8 +8,9 @@
 
 import Foundation
 
-/// Enum SeriesStatus.
+/// The status of a series.
 public enum SeriesStatus: String, Codable, CaseIterable {
     case continuing = "Continuing"
     case ended = "Ended"
+    case unreleased = "Unreleased"
 }

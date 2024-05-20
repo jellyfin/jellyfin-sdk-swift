@@ -12,16 +12,23 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Get user views.
-    static func getUserViews(userID: String, parameters: GetUserViewsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(path: "/Users/\(userID)/Views", method: "GET", query: parameters?.asQuery, id: "GetUserViews")
+    static func getUserViews(parameters: GetUserViewsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+        Request(path: "/UserViews", method: "GET", query: parameters?.asQuery, id: "GetUserViews")
     }
 
     struct GetUserViewsParameters {
+        public var userID: String?
         public var isIncludeExternalContent: Bool?
-        public var presetViews: [String]?
+        public var presetViews: [JellyfinAPI.CollectionType]?
         public var isIncludeHidden: Bool?
 
-        public init(isIncludeExternalContent: Bool? = nil, presetViews: [String]? = nil, isIncludeHidden: Bool? = nil) {
+        public init(
+            userID: String? = nil,
+            isIncludeExternalContent: Bool? = nil,
+            presetViews: [JellyfinAPI.CollectionType]? = nil,
+            isIncludeHidden: Bool? = nil
+        ) {
+            self.userID = userID
             self.isIncludeExternalContent = isIncludeExternalContent
             self.presetViews = presetViews
             self.isIncludeHidden = isIncludeHidden
@@ -29,6 +36,7 @@ public extension Paths {
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
+            encoder.encode(userID, forKey: "userId")
             encoder.encode(isIncludeExternalContent, forKey: "includeExternalContent")
             encoder.encode(presetViews, forKey: "presetViews")
             encoder.encode(isIncludeHidden, forKey: "includeHidden")

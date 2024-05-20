@@ -32,7 +32,7 @@ public extension Paths {
         public var isSports: Bool?
         public var startIndex: Int?
         public var limit: Int?
-        public var sortBy: [String]?
+        public var sortBy: [JellyfinAPI.ItemSortBy]?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var genres: [String]?
         public var genreIDs: [String]?
@@ -61,7 +61,7 @@ public extension Paths {
             isSports: Bool? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
-            sortBy: [String]? = nil,
+            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             genres: [String]? = nil,
             genreIDs: [String]? = nil,

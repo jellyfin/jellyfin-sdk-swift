@@ -10,24 +10,28 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Gets the library options info.
-    public static func getLibraryOptionsInfo(
-        libraryContentType: String? = nil,
-        isNewLibrary: Bool? = nil
-    ) -> Request<JellyfinAPI.LibraryOptionsResultDto> {
-        Request(
-            path: "/Libraries/AvailableOptions",
-            method: "GET",
-            query: makeGetLibraryOptionsInfoQuery(libraryContentType, isNewLibrary),
-            id: "GetLibraryOptionsInfo"
-        )
+    static func getLibraryOptionsInfo(parameters: GetLibraryOptionsInfoParameters? = nil) -> Request<JellyfinAPI.LibraryOptionsResultDto> {
+        Request(path: "/Libraries/AvailableOptions", method: "GET", query: parameters?.asQuery, id: "GetLibraryOptionsInfo")
     }
 
-    private static func makeGetLibraryOptionsInfoQuery(_ libraryContentType: String?, _ isNewLibrary: Bool?) -> [(String, String?)] {
-        let encoder = URLQueryEncoder()
-        encoder.encode(libraryContentType, forKey: "libraryContentType")
-        encoder.encode(isNewLibrary, forKey: "isNewLibrary")
-        return encoder.items
+    struct GetLibraryOptionsInfoParameters {
+        public var libraryContentType: LibraryContentType?
+        public var isNewLibrary: Bool?
+
+        public typealias LibraryContentType = JellyfinAPI.CollectionType
+
+        public init(libraryContentType: LibraryContentType? = nil, isNewLibrary: Bool? = nil) {
+            self.libraryContentType = libraryContentType
+            self.isNewLibrary = isNewLibrary
+        }
+
+        public var asQuery: [(String, String?)] {
+            let encoder = URLQueryEncoder()
+            encoder.encode(libraryContentType, forKey: "libraryContentType")
+            encoder.encode(isNewLibrary, forKey: "isNewLibrary")
+            return encoder.items
+        }
     }
 }

@@ -12,21 +12,24 @@ import Foundation
 public struct SystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the cache path.
     public var cachePath: String?
-    public var canLaunchWebBrowser: Bool?
+    /// - warning: Deprecated.
+    public var canLaunchWebBrowser: Bool
     /// Gets or sets a value indicating whether this instance can self restart.
-    public var canSelfRestart: Bool?
-    /// Gets or sets the completed installations.
-    public var completedInstallations: [InstallationInfo]?
-    /// Enum describing the location of the FFmpeg tool.
     ///
     /// - warning: Deprecated.
-    public var encoderLocation: FFmpegLocation?
+    public var canSelfRestart: Bool
+    /// Gets or sets the list of cast receiver applications.
+    public var castReceiverApplications: [CastReceiverApplication]?
+    /// Gets or sets the completed installations.
+    public var completedInstallations: [InstallationInfo]?
+    /// - warning: Deprecated.
+    public var encoderLocation: String?
     /// Gets or sets a value indicating whether this instance has pending restart.
     public var hasPendingRestart: Bool?
     /// Gets or sets a value indicating whether this instance has update available.
     ///
     /// - warning: Deprecated.
-    public var hasUpdateAvailable: Bool?
+    public var hasUpdateAvailable: Bool
     /// Gets or sets the id.
     public var id: String?
     /// Gets or sets the internal metadata path.
@@ -39,8 +42,12 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the log path.
     public var logPath: String?
     /// Gets or sets the operating system.
+    ///
+    /// - warning: Deprecated.
     public var operatingSystem: String?
     /// Gets or sets the display name of the operating system.
+    ///
+    /// - warning: Deprecated.
     public var operatingSystemDisplayName: String?
     /// Gets or sets the package name.
     public var packageName: String?
@@ -54,7 +61,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
     public var isStartupWizardCompleted: Bool?
     /// Gets or sets a value indicating whether [supports library monitor].
     public var isSupportsLibraryMonitor: Bool?
-    public var systemArchitecture: Architecture?
+    /// - warning: Deprecated.
+    public var systemArchitecture: String?
     /// Gets or sets the transcode path.
     public var transcodingTempPath: String?
     /// Gets or sets the server version.
@@ -68,8 +76,9 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         cachePath: String? = nil,
         canLaunchWebBrowser: Bool? = nil,
         canSelfRestart: Bool? = nil,
+        castReceiverApplications: [CastReceiverApplication]? = nil,
         completedInstallations: [InstallationInfo]? = nil,
-        encoderLocation: FFmpegLocation? = nil,
+        encoderLocation: String? = nil,
         hasPendingRestart: Bool? = nil,
         hasUpdateAvailable: Bool? = nil,
         id: String? = nil,
@@ -86,19 +95,20 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         serverName: String? = nil,
         isStartupWizardCompleted: Bool? = nil,
         isSupportsLibraryMonitor: Bool? = nil,
-        systemArchitecture: Architecture? = nil,
+        systemArchitecture: String? = nil,
         transcodingTempPath: String? = nil,
         version: String? = nil,
         webPath: String? = nil,
         webSocketPortNumber: Int? = nil
     ) {
         self.cachePath = cachePath
-        self.canLaunchWebBrowser = canLaunchWebBrowser
-        self.canSelfRestart = canSelfRestart
+        self.canLaunchWebBrowser = canLaunchWebBrowser ?? false
+        self.canSelfRestart = canSelfRestart ?? true
+        self.castReceiverApplications = castReceiverApplications
         self.completedInstallations = completedInstallations
         self.encoderLocation = encoderLocation
         self.hasPendingRestart = hasPendingRestart
-        self.hasUpdateAvailable = hasUpdateAvailable
+        self.hasUpdateAvailable = hasUpdateAvailable ?? false
         self.id = id
         self.internalMetadataPath = internalMetadataPath
         self.isShuttingDown = isShuttingDown
@@ -123,12 +133,13 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.cachePath = try values.decodeIfPresent(String.self, forKey: "CachePath")
-        self.canLaunchWebBrowser = try values.decodeIfPresent(Bool.self, forKey: "CanLaunchWebBrowser")
-        self.canSelfRestart = try values.decodeIfPresent(Bool.self, forKey: "CanSelfRestart")
+        self.canLaunchWebBrowser = try values.decodeIfPresent(Bool.self, forKey: "CanLaunchWebBrowser") ?? false
+        self.canSelfRestart = try values.decodeIfPresent(Bool.self, forKey: "CanSelfRestart") ?? true
+        self.castReceiverApplications = try values.decodeIfPresent([CastReceiverApplication].self, forKey: "CastReceiverApplications")
         self.completedInstallations = try values.decodeIfPresent([InstallationInfo].self, forKey: "CompletedInstallations")
-        self.encoderLocation = try values.decodeIfPresent(FFmpegLocation.self, forKey: "EncoderLocation")
+        self.encoderLocation = try values.decodeIfPresent(String.self, forKey: "EncoderLocation")
         self.hasPendingRestart = try values.decodeIfPresent(Bool.self, forKey: "HasPendingRestart")
-        self.hasUpdateAvailable = try values.decodeIfPresent(Bool.self, forKey: "HasUpdateAvailable")
+        self.hasUpdateAvailable = try values.decodeIfPresent(Bool.self, forKey: "HasUpdateAvailable") ?? false
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.internalMetadataPath = try values.decodeIfPresent(String.self, forKey: "InternalMetadataPath")
         self.isShuttingDown = try values.decodeIfPresent(Bool.self, forKey: "IsShuttingDown")
@@ -143,7 +154,7 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
         self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
         self.isSupportsLibraryMonitor = try values.decodeIfPresent(Bool.self, forKey: "SupportsLibraryMonitor")
-        self.systemArchitecture = try values.decodeIfPresent(Architecture.self, forKey: "SystemArchitecture")
+        self.systemArchitecture = try values.decodeIfPresent(String.self, forKey: "SystemArchitecture")
         self.transcodingTempPath = try values.decodeIfPresent(String.self, forKey: "TranscodingTempPath")
         self.version = try values.decodeIfPresent(String.self, forKey: "Version")
         self.webPath = try values.decodeIfPresent(String.self, forKey: "WebPath")
@@ -155,6 +166,7 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(cachePath, forKey: "CachePath")
         try values.encodeIfPresent(canLaunchWebBrowser, forKey: "CanLaunchWebBrowser")
         try values.encodeIfPresent(canSelfRestart, forKey: "CanSelfRestart")
+        try values.encodeIfPresent(castReceiverApplications, forKey: "CastReceiverApplications")
         try values.encodeIfPresent(completedInstallations, forKey: "CompletedInstallations")
         try values.encodeIfPresent(encoderLocation, forKey: "EncoderLocation")
         try values.encodeIfPresent(hasPendingRestart, forKey: "HasPendingRestart")

@@ -61,7 +61,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     /// Gets or sets the child count.
     public var childCount: Int?
     /// Gets or sets the type of the collection.
-    public var collectionType: String?
+    public var collectionType: CollectionType?
     /// Gets or sets the community rating.
     public var communityRating: Float?
     /// Gets or sets the completion percentage.
@@ -98,6 +98,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var genreItems: [NameGuidPair]?
     /// Gets or sets the genres.
     public var genres: [String]?
+    public var hasLyrics: Bool?
     public var hasSubtitles: Bool?
     public var height: Int?
     /// Gets or sets the id.
@@ -154,13 +155,15 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     /// Gets or sets the media streams.
     public var mediaStreams: [MediaStream]?
     /// Gets or sets the type of the media.
-    public var mediaType: String?
+    public var mediaType: MediaType?
     /// Gets or sets the movie count.
     public var movieCount: Int?
     /// Gets or sets the music video count.
     public var musicVideoCount: Int?
     /// Gets or sets the name.
     public var name: String?
+    /// Gets or sets the gain required for audio normalization.
+    public var normalizationGain: Float?
     /// Gets or sets the number.
     public var number: String?
     /// Gets or sets the official rating.
@@ -170,11 +173,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var overview: String?
     /// Gets or sets the parent art image tag.
     public var parentArtImageTag: String?
-    /// Gets or sets wether the item has fan art, this will hold the Id of the Parent that has one.
+    /// Gets or sets whether the item has fan art, this will hold the Id of the Parent that has one.
     public var parentArtItemID: String?
     /// Gets or sets the parent backdrop image tags.
     public var parentBackdropImageTags: [String]?
-    /// Gets or sets wether the item has any backdrops, this will hold the Id of the Parent that has one.
+    /// Gets or sets whether the item has any backdrops, this will hold the Id of the Parent that has one.
     public var parentBackdropItemID: String?
     /// Gets or sets the parent id.
     public var parentID: String?
@@ -182,7 +185,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var parentIndexNumber: Int?
     /// Gets or sets the parent logo image tag.
     public var parentLogoImageTag: String?
-    /// Gets or sets wether the item has a logo, this will hold the Id of the Parent that has one.
+    /// Gets or sets whether the item has a logo, this will hold the Id of the Parent that has one.
     public var parentLogoItemID: String?
     /// Gets or sets the parent primary image item identifier.
     public var parentPrimaryImageItemID: String?
@@ -260,8 +263,6 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var status: String?
     /// Gets or sets the studios.
     public var studios: [NameGuidPair]?
-    /// Gets or sets a value indicating whether [supports synchronize].
-    public var isSupportsSync: Bool?
     /// Gets or sets the taglines.
     public var taglines: [String]?
     /// Gets or sets the tags.
@@ -270,6 +271,8 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var timerID: String?
     /// Gets or sets the trailer count.
     public var trailerCount: Int?
+    /// Gets or sets the trickplay manifest.
+    public var trickplay: [String: [String: TrickplayInfo]]?
     /// Gets or sets the type.
     public var type: BaseItemKind?
     /// Gets or sets the user data for this item based on the user it's being requested for.
@@ -394,7 +397,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         channelType: ChannelType? = nil,
         chapters: [ChapterInfo]? = nil,
         childCount: Int? = nil,
-        collectionType: String? = nil,
+        collectionType: CollectionType? = nil,
         communityRating: Float? = nil,
         completionPercentage: Double? = nil,
         container: String? = nil,
@@ -417,6 +420,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         forcedSortName: String? = nil,
         genreItems: [NameGuidPair]? = nil,
         genres: [String]? = nil,
+        hasLyrics: Bool? = nil,
         hasSubtitles: Bool? = nil,
         height: Int? = nil,
         id: String? = nil,
@@ -447,10 +451,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         mediaSourceCount: Int? = nil,
         mediaSources: [MediaSourceInfo]? = nil,
         mediaStreams: [MediaStream]? = nil,
-        mediaType: String? = nil,
+        mediaType: MediaType? = nil,
         movieCount: Int? = nil,
         musicVideoCount: Int? = nil,
         name: String? = nil,
+        normalizationGain: Float? = nil,
         number: String? = nil,
         officialRating: String? = nil,
         originalTitle: String? = nil,
@@ -504,11 +509,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         startDate: Date? = nil,
         status: String? = nil,
         studios: [NameGuidPair]? = nil,
-        isSupportsSync: Bool? = nil,
         taglines: [String]? = nil,
         tags: [String]? = nil,
         timerID: String? = nil,
         trailerCount: Int? = nil,
+        trickplay: [String: [String: TrickplayInfo]]? = nil,
         type: BaseItemKind? = nil,
         userData: UserItemDataDto? = nil,
         video3DFormat: Video3DFormat? = nil,
@@ -568,6 +573,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.forcedSortName = forcedSortName
         self.genreItems = genreItems
         self.genres = genres
+        self.hasLyrics = hasLyrics
         self.hasSubtitles = hasSubtitles
         self.height = height
         self.id = id
@@ -602,6 +608,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.movieCount = movieCount
         self.musicVideoCount = musicVideoCount
         self.name = name
+        self.normalizationGain = normalizationGain
         self.number = number
         self.officialRating = officialRating
         self.originalTitle = originalTitle
@@ -655,11 +662,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.startDate = startDate
         self.status = status
         self.studios = studios
-        self.isSupportsSync = isSupportsSync
         self.taglines = taglines
         self.tags = tags
         self.timerID = timerID
         self.trailerCount = trailerCount
+        self.trickplay = trickplay
         self.type = type
         self.userData = userData
         self.video3DFormat = video3DFormat
@@ -699,7 +706,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.channelType = try values.decodeIfPresent(ChannelType.self, forKey: "ChannelType")
         self.chapters = try values.decodeIfPresent([ChapterInfo].self, forKey: "Chapters")
         self.childCount = try values.decodeIfPresent(Int.self, forKey: "ChildCount")
-        self.collectionType = try values.decodeIfPresent(String.self, forKey: "CollectionType")
+        self.collectionType = try values.decodeIfPresent(CollectionType.self, forKey: "CollectionType")
         self.communityRating = try values.decodeIfPresent(Float.self, forKey: "CommunityRating")
         self.completionPercentage = try values.decodeIfPresent(Double.self, forKey: "CompletionPercentage")
         self.container = try values.decodeIfPresent(String.self, forKey: "Container")
@@ -722,6 +729,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.forcedSortName = try values.decodeIfPresent(String.self, forKey: "ForcedSortName")
         self.genreItems = try values.decodeIfPresent([NameGuidPair].self, forKey: "GenreItems")
         self.genres = try values.decodeIfPresent([String].self, forKey: "Genres")
+        self.hasLyrics = try values.decodeIfPresent(Bool.self, forKey: "HasLyrics")
         self.hasSubtitles = try values.decodeIfPresent(Bool.self, forKey: "HasSubtitles")
         self.height = try values.decodeIfPresent(Int.self, forKey: "Height")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
@@ -752,10 +760,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.mediaSourceCount = try values.decodeIfPresent(Int.self, forKey: "MediaSourceCount")
         self.mediaSources = try values.decodeIfPresent([MediaSourceInfo].self, forKey: "MediaSources")
         self.mediaStreams = try values.decodeIfPresent([MediaStream].self, forKey: "MediaStreams")
-        self.mediaType = try values.decodeIfPresent(String.self, forKey: "MediaType")
+        self.mediaType = try values.decodeIfPresent(MediaType.self, forKey: "MediaType")
         self.movieCount = try values.decodeIfPresent(Int.self, forKey: "MovieCount")
         self.musicVideoCount = try values.decodeIfPresent(Int.self, forKey: "MusicVideoCount")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.normalizationGain = try values.decodeIfPresent(Float.self, forKey: "NormalizationGain")
         self.number = try values.decodeIfPresent(String.self, forKey: "Number")
         self.officialRating = try values.decodeIfPresent(String.self, forKey: "OfficialRating")
         self.originalTitle = try values.decodeIfPresent(String.self, forKey: "OriginalTitle")
@@ -809,11 +818,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.startDate = try values.decodeIfPresent(Date.self, forKey: "StartDate")
         self.status = try values.decodeIfPresent(String.self, forKey: "Status")
         self.studios = try values.decodeIfPresent([NameGuidPair].self, forKey: "Studios")
-        self.isSupportsSync = try values.decodeIfPresent(Bool.self, forKey: "SupportsSync")
         self.taglines = try values.decodeIfPresent([String].self, forKey: "Taglines")
         self.tags = try values.decodeIfPresent([String].self, forKey: "Tags")
         self.timerID = try values.decodeIfPresent(String.self, forKey: "TimerId")
         self.trailerCount = try values.decodeIfPresent(Int.self, forKey: "TrailerCount")
+        self.trickplay = try values.decodeIfPresent([String: [String: TrickplayInfo]].self, forKey: "Trickplay")
         self.type = try values.decodeIfPresent(BaseItemKind.self, forKey: "Type")
         self.userData = try values.decodeIfPresent(UserItemDataDto.self, forKey: "UserData")
         self.video3DFormat = try values.decodeIfPresent(Video3DFormat.self, forKey: "Video3DFormat")
@@ -876,6 +885,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(forcedSortName, forKey: "ForcedSortName")
         try values.encodeIfPresent(genreItems, forKey: "GenreItems")
         try values.encodeIfPresent(genres, forKey: "Genres")
+        try values.encodeIfPresent(hasLyrics, forKey: "HasLyrics")
         try values.encodeIfPresent(hasSubtitles, forKey: "HasSubtitles")
         try values.encodeIfPresent(height, forKey: "Height")
         try values.encodeIfPresent(id, forKey: "Id")
@@ -910,6 +920,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(movieCount, forKey: "MovieCount")
         try values.encodeIfPresent(musicVideoCount, forKey: "MusicVideoCount")
         try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(normalizationGain, forKey: "NormalizationGain")
         try values.encodeIfPresent(number, forKey: "Number")
         try values.encodeIfPresent(officialRating, forKey: "OfficialRating")
         try values.encodeIfPresent(originalTitle, forKey: "OriginalTitle")
@@ -963,11 +974,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(startDate, forKey: "StartDate")
         try values.encodeIfPresent(status, forKey: "Status")
         try values.encodeIfPresent(studios, forKey: "Studios")
-        try values.encodeIfPresent(isSupportsSync, forKey: "SupportsSync")
         try values.encodeIfPresent(taglines, forKey: "Taglines")
         try values.encodeIfPresent(tags, forKey: "Tags")
         try values.encodeIfPresent(timerID, forKey: "TimerId")
         try values.encodeIfPresent(trailerCount, forKey: "TrailerCount")
+        try values.encodeIfPresent(trickplay, forKey: "Trickplay")
         try values.encodeIfPresent(type, forKey: "Type")
         try values.encodeIfPresent(userData, forKey: "UserData")
         try values.encodeIfPresent(video3DFormat, forKey: "Video3DFormat")

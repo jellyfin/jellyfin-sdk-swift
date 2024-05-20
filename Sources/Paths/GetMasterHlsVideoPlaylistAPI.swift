@@ -67,6 +67,7 @@ public extension Paths {
         public var context: Context?
         public var streamOptions: StreamOptions?
         public var enableAdaptiveBitrateStreaming: Bool?
+        public var enableTrickplay: Bool?
 
         public typealias SubtitleMethod = JellyfinAPI.SubtitleDeliveryMethod
 
@@ -124,7 +125,8 @@ public extension Paths {
             videoStreamIndex: Int? = nil,
             context: Context? = nil,
             streamOptions: StreamOptions? = nil,
-            enableAdaptiveBitrateStreaming: Bool? = nil
+            enableAdaptiveBitrateStreaming: Bool? = nil,
+            enableTrickplay: Bool? = nil
         ) {
             self.isStatic = isStatic
             self.params = params
@@ -176,6 +178,7 @@ public extension Paths {
             self.context = context
             self.streamOptions = streamOptions
             self.enableAdaptiveBitrateStreaming = enableAdaptiveBitrateStreaming
+            self.enableTrickplay = enableTrickplay
         }
 
         public var asQuery: [(String, String?)] {
@@ -230,6 +233,7 @@ public extension Paths {
             encoder.encode(context, forKey: "context")
             encoder.encode(streamOptions, forKey: "streamOptions")
             encoder.encode(enableAdaptiveBitrateStreaming, forKey: "enableAdaptiveBitrateStreaming")
+            encoder.encode(enableTrickplay, forKey: "enableTrickplay")
             return encoder.items
         }
     }

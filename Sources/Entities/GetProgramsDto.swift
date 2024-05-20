@@ -99,7 +99,7 @@ public struct GetProgramsDto: Codable, Hashable {
     /// Gets or sets specify one or more sort orders, comma delimited. Options: Name, StartDate.
     ///
     /// Optional.
-    public var sortBy: [String]?
+    public var sortBy: [ItemSortBy]?
     /// Gets or sets sort Order - Ascending,Descending.
     public var sortOrder: [SortOrder]?
     /// Gets or sets the record index to start at. All items with a lower index will be dropped from the results.
@@ -133,7 +133,7 @@ public struct GetProgramsDto: Codable, Hashable {
         minEndDate: Date? = nil,
         minStartDate: Date? = nil,
         seriesTimerID: String? = nil,
-        sortBy: [String]? = nil,
+        sortBy: [ItemSortBy]? = nil,
         sortOrder: [SortOrder]? = nil,
         startIndex: Int? = nil,
         userID: String? = nil
@@ -192,7 +192,7 @@ public struct GetProgramsDto: Codable, Hashable {
         self.minEndDate = try values.decodeIfPresent(Date.self, forKey: "MinEndDate")
         self.minStartDate = try values.decodeIfPresent(Date.self, forKey: "MinStartDate")
         self.seriesTimerID = try values.decodeIfPresent(String.self, forKey: "SeriesTimerId")
-        self.sortBy = try values.decodeIfPresent([String].self, forKey: "SortBy")
+        self.sortBy = try values.decodeIfPresent([ItemSortBy].self, forKey: "SortBy")
         self.sortOrder = try values.decodeIfPresent([SortOrder].self, forKey: "SortOrder")
         self.startIndex = try values.decodeIfPresent(Int.self, forKey: "StartIndex")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")

@@ -22,4 +22,5 @@ public enum ExternalIDMediaType: String, Codable, CaseIterable {
     case season = "Season"
     case series = "Series"
     case track = "Track"
+    case book = "Book"
 }

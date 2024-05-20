@@ -10,9 +10,20 @@ import Foundation
 import Get
 import URLQueryEncoder
 
-public extension Paths {
+extension Paths {
     /// Gets special features for an item.
-    static func getSpecialFeatures(userID: String, itemID: String) -> Request<[JellyfinAPI.BaseItemDto]> {
-        Request(path: "/Users/\(userID)/Items/\(itemID)/SpecialFeatures", method: "GET", id: "GetSpecialFeatures")
+    public static func getSpecialFeatures(itemID: String, userID: String? = nil) -> Request<[JellyfinAPI.BaseItemDto]> {
+        Request(
+            path: "/Items/\(itemID)/SpecialFeatures",
+            method: "GET",
+            query: makeGetSpecialFeaturesQuery(userID),
+            id: "GetSpecialFeatures"
+        )
+    }
+
+    private static func makeGetSpecialFeaturesQuery(_ userID: String?) -> [(String, String?)] {
+        let encoder = URLQueryEncoder()
+        encoder.encode(userID, forKey: "userId")
+        return encoder.items
     }
 }

@@ -27,9 +27,11 @@ public extension Paths {
         public var name: String?
         public var ids: [String]?
         public var userID: String?
-        public var mediaType: String?
+        public var mediaType: MediaType?
 
-        public init(name: String? = nil, ids: [String]? = nil, userID: String? = nil, mediaType: String? = nil) {
+        public typealias MediaType = JellyfinAPI.MediaType
+
+        public init(name: String? = nil, ids: [String]? = nil, userID: String? = nil, mediaType: MediaType? = nil) {
             self.name = name
             self.ids = ids
             self.userID = userID

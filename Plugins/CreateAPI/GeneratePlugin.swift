@@ -22,6 +22,7 @@ struct Plugin: CommandPlugin {
         // Apply post patches
         try await patchRemoteSearchResult(context: context)
         try await patchAnyJSON(context: context)
+        try await patchGroupUpdateDiscriminator(context: context)
 
         // Move patch files
         try await addSpecialFeatureType(context: context)
@@ -103,8 +104,8 @@ struct Plugin: CommandPlugin {
         try FileManager.default.removeItem(atPath: filePath.string)
     }
 
-    // BaseItemDto: add SpecialFeatureType string format and CollectionTypeOptions
-    //              object reference to properties prior to generation
+    // TODO: remove when BaseItemDto uses `ExtraType` or other
+    // BaseItemDto: add SpecialFeatureType string format to property prior to generation
     private func patchBaseItemDtoSchema(context: PluginContext) async throws {
         let contents = try await parseOriginalSchema(context: context)
 
@@ -121,16 +122,6 @@ struct Plugin: CommandPlugin {
                 "nullable": .bool(true),
             ]
         )
-
-        // TODO: Uncomment once Swiftfin has refactored how it uses the existing CollectionType
-        //       property for library management
-//        properties["CollectionType"] = AnyJSON.object(
-//            [
-//                "allOf": .array([.object(["$ref": .string("#/components/schemas/CollectionTypeOptions")])]),
-//                "nullable": .bool(true),
-//                "description": .string("Gets or sets the type of the collection."),
-//            ]
-//        )
 
         baseItemDto["properties"] = .object(properties)
         schemas["BaseItemDto"] = .object(baseItemDto)
@@ -194,5 +185,21 @@ struct Plugin: CommandPlugin {
             .appending(["Sources", "Entities", "SpecialFeatureType.swift"])
 
         try sourceData.write(to: URL(fileURLWithPath: finalFilePath.string))
+    }
+
+    // TODO: Remove if/when fixed within CreateAPI
+    // Entities/GroupUpdate.swift: change generated `Type` name to `_Type`
+    private func patchGroupUpdateDiscriminator(context: PluginContext) async throws {
+        let filePath = context
+            .package
+            .directory
+            .appending(["Sources", "Entities", "GroupUpdate.swift"])
+
+        let contents = try String(contentsOfFile: filePath.string)
+            .replacingOccurrences(of: "Type", with: "_Type")
+
+        try contents
+            .data(using: .utf8)?
+            .write(to: URL(fileURLWithPath: filePath.string))
     }
 }

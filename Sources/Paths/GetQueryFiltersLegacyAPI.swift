@@ -20,13 +20,13 @@ public extension Paths {
         public var userID: String?
         public var parentID: String?
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var mediaTypes: [String]?
+        public var mediaTypes: [JellyfinAPI.MediaType]?
 
         public init(
             userID: String? = nil,
             parentID: String? = nil,
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            mediaTypes: [String]? = nil
+            mediaTypes: [JellyfinAPI.MediaType]? = nil
         ) {
             self.userID = userID
             self.parentID = parentID

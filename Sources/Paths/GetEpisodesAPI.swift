@@ -30,7 +30,9 @@ public extension Paths {
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
         public var enableUserData: Bool?
-        public var sortBy: String?
+        public var sortBy: SortBy?
+
+        public typealias SortBy = JellyfinAPI.ItemSortBy
 
         public init(
             userID: String? = nil,
@@ -46,7 +48,7 @@ public extension Paths {
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
             enableUserData: Bool? = nil,
-            sortBy: String? = nil
+            sortBy: SortBy? = nil
         ) {
             self.userID = userID
             self.fields = fields

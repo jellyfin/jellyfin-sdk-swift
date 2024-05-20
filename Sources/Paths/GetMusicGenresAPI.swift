@@ -32,7 +32,7 @@ public extension Paths {
         public var nameStartsWithOrGreater: String?
         public var nameStartsWith: String?
         public var nameLessThan: String?
-        public var sortBy: [String]?
+        public var sortBy: [JellyfinAPI.ItemSortBy]?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var enableImages: Bool?
         public var enableTotalRecordCount: Bool?
@@ -52,7 +52,7 @@ public extension Paths {
             nameStartsWithOrGreater: String? = nil,
             nameStartsWith: String? = nil,
             nameLessThan: String? = nil,
-            sortBy: [String]? = nil,
+            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             enableImages: Bool? = nil,
             enableTotalRecordCount: Bool? = nil

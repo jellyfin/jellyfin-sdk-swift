@@ -18,25 +18,22 @@ public extension Paths {
 
     struct PostCapabilitiesParameters {
         public var id: String?
-        public var playableMediaTypes: [String]?
+        public var playableMediaTypes: [JellyfinAPI.MediaType]?
         public var supportedCommands: [JellyfinAPI.GeneralCommandType]?
         public var isSupportsMediaControl: Bool?
-        public var isSupportsSync: Bool?
         public var isSupportsPersistentIdentifier: Bool?
 
         public init(
             id: String? = nil,
-            playableMediaTypes: [String]? = nil,
+            playableMediaTypes: [JellyfinAPI.MediaType]? = nil,
             supportedCommands: [JellyfinAPI.GeneralCommandType]? = nil,
             isSupportsMediaControl: Bool? = nil,
-            isSupportsSync: Bool? = nil,
             isSupportsPersistentIdentifier: Bool? = nil
         ) {
             self.id = id
             self.playableMediaTypes = playableMediaTypes
             self.supportedCommands = supportedCommands
             self.isSupportsMediaControl = isSupportsMediaControl
-            self.isSupportsSync = isSupportsSync
             self.isSupportsPersistentIdentifier = isSupportsPersistentIdentifier
         }
 
@@ -46,7 +43,6 @@ public extension Paths {
             encoder.encode(playableMediaTypes, forKey: "playableMediaTypes")
             encoder.encode(supportedCommands, forKey: "supportedCommands")
             encoder.encode(isSupportsMediaControl, forKey: "supportsMediaControl")
-            encoder.encode(isSupportsSync, forKey: "supportsSync")
             encoder.encode(isSupportsPersistentIdentifier, forKey: "supportsPersistentIdentifier")
             return encoder.items
         }

@@ -21,7 +21,7 @@ public struct BaseItemPerson: Codable, Hashable, Identifiable {
     /// Gets or sets the role.
     public var role: String?
     /// Gets or sets the type.
-    public var type: String?
+    public var type: PersonKind?
 
     /// Gets or sets the primary image blurhash.
     public struct ImageBlurHashes: Codable, Hashable {
@@ -110,7 +110,7 @@ public struct BaseItemPerson: Codable, Hashable, Identifiable {
         name: String? = nil,
         primaryImageTag: String? = nil,
         role: String? = nil,
-        type: String? = nil
+        type: PersonKind? = nil
     ) {
         self.id = id
         self.imageBlurHashes = imageBlurHashes
@@ -127,7 +127,7 @@ public struct BaseItemPerson: Codable, Hashable, Identifiable {
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.primaryImageTag = try values.decodeIfPresent(String.self, forKey: "PrimaryImageTag")
         self.role = try values.decodeIfPresent(String.self, forKey: "Role")
-        self.type = try values.decodeIfPresent(String.self, forKey: "Type")
+        self.type = try values.decodeIfPresent(PersonKind.self, forKey: "Type")
     }
 
     public func encode(to encoder: Encoder) throws {

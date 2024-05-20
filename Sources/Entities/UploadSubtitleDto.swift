@@ -16,13 +16,16 @@ public struct UploadSubtitleDto: Codable, Hashable {
     public var format: String
     /// Gets or sets a value indicating whether the subtitle is forced.
     public var isForced: Bool
+    /// Gets or sets a value indicating whether the subtitle is for hearing impaired.
+    public var isHearingImpaired: Bool
     /// Gets or sets the subtitle language.
     public var language: String
 
-    public init(data: String, format: String, isForced: Bool, language: String) {
+    public init(data: String, format: String, isForced: Bool, isHearingImpaired: Bool, language: String) {
         self.data = data
         self.format = format
         self.isForced = isForced
+        self.isHearingImpaired = isHearingImpaired
         self.language = language
     }
 
@@ -31,6 +34,7 @@ public struct UploadSubtitleDto: Codable, Hashable {
         self.data = try values.decode(String.self, forKey: "Data")
         self.format = try values.decode(String.self, forKey: "Format")
         self.isForced = try values.decode(Bool.self, forKey: "IsForced")
+        self.isHearingImpaired = try values.decode(Bool.self, forKey: "IsHearingImpaired")
         self.language = try values.decode(String.self, forKey: "Language")
     }
 
@@ -39,6 +43,7 @@ public struct UploadSubtitleDto: Codable, Hashable {
         try values.encode(data, forKey: "Data")
         try values.encode(format, forKey: "Format")
         try values.encode(isForced, forKey: "IsForced")
+        try values.encode(isHearingImpaired, forKey: "IsHearingImpaired")
         try values.encode(language, forKey: "Language")
     }
 }

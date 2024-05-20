@@ -49,7 +49,10 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
     public var isSupportsTranscoding: Bool?
     public var timestamp: TransportStreamTimestamp?
     public var transcodingContainer: String?
-    public var transcodingSubProtocol: String?
+    /// Media streaming protocol.
+    ///
+    /// Lowercase for backwards compatibility.
+    public var transcodingSubProtocol: MediaStreamProtocol?
     public var transcodingURL: String?
     public var type: MediaSourceType?
     public var video3DFormat: Video3DFormat?
@@ -93,7 +96,7 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         isSupportsTranscoding: Bool? = nil,
         timestamp: TransportStreamTimestamp? = nil,
         transcodingContainer: String? = nil,
-        transcodingSubProtocol: String? = nil,
+        transcodingSubProtocol: MediaStreamProtocol? = nil,
         transcodingURL: String? = nil,
         type: MediaSourceType? = nil,
         video3DFormat: Video3DFormat? = nil,
@@ -182,7 +185,7 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         self.isSupportsTranscoding = try values.decodeIfPresent(Bool.self, forKey: "SupportsTranscoding")
         self.timestamp = try values.decodeIfPresent(TransportStreamTimestamp.self, forKey: "Timestamp")
         self.transcodingContainer = try values.decodeIfPresent(String.self, forKey: "TranscodingContainer")
-        self.transcodingSubProtocol = try values.decodeIfPresent(String.self, forKey: "TranscodingSubProtocol")
+        self.transcodingSubProtocol = try values.decodeIfPresent(MediaStreamProtocol.self, forKey: "TranscodingSubProtocol")
         self.transcodingURL = try values.decodeIfPresent(String.self, forKey: "TranscodingUrl")
         self.type = try values.decodeIfPresent(MediaSourceType.self, forKey: "Type")
         self.video3DFormat = try values.decodeIfPresent(Video3DFormat.self, forKey: "Video3DFormat")

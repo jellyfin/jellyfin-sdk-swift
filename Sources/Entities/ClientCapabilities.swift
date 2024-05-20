@@ -26,20 +26,20 @@ public struct ClientCapabilities: Codable, Hashable {
     /// case it isn't.
     public var deviceProfile: DeviceProfile?
     public var iconURL: String?
-    public var messageCallbackURL: String?
-    public var playableMediaTypes: [String]?
+    public var playableMediaTypes: [MediaType]?
     public var supportedCommands: [GeneralCommandType]?
-    public var isSupportsContentUploading: Bool?
+    /// - warning: Deprecated.
+    public var isSupportsContentUploading: Bool
     public var isSupportsMediaControl: Bool?
     public var isSupportsPersistentIdentifier: Bool?
-    public var isSupportsSync: Bool?
+    /// - warning: Deprecated.
+    public var isSupportsSync: Bool
 
     public init(
         appStoreURL: String? = nil,
         deviceProfile: DeviceProfile? = nil,
         iconURL: String? = nil,
-        messageCallbackURL: String? = nil,
-        playableMediaTypes: [String]? = nil,
+        playableMediaTypes: [MediaType]? = nil,
         supportedCommands: [GeneralCommandType]? = nil,
         isSupportsContentUploading: Bool? = nil,
         isSupportsMediaControl: Bool? = nil,
@@ -49,13 +49,12 @@ public struct ClientCapabilities: Codable, Hashable {
         self.appStoreURL = appStoreURL
         self.deviceProfile = deviceProfile
         self.iconURL = iconURL
-        self.messageCallbackURL = messageCallbackURL
         self.playableMediaTypes = playableMediaTypes
         self.supportedCommands = supportedCommands
-        self.isSupportsContentUploading = isSupportsContentUploading
+        self.isSupportsContentUploading = isSupportsContentUploading ?? false
         self.isSupportsMediaControl = isSupportsMediaControl
         self.isSupportsPersistentIdentifier = isSupportsPersistentIdentifier
-        self.isSupportsSync = isSupportsSync
+        self.isSupportsSync = isSupportsSync ?? false
     }
 
     public init(from decoder: Decoder) throws {
@@ -63,13 +62,12 @@ public struct ClientCapabilities: Codable, Hashable {
         self.appStoreURL = try values.decodeIfPresent(String.self, forKey: "AppStoreUrl")
         self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
         self.iconURL = try values.decodeIfPresent(String.self, forKey: "IconUrl")
-        self.messageCallbackURL = try values.decodeIfPresent(String.self, forKey: "MessageCallbackUrl")
-        self.playableMediaTypes = try values.decodeIfPresent([String].self, forKey: "PlayableMediaTypes")
+        self.playableMediaTypes = try values.decodeIfPresent([MediaType].self, forKey: "PlayableMediaTypes")
         self.supportedCommands = try values.decodeIfPresent([GeneralCommandType].self, forKey: "SupportedCommands")
-        self.isSupportsContentUploading = try values.decodeIfPresent(Bool.self, forKey: "SupportsContentUploading")
+        self.isSupportsContentUploading = try values.decodeIfPresent(Bool.self, forKey: "SupportsContentUploading") ?? false
         self.isSupportsMediaControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
         self.isSupportsPersistentIdentifier = try values.decodeIfPresent(Bool.self, forKey: "SupportsPersistentIdentifier")
-        self.isSupportsSync = try values.decodeIfPresent(Bool.self, forKey: "SupportsSync")
+        self.isSupportsSync = try values.decodeIfPresent(Bool.self, forKey: "SupportsSync") ?? false
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -77,7 +75,6 @@ public struct ClientCapabilities: Codable, Hashable {
         try values.encodeIfPresent(appStoreURL, forKey: "AppStoreUrl")
         try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")
         try values.encodeIfPresent(iconURL, forKey: "IconUrl")
-        try values.encodeIfPresent(messageCallbackURL, forKey: "MessageCallbackUrl")
         try values.encodeIfPresent(playableMediaTypes, forKey: "PlayableMediaTypes")
         try values.encodeIfPresent(supportedCommands, forKey: "SupportedCommands")
         try values.encodeIfPresent(isSupportsContentUploading, forKey: "SupportsContentUploading")

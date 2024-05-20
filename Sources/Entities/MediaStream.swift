@@ -12,6 +12,8 @@ import Foundation
 public struct MediaStream: Codable, Hashable {
     /// Gets or sets the aspect ratio.
     public var aspectRatio: String?
+    /// Gets the audio spatial format.
+    public var audioSpatialFormat: AudioSpatialFormat?
     /// Gets or sets the average frame rate.
     public var averageFrameRate: Float?
     /// Gets or sets the bit depth.
@@ -72,6 +74,8 @@ public struct MediaStream: Codable, Hashable {
     public var isExternalURL: Bool?
     /// Gets or sets a value indicating whether this instance is forced.
     public var isForced: Bool?
+    /// Gets or sets a value indicating whether this instance is for the hearing impaired.
+    public var isHearingImpaired: Bool?
     /// Gets or sets a value indicating whether this instance is interlaced.
     public var isInterlaced: Bool?
     public var isTextSubtitleStream: Bool?
@@ -82,6 +86,7 @@ public struct MediaStream: Codable, Hashable {
     public var localizedDefault: String?
     public var localizedExternal: String?
     public var localizedForced: String?
+    public var localizedHearingImpaired: String?
     public var localizedUndefined: String?
     public var nalLengthSize: String?
     /// Gets or sets the length of the packet.
@@ -113,14 +118,15 @@ public struct MediaStream: Codable, Hashable {
     /// Gets the video dovi title.
     public var videoDoViTitle: String?
     /// Gets the video range.
-    public var videoRange: String?
+    public var videoRange: VideoRange?
     /// Gets the video range type.
-    public var videoRangeType: String?
+    public var videoRangeType: VideoRangeType?
     /// Gets or sets the width.
     public var width: Int?
 
     public init(
         aspectRatio: String? = nil,
+        audioSpatialFormat: AudioSpatialFormat? = nil,
         averageFrameRate: Float? = nil,
         bitDepth: Int? = nil,
         bitRate: Int? = nil,
@@ -152,6 +158,7 @@ public struct MediaStream: Codable, Hashable {
         isExternal: Bool? = nil,
         isExternalURL: Bool? = nil,
         isForced: Bool? = nil,
+        isHearingImpaired: Bool? = nil,
         isInterlaced: Bool? = nil,
         isTextSubtitleStream: Bool? = nil,
         language: String? = nil,
@@ -159,6 +166,7 @@ public struct MediaStream: Codable, Hashable {
         localizedDefault: String? = nil,
         localizedExternal: String? = nil,
         localizedForced: String? = nil,
+        localizedHearingImpaired: String? = nil,
         localizedUndefined: String? = nil,
         nalLengthSize: String? = nil,
         packetLength: Int? = nil,
@@ -175,11 +183,12 @@ public struct MediaStream: Codable, Hashable {
         title: String? = nil,
         type: MediaStreamType? = nil,
         videoDoViTitle: String? = nil,
-        videoRange: String? = nil,
-        videoRangeType: String? = nil,
+        videoRange: VideoRange? = nil,
+        videoRangeType: VideoRangeType? = nil,
         width: Int? = nil
     ) {
         self.aspectRatio = aspectRatio
+        self.audioSpatialFormat = audioSpatialFormat
         self.averageFrameRate = averageFrameRate
         self.bitDepth = bitDepth
         self.bitRate = bitRate
@@ -211,6 +220,7 @@ public struct MediaStream: Codable, Hashable {
         self.isExternal = isExternal
         self.isExternalURL = isExternalURL
         self.isForced = isForced
+        self.isHearingImpaired = isHearingImpaired
         self.isInterlaced = isInterlaced
         self.isTextSubtitleStream = isTextSubtitleStream
         self.language = language
@@ -218,6 +228,7 @@ public struct MediaStream: Codable, Hashable {
         self.localizedDefault = localizedDefault
         self.localizedExternal = localizedExternal
         self.localizedForced = localizedForced
+        self.localizedHearingImpaired = localizedHearingImpaired
         self.localizedUndefined = localizedUndefined
         self.nalLengthSize = nalLengthSize
         self.packetLength = packetLength
@@ -242,6 +253,7 @@ public struct MediaStream: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.aspectRatio = try values.decodeIfPresent(String.self, forKey: "AspectRatio")
+        self.audioSpatialFormat = try values.decodeIfPresent(AudioSpatialFormat.self, forKey: "AudioSpatialFormat")
         self.averageFrameRate = try values.decodeIfPresent(Float.self, forKey: "AverageFrameRate")
         self.bitDepth = try values.decodeIfPresent(Int.self, forKey: "BitDepth")
         self.bitRate = try values.decodeIfPresent(Int.self, forKey: "BitRate")
@@ -273,6 +285,7 @@ public struct MediaStream: Codable, Hashable {
         self.isExternal = try values.decodeIfPresent(Bool.self, forKey: "IsExternal")
         self.isExternalURL = try values.decodeIfPresent(Bool.self, forKey: "IsExternalUrl")
         self.isForced = try values.decodeIfPresent(Bool.self, forKey: "IsForced")
+        self.isHearingImpaired = try values.decodeIfPresent(Bool.self, forKey: "IsHearingImpaired")
         self.isInterlaced = try values.decodeIfPresent(Bool.self, forKey: "IsInterlaced")
         self.isTextSubtitleStream = try values.decodeIfPresent(Bool.self, forKey: "IsTextSubtitleStream")
         self.language = try values.decodeIfPresent(String.self, forKey: "Language")
@@ -280,6 +293,7 @@ public struct MediaStream: Codable, Hashable {
         self.localizedDefault = try values.decodeIfPresent(String.self, forKey: "LocalizedDefault")
         self.localizedExternal = try values.decodeIfPresent(String.self, forKey: "LocalizedExternal")
         self.localizedForced = try values.decodeIfPresent(String.self, forKey: "LocalizedForced")
+        self.localizedHearingImpaired = try values.decodeIfPresent(String.self, forKey: "LocalizedHearingImpaired")
         self.localizedUndefined = try values.decodeIfPresent(String.self, forKey: "LocalizedUndefined")
         self.nalLengthSize = try values.decodeIfPresent(String.self, forKey: "NalLengthSize")
         self.packetLength = try values.decodeIfPresent(Int.self, forKey: "PacketLength")
@@ -296,14 +310,15 @@ public struct MediaStream: Codable, Hashable {
         self.title = try values.decodeIfPresent(String.self, forKey: "Title")
         self.type = try values.decodeIfPresent(MediaStreamType.self, forKey: "Type")
         self.videoDoViTitle = try values.decodeIfPresent(String.self, forKey: "VideoDoViTitle")
-        self.videoRange = try values.decodeIfPresent(String.self, forKey: "VideoRange")
-        self.videoRangeType = try values.decodeIfPresent(String.self, forKey: "VideoRangeType")
+        self.videoRange = try values.decodeIfPresent(VideoRange.self, forKey: "VideoRange")
+        self.videoRangeType = try values.decodeIfPresent(VideoRangeType.self, forKey: "VideoRangeType")
         self.width = try values.decodeIfPresent(Int.self, forKey: "Width")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(aspectRatio, forKey: "AspectRatio")
+        try values.encodeIfPresent(audioSpatialFormat, forKey: "AudioSpatialFormat")
         try values.encodeIfPresent(averageFrameRate, forKey: "AverageFrameRate")
         try values.encodeIfPresent(bitDepth, forKey: "BitDepth")
         try values.encodeIfPresent(bitRate, forKey: "BitRate")
@@ -335,6 +350,7 @@ public struct MediaStream: Codable, Hashable {
         try values.encodeIfPresent(isExternal, forKey: "IsExternal")
         try values.encodeIfPresent(isExternalURL, forKey: "IsExternalUrl")
         try values.encodeIfPresent(isForced, forKey: "IsForced")
+        try values.encodeIfPresent(isHearingImpaired, forKey: "IsHearingImpaired")
         try values.encodeIfPresent(isInterlaced, forKey: "IsInterlaced")
         try values.encodeIfPresent(isTextSubtitleStream, forKey: "IsTextSubtitleStream")
         try values.encodeIfPresent(language, forKey: "Language")
@@ -342,6 +358,7 @@ public struct MediaStream: Codable, Hashable {
         try values.encodeIfPresent(localizedDefault, forKey: "LocalizedDefault")
         try values.encodeIfPresent(localizedExternal, forKey: "LocalizedExternal")
         try values.encodeIfPresent(localizedForced, forKey: "LocalizedForced")
+        try values.encodeIfPresent(localizedHearingImpaired, forKey: "LocalizedHearingImpaired")
         try values.encodeIfPresent(localizedUndefined, forKey: "LocalizedUndefined")
         try values.encodeIfPresent(nalLengthSize, forKey: "NalLengthSize")
         try values.encodeIfPresent(packetLength, forKey: "PacketLength")

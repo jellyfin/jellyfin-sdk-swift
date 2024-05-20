@@ -15,6 +15,8 @@ public struct UserDto: Codable, Hashable, Identifiable {
     /// Gets or sets whether async login is enabled or not.
     public var enableAutoLogin: Bool?
     /// Gets or sets a value indicating whether this instance has configured easy password.
+    ///
+    /// - warning: Deprecated.
     public var hasConfiguredEasyPassword: Bool?
     /// Gets or sets a value indicating whether this instance has configured password.
     public var hasConfiguredPassword: Bool?

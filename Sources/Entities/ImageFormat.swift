@@ -15,4 +15,5 @@ public enum ImageFormat: String, Codable, CaseIterable {
     case jpg = "Jpg"
     case png = "Png"
     case webp = "Webp"
+    case svg = "Svg"
 }

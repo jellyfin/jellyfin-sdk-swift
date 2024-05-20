@@ -12,17 +12,18 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Gets items based on a query.
-    static func getResumeItems(userID: String, parameters: GetResumeItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(path: "/Users/\(userID)/Items/Resume", method: "GET", query: parameters?.asQuery, id: "GetResumeItems")
+    static func getResumeItems(parameters: GetResumeItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+        Request(path: "/UserItems/Resume", method: "GET", query: parameters?.asQuery, id: "GetResumeItems")
     }
 
     struct GetResumeItemsParameters {
+        public var userID: String?
         public var startIndex: Int?
         public var limit: Int?
         public var searchTerm: String?
         public var parentID: String?
         public var fields: [JellyfinAPI.ItemFields]?
-        public var mediaTypes: [String]?
+        public var mediaTypes: [JellyfinAPI.MediaType]?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
         public var enableImageTypes: [JellyfinAPI.ImageType]?
@@ -33,12 +34,13 @@ public extension Paths {
         public var excludeActiveSessions: Bool?
 
         public init(
+            userID: String? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
             searchTerm: String? = nil,
             parentID: String? = nil,
             fields: [JellyfinAPI.ItemFields]? = nil,
-            mediaTypes: [String]? = nil,
+            mediaTypes: [JellyfinAPI.MediaType]? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
             enableImageTypes: [JellyfinAPI.ImageType]? = nil,
@@ -48,6 +50,7 @@ public extension Paths {
             enableImages: Bool? = nil,
             excludeActiveSessions: Bool? = nil
         ) {
+            self.userID = userID
             self.startIndex = startIndex
             self.limit = limit
             self.searchTerm = searchTerm
@@ -66,6 +69,7 @@ public extension Paths {
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
+            encoder.encode(userID, forKey: "userId")
             encoder.encode(startIndex, forKey: "startIndex")
             encoder.encode(limit, forKey: "limit")
             encoder.encode(searchTerm, forKey: "searchTerm")

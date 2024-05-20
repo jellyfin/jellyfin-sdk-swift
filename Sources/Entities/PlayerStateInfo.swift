@@ -23,6 +23,8 @@ public struct PlayerStateInfo: Codable, Hashable {
     public var mediaSourceID: String?
     /// Gets or sets the play method.
     public var playMethod: PlayMethod?
+    /// Gets or sets the playback order.
+    public var playbackOrder: PlaybackOrder?
     /// Gets or sets the now playing position ticks.
     public var positionTicks: Int?
     /// Gets or sets the repeat mode.
@@ -40,6 +42,7 @@ public struct PlayerStateInfo: Codable, Hashable {
         liveStreamID: String? = nil,
         mediaSourceID: String? = nil,
         playMethod: PlayMethod? = nil,
+        playbackOrder: PlaybackOrder? = nil,
         positionTicks: Int? = nil,
         repeatMode: RepeatMode? = nil,
         subtitleStreamIndex: Int? = nil,
@@ -52,6 +55,7 @@ public struct PlayerStateInfo: Codable, Hashable {
         self.liveStreamID = liveStreamID
         self.mediaSourceID = mediaSourceID
         self.playMethod = playMethod
+        self.playbackOrder = playbackOrder
         self.positionTicks = positionTicks
         self.repeatMode = repeatMode
         self.subtitleStreamIndex = subtitleStreamIndex
@@ -67,6 +71,7 @@ public struct PlayerStateInfo: Codable, Hashable {
         self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
         self.mediaSourceID = try values.decodeIfPresent(String.self, forKey: "MediaSourceId")
         self.playMethod = try values.decodeIfPresent(PlayMethod.self, forKey: "PlayMethod")
+        self.playbackOrder = try values.decodeIfPresent(PlaybackOrder.self, forKey: "PlaybackOrder")
         self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
         self.repeatMode = try values.decodeIfPresent(RepeatMode.self, forKey: "RepeatMode")
         self.subtitleStreamIndex = try values.decodeIfPresent(Int.self, forKey: "SubtitleStreamIndex")
@@ -82,6 +87,7 @@ public struct PlayerStateInfo: Codable, Hashable {
         try values.encodeIfPresent(liveStreamID, forKey: "LiveStreamId")
         try values.encodeIfPresent(mediaSourceID, forKey: "MediaSourceId")
         try values.encodeIfPresent(playMethod, forKey: "PlayMethod")
+        try values.encodeIfPresent(playbackOrder, forKey: "PlaybackOrder")
         try values.encodeIfPresent(positionTicks, forKey: "PositionTicks")
         try values.encodeIfPresent(repeatMode, forKey: "RepeatMode")
         try values.encodeIfPresent(subtitleStreamIndex, forKey: "SubtitleStreamIndex")

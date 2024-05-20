@@ -19,4 +19,6 @@ public enum SpecialFeatureType: String, Codable, CaseIterable {
     case sample = "Sample"
     case themeSong = "ThemeSong"
     case themeVideo = "ThemeVideo"
+    case featurette = "Featurette"
+    case short = "Short"
 }

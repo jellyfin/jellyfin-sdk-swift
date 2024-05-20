@@ -13,10 +13,10 @@ import URLQueryEncoder
 public extension Paths {
     /// Creates an instant playlist based on a given artist.
     static func getInstantMixFromArtists(
-        id: String,
+        itemID: String,
         parameters: GetInstantMixFromArtistsParameters? = nil
     ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(path: "/Artists/\(id)/InstantMix", method: "GET", query: parameters?.asQuery, id: "GetInstantMixFromArtists")
+        Request(path: "/Artists/\(itemID)/InstantMix", method: "GET", query: parameters?.asQuery, id: "GetInstantMixFromArtists")
     }
 
     struct GetInstantMixFromArtistsParameters {

@@ -33,6 +33,8 @@ public struct PlaybackStartInfo: Codable, Hashable {
     public var playMethod: PlayMethod?
     /// Gets or sets the play session identifier.
     public var playSessionID: String?
+    /// Gets or sets the playback order.
+    public var playbackOrder: PlaybackOrder?
     public var playbackStartTimeTicks: Int?
     public var playlistItemID: String?
     /// Gets or sets the position ticks.
@@ -60,6 +62,7 @@ public struct PlaybackStartInfo: Codable, Hashable {
         nowPlayingQueue: [QueueItem]? = nil,
         playMethod: PlayMethod? = nil,
         playSessionID: String? = nil,
+        playbackOrder: PlaybackOrder? = nil,
         playbackStartTimeTicks: Int? = nil,
         playlistItemID: String? = nil,
         positionTicks: Int? = nil,
@@ -81,6 +84,7 @@ public struct PlaybackStartInfo: Codable, Hashable {
         self.nowPlayingQueue = nowPlayingQueue
         self.playMethod = playMethod
         self.playSessionID = playSessionID
+        self.playbackOrder = playbackOrder
         self.playbackStartTimeTicks = playbackStartTimeTicks
         self.playlistItemID = playlistItemID
         self.positionTicks = positionTicks
@@ -105,6 +109,7 @@ public struct PlaybackStartInfo: Codable, Hashable {
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
         self.playMethod = try values.decodeIfPresent(PlayMethod.self, forKey: "PlayMethod")
         self.playSessionID = try values.decodeIfPresent(String.self, forKey: "PlaySessionId")
+        self.playbackOrder = try values.decodeIfPresent(PlaybackOrder.self, forKey: "PlaybackOrder")
         self.playbackStartTimeTicks = try values.decodeIfPresent(Int.self, forKey: "PlaybackStartTimeTicks")
         self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
         self.positionTicks = try values.decodeIfPresent(Int.self, forKey: "PositionTicks")
@@ -129,6 +134,7 @@ public struct PlaybackStartInfo: Codable, Hashable {
         try values.encodeIfPresent(nowPlayingQueue, forKey: "NowPlayingQueue")
         try values.encodeIfPresent(playMethod, forKey: "PlayMethod")
         try values.encodeIfPresent(playSessionID, forKey: "PlaySessionId")
+        try values.encodeIfPresent(playbackOrder, forKey: "PlaybackOrder")
         try values.encodeIfPresent(playbackStartTimeTicks, forKey: "PlaybackStartTimeTicks")
         try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
         try values.encodeIfPresent(positionTicks, forKey: "PositionTicks")

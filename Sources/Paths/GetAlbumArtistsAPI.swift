@@ -27,7 +27,7 @@ public extension Paths {
         public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
         public var filters: [JellyfinAPI.ItemFilter]?
         public var isFavorite: Bool?
-        public var mediaTypes: [String]?
+        public var mediaTypes: [JellyfinAPI.MediaType]?
         public var genres: [String]?
         public var genreIDs: [String]?
         public var officialRatings: [String]?
@@ -45,7 +45,7 @@ public extension Paths {
         public var nameStartsWithOrGreater: String?
         public var nameStartsWith: String?
         public var nameLessThan: String?
-        public var sortBy: [String]?
+        public var sortBy: [JellyfinAPI.ItemSortBy]?
         public var sortOrder: [JellyfinAPI.SortOrder]?
         public var enableImages: Bool?
         public var enableTotalRecordCount: Bool?
@@ -61,7 +61,7 @@ public extension Paths {
             includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
             filters: [JellyfinAPI.ItemFilter]? = nil,
             isFavorite: Bool? = nil,
-            mediaTypes: [String]? = nil,
+            mediaTypes: [JellyfinAPI.MediaType]? = nil,
             genres: [String]? = nil,
             genreIDs: [String]? = nil,
             officialRatings: [String]? = nil,
@@ -79,7 +79,7 @@ public extension Paths {
             nameStartsWithOrGreater: String? = nil,
             nameStartsWith: String? = nil,
             nameLessThan: String? = nil,
-            sortBy: [String]? = nil,
+            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
             sortOrder: [JellyfinAPI.SortOrder]? = nil,
             enableImages: Bool? = nil,
             enableTotalRecordCount: Bool? = nil

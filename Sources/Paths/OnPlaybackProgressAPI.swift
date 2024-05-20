@@ -11,14 +11,9 @@ import Get
 import URLQueryEncoder
 
 public extension Paths {
-    /// Reports a user's playback progress.
-    static func onPlaybackProgress(userID: String, itemID: String, parameters: OnPlaybackProgressParameters? = nil) -> Request<Void> {
-        Request(
-            path: "/Users/\(userID)/PlayingItems/\(itemID)/Progress",
-            method: "POST",
-            query: parameters?.asQuery,
-            id: "OnPlaybackProgress"
-        )
+    /// Reports a session's playback progress.
+    static func onPlaybackProgress(itemID: String, parameters: OnPlaybackProgressParameters? = nil) -> Request<Void> {
+        Request(path: "/PlayingItems/\(itemID)/Progress", method: "POST", query: parameters?.asQuery, id: "OnPlaybackProgress")
     }
 
     struct OnPlaybackProgressParameters {

@@ -12,24 +12,27 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Gets suggestions.
-    static func getSuggestions(userID: String, parameters: GetSuggestionsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
-        Request(path: "/Users/\(userID)/Suggestions", method: "GET", query: parameters?.asQuery, id: "GetSuggestions")
+    static func getSuggestions(parameters: GetSuggestionsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+        Request(path: "/Items/Suggestions", method: "GET", query: parameters?.asQuery, id: "GetSuggestions")
     }
 
     struct GetSuggestionsParameters {
-        public var mediaType: [String]?
+        public var userID: String?
+        public var mediaType: [JellyfinAPI.MediaType]?
         public var type: [JellyfinAPI.BaseItemKind]?
         public var startIndex: Int?
         public var limit: Int?
         public var enableTotalRecordCount: Bool?
 
         public init(
-            mediaType: [String]? = nil,
+            userID: String? = nil,
+            mediaType: [JellyfinAPI.MediaType]? = nil,
             type: [JellyfinAPI.BaseItemKind]? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
             enableTotalRecordCount: Bool? = nil
         ) {
+            self.userID = userID
             self.mediaType = mediaType
             self.type = type
             self.startIndex = startIndex
@@ -39,6 +42,7 @@ public extension Paths {
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
+            encoder.encode(userID, forKey: "userId")
             encoder.encode(mediaType, forKey: "mediaType")
             encoder.encode(type, forKey: "type")
             encoder.encode(startIndex, forKey: "startIndex")
