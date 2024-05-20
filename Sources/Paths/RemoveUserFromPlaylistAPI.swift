@@ -11,8 +11,8 @@ import Get
 import URLQueryEncoder
 
 public extension Paths {
-    /// Gets branding css.
-    static var getBrandingCss: Request<Void> {
-        Request(path: "/Branding/Css", method: "GET", id: "GetBrandingCss")
+    /// Remove a user from a playlist's users.
+    static func removeUserFromPlaylist(playlistID: String, userID: String) -> Request<Void> {
+        Request(path: "/Playlists/\(playlistID)/Users/\(userID)", method: "DELETE", id: "RemoveUserFromPlaylist")
     }
 }

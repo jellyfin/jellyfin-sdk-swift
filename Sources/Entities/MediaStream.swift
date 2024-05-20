@@ -12,7 +12,7 @@ import Foundation
 public struct MediaStream: Codable, Hashable {
     /// Gets or sets the aspect ratio.
     public var aspectRatio: String?
-    /// An enum representing formats of spatial audio.
+    /// Gets the audio spatial format.
     public var audioSpatialFormat: AudioSpatialFormat?
     /// Gets or sets the average frame rate.
     public var averageFrameRate: Float?
@@ -117,9 +117,9 @@ public struct MediaStream: Codable, Hashable {
     public var type: MediaStreamType?
     /// Gets the video dovi title.
     public var videoDoViTitle: String?
-    /// An enum representing video ranges.
+    /// Gets the video range.
     public var videoRange: VideoRange?
-    /// An enum representing types of video ranges.
+    /// Gets the video range type.
     public var videoRangeType: VideoRangeType?
     /// Gets or sets the width.
     public var width: Int?

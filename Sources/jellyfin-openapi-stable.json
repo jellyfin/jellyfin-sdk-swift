@@ -2,8 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Jellyfin API",
-    "version": "10.9.0",
-    "x-jellyfin-version": "10.9.0"
+    "version": "10.9.2",
+    "x-jellyfin-version": "10.9.2"
   },
   "servers": [
     {
@@ -4089,7 +4089,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -16610,6 +16610,26 @@
               }
             }
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           }
@@ -17209,6 +17229,26 @@
               }
             }
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -17326,6 +17366,26 @@
               "application/json; profile=\"PascalCase\"": {
                 "schema": {
                   "$ref": "#/components/schemas/BaseItemDtoQueryResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -17451,6 +17511,26 @@
               }
             }
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -17569,6 +17649,26 @@
               "application/json; profile=\"PascalCase\"": {
                 "schema": {
                   "$ref": "#/components/schemas/BaseItemDtoQueryResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -17814,6 +17914,26 @@
               }
             }
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -17935,6 +18055,26 @@
               }
             }
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -18052,6 +18192,26 @@
               "application/json; profile=\"PascalCase\"": {
                 "schema": {
                   "$ref": "#/components/schemas/BaseItemDtoQueryResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -18222,6 +18382,26 @@
         "responses": {
           "204": {
             "description": "Item metadata refreshed."
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -20585,7 +20765,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "Item not found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -22731,6 +22911,26 @@
           "204": {
             "description": "Library updated."
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -23462,6 +23662,26 @@
               "application/json; profile=\"PascalCase\"": {
                 "schema": {
                   "$ref": "#/components/schemas/BaseItemDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -24894,6 +25114,26 @@
               "application/json; profile=\"PascalCase\"": {
                 "schema": {
                   "$ref": "#/components/schemas/BaseItemDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -26592,7 +26832,24 @@
             }
           },
           "404": {
-            "description": "Something went wrong. No Lyrics will be returned."
+            "description": "Something went wrong. No Lyrics will be returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -27079,6 +27336,26 @@
               }
             }
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -27297,6 +27574,26 @@
               "application/json; profile=\"PascalCase\"": {
                 "schema": {
                   "$ref": "#/components/schemas/PlaybackInfoResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -28011,7 +28308,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28075,7 +28372,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28158,8 +28455,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "RequiresElevation",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28198,8 +28494,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "RequiresElevation",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28252,7 +28547,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28307,8 +28602,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "RequiresElevation",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28702,13 +28996,125 @@
         ]
       }
     },
+    "/Playlists/{playlistId}": {
+      "post": {
+        "tags": [
+          "Playlists"
+        ],
+        "summary": "Updates a playlist.",
+        "operationId": "UpdatePlaylist",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "The playlist id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The Jellyfin.Api.Models.PlaylistDtos.UpdatePlaylistDto id.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdatePlaylistDto"
+                  }
+                ],
+                "description": "Update existing playlist dto. Fields set to `null` will not be updated and keep their current values."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdatePlaylistDto"
+                  }
+                ],
+                "description": "Update existing playlist dto. Fields set to `null` will not be updated and keep their current values."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdatePlaylistDto"
+                  }
+                ],
+                "description": "Update existing playlist dto. Fields set to `null` will not be updated and keep their current values."
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Playlist updated."
+          },
+          "403": {
+            "description": "Access forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "CustomAuthentication": [
+              "DefaultAuthorization"
+            ]
+          }
+        ]
+      }
+    },
     "/Playlists/{playlistId}/Items": {
       "post": {
         "tags": [
           "Playlists"
         ],
         "summary": "Adds items to a playlist.",
-        "operationId": "AddToPlaylist",
+        "operationId": "AddItemToPlaylist",
         "parameters": [
           {
             "name": "playlistId",
@@ -28746,11 +29152,48 @@
           "204": {
             "description": "Items added to playlist."
           },
+          "403": {
+            "description": "Access forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [
@@ -28766,7 +29209,7 @@
           "Playlists"
         ],
         "summary": "Removes items from a playlist.",
-        "operationId": "RemoveFromPlaylist",
+        "operationId": "RemoveItemFromPlaylist",
         "parameters": [
           {
             "name": "playlistId",
@@ -28793,11 +29236,48 @@
           "204": {
             "description": "Items removed."
           },
+          "403": {
+            "description": "Access forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [
@@ -28921,6 +29401,26 @@
               }
             }
           },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Playlist not found.",
             "content": {
@@ -28943,9 +29443,6 @@
           },
           "401": {
             "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [
@@ -28998,11 +29495,457 @@
           "204": {
             "description": "Item moved to new index."
           },
+          "403": {
+            "description": "Access forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "CustomAuthentication": [
+              "DefaultAuthorization"
+            ]
+          }
+        ]
+      }
+    },
+    "/Playlists/{playlistId}/Users": {
+      "get": {
+        "tags": [
+          "Playlists"
+        ],
+        "summary": "Get a playlist's users.",
+        "operationId": "GetPlaylistUsers",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "The playlist id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found shares.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlaylistUserPermissions"
+                  }
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlaylistUserPermissions"
+                  }
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlaylistUserPermissions"
+                  }
+                }
+              }
+            }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Access forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "CustomAuthentication": [
+              "DefaultAuthorization"
+            ]
+          }
+        ]
+      }
+    },
+    "/Playlists/{playlistId}/Users/{userId}": {
+      "get": {
+        "tags": [
+          "Playlists"
+        ],
+        "summary": "Get a playlist user.",
+        "operationId": "GetPlaylistUser",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "The playlist id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User permission found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaylistUserPermissions"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaylistUserPermissions"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaylistUserPermissions"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "CustomAuthentication": [
+              "DefaultAuthorization"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Playlists"
+        ],
+        "summary": "Modify a user of a playlist's users.",
+        "operationId": "UpdatePlaylistUser",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "The playlist id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The Jellyfin.Api.Models.PlaylistDtos.UpdatePlaylistUserDto.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdatePlaylistUserDto"
+                  }
+                ],
+                "description": "Update existing playlist user dto. Fields set to `null` will not be updated and keep their current values."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdatePlaylistUserDto"
+                  }
+                ],
+                "description": "Update existing playlist user dto. Fields set to `null` will not be updated and keep their current values."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdatePlaylistUserDto"
+                  }
+                ],
+                "description": "Update existing playlist user dto. Fields set to `null` will not be updated and keep their current values."
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "User's permissions modified."
+          },
+          "403": {
+            "description": "Access forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "CustomAuthentication": [
+              "DefaultAuthorization"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Playlists"
+        ],
+        "summary": "Remove a user from a playlist's users.",
+        "operationId": "RemoveUserFromPlaylist",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "The playlist id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User permissions removed from playlist."
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No playlist or user permissions found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access."
           }
         },
         "security": [
@@ -29798,7 +30741,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -29858,8 +30801,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "RequiresElevation",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -29927,8 +30869,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "RequiresElevation",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -29996,8 +30937,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "RequiresElevation",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -30065,8 +31005,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "RequiresElevation",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -30142,7 +31081,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -30218,7 +31157,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -30276,7 +31215,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -30335,7 +31274,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -33350,6 +34289,26 @@
               }
             }
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -33398,6 +34357,26 @@
         "responses": {
           "204": {
             "description": "Subtitle downloaded."
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -33456,6 +34435,7 @@
         "security": [
           {
             "CustomAuthentication": [
+              "SubtitleManagement",
               "DefaultAuthorization"
             ]
           }
@@ -33518,6 +34498,26 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -33596,6 +34596,26 @@
         "responses": {
           "204": {
             "description": "Subtitle uploaded."
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -37777,6 +38797,26 @@
           "302": {
             "description": "Redirected to remote audio stream."
           },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -37983,6 +39023,26 @@
           },
           "302": {
             "description": "Redirected to remote audio stream."
+          },
+          "404": {
+            "description": "Item not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"CamelCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json; profile=\"PascalCase\"": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -43508,7 +44568,7 @@
                 "$ref": "#/components/schemas/BaseItemKind"
               }
             ],
-            "description": "The base item kind."
+            "description": "Gets or sets the type."
           },
           "People": {
             "type": "array",
@@ -43974,7 +45034,7 @@
                 "$ref": "#/components/schemas/MediaType"
               }
             ],
-            "description": "Media types."
+            "description": "Gets or sets the type of the media."
           },
           "EndDate": {
             "type": "string",
@@ -44234,9 +45294,9 @@
             "description": "Gets or sets the timer identifier.",
             "nullable": true
           },
-          "LUFS": {
+          "NormalizationGain": {
             "type": "number",
-            "description": "Gets or sets the LUFS value.",
+            "description": "Gets or sets the gain required for audio normalization.",
             "format": "float",
             "nullable": true
           },
@@ -44371,7 +45431,7 @@
                 "$ref": "#/components/schemas/PersonKind"
               }
             ],
-            "description": "The person kind."
+            "description": "Gets or sets the type."
           },
           "PrimaryImageTag": {
             "type": "string",
@@ -45255,8 +46315,7 @@
         "properties": {
           "Name": {
             "type": "string",
-            "description": "Gets or sets the name of the new playlist.",
-            "nullable": true
+            "description": "Gets or sets the name of the new playlist."
           },
           "Ids": {
             "type": "array",
@@ -45287,6 +46346,17 @@
             ],
             "description": "Gets or sets the media type.",
             "nullable": true
+          },
+          "Users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlaylistUserPermissions"
+            },
+            "description": "Gets or sets the playlist users."
+          },
+          "IsPublic": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether the playlist is public."
           }
         },
         "additionalProperties": false,
@@ -45667,7 +46737,7 @@
                 "$ref": "#/components/schemas/ScrollDirection"
               }
             ],
-            "description": "An enum representing the axis that should be scrolled."
+            "description": "Gets or sets the scroll direction."
           },
           "ShowBackdrop": {
             "type": "boolean",
@@ -45687,7 +46757,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "An enum representing the sorting order."
+            "description": "Gets or sets the sort order."
           },
           "ShowSidebar": {
             "type": "boolean",
@@ -47649,9 +48719,6 @@
           "EnableLUFSScan": {
             "type": "boolean"
           },
-          "UseReplayGainTags": {
-            "type": "boolean"
-          },
           "EnableChapterImageExtraction": {
             "type": "boolean"
           },
@@ -47759,7 +48826,7 @@
           },
           "SaveLyricsWithMedia": {
             "type": "boolean",
-            "default": true
+            "default": false
           },
           "AutomaticallyAddToCollection": {
             "type": "boolean"
@@ -48819,7 +49886,7 @@
                 "$ref": "#/components/schemas/VideoRange"
               }
             ],
-            "description": "An enum representing video ranges.",
+            "description": "Gets the video range.",
             "readOnly": true
           },
           "VideoRangeType": {
@@ -48839,7 +49906,7 @@
                 "$ref": "#/components/schemas/VideoRangeType"
               }
             ],
-            "description": "An enum representing types of video ranges.",
+            "description": "Gets the video range type.",
             "readOnly": true
           },
           "VideoDoViTitle": {
@@ -48859,7 +49926,7 @@
                 "$ref": "#/components/schemas/AudioSpatialFormat"
               }
             ],
-            "description": "An enum representing formats of spatial audio.",
+            "description": "Gets the audio spatial format.",
             "default": "None",
             "readOnly": true
           },
@@ -50836,6 +51903,22 @@
           }
         },
         "additionalProperties": false
+      },
+      "PlaylistUserPermissions": {
+        "type": "object",
+        "properties": {
+          "UserId": {
+            "type": "string",
+            "description": "Gets or sets the user id.",
+            "format": "uuid"
+          },
+          "CanEdit": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether the user has edit permissions."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class to hold data on user permissions for playlists."
       },
       "PlayMessage": {
         "type": "object",
@@ -52920,7 +54003,7 @@
                 "$ref": "#/components/schemas/BaseItemKind"
               }
             ],
-            "description": "The base item kind."
+            "description": "Gets or sets the type."
           },
           "IsFolder": {
             "type": "boolean",
@@ -52946,7 +54029,7 @@
                 "$ref": "#/components/schemas/MediaType"
               }
             ],
-            "description": "Media types."
+            "description": "Gets or sets the type of the media."
           },
           "StartDate": {
             "type": "string",
@@ -56314,6 +57397,52 @@
         "additionalProperties": false,
         "description": "Update library options dto."
       },
+      "UpdatePlaylistDto": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Gets or sets the name of the new playlist.",
+            "nullable": true
+          },
+          "Ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Gets or sets item ids of the playlist.",
+            "nullable": true
+          },
+          "Users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlaylistUserPermissions"
+            },
+            "description": "Gets or sets the playlist users.",
+            "nullable": true
+          },
+          "IsPublic": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether the playlist is public.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Update existing playlist dto. Fields set to `null` will not be updated and keep their current values."
+      },
+      "UpdatePlaylistUserDto": {
+        "type": "object",
+        "properties": {
+          "CanEdit": {
+            "type": "boolean",
+            "description": "Gets or sets a value indicating whether the user can edit the playlist.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Update existing playlist user dto. Fields set to `null` will not be updated and keep their current values."
+      },
       "UpdateUserItemDataDto": {
         "type": "object",
         "properties": {
@@ -57037,7 +58166,7 @@
                 "$ref": "#/components/schemas/SyncPlayUserAccessType"
               }
             ],
-            "description": "Enum SyncPlayUserAccessType."
+            "description": "Gets or sets a value indicating what SyncPlay features the user can access."
           }
         },
         "additionalProperties": false

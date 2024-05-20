@@ -11,8 +11,8 @@ import Get
 import URLQueryEncoder
 
 public extension Paths {
-    /// Gets branding css.
-    static var getBrandingCss: Request<Void> {
-        Request(path: "/Branding/Css", method: "GET", id: "GetBrandingCss")
+    /// Get a playlist's users.
+    static func getPlaylistUsers(playlistID: String) -> Request<[JellyfinAPI.PlaylistUserPermissions]> {
+        Request(path: "/Playlists/\(playlistID)/Users", method: "GET", id: "GetPlaylistUsers")
     }
 }

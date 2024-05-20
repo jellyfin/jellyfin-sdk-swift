@@ -139,8 +139,6 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var isoSpeedRating: Int?
     /// Gets or sets the type of the iso.
     public var isoType: IsoType?
-    /// Gets or sets the LUFS value.
-    public var lufs: Float?
     public var latitude: Double?
     /// Gets or sets the local trailer count.
     public var localTrailerCount: Int?
@@ -156,7 +154,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var mediaSources: [MediaSourceInfo]?
     /// Gets or sets the media streams.
     public var mediaStreams: [MediaStream]?
-    /// Media types.
+    /// Gets or sets the type of the media.
     public var mediaType: MediaType?
     /// Gets or sets the movie count.
     public var movieCount: Int?
@@ -164,6 +162,8 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var musicVideoCount: Int?
     /// Gets or sets the name.
     public var name: String?
+    /// Gets or sets the gain required for audio normalization.
+    public var normalizationGain: Float?
     /// Gets or sets the number.
     public var number: String?
     /// Gets or sets the official rating.
@@ -273,7 +273,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var trailerCount: Int?
     /// Gets or sets the trickplay manifest.
     public var trickplay: [String: [String: TrickplayInfo]]?
-    /// The base item kind.
+    /// Gets or sets the type.
     public var type: BaseItemKind?
     /// Gets or sets the user data for this item based on the user it's being requested for.
     public var userData: UserItemDataDto?
@@ -442,7 +442,6 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         isSports: Bool? = nil,
         isoSpeedRating: Int? = nil,
         isoType: IsoType? = nil,
-        lufs: Float? = nil,
         latitude: Double? = nil,
         localTrailerCount: Int? = nil,
         locationType: LocationType? = nil,
@@ -456,6 +455,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         movieCount: Int? = nil,
         musicVideoCount: Int? = nil,
         name: String? = nil,
+        normalizationGain: Float? = nil,
         number: String? = nil,
         officialRating: String? = nil,
         originalTitle: String? = nil,
@@ -595,7 +595,6 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.isSports = isSports
         self.isoSpeedRating = isoSpeedRating
         self.isoType = isoType
-        self.lufs = lufs
         self.latitude = latitude
         self.localTrailerCount = localTrailerCount
         self.locationType = locationType
@@ -609,6 +608,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.movieCount = movieCount
         self.musicVideoCount = musicVideoCount
         self.name = name
+        self.normalizationGain = normalizationGain
         self.number = number
         self.officialRating = officialRating
         self.originalTitle = originalTitle
@@ -751,7 +751,6 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.isSports = try values.decodeIfPresent(Bool.self, forKey: "IsSports")
         self.isoSpeedRating = try values.decodeIfPresent(Int.self, forKey: "IsoSpeedRating")
         self.isoType = try values.decodeIfPresent(IsoType.self, forKey: "IsoType")
-        self.lufs = try values.decodeIfPresent(Float.self, forKey: "LUFS")
         self.latitude = try values.decodeIfPresent(Double.self, forKey: "Latitude")
         self.localTrailerCount = try values.decodeIfPresent(Int.self, forKey: "LocalTrailerCount")
         self.locationType = try values.decodeIfPresent(LocationType.self, forKey: "LocationType")
@@ -765,6 +764,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.movieCount = try values.decodeIfPresent(Int.self, forKey: "MovieCount")
         self.musicVideoCount = try values.decodeIfPresent(Int.self, forKey: "MusicVideoCount")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.normalizationGain = try values.decodeIfPresent(Float.self, forKey: "NormalizationGain")
         self.number = try values.decodeIfPresent(String.self, forKey: "Number")
         self.officialRating = try values.decodeIfPresent(String.self, forKey: "OfficialRating")
         self.originalTitle = try values.decodeIfPresent(String.self, forKey: "OriginalTitle")
@@ -907,7 +907,6 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(isSports, forKey: "IsSports")
         try values.encodeIfPresent(isoSpeedRating, forKey: "IsoSpeedRating")
         try values.encodeIfPresent(isoType, forKey: "IsoType")
-        try values.encodeIfPresent(lufs, forKey: "LUFS")
         try values.encodeIfPresent(latitude, forKey: "Latitude")
         try values.encodeIfPresent(localTrailerCount, forKey: "LocalTrailerCount")
         try values.encodeIfPresent(locationType, forKey: "LocationType")
@@ -921,6 +920,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(movieCount, forKey: "MovieCount")
         try values.encodeIfPresent(musicVideoCount, forKey: "MusicVideoCount")
         try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(normalizationGain, forKey: "NormalizationGain")
         try values.encodeIfPresent(number, forKey: "Number")
         try values.encodeIfPresent(officialRating, forKey: "OfficialRating")
         try values.encodeIfPresent(originalTitle, forKey: "OriginalTitle")

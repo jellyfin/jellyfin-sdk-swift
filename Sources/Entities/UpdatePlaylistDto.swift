@@ -8,34 +8,21 @@
 
 import Foundation
 
-/// Create new playlist dto.
-public struct CreatePlaylistDto: Codable, Hashable {
-    /// Gets or sets item ids to add to the playlist.
+/// Update existing playlist dto. Fields set to `null` will not be updated and keep their current values.
+public struct UpdatePlaylistDto: Codable, Hashable {
+    /// Gets or sets item ids of the playlist.
     public var ids: [String]?
     /// Gets or sets a value indicating whether the playlist is public.
     public var isPublic: Bool?
-    /// Gets or sets the media type.
-    public var mediaType: MediaType?
     /// Gets or sets the name of the new playlist.
     public var name: String?
-    /// Gets or sets the user id.
-    public var userID: String?
     /// Gets or sets the playlist users.
     public var users: [PlaylistUserPermissions]?
 
-    public init(
-        ids: [String]? = nil,
-        isPublic: Bool? = nil,
-        mediaType: MediaType? = nil,
-        name: String? = nil,
-        userID: String? = nil,
-        users: [PlaylistUserPermissions]? = nil
-    ) {
+    public init(ids: [String]? = nil, isPublic: Bool? = nil, name: String? = nil, users: [PlaylistUserPermissions]? = nil) {
         self.ids = ids
         self.isPublic = isPublic
-        self.mediaType = mediaType
         self.name = name
-        self.userID = userID
         self.users = users
     }
 
@@ -43,9 +30,7 @@ public struct CreatePlaylistDto: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.ids = try values.decodeIfPresent([String].self, forKey: "Ids")
         self.isPublic = try values.decodeIfPresent(Bool.self, forKey: "IsPublic")
-        self.mediaType = try values.decodeIfPresent(MediaType.self, forKey: "MediaType")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
-        self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
         self.users = try values.decodeIfPresent([PlaylistUserPermissions].self, forKey: "Users")
     }
 
@@ -53,9 +38,7 @@ public struct CreatePlaylistDto: Codable, Hashable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(ids, forKey: "Ids")
         try values.encodeIfPresent(isPublic, forKey: "IsPublic")
-        try values.encodeIfPresent(mediaType, forKey: "MediaType")
         try values.encodeIfPresent(name, forKey: "Name")
-        try values.encodeIfPresent(userID, forKey: "UserId")
         try values.encodeIfPresent(users, forKey: "Users")
     }
 }

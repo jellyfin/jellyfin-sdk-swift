@@ -26,7 +26,7 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable {
     public var isRememberIndexing: Bool?
     /// Gets or sets a value indicating whether [remember sorting].
     public var isRememberSorting: Bool?
-    /// An enum representing the axis that should be scrolled.
+    /// Gets or sets the scroll direction.
     public var scrollDirection: ScrollDirection?
     /// Gets or sets a value indicating whether to show backdrops on this item.
     public var isShowBackdrop: Bool?
@@ -34,7 +34,7 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable {
     public var isShowSidebar: Bool?
     /// Gets or sets the sort by.
     public var sortBy: String?
-    /// An enum representing the sorting order.
+    /// Gets or sets the sort order.
     public var sortOrder: SortOrder?
     /// Gets or sets the type of the view.
     public var viewType: String?

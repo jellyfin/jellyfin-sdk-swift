@@ -46,7 +46,6 @@ public struct LibraryOptions: Codable, Hashable {
     public var subtitleDownloadLanguages: [String]?
     public var subtitleFetcherOrder: [String]?
     public var typeOptions: [TypeOptions]?
-    public var useReplayGainTags: Bool?
 
     public init(
         allowEmbeddedSubtitles: EmbeddedSubtitleOptions? = nil,
@@ -81,8 +80,7 @@ public struct LibraryOptions: Codable, Hashable {
         isSkipSubtitlesIfEmbeddedSubtitlesPresent: Bool? = nil,
         subtitleDownloadLanguages: [String]? = nil,
         subtitleFetcherOrder: [String]? = nil,
-        typeOptions: [TypeOptions]? = nil,
-        useReplayGainTags: Bool? = nil
+        typeOptions: [TypeOptions]? = nil
     ) {
         self.allowEmbeddedSubtitles = allowEmbeddedSubtitles
         self.automaticRefreshIntervalDays = automaticRefreshIntervalDays
@@ -109,7 +107,7 @@ public struct LibraryOptions: Codable, Hashable {
         self.preferredMetadataLanguage = preferredMetadataLanguage
         self.requirePerfectSubtitleMatch = requirePerfectSubtitleMatch
         self.isSaveLocalMetadata = isSaveLocalMetadata
-        self.isSaveLyricsWithMedia = isSaveLyricsWithMedia ?? true
+        self.isSaveLyricsWithMedia = isSaveLyricsWithMedia ?? false
         self.isSaveSubtitlesWithMedia = isSaveSubtitlesWithMedia
         self.seasonZeroDisplayName = seasonZeroDisplayName
         self.isSkipSubtitlesIfAudioTrackMatches = isSkipSubtitlesIfAudioTrackMatches
@@ -117,7 +115,6 @@ public struct LibraryOptions: Codable, Hashable {
         self.subtitleDownloadLanguages = subtitleDownloadLanguages
         self.subtitleFetcherOrder = subtitleFetcherOrder
         self.typeOptions = typeOptions
-        self.useReplayGainTags = useReplayGainTags
     }
 
     public init(from decoder: Decoder) throws {
@@ -153,7 +150,7 @@ public struct LibraryOptions: Codable, Hashable {
         self.preferredMetadataLanguage = try values.decodeIfPresent(String.self, forKey: "PreferredMetadataLanguage")
         self.requirePerfectSubtitleMatch = try values.decodeIfPresent(Bool.self, forKey: "RequirePerfectSubtitleMatch")
         self.isSaveLocalMetadata = try values.decodeIfPresent(Bool.self, forKey: "SaveLocalMetadata")
-        self.isSaveLyricsWithMedia = try values.decodeIfPresent(Bool.self, forKey: "SaveLyricsWithMedia") ?? true
+        self.isSaveLyricsWithMedia = try values.decodeIfPresent(Bool.self, forKey: "SaveLyricsWithMedia") ?? false
         self.isSaveSubtitlesWithMedia = try values.decodeIfPresent(Bool.self, forKey: "SaveSubtitlesWithMedia")
         self.seasonZeroDisplayName = try values.decodeIfPresent(String.self, forKey: "SeasonZeroDisplayName")
         self.isSkipSubtitlesIfAudioTrackMatches = try values.decodeIfPresent(Bool.self, forKey: "SkipSubtitlesIfAudioTrackMatches")
@@ -164,7 +161,6 @@ public struct LibraryOptions: Codable, Hashable {
         self.subtitleDownloadLanguages = try values.decodeIfPresent([String].self, forKey: "SubtitleDownloadLanguages")
         self.subtitleFetcherOrder = try values.decodeIfPresent([String].self, forKey: "SubtitleFetcherOrder")
         self.typeOptions = try values.decodeIfPresent([TypeOptions].self, forKey: "TypeOptions")
-        self.useReplayGainTags = try values.decodeIfPresent(Bool.self, forKey: "UseReplayGainTags")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -202,6 +198,5 @@ public struct LibraryOptions: Codable, Hashable {
         try values.encodeIfPresent(subtitleDownloadLanguages, forKey: "SubtitleDownloadLanguages")
         try values.encodeIfPresent(subtitleFetcherOrder, forKey: "SubtitleFetcherOrder")
         try values.encodeIfPresent(typeOptions, forKey: "TypeOptions")
-        try values.encodeIfPresent(useReplayGainTags, forKey: "UseReplayGainTags")
     }
 }
