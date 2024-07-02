@@ -34,7 +34,6 @@ public enum GroupUpdate: Codable, Hashable {
         case "UserJoined": self = try .stringGroupUpdate(container.decode(StringGroupUpdate.self))
         case "UserLeft": self = try .stringGroupUpdate(container.decode(StringGroupUpdate.self))
         case "PlayQueue": self = try .playQueueUpdateGroupUpdate(container.decode(PlayQueueUpdateGroupUpdate.self))
-
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,

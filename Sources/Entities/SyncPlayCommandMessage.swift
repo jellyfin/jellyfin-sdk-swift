@@ -10,7 +10,7 @@ import Foundation
 
 /// Sync play command.
 public struct SyncPlayCommandMessage: Codable, Hashable {
-    /// Class SendCommand.
+    /// Gets or sets the data.
     public var data: SendCommand?
     /// Gets or sets the message id.
     public var messageID: String?

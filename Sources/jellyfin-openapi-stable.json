@@ -2,8 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Jellyfin API",
-    "version": "10.9.2",
-    "x-jellyfin-version": "10.9.2"
+    "version": "10.10.0",
+    "x-jellyfin-version": "10.10.0"
   },
   "servers": [
     {
@@ -19382,6 +19382,15 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "indexNumber",
+            "in": "query",
+            "description": "Optional filter by index number.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -48630,7 +48639,7 @@
                 "$ref": "#/components/schemas/LibraryUpdateInfo"
               }
             ],
-            "description": "Class LibraryUpdateInfo.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -51929,7 +51938,7 @@
                 "$ref": "#/components/schemas/PlayRequest"
               }
             ],
-            "description": "Class PlayRequest.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -52397,7 +52406,7 @@
                 "$ref": "#/components/schemas/InstallationInfo"
               }
             ],
-            "description": "Class InstallationInfo.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -52464,7 +52473,7 @@
                 "$ref": "#/components/schemas/InstallationInfo"
               }
             ],
-            "description": "Class InstallationInfo.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -52531,7 +52540,7 @@
                 "$ref": "#/components/schemas/InstallationInfo"
               }
             ],
-            "description": "Class InstallationInfo.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -52598,7 +52607,7 @@
                 "$ref": "#/components/schemas/InstallationInfo"
               }
             ],
-            "description": "Class InstallationInfo.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -52678,7 +52687,7 @@
                 "$ref": "#/components/schemas/PluginInfo"
               }
             ],
-            "description": "This is a serializable stub class that is used by the api to provide information about installed plugins.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -53650,7 +53659,7 @@
                 "$ref": "#/components/schemas/TaskResult"
               }
             ],
-            "description": "Class TaskExecutionInfo.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -53913,7 +53922,8 @@
           },
           "MatchedTerm": {
             "type": "string",
-            "description": "Gets or sets the matched term."
+            "description": "Gets or sets the matched term.",
+            "nullable": true
           },
           "IndexNumber": {
             "type": "integer",
@@ -55172,7 +55182,7 @@
                 "$ref": "#/components/schemas/BaseItemDto"
               }
             ],
-            "description": "This is strictly used as a data transfer object from the api layer.\r\nThis holds information about a BaseItem in a format that is convenient for the client.",
+            "description": "Gets or sets the now playing item.",
             "nullable": true
           },
           "NowViewingItem": {
@@ -55876,7 +55886,7 @@
                 "$ref": "#/components/schemas/SendCommand"
               }
             ],
-            "description": "Class SendCommand.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -55943,7 +55953,7 @@
                 "$ref": "#/components/schemas/GroupUpdate"
               }
             ],
-            "description": "Group update without data.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -57670,7 +57680,7 @@
                 "$ref": "#/components/schemas/UserDataChangeInfo"
               }
             ],
-            "description": "Class UserDataChangeInfo.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {
@@ -58180,7 +58190,7 @@
                 "$ref": "#/components/schemas/UserDto"
               }
             ],
-            "description": "Class UserDto.",
+            "description": "Gets or sets the data.",
             "nullable": true
           },
           "MessageId": {

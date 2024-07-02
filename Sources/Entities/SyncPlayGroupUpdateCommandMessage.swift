@@ -10,7 +10,7 @@ import Foundation
 
 /// Untyped sync play command.
 public struct SyncPlayGroupUpdateCommandMessage: Codable, Hashable {
-    /// Group update without data.
+    /// Gets or sets the data.
     public var data: GroupUpdate?
     /// Gets or sets the message id.
     public var messageID: String?

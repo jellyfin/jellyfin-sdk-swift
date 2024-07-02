@@ -10,7 +10,7 @@ import Foundation
 
 /// Play command websocket message.
 public struct PlayMessage: Codable, Hashable {
-    /// Class PlayRequest.
+    /// Gets or sets the data.
     public var data: PlayRequest?
     /// Gets or sets the message id.
     public var messageID: String?

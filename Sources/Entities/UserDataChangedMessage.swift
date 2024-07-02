@@ -10,7 +10,7 @@ import Foundation
 
 /// User data changed message.
 public struct UserDataChangedMessage: Codable, Hashable {
-    /// Class UserDataChangeInfo.
+    /// Gets or sets the data.
     public var data: UserDataChangeInfo?
     /// Gets or sets the message id.
     public var messageID: String?

@@ -80,7 +80,6 @@ public enum OutboundWebSocketMessage: Codable, Hashable {
         case "UserDataChanged": self = try .userDataChangedMessage(container.decode(UserDataChangedMessage.self))
         case "UserDeleted": self = try .userDeletedMessage(container.decode(UserDeletedMessage.self))
         case "UserUpdated": self = try .userUpdatedMessage(container.decode(UserUpdatedMessage.self))
-
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,

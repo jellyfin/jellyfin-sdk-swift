@@ -35,7 +35,6 @@ public enum InboundWebSocketMessage: Codable, Hashable {
         case "ScheduledTasksInfoStop": self = try .scheduledTasksInfoStopMessage(container.decode(ScheduledTasksInfoStopMessage.self))
         case "SessionsStart": self = try .sessionsStartMessage(container.decode(SessionsStartMessage.self))
         case "SessionsStop": self = try .sessionsStopMessage(container.decode(SessionsStopMessage.self))
-
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,
