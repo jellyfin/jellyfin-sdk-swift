@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -32,6 +32,7 @@ public extension Paths {
         public var maxAudioSampleRate: Int?
         public var maxAudioBitDepth: Int?
         public var enableRemoteMedia: Bool?
+        public var enableAudioVbrEncoding: Bool?
         public var isBreakOnNonKeyFrames: Bool?
         public var enableRedirection: Bool?
 
@@ -53,6 +54,7 @@ public extension Paths {
             maxAudioSampleRate: Int? = nil,
             maxAudioBitDepth: Int? = nil,
             enableRemoteMedia: Bool? = nil,
+            enableAudioVbrEncoding: Bool? = nil,
             isBreakOnNonKeyFrames: Bool? = nil,
             enableRedirection: Bool? = nil
         ) {
@@ -71,6 +73,7 @@ public extension Paths {
             self.maxAudioSampleRate = maxAudioSampleRate
             self.maxAudioBitDepth = maxAudioBitDepth
             self.enableRemoteMedia = enableRemoteMedia
+            self.enableAudioVbrEncoding = enableAudioVbrEncoding
             self.isBreakOnNonKeyFrames = isBreakOnNonKeyFrames
             self.enableRedirection = enableRedirection
         }
@@ -92,6 +95,7 @@ public extension Paths {
             encoder.encode(maxAudioSampleRate, forKey: "maxAudioSampleRate")
             encoder.encode(maxAudioBitDepth, forKey: "maxAudioBitDepth")
             encoder.encode(enableRemoteMedia, forKey: "enableRemoteMedia")
+            encoder.encode(enableAudioVbrEncoding, forKey: "enableAudioVbrEncoding")
             encoder.encode(isBreakOnNonKeyFrames, forKey: "breakOnNonKeyFrames")
             encoder.encode(enableRedirection, forKey: "enableRedirection")
             return encoder.items

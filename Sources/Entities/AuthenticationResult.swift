@@ -3,20 +3,23 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
+/// A class representing an authentication result.
 public struct AuthenticationResult: Codable, Hashable {
+    /// Gets or sets the access token.
     public var accessToken: String?
+    /// Gets or sets the server id.
     public var serverID: String?
-    /// Class SessionInfo.
-    public var sessionInfo: SessionInfo?
-    /// Class UserDto.
+    /// Gets or sets the session info.
+    public var sessionInfo: SessionInfoDto?
+    /// Gets or sets the user.
     public var user: UserDto?
 
-    public init(accessToken: String? = nil, serverID: String? = nil, sessionInfo: SessionInfo? = nil, user: UserDto? = nil) {
+    public init(accessToken: String? = nil, serverID: String? = nil, sessionInfo: SessionInfoDto? = nil, user: UserDto? = nil) {
         self.accessToken = accessToken
         self.serverID = serverID
         self.sessionInfo = sessionInfo
@@ -27,7 +30,7 @@ public struct AuthenticationResult: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.accessToken = try values.decodeIfPresent(String.self, forKey: "AccessToken")
         self.serverID = try values.decodeIfPresent(String.self, forKey: "ServerId")
-        self.sessionInfo = try values.decodeIfPresent(SessionInfo.self, forKey: "SessionInfo")
+        self.sessionInfo = try values.decodeIfPresent(SessionInfoDto.self, forKey: "SessionInfo")
         self.user = try values.decodeIfPresent(UserDto.self, forKey: "User")
     }
 

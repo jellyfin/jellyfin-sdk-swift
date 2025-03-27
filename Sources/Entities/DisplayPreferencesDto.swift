@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -26,7 +26,7 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable {
     public var isRememberIndexing: Bool?
     /// Gets or sets a value indicating whether [remember sorting].
     public var isRememberSorting: Bool?
-    /// Gets or sets the scroll direction.
+    /// An enum representing the axis that should be scrolled.
     public var scrollDirection: ScrollDirection?
     /// Gets or sets a value indicating whether to show backdrops on this item.
     public var isShowBackdrop: Bool?
@@ -34,7 +34,7 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable {
     public var isShowSidebar: Bool?
     /// Gets or sets the sort by.
     public var sortBy: String?
-    /// Gets or sets the sort order.
+    /// An enum representing the sorting order.
     public var sortOrder: SortOrder?
     /// Gets or sets the type of the view.
     public var viewType: String?

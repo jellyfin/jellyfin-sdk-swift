@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -12,7 +12,7 @@ import Foundation
 public struct QueueRequestDto: Codable, Hashable {
     /// Gets or sets the items to enqueue.
     public var itemIDs: [String]?
-    /// Enum GroupQueueMode.
+    /// Gets or sets the mode in which to add the new items.
     public var mode: GroupQueueMode?
 
     public init(itemIDs: [String]? = nil, mode: GroupQueueMode? = nil) {

@@ -3,24 +3,38 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
+/// Class holding information on a runnning transcode.
 public struct TranscodingInfo: Codable, Hashable {
+    /// Gets or sets the audio channels.
     public var audioChannels: Int?
+    /// Gets or sets the thread count used for encoding.
     public var audioCodec: String?
+    /// Gets or sets the bitrate.
     public var bitrate: Int?
+    /// Gets or sets the completion percentage.
     public var completionPercentage: Double?
+    /// Gets or sets the thread count used for encoding.
     public var container: String?
+    /// Gets or sets the framerate.
     public var framerate: Float?
-    public var hardwareAccelerationType: HardwareEncodingType?
+    /// Gets or sets the hardware acceleration type.
+    public var hardwareAccelerationType: HardwareAccelerationType?
+    /// Gets or sets the video height.
     public var height: Int?
+    /// Gets or sets a value indicating whether the audio is passed through.
     public var isAudioDirect: Bool?
+    /// Gets or sets a value indicating whether the video is passed through.
     public var isVideoDirect: Bool?
+    /// Gets or sets the transcode reasons.
     public var transcodeReasons: [TranscodeReason]?
+    /// Gets or sets the thread count used for encoding.
     public var videoCodec: String?
+    /// Gets or sets the video width.
     public var width: Int?
 
     public init(
@@ -30,7 +44,7 @@ public struct TranscodingInfo: Codable, Hashable {
         completionPercentage: Double? = nil,
         container: String? = nil,
         framerate: Float? = nil,
-        hardwareAccelerationType: HardwareEncodingType? = nil,
+        hardwareAccelerationType: HardwareAccelerationType? = nil,
         height: Int? = nil,
         isAudioDirect: Bool? = nil,
         isVideoDirect: Bool? = nil,
@@ -61,7 +75,7 @@ public struct TranscodingInfo: Codable, Hashable {
         self.completionPercentage = try values.decodeIfPresent(Double.self, forKey: "CompletionPercentage")
         self.container = try values.decodeIfPresent(String.self, forKey: "Container")
         self.framerate = try values.decodeIfPresent(Float.self, forKey: "Framerate")
-        self.hardwareAccelerationType = try values.decodeIfPresent(HardwareEncodingType.self, forKey: "HardwareAccelerationType")
+        self.hardwareAccelerationType = try values.decodeIfPresent(HardwareAccelerationType.self, forKey: "HardwareAccelerationType")
         self.height = try values.decodeIfPresent(Int.self, forKey: "Height")
         self.isAudioDirect = try values.decodeIfPresent(Bool.self, forKey: "IsAudioDirect")
         self.isVideoDirect = try values.decodeIfPresent(Bool.self, forKey: "IsVideoDirect")

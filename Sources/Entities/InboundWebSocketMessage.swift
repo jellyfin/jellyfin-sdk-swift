@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -35,7 +35,6 @@ public enum InboundWebSocketMessage: Codable, Hashable {
         case "ScheduledTasksInfoStop": self = try .scheduledTasksInfoStopMessage(container.decode(ScheduledTasksInfoStopMessage.self))
         case "SessionsStart": self = try .sessionsStartMessage(container.decode(SessionsStartMessage.self))
         case "SessionsStop": self = try .sessionsStopMessage(container.decode(SessionsStopMessage.self))
-
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,

@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -19,7 +19,7 @@ public struct EncodingOptions: Codable, Hashable {
     /// Gets or sets a value indicating whether the framerate is doubled when deinterlacing.
     public var isDeinterlaceDoubleRate: Bool?
     /// Gets or sets the deinterlace method.
-    public var deinterlaceMethod: String?
+    public var deinterlaceMethod: DeinterlaceMethod?
     /// Gets or sets the audio boost applied when downmixing audio.
     public var downMixAudioBoost: Double?
     /// Gets or sets the algorithm used for downmixing audio to stereo.
@@ -28,8 +28,12 @@ public struct EncodingOptions: Codable, Hashable {
     public var enableAudioVbr: Bool?
     /// Gets or sets a value indicating whether 10bit HEVC decoding is enabled.
     public var enableDecodingColorDepth10Hevc: Bool?
+    /// Gets or sets a value indicating whether 8/10bit HEVC RExt decoding is enabled.
+    public var enableDecodingColorDepth10HevcRext: Bool?
     /// Gets or sets a value indicating whether 10bit VP9 decoding is enabled.
     public var enableDecodingColorDepth10Vp9: Bool?
+    /// Gets or sets a value indicating whether 12bit HEVC RExt decoding is enabled.
+    public var enableDecodingColorDepth12HevcRext: Bool?
     /// Gets or sets a value indicating whether the enhanced NVDEC is enabled.
     public var enableEnhancedNvdecDecoder: Bool?
     /// Gets or sets a value indicating whether to use the fallback font.
@@ -57,7 +61,7 @@ public struct EncodingOptions: Codable, Hashable {
     /// Gets or sets the current FFmpeg path being used by the system and displayed on the transcode page.
     public var encoderAppPathDisplay: String?
     /// Gets or sets the encoder preset.
-    public var encoderPreset: String?
+    public var encoderPreset: EncoderPreset?
     /// Gets or sets the thread count used for encoding.
     public var encodingThreadCount: Int?
     /// Gets or sets the path to the fallback font.
@@ -67,29 +71,31 @@ public struct EncodingOptions: Codable, Hashable {
     /// Gets or sets the H265 CRF.
     public var h265Crf: Int?
     /// Gets or sets the hardware acceleration type.
-    public var hardwareAccelerationType: String?
+    public var hardwareAccelerationType: HardwareAccelerationType?
     /// Gets or sets the codecs hardware encoding is used for.
     public var hardwareDecodingCodecs: [String]?
     /// Gets or sets the maximum size of the muxing queue.
     public var maxMuxingQueueSize: Int?
     /// Gets or sets a value indicating whether the system native hardware decoder should be used.
     public var isPreferSystemNativeHwDecoder: Bool?
+    /// Gets or sets the QSV device.
+    public var qsvDevice: String?
     /// Gets or sets seconds for which segments should be kept before being deleted.
     public var segmentKeepSeconds: Int?
     /// Gets or sets the delay after which throttling happens.
     public var throttleDelaySeconds: Int?
     /// Gets or sets the tone-mapping algorithm.
-    public var tonemappingAlgorithm: String?
+    public var tonemappingAlgorithm: TonemappingAlgorithm?
     /// Gets or sets the tone-mapping desaturation.
     public var tonemappingDesat: Double?
     /// Gets or sets the tone-mapping mode.
-    public var tonemappingMode: String?
+    public var tonemappingMode: TonemappingMode?
     /// Gets or sets the tone-mapping parameters.
     public var tonemappingParam: Double?
     /// Gets or sets the tone-mapping peak.
     public var tonemappingPeak: Double?
     /// Gets or sets the tone-mapping range.
-    public var tonemappingRange: String?
+    public var tonemappingRange: TonemappingRange?
     /// Gets or sets the temporary transcoding path.
     public var transcodingTempPath: String?
     /// Gets or sets the VA-API device.
@@ -104,12 +110,14 @@ public struct EncodingOptions: Codable, Hashable {
         allowHevcEncoding: Bool? = nil,
         allowOnDemandMetadataBasedKeyframeExtractionForExtensions: [String]? = nil,
         isDeinterlaceDoubleRate: Bool? = nil,
-        deinterlaceMethod: String? = nil,
+        deinterlaceMethod: DeinterlaceMethod? = nil,
         downMixAudioBoost: Double? = nil,
         downMixStereoAlgorithm: DownMixStereoAlgorithms? = nil,
         enableAudioVbr: Bool? = nil,
         enableDecodingColorDepth10Hevc: Bool? = nil,
+        enableDecodingColorDepth10HevcRext: Bool? = nil,
         enableDecodingColorDepth10Vp9: Bool? = nil,
+        enableDecodingColorDepth12HevcRext: Bool? = nil,
         enableEnhancedNvdecDecoder: Bool? = nil,
         enableFallbackFont: Bool? = nil,
         enableHardwareEncoding: Bool? = nil,
@@ -123,23 +131,24 @@ public struct EncodingOptions: Codable, Hashable {
         enableVppTonemapping: Bool? = nil,
         encoderAppPath: String? = nil,
         encoderAppPathDisplay: String? = nil,
-        encoderPreset: String? = nil,
+        encoderPreset: EncoderPreset? = nil,
         encodingThreadCount: Int? = nil,
         fallbackFontPath: String? = nil,
         h264Crf: Int? = nil,
         h265Crf: Int? = nil,
-        hardwareAccelerationType: String? = nil,
+        hardwareAccelerationType: HardwareAccelerationType? = nil,
         hardwareDecodingCodecs: [String]? = nil,
         maxMuxingQueueSize: Int? = nil,
         isPreferSystemNativeHwDecoder: Bool? = nil,
+        qsvDevice: String? = nil,
         segmentKeepSeconds: Int? = nil,
         throttleDelaySeconds: Int? = nil,
-        tonemappingAlgorithm: String? = nil,
+        tonemappingAlgorithm: TonemappingAlgorithm? = nil,
         tonemappingDesat: Double? = nil,
-        tonemappingMode: String? = nil,
+        tonemappingMode: TonemappingMode? = nil,
         tonemappingParam: Double? = nil,
         tonemappingPeak: Double? = nil,
-        tonemappingRange: String? = nil,
+        tonemappingRange: TonemappingRange? = nil,
         transcodingTempPath: String? = nil,
         vaapiDevice: String? = nil,
         vppTonemappingBrightness: Double? = nil,
@@ -154,7 +163,9 @@ public struct EncodingOptions: Codable, Hashable {
         self.downMixStereoAlgorithm = downMixStereoAlgorithm
         self.enableAudioVbr = enableAudioVbr
         self.enableDecodingColorDepth10Hevc = enableDecodingColorDepth10Hevc
+        self.enableDecodingColorDepth10HevcRext = enableDecodingColorDepth10HevcRext
         self.enableDecodingColorDepth10Vp9 = enableDecodingColorDepth10Vp9
+        self.enableDecodingColorDepth12HevcRext = enableDecodingColorDepth12HevcRext
         self.enableEnhancedNvdecDecoder = enableEnhancedNvdecDecoder
         self.enableFallbackFont = enableFallbackFont
         self.enableHardwareEncoding = enableHardwareEncoding
@@ -177,6 +188,7 @@ public struct EncodingOptions: Codable, Hashable {
         self.hardwareDecodingCodecs = hardwareDecodingCodecs
         self.maxMuxingQueueSize = maxMuxingQueueSize
         self.isPreferSystemNativeHwDecoder = isPreferSystemNativeHwDecoder
+        self.qsvDevice = qsvDevice
         self.segmentKeepSeconds = segmentKeepSeconds
         self.throttleDelaySeconds = throttleDelaySeconds
         self.tonemappingAlgorithm = tonemappingAlgorithm
@@ -200,12 +212,14 @@ public struct EncodingOptions: Codable, Hashable {
             forKey: "AllowOnDemandMetadataBasedKeyframeExtractionForExtensions"
         )
         self.isDeinterlaceDoubleRate = try values.decodeIfPresent(Bool.self, forKey: "DeinterlaceDoubleRate")
-        self.deinterlaceMethod = try values.decodeIfPresent(String.self, forKey: "DeinterlaceMethod")
+        self.deinterlaceMethod = try values.decodeIfPresent(DeinterlaceMethod.self, forKey: "DeinterlaceMethod")
         self.downMixAudioBoost = try values.decodeIfPresent(Double.self, forKey: "DownMixAudioBoost")
         self.downMixStereoAlgorithm = try values.decodeIfPresent(DownMixStereoAlgorithms.self, forKey: "DownMixStereoAlgorithm")
         self.enableAudioVbr = try values.decodeIfPresent(Bool.self, forKey: "EnableAudioVbr")
         self.enableDecodingColorDepth10Hevc = try values.decodeIfPresent(Bool.self, forKey: "EnableDecodingColorDepth10Hevc")
+        self.enableDecodingColorDepth10HevcRext = try values.decodeIfPresent(Bool.self, forKey: "EnableDecodingColorDepth10HevcRext")
         self.enableDecodingColorDepth10Vp9 = try values.decodeIfPresent(Bool.self, forKey: "EnableDecodingColorDepth10Vp9")
+        self.enableDecodingColorDepth12HevcRext = try values.decodeIfPresent(Bool.self, forKey: "EnableDecodingColorDepth12HevcRext")
         self.enableEnhancedNvdecDecoder = try values.decodeIfPresent(Bool.self, forKey: "EnableEnhancedNvdecDecoder")
         self.enableFallbackFont = try values.decodeIfPresent(Bool.self, forKey: "EnableFallbackFont")
         self.enableHardwareEncoding = try values.decodeIfPresent(Bool.self, forKey: "EnableHardwareEncoding")
@@ -219,23 +233,24 @@ public struct EncodingOptions: Codable, Hashable {
         self.enableVppTonemapping = try values.decodeIfPresent(Bool.self, forKey: "EnableVppTonemapping")
         self.encoderAppPath = try values.decodeIfPresent(String.self, forKey: "EncoderAppPath")
         self.encoderAppPathDisplay = try values.decodeIfPresent(String.self, forKey: "EncoderAppPathDisplay")
-        self.encoderPreset = try values.decodeIfPresent(String.self, forKey: "EncoderPreset")
+        self.encoderPreset = try values.decodeIfPresent(EncoderPreset.self, forKey: "EncoderPreset")
         self.encodingThreadCount = try values.decodeIfPresent(Int.self, forKey: "EncodingThreadCount")
         self.fallbackFontPath = try values.decodeIfPresent(String.self, forKey: "FallbackFontPath")
         self.h264Crf = try values.decodeIfPresent(Int.self, forKey: "H264Crf")
         self.h265Crf = try values.decodeIfPresent(Int.self, forKey: "H265Crf")
-        self.hardwareAccelerationType = try values.decodeIfPresent(String.self, forKey: "HardwareAccelerationType")
+        self.hardwareAccelerationType = try values.decodeIfPresent(HardwareAccelerationType.self, forKey: "HardwareAccelerationType")
         self.hardwareDecodingCodecs = try values.decodeIfPresent([String].self, forKey: "HardwareDecodingCodecs")
         self.maxMuxingQueueSize = try values.decodeIfPresent(Int.self, forKey: "MaxMuxingQueueSize")
         self.isPreferSystemNativeHwDecoder = try values.decodeIfPresent(Bool.self, forKey: "PreferSystemNativeHwDecoder")
+        self.qsvDevice = try values.decodeIfPresent(String.self, forKey: "QsvDevice")
         self.segmentKeepSeconds = try values.decodeIfPresent(Int.self, forKey: "SegmentKeepSeconds")
         self.throttleDelaySeconds = try values.decodeIfPresent(Int.self, forKey: "ThrottleDelaySeconds")
-        self.tonemappingAlgorithm = try values.decodeIfPresent(String.self, forKey: "TonemappingAlgorithm")
+        self.tonemappingAlgorithm = try values.decodeIfPresent(TonemappingAlgorithm.self, forKey: "TonemappingAlgorithm")
         self.tonemappingDesat = try values.decodeIfPresent(Double.self, forKey: "TonemappingDesat")
-        self.tonemappingMode = try values.decodeIfPresent(String.self, forKey: "TonemappingMode")
+        self.tonemappingMode = try values.decodeIfPresent(TonemappingMode.self, forKey: "TonemappingMode")
         self.tonemappingParam = try values.decodeIfPresent(Double.self, forKey: "TonemappingParam")
         self.tonemappingPeak = try values.decodeIfPresent(Double.self, forKey: "TonemappingPeak")
-        self.tonemappingRange = try values.decodeIfPresent(String.self, forKey: "TonemappingRange")
+        self.tonemappingRange = try values.decodeIfPresent(TonemappingRange.self, forKey: "TonemappingRange")
         self.transcodingTempPath = try values.decodeIfPresent(String.self, forKey: "TranscodingTempPath")
         self.vaapiDevice = try values.decodeIfPresent(String.self, forKey: "VaapiDevice")
         self.vppTonemappingBrightness = try values.decodeIfPresent(Double.self, forKey: "VppTonemappingBrightness")
@@ -256,7 +271,9 @@ public struct EncodingOptions: Codable, Hashable {
         try values.encodeIfPresent(downMixStereoAlgorithm, forKey: "DownMixStereoAlgorithm")
         try values.encodeIfPresent(enableAudioVbr, forKey: "EnableAudioVbr")
         try values.encodeIfPresent(enableDecodingColorDepth10Hevc, forKey: "EnableDecodingColorDepth10Hevc")
+        try values.encodeIfPresent(enableDecodingColorDepth10HevcRext, forKey: "EnableDecodingColorDepth10HevcRext")
         try values.encodeIfPresent(enableDecodingColorDepth10Vp9, forKey: "EnableDecodingColorDepth10Vp9")
+        try values.encodeIfPresent(enableDecodingColorDepth12HevcRext, forKey: "EnableDecodingColorDepth12HevcRext")
         try values.encodeIfPresent(enableEnhancedNvdecDecoder, forKey: "EnableEnhancedNvdecDecoder")
         try values.encodeIfPresent(enableFallbackFont, forKey: "EnableFallbackFont")
         try values.encodeIfPresent(enableHardwareEncoding, forKey: "EnableHardwareEncoding")
@@ -279,6 +296,7 @@ public struct EncodingOptions: Codable, Hashable {
         try values.encodeIfPresent(hardwareDecodingCodecs, forKey: "HardwareDecodingCodecs")
         try values.encodeIfPresent(maxMuxingQueueSize, forKey: "MaxMuxingQueueSize")
         try values.encodeIfPresent(isPreferSystemNativeHwDecoder, forKey: "PreferSystemNativeHwDecoder")
+        try values.encodeIfPresent(qsvDevice, forKey: "QsvDevice")
         try values.encodeIfPresent(segmentKeepSeconds, forKey: "SegmentKeepSeconds")
         try values.encodeIfPresent(throttleDelaySeconds, forKey: "ThrottleDelaySeconds")
         try values.encodeIfPresent(tonemappingAlgorithm, forKey: "TonemappingAlgorithm")
