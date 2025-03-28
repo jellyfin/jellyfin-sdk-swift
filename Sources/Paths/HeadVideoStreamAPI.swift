@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -67,6 +67,7 @@ public extension Paths {
         public var videoStreamIndex: Int?
         public var context: Context?
         public var streamOptions: StreamOptions?
+        public var enableAudioVbrEncoding: Bool?
 
         public typealias SubtitleMethod = JellyfinAPI.SubtitleDeliveryMethod
 
@@ -124,7 +125,8 @@ public extension Paths {
             audioStreamIndex: Int? = nil,
             videoStreamIndex: Int? = nil,
             context: Context? = nil,
-            streamOptions: StreamOptions? = nil
+            streamOptions: StreamOptions? = nil,
+            enableAudioVbrEncoding: Bool? = nil
         ) {
             self.container = container
             self.isStatic = isStatic
@@ -176,6 +178,7 @@ public extension Paths {
             self.videoStreamIndex = videoStreamIndex
             self.context = context
             self.streamOptions = streamOptions
+            self.enableAudioVbrEncoding = enableAudioVbrEncoding
         }
 
         public var asQuery: [(String, String?)] {
@@ -230,6 +233,7 @@ public extension Paths {
             encoder.encode(videoStreamIndex, forKey: "videoStreamIndex")
             encoder.encode(context, forKey: "context")
             encoder.encode(streamOptions, forKey: "streamOptions")
+            encoder.encode(enableAudioVbrEncoding, forKey: "enableAudioVbrEncoding")
             return encoder.items
         }
     }

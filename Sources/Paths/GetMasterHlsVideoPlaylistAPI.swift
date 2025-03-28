@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -68,6 +68,8 @@ public extension Paths {
         public var streamOptions: StreamOptions?
         public var enableAdaptiveBitrateStreaming: Bool?
         public var enableTrickplay: Bool?
+        public var enableAudioVbrEncoding: Bool?
+        public var isAlwaysBurnInSubtitleWhenTranscoding: Bool?
 
         public typealias SubtitleMethod = JellyfinAPI.SubtitleDeliveryMethod
 
@@ -126,7 +128,9 @@ public extension Paths {
             context: Context? = nil,
             streamOptions: StreamOptions? = nil,
             enableAdaptiveBitrateStreaming: Bool? = nil,
-            enableTrickplay: Bool? = nil
+            enableTrickplay: Bool? = nil,
+            enableAudioVbrEncoding: Bool? = nil,
+            isAlwaysBurnInSubtitleWhenTranscoding: Bool? = nil
         ) {
             self.isStatic = isStatic
             self.params = params
@@ -179,6 +183,8 @@ public extension Paths {
             self.streamOptions = streamOptions
             self.enableAdaptiveBitrateStreaming = enableAdaptiveBitrateStreaming
             self.enableTrickplay = enableTrickplay
+            self.enableAudioVbrEncoding = enableAudioVbrEncoding
+            self.isAlwaysBurnInSubtitleWhenTranscoding = isAlwaysBurnInSubtitleWhenTranscoding
         }
 
         public var asQuery: [(String, String?)] {
@@ -234,6 +240,8 @@ public extension Paths {
             encoder.encode(streamOptions, forKey: "streamOptions")
             encoder.encode(enableAdaptiveBitrateStreaming, forKey: "enableAdaptiveBitrateStreaming")
             encoder.encode(enableTrickplay, forKey: "enableTrickplay")
+            encoder.encode(enableAudioVbrEncoding, forKey: "enableAudioVbrEncoding")
+            encoder.encode(isAlwaysBurnInSubtitleWhenTranscoding, forKey: "alwaysBurnInSubtitleWhenTranscoding")
             return encoder.items
         }
     }

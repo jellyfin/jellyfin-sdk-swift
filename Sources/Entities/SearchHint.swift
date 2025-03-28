@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -42,7 +42,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     public var itemID: String?
     /// Gets or sets the matched term.
     public var matchedTerm: String?
-    /// Gets or sets the type of the media.
+    /// Media types.
     public var mediaType: MediaType?
     /// Gets or sets the name.
     public var name: String?
@@ -68,7 +68,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     public var thumbImageItemID: String?
     /// Gets or sets the thumb image tag.
     public var thumbImageTag: String?
-    /// Gets or sets the type.
+    /// The base item kind.
     public var type: BaseItemKind?
 
     public init(

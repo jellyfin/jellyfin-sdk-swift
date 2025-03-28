@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -12,7 +12,7 @@ import Foundation
 public struct MediaStream: Codable, Hashable {
     /// Gets or sets the aspect ratio.
     public var aspectRatio: String?
-    /// Gets the audio spatial format.
+    /// An enum representing formats of spatial audio.
     public var audioSpatialFormat: AudioSpatialFormat?
     /// Gets or sets the average frame rate.
     public var averageFrameRate: Float?
@@ -101,6 +101,14 @@ public struct MediaStream: Codable, Hashable {
     public var realFrameRate: Float?
     /// Gets or sets the reference frames.
     public var refFrames: Int?
+    /// Gets the framerate used as reference.
+    ///
+    /// Prefer AverageFrameRate, if that is null or an unrealistic value
+    ///
+    /// then fallback to RealFrameRate.
+    public var referenceFrameRate: Float?
+    /// Gets or sets the Rotation in degrees.
+    public var rotation: Int?
     /// Gets or sets the Dolby Vision rpu present flag.
     public var rpuPresentFlag: Int?
     /// Gets or sets the sample rate.
@@ -117,9 +125,9 @@ public struct MediaStream: Codable, Hashable {
     public var type: MediaStreamType?
     /// Gets the video dovi title.
     public var videoDoViTitle: String?
-    /// Gets the video range.
+    /// An enum representing video ranges.
     public var videoRange: VideoRange?
-    /// Gets the video range type.
+    /// An enum representing types of video ranges.
     public var videoRangeType: VideoRangeType?
     /// Gets or sets the width.
     public var width: Int?
@@ -175,6 +183,8 @@ public struct MediaStream: Codable, Hashable {
         profile: String? = nil,
         realFrameRate: Float? = nil,
         refFrames: Int? = nil,
+        referenceFrameRate: Float? = nil,
+        rotation: Int? = nil,
         rpuPresentFlag: Int? = nil,
         sampleRate: Int? = nil,
         score: Int? = nil,
@@ -237,6 +247,8 @@ public struct MediaStream: Codable, Hashable {
         self.profile = profile
         self.realFrameRate = realFrameRate
         self.refFrames = refFrames
+        self.referenceFrameRate = referenceFrameRate
+        self.rotation = rotation
         self.rpuPresentFlag = rpuPresentFlag
         self.sampleRate = sampleRate
         self.score = score
@@ -302,6 +314,8 @@ public struct MediaStream: Codable, Hashable {
         self.profile = try values.decodeIfPresent(String.self, forKey: "Profile")
         self.realFrameRate = try values.decodeIfPresent(Float.self, forKey: "RealFrameRate")
         self.refFrames = try values.decodeIfPresent(Int.self, forKey: "RefFrames")
+        self.referenceFrameRate = try values.decodeIfPresent(Float.self, forKey: "ReferenceFrameRate")
+        self.rotation = try values.decodeIfPresent(Int.self, forKey: "Rotation")
         self.rpuPresentFlag = try values.decodeIfPresent(Int.self, forKey: "RpuPresentFlag")
         self.sampleRate = try values.decodeIfPresent(Int.self, forKey: "SampleRate")
         self.score = try values.decodeIfPresent(Int.self, forKey: "Score")
@@ -367,6 +381,8 @@ public struct MediaStream: Codable, Hashable {
         try values.encodeIfPresent(profile, forKey: "Profile")
         try values.encodeIfPresent(realFrameRate, forKey: "RealFrameRate")
         try values.encodeIfPresent(refFrames, forKey: "RefFrames")
+        try values.encodeIfPresent(referenceFrameRate, forKey: "ReferenceFrameRate")
+        try values.encodeIfPresent(rotation, forKey: "Rotation")
         try values.encodeIfPresent(rpuPresentFlag, forKey: "RpuPresentFlag")
         try values.encodeIfPresent(sampleRate, forKey: "SampleRate")
         try values.encodeIfPresent(score, forKey: "Score")

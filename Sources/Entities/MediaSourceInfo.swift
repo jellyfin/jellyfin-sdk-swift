@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -18,8 +18,10 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
     public var eTag: String?
     public var encoderPath: String?
     public var encoderProtocol: MediaProtocol?
+    public var fallbackMaxStreamingBitrate: Int?
     public var formats: [String]?
     public var isGenPtsInput: Bool?
+    public var hasSegments: Bool?
     public var id: String?
     public var isIgnoreDts: Bool?
     public var isIgnoreIndex: Bool?
@@ -55,6 +57,7 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
     public var transcodingSubProtocol: MediaStreamProtocol?
     public var transcodingURL: String?
     public var type: MediaSourceType?
+    public var useMostCompatibleTranscodingProfile: Bool
     public var video3DFormat: Video3DFormat?
     public var videoType: VideoType?
 
@@ -68,8 +71,10 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         eTag: String? = nil,
         encoderPath: String? = nil,
         encoderProtocol: MediaProtocol? = nil,
+        fallbackMaxStreamingBitrate: Int? = nil,
         formats: [String]? = nil,
         isGenPtsInput: Bool? = nil,
+        hasSegments: Bool? = nil,
         id: String? = nil,
         isIgnoreDts: Bool? = nil,
         isIgnoreIndex: Bool? = nil,
@@ -99,6 +104,7 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         transcodingSubProtocol: MediaStreamProtocol? = nil,
         transcodingURL: String? = nil,
         type: MediaSourceType? = nil,
+        useMostCompatibleTranscodingProfile: Bool? = nil,
         video3DFormat: Video3DFormat? = nil,
         videoType: VideoType? = nil
     ) {
@@ -111,8 +117,10 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         self.eTag = eTag
         self.encoderPath = encoderPath
         self.encoderProtocol = encoderProtocol
+        self.fallbackMaxStreamingBitrate = fallbackMaxStreamingBitrate
         self.formats = formats
         self.isGenPtsInput = isGenPtsInput
+        self.hasSegments = hasSegments
         self.id = id
         self.isIgnoreDts = isIgnoreDts
         self.isIgnoreIndex = isIgnoreIndex
@@ -142,6 +150,7 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         self.transcodingSubProtocol = transcodingSubProtocol
         self.transcodingURL = transcodingURL
         self.type = type
+        self.useMostCompatibleTranscodingProfile = useMostCompatibleTranscodingProfile ?? false
         self.video3DFormat = video3DFormat
         self.videoType = videoType
     }
@@ -157,8 +166,10 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         self.eTag = try values.decodeIfPresent(String.self, forKey: "ETag")
         self.encoderPath = try values.decodeIfPresent(String.self, forKey: "EncoderPath")
         self.encoderProtocol = try values.decodeIfPresent(MediaProtocol.self, forKey: "EncoderProtocol")
+        self.fallbackMaxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "FallbackMaxStreamingBitrate")
         self.formats = try values.decodeIfPresent([String].self, forKey: "Formats")
         self.isGenPtsInput = try values.decodeIfPresent(Bool.self, forKey: "GenPtsInput")
+        self.hasSegments = try values.decodeIfPresent(Bool.self, forKey: "HasSegments")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isIgnoreDts = try values.decodeIfPresent(Bool.self, forKey: "IgnoreDts")
         self.isIgnoreIndex = try values.decodeIfPresent(Bool.self, forKey: "IgnoreIndex")
@@ -188,6 +199,8 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         self.transcodingSubProtocol = try values.decodeIfPresent(MediaStreamProtocol.self, forKey: "TranscodingSubProtocol")
         self.transcodingURL = try values.decodeIfPresent(String.self, forKey: "TranscodingUrl")
         self.type = try values.decodeIfPresent(MediaSourceType.self, forKey: "Type")
+        self.useMostCompatibleTranscodingProfile = try values
+            .decodeIfPresent(Bool.self, forKey: "UseMostCompatibleTranscodingProfile") ?? false
         self.video3DFormat = try values.decodeIfPresent(Video3DFormat.self, forKey: "Video3DFormat")
         self.videoType = try values.decodeIfPresent(VideoType.self, forKey: "VideoType")
     }
@@ -203,8 +216,10 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(eTag, forKey: "ETag")
         try values.encodeIfPresent(encoderPath, forKey: "EncoderPath")
         try values.encodeIfPresent(encoderProtocol, forKey: "EncoderProtocol")
+        try values.encodeIfPresent(fallbackMaxStreamingBitrate, forKey: "FallbackMaxStreamingBitrate")
         try values.encodeIfPresent(formats, forKey: "Formats")
         try values.encodeIfPresent(isGenPtsInput, forKey: "GenPtsInput")
+        try values.encodeIfPresent(hasSegments, forKey: "HasSegments")
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(isIgnoreDts, forKey: "IgnoreDts")
         try values.encodeIfPresent(isIgnoreIndex, forKey: "IgnoreIndex")
@@ -234,6 +249,7 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(transcodingSubProtocol, forKey: "TranscodingSubProtocol")
         try values.encodeIfPresent(transcodingURL, forKey: "TranscodingUrl")
         try values.encodeIfPresent(type, forKey: "Type")
+        try values.encodeIfPresent(useMostCompatibleTranscodingProfile, forKey: "UseMostCompatibleTranscodingProfile")
         try values.encodeIfPresent(video3DFormat, forKey: "Video3DFormat")
         try values.encodeIfPresent(videoType, forKey: "VideoType")
     }

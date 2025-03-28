@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -25,6 +25,7 @@ public extension Paths {
         public var hasSpecialFeature: Bool?
         public var hasTrailer: Bool?
         public var adjacentTo: String?
+        public var indexNumber: Int?
         public var parentIndexNumber: Int?
         public var hasParentalRating: Bool?
         public var isHd: Bool?
@@ -112,6 +113,7 @@ public extension Paths {
             hasSpecialFeature: Bool? = nil,
             hasTrailer: Bool? = nil,
             adjacentTo: String? = nil,
+            indexNumber: Int? = nil,
             parentIndexNumber: Int? = nil,
             hasParentalRating: Bool? = nil,
             isHd: Bool? = nil,
@@ -198,6 +200,7 @@ public extension Paths {
             self.hasSpecialFeature = hasSpecialFeature
             self.hasTrailer = hasTrailer
             self.adjacentTo = adjacentTo
+            self.indexNumber = indexNumber
             self.parentIndexNumber = parentIndexNumber
             self.hasParentalRating = hasParentalRating
             self.isHd = isHd
@@ -287,6 +290,7 @@ public extension Paths {
             encoder.encode(hasSpecialFeature, forKey: "hasSpecialFeature")
             encoder.encode(hasTrailer, forKey: "hasTrailer")
             encoder.encode(adjacentTo, forKey: "adjacentTo")
+            encoder.encode(indexNumber, forKey: "indexNumber")
             encoder.encode(parentIndexNumber, forKey: "parentIndexNumber")
             encoder.encode(hasParentalRating, forKey: "hasParentalRating")
             encoder.encode(isHd, forKey: "isHd")

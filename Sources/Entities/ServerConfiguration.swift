@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -72,7 +72,6 @@ public struct ServerConfiguration: Codable, Hashable {
     public var maxResumePct: Int?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
-    public var metadataNetworkPath: String?
     public var metadataOptions: [MetadataOptions]?
     /// Gets or sets the metadata path.
     public var metadataPath: String?
@@ -146,7 +145,6 @@ public struct ServerConfiguration: Codable, Hashable {
         maxAudiobookResume: Int? = nil,
         maxResumePct: Int? = nil,
         metadataCountryCode: String? = nil,
-        metadataNetworkPath: String? = nil,
         metadataOptions: [MetadataOptions]? = nil,
         metadataPath: String? = nil,
         minAudiobookResume: Int? = nil,
@@ -202,7 +200,6 @@ public struct ServerConfiguration: Codable, Hashable {
         self.maxAudiobookResume = maxAudiobookResume
         self.maxResumePct = maxResumePct
         self.metadataCountryCode = metadataCountryCode
-        self.metadataNetworkPath = metadataNetworkPath
         self.metadataOptions = metadataOptions
         self.metadataPath = metadataPath
         self.minAudiobookResume = minAudiobookResume
@@ -261,7 +258,6 @@ public struct ServerConfiguration: Codable, Hashable {
         self.maxAudiobookResume = try values.decodeIfPresent(Int.self, forKey: "MaxAudiobookResume")
         self.maxResumePct = try values.decodeIfPresent(Int.self, forKey: "MaxResumePct")
         self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
-        self.metadataNetworkPath = try values.decodeIfPresent(String.self, forKey: "MetadataNetworkPath")
         self.metadataOptions = try values.decodeIfPresent([MetadataOptions].self, forKey: "MetadataOptions")
         self.metadataPath = try values.decodeIfPresent(String.self, forKey: "MetadataPath")
         self.minAudiobookResume = try values.decodeIfPresent(Int.self, forKey: "MinAudiobookResume")
@@ -320,7 +316,6 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(maxAudiobookResume, forKey: "MaxAudiobookResume")
         try values.encodeIfPresent(maxResumePct, forKey: "MaxResumePct")
         try values.encodeIfPresent(metadataCountryCode, forKey: "MetadataCountryCode")
-        try values.encodeIfPresent(metadataNetworkPath, forKey: "MetadataNetworkPath")
         try values.encodeIfPresent(metadataOptions, forKey: "MetadataOptions")
         try values.encodeIfPresent(metadataPath, forKey: "MetadataPath")
         try values.encodeIfPresent(minAudiobookResume, forKey: "MinAudiobookResume")

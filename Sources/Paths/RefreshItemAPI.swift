@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -21,6 +21,7 @@ public extension Paths {
         public var imageRefreshMode: ImageRefreshMode?
         public var isReplaceAllMetadata: Bool?
         public var isReplaceAllImages: Bool?
+        public var isRegenerateTrickplay: Bool?
 
         public typealias MetadataRefreshMode = JellyfinAPI.MetadataRefreshMode
 
@@ -30,12 +31,14 @@ public extension Paths {
             metadataRefreshMode: MetadataRefreshMode? = nil,
             imageRefreshMode: ImageRefreshMode? = nil,
             isReplaceAllMetadata: Bool? = nil,
-            isReplaceAllImages: Bool? = nil
+            isReplaceAllImages: Bool? = nil,
+            isRegenerateTrickplay: Bool? = nil
         ) {
             self.metadataRefreshMode = metadataRefreshMode
             self.imageRefreshMode = imageRefreshMode
             self.isReplaceAllMetadata = isReplaceAllMetadata
             self.isReplaceAllImages = isReplaceAllImages
+            self.isRegenerateTrickplay = isRegenerateTrickplay
         }
 
         public var asQuery: [(String, String?)] {
@@ -44,6 +47,7 @@ public extension Paths {
             encoder.encode(imageRefreshMode, forKey: "imageRefreshMode")
             encoder.encode(isReplaceAllMetadata, forKey: "replaceAllMetadata")
             encoder.encode(isReplaceAllImages, forKey: "replaceAllImages")
+            encoder.encode(isRegenerateTrickplay, forKey: "regenerateTrickplay")
             return encoder.items
         }
     }

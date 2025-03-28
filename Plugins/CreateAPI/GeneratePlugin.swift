@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -15,7 +15,7 @@ struct Plugin: CommandPlugin {
     func performCommand(context: PluginContext, arguments: [String]) async throws {
 
         // Apply schema pre patches
-        try await patchBaseItemDtoSchema(context: context)
+        try await patchTaskTriggerInfoSchema(context: context)
 
         try await generate(context: context)
 
@@ -25,7 +25,7 @@ struct Plugin: CommandPlugin {
         try await patchGroupUpdateDiscriminator(context: context)
 
         // Move patch files
-        try await addSpecialFeatureType(context: context)
+        try await addTaskTriggerType(context: context)
 
         try await lint(context: context)
 
@@ -104,27 +104,23 @@ struct Plugin: CommandPlugin {
         try FileManager.default.removeItem(atPath: filePath.string)
     }
 
-    // TODO: remove when BaseItemDto uses `ExtraType` or other
-    // BaseItemDto: add SpecialFeatureType string format to property prior to generation
-    private func patchBaseItemDtoSchema(context: PluginContext) async throws {
+    private func patchTaskTriggerInfoSchema(context: PluginContext) async throws {
         let contents = try await parseOriginalSchema(context: context)
 
         guard case var .object(file) = contents else { return }
         guard case var .object(components) = file["components"] else { return }
         guard case var .object(schemas) = components["schemas"] else { return }
-        guard case var .object(baseItemDto) = schemas["BaseItemDto"] else { return }
-        guard case var .object(properties) = baseItemDto["properties"] else { return }
+        guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
+        guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
 
-        properties["ExtraType"] = AnyJSON.object(
-            [
-                "type": .string("string"),
-                "format": .string("SpecialFeatureType"),
-                "nullable": .bool(true),
-            ]
-        )
+        properties["Type"] = AnyJSON.object([
+            "type": .string("string"),
+            "format": .string("TaskTriggerType"),
+            "nullable": .bool(true),
+        ])
 
-        baseItemDto["properties"] = .object(properties)
-        schemas["BaseItemDto"] = .object(baseItemDto)
+        taskTriggerInfo["properties"] = .object(properties)
+        schemas["TaskTriggerInfo"] = .object(taskTriggerInfo)
         components["schemas"] = .object(schemas)
         file["components"] = .object(components)
 
@@ -171,20 +167,24 @@ struct Plugin: CommandPlugin {
             .write(to: URL(fileURLWithPath: filePath.string))
     }
 
-    private func addSpecialFeatureType(context: PluginContext) async throws {
+    private func addTaskTriggerType(context: PluginContext) async throws {
         let sourceFilePath = context
             .package
             .directory
-            .appending(["Plugins", "CreateAPI", "PatchFiles", "SpecialFeatureType.swift"])
+            .appending(["Plugins", "CreateAPI", "PatchFiles", "TaskTriggerType.swift"])
 
-        let sourceData = try Data(referencing: NSData(contentsOfFile: sourceFilePath.string))
-
-        let finalFilePath = context
+        let destinationFilePath = context
             .package
             .directory
-            .appending(["Sources", "Entities", "SpecialFeatureType.swift"])
+            .appending(["Sources", "Entities", "TaskTriggerType.swift"])
 
-        try sourceData.write(to: URL(fileURLWithPath: finalFilePath.string))
+        let fileManager = FileManager.default
+
+        if fileManager.fileExists(atPath: destinationFilePath.string) {
+            try fileManager.removeItem(atPath: destinationFilePath.string)
+        }
+
+        try fileManager.copyItem(atPath: sourceFilePath.string, toPath: destinationFilePath.string)
     }
 
     // TODO: Remove if/when fixed within CreateAPI

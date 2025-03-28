@@ -3,32 +3,44 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
 import URLQueryEncoder
 
-extension Paths {
+public extension Paths {
     /// Get theme songs for an item.
-    public static func getThemeSongs(
-        itemID: String,
-        userID: String? = nil,
-        isInheritFromParent: Bool? = nil
-    ) -> Request<JellyfinAPI.ThemeMediaResult> {
-        Request(
-            path: "/Items/\(itemID)/ThemeSongs",
-            method: "GET",
-            query: makeGetThemeSongsQuery(userID, isInheritFromParent),
-            id: "GetThemeSongs"
-        )
+    static func getThemeSongs(itemID: String, parameters: GetThemeSongsParameters? = nil) -> Request<JellyfinAPI.ThemeMediaResult> {
+        Request(path: "/Items/\(itemID)/ThemeSongs", method: "GET", query: parameters?.asQuery, id: "GetThemeSongs")
     }
 
-    private static func makeGetThemeSongsQuery(_ userID: String?, _ isInheritFromParent: Bool?) -> [(String, String?)] {
-        let encoder = URLQueryEncoder()
-        encoder.encode(userID, forKey: "userId")
-        encoder.encode(isInheritFromParent, forKey: "inheritFromParent")
-        return encoder.items
+    struct GetThemeSongsParameters {
+        public var userID: String?
+        public var isInheritFromParent: Bool?
+        public var sortBy: [JellyfinAPI.ItemSortBy]?
+        public var sortOrder: [JellyfinAPI.SortOrder]?
+
+        public init(
+            userID: String? = nil,
+            isInheritFromParent: Bool? = nil,
+            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
+            sortOrder: [JellyfinAPI.SortOrder]? = nil
+        ) {
+            self.userID = userID
+            self.isInheritFromParent = isInheritFromParent
+            self.sortBy = sortBy
+            self.sortOrder = sortOrder
+        }
+
+        public var asQuery: [(String, String?)] {
+            let encoder = URLQueryEncoder()
+            encoder.encode(userID, forKey: "userId")
+            encoder.encode(isInheritFromParent, forKey: "inheritFromParent")
+            encoder.encode(sortBy, forKey: "sortBy")
+            encoder.encode(sortOrder, forKey: "sortOrder")
+            return encoder.items
+        }
     }
 }

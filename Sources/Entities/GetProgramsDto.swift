@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -13,98 +13,54 @@ public struct GetProgramsDto: Codable, Hashable {
     /// Gets or sets the channels to return guide information for.
     public var channelIDs: [String]?
     /// Gets or sets the image types to include in the output.
-    ///
-    /// Optional.
     public var enableImageTypes: [ImageType]?
     /// Gets or sets include image information in output.
-    ///
-    /// Optional.
     public var enableImages: Bool?
     /// Gets or sets a value indicating whether retrieve total record count.
-    public var enableTotalRecordCount: Bool?
+    public var enableTotalRecordCount: Bool
     /// Gets or sets include user data.
-    ///
-    /// Optional.
     public var enableUserData: Bool?
-    /// Gets or sets specify additional fields of information to return in the output. This allows multiple, comma delimited. Options:
-    /// Budget, Chapters, DateCreated, Genres, HomePageUrl, IndexOptions, MediaStreams, Overview, ParentId, Path, People, ProviderIds,
-    /// PrimaryImageAspectRatio, Revenue, SortName, Studios, Taglines.
-    ///
-    /// Optional.
+    /// Gets or sets specify additional fields of information to return in the output.
     public var fields: [ItemFields]?
     /// Gets or sets the genre ids to return guide information for.
     public var genreIDs: [String]?
     /// Gets or sets the genres to return guide information for.
     public var genres: [String]?
     /// Gets or sets filter by programs that have completed airing, or not.
-    ///
-    /// Optional.
     public var hasAired: Bool?
     /// Gets or sets the max number of images to return, per image type.
-    ///
-    /// Optional.
     public var imageTypeLimit: Int?
     /// Gets or sets filter by programs that are currently airing, or not.
-    ///
-    /// Optional.
     public var isAiring: Bool?
     /// Gets or sets filter for kids.
-    ///
-    /// Optional.
     public var isKids: Bool?
     /// Gets or sets filter for movies.
-    ///
-    /// Optional.
     public var isMovie: Bool?
     /// Gets or sets filter for news.
-    ///
-    /// Optional.
     public var isNews: Bool?
     /// Gets or sets filter for series.
-    ///
-    /// Optional.
     public var isSeries: Bool?
     /// Gets or sets filter for sports.
-    ///
-    /// Optional.
     public var isSports: Bool?
     /// Gets or sets filter by library series id.
-    ///
-    /// Optional.
     public var librarySeriesID: String?
     /// Gets or sets the maximum number of records to return.
-    ///
-    /// Optional.
     public var limit: Int?
     /// Gets or sets the maximum premiere end date.
-    ///
-    /// Optional.
     public var maxEndDate: Date?
     /// Gets or sets the maximum premiere start date.
-    ///
-    /// Optional.
     public var maxStartDate: Date?
     /// Gets or sets the minimum premiere end date.
-    ///
-    /// Optional.
     public var minEndDate: Date?
     /// Gets or sets the minimum premiere start date.
-    ///
-    /// Optional.
     public var minStartDate: Date?
     /// Gets or sets filter by series timer id.
-    ///
-    /// Optional.
     public var seriesTimerID: String?
     /// Gets or sets specify one or more sort orders, comma delimited. Options: Name, StartDate.
-    ///
-    /// Optional.
     public var sortBy: [ItemSortBy]?
-    /// Gets or sets sort Order - Ascending,Descending.
+    /// Gets or sets sort order.
     public var sortOrder: [SortOrder]?
     /// Gets or sets the record index to start at. All items with a lower index will be dropped from the results.
-    ///
-    /// Optional.
     public var startIndex: Int?
     /// Gets or sets optional. Filter by user id.
     public var userID: String?
@@ -141,7 +97,7 @@ public struct GetProgramsDto: Codable, Hashable {
         self.channelIDs = channelIDs
         self.enableImageTypes = enableImageTypes
         self.enableImages = enableImages
-        self.enableTotalRecordCount = enableTotalRecordCount
+        self.enableTotalRecordCount = enableTotalRecordCount ?? true
         self.enableUserData = enableUserData
         self.fields = fields
         self.genreIDs = genreIDs
@@ -172,7 +128,7 @@ public struct GetProgramsDto: Codable, Hashable {
         self.channelIDs = try values.decodeIfPresent([String].self, forKey: "ChannelIds")
         self.enableImageTypes = try values.decodeIfPresent([ImageType].self, forKey: "EnableImageTypes")
         self.enableImages = try values.decodeIfPresent(Bool.self, forKey: "EnableImages")
-        self.enableTotalRecordCount = try values.decodeIfPresent(Bool.self, forKey: "EnableTotalRecordCount")
+        self.enableTotalRecordCount = try values.decodeIfPresent(Bool.self, forKey: "EnableTotalRecordCount") ?? true
         self.enableUserData = try values.decodeIfPresent(Bool.self, forKey: "EnableUserData")
         self.fields = try values.decodeIfPresent([ItemFields].self, forKey: "Fields")
         self.genreIDs = try values.decodeIfPresent([String].self, forKey: "GenreIds")

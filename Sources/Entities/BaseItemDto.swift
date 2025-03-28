@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -92,7 +92,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var exposureTime: Double?
     /// Gets or sets the external urls.
     public var externalURLs: [ExternalURL]?
-    public var extraType: SpecialFeatureType?
+    public var extraType: ExtraType?
     public var focalLength: Double?
     public var forcedSortName: String?
     public var genreItems: [NameGuidPair]?
@@ -154,7 +154,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var mediaSources: [MediaSourceInfo]?
     /// Gets or sets the media streams.
     public var mediaStreams: [MediaStream]?
-    /// Gets or sets the type of the media.
+    /// Media types.
     public var mediaType: MediaType?
     /// Gets or sets the movie count.
     public var movieCount: Int?
@@ -273,7 +273,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var trailerCount: Int?
     /// Gets or sets the trickplay manifest.
     public var trickplay: [String: [String: TrickplayInfo]]?
-    /// Gets or sets the type.
+    /// The base item kind.
     public var type: BaseItemKind?
     /// Gets or sets the user data for this item based on the user it's being requested for.
     public var userData: UserItemDataDto?
@@ -415,7 +415,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         etag: String? = nil,
         exposureTime: Double? = nil,
         externalURLs: [ExternalURL]? = nil,
-        extraType: SpecialFeatureType? = nil,
+        extraType: ExtraType? = nil,
         focalLength: Double? = nil,
         forcedSortName: String? = nil,
         genreItems: [NameGuidPair]? = nil,
@@ -724,7 +724,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.etag = try values.decodeIfPresent(String.self, forKey: "Etag")
         self.exposureTime = try values.decodeIfPresent(Double.self, forKey: "ExposureTime")
         self.externalURLs = try values.decodeIfPresent([ExternalURL].self, forKey: "ExternalUrls")
-        self.extraType = try values.decodeIfPresent(SpecialFeatureType.self, forKey: "ExtraType")
+        self.extraType = try values.decodeIfPresent(ExtraType.self, forKey: "ExtraType")
         self.focalLength = try values.decodeIfPresent(Double.self, forKey: "FocalLength")
         self.forcedSortName = try values.decodeIfPresent(String.self, forKey: "ForcedSortName")
         self.genreItems = try values.decodeIfPresent([NameGuidPair].self, forKey: "GenreItems")

@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -14,6 +14,10 @@ public struct TrickplayOptions: Codable, Hashable {
     public var enableHwAcceleration: Bool?
     /// Gets or sets a value indicating whether or not to use HW accelerated MJPEG encoding.
     public var enableHwEncoding: Bool?
+    /// Gets or sets a value indicating whether to only extract key frames.
+    ///
+    /// Significantly faster, but is not compatible with all decoders and/or video files.
+    public var enableKeyFrameOnlyExtraction: Bool?
     /// Gets or sets the interval, in ms, between each new trickplay image.
     public var interval: Int?
     /// Gets or sets the jpeg quality to use for image tiles.
@@ -36,6 +40,7 @@ public struct TrickplayOptions: Codable, Hashable {
     public init(
         enableHwAcceleration: Bool? = nil,
         enableHwEncoding: Bool? = nil,
+        enableKeyFrameOnlyExtraction: Bool? = nil,
         interval: Int? = nil,
         jpegQuality: Int? = nil,
         processPriority: ProcessPriorityClass? = nil,
@@ -48,6 +53,7 @@ public struct TrickplayOptions: Codable, Hashable {
     ) {
         self.enableHwAcceleration = enableHwAcceleration
         self.enableHwEncoding = enableHwEncoding
+        self.enableKeyFrameOnlyExtraction = enableKeyFrameOnlyExtraction
         self.interval = interval
         self.jpegQuality = jpegQuality
         self.processPriority = processPriority
@@ -63,6 +69,7 @@ public struct TrickplayOptions: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.enableHwAcceleration = try values.decodeIfPresent(Bool.self, forKey: "EnableHwAcceleration")
         self.enableHwEncoding = try values.decodeIfPresent(Bool.self, forKey: "EnableHwEncoding")
+        self.enableKeyFrameOnlyExtraction = try values.decodeIfPresent(Bool.self, forKey: "EnableKeyFrameOnlyExtraction")
         self.interval = try values.decodeIfPresent(Int.self, forKey: "Interval")
         self.jpegQuality = try values.decodeIfPresent(Int.self, forKey: "JpegQuality")
         self.processPriority = try values.decodeIfPresent(ProcessPriorityClass.self, forKey: "ProcessPriority")
@@ -78,6 +85,7 @@ public struct TrickplayOptions: Codable, Hashable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(enableHwAcceleration, forKey: "EnableHwAcceleration")
         try values.encodeIfPresent(enableHwEncoding, forKey: "EnableHwEncoding")
+        try values.encodeIfPresent(enableKeyFrameOnlyExtraction, forKey: "EnableKeyFrameOnlyExtraction")
         try values.encodeIfPresent(interval, forKey: "Interval")
         try values.encodeIfPresent(jpegQuality, forKey: "JpegQuality")
         try values.encodeIfPresent(processPriority, forKey: "ProcessPriority")

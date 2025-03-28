@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -23,11 +23,11 @@ import Foundation
 public struct DeviceProfile: Codable, Hashable, Identifiable {
     /// Gets or sets the codec profiles.
     public var codecProfiles: [CodecProfile]?
-    /// Gets or sets the container profiles.
+    /// Gets or sets the container profiles. Failing to meet these optional conditions causes transcoding to occur.
     public var containerProfiles: [ContainerProfile]?
     /// Gets or sets the direct play profiles.
     public var directPlayProfiles: [DirectPlayProfile]?
-    /// Gets or sets the Id.
+    /// Gets or sets the unique internal identifier.
     public var id: String?
     /// Gets or sets the maximum allowed bitrate for statically streamed content (= direct played files).
     public var maxStaticBitrate: Int?
@@ -37,7 +37,7 @@ public struct DeviceProfile: Codable, Hashable, Identifiable {
     public var maxStreamingBitrate: Int?
     /// Gets or sets the maximum allowed bitrate for transcoded music streams.
     public var musicStreamingTranscodingBitrate: Int?
-    /// Gets or sets the name of this device profile.
+    /// Gets or sets the name of this device profile. User profiles must have a unique name.
     public var name: String?
     /// Gets or sets the subtitle profiles.
     public var subtitleProfiles: [SubtitleProfile]?

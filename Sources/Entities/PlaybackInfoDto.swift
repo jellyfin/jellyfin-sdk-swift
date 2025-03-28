@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -14,24 +14,13 @@ public struct PlaybackInfoDto: Codable, Hashable {
     public var allowAudioStreamCopy: Bool?
     /// Gets or sets a value indicating whether to enable video stream copy.
     public var allowVideoStreamCopy: Bool?
+    /// Gets or sets a value indicating whether always burn in subtitles when transcoding.
+    public var isAlwaysBurnInSubtitleWhenTranscoding: Bool?
     /// Gets or sets the audio stream index.
     public var audioStreamIndex: Int?
     /// Gets or sets a value indicating whether to auto open the live stream.
     public var isAutoOpenLiveStream: Bool?
-    /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to
-    /// play.
-    ///
-    /// <br />
-    ///
-    /// Specifically, it defines the supported <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles">containers</see> and
-    ///
-    /// <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles">codecs</see> (video and/or audio, including codec profiles and
-    /// levels)
-    ///
-    /// the device is able to direct play (without transcoding or remuxing),
-    ///
-    /// as well as which <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles">containers/codecs to transcode to</see> in
-    /// case it isn't.
+    /// Gets or sets the device profile.
     public var deviceProfile: DeviceProfile?
     /// Gets or sets a value indicating whether to enable direct play.
     public var enableDirectPlay: Bool?
@@ -57,6 +46,7 @@ public struct PlaybackInfoDto: Codable, Hashable {
     public init(
         allowAudioStreamCopy: Bool? = nil,
         allowVideoStreamCopy: Bool? = nil,
+        isAlwaysBurnInSubtitleWhenTranscoding: Bool? = nil,
         audioStreamIndex: Int? = nil,
         isAutoOpenLiveStream: Bool? = nil,
         deviceProfile: DeviceProfile? = nil,
@@ -73,6 +63,7 @@ public struct PlaybackInfoDto: Codable, Hashable {
     ) {
         self.allowAudioStreamCopy = allowAudioStreamCopy
         self.allowVideoStreamCopy = allowVideoStreamCopy
+        self.isAlwaysBurnInSubtitleWhenTranscoding = isAlwaysBurnInSubtitleWhenTranscoding
         self.audioStreamIndex = audioStreamIndex
         self.isAutoOpenLiveStream = isAutoOpenLiveStream
         self.deviceProfile = deviceProfile
@@ -92,6 +83,7 @@ public struct PlaybackInfoDto: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.allowAudioStreamCopy = try values.decodeIfPresent(Bool.self, forKey: "AllowAudioStreamCopy")
         self.allowVideoStreamCopy = try values.decodeIfPresent(Bool.self, forKey: "AllowVideoStreamCopy")
+        self.isAlwaysBurnInSubtitleWhenTranscoding = try values.decodeIfPresent(Bool.self, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
         self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
         self.isAutoOpenLiveStream = try values.decodeIfPresent(Bool.self, forKey: "AutoOpenLiveStream")
         self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
@@ -111,6 +103,7 @@ public struct PlaybackInfoDto: Codable, Hashable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(allowAudioStreamCopy, forKey: "AllowAudioStreamCopy")
         try values.encodeIfPresent(allowVideoStreamCopy, forKey: "AllowVideoStreamCopy")
+        try values.encodeIfPresent(isAlwaysBurnInSubtitleWhenTranscoding, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
         try values.encodeIfPresent(audioStreamIndex, forKey: "AudioStreamIndex")
         try values.encodeIfPresent(isAutoOpenLiveStream, forKey: "AutoOpenLiveStream")
         try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")

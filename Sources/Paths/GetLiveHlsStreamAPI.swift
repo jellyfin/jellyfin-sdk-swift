@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -68,6 +68,8 @@ public extension Paths {
         public var maxWidth: Int?
         public var maxHeight: Int?
         public var enableSubtitlesInManifest: Bool?
+        public var enableAudioVbrEncoding: Bool?
+        public var isAlwaysBurnInSubtitleWhenTranscoding: Bool?
 
         public typealias SubtitleMethod = JellyfinAPI.SubtitleDeliveryMethod
 
@@ -126,7 +128,9 @@ public extension Paths {
             streamOptions: StreamOptions? = nil,
             maxWidth: Int? = nil,
             maxHeight: Int? = nil,
-            enableSubtitlesInManifest: Bool? = nil
+            enableSubtitlesInManifest: Bool? = nil,
+            enableAudioVbrEncoding: Bool? = nil,
+            isAlwaysBurnInSubtitleWhenTranscoding: Bool? = nil
         ) {
             self.container = container
             self.isStatic = isStatic
@@ -179,6 +183,8 @@ public extension Paths {
             self.maxWidth = maxWidth
             self.maxHeight = maxHeight
             self.enableSubtitlesInManifest = enableSubtitlesInManifest
+            self.enableAudioVbrEncoding = enableAudioVbrEncoding
+            self.isAlwaysBurnInSubtitleWhenTranscoding = isAlwaysBurnInSubtitleWhenTranscoding
         }
 
         public var asQuery: [(String, String?)] {
@@ -234,6 +240,8 @@ public extension Paths {
             encoder.encode(maxWidth, forKey: "maxWidth")
             encoder.encode(maxHeight, forKey: "maxHeight")
             encoder.encode(enableSubtitlesInManifest, forKey: "enableSubtitlesInManifest")
+            encoder.encode(enableAudioVbrEncoding, forKey: "enableAudioVbrEncoding")
+            encoder.encode(isAlwaysBurnInSubtitleWhenTranscoding, forKey: "alwaysBurnInSubtitleWhenTranscoding")
             return encoder.items
         }
     }

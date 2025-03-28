@@ -3,29 +3,18 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2024 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Open live stream dto.
 public struct OpenLiveStreamDto: Codable, Hashable {
+    /// Gets or sets a value indicating whether always burn in subtitles when transcoding.
+    public var isAlwaysBurnInSubtitleWhenTranscoding: Bool?
     /// Gets or sets the audio stream index.
     public var audioStreamIndex: Int?
-    /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to
-    /// play.
-    ///
-    /// <br />
-    ///
-    /// Specifically, it defines the supported <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles">containers</see> and
-    ///
-    /// <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles">codecs</see> (video and/or audio, including codec profiles and
-    /// levels)
-    ///
-    /// the device is able to direct play (without transcoding or remuxing),
-    ///
-    /// as well as which <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles">containers/codecs to transcode to</see> in
-    /// case it isn't.
+    /// Gets or sets the device profile.
     public var deviceProfile: DeviceProfile?
     /// Gets or sets the device play protocols.
     public var directPlayProtocols: [MediaProtocol]?
@@ -51,6 +40,7 @@ public struct OpenLiveStreamDto: Codable, Hashable {
     public var userID: String?
 
     public init(
+        isAlwaysBurnInSubtitleWhenTranscoding: Bool? = nil,
         audioStreamIndex: Int? = nil,
         deviceProfile: DeviceProfile? = nil,
         directPlayProtocols: [MediaProtocol]? = nil,
@@ -65,6 +55,7 @@ public struct OpenLiveStreamDto: Codable, Hashable {
         subtitleStreamIndex: Int? = nil,
         userID: String? = nil
     ) {
+        self.isAlwaysBurnInSubtitleWhenTranscoding = isAlwaysBurnInSubtitleWhenTranscoding
         self.audioStreamIndex = audioStreamIndex
         self.deviceProfile = deviceProfile
         self.directPlayProtocols = directPlayProtocols
@@ -82,6 +73,7 @@ public struct OpenLiveStreamDto: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isAlwaysBurnInSubtitleWhenTranscoding = try values.decodeIfPresent(Bool.self, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
         self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
         self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
         self.directPlayProtocols = try values.decodeIfPresent([MediaProtocol].self, forKey: "DirectPlayProtocols")
@@ -99,6 +91,7 @@ public struct OpenLiveStreamDto: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isAlwaysBurnInSubtitleWhenTranscoding, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
         try values.encodeIfPresent(audioStreamIndex, forKey: "AudioStreamIndex")
         try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")
         try values.encodeIfPresent(directPlayProtocols, forKey: "DirectPlayProtocols")
