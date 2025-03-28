@@ -19,4 +19,4 @@ update-unstable: download-unstable generate
 # Donload the latest Jellyfin unstable spec
 .PHONY: download-unstable
 download-unstable:
-	curl -fsSL https://repo.jellyfin.org/releases/openapi/jellyfin-openapi-unstable.json -o Sources/jellyfin-openapi-stable.json
+	curl -fsSL https://repo.jellyfin.org/releases/openapi/jellyfin-openapi-unstable.json -o Sources/jellyfin-openapi-unstable.json
