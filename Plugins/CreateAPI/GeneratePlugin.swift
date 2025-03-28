@@ -15,7 +15,7 @@ struct Plugin: CommandPlugin {
     func performCommand(context: PluginContext, arguments: [String]) async throws {
 
         // Apply schema pre patches
-        try await patchBaseItemDtoSchema(context: context)
+        try await patchTaskTriggerInfoSchema(context: context)
 
         try await generate(context: context)
 
@@ -104,25 +104,29 @@ struct Plugin: CommandPlugin {
         try FileManager.default.removeItem(atPath: filePath.string)
     }
 
-    private func patchBaseItemDtoSchema(context: PluginContext) async throws {
+    private func patchTaskTriggerInfoSchema(context: PluginContext) async throws {
         let contents = try await parseOriginalSchema(context: context)
 
         guard case var .object(file) = contents else { return }
         guard case var .object(components) = file["components"] else { return }
         guard case var .object(schemas) = components["schemas"] else { return }
-        guard case var .object(baseItemDto) = schemas["BaseItemDto"] else { return }
-        guard case var .object(properties) = baseItemDto["properties"] else { return }
+        guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
+        guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
 
-        properties["TaskTriggerInfo.type"] = AnyJSON.object(
-            [
-                "type": .string("string"),
-                "format": .string("TaskTriggerType"),
-                "nullable": .bool(true),
-            ]
-        )
+        properties["type"] = AnyJSON.object([
+            "type": .string("string"),
+            "format": .string("TaskTriggerType"),
+            "enum": .array([
+                .string("DailyTrigger"),
+                .string("WeeklyTrigger"),
+                .string("IntervalTrigger"),
+                .string("StartupTrigger"),
+            ]),
+            "nullable": .bool(true),
+        ])
 
-        baseItemDto["properties"] = .object(properties)
-        schemas["BaseItemDto"] = .object(baseItemDto)
+        taskTriggerInfo["properties"] = .object(properties)
+        schemas["TaskTriggerInfo"] = .object(taskTriggerInfo)
         components["schemas"] = .object(schemas)
         file["components"] = .object(components)
 
@@ -175,14 +179,18 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Plugins", "CreateAPI", "PatchFiles", "TaskTriggerType.swift"])
 
-        let sourceData = try Data(referencing: NSData(contentsOfFile: sourceFilePath.string))
-
-        let finalFilePath = context
+        let destinationFilePath = context
             .package
             .directory
             .appending(["Sources", "Entities", "TaskTriggerType.swift"])
 
-        try sourceData.write(to: URL(fileURLWithPath: finalFilePath.string))
+        let fileManager = FileManager.default
+
+        if fileManager.fileExists(atPath: destinationFilePath.string) {
+            try fileManager.removeItem(atPath: destinationFilePath.string)
+        }
+
+        try fileManager.copyItem(atPath: sourceFilePath.string, toPath: destinationFilePath.string)
     }
 
     // TODO: Remove if/when fixed within CreateAPI
