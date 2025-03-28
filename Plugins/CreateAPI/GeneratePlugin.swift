@@ -25,7 +25,7 @@ struct Plugin: CommandPlugin {
         try await patchGroupUpdateDiscriminator(context: context)
 
         // Move patch files
-        try await addSpecialFeatureType(context: context)
+        try await addTaskTriggerType(context: context)
 
         try await lint(context: context)
 
@@ -104,8 +104,6 @@ struct Plugin: CommandPlugin {
         try FileManager.default.removeItem(atPath: filePath.string)
     }
 
-    // TODO: remove when BaseItemDto uses `ExtraType` or other
-    // BaseItemDto: add SpecialFeatureType string format to property prior to generation
     private func patchBaseItemDtoSchema(context: PluginContext) async throws {
         let contents = try await parseOriginalSchema(context: context)
 
@@ -115,10 +113,10 @@ struct Plugin: CommandPlugin {
         guard case var .object(baseItemDto) = schemas["BaseItemDto"] else { return }
         guard case var .object(properties) = baseItemDto["properties"] else { return }
 
-        properties["ExtraType"] = AnyJSON.object(
+        properties["TaskTriggerInfo.type"] = AnyJSON.object(
             [
                 "type": .string("string"),
-                "format": .string("SpecialFeatureType"),
+                "format": .string("TaskTriggerType"),
                 "nullable": .bool(true),
             ]
         )
@@ -171,18 +169,18 @@ struct Plugin: CommandPlugin {
             .write(to: URL(fileURLWithPath: filePath.string))
     }
 
-    private func addSpecialFeatureType(context: PluginContext) async throws {
+    private func addTaskTriggerType(context: PluginContext) async throws {
         let sourceFilePath = context
             .package
             .directory
-            .appending(["Plugins", "CreateAPI", "PatchFiles", "SpecialFeatureType.swift"])
+            .appending(["Plugins", "CreateAPI", "PatchFiles", "TaskTriggerType.swift"])
 
         let sourceData = try Data(referencing: NSData(contentsOfFile: sourceFilePath.string))
 
         let finalFilePath = context
             .package
             .directory
-            .appending(["Sources", "Entities", "SpecialFeatureType.swift"])
+            .appending(["Sources", "Entities", "TaskTriggerType.swift"])
 
         try sourceData.write(to: URL(fileURLWithPath: finalFilePath.string))
     }

@@ -92,7 +92,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var exposureTime: Double?
     /// Gets or sets the external urls.
     public var externalURLs: [ExternalURL]?
-    public var extraType: SpecialFeatureType?
+    public var extraType: ExtraType?
     public var focalLength: Double?
     public var forcedSortName: String?
     public var genreItems: [NameGuidPair]?
@@ -415,7 +415,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         etag: String? = nil,
         exposureTime: Double? = nil,
         externalURLs: [ExternalURL]? = nil,
-        extraType: SpecialFeatureType? = nil,
+        extraType: ExtraType? = nil,
         focalLength: Double? = nil,
         forcedSortName: String? = nil,
         genreItems: [NameGuidPair]? = nil,
@@ -724,7 +724,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.etag = try values.decodeIfPresent(String.self, forKey: "Etag")
         self.exposureTime = try values.decodeIfPresent(Double.self, forKey: "ExposureTime")
         self.externalURLs = try values.decodeIfPresent([ExternalURL].self, forKey: "ExternalUrls")
-        self.extraType = try values.decodeIfPresent(SpecialFeatureType.self, forKey: "ExtraType")
+        self.extraType = try values.decodeIfPresent(ExtraType.self, forKey: "ExtraType")
         self.focalLength = try values.decodeIfPresent(Double.self, forKey: "FocalLength")
         self.forcedSortName = try values.decodeIfPresent(String.self, forKey: "ForcedSortName")
         self.genreItems = try values.decodeIfPresent([NameGuidPair].self, forKey: "GenreItems")
