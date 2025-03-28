@@ -113,15 +113,9 @@ struct Plugin: CommandPlugin {
         guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
         guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
 
-        properties["type"] = AnyJSON.object([
+        properties["Type"] = AnyJSON.object([
             "type": .string("string"),
             "format": .string("TaskTriggerType"),
-            "enum": .array([
-                .string("DailyTrigger"),
-                .string("WeeklyTrigger"),
-                .string("IntervalTrigger"),
-                .string("StartupTrigger"),
-            ]),
             "nullable": .bool(true),
         ])
 
