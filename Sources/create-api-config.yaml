@@ -17,6 +17,7 @@ dataTypes:
     int64: Int
   string:
     uuid: String
+    TaskTriggerType: TaskTriggerType
 entities:
   protocols: ["Codable", "Hashable"]
   includeIdentifiableConformance: true
