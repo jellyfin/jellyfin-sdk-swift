@@ -17,7 +17,6 @@ dataTypes:
     int64: Int
   string:
     uuid: String
-    SpecialFeatureType: SpecialFeatureType
 entities:
   protocols: ["Codable", "Hashable"]
   includeIdentifiableConformance: true
