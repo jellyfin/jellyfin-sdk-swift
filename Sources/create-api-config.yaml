@@ -28,3 +28,9 @@ entities:
 paths:
   style: operations
   filenameTemplate: "%0API.swift"
+rename:
+  enumCases:
+    VideoRangeType.DOVIWithHDR10: "doviWithHDR10"
+    VideoRangeType.DOVIWithHLG: "doviWithHLG"
+    VideoRangeType.DOVIWithSDR: "doviWithSDR"
+    VideoRangeType.HDR10Plus: "hdr10Plus"
