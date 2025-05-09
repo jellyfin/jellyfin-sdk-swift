@@ -2,8 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Jellyfin API",
-    "version": "10.10.6",
-    "x-jellyfin-version": "10.10.6"
+    "version": "10.10.7",
+    "x-jellyfin-version": "10.10.7"
   },
   "servers": [
     {
@@ -1214,6 +1214,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -1688,6 +1689,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -1978,6 +1980,7 @@
             "description": "The audio container.",
             "required": true,
             "schema": {
+              "pattern": "^[a-zA-Z0-9\\-\\._,|]{0,40}$",
               "type": "string"
             }
           },
@@ -2164,6 +2167,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -2452,6 +2456,7 @@
             "description": "The audio container.",
             "required": true,
             "schema": {
+              "pattern": "^[a-zA-Z0-9\\-\\._,|]{0,40}$",
               "type": "string"
             }
           },
@@ -2638,6 +2643,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -4670,6 +4676,7 @@
             "description": "The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.",
             "required": true,
             "schema": {
+              "pattern": "^[a-zA-Z0-9\\-\\._,|]{0,40}$",
               "type": "string"
             }
           },
@@ -4885,6 +4892,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -5374,6 +5382,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -5864,6 +5873,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -6361,6 +6371,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -6692,6 +6703,7 @@
             "description": "The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.",
             "required": true,
             "schema": {
+              "pattern": "^[a-zA-Z0-9\\-\\._,|]{0,40}$",
               "type": "string"
             }
           },
@@ -6898,6 +6910,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -7414,6 +7427,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -7929,6 +7943,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -8437,6 +8452,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -8961,6 +8977,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -24425,6 +24442,7 @@
             "description": "Container type.",
             "required": true,
             "schema": {
+              "pattern": "^[a-zA-Z0-9\\-\\._,|]{0,40}$",
               "type": "string"
             }
           }
@@ -41837,6 +41855,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -42329,6 +42348,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -42637,6 +42657,7 @@
             "description": "The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.",
             "required": true,
             "schema": {
+              "pattern": "^[a-zA-Z0-9\\-\\._,|]{0,40}$",
               "type": "string"
             }
           },
@@ -42822,6 +42843,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -43128,6 +43150,7 @@
             "description": "The video container. Possible values are: ts, webm, asf, wmv, ogv, mp4, m4v, mkv, mpeg, mpg, avi, 3gp, wmv, wtv, m2ts, mov, iso, flv.",
             "required": true,
             "schema": {
+              "pattern": "^[a-zA-Z0-9\\-\\._,|]{0,40}$",
               "type": "string"
             }
           },
@@ -43313,6 +43336,7 @@
             "in": "query",
             "description": "Optional. Specify a level for the encoder profile (varies by encoder), e.g. 3, 3.1.",
             "schema": {
+              "pattern": "-?[0-9]+(?:\\.[0-9]+)?",
               "type": "string"
             }
           },
@@ -45040,7 +45064,7 @@
                 "$ref": "#/components/schemas/BaseItemKind"
               }
             ],
-            "description": "The base item kind."
+            "description": "Gets or sets the type."
           },
           "People": {
             "type": "array",
@@ -45506,7 +45530,8 @@
                 "$ref": "#/components/schemas/MediaType"
               }
             ],
-            "description": "Media types."
+            "description": "Gets or sets the type of the media.",
+            "default": "Unknown"
           },
           "EndDate": {
             "type": "string",
@@ -45903,7 +45928,8 @@
                 "$ref": "#/components/schemas/PersonKind"
               }
             ],
-            "description": "The person kind."
+            "description": "Gets or sets the type.",
+            "default": "Unknown"
           },
           "PrimaryImageTag": {
             "type": "string",
@@ -47157,7 +47183,7 @@
                 "$ref": "#/components/schemas/ScrollDirection"
               }
             ],
-            "description": "An enum representing the axis that should be scrolled."
+            "description": "Gets or sets the scroll direction."
           },
           "ShowBackdrop": {
             "type": "boolean",
@@ -47177,7 +47203,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "An enum representing the sorting order."
+            "description": "Gets or sets the sort order."
           },
           "ShowSidebar": {
             "type": "boolean",
@@ -50111,7 +50137,8 @@
                 "$ref": "#/components/schemas/MediaSegmentType"
               }
             ],
-            "description": "Defines the types of content an individual Jellyfin.Data.Entities.MediaSegment represents."
+            "description": "Gets or sets the type of content this segment defines.",
+            "default": "Unknown"
           },
           "StartTicks": {
             "type": "integer",
@@ -50567,7 +50594,8 @@
                 "$ref": "#/components/schemas/VideoRange"
               }
             ],
-            "description": "An enum representing video ranges.",
+            "description": "Gets the video range.",
+            "default": "Unknown",
             "readOnly": true
           },
           "VideoRangeType": {
@@ -50587,7 +50615,8 @@
                 "$ref": "#/components/schemas/VideoRangeType"
               }
             ],
-            "description": "An enum representing types of video ranges.",
+            "description": "Gets the video range type.",
+            "default": "Unknown",
             "readOnly": true
           },
           "VideoDoViTitle": {
@@ -50607,7 +50636,7 @@
                 "$ref": "#/components/schemas/AudioSpatialFormat"
               }
             ],
-            "description": "An enum representing formats of spatial audio.",
+            "description": "Gets the audio spatial format.",
             "default": "None",
             "readOnly": true
           },
@@ -51546,7 +51575,7 @@
                 "$ref": "#/components/schemas/DeviceProfile"
               }
             ],
-            "description": "Gets or sets the device profile.",
+            "description": "A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to play.\r\n<br />\r\nSpecifically, it defines the supported <see cref=\"P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles\">containers</see> and\r\n<see cref=\"P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles\">codecs</see> (video and/or audio, including codec profiles and levels)\r\nthe device is able to direct play (without transcoding or remuxing),\r\nas well as which <see cref=\"P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles\">containers/codecs to transcode to</see> in case it isn't.",
             "nullable": true
           },
           "DirectPlayProtocols": {
@@ -52039,7 +52068,7 @@
                 "$ref": "#/components/schemas/DeviceProfile"
               }
             ],
-            "description": "Gets or sets the device profile.",
+            "description": "A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to play.\r\n<br />\r\nSpecifically, it defines the supported <see cref=\"P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles\">containers</see> and\r\n<see cref=\"P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles\">codecs</see> (video and/or audio, including codec profiles and levels)\r\nthe device is able to direct play (without transcoding or remuxing),\r\nas well as which <see cref=\"P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles\">containers/codecs to transcode to</see> in case it isn't.",
             "nullable": true
           },
           "EnableDirectPlay": {
@@ -53752,7 +53781,7 @@
                 "$ref": "#/components/schemas/GroupQueueMode"
               }
             ],
-            "description": "Gets or sets the mode in which to add the new items."
+            "description": "Enum GroupQueueMode."
           }
         },
         "additionalProperties": false,
@@ -54728,7 +54757,7 @@
                 "$ref": "#/components/schemas/BaseItemKind"
               }
             ],
-            "description": "The base item kind."
+            "description": "Gets or sets the type."
           },
           "IsFolder": {
             "type": "boolean",
@@ -54754,7 +54783,8 @@
                 "$ref": "#/components/schemas/MediaType"
               }
             ],
-            "description": "Media types."
+            "description": "Gets or sets the type of the media.",
+            "default": "Unknown"
           },
           "StartDate": {
             "type": "string",
@@ -56268,7 +56298,7 @@
                 "$ref": "#/components/schemas/GroupRepeatMode"
               }
             ],
-            "description": "Gets or sets the repeat mode."
+            "description": "Enum GroupRepeatMode."
           }
         },
         "additionalProperties": false,
@@ -56287,7 +56317,7 @@
                 "$ref": "#/components/schemas/GroupShuffleMode"
               }
             ],
-            "description": "Gets or sets the shuffle mode."
+            "description": "Enum GroupShuffleMode."
           }
         },
         "additionalProperties": false,
@@ -57799,7 +57829,7 @@
                 "$ref": "#/components/schemas/MediaStreamProtocol"
               }
             ],
-            "description": "Media streaming protocol.\r\nLowercase for backwards compatibility."
+            "description": "Gets or sets the protocol."
           },
           "EstimateContentLength": {
             "type": "boolean",
@@ -58981,7 +59011,7 @@
                 "$ref": "#/components/schemas/SyncPlayUserAccessType"
               }
             ],
-            "description": "Enum SyncPlayUserAccessType."
+            "description": "Gets or sets a value indicating what SyncPlay features the user can access."
           }
         },
         "additionalProperties": false

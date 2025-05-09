@@ -154,7 +154,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var mediaSources: [MediaSourceInfo]?
     /// Gets or sets the media streams.
     public var mediaStreams: [MediaStream]?
-    /// Media types.
+    /// Gets or sets the type of the media.
     public var mediaType: MediaType?
     /// Gets or sets the movie count.
     public var movieCount: Int?
@@ -273,7 +273,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var trailerCount: Int?
     /// Gets or sets the trickplay manifest.
     public var trickplay: [String: [String: TrickplayInfo]]?
-    /// The base item kind.
+    /// Gets or sets the type.
     public var type: BaseItemKind?
     /// Gets or sets the user data for this item based on the user it's being requested for.
     public var userData: UserItemDataDto?

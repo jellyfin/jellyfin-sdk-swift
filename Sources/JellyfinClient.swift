@@ -16,6 +16,9 @@ public final class JellyfinClient {
     /// Current user access token
     public private(set) var accessToken: String?
 
+    /// Initialize the Jellyfin WebSocket
+    public private(set) lazy var socket = JellyfinSocket(client: self)
+
     /// Configuration for this instance of `JellyfinClient`
     public let configuration: Configuration
 
@@ -245,6 +248,28 @@ public extension JellyfinClient {
 // MARK: ClientError
 
 extension JellyfinClient {
+
+    /// Connect (or reuse) the WebSocket and forward inbound messages.
+    ///
+    /// - Parameter handlers: 0-n closures that receive each `InboundWebSocketMessage`.
+    ///                       Pass `nil` to keep existing handlers unchanged.
+    @MainActor
+    func subscribeToWebSocketEvents(
+        handlers: [(InboundWebSocketMessage) -> Void]? = nil
+    ) {
+        socket.subscribe(only: handlers)
+    }
+
+    /// Disconnect the WebSocket and stop automatic retries.
+    @MainActor
+    func disconnectWebSocket() {
+        socket.disconnect()
+    }
+
+    /// Convenience boolean you can read in UIs.
+    var isWebSocketConnected: Bool {
+        socket.state == .connected
+    }
 
     enum ClientError: Error {
         case noAccessTokenInResponse

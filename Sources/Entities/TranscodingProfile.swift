@@ -37,9 +37,7 @@ public struct TranscodingProfile: Codable, Hashable {
     public var maxAudioChannels: String?
     /// Gets or sets the minimum amount of segments.
     public var minSegments: Int?
-    /// Media streaming protocol.
-    ///
-    /// Lowercase for backwards compatibility.
+    /// Gets or sets the protocol.
     public var `protocol`: MediaStreamProtocol?
     /// Gets or sets the segment length.
     public var segmentLength: Int?
