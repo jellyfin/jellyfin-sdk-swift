@@ -88,6 +88,9 @@ public final class JellyfinSocket: ObservableObject {
     
     /// Collection of message handler closures to be called when messages are received
     private var handlers: [(InboundWebSocketMessage) -> Void] = []
+    
+    /// Cancellable to track state subscription
+    private var stateSubscription: AnyCancellable?
 
     /// Subject to publish **all** inbound messages for Combine subscribers
     private let inboundSubject = PassthroughSubject<InboundWebSocketMessage, Never>()
@@ -125,6 +128,15 @@ public final class JellyfinSocket: ObservableObject {
         if state == .connected || state == .connecting {
             return
         }
+        
+        // Set up state subscription to detect when connection is established
+        stateSubscription?.cancel()
+        stateSubscription = $state
+            .filter { $0 == .connected }
+            .first()
+            .sink { [weak self] _ in
+                self?.subscribeToEvents()
+            }
         
         openSocket()
     }
@@ -216,6 +228,7 @@ public final class JellyfinSocket: ObservableObject {
     public func disconnect() {
         print("[WebSocket] Disconnecting")
         
+        stateSubscription?.cancel()
         reconnectWorkItem?.cancel()
         pingWorkItem?.cancel()
         validationTimeoutWorkItem?.cancel()
@@ -225,6 +238,31 @@ public final class JellyfinSocket: ObservableObject {
     }
 
     // MARK: Internal
+    
+    /// Subscribes to all supported event types from the Jellyfin server
+    private func subscribeToEvents() {
+        // Filter for "Start" event types that need subscription
+        let subscriptionTypes = SessionMessageType.allCases.filter { type in
+            return type.rawValue.hasSuffix("Start")
+        }
+        
+        print("[WebSocket] Subscribing to event types: \(subscriptionTypes.map { $0.rawValue })")
+        
+        for eventType in subscriptionTypes {
+            subscribeToEventType(eventType.rawValue)
+        }
+    }
+    
+    /// Subscribes to a specific event type
+    private func subscribeToEventType(_ eventType: String) {
+        let message = GeneralCommandMessage(
+            messageID: UUID().uuidString.lowercased().replacingOccurrences(of: "-", with: ""),
+            messageType: .generalCommand
+        )
+        
+        let outboundMessage = OutboundWebSocketMessage.generalCommandMessage(message)
+        send(outboundMessage)
+    }
 
     /// Opens a WebSocket connection to the Jellyfin server.
     ///
@@ -339,7 +377,7 @@ public final class JellyfinSocket: ObservableObject {
             }
             
             // Send both a WebSocket ping AND a keep-alive message
-            self.task?.sendPing { [weak self] error in
+            self.task?.sendPing { error in
                 if let error = error {
                     print("[WebSocket] Ping error: \(error)")
                     
