@@ -13,7 +13,8 @@ import Foundation
 ///
 /// `JellyfinSocket` manages the lifecycle of a WebSocket connection to the Jellyfin
 /// `/socket` endpoint.  It provides state updates and automatic reconnection behavior.
-/// Call `subscribe(only:)` to start listening.
+/// Call `subscribe(only:)` to start listening, or `subscribe(_:)` to get a Combine publisher
+/// filtered by specific `InboundWebSocketMessage` cases.
 public final class JellyfinSocket: ObservableObject {
 
     // MARK: State
@@ -44,8 +45,7 @@ public final class JellyfinSocket: ObservableObject {
     /// Published connection state.
     ///
     /// This property is published to allow SwiftUI views to react to connection state changes.
-    @Published
-    public private(set) var state: State = .idle
+    @Published public private(set) var state: State = .idle
 
     // MARK: Constants
 
@@ -75,6 +75,14 @@ public final class JellyfinSocket: ObservableObject {
     /// Collection of message handler closures to be called when messages are received
     private var handlers: [(InboundWebSocketMessage) -> Void] = []
 
+    /// Subject to publish **all** inbound messages for Combine subscribers
+    private let inboundSubject = PassthroughSubject<InboundWebSocketMessage, Never>()
+    
+    /// Public publisher of all inbound messages
+    public var inboundPublisher: AnyPublisher<InboundWebSocketMessage, Never> {
+        inboundSubject.eraseToAnyPublisher()
+    }
+
     // MARK: Init
 
     /// Create a WebSocket manager bound to a `JellyfinClient`.
@@ -99,6 +107,29 @@ public final class JellyfinSocket: ObservableObject {
         if let newHandlers = handlers { self.handlers = newHandlers }
         if state == .connected || state == .connecting { return }
         openSocket()
+    }
+
+    /// Subscribe to **only** the given inbound enum cases. If you pass no arguments,
+    /// you’ll receive all messages.
+    ///
+    /// - Parameter cases: A variadic list of `InboundWebSocketMessage` cases to filter by.
+    ///                    If empty, you get every message.
+    @MainActor
+    public func subscribe(_ cases: InboundWebSocketMessage...)
+      -> AnyPublisher<InboundWebSocketMessage, Never>
+    {
+        // ensure the socket is running
+        subscribe(only: nil)
+
+        // no filters? forward everything
+        guard !cases.isEmpty else {
+            return inboundPublisher
+        }
+
+        // otherwise only forward matching cases
+        return inboundPublisher
+            .filter { cases.contains($0) }
+            .eraseToAnyPublisher()
     }
 
     /// Close the socket and stop all retries.
@@ -148,7 +179,7 @@ public final class JellyfinSocket: ObservableObject {
     /// and initiates reconnection procedures on connection failures.
     private func listen() {
         task?.receive { [weak self] result in
-            guard let self else { return }
+            guard let self = self else { return }
 
             switch result {
             case .success(.string(let text)):
@@ -170,11 +201,16 @@ public final class JellyfinSocket: ObservableObject {
     ///
     /// - Parameter text: The raw string message received from the WebSocket
     private func process(_ text: String) {
-        guard let data = text.data(using: .utf8) else { return }
-        if let wrapper = try? JSONDecoder().decode(WebSocketMessage.self, from: data),
-           case let .inboundWebSocketMessage(msg) = wrapper {
-            handlers.forEach { $0(msg) }
-        }
+        guard let data = text.data(using: .utf8),
+              let wrapper = try? JSONDecoder().decode(WebSocketMessage.self, from: data),
+              case let .inboundWebSocketMessage(msg) = wrapper
+        else { return }
+
+        // 1) fan-out to the handler closures
+        handlers.forEach { $0(msg) }
+
+        // 2) publish into Combine stream
+        inboundSubject.send(msg)
     }
 
     /// Schedules a reconnection attempt with exponential backoff.
