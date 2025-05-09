@@ -24,8 +24,8 @@ public final class JellyfinSocket: ObservableObject {
     }
 
     @Published public private(set) var state: State = .idle
-    public var messages: AnyPublisher<InboundWebSocketMessage, Never> {
-        inboundSubject.eraseToAnyPublisher()
+    public var messages: AnyPublisher<OutboundWebSocketMessage, Never> {
+        outboundSubject.eraseToAnyPublisher()
     }
 
     // MARK: Private
@@ -45,8 +45,8 @@ public final class JellyfinSocket: ObservableObject {
     private var reconnectWorkItem: DispatchWorkItem?
 
     private let session = URLSession(configuration: .default)
-    private var handlers: [(InboundWebSocketMessage) -> Void] = []
-    private let inboundSubject = PassthroughSubject<InboundWebSocketMessage, Never>()
+    private var handlers: [(OutboundWebSocketMessage) -> Void] = []
+    private let outboundSubject = PassthroughSubject<OutboundWebSocketMessage, Never>()
     private var stateCancellable: AnyCancellable?
 
     // MARK: Init
@@ -60,7 +60,7 @@ public final class JellyfinSocket: ObservableObject {
     /// Subscribe to all messages (or install custom handlers).
     /// First call triggers `openSocket()`. Subsequent calls only replace handlers.
     @MainActor
-    public func subscribe(only handlers: [(InboundWebSocketMessage) -> Void]? = nil) {
+    public func subscribe(only handlers: [(OutboundWebSocketMessage) -> Void]? = nil) {
         if let h = handlers { self.handlers = h }
         guard state == .idle || state == .error("") else { return }
 
@@ -76,8 +76,8 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Filtered Combine publisher.
     @MainActor
-    public func subscribe(_ cases: InboundWebSocketMessage...)
-        -> AnyPublisher<InboundWebSocketMessage, Never>
+    public func subscribe(_ cases: OutboundWebSocketMessage...)
+        -> AnyPublisher<OutboundWebSocketMessage, Never>
     {
         subscribe(only: nil)
         guard !cases.isEmpty else { return messages }
@@ -168,14 +168,14 @@ public final class JellyfinSocket: ObservableObject {
 
         guard
             let data = text.data(using: .utf8),
-            let msg  = try? JSONDecoder().decode(InboundWebSocketMessage.self, from: data)
+            let msg  = try? JSONDecoder().decode(OutboundWebSocketMessage.self, from: data)
         else {
             print("[WebSocket] decode failure for: \(text)")
             return
         }
 
         handlers.forEach { $0(msg) }
-        inboundSubject.send(msg)
+        outboundSubject.send(msg)
     }
 
     private func handleError(_ description: String) {
