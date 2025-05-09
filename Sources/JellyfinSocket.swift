@@ -123,11 +123,11 @@ public final class JellyfinSocket: ObservableObject {
 
         // no filters? forward everything
         guard !cases.isEmpty else {
-            return inboundPublisher
+            return messages
         }
 
         // otherwise only forward matching cases
-        return inboundPublisher
+        return messages
             .filter { cases.contains($0) }
             .eraseToAnyPublisher()
     }
