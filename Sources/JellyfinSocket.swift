@@ -191,6 +191,7 @@ public final class JellyfinSocket: ObservableObject {
     @MainActor
     public func disconnect() {
         reconnectWorkItem?.cancel()
+        pingWorkItem?.cancel()
         task?.cancel(with: .goingAway, reason: nil)
         state = .closed
     }
@@ -281,8 +282,8 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Processes received WebSocket messages and distributes them to handlers.
     ///
-    /// This method handles special message types like ForceKeepAlive and decodes
-    /// all other messages using the InboundWebSocketMessage enum.
+    /// This method handles special message types like ForceKeepAlive and regular KeepAlive messages
+    /// and decodes all other messages using the InboundWebSocketMessage enum.
     ///
     /// - Parameter text: The raw string message received from the WebSocket
     private func process(_ text: String) {
@@ -294,15 +295,14 @@ public final class JellyfinSocket: ObservableObject {
            let messageTypeStr = json["MessageType"] as? String,
            let messageType = SessionMessageType(rawValue: messageTypeStr) {
             
-            // Handle ForceKeepAlive special case
-            if messageType == .keepAlive {
-                // Send a properly structured KeepAliveResponse
-                let keepAliveResponse = OutboundKeepAliveMessage()
-                if let responseData = try? JSONEncoder().encode(keepAliveResponse),
-                   let responseString = String(data: responseData, encoding: .utf8) {
-                    print("Sending KeepAliveResponse")
-                    sendRaw(responseString)
-                }
+            // Handle ForceKeepAlive specially
+            if messageType == .forceKeepAlive {
+                // For ForceKeepAlive, respond with KeepAliveResponse
+                let responseJson = """
+                {"MessageType":"KeepAliveResponse"}
+                """
+                print("Sending KeepAliveResponse to ForceKeepAlive")
+                sendRaw(responseJson)
                 
                 // Convert ForceKeepAlive to KeepAlive for processing
                 var modifiedJson = json
@@ -316,6 +316,15 @@ public final class JellyfinSocket: ObservableObject {
                     inboundSubject.send(message)
                     return
                 }
+            }
+            // Handle regular KeepAlive
+            else if messageType == .keepAlive {
+                // Send a proper KeepAliveResponse to regular KeepAlive as well
+                let responseJson = """
+                {"MessageType":"KeepAliveResponse"}
+                """
+                print("Sending KeepAliveResponse to KeepAlive")
+                sendRaw(responseJson)
             }
         }
         
