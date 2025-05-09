@@ -8,182 +8,206 @@
 
 import Combine
 import Foundation
-import NIO
-import NIOHTTP1
-import NIOWebSocket
-import NIOSSL
 
+/// A WebSocket manager for receiving real-time Jellyfin server events.
+///
+/// `JellyfinSocket` manages the lifecycle of a WebSocket connection to the Jellyfin
+/// `/socket` endpoint.  It provides state updates and automatic reconnection behavior.
+/// Call `subscribe(only:)` to start listening.
 public final class JellyfinSocket: ObservableObject {
 
+    // MARK: State
+
+    /// Connection state.
+    ///
+    /// Represents the various states the WebSocket connection can be in during its lifecycle.
     public enum State: Equatable {
-        case idle, connecting, connected, reconnecting(attempt: Int), error(String), closed
+        /// Socket is inactive and not attempting to connect
+        case idle
+        
+        /// Socket is in the process of establishing initial connection
+        case connecting
+        
+        /// Socket has an active connection to the server
+        case connected
+        
+        /// Connection was lost and socket is attempting to reconnect
+        case reconnecting(attempt: Int)
+        
+        /// Socket encountered an error that prevented normal operation
+        case error(String)
+        
+        /// Socket was deliberately closed by user request
+        case closed
     }
 
-    @Published public private(set) var state: State = .idle
+    /// Published connection state.
+    ///
+    /// This property is published to allow SwiftUI views to react to connection state changes.
+    @Published
+    public private(set) var state: State = .idle
 
-    /// All decoded inbound messages (sent by server _to_ client).
-    public let inboundPublisher  = PassthroughSubject<(InboundWebSocketMessage, Date), Never>()
-    /// All decoded outbound messages (sessionsMessage, etc) pushed by server.
-    public let outboundPublisher = PassthroughSubject<(OutboundWebSocketMessage, Date), Never>()
+    // MARK: Constants
 
-    private let client: JellyfinClient
-    private let group  = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-    private var channel: Channel?
-    private var reconnectAttempts = 0
+    /// The endpoint path for WebSocket connections
+    private let socketPath = "/socket"
+    
+    /// Maximum number of reconnection attempts before giving up
     private let maxReconnectAttempts = 5
-    private var keepAliveTask: Task<Void, Never>?
+    
+    /// URL session used for WebSocket communication
+    private let session = URLSession(configuration: .default)
 
+    // MARK: Internal storage
+
+    /// The authenticated Jellyfin client instance
+    private let client: JellyfinClient
+    
+    /// Current active WebSocket task
+    private var task: URLSessionWebSocketTask?
+    
+    /// Number of reconnection attempts that have been made
+    private var reconnectAttempts = 0
+    
+    /// Work item for scheduled reconnection attempts
+    private var reconnectWorkItem: DispatchWorkItem?
+    
+    /// Collection of message handler closures to be called when messages are received
+    private var handlers: [(InboundWebSocketMessage) -> Void] = []
+
+    // MARK: Init
+
+    /// Create a WebSocket manager bound to a `JellyfinClient`.
+    ///
+    /// - Parameter client: The authenticated HTTP client.
     public init(client: JellyfinClient) {
         self.client = client
     }
 
+    // MARK: Public API
+
+    /// Start (or restart) the WebSocket and deliver messages to the supplied handlers.
+    ///
+    /// - Parameter handlers: 0-n closures that handle each decoded
+    ///                       `InboundWebSocketMessage`.  If `nil`, messages are ignored.
+    ///
+    /// - Important: Subsequent calls while `.connected`/`.connecting`
+    ///              simply add/replace handlers; they don't create
+    ///              multiple socket connections.
     @MainActor
-    public func subscribe() {
-        if case .idle = state { connect() }
+    public func subscribe(only handlers: [(InboundWebSocketMessage) -> Void]? = nil) {
+        if let newHandlers = handlers { self.handlers = newHandlers }
+        if state == .connected || state == .connecting { return }
+        openSocket()
     }
 
+    /// Close the socket and stop all retries.
+    ///
+    /// Cancels any pending reconnection attempts and closes the connection.
     @MainActor
     public func disconnect() {
-        keepAliveTask?.cancel()
-        channel?.close(promise: nil)
-        channel = nil
+        reconnectWorkItem?.cancel()
+        task?.cancel(with: .goingAway, reason: nil)
         state = .closed
     }
 
-    public func send(_ msg: OutboundWebSocketMessage) async throws {
-        guard let ch = channel else { throw URLError(.notConnectedToInternet) }
-        let bytes = try JSONEncoder().encode(msg)
-        try await ch.writeAndFlush(
-            WebSocketFrame(fin: true, opcode: .text, data: .init(bytes: bytes))
-        )
-    }
+    // MARK: Internal
 
-    private func connect() {
+    /// Opens a WebSocket connection to the Jellyfin server.
+    ///
+    /// Validates the access token, creates a properly formatted request with authorization,
+    /// and initiates the WebSocket connection.
+    ///
+    /// - Note: This method updates the connection state and resets reconnection attempts on success.
+    @MainActor
+    private func openSocket() {
+        guard let token = client.accessToken else {
+            state = .error("Missing access token")
+            return
+        }
+
         state = reconnectAttempts == 0 ? .connecting : .reconnecting(attempt: reconnectAttempts)
 
-        let wsURL = websocketURL(from: client.configuration.url)
-        let host  = wsURL.host ?? "localhost"
-        let port  = wsURL.port ?? (wsURL.scheme == "wss" ? 443 : 80)
-        let useTLS = wsURL.scheme == "wss"
+        let webSocketURL = makeWebSocketURL(from: client.configuration.url)
+        var request = URLRequest(url: webSocketURL)
+        request.setValue("MediaBrowser Token=\(token)", forHTTPHeaderField: "Authorization")
 
-        let upgradePromise = group.next().makePromise(of: Void.self)
-        let upgrader = NIOWebSocketClientUpgrader(
-            requestKey: randomWebSocketKey(),
-            upgradePipelineHandler: { ch, _ in ch.eventLoop.makeSucceededVoidFuture() }
-        )
-        let upgradeConfig = NIOHTTPClientUpgradeConfiguration(
-            upgraders: [upgrader],
-            completionHandler: { _ in upgradePromise.succeed(()) }
-        )
+        task = session.webSocketTask(with: request)
+        task?.resume()
 
-        func addHTTP(to ch: Channel) -> EventLoopFuture<Void> {
-            ch.pipeline.addHTTPClientHandlers(withClientUpgrade: upgradeConfig)
-        }
+        listen()
 
-        let bootstrap: ClientBootstrap = {
-            if useTLS {
-                let sslCtx = try! NIOSSLContext(configuration: .makeClientConfiguration())
-                let handler = try! NIOSSLClientHandler(context: sslCtx, serverHostname: host)
-                return ClientBootstrap(group: group).channelInitializer { ch in
-                    ch.pipeline.addHandler(handler).flatMap { addHTTP(to: ch) }
-                }
-            } else {
-                return ClientBootstrap(group: group).channelInitializer(addHTTP)
-            }
-        }()
-
-        bootstrap.connect(host: host, port: port)
-            .flatMap { ch -> EventLoopFuture<Channel> in
-                var head = HTTPRequestHead(version: .http1_1,
-                                           method: .GET,
-                                           uri: wsURL.path.isEmpty ? "/" : wsURL.path)
-                head.headers.add(name: "Host", value: host)
-                head.headers.add(name: "Upgrade", value: "websocket")
-                head.headers.add(name: "Connection", value: "Upgrade")
-                head.headers.add(name: "Sec-WebSocket-Version", value: "13")
-                head.headers.add(name: "Sec-WebSocket-Key", value: self.randomWebSocketKey())
-                if let token = self.client.accessToken {
-                    head.headers.add(name: "Authorization", value: "MediaBrowser Token=\(token)")
-                }
-                return ch.writeAndFlush(HTTPClientRequestPart.head(head))
-                    .flatMap { upgradePromise.futureResult.map { ch } }
-            }
-            .whenComplete { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .failure(let err):
-                    self.handleError(err.localizedDescription)
-                case .success(let ch):
-                    self.channel = ch
-                    self.state = .connected
-                    self.reconnectAttempts = 0
-                    self.startReceiving(on: ch)
-                }
-            }
+        // handshake considered connected immediately
+        state = .connected
+        reconnectAttempts = 0
     }
 
-    fileprivate func handleError(_ reason: String) {
-        state = .error(reason)
-        guard reconnectAttempts < maxReconnectAttempts else { return }
+    /// Establishes a continuous message receiving loop for the WebSocket.
+    ///
+    /// Recursively calls itself to maintain an unbroken chain of message handlers,
+    /// and initiates reconnection procedures on connection failures.
+    private func listen() {
+        task?.receive { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case .success(.string(let text)):
+                self.process(text)
+                self.listen() // continue loop
+            case .success:
+                // Ignore .data / pongs
+                self.listen()
+            case .failure(let error):
+                Task { @MainActor in
+                    self.state = .error(error.localizedDescription)
+                    self.scheduleReconnect()
+                }
+            }
+        }
+    }
+
+    /// Processes received WebSocket messages and distributes them to handlers.
+    ///
+    /// - Parameter text: The raw string message received from the WebSocket
+    private func process(_ text: String) {
+        guard let data = text.data(using: .utf8) else { return }
+        if let wrapper = try? JSONDecoder().decode(WebSocketMessage.self, from: data),
+           case let .inboundWebSocketMessage(msg) = wrapper {
+            handlers.forEach { $0(msg) }
+        }
+    }
+
+    /// Schedules a reconnection attempt with exponential backoff.
+    ///
+    /// - Note: The delay between attempts doubles with each try, following the formula 2^(attemptNumber).
+    @MainActor
+    private func scheduleReconnect() {
+        guard reconnectAttempts < maxReconnectAttempts else {
+            state = .error("Max reconnect attempts hit")
+            return
+        }
+
         reconnectAttempts += 1
-        let delay = pow(2.0, Double(reconnectAttempts))
-        DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
-            self.connect()
+        let delay = Double(pow(2.0, Double(reconnectAttempts)))
+
+        reconnectWorkItem?.cancel()
+        let work = DispatchWorkItem { [weak self] in
+            self?.openSocket()
         }
+        reconnectWorkItem = work
+        DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: work)
     }
 
-    private func startReceiving(on ch: Channel) {
-        _ = ch.pipeline.addHandler(ByteToMessageHandler(WebSocketFrameDecoder(maxFrameSize: 1 << 20)))
-            .flatMap { _ in ch.pipeline.addHandler(WebSocketFrameEncoder()) }
-            .flatMap { _ in ch.pipeline.addHandler(WebSocketInbound(parent: self)) }
-            .whenComplete { _ in }
-
-        keepAliveTask?.cancel()
-        keepAliveTask = Task.detached { [weak self] in
-            while !Task.isCancelled {
-                try? await Task.sleep(nanoseconds: 30 * NSEC_PER_SEC)
-                try? await self?.send(.outboundKeepAliveMessage(.init()))
-            }
-        }
-    }
-
-    private func websocketURL(from base: URL) -> URL {
-        var c = URLComponents(url: base, resolvingAgainstBaseURL: false)!
-        c.scheme = (c.scheme == "https") ? "wss" : "ws"
-        c.path = "/socket"
-        return c.url!
-    }
-
-    private func randomWebSocketKey() -> String {
-        let bytes = (0..<16).map { _ in UInt8.random(in: UInt8.min...UInt8.max) }
-        return Data(bytes).base64EncodedString()
-    }
-}
-
-private final class WebSocketInbound: ChannelInboundHandler {
-    typealias InboundIn = WebSocketFrame
-    private unowned let parent: JellyfinSocket
-
-    init(parent: JellyfinSocket) { self.parent = parent }
-
-    func channelRead(context: ChannelHandlerContext, data: NIOAny) {
-        let frame = unwrapInboundIn(data)
-        guard case .text = frame.opcode,
-              let txt = frame.unmaskedData.getString(at: 0, length: frame.unmaskedData.readableBytes)
-        else { return }
-
-        if let wrapper = try? JSONDecoder().decode(WebSocketMessage.self, from: Data(txt.utf8)) {
-            let now = Date()
-            switch wrapper {
-            case .inboundWebSocketMessage(let ib):
-                parent.inboundPublisher.send((ib, now))
-            case .outboundWebSocketMessage(let ob):
-                parent.outboundPublisher.send((ob, now))
-            }
-        }
-    }
-
-    func channelInactive(context: ChannelHandlerContext) {
-        parent.handleError("Socket closed")
+    /// Builds a WebSocket URL from a base HTTP URL.
+    ///
+    /// Converts http:// to ws:// and https:// to wss:// while appending the socket path.
+    ///
+    /// - Parameter baseURL: The base URL of the Jellyfin server
+    /// - Returns: A properly formatted WebSocket URL
+    private func makeWebSocketURL(from baseURL: URL) -> URL {
+        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
+        urlComponents.scheme = urlComponents.scheme == "https" ? "wss" : "ws"
+        urlComponents.path = socketPath
+        return urlComponents.url!
     }
 }
