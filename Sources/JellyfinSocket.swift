@@ -12,7 +12,7 @@ import Foundation
 /// A WebSocket manager for receiving real-time Jellyfin server events.
 ///
 /// `JellyfinSocket` manages the lifecycle of a WebSocket connection to the Jellyfin
-/// `/socket` endpoint.  It provides state updates and automatic reconnection behavior.
+/// `/socket` endpoint. It provides state updates and automatic reconnection behavior.
 /// Call `subscribe(only:)` to start listening, or `subscribe(_:)` to get a Combine publisher
 /// filtered by specific `InboundWebSocketMessage` cases.
 public final class JellyfinSocket: ObservableObject {
@@ -97,7 +97,7 @@ public final class JellyfinSocket: ObservableObject {
     /// Start (or restart) the WebSocket and deliver messages to the supplied handlers.
     ///
     /// - Parameter handlers: 0-n closures that handle each decoded
-    ///                       `InboundWebSocketMessage`.  If `nil`, messages are ignored.
+    ///                       `InboundWebSocketMessage`. If `nil`, messages are ignored.
     ///
     /// - Important: Subsequent calls while `.connected`/`.connecting`
     ///              simply add/replace handlers; they don't create
@@ -110,7 +110,7 @@ public final class JellyfinSocket: ObservableObject {
     }
 
     /// Subscribe to **only** the given inbound enum cases. If you pass no arguments,
-    /// you’ll receive all messages.
+    /// you'll receive all messages.
     ///
     /// - Parameter cases: A variadic list of `InboundWebSocketMessage` cases to filter by.
     ///                    If empty, you get every message.
@@ -130,6 +130,56 @@ public final class JellyfinSocket: ObservableObject {
         return messages
             .filter { cases.contains($0) }
             .eraseToAnyPublisher()
+    }
+    
+    /// Send an outbound message to the Jellyfin server.
+    ///
+    /// - Parameter message: The `OutboundWebSocketMessage` to send.
+    /// - Returns: A boolean indicating whether the message was sent successfully.
+    @discardableResult
+    public func send(_ message: OutboundWebSocketMessage) -> Bool {
+        guard state == .connected, let task = task else {
+            print("Cannot send message - socket not connected")
+            return false
+        }
+        
+        do {
+            let data = try JSONEncoder().encode(message)
+            if let text = String(data: data, encoding: .utf8) {
+                task.send(.string(text)) { error in
+                    if let error = error {
+                        print("Failed to send message: \(error)")
+                    }
+                }
+                return true
+            }
+        } catch {
+            print("Failed to encode message: \(error)")
+        }
+        
+        return false
+    }
+    
+    /// Send a raw JSON message to the Jellyfin server.
+    ///
+    /// This is useful for simple messages like responses that don't need full encoding.
+    ///
+    /// - Parameter json: The JSON string to send.
+    /// - Returns: A boolean indicating whether the message was sent successfully.
+    @discardableResult
+    public func sendRaw(_ json: String) -> Bool {
+        guard state == .connected, let task = task else {
+            print("Cannot send message - socket not connected")
+            return false
+        }
+        
+        task.send(.string(json)) { error in
+            if let error = error {
+                print("Failed to send message: \(error)")
+            }
+        }
+        
+        return true
     }
 
     /// Close the socket and stop all retries.
@@ -199,18 +249,50 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Processes received WebSocket messages and distributes them to handlers.
     ///
+    /// This method handles special message types like ForceKeepAlive and decodes
+    /// all other messages using the InboundWebSocketMessage enum.
+    ///
     /// - Parameter text: The raw string message received from the WebSocket
     private func process(_ text: String) {
-        guard let data = text.data(using: .utf8),
-              let wrapper = try? JSONDecoder().decode(WebSocketMessage.self, from: data),
-              case let .inboundWebSocketMessage(msg) = wrapper
-        else { return }
-
-        // 1) fan-out to the handler closures
-        handlers.forEach { $0(msg) }
-
-        // 2) publish into Combine stream
-        inboundSubject.send(msg)
+        print("WebSocket received: \(text)")
+        guard let data = text.data(using: .utf8) else { return }
+        
+        // Try to parse the JSON to extract the message type
+        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let messageTypeStr = json["MessageType"] as? String,
+           let messageType = SessionMessageType(rawValue: messageTypeStr) {
+            
+            // Handle ForceKeepAlive special case
+            if messageType == .forceKeepAlive {
+                // Send KeepAliveResponse
+                sendRaw("""
+                {"MessageType":"KeepAliveResponse"}
+                """)
+                
+                // Convert ForceKeepAlive to KeepAlive for processing
+                var modifiedJson = json
+                modifiedJson["MessageType"] = SessionMessageType.keepAlive.rawValue
+                
+                if let modifiedData = try? JSONSerialization.data(withJSONObject: modifiedJson),
+                   let message = try? JSONDecoder().decode(InboundWebSocketMessage.self, from: modifiedData) {
+                    
+                    // Process the modified message
+                    handlers.forEach { $0(message) }
+                    inboundSubject.send(message)
+                    return
+                }
+            }
+        }
+        
+        // Standard decoding path for all other messages
+        do {
+            let message = try JSONDecoder().decode(InboundWebSocketMessage.self, from: data)
+            handlers.forEach { $0(message) }
+            inboundSubject.send(message)
+        } catch {
+            print("Failed to decode WebSocket message: \(error)")
+            print("Message content: \(text)")
+        }
     }
 
     /// Schedules a reconnection attempt with exponential backoff.
