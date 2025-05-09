@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import Get
-import URLQueryEncoder
 
-public extension Paths {
-    /// Gets branding css.
-    static var getBrandingCss: Request<Void> {
-        Request(path: "/Branding/Css", method: "GET", id: "GetBrandingCss")
-    }
+public extension JellyfinClient {
+    /// The Jellyfin server version used to generate this SDK
+    static let sdkGeneratedVersion: String = "10.10.7"
+
+    /// The minimum Jellyfin server version supported by this SDK
+    static let sdkMinimumVersion: String = "10.10.0"
 }

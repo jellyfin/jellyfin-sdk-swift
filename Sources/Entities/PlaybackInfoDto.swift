@@ -20,7 +20,20 @@ public struct PlaybackInfoDto: Codable, Hashable {
     public var audioStreamIndex: Int?
     /// Gets or sets a value indicating whether to auto open the live stream.
     public var isAutoOpenLiveStream: Bool?
-    /// Gets or sets the device profile.
+    /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to
+    /// play.
+    ///
+    /// <br />
+    ///
+    /// Specifically, it defines the supported <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.ContainerProfiles">containers</see> and
+    ///
+    /// <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.CodecProfiles">codecs</see> (video and/or audio, including codec profiles and
+    /// levels)
+    ///
+    /// the device is able to direct play (without transcoding or remuxing),
+    ///
+    /// as well as which <see cref="P:MediaBrowser.Model.Dlna.DeviceProfile.TranscodingProfiles">containers/codecs to transcode to</see> in
+    /// case it isn't.
     public var deviceProfile: DeviceProfile?
     /// Gets or sets a value indicating whether to enable direct play.
     public var enableDirectPlay: Bool?
