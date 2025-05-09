@@ -216,6 +216,9 @@ public final class JellyfinSocket: ObservableObject {
         let webSocketURL = makeWebSocketURL(from: client.configuration.url)
         var request = URLRequest(url: webSocketURL)
         request.setValue("MediaBrowser Token=\(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("jellyfin-sdk-swift", forHTTPHeaderField: "User-Agent")
+        request.setValue("keep-alive, upgrade", forHTTPHeaderField: "Connection")
+        request.setValue("websocket", forHTTPHeaderField: "Upgrade")
         request.timeoutInterval = 60
 
         task = session.webSocketTask(with: request)
@@ -226,6 +229,13 @@ public final class JellyfinSocket: ObservableObject {
         // handshake considered connected immediately
         state = .connected
         reconnectAttempts = 0
+        
+        // Send initial Keep-Alive message
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.sendRaw("""
+            {"MessageType":"KeepAlive"}
+            """)
+        }
     }
 
     /// Establishes a continuous message receiving loop for the WebSocket.
@@ -264,12 +274,20 @@ public final class JellyfinSocket: ObservableObject {
         let work = DispatchWorkItem { [weak self] in
             guard let self = self, self.state == .connected else { return }
             
-            // Send WebSocket ping
+            print("Sending WebSocket ping")
+            
+            // Send both a WebSocket ping AND a keep-alive message
             self.task?.sendPing { error in
                 if let error = error {
                     print("Ping error: \(error)")
                 }
             }
+            
+            // Also send a Keep-Alive message to ensure the server doesn't time out
+            let keepAliveJson = """
+            {"MessageType":"KeepAlive"}
+            """
+            self.sendRaw(keepAliveJson)
             
             // Schedule the next ping
             self.schedulePings()
@@ -277,7 +295,7 @@ public final class JellyfinSocket: ObservableObject {
         
         // Store the work item and schedule it
         pingWorkItem = work
-        DispatchQueue.global().asyncAfter(deadline: .now() + 30, execute: work) // Ping every 30 seconds
+        DispatchQueue.global().asyncAfter(deadline: .now() + 15, execute: work) // Ping every 15 seconds
     }
 
     /// Processes received WebSocket messages and distributes them to handlers.
@@ -288,6 +306,16 @@ public final class JellyfinSocket: ObservableObject {
     /// - Parameter text: The raw string message received from the WebSocket
     private func process(_ text: String) {
         print("WebSocket received: \(text)")
+        
+        // This handles cases where JSON parsing might fail
+        if text.contains("ForceKeepAlive") || text.contains("KeepAlive") {
+            let responseJson = """
+            {"MessageType":"KeepAliveResponse"}
+            """
+            print("⚡ Immediate response to keep-alive message")
+            sendRaw(responseJson)
+        }
+        
         guard let data = text.data(using: .utf8) else { return }
         
         // Try to parse the JSON to extract the message type
@@ -297,13 +325,6 @@ public final class JellyfinSocket: ObservableObject {
             
             // Handle ForceKeepAlive specially
             if messageType == .forceKeepAlive {
-                // For ForceKeepAlive, respond with KeepAliveResponse
-                let responseJson = """
-                {"MessageType":"KeepAliveResponse"}
-                """
-                print("Sending KeepAliveResponse to ForceKeepAlive")
-                sendRaw(responseJson)
-                
                 // Convert ForceKeepAlive to KeepAlive for processing
                 var modifiedJson = json
                 modifiedJson["MessageType"] = SessionMessageType.keepAlive.rawValue
@@ -316,15 +337,6 @@ public final class JellyfinSocket: ObservableObject {
                     inboundSubject.send(message)
                     return
                 }
-            }
-            // Handle regular KeepAlive
-            else if messageType == .keepAlive {
-                // Send a proper KeepAliveResponse to regular KeepAlive as well
-                let responseJson = """
-                {"MessageType":"KeepAliveResponse"}
-                """
-                print("Sending KeepAliveResponse to KeepAlive")
-                sendRaw(responseJson)
             }
         }
         
