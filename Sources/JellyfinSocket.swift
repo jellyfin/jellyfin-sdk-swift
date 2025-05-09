@@ -79,7 +79,7 @@ public final class JellyfinSocket: ObservableObject {
     private let inboundSubject = PassthroughSubject<InboundWebSocketMessage, Never>()
     
     /// Public publisher of all inbound messages
-    public var inboundPublisher: AnyPublisher<InboundWebSocketMessage, Never> {
+    public var messages: AnyPublisher<InboundWebSocketMessage, Never> {
         inboundSubject.eraseToAnyPublisher()
     }
 
