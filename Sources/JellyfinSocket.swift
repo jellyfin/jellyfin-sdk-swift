@@ -10,521 +10,245 @@ import Combine
 import Foundation
 
 /// A WebSocket manager for receiving real-time Jellyfin server events.
-///
-/// `JellyfinSocket` manages the lifecycle of a WebSocket connection to the Jellyfin
-/// `/socket` endpoint. It provides state updates and automatic reconnection behavior.
-/// Call `subscribe(only:)` to start listening, or `subscribe(_:)` to get a Combine publisher
-/// filtered by specific `InboundWebSocketMessage` cases.
+/// Uses URLSessionWebSocketTask under the hood.
 public final class JellyfinSocket: ObservableObject {
-    // MARK: State
+    // MARK: - Public Types
 
-    /// Connection state.
-    ///
-    /// Represents the various states the WebSocket connection can be in during its lifecycle.
     public enum State: Equatable {
-        /// Socket is inactive and not attempting to connect
         case idle
-        
-        /// Socket is in the process of establishing initial connection
         case connecting
-        
-        /// Socket has an active connection to the server
         case connected
-        
-        /// Connection was lost and socket is attempting to reconnect
         case reconnecting(attempt: Int)
-        
-        /// Socket encountered an error that prevented normal operation
         case error(String)
-        
-        /// Socket was deliberately closed by user request
         case closed
     }
 
-    /// Published connection state.
-    ///
-    /// This property is published to allow SwiftUI views to react to connection state changes.
     @Published public private(set) var state: State = .idle
-
-    // MARK: Constants
-
-    /// The endpoint path for WebSocket connections
-    private let socketPath = "/socket"
-    
-    /// Maximum number of reconnection attempts before giving up
-    private let maxReconnectAttempts = 5
-    
-    /// URL session used for WebSocket communication
-    private let session = URLSession(configuration: .default)
-    
-    /// Ping interval in seconds
-    private let pingInterval: TimeInterval = 15
-    
-    /// Connection validation timeout in seconds
-    private let connectionValidationTimeout: TimeInterval = 5
-
-    // MARK: Internal storage
-
-    /// The authenticated Jellyfin client instance
-    private let client: JellyfinClient
-    
-    /// Current active WebSocket task
-    private var task: URLSessionWebSocketTask?
-    
-    /// Number of reconnection attempts that have been made
-    private var reconnectAttempts = 0
-    
-    /// Work item for scheduled ping
-    private var pingWorkItem: DispatchWorkItem?
-
-    /// Work item for scheduled reconnection attempts
-    private var reconnectWorkItem: DispatchWorkItem?
-    
-    /// Work item for connection validation timeout
-    private var validationTimeoutWorkItem: DispatchWorkItem?
-    
-    /// Flag to track if we've received at least one successful message
-    private var hasReceivedMessage = false
-    
-    /// Collection of message handler closures to be called when messages are received
-    private var handlers: [(InboundWebSocketMessage) -> Void] = []
-    
-    /// Cancellable to track state subscription
-    private var stateSubscription: AnyCancellable?
-
-    /// Subject to publish **all** inbound messages for Combine subscribers
-    private let inboundSubject = PassthroughSubject<InboundWebSocketMessage, Never>()
-    
-    /// Public publisher of all inbound messages
     public var messages: AnyPublisher<InboundWebSocketMessage, Never> {
         inboundSubject.eraseToAnyPublisher()
     }
 
-    // MARK: Init
+    // MARK: - Private
 
-    /// Create a WebSocket manager bound to a `JellyfinClient`.
-    ///
-    /// - Parameter client: The authenticated HTTP client.
+    private let client: JellyfinClient
+    private let socketPath = "/socket"
+    private let maxReconnectAttempts = 5
+    private let pingInterval: TimeInterval = 15
+    private let validationTimeout: TimeInterval = 5
+
+    private var task: URLSessionWebSocketTask?
+    private var reconnectAttempts = 0
+    private var hasReceivedFirstMessage = false
+
+    private var pingWorkItem: DispatchWorkItem?
+    private var validationWorkItem: DispatchWorkItem?
+    private var reconnectWorkItem: DispatchWorkItem?
+
+    private let session = URLSession(configuration: .default)
+    private var handlers: [(InboundWebSocketMessage) -> Void] = []
+    private let inboundSubject = PassthroughSubject<InboundWebSocketMessage, Never>()
+
+    private var stateCancellable: AnyCancellable?
+
+    // MARK: - Init
+
     public init(client: JellyfinClient) {
         self.client = client
     }
 
-    // MARK: Public API
+    // MARK: - Public API
 
-    /// Start (or restart) the WebSocket and deliver messages to the supplied handlers.
-    ///
-    /// - Parameter handlers: 0-n closures that handle each decoded
-    ///                       `InboundWebSocketMessage`. If `nil`, messages are ignored.
-    ///
-    /// - Important: Subsequent calls while `.connected`/`.connecting`
-    ///              simply add/replace handlers; they don't create
-    ///              multiple socket connections.
+    /// Subscribe to all messages (or install custom handlers).
+    /// First call triggers `openSocket()`. Subsequent calls only replace handlers.
     @MainActor
     public func subscribe(only handlers: [(InboundWebSocketMessage) -> Void]? = nil) {
-        if let newHandlers = handlers {
-            self.handlers = newHandlers
-        }
-        
-        if state == .connected || state == .connecting {
-            return
-        }
-        
-        // Set up state subscription to detect when connection is established
-        stateSubscription?.cancel()
-        stateSubscription = $state
+        if let h = handlers { self.handlers = h }
+        guard state == .idle || state == .error("") else { return }
+
+        // Monitor when we become connected to auto‐subscribe server‐side events
+        stateCancellable?.cancel()
+        stateCancellable = $state
             .filter { $0 == .connected }
             .first()
-            .sink { [weak self] _ in
-                self?.subscribeToEvents()
-            }
-        
+            .sink { [weak self] _ in self?.sendInitialSubscriptions() }
+
         openSocket()
     }
 
-    /// Subscribe to **only** the given inbound enum cases. If you pass no arguments,
-    /// you'll receive all messages.
-    ///
-    /// - Parameter cases: A variadic list of `InboundWebSocketMessage` cases to filter by.
-    ///                    If empty, you get every message.
+    /// Filtered Combine publisher.
     @MainActor
     public func subscribe(_ cases: InboundWebSocketMessage...)
         -> AnyPublisher<InboundWebSocketMessage, Never>
     {
-        // ensure the socket is running
         subscribe(only: nil)
-
-        // no filters? forward everything
-        guard !cases.isEmpty else {
-            return messages
-        }
-
-        // otherwise only forward matching cases
-        return messages
-            .filter { cases.contains($0) }
-            .eraseToAnyPublisher()
+        guard !cases.isEmpty else { return messages }
+        return messages.filter { cases.contains($0) }.eraseToAnyPublisher()
     }
-    
-    /// Send an outbound message to the Jellyfin server.
-    ///
-    /// - Parameter message: The `OutboundWebSocketMessage` to send.
-    /// - Returns: A boolean indicating whether the message was sent successfully.
+
+    /// Send an outbound message.
     @discardableResult
     public func send(_ message: OutboundWebSocketMessage) -> Bool {
-        guard state == .connected, let task = task else {
-            print("[WebSocket] Cannot send message - socket not connected (current state: \(state))")
+        guard case .connected = state, let task = task else {
+            print("[WebSocket] Not connected; cannot send.")
             return false
         }
-        
         do {
             let data = try JSONEncoder().encode(message)
-            if let text = String(data: data, encoding: .utf8) {
-                task.send(.string(text)) { error in
-                    if let error = error {
-                        print("[WebSocket] Failed to send message: \(error)")
-                    }
-                }
-                
-                return true
+            task.send(.string(String(data: data, encoding: .utf8)!)) { error in
+                if let e = error { print("[WebSocket] send error: \(e)") }
             }
+            return true
         } catch {
-            print("[WebSocket] Failed to encode message: \(error)")
+            print("[WebSocket] encode error: \(error)")
+            return false
         }
-        
-        return false
-    }
-    
-    /// Send a keep-alive response to the server.
-    ///
-    /// - Returns: A boolean indicating whether the message was sent successfully.
-    @discardableResult
-    public func sendKeepAliveResponse() -> Bool {
-        let message = OutboundKeepAliveMessage(
-            messageID: UUID().uuidString.lowercased().replacingOccurrences(of: "-", with: ""),
-            messageType: .keepAlive
-        )
-        
-        let outboundMessage = OutboundWebSocketMessage.outboundKeepAliveMessage(message)
-        return send(outboundMessage)
-    }
-    
-    /// Send a keep-alive message to the server.
-    ///
-    /// - Returns: A boolean indicating whether the message was sent successfully.
-    @discardableResult
-    public func sendKeepAlive() -> Bool {
-        let message = OutboundKeepAliveMessage(
-            messageID: UUID().uuidString.lowercased().replacingOccurrences(of: "-", with: ""),
-            messageType: .keepAlive
-        )
-        
-        let outboundMessage = OutboundWebSocketMessage.outboundKeepAliveMessage(message)
-        return send(outboundMessage)
     }
 
-    /// Close the socket and stop all retries.
-    ///
-    /// Cancels any pending reconnection attempts and closes the connection.
+    /// Gracefully close.
     @MainActor
     public func disconnect() {
-        print("[WebSocket] Disconnecting")
-        
-        stateSubscription?.cancel()
-        reconnectWorkItem?.cancel()
+        stateCancellable?.cancel()
         pingWorkItem?.cancel()
-        validationTimeoutWorkItem?.cancel()
+        validationWorkItem?.cancel()
+        reconnectWorkItem?.cancel()
         task?.cancel(with: .goingAway, reason: nil)
-        hasReceivedMessage = false
         state = .closed
     }
 
-    // MARK: Internal
-    
-    /// Subscribes to all supported event types from the Jellyfin server
-    private func subscribeToEvents() {
-        // Filter for "Start" event types that need subscription
-        let subscriptionTypes = SessionMessageType.allCases.filter { type in
-            return type.rawValue.hasSuffix("Start")
-        }
-        
-        print("[WebSocket] Subscribing to event types: \(subscriptionTypes.map { $0.rawValue })")
-        
-        for eventType in subscriptionTypes {
-            subscribeToEventType(eventType.rawValue)
-        }
-    }
-    
-    /// Subscribes to a specific event type
-    private func subscribeToEventType(_ eventType: String) {
-        let message = GeneralCommandMessage(
-            messageID: UUID().uuidString.lowercased().replacingOccurrences(of: "-", with: ""),
-            messageType: .generalCommand
-        )
-        
-        let outboundMessage = OutboundWebSocketMessage.generalCommandMessage(message)
-        send(outboundMessage)
-    }
+    // MARK: - Internal
 
-    /// Opens a WebSocket connection to the Jellyfin server.
-    ///
-    /// Validates the access token, creates a properly formatted request with authorization,
-    /// and initiates the WebSocket connection.
-    ///
-    /// - Note: This method updates the connection state and sets up connection validation.
-    @MainActor
     private func openSocket() {
-        print("[WebSocket] Opening connection")
-        
-        // Cancel any existing connection validation timeout
-        validationTimeoutWorkItem?.cancel()
-        
         guard let token = client.accessToken else {
-            print("[WebSocket] Missing access token")
             state = .error("Missing access token")
             return
         }
-
         state = reconnectAttempts == 0 ? .connecting : .reconnecting(attempt: reconnectAttempts)
+        hasReceivedFirstMessage = false
 
-        let webSocketURL = makeWebSocketURL(from: client.configuration.url)
-        
-        var request = URLRequest(url: webSocketURL)
-        request.setValue("MediaBrowser Token=\(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("jellyfin-sdk-swift", forHTTPHeaderField: "User-Agent")
-        request.setValue("keep-alive, upgrade", forHTTPHeaderField: "Connection")
-        request.setValue("websocket", forHTTPHeaderField: "Upgrade")
-        request.timeoutInterval = 60
+        var comps = URLComponents(url: client.configuration.url, resolvingAgainstBaseURL: false)!
+        comps.scheme = (comps.scheme == "https" ? "wss" : "ws")
+        comps.path = socketPath
 
-        task = session.webSocketTask(with: request)
+        var req = URLRequest(url: comps.url!)
+        req.setValue("MediaBrowser Token=\(token)", forHTTPHeaderField: "Authorization")
+        task = session.webSocketTask(with: req)
         task?.resume()
 
-        listen()
-        
-        // Set up a timeout for connection validation
-        let timeoutWork = DispatchWorkItem { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            Task { @MainActor in
-                if self.state == .connecting || (self.state == .reconnecting(attempt: self.reconnectAttempts) && !self.hasReceivedMessage) {
-                    print("[WebSocket] Connection validation timeout")
-                    self.state = .error("Connection validation timeout")
-                    self.scheduleReconnect()
-                }
-            }
-        }
-        
-        validationTimeoutWorkItem = timeoutWork
-        DispatchQueue.global().asyncAfter(deadline: .now() + connectionValidationTimeout, execute: timeoutWork)
+        listenLoop()
+        scheduleValidationTimeout()
     }
 
-    /// Establishes a continuous message receiving loop for the WebSocket.
-    ///
-    /// Recursively calls itself to maintain an unbroken chain of message handlers,
-    /// and initiates reconnection procedures on connection failures.
-    private func listen() {
+    private func listenLoop() {
         task?.receive { [weak self] result in
-            guard let self = self else {
-                return
-            }
-
+            guard let self = self else { return }
             switch result {
             case .success(.string(let text)):
-                // First successful message confirms the connection
-                self.hasReceivedMessage = true
-                
-                Task { @MainActor in
-                    if self.state == .connecting || self.state == .reconnecting(attempt: self.reconnectAttempts) {
-                        self.validationTimeoutWorkItem?.cancel()
-                        self.state = .connected
-                        self.reconnectAttempts = 0
-                        
-                        print("[WebSocket] Connection established")
-                        
-                        // Start ping scheduling
-                        self.schedulePings()
-                    }
-                }
-                
-                self.process(text)
-                self.listen() // Continue listening
-                
+                self.handle(text)
+                self.listenLoop()
             case .success:
-                self.listen() // Continue listening
-                
-            case .failure(let error):
-                print("[WebSocket] Receive error: \(error.localizedDescription)")
-                
-                Task { @MainActor in
-                    if self.state == .connected || self.state == .connecting || self.state == .reconnecting(attempt: self.reconnectAttempts) {
-                        self.state = .error(error.localizedDescription)
-                        self.scheduleReconnect()
-                    }
-                }
+                self.listenLoop()
+            case .failure(let err):
+                self.handleError(err.localizedDescription)
             }
         }
     }
 
-    /// Schedules periodic pings to keep the connection alive
-    private func schedulePings() {
-        // Cancel any existing ping timer
-        pingWorkItem?.cancel()
-        
-        // Create a new work item for the ping
-        let work = DispatchWorkItem { [weak self] in
-            guard let self = self, self.state == .connected else {
-                return
-            }
-            
-            // Send both a WebSocket ping AND a keep-alive message
-            self.task?.sendPing { error in
-                if let error = error {
-                    print("[WebSocket] Ping error: \(error)")
-                    
-                    // Handle ping failure as a connection issue
-                    Task { @MainActor [weak self] in
-                        guard let self = self else {
-                            return
-                        }
-                        
-                        if self.state == .connected {
-                            print("[WebSocket] Ping failure indicates connection problem")
-                            self.state = .error("Ping failed: \(error.localizedDescription)")
-                            self.scheduleReconnect()
-                        }
-                    }
-                }
-            }
-            
-            // Also send a Keep-Alive message using the proper type
-            let keepAliveSent = self.sendKeepAlive()
-            
-            // Only schedule the next ping if this one was successful
-            if keepAliveSent {
-                self.schedulePings()
-            }
+    private func handle(_ text: String) {
+        if !hasReceivedFirstMessage {
+            hasReceivedFirstMessage = true
+            validationWorkItem?.cancel()
+            state = .connected
+            reconnectAttempts = 0
+            schedulePings()
         }
-        
-        // Store the work item and schedule it
-        pingWorkItem = work
-        DispatchQueue.global().asyncAfter(deadline: .now() + pingInterval, execute: work)
-    }
 
-    /// Processes received WebSocket messages and distributes them to handlers.
-    ///
-    /// This method attempts to decode the message using the InboundWebSocketMessage enum
-    /// and handles the special case of ForceKeepAlive messages.
-    ///
-    /// - Parameter text: The raw string message received from the WebSocket
-    private func process(_ text: String) {
-        guard let data = text.data(using: .utf8) else {
-            print("[WebSocket] Failed to convert text to data")
-            return
-        }
-        
-        // First, try to determine if this is a ForceKeepAlive message that needs special handling
+        // Special‐case ForceKeepAlive
         if text.contains("ForceKeepAlive") {
-            // Send a KeepAliveResponse immediately
-            sendKeepAliveResponse()
-            
-            // Try to extract the message data and convert to a normal KeepAlive message
-            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                var modifiedJson = json
-                modifiedJson["MessageType"] = "KeepAlive"
-                
-                if let modifiedData = try? JSONSerialization.data(withJSONObject: modifiedJson) {
-                    do {
-                        let message = try JSONDecoder().decode(InboundWebSocketMessage.self, from: modifiedData)
-                        handlers.forEach { $0(message) }
-                        inboundSubject.send(message)
-                        return
-                    } catch {
-                        print("[WebSocket] Failed to decode converted ForceKeepAlive message: \(error)")
-                    }
-                }
-            }
-        } else if text.contains("KeepAlive") && !text.contains("KeepAliveResponse") {
-            // Handle regular KeepAlive messages
             _ = sendKeepAliveResponse()
         }
-        
-        // Now try to decode the message normally
-        do {
-            let message = try JSONDecoder().decode(InboundWebSocketMessage.self, from: data)
-            handlers.forEach { $0(message) }
-            inboundSubject.send(message)
-        } catch {
-            print("[WebSocket] Failed to decode message: \(error)")
-            print("[WebSocket] Message content: \(text)")
-        }
-    }
 
-    /// Schedules a reconnection attempt with exponential backoff.
-    ///
-    /// - Note: The delay between attempts doubles with each try, following the formula 2^(attemptNumber).
-    @MainActor
-    private func scheduleReconnect() {
-        guard reconnectAttempts < maxReconnectAttempts else {
-            print("[WebSocket] Max reconnect attempts reached (\(maxReconnectAttempts))")
-            state = .error("Max reconnect attempts hit")
+        guard
+            let data = text.data(using: .utf8),
+            let msg = try? JSONDecoder().decode(InboundWebSocketMessage.self, from: data)
+        else {
+            print("[WebSocket] decode failure for: \(text)")
             return
         }
 
+        handlers.forEach { $0(msg) }
+        inboundSubject.send(msg)
+    }
+
+    private func handleError(_ description: String) {
+        state = .error(description)
+        scheduleReconnect()
+    }
+
+    private func scheduleValidationTimeout() {
+        validationWorkItem?.cancel()
+        let w = DispatchWorkItem { [weak self] in
+            guard let s = self, !s.hasReceivedFirstMessage else { return }
+            s.handleError("Connection timed out")
+        }
+        validationWorkItem = w
+        DispatchQueue.global().asyncAfter(deadline: .now() + validationTimeout, execute: w)
+    }
+
+    private func schedulePings() {
+        pingWorkItem?.cancel()
+        let w = DispatchWorkItem { [weak self] in
+            guard let s = self, case .connected = s.state else { return }
+            s.task?.sendPing { err in
+                if let e = err { s.handleError("Ping failed: \(e)") }
+            }
+            _ = self?.sendKeepAlive()
+            self?.schedulePings()
+        }
+        pingWorkItem = w
+        DispatchQueue.global().asyncAfter(deadline: .now() + pingInterval, execute: w)
+    }
+
+    private func scheduleReconnect() {
+        guard reconnectAttempts < maxReconnectAttempts else {
+            state = .error("Max reconnect attempts reached")
+            return
+        }
         reconnectAttempts += 1
-        let delay = Double(pow(2.0, Double(reconnectAttempts)))
-        
-        print("[WebSocket] Scheduling reconnection attempt \(reconnectAttempts) in \(delay) seconds")
-
+        let delay = pow(2.0, Double(reconnectAttempts))
         reconnectWorkItem?.cancel()
-        let work = DispatchWorkItem { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.openSocket()
-        }
-        
-        reconnectWorkItem = work
-        DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: work)
+        let w = DispatchWorkItem { [weak self] in self?.openSocket() }
+        reconnectWorkItem = w
+        DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: w)
     }
 
-    /// Builds a WebSocket URL from a base HTTP URL.
-    ///
-    /// Converts http:// to ws:// and https:// to wss:// while appending the socket path.
-    ///
-    /// - Parameter baseURL: The base URL of the Jellyfin server
-    /// - Returns: A properly formatted WebSocket URL
-    private func makeWebSocketURL(from baseURL: URL) -> URL {
-        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)!
-        urlComponents.scheme = urlComponents.scheme == "https" ? "wss" : "ws"
-        urlComponents.path = socketPath
-        return urlComponents.url!
+    private func sendInitialSubscriptions() {
+        let types = SessionMessageType.allCases.filter { $0.rawValue.hasSuffix("Start") }
+        types.forEach { type in
+            let cmd = GeneralCommandMessage(
+                messageID: UUID().uuidString.replacingOccurrences(of: "-", with: ""),
+                messageType: .generalCommand
+            )
+            _ = send(.generalCommandMessage(cmd))
+        }
     }
-    
-    /// Validates if the connection is still active by sending a test ping.
-    ///
-    /// - Returns: A publisher that emits a Boolean indicating whether the connection is valid.
-    private func validateConnection() -> AnyPublisher<Bool, Never> {
-        let subject = PassthroughSubject<Bool, Never>()
-        
-        guard let task = task, state == .connected else {
-            print("[WebSocket] Cannot validate - socket not connected")
-            subject.send(false)
-            subject.send(completion: .finished)
-            return subject.eraseToAnyPublisher()
-        }
-        
-        task.sendPing { error in
-            if let error = error {
-                print("[WebSocket] Connection validation failed: \(error)")
-                subject.send(false)
-            } else {
-                subject.send(true)
-            }
-            
-            subject.send(completion: .finished)
-        }
-        
-        return subject.eraseToAnyPublisher()
+
+    // MARK: - KeepAlive Helpers
+
+    @discardableResult
+    private func sendKeepAliveResponse() -> Bool {
+        let msg = OutboundKeepAliveMessage(
+            messageID: UUID().uuidString.replacingOccurrences(of: "-", with: ""),
+            messageType: .keepAlive
+        )
+        return send(.outboundKeepAliveMessage(msg))
+    }
+
+    @discardableResult
+    private func sendKeepAlive() -> Bool {
+        let msg = OutboundKeepAliveMessage(
+            messageID: UUID().uuidString.replacingOccurrences(of: "-", with: ""),
+            messageType: .keepAlive
+        )
+        return send(.outboundKeepAliveMessage(msg))
     }
 }
