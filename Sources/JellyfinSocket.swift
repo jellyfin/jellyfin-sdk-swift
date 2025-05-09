@@ -12,7 +12,7 @@ import Foundation
 /// A WebSocket manager for receiving real-time Jellyfin server events.
 /// Uses URLSessionWebSocketTask under the hood.
 public final class JellyfinSocket: ObservableObject {
-    // MARK: - Public Types
+    // MARK: Public Types
 
     public enum State: Equatable {
         case idle
@@ -28,7 +28,7 @@ public final class JellyfinSocket: ObservableObject {
         inboundSubject.eraseToAnyPublisher()
     }
 
-    // MARK: - Private
+    // MARK: Private
 
     private let client: JellyfinClient
     private let socketPath = "/socket"
@@ -47,16 +47,15 @@ public final class JellyfinSocket: ObservableObject {
     private let session = URLSession(configuration: .default)
     private var handlers: [(InboundWebSocketMessage) -> Void] = []
     private let inboundSubject = PassthroughSubject<InboundWebSocketMessage, Never>()
-
     private var stateCancellable: AnyCancellable?
 
-    // MARK: - Init
+    // MARK: Init
 
     public init(client: JellyfinClient) {
         self.client = client
     }
 
-    // MARK: - Public API
+    // MARK: Public API
 
     /// Subscribe to all messages (or install custom handlers).
     /// First call triggers `openSocket()`. Subsequent calls only replace handlers.
@@ -65,7 +64,7 @@ public final class JellyfinSocket: ObservableObject {
         if let h = handlers { self.handlers = h }
         guard state == .idle || state == .error("") else { return }
 
-        // Monitor when we become connected to auto‐subscribe server‐side events
+        // When connected, send our initial subscriptions
         stateCancellable?.cancel()
         stateCancellable = $state
             .filter { $0 == .connected }
@@ -115,7 +114,7 @@ public final class JellyfinSocket: ObservableObject {
         state = .closed
     }
 
-    // MARK: - Internal
+    // MARK: Internal
 
     private func openSocket() {
         guard let token = client.accessToken else {
@@ -162,14 +161,14 @@ public final class JellyfinSocket: ObservableObject {
             schedulePings()
         }
 
-        // Special‐case ForceKeepAlive
+        // ForceKeepAlive → respond immediately
         if text.contains("ForceKeepAlive") {
             _ = sendKeepAliveResponse()
         }
 
         guard
             let data = text.data(using: .utf8),
-            let msg = try? JSONDecoder().decode(InboundWebSocketMessage.self, from: data)
+            let msg  = try? JSONDecoder().decode(InboundWebSocketMessage.self, from: data)
         else {
             print("[WebSocket] decode failure for: \(text)")
             return
@@ -221,18 +220,35 @@ public final class JellyfinSocket: ObservableObject {
         DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: w)
     }
 
+    /// Sends the correct JSON for each event subscription
     private func sendInitialSubscriptions() {
         let types = SessionMessageType.allCases.filter { $0.rawValue.hasSuffix("Start") }
-        types.forEach { type in
-            let cmd = GeneralCommandMessage(
-                messageID: UUID().uuidString.replacingOccurrences(of: "-", with: ""),
-                messageType: .generalCommand
-            )
-            _ = send(.generalCommandMessage(cmd))
+        for type in types {
+            subscribeToEventType(type.rawValue)
         }
     }
 
-    // MARK: - KeepAlive Helpers
+    /// Build and send:
+    /// { "MessageType":"GeneralCommand", "Data":"<EventName>" }
+    private func subscribeToEventType(_ eventType: String) {
+        let payload: [String: Any] = [
+            "MessageType": "GeneralCommand",
+            "Data":        eventType
+        ]
+        guard let data = try? JSONSerialization.data(withJSONObject: payload),
+              let text = String(data: data, encoding: .utf8)
+        else {
+            print("[WebSocket] Failed to serialize subscribe payload")
+            return
+        }
+        task?.send(.string(text)) { error in
+            if let e = error {
+                print("[WebSocket] subscribe error: \(e)")
+            }
+        }
+    }
+
+    // MARK: Keep-Alive Helpers
 
     @discardableResult
     private func sendKeepAliveResponse() -> Bool {
