@@ -69,6 +69,9 @@ public final class JellyfinSocket: ObservableObject {
     /// Number of reconnection attempts that have been made
     private var reconnectAttempts = 0
     
+    /// Work item for scheduled ping
+    private var pingWorkItem: DispatchWorkItem?
+
     /// Work item for scheduled reconnection attempts
     private var reconnectWorkItem: DispatchWorkItem?
     
@@ -212,6 +215,7 @@ public final class JellyfinSocket: ObservableObject {
         let webSocketURL = makeWebSocketURL(from: client.configuration.url)
         var request = URLRequest(url: webSocketURL)
         request.setValue("MediaBrowser Token=\(token)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = 60
 
         task = session.webSocketTask(with: request)
         task?.resume()
@@ -228,13 +232,16 @@ public final class JellyfinSocket: ObservableObject {
     /// Recursively calls itself to maintain an unbroken chain of message handlers,
     /// and initiates reconnection procedures on connection failures.
     private func listen() {
+        // Schedule periodic pings to keep the connection alive
+        schedulePings()
+        
         task?.receive { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .success(.string(let text)):
                 self.process(text)
-                self.listen() // continue loop
+                self.listen()
             case .success:
                 // Ignore .data / pongs
                 self.listen()
@@ -245,6 +252,31 @@ public final class JellyfinSocket: ObservableObject {
                 }
             }
         }
+    }
+
+    /// Schedules periodic pings to keep the connection alive
+    private func schedulePings() {
+        // Cancel any existing ping timer
+        pingWorkItem?.cancel()
+        
+        // Create a new work item for the ping
+        let work = DispatchWorkItem { [weak self] in
+            guard let self = self, self.state == .connected else { return }
+            
+            // Send WebSocket ping
+            self.task?.sendPing { error in
+                if let error = error {
+                    print("Ping error: \(error)")
+                }
+            }
+            
+            // Schedule the next ping
+            self.schedulePings()
+        }
+        
+        // Store the work item and schedule it
+        pingWorkItem = work
+        DispatchQueue.global().asyncAfter(deadline: .now() + 30, execute: work) // Ping every 30 seconds
     }
 
     /// Processes received WebSocket messages and distributes them to handlers.
@@ -263,11 +295,14 @@ public final class JellyfinSocket: ObservableObject {
            let messageType = SessionMessageType(rawValue: messageTypeStr) {
             
             // Handle ForceKeepAlive special case
-            if messageType == .forceKeepAlive {
-                // Send KeepAliveResponse
-                sendRaw("""
-                {"MessageType":"KeepAliveResponse"}
-                """)
+            if messageType == .keepAlive {
+                // Send a properly structured KeepAliveResponse
+                let keepAliveResponse = OutboundKeepAliveMessage()
+                if let responseData = try? JSONEncoder().encode(keepAliveResponse),
+                   let responseString = String(data: responseData, encoding: .utf8) {
+                    print("Sending KeepAliveResponse")
+                    sendRaw(responseString)
+                }
                 
                 // Convert ForceKeepAlive to KeepAlive for processing
                 var modifiedJson = json
