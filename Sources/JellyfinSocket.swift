@@ -15,44 +15,31 @@ import NIOSSL
 
 public final class JellyfinSocket: ObservableObject {
 
-    // MARK: Connection state
-
     public enum State: Equatable {
         case idle, connecting, connected, reconnecting(attempt: Int), error(String), closed
     }
 
     @Published public private(set) var state: State = .idle
 
-    /// Inbound-only messages (start/stop) with receipt timestamp.
-    public let inboundPublisher = PassthroughSubject<(InboundWebSocketMessage, Date), Never>()
-    /// Outbound-type messages from server (e.g. sessionsMessage) with timestamp.
+    /// All decoded inbound messages (sent by server _to_ client).
+    public let inboundPublisher  = PassthroughSubject<(InboundWebSocketMessage, Date), Never>()
+    /// All decoded outbound messages (sessionsMessage, etc) pushed by server.
     public let outboundPublisher = PassthroughSubject<(OutboundWebSocketMessage, Date), Never>()
 
-    // MARK: Internals
-
     private let client: JellyfinClient
-    private let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+    private let group  = MultiThreadedEventLoopGroup(numberOfThreads: 1)
     private var channel: Channel?
     private var reconnectAttempts = 0
     private let maxReconnectAttempts = 5
     private var keepAliveTask: Task<Void, Never>?
-    var handlers: [(InboundWebSocketMessage) -> Void] = []
 
     public init(client: JellyfinClient) {
         self.client = client
     }
 
-    // MARK: Public API
-
     @MainActor
-    public func subscribe(only newHandlers: [(InboundWebSocketMessage) -> Void]? = nil) {
-        if let h = newHandlers { handlers = h }
-        switch state {
-        case .idle, .error, .closed:
-            connect()
-        default:
-            break
-        }
+    public func subscribe() {
+        if case .idle = state { connect() }
     }
 
     @MainActor
@@ -71,19 +58,18 @@ public final class JellyfinSocket: ObservableObject {
         )
     }
 
-    // MARK: Connect / Reconnect
-
     private func connect() {
         state = reconnectAttempts == 0 ? .connecting : .reconnecting(attempt: reconnectAttempts)
+
         let wsURL = websocketURL(from: client.configuration.url)
-        let host = wsURL.host ?? "localhost"
-        let port = wsURL.port ?? (wsURL.scheme == "wss" ? 443 : 80)
+        let host  = wsURL.host ?? "localhost"
+        let port  = wsURL.port ?? (wsURL.scheme == "wss" ? 443 : 80)
         let useTLS = wsURL.scheme == "wss"
 
         let upgradePromise = group.next().makePromise(of: Void.self)
         let upgrader = NIOWebSocketClientUpgrader(
             requestKey: randomWebSocketKey(),
-            upgradePipelineHandler: { channel, _ in channel.eventLoop.makeSucceededVoidFuture() }
+            upgradePipelineHandler: { ch, _ in ch.eventLoop.makeSucceededVoidFuture() }
         )
         let upgradeConfig = NIOHTTPClientUpgradeConfiguration(
             upgraders: [upgrader],
@@ -96,8 +82,8 @@ public final class JellyfinSocket: ObservableObject {
 
         let bootstrap: ClientBootstrap = {
             if useTLS {
-                let ctx = try! NIOSSLContext(configuration: .makeClientConfiguration())
-                let handler = try! NIOSSLClientHandler(context: ctx, serverHostname: host)
+                let sslCtx = try! NIOSSLContext(configuration: .makeClientConfiguration())
+                let handler = try! NIOSSLClientHandler(context: sslCtx, serverHostname: host)
                 return ClientBootstrap(group: group).channelInitializer { ch in
                     ch.pipeline.addHandler(handler).flatMap { addHTTP(to: ch) }
                 }
@@ -108,7 +94,9 @@ public final class JellyfinSocket: ObservableObject {
 
         bootstrap.connect(host: host, port: port)
             .flatMap { ch -> EventLoopFuture<Channel> in
-                var head = HTTPRequestHead(version: .http1_1, method: .GET, uri: wsURL.path.isEmpty ? "/" : wsURL.path)
+                var head = HTTPRequestHead(version: .http1_1,
+                                           method: .GET,
+                                           uri: wsURL.path.isEmpty ? "/" : wsURL.path)
                 head.headers.add(name: "Host", value: host)
                 head.headers.add(name: "Upgrade", value: "websocket")
                 head.headers.add(name: "Connection", value: "Upgrade")
@@ -120,9 +108,9 @@ public final class JellyfinSocket: ObservableObject {
                 return ch.writeAndFlush(HTTPClientRequestPart.head(head))
                     .flatMap { upgradePromise.futureResult.map { ch } }
             }
-            .whenComplete { [weak self] (res: Result<Channel, Error>) in
+            .whenComplete { [weak self] result in
                 guard let self = self else { return }
-                switch res {
+                switch result {
                 case .failure(let err):
                     self.handleError(err.localizedDescription)
                 case .success(let ch):
@@ -139,12 +127,10 @@ public final class JellyfinSocket: ObservableObject {
         guard reconnectAttempts < maxReconnectAttempts else { return }
         reconnectAttempts += 1
         let delay = pow(2.0, Double(reconnectAttempts))
-        DispatchQueue.global().asyncAfter(deadline: .now() + delay) { [weak self] in
-            self?.connect()
+        DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
+            self.connect()
         }
     }
-
-    // MARK: Receiving Loop
 
     private func startReceiving(on ch: Channel) {
         _ = ch.pipeline.addHandler(ByteToMessageHandler(WebSocketFrameDecoder(maxFrameSize: 1 << 20)))
@@ -160,8 +146,6 @@ public final class JellyfinSocket: ObservableObject {
             }
         }
     }
-
-    // MARK: Helpers
 
     private func websocketURL(from base: URL) -> URL {
         var c = URLComponents(url: base, resolvingAgainstBaseURL: false)!
@@ -185,17 +169,16 @@ private final class WebSocketInbound: ChannelInboundHandler {
     func channelRead(context: ChannelHandlerContext, data: NIOAny) {
         let frame = unwrapInboundIn(data)
         guard case .text = frame.opcode,
-              let text = frame.unmaskedData.getString(at: 0, length: frame.unmaskedData.readableBytes)
+              let txt = frame.unmaskedData.getString(at: 0, length: frame.unmaskedData.readableBytes)
         else { return }
 
-        if let wrapper = try? JSONDecoder().decode(WebSocketMessage.self, from: Data(text.utf8)) {
+        if let wrapper = try? JSONDecoder().decode(WebSocketMessage.self, from: Data(txt.utf8)) {
             let now = Date()
             switch wrapper {
-            case .inboundWebSocketMessage(let inbound):
-                parent.inboundPublisher.send((inbound, now))
-                parent.handlers.forEach { $0(inbound) }
-            case .outboundWebSocketMessage(let outbound):
-                parent.outboundPublisher.send((outbound, now))
+            case .inboundWebSocketMessage(let ib):
+                parent.inboundPublisher.send((ib, now))
+            case .outboundWebSocketMessage(let ob):
+                parent.outboundPublisher.send((ob, now))
             }
         }
     }
