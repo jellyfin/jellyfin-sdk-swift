@@ -13,24 +13,20 @@ import Get
 /// like injecting required headers for API calls with the current access token.
 public final class JellyfinClient {
 
-    // MARK: Stored properties
-
-    /// Current user access token.
+    /// Current user access token
     public private(set) var accessToken: String?
 
-    /// Live WebSocket instance.
+    /// Initialize the Jellyfin WebSocket
     public private(set) lazy var socket = JellyfinSocket(client: self)
 
-    /// Build-time configuration.
+    /// Configuration for this instance of `JellyfinClient`
     public let configuration: Configuration
 
     private var _apiClient: APIClient!
     private let sessionConfiguration: URLSessionConfiguration
     private let delegate: APIClientDelegate?
 
-    // MARK: Initialisation
-
-    /// Create a `JellyfinClient` instance.
+    /// Create a `JellyfinClient` instance given a configuration and optional access token
     public init(
         configuration: Configuration,
         sessionConfiguration: URLSessionConfiguration = .default,
@@ -38,40 +34,68 @@ public final class JellyfinClient {
         delegate: APIClientDelegate? = nil,
         accessToken: String? = nil
     ) {
-        self.configuration         = configuration
-        self.sessionConfiguration  = sessionConfiguration
-        self.delegate              = delegate
-        self.accessToken           = accessToken
+        self.configuration = configuration
+        self.sessionConfiguration = sessionConfiguration
+        self.delegate = delegate
+        self.accessToken = accessToken
 
-        self._apiClient = APIClient(baseURL: configuration.url) { cfg in
-            cfg.sessionConfiguration = sessionConfiguration
-            cfg.delegate             = self
-            cfg.sessionDelegate      = sessionDelegate
+        self._apiClient = APIClient(baseURL: configuration.url) { configuration in
+            configuration.sessionConfiguration = sessionConfiguration
+            configuration.delegate = self
+            configuration.sessionDelegate = sessionDelegate
 
-            let iso = OpenISO8601DateFormatter()
+            let isoDateFormatter: DateFormatter = OpenISO8601DateFormatter()
 
             let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(iso)
-            cfg.decoder = decoder
+            decoder.dateDecodingStrategy = .formatted(isoDateFormatter)
+            configuration.decoder = decoder
 
             let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .formatted(iso)
-            encoder.outputFormatting     = .prettyPrinted
-            cfg.encoder = encoder
+            encoder.dateEncodingStrategy = .formatted(isoDateFormatter)
+            encoder.outputFormatting = .prettyPrinted
+            configuration.encoder = encoder
         }
     }
 
-    // MARK: Nested types
-
     public struct Configuration {
-        public let url: URL
-        public let client: String
-        public let deviceName: String
-        public let deviceID: String
-        public let version: String
-    }
 
-    // MARK: Request helpers
+        /// Server URL
+        public let url: URL
+
+        /// Client name
+        ///
+        /// - Example: `Jellyfin iOS`
+        public let client: String
+
+        /// Device name
+        ///
+        /// - Example: `iPhone 13 Pro`
+        public let deviceName: String
+
+        /// Unique device ID
+        ///
+        /// - Note: This ID should be consistent for proper device management
+        public let deviceID: String
+
+        /// Version of your application
+        ///
+        /// - Example: `1.2.3`
+        public let version: String
+
+        public init(
+            url: URL,
+            client: String,
+            deviceName: String,
+            deviceID: String,
+            version: String
+        ) {
+            self.url = url
+            self.client = client
+            self.deviceName = deviceName
+            self.deviceID = deviceID
+            self.version = version
+        }
+    }
 
     public func send<T>(
         _ request: Request<T>,
@@ -116,48 +140,40 @@ public final class JellyfinClient {
     private func authHeaders() -> String {
         let fields = [
             "DeviceId": configuration.deviceID,
-            "Device":   configuration.deviceName,
-            "Client":   configuration.client,
-            "Version":  configuration.version,
-            "Token":    accessToken ?? ""
+            "Device": configuration.deviceName,
+            "Client": configuration.client,
+            "Version": configuration.version,
+            "Token": accessToken ?? "",
         ]
-        .map { "\($0.key)=\($0.value)" }
-        .joined(separator: ", ")
+            .map { "\($0.key)=\($0.value)" }
+            .joined(separator: ", ")
 
         return "MediaBrowser \(fields)"
     }
 }
 
-// MARK: APIClientDelegate passthrough
+// MARK: APIClientDelegate
 
 extension JellyfinClient: APIClientDelegate {
 
     public func client(_ client: APIClient, willSendRequest request: inout URLRequest) async throws {
+        // Inject required headers
         request.addValue(authHeaders(), forHTTPHeaderField: "Authorization")
+
         try await delegate?.client(_apiClient, willSendRequest: &request)
     }
 
-    public func client(
-        _ client: APIClient,
-        validateResponse response: HTTPURLResponse,
-        data: Data,
-        task: URLSessionTask
-    ) throws {
+    public func client(_ client: APIClient, validateResponse response: HTTPURLResponse, data: Data, task: URLSessionTask) throws {
         if let delegate {
             try delegate.client(_apiClient, validateResponse: response, data: data, task: task)
         } else {
-            guard (200..<300).contains(response.statusCode) else {
+            guard (200 ..< 300).contains(response.statusCode) else {
                 throw APIError.unacceptableStatusCode(response.statusCode)
             }
         }
     }
 
-    public func client(
-        _ client: APIClient,
-        shouldRetry task: URLSessionTask,
-        error: Error,
-        attempts: Int
-    ) async throws -> Bool {
+    public func client(_ client: APIClient, shouldRetry task: URLSessionTask, error: Error, attempts: Int) async throws -> Bool {
         try await delegate?.client(_apiClient, shouldRetry: task, error: error, attempts: attempts) ?? false
     }
 
@@ -166,39 +182,66 @@ extension JellyfinClient: APIClientDelegate {
     }
 }
 
-// MARK: Authentication helpers
+// MARK: Helpers
 
 public extension JellyfinClient {
 
+    /// Signs in a user given a username and password. On a successful response `accessToken` is set to the given access token.
+    ///
+    /// - Note: Overrides the current access token if one was previously set. Save this token locally or revoke it with `signOut` for proper
+    /// access token management.
+    ///
+    /// - Parameters:
+    ///   - username: username of the user
+    ///   - password: password of the user
+    ///
+    /// - Throws: `ClientError.noAccessTokenInResponse` if no access token was supplied in a successful authentication response
     @discardableResult
     func signIn(username: String, password: String) async throws -> AuthenticationResult {
-        let request  = Paths.authenticateUserByName(.init(pw: password, username: username))
+        let request = Paths.authenticateUserByName(.init(pw: password, username: username))
         let response = try await send(request).value
-        if let token = response.accessToken {
-            accessToken = token
+
+        if let accessToken = response.accessToken {
+            self.accessToken = accessToken
         } else {
             throw ClientError.noAccessTokenInResponse
         }
+
         return response
     }
 
+    /// Signs in a user given a Quick Connect secret.
+    ///
+    /// - Note: Overrides the current access token if one was previously set. Save this token locally or revoke it with `signOut` for proper
+    /// access token management.
+    ///
+    /// - Parameters:
+    ///   - quickConnectSecret: current Quick Connect secret
+    ///
+    /// - Throws: `ClientError.noAccessTokenInResponse` if no access token was supplied in a successful authentication response
     @discardableResult
     func signIn(quickConnectSecret: String) async throws -> AuthenticationResult {
-        let request  = Paths.authenticateWithQuickConnect(.init(secret: quickConnectSecret))
+        let request = Paths.authenticateWithQuickConnect(.init(secret: quickConnectSecret))
         let response = try await send(request).value
-        if let token = response.accessToken {
-            accessToken = token
+
+        if let accessToken = response.accessToken {
+            self.accessToken = accessToken
         } else {
             throw ClientError.noAccessTokenInResponse
         }
+
         return response
     }
 
+    /// Signs out the current user with the server by revoking the current access token if one is set.
+    /// Overrides the current access token if the revoke was successful.
     func signOut() async throws {
-        if let token = accessToken {
-            try await send(Paths.revokeKey(key: token))
+        if let accessToken {
+            let revokeKeyRequest = Paths.revokeKey(key: accessToken)
+            try await send(revokeKeyRequest)
         }
-        accessToken = nil
+
+        self.accessToken = nil
     }
 }
 
@@ -208,8 +251,8 @@ extension JellyfinClient {
 
     /// Connect (or reuse) the WebSocket and forward inbound messages.
     ///
-    /// - Parameter handlers: Optional array of closures to receive each
-    ///   `InboundWebSocketMessage`. Pass `nil` to keep the existing set intact.
+    /// - Parameter handlers: 0-n closures that receive each `InboundWebSocketMessage`.
+    ///                       Pass `nil` to keep existing handlers unchanged.
     @MainActor
     public func subscribeToWebSocketEvents(
         handlers: [(InboundWebSocketMessage) -> Void]? = nil
@@ -223,12 +266,19 @@ extension JellyfinClient {
         socket.disconnect()
     }
 
-    /// Indicates whether the WebSocket is currently connected.
+    /// Convenience boolean you can read in UIs.
     public var isWebSocketConnected: Bool {
         socket.state == .connected
     }
 
     enum ClientError: Error {
         case noAccessTokenInResponse
+
+        var localizedDescription: String {
+            switch self {
+            case .noAccessTokenInResponse:
+                "No access token in authenticated response"
+            }
+        }
     }
 }
