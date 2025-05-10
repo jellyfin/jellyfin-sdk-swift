@@ -13,6 +13,7 @@ import NIOWebSocket
 import NIOHTTP1
 import NIOSSL
 import NIOFoundationCompat
+import NIOConcurrencyHelpers
 
 /// A WebSocket manager for receiving real-time Jellyfin server events.
 /// Uses Swift NIO for WebSocket communication.
