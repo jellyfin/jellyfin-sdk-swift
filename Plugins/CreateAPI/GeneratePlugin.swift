@@ -27,6 +27,9 @@ struct Plugin: CommandPlugin {
         // Move patch files
         try await addTaskTriggerType(context: context)
 
+        // Create the version SDK
+        try await generateVersionFile(context: context)
+
         try await lint(context: context)
 
         try await deletePatchedSchema(context: context)
@@ -197,6 +200,41 @@ struct Plugin: CommandPlugin {
 
         let contents = try String(contentsOfFile: filePath.string)
             .replacingOccurrences(of: "Type", with: "_Type")
+
+        try contents
+            .data(using: .utf8)?
+            .write(to: URL(fileURLWithPath: filePath.string))
+    }
+
+    // TODO: Remove if/when fixed within CreateAPI
+    // Adds an sdkVersion and sdkGenerationVersion to the JellyfinClient
+    private func generateVersionFile(context: PluginContext) async throws {
+        let schema = try await parseOriginalSchema(context: context)
+
+        guard case let .object(file) = schema else { return }
+        guard case let .object(info) = file["info"] else { return }
+        guard let version = info["version"]?.value as? String else { return }
+
+        let majorMinor = version
+            .split(separator: ".")
+            .prefix(2)
+            .joined(separator: ".")
+
+        let minVersion = "\(majorMinor).0"
+
+        let contents = """
+        public extension JellyfinClient {
+            /// Exact version of Jellyfin used to generate the SDK
+            static let sdkGeneratedVersion: String = "\(version)"
+            /// Minimum version of Jellyfin for usage of the SDK
+            static let sdkMinimumVersion: String = "\(minVersion)"
+        }
+        """
+
+        let filePath = context
+            .package
+            .directory
+            .appending(["Sources", "Extensions", "JellyfinClient+Version.swift"])
 
         try contents
             .data(using: .utf8)?

@@ -6,12 +6,9 @@
 // Copyright (c) 2025 Jellyfin & Jellyfin Contributors
 //
 
-import Foundation
-
 public extension JellyfinClient {
-    /// The Jellyfin server version used to generate this SDK
+    /// Exact version of Jellyfin used to generate the SDK
     static let sdkGeneratedVersion: String = "10.10.7"
-
-    /// The minimum Jellyfin server version supported by this SDK
+    /// Minimum version of Jellyfin for usage of the SDK
     static let sdkMinimumVersion: String = "10.10.0"
 }
