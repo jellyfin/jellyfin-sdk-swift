@@ -45,7 +45,7 @@ public final class JellyfinSocket: ObservableObject {
     private var reconnectWorkItem: DispatchWorkItem?
 
     private let session = URLSession(configuration: .default)
-    private var handlers: [(SessionMessageType) -> Void] = []
+    private var eventTypesToSubscribe: [SessionMessageType] = []
     private let outboundSubject = PassthroughSubject<OutboundWebSocketMessage, Never>()
     private var stateCancellable: AnyCancellable?
 
@@ -57,19 +57,22 @@ public final class JellyfinSocket: ObservableObject {
 
     // MARK: Public API
 
-    /// Subscribe to all messages (or install custom handlers).
-    /// First call triggers `openSocket()`. Subsequent calls only replace handlers.
+    /// Subscribe to messages from the server.
+    /// - Parameter types: Optional specific event types to subscribe to. If nil, subscribes to ALL event types.
     @MainActor
-    public func subscribe(only handlers: [(SessionMessageType) -> Void]? = nil) {
-        if let h = handlers { self.handlers = h }
+    public func subscribe(to types: [SessionMessageType]? = nil) {
+        // If types is nil, we'll subscribe to everything
+        // Otherwise, subscribe only to the specified types
+        eventTypesToSubscribe = types ?? SessionMessageType.allCases
+        
         guard state == .idle || state == .error("") else { return }
 
-        // When connected, send our initial subscriptions
+        // When connected, send our subscriptions
         stateCancellable?.cancel()
         stateCancellable = $state
             .filter { $0 == .connected }
             .first()
-            .sink { [weak self] _ in self?.sendInitialSubscriptions() }
+            .sink { [weak self] _ in self?.sendSubscriptions() }
 
         openSocket()
     }
@@ -83,7 +86,12 @@ public final class JellyfinSocket: ObservableObject {
         }
         do {
             let data = try JSONEncoder().encode(message)
-            task.send(.string(String(data: data, encoding: .utf8)!)) { error in
+            guard let text = String(data: data, encoding: .utf8) else {
+                print("[WebSocket] Failed to encode message to string")
+                return false
+            }
+            
+            task.send(.string(text)) { error in
                 if let e = error { print("[WebSocket] send error: \(e)") }
             }
             return true
@@ -158,10 +166,6 @@ public final class JellyfinSocket: ObservableObject {
             reconnectAttempts = 0
             schedulePings()
         }
-
-        if text.contains("ForceKeepAlive") {
-            _ = sendKeepAliveResponse()
-        }
         
         guard let data = text.data(using: .utf8) else {
             print("[WebSocket] cannot convert text to data: \(text)")
@@ -186,9 +190,13 @@ public final class JellyfinSocket: ObservableObject {
         do {
             let msg = try decoder.decode(OutboundWebSocketMessage.self, from: data)
             
-            // Send the full message to the original subject
-            outboundSubject.send(msg)
+            if case .forceKeepAliveMessage = msg {
+                _ = sendKeepAliveResponse()
+                return
+            }
             
+            // Forward all other messages
+            outboundSubject.send(msg)
         } catch {
             print("[WebSocket] decode failure: \(error) for: \(text)")
         }
@@ -236,32 +244,58 @@ public final class JellyfinSocket: ObservableObject {
         DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: w)
     }
 
-    /// Sends the correct JSON for each event subscription
-    private func sendInitialSubscriptions() {
-        // Subscribe to all event types
-        for type in SessionMessageType.allCases {
+    /// Sends subscriptions for the specified event types
+    private func sendSubscriptions() {
+        // Simply iterate through our list of types to subscribe to
+        for type in eventTypesToSubscribe {
             subscribeToEventType(type)
         }
     }
 
-    /// Build and send:
-    /// { "MessageType":"GeneralCommand", "Data":"<EventName>" }
+    /// Subscribe to a specific event type
     private func subscribeToEventType(_ eventType: SessionMessageType) {
+        // For SessionsStart and specific start events, use a specific message
+        if eventType == .sessionsStart {
+            let msg = SessionsStartMessage(messageType: .sessionsStart)
+            _ = send(.sessionsStartMessage(msg))
+            return
+        }
+        
+        if eventType == .activityLogEntryStart {
+            let msg = ActivityLogEntryStartMessage(messageType: .activityLogEntryStart)
+            _ = send(.activityLogEntryStartMessage(msg))
+            return
+        }
+        
+        if eventType == .scheduledTasksInfoStart {
+            let msg = ScheduledTasksInfoStartMessage(messageType: .scheduledTasksInfoStart)
+            _ = send(.scheduledTasksInfoStartMessage(msg))
+            return
+        }
+        
+        // For all other types, use a general command
+        sendGeneralCommand(name: eventType.rawValue)
+    }
+    
+    /// Send a general command with the given name
+    private func sendGeneralCommand(name: String) {
         let payload: [String: Any] = [
             "MessageType": "GeneralCommand",
-            "Data": eventType.rawValue
+            "Data": [
+                "Name": name
+            ]
         ]
         
         guard let data = try? JSONSerialization.data(withJSONObject: payload),
               let text = String(data: data, encoding: .utf8)
         else {
-            print("[WebSocket] Failed to serialize subscribe payload")
+            print("[WebSocket] Failed to serialize command payload")
             return
         }
         
         task?.send(.string(text)) { error in
             if let e = error {
-                print("[WebSocket] subscribe error: \(e)")
+                print("[WebSocket] Command error: \(e)")
             }
         }
     }
