@@ -178,13 +178,10 @@ public final class JellyfinSocket: ObservableObject {
             return
         }
         
-        // Create a properly configured decoder like the one in JellyfinClient
+        // Create the decoder
         let decoder = JSONDecoder()
         
-        // Set key decoding strategy to convert from server's convention to Swift's
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        // If your API uses ISO dates, add a proper date formatter
+        // Configure date handling
         let isoDateFormatter = ISO8601DateFormatter()
         isoDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         decoder.dateDecodingStrategy = .custom { decoder in
@@ -197,40 +194,11 @@ public final class JellyfinSocket: ObservableObject {
         }
         
         do {
-            // Use the configured decoder instead of default one
             let msg = try decoder.decode(OutboundWebSocketMessage.self, from: data)
-            
             handlers.forEach { $0(msg) }
             outboundSubject.send(msg)
         } catch {
             print("[WebSocket] decode failure: \(error) for: \(text)")
-            
-            // Add detailed error logging
-            if let decodingError = error as? DecodingError {
-                switch decodingError {
-                case .dataCorrupted(let context):
-                    print("[WebSocket] Data corrupted: \(context.debugDescription)")
-                    print("[WebSocket] Coding path: \(context.codingPath)")
-                case .keyNotFound(let key, let context):
-                    print("[WebSocket] Key not found: \(key.stringValue) in \(context.debugDescription)")
-                    print("[WebSocket] Coding path: \(context.codingPath)")
-                case .typeMismatch(let type, let context):
-                    print("[WebSocket] Type mismatch: expected \(type) in \(context.debugDescription)")
-                    print("[WebSocket] Coding path: \(context.codingPath)")
-                case .valueNotFound(let type, let context):
-                    print("[WebSocket] Value not found: expected \(type) in \(context.debugDescription)")
-                    print("[WebSocket] Coding path: \(context.codingPath)")
-                @unknown default:
-                    print("[WebSocket] Unknown decoding error: \(decodingError)")
-                }
-            }
-            
-            // Try to print what we received to help debugging
-            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-               let jsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted]),
-               let jsonString = String(data: jsonData, encoding: .utf8) {
-                print("[WebSocket] Received JSON: \(jsonString)")
-            }
         }
     }
 
