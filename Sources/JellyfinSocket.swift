@@ -29,9 +29,9 @@ public final class JellyfinSocket: ObservableObject {
     @Published
     public private(set) var state: State = .idle
     
-    /// Connection heartbeat pulse - increments whenever a keepAlive is received
+    /// Timestamp of the last keep-alive message received
     @Published
-    public private(set) var heartbeatCount: Int = 0
+    public private(set) var lastCheckIn: Date?
     
     /// All received messages, for custom handling
     public var messages: AnyPublisher<OutboundWebSocketMessage, Never> {
@@ -144,11 +144,12 @@ public final class JellyfinSocket: ObservableObject {
     /// - Returns: True if sent successfully, false if error while sending (but still queued if not connected)
     @discardableResult
     public func send(_ message: InboundWebSocketMessage) -> Bool {
+
         // If not connected, queue the message
-        guard case .connected = state, let task = task else {
+        guard case .connected = state, task != nil else {
             print("[WebSocket] Not connected; queueing message for later")
             messageQueue.append(message)
-            return true // Return true since we successfully queued it
+            return true
         }
         
         // If connected, send immediately
@@ -283,10 +284,11 @@ public final class JellyfinSocket: ObservableObject {
             switch msg {
             case .forceKeepAliveMessage:
                 sendKeepAlive()
+                updateLastCheckIn()
                 return
                 
             case .outboundKeepAliveMessage:
-                heartbeatCount += 1
+                updateLastCheckIn()
                 return
                 
             default:
@@ -298,6 +300,12 @@ public final class JellyfinSocket: ObservableObject {
             
         } catch {
             print("[WebSocket] decode failure: \(error) for: \(text)")
+        }
+    }
+    
+    private func updateLastCheckIn() {
+        DispatchQueue.main.async {
+            self.lastCheckIn = Date()
         }
     }
 
@@ -350,6 +358,10 @@ public final class JellyfinSocket: ObservableObject {
     @discardableResult
     private func sendKeepAlive() -> Bool {
         let msg = InboundKeepAliveMessage(messageType: .keepAlive)
-        return sendImmediately(.inboundKeepAliveMessage(msg))
+        let result = sendImmediately(.inboundKeepAliveMessage(msg))
+        if result {
+            updateLastCheckIn()
+        }
+        return result
     }
 }
