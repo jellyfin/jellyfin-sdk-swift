@@ -17,8 +17,10 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/kean/Get", from: "2.1.6"),
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0"),
-        .package(url: "https://github.com/apple/swift-nio.git", from: "2.0.0"),
-        .package(url: "https://github.com/apple/swift-nio-ssl.git", from: "2.0.0"),
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.40.0"),
+        .package(url: "https://github.com/apple/swift-nio-ssl.git", from: "2.20.0"),
+        .package(url: "https://github.com/apple/swift-nio-extras.git", from: "1.15.0"),
+        .package(url: "https://github.com/apple/swift-nio-transport-services.git", from: "1.14.0"),
     ],
     targets: [
         .target(
@@ -27,13 +29,15 @@ let package = Package(
                 .product(name: "Get", package: "Get"),
                 .product(name: "URLQueryEncoder", package: "URLQueryEncoder"),
                 .product(name: "NIO", package: "swift-nio"),
-                .product(name: "NIOWebSocket", package: "swift-nio"),
-                .product(name: "NIOHTTP1", package: "swift-nio"),
-                .product(name: "NIOConcurrencyHelpers", package: "swift-nio"),
                 .product(name: "NIOCore", package: "swift-nio"),
                 .product(name: "NIOPosix", package: "swift-nio"),
+                .product(name: "NIOConcurrencyHelpers", package: "swift-nio"),
+                .product(name: "NIOHTTP1", package: "swift-nio"),
+                .product(name: "NIOWebSocket", package: "swift-nio"),
                 .product(name: "NIOSSL", package: "swift-nio-ssl"),
                 .product(name: "NIOFoundationCompat", package: "swift-nio"),
+                .product(name: "NIOExtras", package: "swift-nio-extras"),
+                .product(name: "NIOTransportServices", package: "swift-nio-transport-services"),
             ],
             path: "Sources",
             exclude: [
