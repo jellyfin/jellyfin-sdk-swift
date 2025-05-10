@@ -84,9 +84,9 @@ public final class JellyfinSocket: ObservableObject {
         return messages.filter { cases.contains($0) }.eraseToAnyPublisher()
     }
 
-    /// Send an outbound message.
+    /// Send an inbound message.
     @discardableResult
-    public func send(_ message: OutboundWebSocketMessage) -> Bool {
+    public func send(_ message: InboundWebSocketMessage) -> Bool {
         guard case .connected = state, let task = task else {
             print("[WebSocket] Not connected; cannot send.")
             return false
@@ -141,11 +141,19 @@ public final class JellyfinSocket: ObservableObject {
         task?.receive { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(.string(let text)):
-                self.handle(text)
+            case . success(let message):
+                switch message {
+                case .string(let text):
+                    self.handle(text)
+                case .data(let bin):
+                    if let text = String(data: bin, encoding: .utf8) {
+                        self.handle(text)
+                    }
+                @unknown default:
+                    break
+                }
                 self.listenLoop()
-            case .success:
-                self.listenLoop()
+
             case .failure(let err):
                 self.handleError(err.localizedDescription)
             }
@@ -161,14 +169,14 @@ public final class JellyfinSocket: ObservableObject {
             schedulePings()
         }
 
-        // ForceKeepAlive → respond immediately
         if text.contains("ForceKeepAlive") {
             _ = sendKeepAliveResponse()
         }
-
+        
         guard
             let data = text.data(using: .utf8),
-            let msg  = try? JSONDecoder().decode(OutboundWebSocketMessage.self, from: data)
+            let msg = try? JSONDecoder()
+                            .decode(OutboundWebSocketMessage.self, from: data)
         else {
             print("[WebSocket] decode failure for: \(text)")
             return
@@ -252,19 +260,17 @@ public final class JellyfinSocket: ObservableObject {
 
     @discardableResult
     private func sendKeepAliveResponse() -> Bool {
-        let msg = OutboundKeepAliveMessage(
-            messageID: UUID().uuidString.replacingOccurrences(of: "-", with: ""),
+        let msg = InboundKeepAliveMessage(
             messageType: .keepAlive
         )
-        return send(.outboundKeepAliveMessage(msg))
+        return send(.inboundKeepAliveMessage(msg))
     }
 
     @discardableResult
     private func sendKeepAlive() -> Bool {
-        let msg = OutboundKeepAliveMessage(
-            messageID: UUID().uuidString.replacingOccurrences(of: "-", with: ""),
+        let msg = InboundKeepAliveMessage(
             messageType: .keepAlive
         )
-        return send(.outboundKeepAliveMessage(msg))
+        return send(.inboundKeepAliveMessage(msg))
     }
 }
