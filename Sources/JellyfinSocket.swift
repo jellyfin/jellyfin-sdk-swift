@@ -111,8 +111,31 @@ public final class JellyfinSocket: ObservableObject {
         reconnectAttempts = 0
         state = .connecting
         
+        // Post capabilities through the API
+        Task {
+            await postDeviceCapabilities()
+        }
+        
         // Open socket
         openSocket()
+    }
+
+    // Post device capabilities to the server
+    private func postDeviceCapabilities() async {
+        do {
+            print("[WebSocket] Posting device capabilities...")
+            
+            var parameters = Paths.PostCapabilitiesParameters()
+            parameters.isSupportsMediaControl = true
+            parameters.supportedCommands = .some(GeneralCommandType.allCases)
+            
+            let request = Paths.postCapabilities(parameters: parameters)
+            try await client.send(request)
+            
+            print("[WebSocket] Device capabilities posted successfully")
+        } catch {
+            print("[WebSocket] Error posting capabilities: \(error)")
+        }
     }
 
     @MainActor
@@ -223,6 +246,64 @@ public final class JellyfinSocket: ObservableObject {
             return false
         }
     }
+    
+    // Subscribe to all message types
+    private func subscribeToAllMessageTypes() {
+        print("[WebSocket] Subscribing to all message types...")
+        
+        // List of all known message types in Jellyfin
+        let allMessageTypes = [
+            "GeneralCommand",
+            "Sessions",
+            "UserDataChanged",
+            "Play",
+            "SyncPlayCommand",
+            "SyncPlayGroupUpdate",
+            "Playstate",
+            "RestartRequired",
+            "ServerShuttingDown",
+            "ServerRestarting",
+            "LibraryChanged",
+            "UserDeleted",
+            "UserUpdated",
+            "SeriesTimerCreated",
+            "TimerCreated",
+            "SeriesTimerCancelled",
+            "TimerCancelled",
+            "RefreshProgress",
+            "ScheduledTaskEnded",
+            "PackageInstallationCancelled",
+            "PackageInstallationFailed",
+            "PackageInstallationCompleted",
+            "PackageInstalling",
+            "PackageUninstalled",
+            "ActivityLogEntry",
+            "ScheduledTasksInfo"
+        ]
+        
+        // Subscribe to each message type
+        for messageType in allMessageTypes {
+            subscribeToMessageType(messageType)
+        }
+    }
+
+    private func subscribeToMessageType(_ messageType: String) {
+        let subscriptionMessage = """
+        {
+          "MessageType": "\(messageType)Start"
+        }
+        """
+        
+        print("[WebSocket] Subscribing to \(messageType) messages")
+        
+        task?.send(.string(subscriptionMessage)) { error in
+            if let e = error {
+                print("[WebSocket] subscription error for \(messageType): \(e)")
+            } else {
+                print("[WebSocket] Successfully subscribed to \(messageType) messages")
+            }
+        }
+    }
 
     // MARK: Internal Methods
 
@@ -298,6 +379,9 @@ public final class JellyfinSocket: ObservableObject {
             }
             reconnectAttempts = 0
             schedulePings()
+            
+            // Subscribe to all message types after connecting
+            subscribeToAllMessageTypes()
         }
         
         print("[WebSocket] Received raw message: \(text)")
@@ -315,6 +399,20 @@ public final class JellyfinSocket: ObservableObject {
                 // Special handling for Sessions responses
                 if let messageType = json["MessageType"] as? String, messageType == "Sessions" {
                     print("[WebSocket] Found Sessions message")
+                }
+                
+                // Special handling for GeneralCommand messages (includes admin messages)
+                if let messageType = json["MessageType"] as? String, messageType == "GeneralCommand",
+                   let jsonData = json["Data"] as? [String: Any] {
+                    print("[WebSocket] Found GeneralCommand message: \(jsonData)")
+                    
+                    // Check if it's a message command
+                    if let name = jsonData["Name"] as? String, name == "DisplayMessage",
+                       let args = jsonData["Arguments"] as? [String: Any],
+                       let header = args["Header"] as? String,
+                       let text = args["Text"] as? String {
+                        print("[WebSocket] 📨 ADMIN MESSAGE - \(header): \(text)")
+                    }
                 }
             }
             
@@ -338,6 +436,9 @@ public final class JellyfinSocket: ObservableObject {
                 
             case .sessionsMessage(let sessionMsg):
                 print("[WebSocket] Received sessions: \(sessionMsg.data?.count ?? 0)")
+                
+            case .generalCommandMessage(let cmdMsg):
+                print("[WebSocket] Received general command: \(cmdMsg.data?.name ?? .back)")
                 
             default:
                 print("[WebSocket] Forwarding message type: \(type(of: msg))")
