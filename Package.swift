@@ -16,13 +16,6 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/kean/Get", from: "2.1.6"),
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0"),
-        .package(url: "https://github.com/swift-server/async-http-client.git",
-                 from: "1.25.0"),
-        .package(url: "https://github.com/apple/swift-nio.git",
-                 from: "2.82.0"),
-        .package(url: "https://github.com/apple/swift-nio-ssl.git", from: "2.30.0"),
-        .package(url: "https://github.com/apple/swift-nio-transport-services.git",
-                 from: "1.24.0"),
     ],
     targets: [
         .target(
@@ -30,12 +23,6 @@ let package = Package(
             dependencies: [
                 .product(name: "Get", package: "Get"),
                 .product(name: "URLQueryEncoder", package: "URLQueryEncoder"),
-                .product(name: "AsyncHTTPClient", package: "async-http-client"),
-                .product(name: "NIO", package: "swift-nio"),
-                .product(name: "NIOHTTP1", package: "swift-nio"),
-                .product(name: "NIOWebSocket", package: "swift-nio"),
-                .product(name: "NIOSSL", package: "swift-nio-ssl"),
-                .product(name: "NIOTransportServices", package: "swift-nio-transport-services"),
             ],
             path: "Sources",
             exclude: [

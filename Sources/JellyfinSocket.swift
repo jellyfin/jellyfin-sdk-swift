@@ -141,7 +141,7 @@ public final class JellyfinSocket: ObservableObject {
         task?.receive { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case . success(let message):
+            case .success(let message):
                 switch message {
                 case .string(let text):
                     self.handle(text)
@@ -173,17 +173,65 @@ public final class JellyfinSocket: ObservableObject {
             _ = sendKeepAliveResponse()
         }
         
-        guard
-            let data = text.data(using: .utf8),
-            let msg = try? JSONDecoder()
-                            .decode(OutboundWebSocketMessage.self, from: data)
-        else {
-            print("[WebSocket] decode failure for: \(text)")
+        guard let data = text.data(using: .utf8) else {
+            print("[WebSocket] cannot convert text to data: \(text)")
             return
         }
-
-        handlers.forEach { $0(msg) }
-        outboundSubject.send(msg)
+        
+        // Create a properly configured decoder like the one in JellyfinClient
+        let decoder = JSONDecoder()
+        
+        // Set key decoding strategy to convert from server's convention to Swift's
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        // If your API uses ISO dates, add a proper date formatter
+        let isoDateFormatter = ISO8601DateFormatter()
+        isoDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let string = try container.decode(String.self)
+            if let date = isoDateFormatter.date(from: string) {
+                return date
+            }
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid date format")
+        }
+        
+        do {
+            // Use the configured decoder instead of default one
+            let msg = try decoder.decode(OutboundWebSocketMessage.self, from: data)
+            
+            handlers.forEach { $0(msg) }
+            outboundSubject.send(msg)
+        } catch {
+            print("[WebSocket] decode failure: \(error) for: \(text)")
+            
+            // Add detailed error logging
+            if let decodingError = error as? DecodingError {
+                switch decodingError {
+                case .dataCorrupted(let context):
+                    print("[WebSocket] Data corrupted: \(context.debugDescription)")
+                    print("[WebSocket] Coding path: \(context.codingPath)")
+                case .keyNotFound(let key, let context):
+                    print("[WebSocket] Key not found: \(key.stringValue) in \(context.debugDescription)")
+                    print("[WebSocket] Coding path: \(context.codingPath)")
+                case .typeMismatch(let type, let context):
+                    print("[WebSocket] Type mismatch: expected \(type) in \(context.debugDescription)")
+                    print("[WebSocket] Coding path: \(context.codingPath)")
+                case .valueNotFound(let type, let context):
+                    print("[WebSocket] Value not found: expected \(type) in \(context.debugDescription)")
+                    print("[WebSocket] Coding path: \(context.codingPath)")
+                @unknown default:
+                    print("[WebSocket] Unknown decoding error: \(decodingError)")
+                }
+            }
+            
+            // Try to print what we received to help debugging
+            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+               let jsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted]),
+               let jsonString = String(data: jsonData, encoding: .utf8) {
+                print("[WebSocket] Received JSON: \(jsonString)")
+            }
+        }
     }
 
     private func handleError(_ description: String) {
