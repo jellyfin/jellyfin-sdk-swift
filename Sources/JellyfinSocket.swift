@@ -26,28 +26,12 @@ public final class JellyfinSocket: ObservableObject {
     // MARK: Published Properties
     
     /// Current state of the socket connection
-    @Published public private(set) var state: State = .idle
-    
-    /// Latest session information
-    @Published public private(set) var sessions: SessionsMessage?
-    
-    /// Latest activity log entries
-    @Published public private(set) var activityLog: ActivityLogEntryMessage?
-    
-    /// Latest user data changes
-    @Published public private(set) var userDataChanges: UserDataChangedMessage?
-    
-    /// Latest playstate messages
-    @Published public private(set) var playstate: PlaystateMessage?
-    
-    /// Latest library changes
-    @Published public private(set) var libraryChanges: LibraryChangedMessage?
-    
-    /// Latest scheduled task information
-    @Published public private(set) var scheduledTasks: ScheduledTasksInfoMessage?
+    @Published
+    public private(set) var state: State = .idle
     
     /// Connection heartbeat pulse - increments whenever a keepAlive is received
-    @Published public private(set) var heartbeatCount: Int = 0
+    @Published
+    public private(set) var heartbeatCount: Int = 0
     
     /// All received messages, for custom handling
     public var messages: AnyPublisher<OutboundWebSocketMessage, Never> {
@@ -74,12 +58,22 @@ public final class JellyfinSocket: ObservableObject {
     private let outboundSubject = PassthroughSubject<OutboundWebSocketMessage, Never>()
     private var cancellables = Set<AnyCancellable>()
     
-    private var activeSubscriptions: Set<SessionMessageType> = []
+    // Message queue for when not connected
+    private var messageQueue = [InboundWebSocketMessage]()
+    
 
     // MARK: Init
 
     public init(client: JellyfinClient) {
         self.client = client
+        
+        // Set up state observer to process queued messages
+        $state
+            .filter { $0 == .connected }
+            .sink { [weak self] _ in
+                self?.processQueuedMessages()
+            }
+            .store(in: &cancellables)
     }
     
     deinit {
@@ -91,25 +85,26 @@ public final class JellyfinSocket: ObservableObject {
     /// Start the WebSocket connection with specified subscriptions
     /// - Parameter types: Optional specific event types to subscribe to. If nil, subscribes to standard events.
     @MainActor
-    public func start(with types: [SessionMessageType]? = nil) {
+    public func start() {
         guard state == .idle || state == .error("") || state == .closed else { return }
-        
-        // Default subscriptions if none specified
-        let subscriptions = types ?? [.sessions, .activityLogEntry, .scheduledTasksInfo, .playstate, .userDataChanged, .libraryChanged]
         
         // Reset state and start connection
         reconnectAttempts = 0
         state = .connecting
         
         // Open socket and subscribe to events
-        openSocket(subscribeTo: subscriptions)
+        openSocket()
     }
-    
+
+    @MainActor
+    public func stop() {
+        stopInternal()
+    }
+
     /// Stop the WebSocket connection
     private func stopInternal() {
-        if case .connected = state {
-            stopAllSubscriptions()
-        }
+        // Clear message queue when stopping
+        messageQueue.removeAll()
         
         pingWorkItem?.cancel()
         validationWorkItem?.cancel()
@@ -124,21 +119,49 @@ public final class JellyfinSocket: ObservableObject {
             self.state = .closed
         }
     }
-
-    @MainActor
-    public func stop() {
-        stopInternal()
-    }
     
-    /// Send a specific inbound message to the server
+    /// Send a specific inbound message to the server.
+    /// If not connected, the message will be queued and sent once connected.
     /// - Parameter message: The InboundWebSocketMessage to send
-    /// - Returns: True if the message was sent successfully
+    /// - Returns: True if sent successfully, false if error while sending (but still queued if not connected)
     @discardableResult
     public func send(_ message: InboundWebSocketMessage) -> Bool {
+        // If not connected, queue the message
         guard case .connected = state, let task = task else {
-            print("[WebSocket] Not connected; cannot send.")
+            print("[WebSocket] Not connected; queueing message for later")
+            messageQueue.append(message)
+            return true // Return true since we successfully queued it
+        }
+        
+        // If connected, send immediately
+        return sendImmediately(message)
+    }
+    
+    /// Process any queued messages when we connect
+    private func processQueuedMessages() {
+        guard !messageQueue.isEmpty else { return }
+        
+        print("[WebSocket] Processing \(messageQueue.count) queued messages")
+        
+        // Create a copy of the queue
+        let queue = messageQueue
+        
+        // Clear the queue before processing to avoid any re-queuing issues
+        messageQueue.removeAll()
+        
+        // Process each message
+        for message in queue {
+            _ = sendImmediately(message)
+        }
+    }
+    
+    /// Send a message immediately without queuing
+    @discardableResult
+    private func sendImmediately(_ message: InboundWebSocketMessage) -> Bool {
+        guard case .connected = state, let task = task else {
             return false
         }
+        
         do {
             let data = try JSONEncoder().encode(message)
             guard let text = String(data: data, encoding: .utf8) else {
@@ -155,59 +178,17 @@ public final class JellyfinSocket: ObservableObject {
             return false
         }
     }
-    
-    /// Subscribe to a specific event stream
-    /// - Parameter type: The SessionMessageType to subscribe to
-    /// - Returns: True if the subscription was sent successfully
-    @discardableResult
-    public func subscribe(to type: SessionMessageType) -> Bool {
-        guard case .connected = state else {
-            print("[WebSocket] Not connected; cannot subscribe.")
-            return false
-        }
-        
-        return subscribeToEventType(type)
-    }
-    
-    /// Unsubscribe from a specific event stream
-    /// - Parameter type: The SessionMessageType to unsubscribe from
-    /// - Returns: True if the unsubscription was sent successfully
-    @discardableResult
-    public func unsubscribe(from type: SessionMessageType) -> Bool {
-        guard case .connected = state else {
-            print("[WebSocket] Not connected; cannot unsubscribe.")
-            return false
-        }
-        
-        switch type {
-        case .sessions, .sessionsStart:
-            activeSubscriptions.remove(.sessionsStart)
-            return sendSessionsStopMessage()
-            
-        case .activityLogEntry, .activityLogEntryStart:
-            activeSubscriptions.remove(.activityLogEntryStart)
-            return sendActivityLogEntryStopMessage()
-            
-        case .scheduledTasksInfo, .scheduledTasksInfoStart:
-            activeSubscriptions.remove(.scheduledTasksInfoStart)
-            return sendScheduledTasksInfoStopMessage()
-            
-        default:
-            return false
-        }
-    }
 
     // MARK: Internal Methods
 
-    private func openSocket(subscribeTo types: [SessionMessageType]) {
+    private func openSocket() {
         guard let token = client.accessToken else {
             state = .error("Missing access token")
             return
         }
-        
+
         state = reconnectAttempts == 0 ? .connecting : .reconnecting(attempt: reconnectAttempts)
         hasReceivedFirstMessage = false
-        activeSubscriptions.removeAll()
 
         var comps = URLComponents(url: client.configuration.url, resolvingAgainstBaseURL: false)!
         comps.scheme = (comps.scheme == "https" ? "wss" : "ws")
@@ -230,27 +211,11 @@ public final class JellyfinSocket: ObservableObject {
         task = session.webSocketTask(with: req)
         task?.resume()
 
-        setupMessageHandler()
+        listen()
         scheduleValidationTimeout()
-        
-        // Setup state observation for subscriptions
-        $state
-            .filter { $0 == .connected }
-            .first()
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                for type in types {
-                    _ = self.subscribeToEventType(type)
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func setupMessageHandler() {
-        listenLoop()
     }
 
-    private func listenLoop() {
+    private func listen() {
         task?.receive { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -265,7 +230,7 @@ public final class JellyfinSocket: ObservableObject {
                 @unknown default:
                     break
                 }
-                self.listenLoop()
+                self.listen()
 
             case .failure(let err):
                 self.handleError(err.localizedDescription)
@@ -308,35 +273,17 @@ public final class JellyfinSocket: ObservableObject {
             // Handle different message types
             switch msg {
             case .forceKeepAliveMessage:
-                _ = sendKeepAliveResponse()
+                sendKeepAliveResponse()
                 return
                 
             case .outboundKeepAliveMessage:
                 heartbeatCount += 1
                 return
                 
-            case .sessionsMessage(let sessionsMsg):
-                self.sessions = sessionsMsg
-                
-            case .activityLogEntryMessage(let activityMsg):
-                self.activityLog = activityMsg
-                
-            case .userDataChangedMessage(let userDataMsg):
-                self.userDataChanges = userDataMsg
-                
-            case .playstateMessage(let playstateMsg):
-                self.playstate = playstateMsg
-                
-            case .libraryChangedMessage(let libraryMsg):
-                self.libraryChanges = libraryMsg
-                
-            case .scheduledTasksInfoMessage(let tasksMsg):
-                self.scheduledTasks = tasksMsg
-                
             default:
                 break
             }
-            
+
             // Forward all messages to the subject
             outboundSubject.send(msg)
             
@@ -385,96 +332,10 @@ public final class JellyfinSocket: ObservableObject {
         reconnectWorkItem?.cancel()
         let w = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
-            let lastSubscriptions = Array(self.activeSubscriptions)
-            self.openSocket(subscribeTo: lastSubscriptions)
+            self.openSocket()
         }
         reconnectWorkItem = w
         DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: w)
-    }
-    
-    /// Stop all active subscriptions
-    private func stopAllSubscriptions() {
-        // Send stop messages for all active subscriptions
-        if activeSubscriptions.contains(.sessionsStart) || activeSubscriptions.contains(.sessions) {
-            sendSessionsStopMessage()
-        }
-        
-        if activeSubscriptions.contains(.activityLogEntryStart) || activeSubscriptions.contains(.activityLogEntry) {
-            sendActivityLogEntryStopMessage()
-        }
-        
-        if activeSubscriptions.contains(.scheduledTasksInfoStart) || activeSubscriptions.contains(.scheduledTasksInfo) {
-            sendScheduledTasksInfoStopMessage()
-        }
-        
-        // Clear active subscriptions
-        activeSubscriptions.removeAll()
-    }
-
-    /// Subscribe to a specific event type
-    @discardableResult
-    private func subscribeToEventType(_ eventType: SessionMessageType) -> Bool {
-        // Determine if this is a "start" event type or a regular event type
-        // that requires a corresponding start message
-        switch eventType {
-        case .sessionsStart, .sessions:
-            activeSubscriptions.insert(.sessionsStart)
-            return sendSessionsStartMessage()
-            
-        case .activityLogEntryStart, .activityLogEntry:
-            activeSubscriptions.insert(.activityLogEntryStart)
-            return sendActivityLogEntryStartMessage()
-            
-        case .scheduledTasksInfoStart, .scheduledTasksInfo:
-            activeSubscriptions.insert(.scheduledTasksInfoStart)
-            return sendScheduledTasksInfoStartMessage()
-            
-        case .keepAlive:
-            return sendKeepAlive()
-            
-        // For other event types, no specific subscription required
-        // as they are included in the streams we subscribe to above
-        default:
-            return true
-        }
-    }
-    
-    // MARK: Session Start/Stop Messages
-    
-    @discardableResult
-    private func sendSessionsStartMessage() -> Bool {
-        let msg = SessionsStartMessage(messageType: .sessionsStart)
-        return send(.sessionsStartMessage(msg))
-    }
-    
-    @discardableResult
-    private func sendSessionsStopMessage() -> Bool {
-        let msg = SessionsStopMessage(messageType: .sessionsStop)
-        return send(.sessionsStopMessage(msg))
-    }
-    
-    @discardableResult
-    private func sendActivityLogEntryStartMessage() -> Bool {
-        let msg = ActivityLogEntryStartMessage(messageType: .activityLogEntryStart)
-        return send(.activityLogEntryStartMessage(msg))
-    }
-    
-    @discardableResult
-    private func sendActivityLogEntryStopMessage() -> Bool {
-        let msg = ActivityLogEntryStopMessage(messageType: .activityLogEntryStop)
-        return send(.activityLogEntryStopMessage(msg))
-    }
-    
-    @discardableResult
-    private func sendScheduledTasksInfoStartMessage() -> Bool {
-        let msg = ScheduledTasksInfoStartMessage(messageType: .scheduledTasksInfoStart)
-        return send(.scheduledTasksInfoStartMessage(msg))
-    }
-    
-    @discardableResult
-    private func sendScheduledTasksInfoStopMessage() -> Bool {
-        let msg = ScheduledTasksInfoStopMessage(messageType: .scheduledTasksInfoStop)
-        return send(.scheduledTasksInfoStopMessage(msg))
     }
 
     // MARK: Keep-Alive Helpers
@@ -482,12 +343,12 @@ public final class JellyfinSocket: ObservableObject {
     @discardableResult
     private func sendKeepAliveResponse() -> Bool {
         let msg = InboundKeepAliveMessage(messageType: .keepAlive)
-        return send(.inboundKeepAliveMessage(msg))
+        return sendImmediately(.inboundKeepAliveMessage(msg))
     }
 
     @discardableResult
     private func sendKeepAlive() -> Bool {
         let msg = InboundKeepAliveMessage(messageType: .keepAlive)
-        return send(.inboundKeepAliveMessage(msg))
+        return sendImmediately(.inboundKeepAliveMessage(msg))
     }
 }
