@@ -21,7 +21,7 @@ public final class ServerDiscovery: ObservableObject {
     // MARK: - Server Discovery States
     
     /// Represents the current state of the server discovery process
-    enum State {
+    public enum State {
         /// No discovery is currently in progress
         case inactive
         
@@ -63,7 +63,7 @@ public final class ServerDiscovery: ObservableObject {
     ///
     /// Subscribe to this publisher to receive notifications when servers are found
     /// during the discovery process. Emissions are delivered on the main thread.
-    var discoveredServers: AnyPublisher<ServerDiscoveryResponse, Never> {
+    public var discoveredServers: AnyPublisher<ServerDiscoveryResponse, Never> {
         discoveredServersPublisher
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
@@ -73,7 +73,7 @@ public final class ServerDiscovery: ObservableObject {
     ///
     /// Subscribe to this publisher to be notified of state changes such as when
     /// discovery starts, stops, or encounters errors. Emissions are delivered on the main thread.
-    var state: AnyPublisher<State, Never> {
+    public var state: AnyPublisher<State, Never> {
         stateSubject
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
@@ -85,7 +85,7 @@ public final class ServerDiscovery: ObservableObject {
     ///
     /// Creates the event loop group and attempts to bind to available network interfaces.
     /// Does not begin active discovery until `broadcast()` is called.
-    init() {
+    public init() {
         group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         bindChannel()
     }
@@ -108,7 +108,7 @@ public final class ServerDiscovery: ObservableObject {
     ///
     /// This can be called to clean up the current discovery state before starting
     /// a new discovery process.
-    func reset() {
+    public func reset() {
         ipv4Channel?.close(promise: nil)
         ipv6Channel?.close(promise: nil)
         ipv4Channel = nil
@@ -123,7 +123,7 @@ public final class ServerDiscovery: ObservableObject {
     /// Sends UDP broadcast messages to discover Jellyfin servers on the local network.
     /// Updates the state subject to reflect the current discovery status.
     /// Discovery window remains active for 5 seconds.
-    func broadcast() {
+    public func broadcast() {
         bindChannel()
         
         let payload = "Who is JellyfinServer?"
