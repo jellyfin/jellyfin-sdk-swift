@@ -246,7 +246,7 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Sends the correct JSON for each event subscription
     private func sendInitialSubscriptions() {
-        let types = SessionMessageType.allCases.filter { $0.rawValue.hasSuffix("Start") }
+        let types = SessionMessageType.allCases
         for type in types {
             subscribeToEventType(type.rawValue)
         }
