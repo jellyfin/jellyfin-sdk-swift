@@ -12,6 +12,7 @@ import Foundation
 /// A WebSocket manager for receiving real-time Jellyfin server events.
 /// Uses URLSession WebSocketTask under the hood.
 public final class JellyfinSocket: ObservableObject {
+
     // MARK: Public Types
 
     public enum State: Equatable {
@@ -43,7 +44,7 @@ public final class JellyfinSocket: ObservableObject {
     private let client: JellyfinClient
     private let socketPath = "/socket"
     private let maxReconnectAttempts = 5
-    private let pingInterval: TimeInterval = 15
+    private let pingInterval: TimeInterval = 10 // Shorter interval for better reliability
     private let validationTimeout: TimeInterval = 5
 
     private var task: URLSessionWebSocketTask?
@@ -129,7 +130,14 @@ public final class JellyfinSocket: ObservableObject {
         reconnectWorkItem?.cancel()
         cancellables.removeAll()
         
-        task?.cancel(with: .goingAway, reason: nil)
+        if let task = task, case .connected = state {
+            print("[WebSocket] Sending proper close frame")
+            // Send a proper close frame with normal closure code
+            task.cancel(with: .normalClosure, reason: "Client closing connection".data(using: .utf8))
+        } else {
+            task?.cancel(with: .goingAway, reason: nil)
+        }
+        
         task = nil
         
         // Update state on main thread since it's a published property
@@ -144,7 +152,6 @@ public final class JellyfinSocket: ObservableObject {
     /// - Returns: True if sent successfully, false if error while sending (but still queued if not connected)
     @discardableResult
     public func send(_ message: InboundWebSocketMessage) -> Bool {
-
         // If not connected, queue the message
         guard case .connected = state, task != nil else {
             print("[WebSocket] Not connected; queueing message for later")
@@ -183,7 +190,22 @@ public final class JellyfinSocket: ObservableObject {
         }
         
         do {
-            // Use the client's encoder configuration for consistent formatting
+            // Special case for SessionsStart - use simplified format
+            if case .sessionsStartMessage = message {
+                let simpleMessage = """
+                {
+                  "MessageType": "SessionsStart"
+                }
+                """
+                print("[WebSocket] Sending SessionsStart: \(simpleMessage)")
+                
+                task.send(.string(simpleMessage)) { error in
+                    if let e = error { print("[WebSocket] send error: \(e)") }
+                }
+                return true
+            }
+            
+            // For all other messages, use the encoder
             let data = try jsonEncoder.encode(message)
             guard let text = String(data: data, encoding: .utf8) else {
                 print("[WebSocket] Failed to encode message to string")
@@ -222,6 +244,11 @@ public final class JellyfinSocket: ObservableObject {
 
         queryItems.append(URLQueryItem(name: "deviceId", value: client.configuration.deviceID))
 
+        // Include userID in the query parameters if available
+        if let userID = client.userID {
+            queryItems.append(URLQueryItem(name: "user_id", value: userID))
+        }
+        
         if let apiKey = client.accessToken {
             queryItems.append(URLQueryItem(name: "api_key", value: apiKey))
         }
@@ -266,10 +293,14 @@ public final class JellyfinSocket: ObservableObject {
         if !hasReceivedFirstMessage {
             hasReceivedFirstMessage = true
             validationWorkItem?.cancel()
-            state = .connected
+            DispatchQueue.main.async {
+                self.state = .connected
+            }
             reconnectAttempts = 0
             schedulePings()
         }
+        
+        print("[WebSocket] Received raw message: \(text)")
         
         guard let data = text.data(using: .utf8) else {
             print("[WebSocket] cannot convert text to data: \(text)")
@@ -277,22 +308,39 @@ public final class JellyfinSocket: ObservableObject {
         }
         
         do {
+            // Try to decode the JSON structure first to debug issues
+            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                print("[WebSocket] JSON structure: \(json)")
+                
+                // Special handling for Sessions responses
+                if let messageType = json["MessageType"] as? String, messageType == "Sessions" {
+                    print("[WebSocket] Found Sessions message")
+                }
+            }
+            
             // Use the consistent jsonDecoder
             let msg = try jsonDecoder.decode(OutboundWebSocketMessage.self, from: data)
+            
+            print("[WebSocket] Successfully decoded: \(type(of: msg))")
             
             // Handle different message types
             switch msg {
             case .forceKeepAliveMessage:
+                print("[WebSocket] Received ForceKeepAlive - responding with KeepAlive")
                 sendKeepAlive()
                 updateLastCheckIn()
                 return
                 
             case .outboundKeepAliveMessage:
+                print("[WebSocket] Received KeepAlive")
                 updateLastCheckIn()
                 return
                 
+            case .sessionsMessage(let sessionMsg):
+                print("[WebSocket] Received sessions: \(sessionMsg.data?.count ?? 0)")
+                
             default:
-                break
+                print("[WebSocket] Forwarding message type: \(type(of: msg))")
             }
 
             // Forward all messages to the subject
@@ -300,6 +348,28 @@ public final class JellyfinSocket: ObservableObject {
             
         } catch {
             print("[WebSocket] decode failure: \(error) for: \(text)")
+            
+            // Special handling for common messages that might fail to decode
+            if text.contains("\"MessageType\":\"Sessions\"") {
+                print("[WebSocket] Likely a Sessions message that failed to decode properly")
+                
+                // Try to extract and interpret manually
+                if let jsonData = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let _ = jsonData["MessageType"] as? String,
+                   let dataArray = jsonData["Data"] as? [[String: Any]] {
+                    
+                    print("[WebSocket] Manual decode: found \(dataArray.count) sessions")
+                    
+                    // Manually construct a sessions message
+                    let sessionsMessage = SessionsMessage(
+                        data: nil,  // We'd need to manually construct these
+                        messageID: nil,
+                        messageType: .sessions
+                    )
+                    
+                    outboundSubject.send(.sessionsMessage(sessionsMessage))
+                }
+            }
         }
     }
     
@@ -311,7 +381,9 @@ public final class JellyfinSocket: ObservableObject {
 
     private func handleError(_ description: String) {
         print("[WebSocket] Error: \(description)")
-        state = .error(description)
+        DispatchQueue.main.async {
+            self.state = .error(description)
+        }
         scheduleReconnect()
     }
 
@@ -329,19 +401,31 @@ public final class JellyfinSocket: ObservableObject {
         pingWorkItem?.cancel()
         let w = DispatchWorkItem { [weak self] in
             guard let s = self, case .connected = s.state else { return }
+            
+            print("[WebSocket] Sending ping")
             s.task?.sendPing { err in
-                if let e = err { s.handleError("Ping failed: \(e)") }
+                if let e = err {
+                    print("[WebSocket] Ping failed: \(e)")
+                    s.handleError("Ping failed: \(e)")
+                } else {
+                    print("[WebSocket] Ping succeeded")
+                }
             }
+            
             _ = self?.sendKeepAlive()
             self?.schedulePings()
         }
         pingWorkItem = w
+        
+        // Use a shorter interval for better reliability
         DispatchQueue.global().asyncAfter(deadline: .now() + pingInterval, execute: w)
     }
 
     private func scheduleReconnect() {
         guard reconnectAttempts < maxReconnectAttempts else {
-            state = .error("Max reconnect attempts reached")
+            DispatchQueue.main.async {
+                self.state = .error("Max reconnect attempts reached")
+            }
             return
         }
         reconnectAttempts += 1

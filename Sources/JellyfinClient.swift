@@ -16,6 +16,9 @@ public final class JellyfinClient {
     /// Current user access token
     public private(set) var accessToken: String?
 
+    /// Current user id
+    public private(set) var userID: String?
+
     /// The underlying WebSocket manager. Use `client.socket.subscribeAll()` or
     /// `client.socket.subscribe(.sessionsStartMessage, .sessionsStopMessage)` to listen.
     public private(set) lazy var socket = JellyfinSocket(client: self)
@@ -204,6 +207,7 @@ public extension JellyfinClient {
 
         if let accessToken = response.accessToken {
             self.accessToken = accessToken
+            self.userID = response.user?.id ?? nil
         } else {
             throw ClientError.noAccessTokenInResponse
         }
@@ -227,6 +231,7 @@ public extension JellyfinClient {
 
         if let accessToken = response.accessToken {
             self.accessToken = accessToken
+            self.userID = response.user?.id ?? nil
         } else {
             throw ClientError.noAccessTokenInResponse
         }
@@ -243,6 +248,7 @@ public extension JellyfinClient {
         }
 
         self.accessToken = nil
+        self.userID = nil
     }
 }
 
