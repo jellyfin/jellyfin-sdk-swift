@@ -61,6 +61,25 @@ public final class JellyfinSocket: ObservableObject {
     // Message queue for when not connected
     private var messageQueue = [InboundWebSocketMessage]()
     
+    // MARK: - Encoder/Decoder
+    
+    // Use same date formatter as the client
+    private lazy var jsonEncoder: JSONEncoder = {
+        let isoDateFormatter = OpenISO8601DateFormatter()
+        
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .formatted(isoDateFormatter)
+        encoder.outputFormatting = .prettyPrinted
+        return encoder
+    }()
+    
+    private lazy var jsonDecoder: JSONDecoder = {
+        let isoDateFormatter = OpenISO8601DateFormatter()
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(isoDateFormatter)
+        return decoder
+    }()
 
     // MARK: Init
 
@@ -82,8 +101,7 @@ public final class JellyfinSocket: ObservableObject {
 
     // MARK: Public API
     
-    /// Start the WebSocket connection with specified subscriptions
-    /// - Parameter types: Optional specific event types to subscribe to. If nil, subscribes to standard events.
+    /// Start the WebSocket connection
     @MainActor
     public func start() {
         guard state == .idle || state == .error("") || state == .closed else { return }
@@ -92,7 +110,7 @@ public final class JellyfinSocket: ObservableObject {
         reconnectAttempts = 0
         state = .connecting
         
-        // Open socket and subscribe to events
+        // Open socket
         openSocket()
     }
 
@@ -151,6 +169,7 @@ public final class JellyfinSocket: ObservableObject {
         
         // Process each message
         for message in queue {
+            print("[WebSocket] Sending queued message: \(message)")
             _ = sendImmediately(message)
         }
     }
@@ -163,11 +182,14 @@ public final class JellyfinSocket: ObservableObject {
         }
         
         do {
-            let data = try JSONEncoder().encode(message)
+            // Use the client's encoder configuration for consistent formatting
+            let data = try jsonEncoder.encode(message)
             guard let text = String(data: data, encoding: .utf8) else {
                 print("[WebSocket] Failed to encode message to string")
                 return false
             }
+            
+            print("[WebSocket] Sending: \(text)")
             
             task.send(.string(text)) { error in
                 if let e = error { print("[WebSocket] send error: \(e)") }
@@ -202,6 +224,7 @@ public final class JellyfinSocket: ObservableObject {
         if let apiKey = client.accessToken {
             queryItems.append(URLQueryItem(name: "api_key", value: apiKey))
         }
+
         if !queryItems.isEmpty {
             comps.queryItems = queryItems
         }
@@ -252,28 +275,14 @@ public final class JellyfinSocket: ObservableObject {
             return
         }
         
-        // Create the decoder
-        let decoder = JSONDecoder()
-        
-        // Configure date handling
-        let isoDateFormatter = ISO8601DateFormatter()
-        isoDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        decoder.dateDecodingStrategy = .custom { decoder in
-            let container = try decoder.singleValueContainer()
-            let string = try container.decode(String.self)
-            if let date = isoDateFormatter.date(from: string) {
-                return date
-            }
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid date format")
-        }
-        
         do {
-            let msg = try decoder.decode(OutboundWebSocketMessage.self, from: data)
+            // Use the consistent jsonDecoder
+            let msg = try jsonDecoder.decode(OutboundWebSocketMessage.self, from: data)
             
             // Handle different message types
             switch msg {
             case .forceKeepAliveMessage:
-                sendKeepAliveResponse()
+                sendKeepAlive()
                 return
                 
             case .outboundKeepAliveMessage:
@@ -336,14 +345,6 @@ public final class JellyfinSocket: ObservableObject {
         }
         reconnectWorkItem = w
         DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: w)
-    }
-
-    // MARK: Keep-Alive Helpers
-
-    @discardableResult
-    private func sendKeepAliveResponse() -> Bool {
-        let msg = InboundKeepAliveMessage(messageType: .keepAlive)
-        return sendImmediately(.inboundKeepAliveMessage(msg))
     }
 
     @discardableResult
