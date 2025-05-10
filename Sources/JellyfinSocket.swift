@@ -45,7 +45,7 @@ public final class JellyfinSocket: ObservableObject {
     private var reconnectWorkItem: DispatchWorkItem?
 
     private let session = URLSession(configuration: .default)
-    private var handlers: [(OutboundWebSocketMessage) -> Void] = []
+    private var handlers: [(SessionMessageType) -> Void] = []
     private let outboundSubject = PassthroughSubject<OutboundWebSocketMessage, Never>()
     private var stateCancellable: AnyCancellable?
 
@@ -60,7 +60,7 @@ public final class JellyfinSocket: ObservableObject {
     /// Subscribe to all messages (or install custom handlers).
     /// First call triggers `openSocket()`. Subsequent calls only replace handlers.
     @MainActor
-    public func subscribe(only handlers: [(OutboundWebSocketMessage) -> Void]? = nil) {
+    public func subscribe(only handlers: [(SessionMessageType) -> Void]? = nil) {
         if let h = handlers { self.handlers = h }
         guard state == .idle || state == .error("") else { return }
 
@@ -72,16 +72,6 @@ public final class JellyfinSocket: ObservableObject {
             .sink { [weak self] _ in self?.sendInitialSubscriptions() }
 
         openSocket()
-    }
-
-    /// Filtered Combine publisher.
-    @MainActor
-    public func subscribe(_ cases: OutboundWebSocketMessage...)
-        -> AnyPublisher<OutboundWebSocketMessage, Never>
-    {
-        subscribe(only: nil)
-        guard !cases.isEmpty else { return messages }
-        return messages.filter { cases.contains($0) }.eraseToAnyPublisher()
     }
 
     /// Send an inbound message.
@@ -195,8 +185,10 @@ public final class JellyfinSocket: ObservableObject {
         
         do {
             let msg = try decoder.decode(OutboundWebSocketMessage.self, from: data)
-            handlers.forEach { $0(msg) }
+            
+            // Send the full message to the original subject
             outboundSubject.send(msg)
+            
         } catch {
             print("[WebSocket] decode failure: \(error) for: \(text)")
         }
@@ -246,25 +238,27 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Sends the correct JSON for each event subscription
     private func sendInitialSubscriptions() {
-        let types = SessionMessageType.allCases
-        for type in types {
-            subscribeToEventType(type.rawValue)
+        // Subscribe to all event types
+        for type in SessionMessageType.allCases {
+            subscribeToEventType(type)
         }
     }
 
     /// Build and send:
     /// { "MessageType":"GeneralCommand", "Data":"<EventName>" }
-    private func subscribeToEventType(_ eventType: String) {
+    private func subscribeToEventType(_ eventType: SessionMessageType) {
         let payload: [String: Any] = [
             "MessageType": "GeneralCommand",
-            "Data":        eventType
+            "Data": eventType.rawValue
         ]
+        
         guard let data = try? JSONSerialization.data(withJSONObject: payload),
               let text = String(data: data, encoding: .utf8)
         else {
             print("[WebSocket] Failed to serialize subscribe payload")
             return
         }
+        
         task?.send(.string(text)) { error in
             if let e = error {
                 print("[WebSocket] subscribe error: \(e)")
