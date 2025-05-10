@@ -8,42 +8,39 @@
 
 import Foundation
 
-extension ServerDiscovery {
+struct ServerDiscoveryResponse: Codable, Hashable, Identifiable {
 
-    struct ServerResponse: Codable, Hashable, Identifiable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(id)
+    private let address: String
+    let id: String
+    let name: String
+
+    var url: URL {
+        URL(string: address)!
+    }
+
+    var host: String {
+        let components = URLComponents(string: address)
+        if let host = components?.host {
+            return host
         }
+        return self.address
+    }
 
-        private let address: String
-        let id: String
-        let name: String
-
-        var url: URL {
-            URL(string: address)!
+    var port: Int {
+        let components = URLComponents(string: address)
+        if let port = components?.port {
+            return port
         }
+        return 7359
+    }
 
-        var host: String {
-            let components = URLComponents(string: address)
-            if let host = components?.host {
-                return host
-            }
-            return self.address
-        }
-
-        var port: Int {
-            let components = URLComponents(string: address)
-            if let port = components?.port {
-                return port
-            }
-            return 7359
-        }
-
-        enum CodingKeys: String, CodingKey {
-            case address = "Address"
-            case id = "Id"
-            case name = "Name"
-        }
+    enum CodingKeys: String, CodingKey {
+        case address = "Address"
+        case id = "Id"
+        case name = "Name"
     }
 }
