@@ -434,29 +434,35 @@ public final class ServerDiscovery: ObservableObject {
     /// - Reference: https://github.com/apple/swift-nio/issues/1494
     private static func getDeviceIPv6Address() -> (String, UInt32)? {
         var pointer: UnsafeMutablePointer<ifaddrs>?
-
         defer { pointer.flatMap(freeifaddrs) }
-
+        
         guard getifaddrs(&pointer) == 0, let first = pointer else { return nil }
-
+        
         for current in sequence(first: first, next: { $0.pointee.ifa_next }) {
             let flags = Int32(current.pointee.ifa_flags)
-
+            
             guard flags & IFF_UP != 0, flags & IFF_LOOPBACK == 0 else { continue }
             guard current.pointee.ifa_addr.pointee.sa_family == sa_family_t(AF_INET6) else { continue }
-
+            
             var socketAddressIPv6 = current.pointee.ifa_addr.withMemoryRebound(
                 to: sockaddr_in6.self, capacity: 1
             ) { $0.pointee }
-
+            
+            // Skip link-local addresses (fe80::)
+            let isLinkLocal = socketAddressIPv6.sin6_addr.__u6_addr.__u6_addr8.0 == 0xfe &&
+                              socketAddressIPv6.sin6_addr.__u6_addr.__u6_addr8.1 == 0x80
+            guard !isLinkLocal else { continue }
+            
             var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
             inet_ntop(AF_INET6, &socketAddressIPv6.sin6_addr, &buffer, socklen_t(INET6_ADDRSTRLEN))
-
+            
             let name = String(cString: current.pointee.ifa_name)
             let index = if_nametoindex(name)
-
-            return ("\(String(cString: buffer))%\(name)", UInt32(index))
+            
+            return (String(cString: buffer), UInt32(index))
         }
+        
+        // Fall back to link-local if no global address is found
         return nil
     }
 }
