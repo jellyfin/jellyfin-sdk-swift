@@ -33,9 +33,11 @@ public final class JellyfinSocket: ObservableObject {
     // MARK: - Published Properties
 
     /// The current state of the WebSocket connection.
-    @Published public private(set) var state: State = .idle
+    @Published
+    public private(set) var state: State = .idle
     /// The timestamp of the last successful check-in with the server.
-    @Published public private(set) var lastCheckIn: Date?
+    @Published
+    public private(set) var lastCheckIn: Date?
 
     /// Publisher for outbound WebSocket messages received from the server.
     public var messages: AnyPublisher<OutboundWebSocketMessage, Never> {
@@ -131,14 +133,31 @@ public final class JellyfinSocket: ObservableObject {
     /// This method will initiate a connection if the socket is in an idle, error, or closed state.
     @MainActor
     public func start() {
+        // Check for valid states to start from
         guard state == .idle || state == .error("") || state == .closed else {
             logger.info("Cannot start socket in state: \(state)")
             return
         }
+        
+        // Cleanup any existing reconnect timer to prevent cascading reconnects
+        reconnectWorkItem?.cancel()
+        reconnectWorkItem = nil
+        
+        // Reset reconnect attempts counter
         reconnectAttempts = 0
+        
+        // Update state first to prevent other start calls
         state = .connecting
-        Task { await postDeviceCapabilities() }
-        openSocket()
+        
+        // Post capabilities and open socket
+        Task {
+            await postDeviceCapabilities()
+            
+            // Only open socket if we're still in connecting state
+            if state == .connecting {
+                openSocket()
+            }
+        }
     }
 
     /// Stops the WebSocket connection.
@@ -216,6 +235,9 @@ public final class JellyfinSocket: ObservableObject {
         task.send(.string(json)) { [weak self] error in
             if let error = error {
                 self?.logger.error("Send error: \(error)")
+                if let urlError = error as? URLError, urlError.code == .networkConnectionLost {
+                    self?.handleError("Network connection lost")
+                }
             }
         }
         return true
@@ -269,12 +291,25 @@ public final class JellyfinSocket: ObservableObject {
     /// Opens a WebSocket connection to the server.
     private func openSocket() {
         guard let token = client.accessToken else {
-            state = .error("Missing access token")
+            DispatchQueue.main.async { self.state = .error("Missing access token") }
             return
         }
-        state = reconnectAttempts == 0 ? .connecting : .reconnecting(attempt: reconnectAttempts)
+        
+        // Reset connection state
         hasReceivedFirstMessage = false
 
+        // Close any existing connection first
+        if let currentTask = task {
+            currentTask.cancel(with: .goingAway, reason: nil)
+            task = nil
+        }
+
+        // Set state based on reconnect attempts
+        DispatchQueue.main.async {
+            self.state = self.reconnectAttempts == 0 ? .connecting : .reconnecting(attempt: self.reconnectAttempts)
+        }
+        
+        // Build socket URL
         var components = URLComponents(url: client.configuration.url, resolvingAgainstBaseURL: false)!
         components.scheme = (components.scheme == "https" ? "wss" : "ws")
         components.path = socketPath
@@ -286,7 +321,9 @@ public final class JellyfinSocket: ObservableObject {
 
         var request = URLRequest(url: components.url!)
         request.setValue("MediaBrowser Token=\(token)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = 30
 
+        // Create and start socket
         task = session.webSocketTask(with: request)
         task?.resume()
 
@@ -377,7 +414,25 @@ public final class JellyfinSocket: ObservableObject {
     ///   - data: The raw data of the message.
     ///   - text: The string representation of the message.
     private func attemptFallbackDecoding(_ data: Data, _ text: String) {
-        // ... same as before
+        // Try to extract the message type
+        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let messageType = json["MessageType"] as? String {
+            
+            logger.warning("Failed to decode '\(messageType)' message, trying fallback")
+            
+            // Try WebSocketMessage which has a different structure
+            if let webSocketMessage = try? jsonDecoder.decode(WebSocketMessage.self, from: data) {
+                if case let .outboundWebSocketMessage(outboundMessage) = webSocketMessage {
+                    logger.info("Fallback successful: decoded as WebSocketMessage")
+                    outboundSubject.send(outboundMessage)
+                    return
+                }
+            }
+            
+            logger.error("All decoding attempts failed for message type: \(messageType)")
+        } else {
+            logger.error("Could not extract message type from: \(text)")
+        }
     }
 
     /// Updates the timestamp of the last successful communication with the server.
@@ -390,8 +445,18 @@ public final class JellyfinSocket: ObservableObject {
     /// - Parameter description: A description of the error that occurred.
     private func handleError(_ description: String) {
         logger.error("Error: \(description)")
+        
+        // Cancel existing work items
+        validationWorkItem?.cancel()
+        pingWorkItem?.cancel()
+        
+        // Update state
         DispatchQueue.main.async { self.state = .error(description) }
-        scheduleReconnect()
+        
+        // Only schedule reconnect if we haven't already scheduled one
+        if reconnectWorkItem == nil {
+            scheduleReconnect()
+        }
     }
 
     /// Sets a timeout to validate that the connection was established successfully.
@@ -429,11 +494,30 @@ public final class JellyfinSocket: ObservableObject {
             DispatchQueue.main.async { self.state = .error("Max reconnect attempts reached") }
             return
         }
-        reconnectAttempts += 1
-        let delay = pow(2, Double(reconnectAttempts))
+        
+        // Cancel any existing reconnect timer
         reconnectWorkItem?.cancel()
-        let workItem = DispatchWorkItem { [weak self] in self?.openSocket() }
+        
+        reconnectAttempts += 1
+        let delay = pow(2, Double(reconnectAttempts - 1)) // Use 1, 2, 4, 8, 16 seconds
+        
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            
+            // Only reconnect if still in error state
+            if case .error = self.state {
+                DispatchQueue.main.async {
+                    self.state = .reconnecting(attempt: self.reconnectAttempts)
+                }
+                self.openSocket()
+            }
+            
+            // Clear work item reference
+            self.reconnectWorkItem = nil
+        }
+        
         reconnectWorkItem = workItem
+        logger.info("Scheduling reconnect in \(delay)s (attempt \(reconnectAttempts)/\(maxReconnectAttempts))")
         DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: workItem)
     }
 
@@ -447,6 +531,7 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Cleans up resources and closes the connection.
     private func stopInternal() {
+        // Clear message queue and cancel all work items
         messageQueue.removeAll()
         activeSubscriptions.removeAll()
         pingWorkItem?.cancel()
@@ -454,12 +539,16 @@ public final class JellyfinSocket: ObservableObject {
         reconnectWorkItem?.cancel()
         cancellables.removeAll()
 
-        if let currentTask = task, case .connected = state {
-            logger.info("Closing gracefully")
-            currentTask.cancel(with: .normalClosure, reason: nil)
-        } else {
-            task?.cancel(with: .goingAway, reason: nil)
+        // Close any existing task
+        if let currentTask = task {
+            if case .connected = state {
+                logger.info("Closing gracefully")
+                currentTask.cancel(with: .normalClosure, reason: nil)
+            } else {
+                currentTask.cancel(with: .goingAway, reason: nil)
+            }
         }
+        
         task = nil
         DispatchQueue.main.async { self.state = .closed }
     }
