@@ -16,40 +16,95 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Represents the current state of the WebSocket connection.
     public enum State: Equatable {
-        /// Socket is initialized but not yet connected.
         case idle
-        /// Socket is in the process of establishing a connection.
         case connecting
-        /// Socket has successfully connected to the server.
         case connected
-        /// Socket is attempting to reconnect after a failure.
         case reconnecting(attempt: Int)
-        /// Socket encountered an error with the provided description.
         case error(String)
-        /// Socket connection has been closed.
         case closed
+    }
+
+    /// Strongly-typed subscription targets (periodic feeds).
+    public enum SubscriptionType {
+        /// Session updates: initial delay ms, interval ms
+        case sessions(initialDelay: Int = 0, interval: Int = 30_000)
+        /// Scheduled task updates
+        case scheduledTasks(initialDelay: Int = 0, interval: Int = 60_000)
+        /// Activity log entries
+        case activityLog(initialDelay: Int = 0, interval: Int = 60_000)
+
+        var startMessageType: String {
+            switch self {
+            case .sessions:         return "SessionsStart"
+            case .scheduledTasks:   return "ScheduledTasksInfoStart"
+            case .activityLog:      return "ActivityLogEntryStart"
+            }
+        }
+        var stopMessageType: String {
+            switch self {
+            case .sessions:         return "SessionsStop"
+            case .scheduledTasks:   return "ScheduledTasksInfoStop"
+            case .activityLog:      return "ActivityLogEntryStop"
+            }
+        }
+        var dataString: String {
+            let (d,i): (Int,Int)
+            switch self {
+            case let .sessions(a,b),
+                 let .scheduledTasks(a,b),
+                 let .activityLog(a,b):
+                d = a; i = b
+            }
+            return "\(d),\(i)"
+        }
+        
+        // Maps subscription types to session message types they produce
+        var relatedMessageTypes: [SessionMessageType] {
+            switch self {
+            case .sessions:
+                return [.sessions]
+            case .scheduledTasks:
+                return [.scheduledTasksInfo, .scheduledTaskEnded]
+            case .activityLog:
+                return [.activityLogEntry]
+            }
+        }
     }
 
     // MARK: - Published Properties
 
-    /// The current state of the WebSocket connection.
-    @Published
-    public private(set) var state: State = .idle
-    /// The timestamp of the last successful check-in with the server.
-    @Published
-    public private(set) var lastCheckIn: Date?
+    @Published public private(set) var state: State = .idle
+    @Published public private(set) var lastCheckIn: Date?
+    
+    // Message type filtering
+    @Published public private(set) var activeTypes = Set<SessionMessageType>()
 
-    /// Publisher for outbound WebSocket messages received from the server.
+    // MARK: - Message Publishers
+    
+    /// Publisher for filtered WebSocket messages according to subscribed types
     public var messages: AnyPublisher<OutboundWebSocketMessage, Never> {
-        outboundSubject.eraseToAnyPublisher()
+        if activeTypes.isEmpty {
+            return outboundSubject.eraseToAnyPublisher()
+        } else {
+            return outboundSubject
+                .filter { [weak self] message in
+                    guard let self = self else { return false }
+                    return self.messageMatchesActiveTypes(message)
+                }
+                .eraseToAnyPublisher()
+        }
     }
-
+    
+    /// Raw message publisher without filtering
+    public var allMessages: AnyPublisher<OutboundWebSocketMessage, Never> {
+        return outboundSubject.eraseToAnyPublisher()
+    }
+    
     /// Publisher for raw string messages received from the server.
     public var rawMessages: AnyPublisher<String, Never> {
         rawMessageSubject.eraseToAnyPublisher()
     }
 
-    /// Logger instance for WebSocket operations.
     public let logger: JellyfinSocketLogger
 
     // MARK: - Private Properties
@@ -63,8 +118,8 @@ public final class JellyfinSocket: ObservableObject {
     private var reconnectAttempts = 0
     private var hasReceivedFirstMessage = false
 
-    /// Tracks subscriptions that should be sent on every connect
-    private var activeSubscriptions = Set<InboundWebSocketMessage>()
+    /// Tracks active server-side subscriptions
+    private var activeSubscriptions = Set<String>()
 
     private var pingWorkItem: DispatchWorkItem?
     private var validationWorkItem: DispatchWorkItem?
@@ -82,37 +137,30 @@ public final class JellyfinSocket: ObservableObject {
 
     private lazy var jsonEncoder: JSONEncoder = {
         let formatter = OpenISO8601DateFormatter()
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .formatted(formatter)
-        encoder.outputFormatting = .prettyPrinted
-        return encoder
+        let e = JSONEncoder()
+        e.dateEncodingStrategy = .formatted(formatter)
+        e.outputFormatting = .prettyPrinted
+        return e
     }()
-
     private lazy var jsonDecoder: JSONDecoder = {
         let formatter = OpenISO8601DateFormatter()
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(formatter)
-        return decoder
+        let d = JSONDecoder()
+        d.dateDecodingStrategy = .formatted(formatter)
+        return d
     }()
 
     // MARK: - Initialization
 
-    /// Creates a new WebSocket manager instance.
-    ///
-    /// - Parameters:
-    ///   - client: The JellyfinClient instance to use for authentication and configuration.
-    ///   - logLevel: The level of detail to include in logs. Defaults to .info.
-    ///   - session: The URLSession to use for WebSocket connections. Defaults to a standard URLSession.
     public init(
         client: JellyfinClient,
         logLevel: JellyfinSocketLogger.LogLevel = .info,
-        session: URLSession = URLSession(configuration: .default)
+        session: URLSession = .init(configuration: .default)
     ) {
         self.client = client
         self.session = session
         self.logger = JellyfinSocketLogger(label: "WebSocket", level: logLevel)
 
-        // On connect, flush queued messages and subscriptions
+        // On connect, flush queued messages & subscriptions
         $state
             .filter { $0 == .connected }
             .sink { [weak self] _ in
@@ -125,114 +173,197 @@ public final class JellyfinSocket: ObservableObject {
     deinit {
         stopInternal()
     }
+    
+    // MARK: - Message Type Filtering
+    
+    /// Determines if a message matches the user's active message types
+    private func messageMatchesActiveTypes(_ message: OutboundWebSocketMessage) -> Bool {
+        // If no filters, allow all messages
+        if activeTypes.isEmpty {
+            return true
+        }
+        
+        // Extract the message type and check if it's in the active types
+        let messageType: SessionMessageType?
+        
+        switch message {
+        case .sessionsMessage:
+            messageType = .sessions
+        case .generalCommandMessage:
+            messageType = .generalCommand
+        case .userDataChangedMessage:
+            messageType = .userDataChanged
+        case .playMessage:
+            messageType = .play
+        case .playstateMessage:
+            messageType = .playstate
+        case .syncPlayCommandMessage:
+            messageType = .syncPlayCommand
+        case .syncPlayGroupUpdateCommandMessage:
+            messageType = .syncPlayGroupUpdate
+        case .restartRequiredMessage:
+            messageType = .restartRequired
+        case .serverShuttingDownMessage:
+            messageType = .serverShuttingDown
+        case .serverRestartingMessage:
+            messageType = .serverRestarting
+        case .libraryChangedMessage:
+            messageType = .libraryChanged
+        case .userDeletedMessage:
+            messageType = .userDeleted
+        case .userUpdatedMessage:
+            messageType = .userUpdated
+        case .seriesTimerCreatedMessage:
+            messageType = .seriesTimerCreated
+        case .timerCreatedMessage:
+            messageType = .timerCreated
+        case .seriesTimerCancelledMessage:
+            messageType = .seriesTimerCancelled
+        case .timerCancelledMessage:
+            messageType = .timerCancelled
+        case .refreshProgressMessage:
+            messageType = .refreshProgress
+        case .scheduledTaskEndedMessage:
+            messageType = .scheduledTaskEnded
+        case .scheduledTasksInfoMessage:
+            messageType = .scheduledTasksInfo
+        case .activityLogEntryMessage:
+            messageType = .activityLogEntry
+        case .pluginInstallationCancelledMessage:
+            messageType = .packageInstallationCancelled
+        case .pluginInstallationCompletedMessage:
+            messageType = .packageInstallationCompleted
+        case .pluginInstallationFailedMessage:
+            messageType = .packageInstallationFailed
+        case .pluginInstallingMessage:
+            messageType = .packageInstalling
+        case .pluginUninstalledMessage:
+            messageType = .packageUninstalled
+        case .forceKeepAliveMessage:
+            messageType = .forceKeepAlive
+        case .outboundKeepAliveMessage:
+            messageType = .keepAlive
+        }
+        
+        // Check if the message type is in the active types
+        return messageType.map { activeTypes.contains($0) } ?? false
+    }
 
     // MARK: - Public API
 
-    /// Starts the WebSocket connection to the Jellyfin server.
-    ///
-    /// This method will initiate a connection if the socket is in an idle, error, or closed state.
+    /// Starts the WebSocket connection.
     @MainActor
     public func start() {
-        // Check for valid states to start from
         guard state == .idle || state == .error("") || state == .closed else {
             logger.info("Cannot start socket in state: \(state)")
             return
         }
-        
-        // Cleanup any existing reconnect timer to prevent cascading reconnects
-        reconnectWorkItem?.cancel()
-        reconnectWorkItem = nil
-        
-        // Reset reconnect attempts counter
         reconnectAttempts = 0
-        
-        // Update state first to prevent other start calls
         state = .connecting
-        
-        // Post capabilities and open socket
-        Task {
-            await postDeviceCapabilities()
-            
-            // Only open socket if we're still in connecting state
-            if state == .connecting {
-                openSocket()
-            }
-        }
+        Task { await postDeviceCapabilities() }
+        openSocket()
     }
 
     /// Stops the WebSocket connection.
-    ///
-    /// This method gracefully terminates the connection and cleans up resources.
     @MainActor
     public func stop() {
         stopInternal()
     }
-
-    // MARK: - Subscription Methods
-
-    /// Adds a subscription to be sent on connect/reconnect.
-    ///
-    /// - Parameter message: The subscription message to send.
-    public func subscribe(to message: InboundWebSocketMessage) {
-        activeSubscriptions.insert(message)
-        
-        // If already connected, send subscription immediately
-        if case .connected = state, hasReceivedFirstMessage, let task = task {
-            send(message)
+    
+    // MARK: - Message Type Subscription (Client-side Filtering)
+    
+    /// Subscribe to receive messages of specific types
+    public func subscribe(to types: [SessionMessageType]) {
+        DispatchQueue.main.async {
+            self.activeTypes.formUnion(Set(types))
         }
     }
-
-    /// Removes a subscription to stop receiving events of the specified type.
-    ///
-    /// - Parameter message: The subscription message to unsubscribe from.
-    public func unsubscribe(from message: InboundWebSocketMessage) {
-        activeSubscriptions.remove(message)
-        
-        guard case .connected = state, hasReceivedFirstMessage, let task = task else { return }
-        
-        // Create and send corresponding "stop" message
-        switch message {
-        case .sessionsStartMessage:
-            let stopMessage = SessionsStopMessage(messageType: .sessionsStop)
-            send(.sessionsStopMessage(stopMessage))
-        case .scheduledTasksInfoStartMessage:
-            let stopMessage = ScheduledTasksInfoStopMessage(messageType: .scheduledTasksInfoStop)
-            send(.scheduledTasksInfoStopMessage(stopMessage))
-        case .activityLogEntryStartMessage:
-            let stopMessage = ActivityLogEntryStopMessage(messageType: .activityLogEntryStop)
-            send(.activityLogEntryStopMessage(stopMessage))
-        default:
-            logger.error("Cannot unsubscribe from message type: \(message)")
+    
+    /// Subscribe to receive messages of a specific type
+    public func subscribe(to type: SessionMessageType) {
+        DispatchQueue.main.async {
+            self.activeTypes.insert(type)
         }
     }
-
-    /// Subscribes to session events from the server.
-    public func subscribeSessions() {
-        subscribe(to: .sessionsStartMessage(SessionsStartMessage(data: nil, messageType: .sessionsStart)))
+    
+    /// Unsubscribe from receiving messages of specific types
+    public func unsubscribe(from types: [SessionMessageType]) {
+        DispatchQueue.main.async {
+            for type in types {
+                self.activeTypes.remove(type)
+            }
+        }
     }
     
-    /// Subscribes to scheduled task events from the server.
-    public func subscribeScheduledTasks() {
-        subscribe(to: .scheduledTasksInfoStartMessage(ScheduledTasksInfoStartMessage(data: nil, messageType: .scheduledTasksInfoStart)))
+    /// Unsubscribe from receiving messages of a specific type
+    public func unsubscribe(from type: SessionMessageType) {
+        DispatchQueue.main.async {
+            self.activeTypes.remove(type)
+        }
     }
     
-    /// Subscribes to activity log entries from the server.
-    public func subscribeActivityLog() {
-        subscribe(to: .activityLogEntryStartMessage(ActivityLogEntryStartMessage(data: nil, messageType: .activityLogEntryStart)))
+    // MARK: - Server Feed Activation
+    
+    /// Activate a server-side subscription feed
+    public func activate(_ type: SubscriptionType) {
+        // Register the subscription with the server
+        activeSubscriptions.insert(type.startMessageType)
+        
+        // Also subscribe to the related message types for client-side filtering
+        subscribe(to: type.relatedMessageTypes)
+        
+        // Send the subscription request to the server
+        let req = SubscriptionRequest(MessageType: type.startMessageType, Data: type.dataString)
+        guard
+            let data = try? jsonEncoder.encode(req),
+            let json = String(data: data, encoding: .utf8)
+        else {
+            logger.error("Failed to encode subscription \(type)")
+            return
+        }
+        _ = sendRawMessage(json)
+    }
+    
+    /// Deactivate a server-side subscription feed
+    public func deactivate(_ type: SubscriptionType) {
+        activeSubscriptions.remove(type.startMessageType)
+        
+        // Send unsubscribe request to the server
+        let stopMsg = SubscriptionStop(MessageType: type.stopMessageType)
+        guard
+            let data = try? jsonEncoder.encode(stopMsg),
+            let json = String(data: data, encoding: .utf8)
+        else {
+            _ = sendRawMessage("{\"MessageType\":\"\(type.stopMessageType)\"}")
+            return
+        }
+        _ = sendRawMessage(json)
+    }
+    
+    // MARK: - Convenience Methods for Common Use Cases
+    
+    /// Activate sessions feed and subscribe to session messages
+    public func activateSessions() {
+        activate(.sessions())
+    }
+    
+    /// Activate scheduled tasks feed and subscribe to task messages
+    public func activateScheduledTasks() {
+        activate(.scheduledTasks())
+    }
+    
+    /// Activate activity log feed and subscribe to log messages
+    public func activateActivityLog() {
+        activate(.activityLog())
     }
 
-    // MARK: - Sending Messages
-
-    /// Sends a structured message to the server.
-    ///
-    /// - Parameter message: The message to send.
-    /// - Returns: True if the message was sent or queued successfully.
+    /// Send a structured message.
     @discardableResult
     public func send(_ message: InboundWebSocketMessage) -> Bool {
         do {
             let data = try jsonEncoder.encode(message)
             guard let json = String(data: data, encoding: .utf8) else {
-                logger.error("Failed to encode message to string")
+                logger.error("Failed to encode message")
                 return false
             }
             return sendRawMessage(json)
@@ -242,137 +373,117 @@ public final class JellyfinSocket: ObservableObject {
         }
     }
 
-    /// Sends a raw JSON string message to the server.
-    ///
-    /// - Parameter json: The JSON string to send.
-    /// - Returns: True if the message was sent or queued successfully.
+    /// Send a raw JSON string.
     @discardableResult
     public func sendRawMessage(_ json: String) -> Bool {
-        guard case .connected = state, hasReceivedFirstMessage, let task = task else {
+        guard case .connected = state, let task = task else {
             messageQueue.append(json)
             return true
         }
         logger.debug("Sending: \(json)")
-        task.send(.string(json)) { [weak self] error in
-            if let error = error {
-                self?.logger.error("Send error: \(error)")
-                if let urlError = error as? URLError, urlError.code == .networkConnectionLost {
-                    self?.handleError("Network connection lost")
-                }
-            }
+        task.send(.string(json)) { [weak self] err in
+            if let e = err { self?.logger.error("Send error: \(e)") }
         }
         return true
     }
 
     // MARK: - Internal Helpers
 
-    /// Sends all active subscriptions to the server after connecting.
+    /// Flushes active subscriptions on connect/reconnect.
     private func flushSubscriptions() {
         guard case .connected = state,
+              let task = task,
               hasReceivedFirstMessage,
               !activeSubscriptions.isEmpty else { return }
 
-        logger.info("Flushing \(activeSubscriptions.count) subscriptions")
-        for subscription in activeSubscriptions {
-            send(subscription)
+        logger.info("Flushing subscriptions: \(activeSubscriptions)")
+        for type in activeSubscriptions {
+            let msg = "{\"MessageType\":\"\(type)\"}"
+            task.send(.string(msg)) { [weak self] err in
+                if let e = err { self?.logger.error("Sub error for \(type): \(e)") }
+            }
         }
     }
 
-    /// Sends any messages that were queued while the socket was not connected.
+    /// Sends queued messages.
     private func processQueuedMessages() {
         guard !messageQueue.isEmpty else { return }
-        let toSend = messageQueue
-        messageQueue.removeAll()
-        for json in toSend { _ = sendRawMessage(json) }
+        let queue = messageQueue; messageQueue.removeAll()
+        for json in queue { _ = sendRawMessage(json) }
     }
 
-    // MARK: - Connection Management
-
-    /// Sends device capabilities to the server.
-    ///
-    /// This informs the server about features this client supports.
+    /// Posts device capabilities.
     private func postDeviceCapabilities() async {
         do {
-            var parameters = Paths.PostCapabilitiesParameters()
-            parameters.isSupportsMediaControl = true
-            parameters.supportedCommands = .some(GeneralCommandType.allCases)
-            try await client.send(Paths.postCapabilities(parameters: parameters))
+            var p = Paths.PostCapabilitiesParameters()
+            p.isSupportsMediaControl = true
+            p.supportedCommands = .some(GeneralCommandType.allCases)
+            try await client.send(Paths.postCapabilities(parameters: p))
             logger.info("Device capabilities posted successfully")
         } catch {
             logger.error("Capabilities error: \(error)")
         }
     }
 
-    /// Opens a WebSocket connection to the server.
+    /// Opens the WebSocket.
     private func openSocket() {
         guard let token = client.accessToken else {
-            DispatchQueue.main.async { self.state = .error("Missing access token") }
-            return
+            state = .error("Missing access token"); return
         }
-        
-        // Reset connection state
+        state = reconnectAttempts == 0
+            ? .connecting : .reconnecting(attempt: reconnectAttempts)
         hasReceivedFirstMessage = false
 
-        // Close any existing connection first
-        if let currentTask = task {
-            currentTask.cancel(with: .goingAway, reason: nil)
-            task = nil
+        var comps = URLComponents(url: client.configuration.url,
+                                  resolvingAgainstBaseURL: false)!
+        comps.scheme = (comps.scheme == "https" ? "wss" : "ws")
+        comps.path = socketPath
+        var items = [URLQueryItem(name: "deviceId",
+                                  value: client.configuration.deviceID)]
+        if let uid = client.userID {
+            items.append(.init(name: "user_id", value: uid))
         }
-
-        // Set state based on reconnect attempts
-        DispatchQueue.main.async {
-            self.state = self.reconnectAttempts == 0 ? .connecting : .reconnecting(attempt: self.reconnectAttempts)
-        }
-        
-        // Build socket URL
-        var components = URLComponents(url: client.configuration.url, resolvingAgainstBaseURL: false)!
-        components.scheme = (components.scheme == "https" ? "wss" : "ws")
-        components.path = socketPath
-
-        var items = [URLQueryItem(name: "deviceId", value: client.configuration.deviceID)]
-        if let userId = client.userID { items.append(.init(name: "user_id", value: userId)) }
         items.append(.init(name: "api_key", value: token))
-        components.queryItems = items
+        comps.queryItems = items
 
-        var request = URLRequest(url: components.url!)
-        request.setValue("MediaBrowser Token=\(token)", forHTTPHeaderField: "Authorization")
-        request.timeoutInterval = 30
+        var req = URLRequest(url: comps.url!)
+        req.setValue("MediaBrowser Token=\(token)",
+                     forHTTPHeaderField: "Authorization")
 
-        // Create and start socket
-        task = session.webSocketTask(with: request)
+        task = session.webSocketTask(with: req)
         task?.resume()
-
-        logger.info("Connecting to \(components.url!.absoluteString)")
+        logger.info("Connecting to \(comps.url!.absoluteString)")
         listen()
         scheduleValidationTimeout()
     }
 
-    /// Sets up a receiver for incoming WebSocket messages.
+    /// Listens for incoming messages.
     private func listen() {
         task?.receive { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let message):
-                switch message {
+            case .success(let msg):
+                switch msg {
                 case .string(let text): self.handle(text)
                 case .data(let data):
-                    if let text = String(data: data, encoding: .utf8) {
-                        self.handle(text)
+                    if let t = String(data: data, encoding: .utf8) {
+                        self.handle(t)
+                    } else {
+                        self.logger.error("Binary → utf8 failed")
                     }
-                @unknown default: self.logger.error("Unknown message type")
+                @unknown default:
+                    self.logger.error("Unknown WS msg")
                 }
                 self.listen()
-            case .failure(let error):
+            case .failure(let err):
                 if self.state != .closed {
-                    self.handleError(error.localizedDescription)
+                    self.handleError(err.localizedDescription)
                 }
             }
         }
     }
 
-    /// Processes an incoming message from the server.
-    ///
-    /// - Parameter text: The raw text message received.
+    /// Processes an incoming text message.
     private func handle(_ text: String) {
         if !hasReceivedFirstMessage {
             hasReceivedFirstMessage = true
@@ -386,8 +497,8 @@ public final class JellyfinSocket: ObservableObject {
         logger.debug("Received: \(text)")
         guard let data = text.data(using: .utf8) else { return }
 
-        // ForceKeepAlive handling
-        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+        // Handle ForceKeepAlive
+        if let json = try? JSONSerialization.jsonObject(with: data) as? [String:Any],
            json["MessageType"] as? String == "ForceKeepAlive",
            let interval = json["Data"] as? Int {
             logger.warning("ForceKeepAlive interval: \(interval)")
@@ -398,13 +509,13 @@ public final class JellyfinSocket: ObservableObject {
             return
         }
 
-        // Decode generic messages
+        // Decode
         do {
             let message = try jsonDecoder.decode(OutboundWebSocketMessage.self, from: data)
             switch message {
-            case .forceKeepAliveMessage(let forceKeepAlive):
-                if let interval = forceKeepAlive.data {
-                    keepAliveInterval = Double(interval)
+            case .forceKeepAliveMessage(let fk):
+                if let i = fk.data {
+                    keepAliveInterval = Double(i)
                     scheduleKeepAlives()
                 }
                 sendKeepAlive()
@@ -423,131 +534,93 @@ public final class JellyfinSocket: ObservableObject {
         }
     }
 
-    /// Attempts to decode a message when the standard decoder fails.
-    ///
-    /// - Parameters:
-    ///   - data: The raw data of the message.
-    ///   - text: The string representation of the message.
+    /// Fallback decoding for unrecognized messages.
     private func attemptFallbackDecoding(_ data: Data, _ text: String) {
-        // Try to extract the message type
-        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+        if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
            let messageType = json["MessageType"] as? String {
-            
-            logger.warning("Failed to decode '\(messageType)' message, trying fallback")
-            
-            // Try WebSocketMessage which has a different structure
-            if let webSocketMessage = try? jsonDecoder.decode(WebSocketMessage.self, from: data) {
-                if case let .outboundWebSocketMessage(outboundMessage) = webSocketMessage {
-                    logger.info("Fallback successful: decoded as WebSocketMessage")
-                    outboundSubject.send(outboundMessage)
-                    return
+            logger.info("Attempting fallback for: \(messageType)")
+            switch messageType {
+            case "Sessions":
+                let msg = SessionsMessage(
+                    data: nil,
+                    messageID: json["MessageId"] as? String,
+                    messageType: .sessions
+                )
+                outboundSubject.send(.sessionsMessage(msg))
+            case "GeneralCommand":
+                if let commandData = json["Data"] as? [String: Any],
+                   let commandName = commandData["Name"] as? String {
+                    logger.info("GeneralCommand: \(commandName)")
+                    let generalCmd = GeneralCommandMessage(
+                        data: nil,
+                        messageID: json["MessageId"] as? String,
+                        messageType: .generalCommand
+                    )
+                    outboundSubject.send(.generalCommandMessage(generalCmd))
                 }
+            default:
+                logger.warning("Unhandled in fallback: \(messageType)")
             }
-            
-            logger.error("All decoding attempts failed for message type: \(messageType)")
-        } else {
-            logger.error("Could not extract message type from: \(text)")
         }
     }
 
-    /// Updates the timestamp of the last successful communication with the server.
     private func updateLastCheckIn() {
         DispatchQueue.main.async { self.lastCheckIn = Date() }
     }
 
-    /// Handles a connection error and initiates reconnection logic.
-    ///
-    /// - Parameter description: A description of the error that occurred.
-    private func handleError(_ description: String) {
-        logger.error("Error: \(description)")
-        
-        // Cancel existing work items
-        validationWorkItem?.cancel()
-        pingWorkItem?.cancel()
-        
-        // Update state
-        DispatchQueue.main.async { self.state = .error(description) }
-        
-        // Only schedule reconnect if we haven't already scheduled one
-        if reconnectWorkItem == nil {
-            scheduleReconnect()
-        }
+    private func handleError(_ desc: String) {
+        logger.error("Error: \(desc)")
+        DispatchQueue.main.async { self.state = .error(desc) }
+        scheduleReconnect()
     }
 
-    /// Sets a timeout to validate that the connection was established successfully.
     private func scheduleValidationTimeout() {
         validationWorkItem?.cancel()
-        let workItem = DispatchWorkItem { [weak self] in
-            guard let self = self, !self.hasReceivedFirstMessage else { return }
-            self.handleError("Connection timed out")
+        let w = DispatchWorkItem { [weak self] in
+            guard let s = self, !s.hasReceivedFirstMessage else { return }
+            s.handleError("Connection timed out")
         }
-        validationWorkItem = workItem
-        DispatchQueue.global().asyncAfter(deadline: .now() + validationTimeout, execute: workItem)
+        validationWorkItem = w
+        DispatchQueue.global().asyncAfter(deadline: .now() + validationTimeout, execute: w)
     }
 
-    /// Schedules periodic keep-alive messages to maintain the connection.
     private func scheduleKeepAlives() {
         pingWorkItem?.cancel()
         let interval = max(keepAliveInterval/2, 5)
         logger.info("Keepalive every \(interval)s")
-        let workItem = DispatchWorkItem { [weak self] in
-            guard let self = self, case .connected = self.state else { return }
-            if self.sendKeepAlive() {
-                self.scheduleKeepAlives()
+        let w = DispatchWorkItem { [weak self] in
+            guard let s = self, case .connected = s.state else { return }
+            if s.sendKeepAlive() {
+                s.scheduleKeepAlives()
             } else {
-                self.logger.error("KeepAlive send failed")
-                self.handleError("Failed to send keepalive")
+                s.logger.error("KeepAlive send failed")
+                s.handleError("Failed to send keepalive")
             }
         }
-        pingWorkItem = workItem
-        DispatchQueue.global().asyncAfter(deadline: .now() + interval, execute: workItem)
+        pingWorkItem = w
+        DispatchQueue.global().asyncAfter(deadline: .now() + interval, execute: w)
     }
 
-    /// Schedules a reconnection attempt with exponential backoff.
     private func scheduleReconnect() {
         guard reconnectAttempts < maxReconnectAttempts else {
             DispatchQueue.main.async { self.state = .error("Max reconnect attempts reached") }
             return
         }
-        
-        // Cancel any existing reconnect timer
-        reconnectWorkItem?.cancel()
-        
         reconnectAttempts += 1
-        let delay = pow(2, Double(reconnectAttempts - 1)) // Use 1, 2, 4, 8, 16 seconds
-        
-        let workItem = DispatchWorkItem { [weak self] in
-            guard let self = self else { return }
-            
-            // Only reconnect if still in error state
-            if case .error = self.state {
-                DispatchQueue.main.async {
-                    self.state = .reconnecting(attempt: self.reconnectAttempts)
-                }
-                self.openSocket()
-            }
-            
-            // Clear work item reference
-            self.reconnectWorkItem = nil
-        }
-        
-        reconnectWorkItem = workItem
-        logger.info("Scheduling reconnect in \(delay)s (attempt \(reconnectAttempts)/\(maxReconnectAttempts))")
-        DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: workItem)
+        let delay = pow(2, Double(reconnectAttempts))
+        reconnectWorkItem?.cancel()
+        let w = DispatchWorkItem { [weak self] in self?.openSocket() }
+        reconnectWorkItem = w
+        DispatchQueue.global().asyncAfter(deadline: .now() + delay, execute: w)
     }
 
-    /// Sends a keep-alive message to the server.
-    ///
-    /// - Returns: True if the message was sent successfully.
     @discardableResult
     private func sendKeepAlive() -> Bool {
-        let keepAliveMessage = InboundKeepAliveMessage(messageType: .keepAlive)
-        return send(.inboundKeepAliveMessage(keepAliveMessage))
+        sendRawMessage("{\"MessageType\":\"KeepAlive\"}")
     }
 
-    /// Cleans up resources and closes the connection.
+    /// Gracefully close and clean up.
     private func stopInternal() {
-        // Clear message queue and cancel all work items
         messageQueue.removeAll()
         activeSubscriptions.removeAll()
         pingWorkItem?.cancel()
@@ -555,80 +628,53 @@ public final class JellyfinSocket: ObservableObject {
         reconnectWorkItem?.cancel()
         cancellables.removeAll()
 
-        // Close any existing task
-        if let currentTask = task {
-            if case .connected = state {
-                logger.info("Closing gracefully")
-                currentTask.cancel(with: .normalClosure, reason: nil)
-            } else {
-                currentTask.cancel(with: .goingAway, reason: nil)
-            }
+        if let t = task, case .connected = state {
+            logger.info("Closing gracefully")
+            t.cancel(with: .normalClosure, reason: nil)
+        } else {
+            task?.cancel(with: .goingAway, reason: nil)
         }
-        
         task = nil
         DispatchQueue.main.async { self.state = .closed }
     }
 }
 
-/// A logging utility specifically designed for WebSocket operations.
+// MARK: - Subscription payload structs
+
+private struct SubscriptionRequest: Codable {
+    let MessageType: String
+    let Data: String
+}
+
+private struct SubscriptionStop: Codable {
+    let MessageType: String
+}
+
+// MARK: - Logger
+
 public class JellyfinSocketLogger {
-    /// Defines the available logging levels.
     public enum LogLevel: Int, Comparable {
-        /// No logging output.
-        case off
-        /// Only error messages.
-        case error
-        /// Errors and warnings.
-        case warning
-        /// General information plus errors and warnings.
-        case info
-        /// Detailed debug information plus all other levels.
-        case debug
-        
-        public static func < (lhs: LogLevel, rhs: LogLevel) -> Bool {
-            lhs.rawValue < rhs.rawValue
-        }
+        case off, error, warning, info, debug
+        public static func < (l: LogLevel, r: LogLevel) -> Bool { l.rawValue < r.rawValue }
     }
-    
-    /// The current logging level.
     public var level: LogLevel
     private let label: String
-    private let dateFormatter = DateFormatter()
+    private let df = DateFormatter()
 
-    /// Creates a new logger instance.
-    ///
-    /// - Parameters:
-    ///   - label: A label to identify this logger's output.
-    ///   - level: The level of detail to include in logs. Defaults to .info.
     public init(label: String, level: LogLevel = .info) {
         self.label = label
         self.level = level
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
     }
-    
-    /// Logs a debug message.
-    ///
-    /// - Parameter message: The message to log.
-    public func debug(_ message: String) { log(message, .debug) }
-    
-    /// Logs an informational message.
-    ///
-    /// - Parameter message: The message to log.
-    public func info(_ message: String) { log(message, .info) }
-    
-    /// Logs a warning message.
-    ///
-    /// - Parameter message: The message to log.
-    public func warning(_ message: String) { log(message, .warning) }
-    
-    /// Logs an error message.
-    ///
-    /// - Parameter message: The message to log.
-    public func error(_ message: String) { log(message, .error) }
-    
-    private func log(_ message: String, _ level: LogLevel) {
-        guard level.rawValue <= self.level.rawValue else { return }
-        let timestamp = dateFormatter.string(from: Date())
-        print("[\(timestamp)] [\(label)] [\(level)] \(message)")
+
+    public func debug(_ m: String)   { log(m, .debug) }
+    public func info(_ m: String)    { log(m, .info) }
+    public func warning(_ m: String) { log(m, .warning) }
+    public func error(_ m: String)   { log(m, .error) }
+
+    private func log(_ m: String, _ lvl: LogLevel) {
+        guard lvl.rawValue <= level.rawValue else { return }
+        let ts = df.string(from: Date())
+        print("[\(ts)] [\(label)] [\(lvl)] \(m)")
     }
 }
