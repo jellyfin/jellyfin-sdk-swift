@@ -64,7 +64,7 @@ public final class JellyfinSocket: ObservableObject {
     private var hasReceivedFirstMessage = false
 
     /// Tracks subscriptions that should be sent on every connect
-    private var activeSubscriptions = Set<String>()
+    private var activeSubscriptions = Set<InboundWebSocketMessage>()
 
     private var pingWorkItem: DispatchWorkItem?
     private var validationWorkItem: DispatchWorkItem?
@@ -172,33 +172,54 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Adds a subscription to be sent on connect/reconnect.
     ///
-    /// - Parameter type: The event type to subscribe to (e.g., "Sessions").
-    public func subscribe(to type: String) {
-        activeSubscriptions.insert(type)
+    /// - Parameter message: The subscription message to send.
+    public func subscribe(to message: InboundWebSocketMessage) {
+        activeSubscriptions.insert(message)
+        
+        // If already connected, send subscription immediately
+        if case .connected = state, hasReceivedFirstMessage, let task = task {
+            send(message)
+        }
     }
 
     /// Removes a subscription to stop receiving events of the specified type.
     ///
-    /// - Parameter type: The event type to unsubscribe from.
-    public func unsubscribe(from type: String) {
-        activeSubscriptions.remove(type)
-        guard case .connected = state, let task = task else { return }
-        let message = "{\"MessageType\":\"\(type)Stop\"}"
-        task.send(.string(message)) { [weak self] error in
-            if let error = error {
-                self?.logger.error("Unsubscribe error for \(type): \(error)")
-            }
+    /// - Parameter message: The subscription message to unsubscribe from.
+    public func unsubscribe(from message: InboundWebSocketMessage) {
+        activeSubscriptions.remove(message)
+        
+        guard case .connected = state, hasReceivedFirstMessage, let task = task else { return }
+        
+        // Create and send corresponding "stop" message
+        switch message {
+        case .sessionsStartMessage:
+            let stopMessage = SessionsStopMessage(messageType: .sessionsStop)
+            send(.sessionsStopMessage(stopMessage))
+        case .scheduledTasksInfoStartMessage:
+            let stopMessage = ScheduledTasksInfoStopMessage(messageType: .scheduledTasksInfoStop)
+            send(.scheduledTasksInfoStopMessage(stopMessage))
+        case .activityLogEntryStartMessage:
+            let stopMessage = ActivityLogEntryStopMessage(messageType: .activityLogEntryStop)
+            send(.activityLogEntryStopMessage(stopMessage))
+        default:
+            logger.error("Cannot unsubscribe from message type: \(message)")
         }
     }
 
     /// Subscribes to session events from the server.
-    public func subscribeSessions() { subscribe(to: "Sessions") }
+    public func subscribeSessions() {
+        subscribe(to: .sessionsStartMessage(SessionsStartMessage(data: nil, messageType: .sessionsStart)))
+    }
     
     /// Subscribes to scheduled task events from the server.
-    public func subscribeScheduledTasks() { subscribe(to: "ScheduledTasksInfo") }
+    public func subscribeScheduledTasks() {
+        subscribe(to: .scheduledTasksInfoStartMessage(ScheduledTasksInfoStartMessage(data: nil, messageType: .scheduledTasksInfoStart)))
+    }
     
     /// Subscribes to activity log entries from the server.
-    public func subscribeActivityLog() { subscribe(to: "ActivityLogEntry") }
+    public func subscribeActivityLog() {
+        subscribe(to: .activityLogEntryStartMessage(ActivityLogEntryStartMessage(data: nil, messageType: .activityLogEntryStart)))
+    }
 
     // MARK: - Sending Messages
 
@@ -227,7 +248,7 @@ public final class JellyfinSocket: ObservableObject {
     /// - Returns: True if the message was sent or queued successfully.
     @discardableResult
     public func sendRawMessage(_ json: String) -> Bool {
-        guard case .connected = state, let task = task else {
+        guard case .connected = state, hasReceivedFirstMessage, let task = task else {
             messageQueue.append(json)
             return true
         }
@@ -248,18 +269,12 @@ public final class JellyfinSocket: ObservableObject {
     /// Sends all active subscriptions to the server after connecting.
     private func flushSubscriptions() {
         guard case .connected = state,
-              let task = task,
               hasReceivedFirstMessage,
               !activeSubscriptions.isEmpty else { return }
 
-        logger.info("Flushing subscriptions: \(activeSubscriptions)")
-        for type in activeSubscriptions {
-            let message = "{\"MessageType\":\"\(type)Start\"}"
-            task.send(.string(message)) { [weak self] error in
-                if let error = error {
-                    self?.logger.error("Subscription error for \(type): \(error)")
-                }
-            }
+        logger.info("Flushing \(activeSubscriptions.count) subscriptions")
+        for subscription in activeSubscriptions {
+            send(subscription)
         }
     }
 
@@ -526,7 +541,8 @@ public final class JellyfinSocket: ObservableObject {
     /// - Returns: True if the message was sent successfully.
     @discardableResult
     private func sendKeepAlive() -> Bool {
-        sendRawMessage("{\"MessageType\":\"KeepAlive\"}")
+        let keepAliveMessage = InboundKeepAliveMessage(messageType: .keepAlive)
+        return send(.inboundKeepAliveMessage(keepAliveMessage))
     }
 
     /// Cleans up resources and closes the connection.
