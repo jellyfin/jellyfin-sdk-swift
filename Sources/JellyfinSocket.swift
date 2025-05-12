@@ -9,148 +9,22 @@
 import Combine
 import Foundation
 
-// MARK: - JellyfinSocketLogger
-/// Logger class for JellyfinSocket that provides different logging levels and formatting
-public class JellyfinSocketLogger {
-    /// Defines the available logging levels for the socket logger
-    public enum LogLevel: Int, Comparable {
-        case off, error, warning, info, debug
-        public static func < (lhs: LogLevel, rhs: LogLevel) -> Bool { lhs.rawValue < rhs.rawValue }
-    }
-
-    /// Current logging level that determines which messages will be displayed
-    public var level: LogLevel
-    /// Identifier label for the logger to distinguish log sources
-    private let label: String
-    /// Formatter used to generate timestamps for log messages
-    private let dateFormatter = DateFormatter()
-
-    /// Creates a new JellyfinSocketLogger instance
-    /// - Parameters:
-    ///   - label: Identifier for the log source
-    ///   - level: Initial logging level (defaults to .info)
-    public init(label: String, level: LogLevel = .info) {
-        self.label = label
-        self.level = level
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
-    }
-
-    /// Internal method to process and print log messages based on level
-    /// - Parameters:
-    ///   - message: The message to log (lazily evaluated)
-    ///   - type: The type of log message (debug, info, etc.)
-    ///   - level: The level at which the message should be logged
-    private func log(_ message: @autoclosure () -> String, type: String, at level: LogLevel) {
-        guard level.rawValue <= self.level.rawValue else { return }
-        let timestamp = dateFormatter.string(from: Date())
-        print("[\(timestamp)] [\(label)] [\(type.uppercased())] \(message())")
-    }
-
-    /// Logs a debug message if debug level is enabled
-    /// - Parameter message: The debug message to log
-    public func debug(_ message: @autoclosure () -> String) { log(message(), type: "debug", at: .debug) }
-    
-    /// Logs an info message if info level or higher is enabled
-    /// - Parameter message: The info message to log
-    public func info(_ message: @autoclosure () -> String) { log(message(), type: "info", at: .info) }
-    
-    /// Logs a warning message if warning level or higher is enabled
-    /// - Parameter message: The warning message to log
-    public func warning(_ message: @autoclosure () -> String) { log(message(), type: "warning", at: .warning) }
-    
-    /// Logs an error message if error level or higher is enabled
-    /// - Parameter message: The error message to log
-    public func error(_ message: @autoclosure () -> String) { log(message(), type: "error", at: .error) }
-}
-
-// MARK: - JellyfinSocket Implementation
 /// WebSocket client implementation for Jellyfin server communication
 public final class JellyfinSocket: ObservableObject {
 
-    /// Represents the possible states of the WebSocket connection
-    public enum State {
-        case idle
-        case connecting
-        case connected(url: URL)
-        case disconnecting
-        case closed(error: Error?)
-        case error(Error)
-
-        /// Indicates whether the socket is currently in connected state
-        var isConnected: Bool {
-            if case .connected = self { return true }
-            return false
-        }
-    }
-
-    /// Types of subscriptions supported by the Jellyfin WebSocket
-    public enum SubscriptionType: Hashable {
-        case sessions(initialDelayMs: Int = 0, intervalMs: Int = 10000)
-        case scheduledTasks(initialDelayMs: Int = 0, intervalMs: Int = 60000)
-        case activityLog(initialDelayMs: Int = 0, intervalMs: Int = 5000)
-
-        /// Formats the subscription parameters as a string for the server
-        var dataString: String? {
-            let parameters: (Int, Int)
-            switch self {
-            case .sessions(let delay, let interval):
-                parameters = (delay, interval)
-            case .scheduledTasks(let delay, let interval):
-                parameters = (delay, interval)
-            case .activityLog(let delay, let interval):
-                parameters = (delay, interval)
-            }
-            return "\(parameters.0),\(parameters.1)"
-        }
-    }
-    
-    /// Error types specific to the JellyfinSocket
-    public enum SocketError: Error, LocalizedError, Equatable {
-        case notConnected
-        case missingAccessTokenOrConfig
-        case invalidURL
-        case encodingFailed(String)
-        case maxReconnectAttemptsReached
-        case explicitDisconnect
-        case connectionTimeout
-        case serverMessageError(String)
-        case underlyingError(String)
-        case decodingError(String)
-
-        /// Human-readable error descriptions
-        public var errorDescription: String? {
-            switch self {
-            case .notConnected: return "WebSocket is not connected."
-            case .missingAccessTokenOrConfig: return "Missing access token, device ID, or server URL for WebSocket connection."
-            case .invalidURL: return "Invalid WebSocket URL."
-            case .encodingFailed(let reason): return "Failed to encode message: \(reason)"
-            case .maxReconnectAttemptsReached: return "Maximum reconnection attempts reached."
-            case .explicitDisconnect: return "Disconnected by client."
-            case .connectionTimeout: return "Connection attempt timed out or server unresponsive."
-            case .serverMessageError(let message): return "Server returned an error message: \(message)"
-            case .underlyingError(let message): return "An underlying error occurred: \(message)"
-            case .decodingError(let message): return "Failed to decode server message: \(message)"
-            }
-        }
-        
-        /// Equality comparison for SocketError types
-        public static func == (lhs: SocketError, rhs: SocketError) -> Bool {
-            lhs.localizedDescription == rhs.localizedDescription
-        }
-    }
+    // MARK: - Published Variables
 
     /// Current state of the socket connection
     @Published
-    public private(set) var state: State = .idle
-
+    public private(set) var state: SocketState = .idle
     /// Timestamp of the most recent activity from the server
     @Published
     public private(set) var lastServerActivity: Date?
 
-    /// Publisher for raw string messages received from the WebSocket
-    public let rawMessagePublisher = PassthroughSubject<String, Never>()
     /// Publisher for parsed server messages
     public let serverMessagePublisher = PassthroughSubject<OutboundWebSocketMessage, Never>()
+
+    // MARK: - Configured Variables
 
     /// Reference to the Jellyfin client for authentication and configuration
     private let client: JellyfinClient
@@ -163,10 +37,14 @@ public final class JellyfinSocket: ObservableObject {
     /// Logger instance for this socket
     private let logger: JellyfinSocketLogger
 
+    // MARK: - WebSocket Components
+
     /// URLSession for WebSocket communication
     private var urlSession: URLSession!
     /// Current WebSocket task
     private var webSocketTask: URLSessionWebSocketTask?
+
+    // MARK: - Connection Variables
 
     /// Counter for reconnection attempts
     private var currentReconnectAttempts: Int = 0
@@ -174,12 +52,13 @@ public final class JellyfinSocket: ObservableObject {
     private let maxReconnectAttempts: Int = 5
     /// Base delay for exponential backoff during reconnection
     private var reconnectDelayBase: TimeInterval = 2.0
-
     /// Interval between keep-alive pings (in seconds)
-    private var keepAlivePingInterval: TimeInterval = 30.0
+    private var keepAlivePingInterval: TimeInterval = 20.0
     /// Timeout duration for server responses (in seconds)
     private let serverResponseTimeout: TimeInterval = 90.0
     
+    // MARK: - WebSocket Event Timers
+
     /// Timer for sending keep-alive pings
     private var keepAlivePingTimer: Timer?
     /// Timer for initial connection timeout
@@ -187,13 +66,14 @@ public final class JellyfinSocket: ObservableObject {
     /// Timer for detecting server response timeouts
     private var serverResponseTimeoutTimer: Timer?
 
+    // MARK: - WebSocket Messages & Subscriptions
+
     /// Queue for messages waiting to be sent after reconnection
     private var messageQueue: [Data] = []
     /// Set of active server subscriptions to maintain across disconnections
-    private var activeServerSubscriptions = Set<SubscriptionType>()
-    
-    /// Flag indicating user explicitly disconnected the socket
-    private var userExplicitlyDisconnected: Bool = false
+    private var activeServerSubscriptions = Set<SocketSubscription>()
+
+    // MARK: - JSON En/Decoders
 
     /// JSON encoder for outbound messages
     private lazy var jsonEncoder: JSONEncoder = {
@@ -207,9 +87,15 @@ public final class JellyfinSocket: ObservableObject {
         decoder.dateDecodingStrategy = .formatted(OpenISO8601DateFormatter())
         return decoder
     }()
-    
+
+    // MARK: - WebSocket Disconnect Tracker
+
+    /// Flag indicating user explicitly disconnected the socket
+    private var userExplicitlyDisconnected: Bool = false
     /// Storage for Combine cancellables
     private var cancellables = Set<AnyCancellable>()
+
+    // MARK: - Initializer
 
     /// Creates a new JellyfinSocket instance
     /// - Parameters:
@@ -230,10 +116,16 @@ public final class JellyfinSocket: ObservableObject {
         self.isSupportsMediaControl = isSupportsMediaControl
         self.supportedCommands = supportedCommands
         self.logger = JellyfinSocketLogger(label: "JellyfinSocket", level: logLevel)
+
         let queue = OperationQueue()
         queue.name = "com.jellyfin.sdk.websocket.queue"
         queue.maxConcurrentOperationCount = 1
-        self.urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: queue)
+
+        self.urlSession = URLSession(
+            configuration: .default,
+            delegate: nil,
+            delegateQueue: queue
+        )
         
         $state.sink { [weak self] newState in
             DispatchQueue.main.async {
@@ -242,17 +134,27 @@ public final class JellyfinSocket: ObservableObject {
         }.store(in: &cancellables)
     }
 
+    // MARK: - Deinitializer
+
     /// Cleans up resources when the object is deallocated
     deinit {
         logger.info("JellyfinSocket deinit - shutting down.")
         // Use a method that ensures no further reconnect attempts
         shutdownSocket(reason: "Deinitialization")
+        // Launch detached task that doesn't depend on self
+        Task.detached {
+            do {
+                await self.updateDeviceCapabilities(enable: false)
+            }
+        }
     }
+
+    // MARK: - Connect to WebSocket
 
     /// Initiates a connection to the Jellyfin WebSocket
     public func connect() {
         DispatchQueue.main.async {
-            self.userExplicitlyDisconnected = false // Reset flag on explicit connect
+            self.userExplicitlyDisconnected = false
             guard !self.state.isConnected, self.webSocketTask == nil else {
                 self.logger.warning("Already connected or connecting. Current state: \(String(describing: self.state))")
                 return
@@ -273,6 +175,8 @@ public final class JellyfinSocket: ObservableObject {
         }
     }
 
+    // MARK: - Disconnect from WebSocket
+
     /// Explicitly disconnects from the WebSocket
     public func disconnect() {
         logger.info("User explicitly called disconnect.")
@@ -280,13 +184,6 @@ public final class JellyfinSocket: ObservableObject {
         performDisconnect(error: SocketError.explicitDisconnect, initiatedByClient: true)
     }
 
-    /// Internal method to shut down the socket (used by deinit)
-    /// - Parameter reason: The reason for the shutdown
-    private func shutdownSocket(reason: String) {
-        self.userExplicitlyDisconnected = true // Ensure no reconnections
-        performDisconnect(error: SocketError.underlyingError("Socket shutdown: \(reason)"), initiatedByClient: false)
-    }
-    
     /// Performs the actual disconnection logic
     /// - Parameters:
     ///   - error: The error that caused the disconnection, if any
@@ -305,15 +202,25 @@ public final class JellyfinSocket: ObservableObject {
         webSocketTask?.cancel(with: .goingAway, reason: "Client initiated disconnect".data(using: .utf8))
         webSocketTask = nil
         
-        invalidateTimers() // Invalidate timers before clearing message queue
-        messageQueue.removeAll() // Clear message queue after timers are stopped
+        invalidateTimers()
+        messageQueue.removeAll()
         
         DispatchQueue.main.async {
-            // Ensure final state reflects the disconnect reason
             self.state = .closed(error: effectiveError)
         }
     }
-    
+
+    // MARK: - Shutdown WebSocket
+
+    /// Internal method to shut down the socket (used by deinit)
+    /// - Parameter reason: The reason for the shutdown
+    private func shutdownSocket(reason: String) {
+        self.userExplicitlyDisconnected = true // Ensure no reconnections
+        performDisconnect(error: SocketError.underlyingError("Socket shutdown: \(reason)"), initiatedByClient: false)
+    }
+
+    // MARK: - Send Inbound Websocket Message to the Server
+
     /// Sends a typed WebSocket message to the server
     /// - Parameter message: The message to send
     /// - Returns: Whether the message was sent or queued successfully
@@ -334,6 +241,8 @@ public final class JellyfinSocket: ObservableObject {
         }
     }
 
+    // MARK: - Sends Raw JSON to the Server
+
     /// Sends raw data over the WebSocket
     /// - Parameters:
     ///   - data: The data to send
@@ -342,7 +251,7 @@ public final class JellyfinSocket: ObservableObject {
     @discardableResult
     private func sendRawData(_ data: Data, description: String = "raw data") -> Bool {
         guard webSocketTask != nil, state.isConnected else {
-            if !userExplicitlyDisconnected { // Only queue if not explicitly stopped
+            if !userExplicitlyDisconnected {
                 logger.info("Socket not connected. Queuing message: \(description) (\(data.count) bytes)")
                 messageQueue.append(data)
             } else {
@@ -358,7 +267,7 @@ public final class JellyfinSocket: ObservableObject {
         }
         logger.debug("Sending \(description): \(String(data: data, encoding: .utf8)?.prefix(200) ?? "\(data.count) bytes")")
         task.send(.data(data)) { [weak self] error in
-            DispatchQueue.main.async { // Perform error handling on main queue
+            DispatchQueue.main.async {
                 if let error = error {
                     self?.logger.error("Send error for \(description): \(error)")
                     self?.handleDisconnection(error: error, wasGraceful: false)
@@ -367,36 +276,39 @@ public final class JellyfinSocket: ObservableObject {
         }
         return true
     }
-    
+
+    // MARK: - Activate Subscription to High Volume Endpoint(s)
+
     /// Activates a server subscription to receive updates
     /// - Parameter subscriptionType: The type of subscription to activate
-    public func activateSubscription(_ subscriptionType: SubscriptionType) {
+    public func activateSubscription(_ subscriptionType: SocketSubscription) {
         logger.info("Activating server subscription: \(subscriptionType)")
         activeServerSubscriptions.insert(subscriptionType)
         
         let messageToSend: InboundWebSocketMessage
-        let dataValue: String? = subscriptionType.dataString
         
         switch subscriptionType {
         case .sessions:
             var messageStruct = SessionsStartMessage()
-            messageStruct.data = dataValue
+            messageStruct.data = subscriptionType.data
             messageToSend = .sessionsStartMessage(messageStruct)
         case .scheduledTasks:
             var messageStruct = ScheduledTasksInfoStartMessage()
-            messageStruct.data = dataValue
+            messageStruct.data = subscriptionType.data
             messageToSend = .scheduledTasksInfoStartMessage(messageStruct)
         case .activityLog:
             var messageStruct = ActivityLogEntryStartMessage()
-            messageStruct.data = dataValue
+            messageStruct.data = subscriptionType.data
             messageToSend = .activityLogEntryStartMessage(messageStruct)
         }
         send(messageToSend)
     }
 
+    // MARK: - Deactivate Subscription from High Volume Endpoint(s)
+
     /// Deactivates a server subscription to stop receiving updates
     /// - Parameter subscriptionType: The type of subscription to deactivate
-    public func deactivateSubscription(_ subscriptionType: SubscriptionType) {
+    public func deactivateSubscription(_ subscriptionType: SocketSubscription) {
         logger.info("Deactivating server subscription: \(subscriptionType)")
         activeServerSubscriptions.remove(subscriptionType)
         let messageToSend: InboundWebSocketMessage
@@ -407,6 +319,8 @@ public final class JellyfinSocket: ObservableObject {
         }
         send(messageToSend)
     }
+
+    // MARK: - Connect to the Jellyfin WebSocket Located at /socket
 
     /// Establishes a WebSocket connection with the Jellyfin server
     private func establishConnection() async {
@@ -460,23 +374,26 @@ public final class JellyfinSocket: ObservableObject {
         // Access urlSession and assign webSocketTask on its delegate queue (which is our custom background queue)
         self.urlSession.delegateQueue.addOperation {
             guard !self.userExplicitlyDisconnected else {
-                self.logger.info("Connection attempt aborted as user explicitly disconnected during URLSession operation scheduling.")
-                // Ensure state is correctly set if needed, already handled by `establishConnection` start check.
+                self.logger.info(
+                    "Connection attempt aborted as user explicitly disconnected during URLSession operation scheduling."
+                )
                 return
             }
             self.webSocketTask = self.urlSession.webSocketTask(with: request)
             self.webSocketTask?.resume()
-            self.startListening() // This will then dispatch to main for message handling
+            self.startListening()
         }
     }
+
+    // MARK: - Start Listening for WebSocket Messages
 
     /// Begins listening for messages from the WebSocket
     private func startListening() {
         // This is called from urlSession's delegate queue.
         guard let task = webSocketTask else {
             logger.warning("Attempted to start listening without a WebSocket task.")
-            DispatchQueue.main.async { // Ensure state check/update is on main
-                if self.state.isConnected || self.state == .connecting { // only if we thought we should be listening
+            DispatchQueue.main.async {
+                if self.state.isConnected || self.state == .connecting {
                     self.handleDisconnection(error: SocketError.underlyingError("WebSocketTask became nil unexpectedly before listening."), wasGraceful: false)
                 }
             }
@@ -485,46 +402,48 @@ public final class JellyfinSocket: ObservableObject {
         
         guard !userExplicitlyDisconnected else {
             logger.info("Listening attempt aborted as user explicitly disconnected.")
-            // If task exists, ensure it's cancelled. performDisconnect should handle this.
             DispatchQueue.main.async { self.performDisconnect(error: SocketError.explicitDisconnect, initiatedByClient: true) }
             return
         }
 
         task.receive { [weak self] result in
             guard let self = self else { return }
-            // Check for explicit disconnect before dispatching to main queue
             guard !self.userExplicitlyDisconnected else {
-                self.logger.info("Received message/error but user explicitly disconnected. Ignoring.")
-                // Consider if task needs explicit cancellation here if not already handled
+                self.logger.info(
+                    "Received message/error but user explicitly disconnected. Ignoring."
+                )
                 return
             }
 
-            DispatchQueue.main.async { // Switch to main thread for state updates and Combine publishers
-                guard !self.userExplicitlyDisconnected else { // Double check on main thread
-                    self.logger.info("Processing received message/error but user explicitly disconnected (main thread check). Ignoring.")
+            DispatchQueue.main.async {
+                guard !self.userExplicitlyDisconnected else {
+                    self.logger.info(
+                        "Processing received message/error but user explicitly disconnected (main thread check). Ignoring."
+                    )
                     return
                 }
                 switch result {
                 case .success(let wsMessage):
                     self.initialConnectionTimeoutTimer?.invalidate()
                     self.handleReceivedWebSocketMessage(wsMessage)
-                    // Only continue listening if the task is still valid and we're not disconnected
+
                     if self.webSocketTask != nil && !self.userExplicitlyDisconnected {
-                         self.urlSession.delegateQueue.addOperation { // Schedule next receive on the session's queue
+                         self.urlSession.delegateQueue.addOperation {
                             self.startListening()
                          }
                     }
                 case .failure(let error):
                     if case .closed(let err) = self.state, (err as? SocketError) == .explicitDisconnect {
-                        self.logger.info("Receive loop ended due to explicit disconnect (already processed).")
+                        self.logger.info(
+                            "Receive loop ended due to explicit disconnect (already processed)."
+                        )
                         return
                     }
                     let nsError = error as NSError
                     if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled {
                         self.logger.info("WebSocket task cancelled.")
-                        // If not explicitly disconnected by user, treat as an error or graceful close
                         if !self.userExplicitlyDisconnected && self.state != .closed(error: nil) && self.state != .disconnecting {
-                             self.handleDisconnection(error: error, wasGraceful: true) // Or false depending on context
+                             self.handleDisconnection(error: error, wasGraceful: true)
                         }
                         return
                     }
@@ -534,7 +453,9 @@ public final class JellyfinSocket: ObservableObject {
             }
         }
     }
-    
+
+    // MARK: - Process JSON into OutboundWebSocketMessage
+
     /// Handles messages received from the WebSocket
     /// - Parameter wsMessage: The received WebSocket message
     private func handleReceivedWebSocketMessage(_ wsMessage: URLSessionWebSocketTask.Message) {
@@ -544,21 +465,21 @@ public final class JellyfinSocket: ObservableObject {
             logger.info("WebSocket connection established.")
             if let url = webSocketTask?.currentRequest?.url { state = .connected(url: url) }
             else { state = .connected(url: URL(string: "ws://unknown")!) }
-            currentReconnectAttempts = 0 // Reset on successful connection
+            currentReconnectAttempts = 0
             
             Task.detached {
-                await self.postDeviceCapabilities()
+                await self.updateDeviceCapabilities(enable: true)
             }
-            
-            // These can be called directly as they manage their own potential dispatches or are safe
+
             resubscribeToServerFeeds()
             processMessageQueue()
             startKeepAliveTimers()
         }
         
+        // Reset timer because we got activity
+        serverResponseTimeoutTimer?.invalidate()
         lastServerActivity = Date()
-        serverResponseTimeoutTimer?.invalidate() // Reset timer because we got activity
-        scheduleServerResponseTimeout()     // Reschedule it
+        scheduleServerResponseTimeout()
 
         let messageData: Data
         let messageStringPreview: String
@@ -566,7 +487,6 @@ public final class JellyfinSocket: ObservableObject {
         switch wsMessage {
         case .string(let text):
             logger.debug("Received String: \(text.prefix(500))")
-            rawMessagePublisher.send(text)
             guard let data = text.data(using: .utf8) else {
                 logger.error("Failed to convert received text to Data.")
                 return
@@ -576,10 +496,8 @@ public final class JellyfinSocket: ObservableObject {
         case .data(let data):
             logger.debug("Received Data: \(data.count) bytes")
             if let textPreview = String(data: data, encoding: .utf8)?.prefix(500) {
-                 rawMessagePublisher.send(String(textPreview))
                  messageStringPreview = String(textPreview).prefix(200).description
             } else {
-                 rawMessagePublisher.send("\(data.count) non-UTF8 bytes")
                  messageStringPreview = "\(data.count) non-UTF8 bytes"
             }
             messageData = data
@@ -598,16 +516,22 @@ public final class JellyfinSocket: ObservableObject {
                 if let interval = fkaMsg.data {
                     self.keepAlivePingInterval = Double(interval) / 2
                     logger.info("Server forced KeepAlive ping interval to: \(self.keepAlivePingInterval)s")
-                    stopKeepAliveTimers()
                     startKeepAliveTimers()
-                    sendClientPing()
+
+                    // Send KeepAlive Message to Server
+                    send(
+                        .inboundKeepAliveMessage(
+                            InboundKeepAliveMessage(messageType: .keepAlive)
+                        )
+                    )
+
                 } else {
                     logger.warning("ForceKeepAliveMessage received without data for interval.")
                 }
             case .outboundKeepAliveMessage:
                 logger.debug("Received server KeepAlive (Pong). Last server activity updated.")
             default:
-                break // Other messages are just published
+                break
             }
 
         } catch {
@@ -616,24 +540,24 @@ public final class JellyfinSocket: ObservableObject {
             logger.error("Failed to decode server message: \(errorContext). Raw: \(messageStringPreview)")
         }
     }
-    
+
+    // MARK: - Handle WebSocket Disconnection
+
     /// Handles disconnection events and manages reconnection attempts
     /// - Parameters:
     ///   - error: The error that caused the disconnection, if any
     ///   - wasGraceful: Whether the disconnection was graceful
     private func handleDisconnection(error: Error?, wasGraceful: Bool) {
-        // This method must be called on the main thread as it modifies @Published state
-        // and interacts with timers that expect main thread invalidation.
         guard Thread.isMainThread else {
             DispatchQueue.main.async { self.handleDisconnection(error: error, wasGraceful: wasGraceful) }
             return
         }
 
-        invalidateTimers() // Stop all timers first
+        invalidateTimers()
         
         // Only fully close the task if it wasn't already nilled by performDisconnect
         if webSocketTask != nil {
-            webSocketTask?.cancel(with: .normalClosure, reason: nil) // Use a neutral reason if not specified
+            webSocketTask?.cancel(with: .normalClosure, reason: nil)
             webSocketTask = nil
         }
 
@@ -644,7 +568,7 @@ public final class JellyfinSocket: ObservableObject {
 
         if userExplicitlyDisconnected {
             logger.info("Handling disconnection, but user explicitly disconnected. Final state: Closed.")
-            if state != .closed(error: SocketError.explicitDisconnect) { // Avoid redundant logging from state sink
+            if state != .closed(error: SocketError.explicitDisconnect) {
                 state = .closed(error: SocketError.explicitDisconnect)
             }
             return
@@ -652,7 +576,9 @@ public final class JellyfinSocket: ObservableObject {
         
         if wasGraceful || isCancelledError {
             logger.info("WebSocket connection closed gracefully or was cancelled. Error: \(actualError.localizedDescription)")
-            if state != .closed(error: nil) { state = .closed(error: nil) } // No error for graceful/cancelled if not explicit
+            if state != .closed(error: nil) {
+                state = .closed(error: nil)
+            }
             return
         }
 
@@ -664,27 +590,29 @@ public final class JellyfinSocket: ObservableObject {
             let delay = pow(reconnectDelayBase, Double(currentReconnectAttempts))
             logger.info("Attempting to reconnect in \(delay) seconds... (Attempt \(currentReconnectAttempts)/\(maxReconnectAttempts))")
             
-            if state != .connecting { state = .connecting } // Transition to connecting
+            if state != .connecting {
+                state = .connecting
+            }
 
-            Task { // Schedules the delay and subsequent connection attempt
+            Task {
                 try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
-                // Re-check userExplicitlyDisconnected before attempting to establish
+                
                 guard !self.userExplicitlyDisconnected else {
                     self.logger.info("Reconnect attempt aborted post-delay as user explicitly disconnected.")
-                    DispatchQueue.main.async { // Ensure state is correctly set on main
+                    DispatchQueue.main.async {
                          if self.state != .closed(error: SocketError.explicitDisconnect) {
                             self.state = .closed(error: SocketError.explicitDisconnect)
                          }
                     }
                     return
                 }
+
                 // Check current state on main thread before proceeding
                 DispatchQueue.main.async {
                     guard self.state == .connecting || (self.state.isClosedError(actualError) && self.webSocketTask == nil) else {
                         self.logger.info("Reconnect cancelled due to state change or manual disconnect (main thread check).")
                         return
                     }
-                    // Offload the actual connection attempt to a background task
                     Task.detached { await self.establishConnection() }
                 }
             }
@@ -696,81 +624,99 @@ public final class JellyfinSocket: ObservableObject {
         }
     }
 
+    // MARK: - Turn of all Timers for WebSocket Events
+
     /// Invalidates all active timers
     private func invalidateTimers() {
         // Ensure timers are invalidated on the main thread as they were scheduled there.
         guard Thread.isMainThread else {
-            DispatchQueue.main.async { self.invalidateTimers() }
+            DispatchQueue.main.async {
+                self.invalidateTimers()
+            }
             return
         }
         keepAlivePingTimer?.invalidate(); keepAlivePingTimer = nil
         initialConnectionTimeoutTimer?.invalidate(); initialConnectionTimeoutTimer = nil
         serverResponseTimeoutTimer?.invalidate(); serverResponseTimeoutTimer = nil
     }
-    
+
+    // MARK: - Process Queued Messages into InboundWebSocketMessages
+
     /// Processes any queued messages that were waiting for connection
     private func processMessageQueue() {
-        // Assumed to be called on main thread or where state access is safe
         guard !messageQueue.isEmpty else { return }
         logger.info("Processing \(messageQueue.count) queued messages...")
         let queued = messageQueue; messageQueue.removeAll()
         for dataItem in queued { sendRawData(dataItem, description: "queued message") }
     }
 
+    // MARK: - Reconnect to Subscriptions after a Reconnections
+
     /// Resubscribes to any active server feeds after reconnection
     private func resubscribeToServerFeeds() {
-        // Assumed to be called on main thread
         guard !activeServerSubscriptions.isEmpty else { return }
         logger.info("Resubscribing to \(activeServerSubscriptions.count) server feeds...")
         let subscriptionsToReactivate = activeServerSubscriptions
-        for subscriptionType in subscriptionsToReactivate { activateSubscription(subscriptionType) } // This calls send()
+        for subscriptionType in subscriptionsToReactivate {
+            activateSubscription(subscriptionType)
+        }
     }
     
+    // MARK: - Start a Timer for KeepAlive Messages to Avoid Disconnection
+
     /// Starts the timers for keep-alive pings and server response timeout
     private func startKeepAliveTimers() {
-        // Ensure this is called on the main thread as it schedules timers.
         guard Thread.isMainThread else {
             DispatchQueue.main.async { self.startKeepAliveTimers() }
             return
         }
-        stopKeepAliveTimers() // Stops current timers (also ensures it's on main)
-        logger.info("Starting KeepAlive timers. Ping interval: \(keepAlivePingInterval)s, Server response timeout: \(serverResponseTimeout)s")
-        sendClientPing() // This calls send() which handles its own threading for actual send.
-        scheduleServerResponseTimeout() // Schedules a new timer on main
+        stopKeepAliveTimers()
+        logger.info(
+            "Starting KeepAlive timers. Ping interval: \(keepAlivePingInterval)s, Server response timeout: \(serverResponseTimeout)s"
+        )
+
+        // Send KeepAlive Message to Server
+        send(
+            .inboundKeepAliveMessage(
+                InboundKeepAliveMessage(messageType: .keepAlive)
+            )
+        )
+
+        scheduleServerResponseTimeout()
 
         keepAlivePingTimer = Timer.scheduledTimer(withTimeInterval: keepAlivePingInterval, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            // The timer block itself executes on the main thread.
-            guard self.state.isConnected else { self.stopKeepAliveTimers(); return } // stopKeepAliveTimers handles main thread
-            guard !self.userExplicitlyDisconnected else { self.stopKeepAliveTimers(); return } // Stop if user disconnected
-            self.sendClientPing()
+            guard self.state.isConnected else { self.stopKeepAliveTimers(); return }
+            guard !self.userExplicitlyDisconnected else { self.stopKeepAliveTimers(); return }
+
+            // Send KeepAlive Message to Server
+            send(
+                .inboundKeepAliveMessage(
+                    InboundKeepAliveMessage(messageType: .keepAlive)
+                )
+            )
+
             self.scheduleServerResponseTimeout()
         }
     }
 
+    // MARK: - Stop a Timer for KeepAlive Messages After Sending
+
     /// Stops the keep-alive and server response timeout timers
     private func stopKeepAliveTimers() {
-        // Ensure this is called on the main thread.
         guard Thread.isMainThread else {
             DispatchQueue.main.async { self.stopKeepAliveTimers() }
             return
         }
         logger.info("Stopping KeepAlive timers.")
         keepAlivePingTimer?.invalidate(); keepAlivePingTimer = nil
-        serverResponseTimeoutTimer?.invalidate(); serverResponseTimeoutTimer = nil // Also a main-thread scheduled timer
+        serverResponseTimeoutTimer?.invalidate(); serverResponseTimeoutTimer = nil
     }
 
-    /// Sends a keep-alive ping to the server
-    private func sendClientPing() {
-        // This can be called from any thread as `send()` handles its logic.
-        logger.debug("Sending Client KeepAlive Ping.")
-        let pingMessage = InboundKeepAliveMessage(messageType: .keepAlive)
-        send(.inboundKeepAliveMessage(pingMessage))
-    }
+    // MARK: - Stop a Timer for KeepAlive Messages After Sending
     
     /// Schedules a timeout timer to detect server unresponsiveness
     private func scheduleServerResponseTimeout() {
-        // Ensure this is called on the main thread.
         guard Thread.isMainThread else {
             DispatchQueue.main.async { self.scheduleServerResponseTimeout() }
             return
@@ -778,152 +724,114 @@ public final class JellyfinSocket: ObservableObject {
         serverResponseTimeoutTimer?.invalidate()
         serverResponseTimeoutTimer = Timer.scheduledTimer(withTimeInterval: serverResponseTimeout, repeats: false) { [weak self] _ in
             guard let self = self else { return }
-            // Timer block executes on main thread.
             guard self.state.isConnected else { return }
             guard !self.userExplicitlyDisconnected else { return }
 
             let now = Date()
             if let lastActivity = self.lastServerActivity, now.timeIntervalSince(lastActivity) >= self.serverResponseTimeout {
                 self.logger.warning("No server activity for \(self.serverResponseTimeout)s. Assuming connection lost.")
-                self.handleDisconnection(error: SocketError.connectionTimeout, wasGraceful: false) // handleDisconnection expects main
-            } else if self.lastServerActivity == nil { // Should not happen if connected, but defensive.
+                self.handleDisconnection(error: SocketError.connectionTimeout, wasGraceful: false)
+            } else if self.lastServerActivity == nil {
                 self.logger.warning("No server activity recorded (lastServerActivity is nil), but timeout triggered. Assuming connection lost.")
             } else {
                 self.scheduleServerResponseTimeout()
             }
         }
     }
-    
+
+    // MARK: - Tell the Jellyfin Server what Events the Client Supports
+
     /// Posts device capabilities to the server after connection
-    private func postDeviceCapabilities() async {
+    private func updateDeviceCapabilities(enable: Bool) async {
         do {
             var parameters = Paths.PostCapabilitiesParameters()
             
-            parameters.isSupportsMediaControl = isSupportsMediaControl
-            parameters.supportedCommands = supportedCommands
+            // Set capabilities based on enable flag
+            if enable {
+                parameters.isSupportsMediaControl = isSupportsMediaControl
+                parameters.supportedCommands = supportedCommands
+            } else {
+                parameters.isSupportsMediaControl = false
+                parameters.supportedCommands = nil
+            }
             
             let request = Paths.postCapabilities(parameters: parameters)
             try await client.send(request)
-            logger.info("Device capabilities successfully posted")
+            logger.info("Device capabilities successfully \(enable ? "enabled" : "disabled")")
         } catch {
-            logger.error("Failed to post device capabilities: \(error.localizedDescription)")
+            logger.error("Failed to \(enable ? "enable" : "disable") device capabilities: \(error.localizedDescription)")
         }
     }
 }
 
-extension JellyfinSocket.State: Equatable {
-    /// Equality comparison for JellyfinSocket.State
-    public static func == (lhs: JellyfinSocket.State, rhs: JellyfinSocket.State) -> Bool {
-        switch (lhs, rhs) {
-        case (.idle, .idle): return true
-        case (.connecting, .connecting): return true
-        case let (.connected(url1), .connected(url2)): return url1 == url2
-        case (.disconnecting, .disconnecting): return true
-        case let (.closed(err1), .closed(err2)):
-            if err1 == nil && err2 == nil { return true }
-            if let e1 = err1 as? JellyfinSocket.SocketError, let e2 = err2 as? JellyfinSocket.SocketError { return e1 == e2 }
-            return err1?.localizedDescription == err2?.localizedDescription
-        case let (.error(err1), .error(err2)):
-            if let e1 = err1 as? JellyfinSocket.SocketError, let e2 = err2 as? JellyfinSocket.SocketError { return e1 == e2 }
-            return err1.localizedDescription == err2.localizedDescription
-        default: return false
+// MARK: - JellyfinSocketLogger
+
+/// Logger class for JellyfinSocket that provides different logging levels and formatting
+public class JellyfinSocketLogger {
+    /// Defines the available logging levels for the socket logger
+    public enum LogLevel: Int, Comparable {
+        case off
+        case error
+        case warning
+        case info
+        case debug
+
+        public static func < (lhs: LogLevel, rhs: LogLevel) -> Bool {
+            lhs.rawValue < rhs.rawValue
         }
     }
 
-    /// Checks if the state is a closed error with the specified error
-    /// - Parameter error: The error to compare against
-    /// - Returns: Whether the state is a closed error with the specified error
-    func isClosedError(_ error: Error) -> Bool {
-        if case .closed(let e) = self {
-            if let socketErr = e as? JellyfinSocket.SocketError, let comparableErr = error as? JellyfinSocket.SocketError { return socketErr == comparableErr }
-            return e?.localizedDescription == error.localizedDescription
-        }
-        return false
-    }
-}
+    /// Current logging level that determines which messages will be displayed
+    public var level: LogLevel
+    /// Identifier label for the logger to distinguish log sources
+    private let label: String
+    /// Formatter used to generate timestamps for log messages
+    private let dateFormatter = DateFormatter()
 
-extension InboundWebSocketMessage {
-    /// Returns the message type for the inbound message
-    var sessionMessageType: SessionMessageType? {
-        switch self {
-        case .activityLogEntryStartMessage(let message):
-            return message.messageType
-        case .activityLogEntryStopMessage(let message):
-            return message.messageType
-        case .inboundKeepAliveMessage(let message):
-            return message.messageType
-        case .scheduledTasksInfoStartMessage(let message):
-            return message.messageType
-        case .scheduledTasksInfoStopMessage(let message):
-            return message.messageType
-        case .sessionsStartMessage(let message):
-            return message.messageType
-        case .sessionsStopMessage(let message):
-            return message.messageType
-        }
+    /// Creates a new JellyfinSocketLogger instance
+    /// - Parameters:
+    ///   - label: Identifier for the log source
+    ///   - level: Initial logging level (defaults to .info)
+    public init(label: String, level: LogLevel = .info) {
+        self.label = label
+        self.level = level
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
     }
-}
 
-extension OutboundWebSocketMessage {
-    /// Returns the message type for the outbound message
-    var sessionMessageType: SessionMessageType? {
-        switch self {
-        case .activityLogEntryMessage(let message):
-            return message.messageType
-        case .forceKeepAliveMessage(let message):
-            return message.messageType
-        case .generalCommandMessage(let message):
-            return message.messageType
-        case .libraryChangedMessage(let message):
-            return message.messageType
-        case .outboundKeepAliveMessage(let message):
-            return message.messageType
-        case .playMessage(let message):
-            return message.messageType
-        case .playstateMessage(let message):
-            return message.messageType
-        case .pluginInstallationCancelledMessage(let message):
-            return message.messageType
-        case .pluginInstallationCompletedMessage(let message):
-            return message.messageType
-        case .pluginInstallationFailedMessage(let message):
-            return message.messageType
-        case .pluginInstallingMessage(let message):
-            return message.messageType
-        case .pluginUninstalledMessage(let message):
-            return message.messageType
-        case .refreshProgressMessage(let message):
-            return message.messageType
-        case .restartRequiredMessage(let message):
-            return message.messageType
-        case .scheduledTaskEndedMessage(let message):
-            return message.messageType
-        case .scheduledTasksInfoMessage(let message):
-            return message.messageType
-        case .seriesTimerCancelledMessage(let message):
-            return message.messageType
-        case .seriesTimerCreatedMessage(let message):
-            return message.messageType
-        case .serverRestartingMessage(let message):
-            return message.messageType
-        case .serverShuttingDownMessage(let message):
-            return message.messageType
-        case .sessionsMessage(let message):
-            return message.messageType
-        case .syncPlayCommandMessage(let message):
-            return message.messageType
-        case .syncPlayGroupUpdateCommandMessage(let message):
-            return message.messageType
-        case .timerCancelledMessage(let message):
-            return message.messageType
-        case .timerCreatedMessage(let message):
-            return message.messageType
-        case .userDataChangedMessage(let message):
-            return message.messageType
-        case .userDeletedMessage(let message):
-            return message.messageType
-        case .userUpdatedMessage(let message):
-            return message.messageType
+    /// Internal method to process and print log messages based on level
+    /// - Parameters:
+    ///   - message: The message to log (lazily evaluated)
+    ///   - type: The type of log message (debug, info, etc.)
+    ///   - level: The level at which the message should be logged
+    private func log(_ message: @autoclosure () -> String, type: String, at level: LogLevel) {
+        guard level.rawValue <= self.level.rawValue else {
+            return
         }
+        let timestamp = dateFormatter.string(from: Date())
+        print("[\(timestamp)] [\(label)] [\(type.uppercased())] \(message())")
+    }
+
+    /// Logs a debug message if debug level is enabled
+    /// - Parameter message: The debug message to log
+    public func debug(_ message: @autoclosure () -> String) {
+        log(message(), type: "debug", at: .debug)
+    }
+    
+    /// Logs an info message if info level or higher is enabled
+    /// - Parameter message: The info message to log
+    public func info(_ message: @autoclosure () -> String) {
+        log(message(), type: "info", at: .info)
+    }
+    
+    /// Logs a warning message if warning level or higher is enabled
+    /// - Parameter message: The warning message to log
+    public func warning(_ message: @autoclosure () -> String) {
+        log(message(), type: "warning", at: .warning)
+    }
+    
+    /// Logs an error message if error level or higher is enabled
+    /// - Parameter message: The error message to log
+    public func error(_ message: @autoclosure () -> String) {
+        log(message(), type: "error", at: .error)
     }
 }
