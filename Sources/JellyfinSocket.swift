@@ -93,9 +93,12 @@ public final class JellyfinSocket: ObservableObject {
         var dataString: String? {
             let parameters: (Int, Int)
             switch self {
-            case .sessions(let delay, let interval): parameters = (delay, interval)
-            case .scheduledTasks(let delay, let interval): parameters = (delay, interval)
-            case .activityLog(let delay, let interval): parameters = (delay, interval)
+            case .sessions(let delay, let interval):
+                parameters = (delay, interval)
+            case .scheduledTasks(let delay, let interval):
+                parameters = (delay, interval)
+            case .activityLog(let delay, let interval):
+                parameters = (delay, interval)
             }
             return "\(parameters.0),\(parameters.1)"
         }
@@ -137,9 +140,12 @@ public final class JellyfinSocket: ObservableObject {
     }
 
     /// Current state of the socket connection
-    @Published public private(set) var state: State = .idle
+    @Published
+    public private(set) var state: State = .idle
+
     /// Timestamp of the most recent activity from the server
-    @Published public private(set) var lastServerActivity: Date?
+    @Published
+    public private(set) var lastServerActivity: Date?
 
     /// Publisher for raw string messages received from the WebSocket
     public let rawMessagePublisher = PassthroughSubject<String, Never>()
@@ -150,6 +156,10 @@ public final class JellyfinSocket: ObservableObject {
     private let client: JellyfinClient
     /// User ID for authentication, if applicable
     private let userID: String?
+    /// Reported media control support to Server
+    private let isSupportsMediaControl: Bool
+    /// Reported supported commands to Server
+    private let supportedCommands: [GeneralCommandType]
     /// Logger instance for this socket
     private let logger: JellyfinSocketLogger
 
@@ -166,7 +176,7 @@ public final class JellyfinSocket: ObservableObject {
     private var reconnectDelayBase: TimeInterval = 2.0
 
     /// Interval between keep-alive pings (in seconds)
-    private var keepAlivePingInterval: TimeInterval = 20.0
+    private var keepAlivePingInterval: TimeInterval = 30.0
     /// Timeout duration for server responses (in seconds)
     private let serverResponseTimeout: TimeInterval = 90.0
     
@@ -188,7 +198,6 @@ public final class JellyfinSocket: ObservableObject {
     /// JSON encoder for outbound messages
     private lazy var jsonEncoder: JSONEncoder = {
         let encoder = JSONEncoder()
-        // encoder.dateEncodingStrategy = .formatted(OpenISO8601DateFormatter())
         return encoder
     }()
     
@@ -206,10 +215,20 @@ public final class JellyfinSocket: ObservableObject {
     /// - Parameters:
     ///   - client: The JellyfinClient to use for authentication and configuration
     ///   - userID: Optional user ID for authentication
+    ///   - isSupportsMediaControl: Inform Jellyfin that you are accepting Media Controls (defaults to false)
+    ///   - supportedCommands: Inform Jellyfin of all of the commands supported  by this device  (defaults to server messages only)
     ///   - logLevel: The logging level to use (defaults to .info)
-    public init(client: JellyfinClient, userID: String? = nil, logLevel: JellyfinSocketLogger.LogLevel = .info) {
+    public init(
+        client: JellyfinClient,
+        userID: String? = nil,
+        isSupportsMediaControl: Bool = false,
+        supportedCommands: [GeneralCommandType] = [.displayMessage],
+        logLevel: JellyfinSocketLogger.LogLevel = .info
+    ) {
         self.client = client
         self.userID = userID
+        self.isSupportsMediaControl = isSupportsMediaControl
+        self.supportedCommands = supportedCommands
         self.logger = JellyfinSocketLogger(label: "JellyfinSocket", level: logLevel)
         let queue = OperationQueue()
         queue.name = "com.jellyfin.sdk.websocket.queue"
@@ -330,7 +349,7 @@ public final class JellyfinSocket: ObservableObject {
                 logger.warning("Socket explicitly disconnected. Message not queued: \(description)")
                 return false
             }
-            return true // Assume it will be sent or handled
+            return true
         }
         guard let task = webSocketTask else {
              logger.warning("Send attempt with nil webSocketTask while supposedly connected. Queuing.")
@@ -527,7 +546,9 @@ public final class JellyfinSocket: ObservableObject {
             else { state = .connected(url: URL(string: "ws://unknown")!) }
             currentReconnectAttempts = 0 // Reset on successful connection
             
-            Task.detached { await self.postDeviceCapabilities() } // Offload async tasks
+            Task.detached {
+                await self.postDeviceCapabilities()
+            }
             
             // These can be called directly as they manage their own potential dispatches or are safe
             resubscribeToServerFeeds()
@@ -743,7 +764,7 @@ public final class JellyfinSocket: ObservableObject {
     private func sendClientPing() {
         // This can be called from any thread as `send()` handles its logic.
         logger.debug("Sending Client KeepAlive Ping.")
-        let pingMessage = InboundKeepAliveMessage()
+        let pingMessage = InboundKeepAliveMessage(messageType: .keepAlive)
         send(.inboundKeepAliveMessage(pingMessage))
     }
     
@@ -775,7 +796,18 @@ public final class JellyfinSocket: ObservableObject {
     
     /// Posts device capabilities to the server after connection
     private func postDeviceCapabilities() async {
-        logger.info("Posting device capabilities (placeholder)...")
+        do {
+            var parameters = Paths.PostCapabilitiesParameters()
+            
+            parameters.isSupportsMediaControl = isSupportsMediaControl
+            parameters.supportedCommands = supportedCommands
+            
+            let request = Paths.postCapabilities(parameters: parameters)
+            try await client.send(request)
+            logger.info("Device capabilities successfully posted")
+        } catch {
+            logger.error("Failed to post device capabilities: \(error.localizedDescription)")
+        }
     }
 }
 
