@@ -123,8 +123,13 @@ public final class ServerDiscovery: ObservableObject {
     /// Sends UDP broadcast messages to discover Jellyfin servers on the local network.
     /// Updates the state subject to reflect the current discovery status.
     /// Discovery window remains active for 5 seconds.
-    public func broadcast() {
-        bindChannel()
+    public func broadcast(duration: Double = 5) {
+
+        // Only attempt binding if there are no bound channels.
+        // Use reset() before broadcasting to reset your bindings
+        if ipv4Channel == nil && ipv6Channel == nil {
+            bindChannel()
+        }
         
         let payload = "Who is JellyfinServer?"
         let ipv4Sent = sendIPv4(payload: payload)
@@ -132,7 +137,7 @@ public final class ServerDiscovery: ObservableObject {
         
         if ipv4Sent || ipv6Sent {
             stateSubject.send(.active)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
                 print("Discovery window ended")
                 self.stateSubject.send(.inactive)
             }

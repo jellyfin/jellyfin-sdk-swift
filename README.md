@@ -84,12 +84,12 @@ discovery.state
     }
     .store(in: &cancellables)
 
-/// Start the discovery process
-discovery.broadcast()
+/// Broadcast to the network then listen for a response for 6 seconds afterwards
+/// Calling this again will reuse the same bindings for IPv4 and IPv6
+discovery.broadcast(duration: 6)
 
-/// To restart discovery
+/// Reset all of the bindings for IPv4 and IPv6
 discovery.reset()
-discovery.broadcast()
 ```
 
 ## Generation
