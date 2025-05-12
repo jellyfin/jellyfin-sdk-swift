@@ -54,37 +54,42 @@ quickConnect.start()
 
 ## Server Discovery
 
-The `ServerDiscovery` object allows you to discover Jellyfin servers on your local network using UDP broadcast.
+The `ServerDiscovery` class allows you to discover Jellyfin servers on your local network using UDP broadcast. It shoudl work on both IPv4 and IPv6 networks to maximize discovery capabilities.
 
 ```swift
 /// Create a ServerDiscovery instance
-let serverDiscovery = ServerDiscovery()
+let discovery = ServerDiscovery()
 
-/// Set up subscription to receive discovered servers
-let cancellable = serverDiscovery.discoveredServers
+/// Subscribe to discovered servers
+discovery.discoveredServers
+    .receive(on: RunLoop.main)
     .sink { server in
         print("Found server: \(server.name) at \(server.url)")
-
-        /// Connect to the server with your JellyfinClient
-        client.baseURL = URL(string: server.url)
+        /// Handle the found servers as needed
     }
+    .store(in: &cancellables)
 
-/// Track the discovery state
-let stateCancellable = serverDiscovery.state
+/// Track discovery state changes
+discovery.state
+    .receive(on: RunLoop.main)
     .sink { state in
         switch state {
-        case .inactive:
-            print("Discovery inactive")
         case .active:
             print("Discovery in progress...")
+        case .inactive:
+            print("Discovery inactive")
         case .error(let message):
             print("Discovery error: \(message)")
         }
     }
+    .store(in: &cancellables)
 
 /// Start the discovery process
-/// You may need to scan several times depending on how long you want to search
-serverDiscovery.broadcast()
+discovery.broadcast()
+
+/// To restart discovery
+discovery.reset()
+discovery.broadcast()
 ```
 
 ## Generation
