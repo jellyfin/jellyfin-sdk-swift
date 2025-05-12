@@ -52,6 +52,41 @@ let quickConnectState = Task {
 quickConnect.start()
 ```
 
+## Server Discovery
+
+The `ServerDiscovery` object allows you to discover Jellyfin servers on your local network using UDP broadcast.
+
+```swift
+/// Create a ServerDiscovery instance
+let serverDiscovery = ServerDiscovery()
+
+/// Set up subscription to receive discovered servers
+let cancellable = serverDiscovery.discoveredServers
+    .sink { server in
+        print("Found server: \(server.name) at \(server.url)")
+
+        /// Connect to the server with your JellyfinClient
+        client.baseURL = URL(string: server.url)
+    }
+
+/// Track the discovery state
+let stateCancellable = serverDiscovery.state
+    .sink { state in
+        switch state {
+        case .inactive:
+            print("Discovery inactive")
+        case .active:
+            print("Discovery in progress...")
+        case .error(let message):
+            print("Discovery error: \(message)")
+        }
+    }
+
+/// Start the discovery process
+/// You may need to scan several times depending on how long you want to search
+serverDiscovery.broadcast()
+```
+
 ## Generation
 
 ```bash
