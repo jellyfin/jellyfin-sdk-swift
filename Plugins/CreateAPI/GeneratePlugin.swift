@@ -9,6 +9,9 @@
 import Foundation
 import PackagePlugin
 
+// Declared to build
+public struct JellyfinClient {}
+
 @main
 struct Plugin: CommandPlugin {
 
@@ -26,6 +29,9 @@ struct Plugin: CommandPlugin {
 
         // Move patch files
         try await addTaskTriggerType(context: context)
+
+        // Create the version SDK
+        try await generateVersionFile(context: context)
 
         try await lint(context: context)
 
@@ -134,7 +140,7 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Sources", "Entities", "RemoteSearchResult.swift"])
 
-        let contents = try String(contentsOfFile: filePath.string)
+        let contents = try String(contentsOfFile: filePath.string, encoding: .utf8)
         var lines = contents
             .split(separator: "\n")
             .map { String($0) }
@@ -154,7 +160,7 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Sources", "Extensions", "AnyJSON.swift"])
 
-        let contents = try String(contentsOfFile: filePath.string)
+        let contents = try String(contentsOfFile: filePath.string, encoding: .utf8)
         var lines = contents
             .split(separator: "\n")
             .map { String($0) }
@@ -195,11 +201,39 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Sources", "Entities", "GroupUpdate.swift"])
 
-        let contents = try String(contentsOfFile: filePath.string)
+        let contents = try String(contentsOfFile: filePath.string, encoding: .utf8)
             .replacingOccurrences(of: "Type", with: "_Type")
 
         try contents
             .data(using: .utf8)?
             .write(to: URL(fileURLWithPath: filePath.string))
+    }
+
+    // TODO: Remove if/when fixed within CreateAPI
+    // Adds JellyfinClient.sdkVersion
+    private func generateVersionFile(context: PluginContext) async throws {
+        let schema = try await parseOriginalSchema(context: context)
+
+        guard case let .object(file) = schema else { return }
+        guard case let .object(info) = file["info"] else { return }
+        guard let version = info["version"]?.value as? String else { return }
+
+        let sourceFilePath = context
+            .package
+            .directory
+            .appending(["Plugins", "CreateAPI", "PatchFiles", "JellyfinClient+Version.swift"])
+
+        var contents = try String(contentsOfFile: sourceFilePath.string, encoding: .utf8)
+
+        contents.replace(#/<SDK_VERSION>/#, with: version)
+
+        let destinationFilePath = context
+            .package
+            .directory
+            .appending(["Sources", "Extensions", "JellyfinClient+Version.swift"])
+
+        try contents
+            .data(using: .utf8)?
+            .write(to: URL(fileURLWithPath: destinationFilePath.string))
     }
 }

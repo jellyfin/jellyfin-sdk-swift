@@ -10,7 +10,7 @@ import Foundation
 
 /// Class SetRepeatModeRequestDto.
 public struct SetRepeatModeRequestDto: Codable, Hashable {
-    /// Gets or sets the repeat mode.
+    /// Enum GroupRepeatMode.
     public var mode: GroupRepeatMode?
 
     public init(mode: GroupRepeatMode? = nil) {
