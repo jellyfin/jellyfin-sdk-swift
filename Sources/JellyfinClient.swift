@@ -16,9 +16,6 @@ public final class JellyfinClient {
     /// Current user access token
     public private(set) var accessToken: String?
 
-    /// Current user id
-    public private(set) var userID: String?
-
     /// Configuration for this instance of `JellyfinClient`
     public let configuration: Configuration
 
@@ -55,22 +52,6 @@ public final class JellyfinClient {
             encoder.outputFormatting = .prettyPrinted
             configuration.encoder = encoder
         }
-    }
-
-    /// Creates a new WebSocket manager for receiving real-time Jellyfin server events.
-    /// - Parameters:
-    ///   - logLevel: The desired logging level (default: .info)
-    ///   - session: The URLSession to use for network operations (default: a new session with default configuration)
-    /// - Returns: A newly created JellyfinSocket instance
-    public func socket(
-        logLevel: JellyfinSocketLogger.LogLevel = .info,
-        session: URLSession = .init(configuration: .default)
-    ) -> JellyfinSocket {
-        return JellyfinSocket(
-            client: self,
-            logLevel: logLevel,
-            session: session
-        )
     }
 
     public struct Configuration {
@@ -219,7 +200,6 @@ public extension JellyfinClient {
 
         if let accessToken = response.accessToken {
             self.accessToken = accessToken
-            self.userID = response.user?.id ?? nil
         } else {
             throw ClientError.noAccessTokenInResponse
         }
@@ -243,7 +223,6 @@ public extension JellyfinClient {
 
         if let accessToken = response.accessToken {
             self.accessToken = accessToken
-            self.userID = response.user?.id ?? nil
         } else {
             throw ClientError.noAccessTokenInResponse
         }
@@ -260,7 +239,6 @@ public extension JellyfinClient {
         }
 
         self.accessToken = nil
-        self.userID = nil
     }
 }
 
