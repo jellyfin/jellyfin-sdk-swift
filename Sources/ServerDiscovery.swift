@@ -207,7 +207,7 @@ public final class ServerDiscovery: ObservableObject {
     /// - Returns: A configured NIO channel ready for IPv6 communication
     /// - Throws: NSError if no IPv6 address is available, or NIO errors if binding fails
     private func bindIPv6() throws -> Channel {
-        guard let (address, _) = Self.getDeviceIPv6Address() else {
+        guard let (address, scopeId) = Self.getDeviceIPv6Address() else {
             throw NSError(
                 domain: NSPOSIXErrorDomain,
                 code: Int(ENXIO),
@@ -218,8 +218,8 @@ public final class ServerDiscovery: ObservableObject {
         let bootstrap = DatagramBootstrap(group: group)
             .channelOption(ChannelOptions.autoRead, value: true)
             .channelOption(ChannelOptions.socketOption(.so_reuseaddr), value: 1)
-            .channelOption(ChannelOptions.socketOption(.ipv6_v6only), value: 1)
             .channelOption(ChannelOptions.socketOption(.ipv6_multicast_hops), value: 1)
+            .channelOption(ChannelOptions.socketOption(.ip_multicast_if), value: Int32(scopeId))
             .channelInitializer { channel in
                 channel.pipeline.addHandler(Handler(parent: self))
             }
@@ -443,6 +443,9 @@ public final class ServerDiscovery: ObservableObject {
         
         guard getifaddrs(&pointer) == 0, let first = pointer else { return nil }
         
+        // First try to find a global or ULA address (preferred)
+        var fallbackAddress: (String, UInt32)? = nil
+        
         for current in sequence(first: first, next: { $0.pointee.ifa_next }) {
             let flags = Int32(current.pointee.ifa_flags)
             
@@ -453,21 +456,26 @@ public final class ServerDiscovery: ObservableObject {
                 to: sockaddr_in6.self, capacity: 1
             ) { $0.pointee }
             
-            // Skip link-local addresses (fe80::)
-            let isLinkLocal = socketAddressIPv6.sin6_addr.__u6_addr.__u6_addr8.0 == 0xfe &&
-                              socketAddressIPv6.sin6_addr.__u6_addr.__u6_addr8.1 == 0x80
-            guard !isLinkLocal else { continue }
-            
             var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
             inet_ntop(AF_INET6, &socketAddressIPv6.sin6_addr, &buffer, socklen_t(INET6_ADDRSTRLEN))
             
+            let address = String(cString: buffer)
             let name = String(cString: current.pointee.ifa_name)
             let index = if_nametoindex(name)
             
-            return (String(cString: buffer), UInt32(index))
+            // Is this a link-local address? (fe80::)
+            let isLinkLocal = address.hasPrefix("fe80")
+            
+            if isLinkLocal {
+                // Save as fallback but keep looking for better addresses
+                fallbackAddress = (address, UInt32(index))
+            } else {
+                // If not link-local, return immediately (preferred)
+                return (address, UInt32(index))
+            }
         }
         
-        // Fall back to link-local if no global address is found
-        return nil
+        // Return the fallback link-local address if we found one
+        return fallbackAddress
     }
 }
