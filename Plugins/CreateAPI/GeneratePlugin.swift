@@ -9,6 +9,9 @@
 import Foundation
 import PackagePlugin
 
+// Declared to build
+public struct JellyfinClient {}
+
 @main
 struct Plugin: CommandPlugin {
 
@@ -137,7 +140,7 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Sources", "Entities", "RemoteSearchResult.swift"])
 
-        let contents = try String(contentsOfFile: filePath.string)
+        let contents = try String(contentsOfFile: filePath.string, encoding: .utf8)
         var lines = contents
             .split(separator: "\n")
             .map { String($0) }
@@ -157,7 +160,7 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Sources", "Extensions", "AnyJSON.swift"])
 
-        let contents = try String(contentsOfFile: filePath.string)
+        let contents = try String(contentsOfFile: filePath.string, encoding: .utf8)
         var lines = contents
             .split(separator: "\n")
             .map { String($0) }
@@ -198,7 +201,7 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Sources", "Entities", "GroupUpdate.swift"])
 
-        let contents = try String(contentsOfFile: filePath.string)
+        let contents = try String(contentsOfFile: filePath.string, encoding: .utf8)
             .replacingOccurrences(of: "Type", with: "_Type")
 
         try contents
@@ -207,7 +210,7 @@ struct Plugin: CommandPlugin {
     }
 
     // TODO: Remove if/when fixed within CreateAPI
-    // Adds an sdkVersion and sdkGenerationVersion to the JellyfinClient
+    // Adds JellyfinClient.sdkVersion
     private func generateVersionFile(context: PluginContext) async throws {
         let schema = try await parseOriginalSchema(context: context)
 
@@ -215,29 +218,22 @@ struct Plugin: CommandPlugin {
         guard case let .object(info) = file["info"] else { return }
         guard let version = info["version"]?.value as? String else { return }
 
-        let majorMinor = version
-            .split(separator: ".")
-            .prefix(2)
-            .joined(separator: ".")
+        let sourceFilePath = context
+            .package
+            .directory
+            .appending(["Plugins", "CreateAPI", "PatchFiles", "JellyfinClient+Version.swift"])
 
-        let minVersion = "\(majorMinor).0"
+        var contents = try String(contentsOfFile: sourceFilePath.string, encoding: .utf8)
 
-        let contents = """
-        public extension JellyfinClient {
-            /// Exact version of Jellyfin used to generate the SDK
-            static let sdkGeneratedVersion: String = "\(version)"
-            /// Minimum version of Jellyfin for usage of the SDK
-            static let sdkMinimumVersion: String = "\(minVersion)"
-        }
-        """
+        contents.replace(#/<SDK_VERSION>/#, with: version)
 
-        let filePath = context
+        let destinationFilePath = context
             .package
             .directory
             .appending(["Sources", "Extensions", "JellyfinClient+Version.swift"])
 
         try contents
             .data(using: .utf8)?
-            .write(to: URL(fileURLWithPath: filePath.string))
+            .write(to: URL(fileURLWithPath: destinationFilePath.string))
     }
 }

@@ -14,7 +14,7 @@ generate:
 
 # Download latest unstable spec and run CreateAPI
 .PHONY: update-unstable
-update-unstable: download-unstable generate version
+update-unstable: download-unstable generate
 
 # Download the latest Jellyfin unstable spec
 .PHONY: download-unstable
