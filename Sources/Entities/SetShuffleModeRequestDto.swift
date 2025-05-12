@@ -10,7 +10,7 @@ import Foundation
 
 /// Class SetShuffleModeRequestDto.
 public struct SetShuffleModeRequestDto: Codable, Hashable {
-    /// Gets or sets the shuffle mode.
+    /// Enum GroupShuffleMode.
     public var mode: GroupShuffleMode?
 
     public init(mode: GroupShuffleMode? = nil) {
