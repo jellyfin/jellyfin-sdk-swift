@@ -15,9 +15,9 @@ public extension JellyfinClient {
 
     struct Version: Comparable, CustomStringConvertible, ExpressibleByStringLiteral {
 
-        let major: Int
-        let minor: Int
-        let patch: Int
+        public let major: Int
+        public let minor: Int
+        public let patch: Int
 
         public var description: String {
             "\(major).\(minor).\(patch)"
