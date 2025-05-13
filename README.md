@@ -26,6 +26,67 @@ let response = jellyfinClient.signIn(username: "jelly", password: "fin")
 
 Alternatively, you can use your own network stack with the generated **Entities** and **Paths**.
 
+## WebSocket
+
+The JellyfinSocket object manages a persistent WebSocket connection to the Jellyfin server, delivering real-time updates from subscriptions like sessions, scheduled tasks, and activity logs.
+
+```
+/// Create a WebSocket instance with all available parameters
+let socket = JellyfinSocket(
+    client: client,
+    userID: user.id,
+    isSupportsMediaControl: true,
+    supportedCommands: [.displayMessage, .play, .pause],
+    logLevel: .debug
+)
+
+/// Observe socket state changes
+let stateSubscription = socket.$state
+    .receive(on: DispatchQueue.main)
+    .sink { state in
+        switch state {
+        case .idle:
+            print("Socket is idle")
+        case .connecting:
+            print("Connecting...")
+        case .connected(let url):
+            print("Connected to: \(url)")
+        case .disconnecting:
+            print("Disconnecting...")
+        case .closed(let error):
+            print("Closed: \(String(describing: error))")
+        case .error(let error):
+            print("Socket error: \(error)")
+        }
+    }
+
+/// Observe parsed server messages
+let messageSubscription = socket.messages
+    .receive(on: DispatchQueue.main)
+    .sink { message in
+        switch message {
+        case .sessionsMessage(let msg):
+            print("Received session update: \(msg)")
+        case .outboundKeepAliveMessage:
+            print("Received keep-alive pong")
+        default:
+            break
+        }
+    }
+
+/// Connect the socket
+socket.connect()
+
+/// Subscribe to sessions feed with custom parameters
+socket.subscribe(.sessions(initialDelayMs: 1000, intervalMs: Int = 2000))
+
+/// Later, unsubscribe
+socket.unsubscribe(.sessions())
+
+/// Gracefully disconnect (optional; also triggered by deinit)
+socket.disconnect()
+```
+
 ## Quick Connect
 
 The `QuickConnect` object has been provided to perform the Quick Connect authorization flow.
