@@ -25,11 +25,9 @@ public struct ServerDiscoveryResponse: Codable, Hashable, Identifiable {
 
     /// A computed URL from the raw address.
     ///
-    /// This is force-unwrapped under the assumption that the `address` field
-    /// provided by Jellyfin is always a valid URL. If this proves unsafe in real-world data,
-    /// change this to optional or add validation.
-    public var url: URL {
-        URL(string: address)!
+    /// Falls back to `nil` if casting fails.
+    public var url: URL? {
+        URL(string: address)
     }
 
     /// Extracts the hostname from the address (e.g., "192.168.1.42").
@@ -41,9 +39,29 @@ public struct ServerDiscoveryResponse: Codable, Hashable, Identifiable {
 
     /// Extracts the port from the address (e.g., 8096).
     ///
-    /// Defaults to 7359 if no port is provided in the address string.
+    /// If no port is specified in the address, determines based on scheme:
+    /// - HTTPS: 443
+    /// - HTTP: 80
+    /// - Other/None: 8096 - Jellyfin default http
     public var port: Int {
-        URLComponents(string: address)?.port ?? 7359
+        guard let components = URLComponents(string: address) else {
+            return 8096
+        }
+
+        /// Return the port if found
+        if let port = components.port {
+            return port
+        }
+        
+        /// Check the scheme if there is no explicit port
+        switch components.scheme?.lowercased() {
+        case "https":
+            return 443
+        case "http":
+            return 80
+        default:
+            return 8096
+        }
     }
 
     /// Maps incoming JSON keys to Swift properties.
