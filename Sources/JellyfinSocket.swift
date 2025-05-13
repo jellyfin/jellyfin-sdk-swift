@@ -188,7 +188,7 @@ public final class JellyfinSocket: ObservableObject, @unchecked Sendable {
 
         // Launch detached task that doesn't depend on self
         // This is safe to do in deinit because it captures only the client reference
-        Task.detached { [client = self.client] in
+        Task.detached(priority: .background) { @Sendable [client = self.client] in
             await updateDeviceCapabilities(client: client, enable: false)
         }
     }
@@ -231,7 +231,7 @@ public final class JellyfinSocket: ObservableObject, @unchecked Sendable {
         }
 
         // Establish connection in a background task to avoid blocking the main thread
-        Task.detached { [weak self] in
+        Task.detached(priority: .background) { @Sendable [weak self] in
             guard let self = self else {
                 return
             }
@@ -577,7 +577,7 @@ public final class JellyfinSocket: ObservableObject, @unchecked Sendable {
             currentReconnectAttempts = 0
             
             // Update device capabilities in background to avoid blocking main thread
-            Task.detached { [weak self, client = self.client] in
+            Task.detached(priority: .background) { @Sendable [weak self, client = self.client] in
                 guard self != nil else { return }
                 await updateDeviceCapabilities(client: client, enable: true)
             }
@@ -733,7 +733,7 @@ public final class JellyfinSocket: ObservableObject, @unchecked Sendable {
                         self.logger.info("Reconnect cancelled due to state change or manual disconnect (main thread check).")
                         return
                     }
-                    Task.detached { [weak self] in
+                    Task.detached(priority: .background) { @Sendable [weak self] in
                         guard let self = self else { return }
                         await self.establishConnection()
                     }
