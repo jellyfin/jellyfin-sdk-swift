@@ -28,7 +28,7 @@ Alternatively, you can use your own network stack with the generated **Entities*
 
 ## WebSocket
 
-The JellyfinSocket object manages a persistent WebSocket connection to the Jellyfin server, delivering real-time updates from subscriptions like sessions, scheduled tasks, and activity logs.
+`JellyfinSocket` creates and manages a persistent WebSocket connection to the Jellyfin server, delivering real-time updates. Once connected, higher volumne endpoints can be subscribed to like sessions, scheduled tasks, or activity logs.
 
 ```
 /// Create a WebSocket instance with all available parameters
@@ -77,8 +77,8 @@ let messageSubscription = socket.messages
 /// Connect the socket
 socket.connect()
 
-/// Subscribe to sessions feed with custom parameters
-socket.subscribe(.sessions(initialDelayMs: 1000, intervalMs: Int = 2000))
+/// Subscribe to sessions feed immediately with updates every 2 seconds
+socket.subscribe(.sessions(initialDelayMs: 0, intervalMs: 2000))
 
 /// Later, unsubscribe
 socket.unsubscribe(.sessions())
