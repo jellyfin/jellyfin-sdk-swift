@@ -30,7 +30,7 @@ Alternatively, you can use your own network stack with the generated **Entities*
 
 `JellyfinSocket` creates and manages a persistent WebSocket connection to the Jellyfin server, delivering real-time updates. Once connected, higher volumne endpoints can be subscribed to like sessions, scheduled tasks, or activity logs.
 
-```
+```swift
 /// Create a WebSocket instance with all available parameters
 let socket = JellyfinSocket(
     client: client,
