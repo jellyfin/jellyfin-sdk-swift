@@ -16,7 +16,7 @@ public final class JellyfinSocket: ObservableObject, Sendable {
     // MARK: - Published Messages from Server
 
     /// Publisher for parsed server messages
-    public let serverMessagePublisher = PassthroughSubject<OutboundWebSocketMessage, Never>()
+    public let messages = PassthroughSubject<OutboundWebSocketMessage, Never>()
 
     // MARK: - Published Settings
 
@@ -624,7 +624,7 @@ public final class JellyfinSocket: ObservableObject, Sendable {
         do {
             let decodedServerMessage = try jsonDecoder.decode(OutboundWebSocketMessage.self, from: messageData)
             logger.info("Successfully decoded server message of type: \(decodedServerMessage.sessionMessageType?.rawValue ?? "UnknownOutbound")")
-            serverMessagePublisher.send(decodedServerMessage)
+            messages.send(decodedServerMessage)
 
             // Handle special message types
             switch decodedServerMessage {
