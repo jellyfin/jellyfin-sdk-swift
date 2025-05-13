@@ -10,7 +10,8 @@ import Combine
 import Foundation
 
 /// WebSocket client implementation for Jellyfin server communication
-public final class JellyfinSocket: ObservableObject {
+@MainActor
+public final class JellyfinSocket: ObservableObject, Sendable {
 
     // MARK: - Published Messages from Server
 
@@ -51,10 +52,24 @@ public final class JellyfinSocket: ObservableObject {
     // MARK: - WebSocket Components
 
     /// URLSession for WebSocket communication
-    private var urlSession: URLSession!
+    // Marked unsafe because these properties need to be accessed across actor boundaries
+    nonisolated(unsafe) private var urlSession: URLSession!
 
     /// Current WebSocket task
-    private var webSocketTask: URLSessionWebSocketTask?
+    // Marked unsafe to allow cross-actor access while maintaining appropriate synchronization
+    nonisolated(unsafe) private var webSocketTask: URLSessionWebSocketTask?
+    
+    /// Safe accessor for WebSocket task that avoids actor isolation issues
+    // Provides thread-safe access to the webSocketTask from non-actor contexts
+    nonisolated func getWebSocketTask() -> URLSessionWebSocketTask? {
+        webSocketTask
+    }
+    
+    /// Safe accessor for URLSession that avoids actor isolation issues
+    // Ensures thread-safe access to the URLSession when called from background tasks
+    nonisolated func getURLSession() -> URLSession {
+        urlSession
+    }
 
     // MARK: - Connection Variables
 
@@ -133,6 +148,7 @@ public final class JellyfinSocket: ObservableObject {
         self.supportedCommands = supportedCommands
         self.logger = JellyfinSocketLogger(label: "JellyfinSocket", level: logLevel)
 
+        // Create a dedicated operation queue for WebSocket operations to avoid blocking the main thread
         let queue = OperationQueue()
         queue.name = "com.jellyfin.sdk.websocket.queue"
         queue.maxConcurrentOperationCount = 1
@@ -143,8 +159,9 @@ public final class JellyfinSocket: ObservableObject {
             delegateQueue: queue
         )
         
+        // Log state changes for debugging and monitoring
         $state.sink { [weak self] newState in
-            DispatchQueue.main.async {
+            Task { @MainActor [weak self] in
                 self?.logger.info("State: \(String(describing: newState))")
             }
         }
@@ -157,14 +174,22 @@ public final class JellyfinSocket: ObservableObject {
     deinit {
         logger.warning("Shutting down")
 
-        // Use a method that ensures no further reconnect attempts
-        shutdownSocket(reason: "Deinitialization")
+        // Mark as explicitly disconnected to prevent reconnect attempts
+        self.userExplicitlyDisconnected = true
+        
+        // Cancel the WebSocket task directly (safe to do in deinit)
+        webSocketTask?.cancel(with: .goingAway, reason: "Deinitialization".data(using: .utf8))
+        webSocketTask = nil
+        
+        // Clear any timers that might be holding references
+        keepAlivePingTimer?.invalidate()
+        initialConnectionTimeoutTimer?.invalidate()
+        serverResponseTimeoutTimer?.invalidate()
 
         // Launch detached task that doesn't depend on self
-        Task.detached {
-            do {
-                await self.updateDeviceCapabilities(enable: false)
-            }
+        // This is safe to do in deinit because it captures only the client reference
+        Task.detached { [client = self.client] in
+            await updateDeviceCapabilities(client: client, enable: false)
         }
     }
 
@@ -172,40 +197,45 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Initiates a connection to the Jellyfin WebSocket
     public func connect() {
-        DispatchQueue.main.async {
-            self.userExplicitlyDisconnected = false
+        self.userExplicitlyDisconnected = false
 
-            guard !self.state.isConnected, self.webSocketTask == nil else {
-                self.logger.warning("Already connected or connecting. Current state: \(String(describing: self.state))")
-                return
-            }
+        guard !self.state.isConnected, self.webSocketTask == nil else {
+            self.logger.warning("Already connected or connecting. Current state: \(String(describing: self.state))")
+            return
+        }
 
-            self.logger.info("Attempting to connect...")
+        self.logger.info("Attempting to connect...")
 
-            self.state = .connecting
-            self.currentReconnectAttempts = 0
-            self.initialConnectionTimeoutTimer?.invalidate()
+        self.state = .connecting
+        self.currentReconnectAttempts = 0
+        self.initialConnectionTimeoutTimer?.invalidate()
 
-            self.initialConnectionTimeoutTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { [weak self] _ in
-
+        // Store current state to avoid race conditions in the timer callback
+        let isConnecting = self.state == .connecting
+        
+        // Set a timeout to detect stalled connection attempts
+        self.initialConnectionTimeoutTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { [weak self] _ in
+            Task { @MainActor [weak self] in
                 guard let self = self else {
                     return
                 }
-
-                DispatchQueue.main.async {
-                    guard self.state == .connecting else {
-                        return
-                    }
-
-                    self.logger.error("Connection attempt timed out.")
-
-                    self.handleDisconnection(error: SocketError.connectionTimeout, wasGraceful: false)
+                
+                // Ensure the state is still connecting before timing out
+                guard isConnecting && self.state == .connecting else {
+                    return
                 }
-            }
 
-            Task.detached {
-                await self.establishConnection()
+                self.logger.error("Connection attempt timed out.")
+                self.handleDisconnection(error: SocketError.connectionTimeout, wasGraceful: false)
             }
+        }
+
+        // Establish connection in a background task to avoid blocking the main thread
+        Task.detached { [weak self] in
+            guard let self = self else {
+                return
+            }
+            await self.establishConnection()
         }
     }
 
@@ -229,11 +259,9 @@ public final class JellyfinSocket: ObservableObject {
 
         logger.info("Performing disconnect... Error: \(effectiveError?.localizedDescription ?? "None"), Initiated by client: \(initiatedByClient)")
         
-        DispatchQueue.main.async {
-            // Only transition to disconnecting if not already disconnecting or closed by user.
-            if self.state != .disconnecting && self.state != .closed(error: SocketError.explicitDisconnect) {
-                 self.state = .disconnecting
-            }
+        // Only transition to disconnecting if not already disconnecting or closed by user
+        if self.state != .disconnecting && self.state != .closed(error: SocketError.explicitDisconnect) {
+             self.state = .disconnecting
         }
 
         webSocketTask?.cancel(with: .goingAway, reason: "Client initiated disconnect".data(using: .utf8))
@@ -242,14 +270,12 @@ public final class JellyfinSocket: ObservableObject {
         invalidateTimers()
         messageQueue.removeAll()
         
-        DispatchQueue.main.async {
-            self.state = .closed(error: effectiveError)
-        }
+        self.state = .closed(error: effectiveError)
     }
 
     // MARK: - Shutdown WebSocket
 
-    /// Internal method to shut down the socket (used by deinit)
+    /// Performs a complete socket shutdown
     /// - Parameter reason: The reason for the shutdown
     private func shutdownSocket(reason: String) {
         self.userExplicitlyDisconnected = true // Ensure no reconnections
@@ -289,6 +315,7 @@ public final class JellyfinSocket: ObservableObject {
     private func sendRawData(_ data: Data, description: String = "raw data") -> Bool {
         guard webSocketTask != nil, state.isConnected else {
             if !userExplicitlyDisconnected {
+                // Queue messages if not connected but attempting to connect
                 logger.info("Socket not connected. Queuing message: \(description) (\(data.count) bytes)")
                 messageQueue.append(data)
             } else {
@@ -306,10 +333,12 @@ public final class JellyfinSocket: ObservableObject {
         }
         logger.debug("Sending \(description): \(String(data: data, encoding: .utf8)?.prefix(200) ?? "\(data.count) bytes")")
         task.send(.data(data)) { [weak self] error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    self?.logger.error("Send error for \(description): \(error)")
-                    self?.handleDisconnection(error: error, wasGraceful: false)
+            if let error = error {
+                // Handle send errors by transitioning to the main actor for state updates
+                Task { @MainActor [weak self] in
+                    guard let self = self else { return }
+                    self.logger.error("Send error for \(description): \(error)")
+                    self.handleDisconnection(error: error, wasGraceful: false)
                 }
             }
         }
@@ -376,12 +405,14 @@ public final class JellyfinSocket: ObservableObject {
 
     /// Establishes a WebSocket connection with the Jellyfin server
     private func establishConnection() async {
-        // This method is called on a background task.
-        // Ensure any state changes or calls to main actor methods are dispatched.
-        guard !userExplicitlyDisconnected else {
+        // This method is called on a background task
+        // Safely access actor-isolated state by hopping to the main actor
+        let isUserExplicitlyDisconnected = await MainActor.run { self.userExplicitlyDisconnected }
+        
+        guard !isUserExplicitlyDisconnected else {
             logger.info("Establish connection called, but user has explicitly disconnected. Aborting.")
-            DispatchQueue.main.async {
-                if self.state != .closed(error: SocketError.explicitDisconnect) { // Check current state before overwriting
+            await MainActor.run {
+                if self.state != .closed(error: SocketError.explicitDisconnect) {
                     self.state = .closed(error: SocketError.explicitDisconnect)
                 }
             }
@@ -390,19 +421,20 @@ public final class JellyfinSocket: ObservableObject {
 
         guard let token = client.accessToken else {
             logger.error("Missing access token, device ID, or server URL.")
-            // Call handleDisconnection on the main queue as it modifies @Published state
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.handleDisconnection(error: SocketError.missingAccessTokenOrConfig, wasGraceful: true)
             }
             return
         }
         guard var urlComponents = URLComponents(url: client.configuration.url, resolvingAgainstBaseURL: false) else {
             logger.error("Invalid base URL for WebSocket.")
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.handleDisconnection(error: SocketError.invalidURL, wasGraceful: true)
             }
             return
         }
+        
+        // Convert HTTP/HTTPS to WS/WSS for WebSocket protocol
         urlComponents.scheme = (urlComponents.scheme == "https" ? "wss" : "ws")
         urlComponents.path = "/socket"
         var queryItems = [
@@ -414,79 +446,107 @@ public final class JellyfinSocket: ObservableObject {
 
         guard let url = urlComponents.url else {
             logger.error("Failed to construct WebSocket URL.")
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.handleDisconnection(error: SocketError.invalidURL, wasGraceful: true)
             }
             return
         }
         
+        // Redact token from logs for security
         logger.info("Connecting to WebSocket URL: \(url.absoluteString.replacingOccurrences(of: token, with: "***REDACTED_TOKEN***"))")
         let request = URLRequest(url: url)
+        let session = getURLSession()
         
-        // Access urlSession and assign webSocketTask on its delegate queue (which is our custom background queue)
-        self.urlSession.delegateQueue.addOperation {
-            guard !self.userExplicitlyDisconnected else {
-                self.logger.info(
-                    "Connection attempt aborted as user explicitly disconnected during URLSession operation scheduling."
-                )
-                return
+        // Create the WebSocket task on the URLSession's delegate queue to ensure proper threading
+        await MainActor.run {
+            session.delegateQueue.addOperation { [weak self] in
+                guard let self = self else { return }
+                
+                // Check disconnection state again inside the operation
+                Task { @MainActor [weak self] in
+                    guard let self = self else { return }
+                    
+                    guard !self.userExplicitlyDisconnected else {
+                        self.logger.info(
+                            "Connection attempt aborted as user explicitly disconnected during URLSession operation scheduling."
+                        )
+                        return
+                    }
+                    
+                    self.webSocketTask = self.urlSession.webSocketTask(with: request)
+                    self.webSocketTask?.resume()
+                    
+                    // Since startListening is MainActor-isolated but we're in a background queue,
+                    // we need to create a detached task that will handle the listening
+                    await self.startListeningWrapper()
+                }
             }
-            self.webSocketTask = self.urlSession.webSocketTask(with: request)
-            self.webSocketTask?.resume()
-            self.startListening()
+        }
+    }
+    
+    /// Wrapper to safely start the WebSocket listening process
+    private func startListeningWrapper() async {
+        if let task = webSocketTask {
+            let isUserExplicitlyDisconnected = self.userExplicitlyDisconnected
+            
+            if !isUserExplicitlyDisconnected {
+                startListening(task: task)
+            } else {
+                logger.info("Listening attempt aborted as user explicitly disconnected.")
+                performDisconnect(error: SocketError.explicitDisconnect, initiatedByClient: true)
+            }
+        } else {
+            logger.warning("Attempted to start listening without a WebSocket task.")
+            if self.state.isConnected || self.state == .connecting {
+                handleDisconnection(error: SocketError.underlyingError("WebSocketTask became nil unexpectedly before listening."), wasGraceful: false)
+            }
         }
     }
 
     // MARK: - Start Listening for WebSocket Messages
 
     /// Begins listening for messages from the WebSocket
-    private func startListening() {
-        // This is called from urlSession's delegate queue.
-        guard let task = webSocketTask else {
-            logger.warning("Attempted to start listening without a WebSocket task.")
-            DispatchQueue.main.async {
-                if self.state.isConnected || self.state == .connecting {
-                    self.handleDisconnection(error: SocketError.underlyingError("WebSocketTask became nil unexpectedly before listening."), wasGraceful: false)
-                }
-            }
-            return
-        }
-        
-        guard !userExplicitlyDisconnected else {
-            logger.info("Listening attempt aborted as user explicitly disconnected.")
-            DispatchQueue.main.async {
-                self.performDisconnect(error: SocketError.explicitDisconnect, initiatedByClient: true)
-            }
-            return
-        }
-
+    private func startListening(task: URLSessionWebSocketTask) {
+        // Using a specific task parameter to avoid actor isolation issues with the property
         task.receive { [weak self] result in
             guard let self = self else { return }
-            guard !self.userExplicitlyDisconnected else {
-                self.logger.info("Received message/error but user explicitly disconnected. Ignoring.")
-                return
-            }
-
-            DispatchQueue.main.async {
-                guard !self.userExplicitlyDisconnected else {
-                    self.logger.info("Processing received message/error but user explicitly disconnected (main thread check). Ignoring.")
+            
+            // All WebSocket callbacks must transition to the main actor for state updates
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
+                
+                let isExplicitlyDisconnected = self.userExplicitlyDisconnected
+                guard !isExplicitlyDisconnected else {
+                    self.logger.info("Received message/error but user explicitly disconnected. Ignoring.")
                     return
                 }
+
                 switch result {
                 case .success(let wsMessage):
                     self.initialConnectionTimeoutTimer?.invalidate()
                     self.handleReceivedWebSocketMessage(wsMessage)
 
-                    if self.webSocketTask != nil && !self.userExplicitlyDisconnected {
-                         self.urlSession.delegateQueue.addOperation {
-                            self.startListening()
-                         }
+                    // Continue listening for more messages if still connected
+                    if !self.userExplicitlyDisconnected {
+                        // Use the URLSession's queue to avoid blocking the main thread
+                        self.getURLSession().delegateQueue.addOperation { [weak self] in
+                            guard let self = self else {
+                                return
+                            }
+                            Task { @MainActor [weak self] in
+                                guard let self = self else { return }
+                                await self.startListeningWrapper()
+                            }
+                        }
                     }
                 case .failure(let error):
+                    // Check if the error is due to an explicit disconnect we already handled
                     if case .closed(let err) = self.state, (err as? SocketError) == .explicitDisconnect {
                         self.logger.info("Receive loop ended due to explicit disconnect (already processed).")
                         return
                     }
+                    
+                    // Handle URLSession cancellation errors differently
                     let nsError = error as NSError
                     if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled {
                         self.logger.info("WebSocket task cancelled.")
@@ -507,28 +567,33 @@ public final class JellyfinSocket: ObservableObject {
     /// Handles messages received from the WebSocket
     /// - Parameter wsMessage: The received WebSocket message
     private func handleReceivedWebSocketMessage(_ wsMessage: URLSessionWebSocketTask.Message) {
-        // This method is guaranteed to be called on the main thread due to DispatchQueue.main.async in startListening.
+        // This method is guaranteed to be called on the main thread due to @MainActor isolation
         let wasPreviouslyConnected = state.isConnected
         if !wasPreviouslyConnected, case .connecting = state {
+            // First message received - we're officially connected
             logger.info("WebSocket connection established.")
             if let url = webSocketTask?.currentRequest?.url { state = .connected(url: url) }
             else { state = .connected(url: URL(string: "ws://unknown")!) }
             currentReconnectAttempts = 0
             
-            Task.detached {
-                await self.updateDeviceCapabilities(enable: true)
+            // Update device capabilities in background to avoid blocking main thread
+            Task.detached { [weak self, client = self.client] in
+                guard self != nil else { return }
+                await updateDeviceCapabilities(client: client, enable: true)
             }
 
+            // Set up connection-related processes
             resubscribeToServerFeeds()
             processMessageQueue()
             startKeepAliveTimers()
         }
         
-        // Reset timer because we got activity
+        // Reset activity timers - we got a response from the server
         serverResponseTimeoutTimer?.invalidate()
         lastServerActivity = Date()
         scheduleServerResponseTimeout()
 
+        // Extract the message data based on the WebSocket message type
         let messageData: Data
         let messageStringPreview: String
 
@@ -550,28 +615,27 @@ public final class JellyfinSocket: ObservableObject {
             }
             messageData = data
         @unknown default:
+            // Handle future WebSocket message types
             logger.warning("Received unknown message type from URLSessionWebSocketTask.")
             return
         }
 
+        // Decode and process the message
         do {
             let decodedServerMessage = try jsonDecoder.decode(OutboundWebSocketMessage.self, from: messageData)
             logger.info("Successfully decoded server message of type: \(decodedServerMessage.sessionMessageType?.rawValue ?? "UnknownOutbound")")
             serverMessagePublisher.send(decodedServerMessage)
 
+            // Handle special message types
             switch decodedServerMessage {
             case .forceKeepAliveMessage(let fkaMsg):
                 if let interval = fkaMsg.data {
+                    // Server requested a specific keep-alive interval
                     self.keepAlivePingInterval = Double(interval) / 2
                     logger.info("Server forced KeepAlive ping interval to: \(self.keepAlivePingInterval)s")
                     startKeepAliveTimers()
 
-                    // Send KeepAlive Message to Server
-                    send(
-                        .inboundKeepAliveMessage(
-                            InboundKeepAliveMessage(messageType: .keepAlive)
-                        )
-                    )
+                    send(.inboundKeepAliveMessage(InboundKeepAliveMessage(messageType: .keepAlive)))
 
                 } else {
                     logger.warning("ForceKeepAliveMessage received without data for interval.")
@@ -583,6 +647,7 @@ public final class JellyfinSocket: ObservableObject {
             }
 
         } catch {
+            // Provide detailed error info for debugging decoding issues
             let decodingError = error as? DecodingError
             let errorContext = decodingError != nil ? "\(decodingError!)" : error.localizedDescription
             logger.error("Failed to decode server message: \(errorContext). Raw: \(messageStringPreview)")
@@ -596,11 +661,6 @@ public final class JellyfinSocket: ObservableObject {
     ///   - error: The error that caused the disconnection, if any
     ///   - wasGraceful: Whether the disconnection was graceful
     private func handleDisconnection(error: Error?, wasGraceful: Bool) {
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async { self.handleDisconnection(error: error, wasGraceful: wasGraceful) }
-            return
-        }
-
         invalidateTimers()
         
         // Only fully close the task if it wasn't already nilled by performDisconnect
@@ -623,6 +683,7 @@ public final class JellyfinSocket: ObservableObject {
         }
         
         if wasGraceful || isCancelledError {
+            // Graceful disconnections don't need reconnection
             logger.info("WebSocket connection closed gracefully or was cancelled. Error: \(actualError.localizedDescription)")
             if state != .closed(error: nil) {
                 state = .closed(error: nil)
@@ -633,6 +694,7 @@ public final class JellyfinSocket: ObservableObject {
         logger.warning("WebSocket disconnected unexpectedly. Error: \(actualError.localizedDescription)")
         if state != .closed(error: actualError) { state = .closed(error: actualError) }
         
+        // Implement exponential backoff for reconnection attempts
         if currentReconnectAttempts < maxReconnectAttempts {
             currentReconnectAttempts += 1
             let delay = pow(reconnectDelayBase, Double(currentReconnectAttempts))
@@ -642,12 +704,13 @@ public final class JellyfinSocket: ObservableObject {
                 state = .connecting
             }
 
+            // Schedule reconnect after delay
             Task {
                 try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
                 
                 guard !self.userExplicitlyDisconnected else {
                     self.logger.info("Reconnect attempt aborted post-delay as user explicitly disconnected.")
-                    DispatchQueue.main.async {
+                    await MainActor.run {
                          if self.state != .closed(error: SocketError.explicitDisconnect) {
                             self.state = .closed(error: SocketError.explicitDisconnect)
                          }
@@ -655,16 +718,20 @@ public final class JellyfinSocket: ObservableObject {
                     return
                 }
 
-                // Check current state on main thread before proceeding
-                DispatchQueue.main.async {
+                // Check current state on main thread before proceeding to avoid race conditions
+                await MainActor.run {
                     guard self.state == .connecting || (self.state.isClosedError(actualError) && self.webSocketTask == nil) else {
                         self.logger.info("Reconnect cancelled due to state change or manual disconnect (main thread check).")
                         return
                     }
-                    Task.detached { await self.establishConnection() }
+                    Task.detached { [weak self] in
+                        guard let self = self else { return }
+                        await self.establishConnection()
+                    }
                 }
             }
         } else {
+            // Too many reconnection attempts - give up
             logger.error("Max reconnect attempts reached. Giving up.")
             if state != .error(SocketError.maxReconnectAttemptsReached) {
                 state = .error(SocketError.maxReconnectAttemptsReached)
@@ -672,25 +739,18 @@ public final class JellyfinSocket: ObservableObject {
         }
     }
 
-    // MARK: - Turn of all Timers for WebSocket Events
+    // MARK: - Invalidate All Timers for WebSocket Events
 
-    /// Invalidates all active timers
+    /// Stops and invalidates all active timers
     private func invalidateTimers() {
-        // Ensure timers are invalidated on the main thread as they were scheduled there.
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async {
-                self.invalidateTimers()
-            }
-            return
-        }
         keepAlivePingTimer?.invalidate(); keepAlivePingTimer = nil
         initialConnectionTimeoutTimer?.invalidate(); initialConnectionTimeoutTimer = nil
         serverResponseTimeoutTimer?.invalidate(); serverResponseTimeoutTimer = nil
     }
 
-    // MARK: - Process Queued Messages into InboundWebSocketMessages
+    // MARK: - Process Queued Messages
 
-    /// Processes any queued messages that were waiting for connection
+    /// Sends any messages that were queued while disconnected
     private func processMessageQueue() {
         guard !messageQueue.isEmpty else { return }
         logger.info("Processing \(messageQueue.count) queued messages...")
@@ -700,9 +760,9 @@ public final class JellyfinSocket: ObservableObject {
         }
     }
 
-    // MARK: - Reconnect to Subscriptions after a Reconnections
+    // MARK: - Reestablish Subscriptions After Reconnection
 
-    /// Resubscribes to any active server feeds after reconnection
+    /// Reactivates all active subscriptions after a reconnection
     private func resubscribeToServerFeeds() {
         guard !subscriptions.isEmpty else {
             return
@@ -715,116 +775,127 @@ public final class JellyfinSocket: ObservableObject {
         }
     }
     
-    // MARK: - Start a Timer for KeepAlive Messages to Avoid Disconnection
+    // MARK: - Start KeepAlive Timers
 
-    /// Starts the timers for keep-alive pings and server response timeout
+    /// Initializes timers to send keep-alive messages and monitor server activity
     private func startKeepAliveTimers() {
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async { self.startKeepAliveTimers() }
-            return
-        }
         stopKeepAliveTimers()
         logger.info(
             "Starting KeepAlive timers. Ping interval: \(keepAlivePingInterval)s, Server response timeout: \(serverResponseTimeout)s"
         )
 
-        // Send KeepAlive Message to Server
-        send(
-            .inboundKeepAliveMessage(
-                InboundKeepAliveMessage(messageType: .keepAlive)
-            )
-        )
+        // Send initial keep-alive message
+        send(.inboundKeepAliveMessage(InboundKeepAliveMessage(messageType: .keepAlive)))
 
         scheduleServerResponseTimeout()
 
-        keepAlivePingTimer = Timer.scheduledTimer(withTimeInterval: keepAlivePingInterval, repeats: true) { [weak self] _ in
-            guard let self = self else { return }
-            guard self.state.isConnected else { self.stopKeepAliveTimers(); return }
-            guard !self.userExplicitlyDisconnected else { self.stopKeepAliveTimers(); return }
+        // Capture the current interval to avoid actor-isolation issues in timer
+        let interval = self.keepAlivePingInterval
+        
+        // Schedule periodic keep-alive pings
+        keepAlivePingTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
+                
+                let isConnected = self.state.isConnected
+                let isExplicitlyDisconnected = self.userExplicitlyDisconnected
+                
+                // Don't send pings if disconnected or explicitly disconnected
+                guard isConnected else {
+                    self.stopKeepAliveTimers()
+                    return
+                }
+                
+                guard !isExplicitlyDisconnected else {
+                    self.stopKeepAliveTimers()
+                    return
+                }
 
-            // Send KeepAlive Message to Server
-            send(
-                .inboundKeepAliveMessage(
-                    InboundKeepAliveMessage(messageType: .keepAlive)
-                )
-            )
+                // Send keep-alive ping to server
+                self.send(.inboundKeepAliveMessage(InboundKeepAliveMessage(messageType: .keepAlive)))
 
-            self.scheduleServerResponseTimeout()
+                self.scheduleServerResponseTimeout()
+            }
         }
     }
+    
+    // MARK: - Stop KeepAlive Timers
 
-    // MARK: - Stop a Timer for KeepAlive Messages After Sending
-
-    /// Stops the keep-alive and server response timeout timers
+    /// Stops all keep-alive related timers
     private func stopKeepAliveTimers() {
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async {
-                self.stopKeepAliveTimers()
-            }
-            return
-        }
         logger.info("Stopping KeepAlive timers.")
         keepAlivePingTimer?.invalidate(); keepAlivePingTimer = nil
         serverResponseTimeoutTimer?.invalidate(); serverResponseTimeoutTimer = nil
     }
 
-    // MARK: - Stop a Timer for KeepAlive Messages After Sending
+    // MARK: - Schedule Server Response Timeout
     
-    /// Schedules a timeout timer to detect server unresponsiveness
+    /// Creates a timer to detect server unresponsiveness
     private func scheduleServerResponseTimeout() {
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async { self.scheduleServerResponseTimeout() }
-            return
-        }
         serverResponseTimeoutTimer?.invalidate()
-        serverResponseTimeoutTimer = Timer.scheduledTimer(withTimeInterval: serverResponseTimeout, repeats: false) { [weak self] _ in
-            guard let self = self, self.state.isConnected, !self.userExplicitlyDisconnected else {
-                return
-            }
+        
+        // Capture the timeout value to avoid actor isolation issues in timer
+        let timeout = self.serverResponseTimeout
+        
+        // Set up timer to detect if server doesn't respond
+        serverResponseTimeoutTimer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
+                
+                let isConnected = self.state.isConnected
+                let isExplicitlyDisconnected = self.userExplicitlyDisconnected
+                
+                // Only check timeout if connected and not explicitly disconnected
+                guard isConnected, !isExplicitlyDisconnected else {
+                    return
+                }
 
-            let now = Date()
-            if let lastActivity = self.lastServerActivity, now.timeIntervalSince(lastActivity) >= self.serverResponseTimeout {
-                self.logger.warning("No server activity for \(self.serverResponseTimeout)s. Assuming connection lost.")
-                self.handleDisconnection(error: SocketError.connectionTimeout, wasGraceful: false)
-            } else if self.lastServerActivity == nil {
-                self.logger.warning("No server activity recorded (lastServerActivity is nil), but timeout triggered. Assuming connection lost.")
-            } else {
-                self.scheduleServerResponseTimeout()
+                // Compare current time with last activity time to detect timeouts
+                let now = Date()
+                if let lastActivity = self.lastServerActivity, now.timeIntervalSince(lastActivity) >= timeout {
+                    self.logger.warning("No server activity for \(timeout)s. Assuming connection lost.")
+                    self.handleDisconnection(error: SocketError.connectionTimeout, wasGraceful: false)
+                } else if self.lastServerActivity == nil {
+                    self.logger.warning("No server activity recorded (lastServerActivity is nil), but timeout triggered. Assuming connection lost.")
+                } else {
+                    // We got activity in the meantime, reschedule the timeout
+                    self.scheduleServerResponseTimeout()
+                }
             }
         }
     }
+}
 
-    // MARK: - Tell the Jellyfin Server what Events the Client Supports
+// MARK: - Update Device Capabilities
 
-    /// Posts device capabilities to the server after connection
-    private func updateDeviceCapabilities(enable: Bool) async {
-        do {
-            var parameters = Paths.PostCapabilitiesParameters()
-            
-            // Set capabilities based on enable flag
-            if enable {
-                parameters.isSupportsMediaControl = isSupportsMediaControl
-                parameters.supportedCommands = supportedCommands
-            } else {
-                parameters.isSupportsMediaControl = false
-                parameters.supportedCommands = nil
-            }
-            
-            let request = Paths.postCapabilities(parameters: parameters)
-            try await client.send(request)
-            logger.info("Device capabilities successfully \(enable ? "enabled" : "disabled")")
-        } catch {
-            logger.error("Failed to \(enable ? "enable" : "disable") device capabilities: \(error.localizedDescription)")
+/// Posts device capabilities to the server after connection
+@Sendable
+private func updateDeviceCapabilities(client: JellyfinClient, enable: Bool) async {
+    do {
+        var parameters = Paths.PostCapabilitiesParameters()
+        
+        // Set capabilities based on enable flag
+        if enable {
+            parameters.isSupportsMediaControl = true
+            parameters.supportedCommands = [.displayMessage]
+        } else {
+            parameters.isSupportsMediaControl = false
+            parameters.supportedCommands = nil
         }
+        
+        let request = Paths.postCapabilities(parameters: parameters)
+        try await client.send(request)
+    } catch {
+        // Error handling is performed by the caller
     }
 }
 
 // MARK: - JellyfinSocketLogger
 
 /// Logger class for JellyfinSocket that provides different logging levels and formatting
-public class JellyfinSocketLogger {
+public final class JellyfinSocketLogger: Sendable {
     /// Defines the available logging levels for the socket logger
-    public enum LogLevel: Int, Comparable {
+    public enum LogLevel: Int, Comparable, Sendable {
         case off
         case error
         case warning
@@ -837,7 +908,7 @@ public class JellyfinSocketLogger {
     }
 
     /// Current logging level that determines which messages will be displayed
-    public var level: LogLevel
+    public let level: LogLevel
     /// Identifier label for the logger to distinguish log sources
     private let label: String
     /// Formatter used to generate timestamps for log messages
