@@ -10,12 +10,12 @@ import Combine
 import Foundation
 
 /// WebSocket client implementation for Jellyfin server communication
-@MainActor
-public final class JellyfinSocket: ObservableObject, Sendable {
+public final class JellyfinSocket: ObservableObject, @unchecked Sendable {
 
     // MARK: - Published Messages from Server
 
     /// Publisher for parsed server messages
+    @MainActor
     public let messages = PassthroughSubject<OutboundWebSocketMessage, Never>()
 
     // MARK: - Published Settings
@@ -624,7 +624,8 @@ public final class JellyfinSocket: ObservableObject, Sendable {
         do {
             let decodedServerMessage = try jsonDecoder.decode(OutboundWebSocketMessage.self, from: messageData)
             logger.info("Successfully decoded server message of type: \(decodedServerMessage.sessionMessageType?.rawValue ?? "UnknownOutbound")")
-            messages.send(decodedServerMessage)
+
+            publish(decodedServerMessage)
 
             // Handle special message types
             switch decodedServerMessage {
@@ -651,6 +652,14 @@ public final class JellyfinSocket: ObservableObject, Sendable {
             let decodingError = error as? DecodingError
             let errorContext = decodingError != nil ? "\(decodingError!)" : error.localizedDescription
             logger.error("Failed to decode server message: \(errorContext). Raw: \(messageStringPreview)")
+        }
+    }
+
+    // MARK: - Safely Publish the `OutboundWebSocketMessage` to `Messages`
+
+    @Sendable private func publish(_ message: OutboundWebSocketMessage) {
+        Task { @MainActor in
+            self.messages.send(message)
         }
     }
 
