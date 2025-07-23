@@ -18,6 +18,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/kean/Get", from: "2.1.6"),
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0"),
+        .package(url: "https://github.com/apple/swift-nio-transport-services.git", from: "1.17.2"),
     ],
     targets: [
         .target(
@@ -25,6 +26,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Get", package: "Get"),
                 .product(name: "URLQueryEncoder", package: "URLQueryEncoder"),
+                .product(name: "NIOTransportServices", package: "swift-nio-transport-services"),
             ],
             path: "Sources",
             exclude: [
