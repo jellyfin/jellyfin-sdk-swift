@@ -57,11 +57,14 @@ public enum OutboundWebSocketMessage: Codable, Hashable {
         case "Play": self = try .playMessage(container.decode(PlayMessage.self))
         case "Playstate": self = try .playstateMessage(container.decode(PlaystateMessage.self))
         case "PackageInstallationCancelled": self = try .pluginInstallationCancelledMessage(container
-                .decode(PluginInstallationCancelledMessage.self))
+                .decode(PluginInstallationCancelledMessage.self)
+            )
         case "PackageInstallationCompleted": self = try .pluginInstallationCompletedMessage(container
-                .decode(PluginInstallationCompletedMessage.self))
+                .decode(PluginInstallationCompletedMessage.self)
+            )
         case "PackageInstallationFailed": self = try .pluginInstallationFailedMessage(container
-                .decode(PluginInstallationFailedMessage.self))
+                .decode(PluginInstallationFailedMessage.self)
+            )
         case "PackageInstalling": self = try .pluginInstallingMessage(container.decode(PluginInstallingMessage.self))
         case "PackageUninstalled": self = try .pluginUninstalledMessage(container.decode(PluginUninstalledMessage.self))
         case "RefreshProgress": self = try .refreshProgressMessage(container.decode(RefreshProgressMessage.self))
