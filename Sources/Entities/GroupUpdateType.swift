@@ -18,7 +18,5 @@ public enum GroupUpdateType: String, Codable, CaseIterable {
     case playQueue = "PlayQueue"
     case notInGroup = "NotInGroup"
     case groupDoesNotExist = "GroupDoesNotExist"
-    case createGroupDenied = "CreateGroupDenied"
-    case joinGroupDenied = "JoinGroupDenied"
     case libraryAccessDenied = "LibraryAccessDenied"
 }

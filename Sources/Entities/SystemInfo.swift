@@ -11,6 +11,8 @@ import Foundation
 /// Class SystemInfo.
 public struct SystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the cache path.
+    ///
+    /// - warning: Deprecated.
     public var cachePath: String?
     /// - warning: Deprecated.
     public var canLaunchWebBrowser: Bool
@@ -33,13 +35,19 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the id.
     public var id: String?
     /// Gets or sets the internal metadata path.
+    ///
+    /// - warning: Deprecated.
     public var internalMetadataPath: String?
     public var isShuttingDown: Bool?
     /// Gets or sets the items by name path.
+    ///
+    /// - warning: Deprecated.
     public var itemsByNamePath: String?
     /// Gets or sets the local address.
     public var localAddress: String?
     /// Gets or sets the log path.
+    ///
+    /// - warning: Deprecated.
     public var logPath: String?
     /// Gets or sets the operating system.
     ///
@@ -54,6 +62,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
     /// Gets or sets the product name. This is the AssemblyProduct name.
     public var productName: String?
     /// Gets or sets the program data path.
+    ///
+    /// - warning: Deprecated.
     public var programDataPath: String?
     /// Gets or sets the name of the server.
     public var serverName: String?
@@ -64,10 +74,14 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
     /// - warning: Deprecated.
     public var systemArchitecture: String?
     /// Gets or sets the transcode path.
+    ///
+    /// - warning: Deprecated.
     public var transcodingTempPath: String?
     /// Gets or sets the server version.
     public var version: String?
     /// Gets or sets the web UI resources path.
+    ///
+    /// - warning: Deprecated.
     public var webPath: String?
     /// Gets or sets the web socket port number.
     public var webSocketPortNumber: Int?

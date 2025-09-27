@@ -12,9 +12,8 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Get person remote search.
-    static func getPersonRemoteSearchResults(
-        _ body: JellyfinAPI
-            .PersonLookupInfoRemoteSearchQuery
+    static func getPersonRemoteSearchResults(_ body: JellyfinAPI
+        .PersonLookupInfoRemoteSearchQuery
     ) -> Request<[JellyfinAPI.RemoteSearchResult]> {
         Request(path: "/Items/RemoteSearch/Person", method: "POST", body: body, id: "GetPersonRemoteSearchResults")
     }

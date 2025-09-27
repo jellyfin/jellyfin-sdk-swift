@@ -8,12 +8,17 @@
 
 import Foundation
 
-/// Group update without data.
+/// Represents the list of possible group update types
 public enum GroupUpdate: Codable, Hashable {
-    case groupInfoDtoGroupUpdate(GroupInfoDtoGroupUpdate)
-    case groupStateUpdateGroupUpdate(GroupStateUpdateGroupUpdate)
-    case stringGroupUpdate(StringGroupUpdate)
-    case playQueueUpdateGroupUpdate(PlayQueueUpdateGroupUpdate)
+    case syncPlayGroupDoesNotExistUpdate(SyncPlayGroupDoesNotExistUpdate)
+    case syncPlayGroupJoinedUpdate(SyncPlayGroupJoinedUpdate)
+    case syncPlayGroupLeftUpdate(SyncPlayGroupLeftUpdate)
+    case syncPlayLibraryAccessDeniedUpdate(SyncPlayLibraryAccessDeniedUpdate)
+    case syncPlayNotInGroupUpdate(SyncPlayNotInGroupUpdate)
+    case syncPlayPlayQueueUpdate(SyncPlayPlayQueueUpdate)
+    case syncPlayStateUpdate(SyncPlayStateUpdate)
+    case syncPlayUserJoinedUpdate(SyncPlayUserJoinedUpdate)
+    case syncPlayUserLeftUpdate(SyncPlayUserLeftUpdate)
 
     public init(from decoder: Decoder) throws {
 
@@ -25,19 +30,19 @@ public enum GroupUpdate: Codable, Hashable {
         let discriminatorValue = try container.decode(Discriminator.self)._Type
 
         switch discriminatorValue {
-        case "GroupJoined": self = try .groupInfoDtoGroupUpdate(container.decode(GroupInfoDtoGroupUpdate.self))
-        case "StateUpdate": self = try .groupStateUpdateGroupUpdate(container.decode(GroupStateUpdateGroupUpdate.self))
-        case "GroupDoesNotExist": self = try .stringGroupUpdate(container.decode(StringGroupUpdate.self))
-        case "GroupLeft": self = try .stringGroupUpdate(container.decode(StringGroupUpdate.self))
-        case "LibraryAccessDenied": self = try .stringGroupUpdate(container.decode(StringGroupUpdate.self))
-        case "NotInGroup": self = try .stringGroupUpdate(container.decode(StringGroupUpdate.self))
-        case "UserJoined": self = try .stringGroupUpdate(container.decode(StringGroupUpdate.self))
-        case "UserLeft": self = try .stringGroupUpdate(container.decode(StringGroupUpdate.self))
-        case "PlayQueue": self = try .playQueueUpdateGroupUpdate(container.decode(PlayQueueUpdateGroupUpdate.self))
+        case "GroupDoesNotExist": self = try .syncPlayGroupDoesNotExistUpdate(container.decode(SyncPlayGroupDoesNotExistUpdate.self))
+        case "GroupJoined": self = try .syncPlayGroupJoinedUpdate(container.decode(SyncPlayGroupJoinedUpdate.self))
+        case "GroupLeft": self = try .syncPlayGroupLeftUpdate(container.decode(SyncPlayGroupLeftUpdate.self))
+        case "LibraryAccessDenied": self = try .syncPlayLibraryAccessDeniedUpdate(container.decode(SyncPlayLibraryAccessDeniedUpdate.self))
+        case "NotInGroup": self = try .syncPlayNotInGroupUpdate(container.decode(SyncPlayNotInGroupUpdate.self))
+        case "PlayQueue": self = try .syncPlayPlayQueueUpdate(container.decode(SyncPlayPlayQueueUpdate.self))
+        case "StateUpdate": self = try .syncPlayStateUpdate(container.decode(SyncPlayStateUpdate.self))
+        case "UserJoined": self = try .syncPlayUserJoinedUpdate(container.decode(SyncPlayUserJoinedUpdate.self))
+        case "UserLeft": self = try .syncPlayUserLeftUpdate(container.decode(SyncPlayUserLeftUpdate.self))
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,
-                debugDescription: "Discriminator value '\(discriminatorValue)' does not match any expected values (GroupJoined, StateUpdate, GroupDoesNotExist, GroupLeft, LibraryAccessDenied, NotInGroup, UserJoined, UserLeft, PlayQueue)."
+                debugDescription: "Discriminator value '\(discriminatorValue)' does not match any expected values (GroupDoesNotExist, GroupJoined, GroupLeft, LibraryAccessDenied, NotInGroup, PlayQueue, StateUpdate, UserJoined, UserLeft)."
             )
         }
     }
@@ -45,10 +50,15 @@ public enum GroupUpdate: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case let .groupInfoDtoGroupUpdate(value): try container.encode(value)
-        case let .groupStateUpdateGroupUpdate(value): try container.encode(value)
-        case let .stringGroupUpdate(value): try container.encode(value)
-        case let .playQueueUpdateGroupUpdate(value): try container.encode(value)
+        case let .syncPlayGroupDoesNotExistUpdate(value): try container.encode(value)
+        case let .syncPlayGroupJoinedUpdate(value): try container.encode(value)
+        case let .syncPlayGroupLeftUpdate(value): try container.encode(value)
+        case let .syncPlayLibraryAccessDeniedUpdate(value): try container.encode(value)
+        case let .syncPlayNotInGroupUpdate(value): try container.encode(value)
+        case let .syncPlayPlayQueueUpdate(value): try container.encode(value)
+        case let .syncPlayStateUpdate(value): try container.encode(value)
+        case let .syncPlayUserJoinedUpdate(value): try container.encode(value)
+        case let .syncPlayUserLeftUpdate(value): try container.encode(value)
         }
     }
 }

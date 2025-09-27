@@ -12,23 +12,28 @@ import Foundation
 public struct ParentalRating: Codable, Hashable {
     /// Gets or sets the name.
     public var name: String?
+    /// Gets or sets the rating score.
+    public var ratingScore: ParentalRatingScore?
     /// Gets or sets the value.
     public var value: Int?
 
-    public init(name: String? = nil, value: Int? = nil) {
+    public init(name: String? = nil, ratingScore: ParentalRatingScore? = nil, value: Int? = nil) {
         self.name = name
+        self.ratingScore = ratingScore
         self.value = value
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.ratingScore = try values.decodeIfPresent(ParentalRatingScore.self, forKey: "RatingScore")
         self.value = try values.decodeIfPresent(Int.self, forKey: "Value")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(name, forKey: "Name")
+        try values.encodeIfPresent(ratingScore, forKey: "RatingScore")
         try values.encodeIfPresent(value, forKey: "Value")
     }
 }

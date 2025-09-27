@@ -12,6 +12,7 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Reports that a session has begun playing an item.
+    @available(*, deprecated, message: "Deprecated")
     static func onPlaybackStart(itemID: String, parameters: OnPlaybackStartParameters? = nil) -> Request<Void> {
         Request(path: "/PlayingItems/\(itemID)", method: "POST", query: parameters?.asQuery, id: "OnPlaybackStart")
     }

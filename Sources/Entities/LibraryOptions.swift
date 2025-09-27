@@ -35,7 +35,7 @@ public struct LibraryOptions: Codable, Hashable {
     public var isExtractTrickplayImagesDuringLibraryScan: Bool?
     public var localMetadataReaderOrder: [String]?
     public var lyricFetcherOrder: [String]?
-    public var mediaSegmentProvideOrder: [String]?
+    public var mediaSegmentProviderOrder: [String]?
     /// Gets or sets the metadata country code.
     public var metadataCountryCode: String?
     public var metadataSavers: [String]?
@@ -81,7 +81,7 @@ public struct LibraryOptions: Codable, Hashable {
         isExtractTrickplayImagesDuringLibraryScan: Bool? = nil,
         localMetadataReaderOrder: [String]? = nil,
         lyricFetcherOrder: [String]? = nil,
-        mediaSegmentProvideOrder: [String]? = nil,
+        mediaSegmentProviderOrder: [String]? = nil,
         metadataCountryCode: String? = nil,
         metadataSavers: [String]? = nil,
         pathInfos: [MediaPathInfo]? = nil,
@@ -124,7 +124,7 @@ public struct LibraryOptions: Codable, Hashable {
         self.isExtractTrickplayImagesDuringLibraryScan = isExtractTrickplayImagesDuringLibraryScan
         self.localMetadataReaderOrder = localMetadataReaderOrder
         self.lyricFetcherOrder = lyricFetcherOrder
-        self.mediaSegmentProvideOrder = mediaSegmentProvideOrder
+        self.mediaSegmentProviderOrder = mediaSegmentProviderOrder
         self.metadataCountryCode = metadataCountryCode
         self.metadataSavers = metadataSavers
         self.pathInfos = pathInfos
@@ -176,7 +176,7 @@ public struct LibraryOptions: Codable, Hashable {
         )
         self.localMetadataReaderOrder = try values.decodeIfPresent([String].self, forKey: "LocalMetadataReaderOrder")
         self.lyricFetcherOrder = try values.decodeIfPresent([String].self, forKey: "LyricFetcherOrder")
-        self.mediaSegmentProvideOrder = try values.decodeIfPresent([String].self, forKey: "MediaSegmentProvideOrder")
+        self.mediaSegmentProviderOrder = try values.decodeIfPresent([String].self, forKey: "MediaSegmentProviderOrder")
         self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
         self.metadataSavers = try values.decodeIfPresent([String].self, forKey: "MetadataSavers")
         self.pathInfos = try values.decodeIfPresent([MediaPathInfo].self, forKey: "PathInfos")
@@ -225,7 +225,7 @@ public struct LibraryOptions: Codable, Hashable {
         try values.encodeIfPresent(isExtractTrickplayImagesDuringLibraryScan, forKey: "ExtractTrickplayImagesDuringLibraryScan")
         try values.encodeIfPresent(localMetadataReaderOrder, forKey: "LocalMetadataReaderOrder")
         try values.encodeIfPresent(lyricFetcherOrder, forKey: "LyricFetcherOrder")
-        try values.encodeIfPresent(mediaSegmentProvideOrder, forKey: "MediaSegmentProvideOrder")
+        try values.encodeIfPresent(mediaSegmentProviderOrder, forKey: "MediaSegmentProviderOrder")
         try values.encodeIfPresent(metadataCountryCode, forKey: "MetadataCountryCode")
         try values.encodeIfPresent(metadataSavers, forKey: "MetadataSavers")
         try values.encodeIfPresent(pathInfos, forKey: "PathInfos")

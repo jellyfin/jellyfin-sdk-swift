@@ -12,6 +12,7 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Reports that a session has stopped playing an item.
+    @available(*, deprecated, message: "Deprecated")
     static func onPlaybackStopped(itemID: String, parameters: OnPlaybackStoppedParameters? = nil) -> Request<Void> {
         Request(path: "/PlayingItems/\(itemID)", method: "DELETE", query: parameters?.asQuery, id: "OnPlaybackStopped")
     }

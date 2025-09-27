@@ -22,16 +22,11 @@ public struct ExternalIDInfo: Codable, Hashable {
     ///
     /// default id for the external provider so there is no need to specify a type.
     public var type: ExternalIDMediaType?
-    /// Gets or sets the URL format string.
-    ///
-    /// - warning: Deprecated.
-    public var urlFormatString: String?
 
-    public init(key: String? = nil, name: String? = nil, type: ExternalIDMediaType? = nil, urlFormatString: String? = nil) {
+    public init(key: String? = nil, name: String? = nil, type: ExternalIDMediaType? = nil) {
         self.key = key
         self.name = name
         self.type = type
-        self.urlFormatString = urlFormatString
     }
 
     public init(from decoder: Decoder) throws {
@@ -39,7 +34,6 @@ public struct ExternalIDInfo: Codable, Hashable {
         self.key = try values.decodeIfPresent(String.self, forKey: "Key")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.type = try values.decodeIfPresent(ExternalIDMediaType.self, forKey: "Type")
-        self.urlFormatString = try values.decodeIfPresent(String.self, forKey: "UrlFormatString")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,6 +41,5 @@ public struct ExternalIDInfo: Codable, Hashable {
         try values.encodeIfPresent(key, forKey: "Key")
         try values.encodeIfPresent(name, forKey: "Name")
         try values.encodeIfPresent(type, forKey: "Type")
-        try values.encodeIfPresent(urlFormatString, forKey: "UrlFormatString")
     }
 }

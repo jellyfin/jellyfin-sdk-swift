@@ -12,6 +12,8 @@ import Foundation
 public struct LibraryOptionsResultDto: Codable, Hashable {
     /// Gets or sets the list of lyric fetchers.
     public var lyricFetchers: [LibraryOptionInfoDto]?
+    /// Gets or sets the list of MediaSegment Providers.
+    public var mediaSegmentProviders: [LibraryOptionInfoDto]?
     /// Gets or sets the metadata readers.
     public var metadataReaders: [LibraryOptionInfoDto]?
     /// Gets or sets the metadata savers.
@@ -23,12 +25,14 @@ public struct LibraryOptionsResultDto: Codable, Hashable {
 
     public init(
         lyricFetchers: [LibraryOptionInfoDto]? = nil,
+        mediaSegmentProviders: [LibraryOptionInfoDto]? = nil,
         metadataReaders: [LibraryOptionInfoDto]? = nil,
         metadataSavers: [LibraryOptionInfoDto]? = nil,
         subtitleFetchers: [LibraryOptionInfoDto]? = nil,
         typeOptions: [LibraryTypeOptionsDto]? = nil
     ) {
         self.lyricFetchers = lyricFetchers
+        self.mediaSegmentProviders = mediaSegmentProviders
         self.metadataReaders = metadataReaders
         self.metadataSavers = metadataSavers
         self.subtitleFetchers = subtitleFetchers
@@ -38,6 +42,7 @@ public struct LibraryOptionsResultDto: Codable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.lyricFetchers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "LyricFetchers")
+        self.mediaSegmentProviders = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "MediaSegmentProviders")
         self.metadataReaders = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "MetadataReaders")
         self.metadataSavers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "MetadataSavers")
         self.subtitleFetchers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "SubtitleFetchers")
@@ -47,6 +52,7 @@ public struct LibraryOptionsResultDto: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(lyricFetchers, forKey: "LyricFetchers")
+        try values.encodeIfPresent(mediaSegmentProviders, forKey: "MediaSegmentProviders")
         try values.encodeIfPresent(metadataReaders, forKey: "MetadataReaders")
         try values.encodeIfPresent(metadataSavers, forKey: "MetadataSavers")
         try values.encodeIfPresent(subtitleFetchers, forKey: "SubtitleFetchers")

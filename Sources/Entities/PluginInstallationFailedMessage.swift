@@ -10,7 +10,7 @@ import Foundation
 
 /// Plugin installation failed message.
 public struct PluginInstallationFailedMessage: Codable, Hashable {
-    /// Gets or sets the data.
+    /// Class InstallationInfo.
     public var data: InstallationInfo?
     /// Gets or sets the message id.
     public var messageID: String?

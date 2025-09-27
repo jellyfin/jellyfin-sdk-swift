@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class holding information on a runnning transcode.
+/// Class holding information on a running transcode.
 public struct TranscodingInfo: Codable, Hashable {
     /// Gets or sets the audio channels.
     public var audioChannels: Int?

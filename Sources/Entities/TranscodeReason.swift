@@ -35,4 +35,5 @@ public enum TranscodeReason: String, Codable, CaseIterable {
     case directPlayError = "DirectPlayError"
     case videoRangeTypeNotSupported = "VideoRangeTypeNotSupported"
     case videoCodecTagNotSupported = "VideoCodecTagNotSupported"
+    case streamCountExceedsLimit = "StreamCountExceedsLimit"
 }

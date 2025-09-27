@@ -59,6 +59,7 @@ public struct MediaStream: Codable, Hashable {
     public var dvVersionMinor: Int?
     /// Gets or sets the Dolby Vision el present flag.
     public var elPresentFlag: Int?
+    public var isHdr10PlusPresentFlag: Bool?
     /// Gets or sets the height.
     public var height: Int?
     /// Gets or sets the index.
@@ -158,6 +159,7 @@ public struct MediaStream: Codable, Hashable {
         dvVersionMajor: Int? = nil,
         dvVersionMinor: Int? = nil,
         elPresentFlag: Int? = nil,
+        isHdr10PlusPresentFlag: Bool? = nil,
         height: Int? = nil,
         index: Int? = nil,
         isAVC: Bool? = nil,
@@ -222,6 +224,7 @@ public struct MediaStream: Codable, Hashable {
         self.dvVersionMajor = dvVersionMajor
         self.dvVersionMinor = dvVersionMinor
         self.elPresentFlag = elPresentFlag
+        self.isHdr10PlusPresentFlag = isHdr10PlusPresentFlag
         self.height = height
         self.index = index
         self.isAVC = isAVC
@@ -289,6 +292,7 @@ public struct MediaStream: Codable, Hashable {
         self.dvVersionMajor = try values.decodeIfPresent(Int.self, forKey: "DvVersionMajor")
         self.dvVersionMinor = try values.decodeIfPresent(Int.self, forKey: "DvVersionMinor")
         self.elPresentFlag = try values.decodeIfPresent(Int.self, forKey: "ElPresentFlag")
+        self.isHdr10PlusPresentFlag = try values.decodeIfPresent(Bool.self, forKey: "Hdr10PlusPresentFlag")
         self.height = try values.decodeIfPresent(Int.self, forKey: "Height")
         self.index = try values.decodeIfPresent(Int.self, forKey: "Index")
         self.isAVC = try values.decodeIfPresent(Bool.self, forKey: "IsAVC")
@@ -356,6 +360,7 @@ public struct MediaStream: Codable, Hashable {
         try values.encodeIfPresent(dvVersionMajor, forKey: "DvVersionMajor")
         try values.encodeIfPresent(dvVersionMinor, forKey: "DvVersionMinor")
         try values.encodeIfPresent(elPresentFlag, forKey: "ElPresentFlag")
+        try values.encodeIfPresent(isHdr10PlusPresentFlag, forKey: "Hdr10PlusPresentFlag")
         try values.encodeIfPresent(height, forKey: "Height")
         try values.encodeIfPresent(index, forKey: "Index")
         try values.encodeIfPresent(isAVC, forKey: "IsAVC")

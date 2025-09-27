@@ -14,9 +14,9 @@ public struct AuthenticationResult: Codable, Hashable {
     public var accessToken: String?
     /// Gets or sets the server id.
     public var serverID: String?
-    /// Gets or sets the session info.
+    /// Session info DTO.
     public var sessionInfo: SessionInfoDto?
-    /// Gets or sets the user.
+    /// Class UserDto.
     public var user: UserDto?
 
     public init(accessToken: String? = nil, serverID: String? = nil, sessionInfo: SessionInfoDto? = nil, user: UserDto? = nil) {

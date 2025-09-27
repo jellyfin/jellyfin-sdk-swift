@@ -32,12 +32,12 @@ public enum OutboundWebSocketMessage: Codable, Hashable {
     case serverShuttingDownMessage(ServerShuttingDownMessage)
     case sessionsMessage(SessionsMessage)
     case syncPlayCommandMessage(SyncPlayCommandMessage)
-    case syncPlayGroupUpdateCommandMessage(SyncPlayGroupUpdateCommandMessage)
     case timerCancelledMessage(TimerCancelledMessage)
     case timerCreatedMessage(TimerCreatedMessage)
     case userDataChangedMessage(UserDataChangedMessage)
     case userDeletedMessage(UserDeletedMessage)
     case userUpdatedMessage(UserUpdatedMessage)
+    case syncPlayGroupUpdateMessage(SyncPlayGroupUpdateMessage)
 
     public init(from decoder: Decoder) throws {
 
@@ -77,16 +77,16 @@ public enum OutboundWebSocketMessage: Codable, Hashable {
         case "ServerShuttingDown": self = try .serverShuttingDownMessage(container.decode(ServerShuttingDownMessage.self))
         case "Sessions": self = try .sessionsMessage(container.decode(SessionsMessage.self))
         case "SyncPlayCommand": self = try .syncPlayCommandMessage(container.decode(SyncPlayCommandMessage.self))
-        case "SyncPlayGroupUpdate": self = try .syncPlayGroupUpdateCommandMessage(container.decode(SyncPlayGroupUpdateCommandMessage.self))
         case "TimerCancelled": self = try .timerCancelledMessage(container.decode(TimerCancelledMessage.self))
         case "TimerCreated": self = try .timerCreatedMessage(container.decode(TimerCreatedMessage.self))
         case "UserDataChanged": self = try .userDataChangedMessage(container.decode(UserDataChangedMessage.self))
         case "UserDeleted": self = try .userDeletedMessage(container.decode(UserDeletedMessage.self))
         case "UserUpdated": self = try .userUpdatedMessage(container.decode(UserUpdatedMessage.self))
+        case "SyncPlayGroupUpdate": self = try .syncPlayGroupUpdateMessage(container.decode(SyncPlayGroupUpdateMessage.self))
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,
-                debugDescription: "Discriminator value '\(discriminatorValue)' does not match any expected values (ActivityLogEntry, ForceKeepAlive, GeneralCommand, LibraryChanged, KeepAlive, Play, Playstate, PackageInstallationCancelled, PackageInstallationCompleted, PackageInstallationFailed, PackageInstalling, PackageUninstalled, RefreshProgress, RestartRequired, ScheduledTaskEnded, ScheduledTasksInfo, SeriesTimerCancelled, SeriesTimerCreated, ServerRestarting, ServerShuttingDown, Sessions, SyncPlayCommand, SyncPlayGroupUpdate, TimerCancelled, TimerCreated, UserDataChanged, UserDeleted, UserUpdated)."
+                debugDescription: "Discriminator value '\(discriminatorValue)' does not match any expected values (ActivityLogEntry, ForceKeepAlive, GeneralCommand, LibraryChanged, KeepAlive, Play, Playstate, PackageInstallationCancelled, PackageInstallationCompleted, PackageInstallationFailed, PackageInstalling, PackageUninstalled, RefreshProgress, RestartRequired, ScheduledTaskEnded, ScheduledTasksInfo, SeriesTimerCancelled, SeriesTimerCreated, ServerRestarting, ServerShuttingDown, Sessions, SyncPlayCommand, TimerCancelled, TimerCreated, UserDataChanged, UserDeleted, UserUpdated, SyncPlayGroupUpdate)."
             )
         }
     }
@@ -116,12 +116,12 @@ public enum OutboundWebSocketMessage: Codable, Hashable {
         case let .serverShuttingDownMessage(value): try container.encode(value)
         case let .sessionsMessage(value): try container.encode(value)
         case let .syncPlayCommandMessage(value): try container.encode(value)
-        case let .syncPlayGroupUpdateCommandMessage(value): try container.encode(value)
         case let .timerCancelledMessage(value): try container.encode(value)
         case let .timerCreatedMessage(value): try container.encode(value)
         case let .userDataChangedMessage(value): try container.encode(value)
         case let .userDeletedMessage(value): try container.encode(value)
         case let .userUpdatedMessage(value): try container.encode(value)
+        case let .syncPlayGroupUpdateMessage(value): try container.encode(value)
         }
     }
 }

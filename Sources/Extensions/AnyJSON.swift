@@ -16,11 +16,11 @@ public enum AnyJSON: Hashable, Codable {
     case bool(Bool)
     var value: Any {
         switch self {
-        case let .string(string): string
-        case let .number(double): double
-        case let .object(dictionary): dictionary
-        case let .array(array): array
-        case let .bool(bool): bool
+        case let .string(string): return string
+        case let .number(double): return double
+        case let .object(dictionary): return dictionary
+        case let .array(array): return array
+        case let .bool(bool): return bool
         }
     }
 

@@ -10,7 +10,7 @@ import Foundation
 
 /// Plugin uninstalled message.
 public struct PluginUninstalledMessage: Codable, Hashable {
-    /// Gets or sets the data.
+    /// This is a serializable stub class that is used by the api to provide information about installed plugins.
     public var data: PluginInfo?
     /// Gets or sets the message id.
     public var messageID: String?

@@ -13,6 +13,7 @@ public enum PluginStatus: String, Codable, CaseIterable {
     case active = "Active"
     case restart = "Restart"
     case deleted = "Deleted"
+    case superseded = "Superseded"
     case superceded = "Superceded"
     case malfunctioned = "Malfunctioned"
     case notSupported = "NotSupported"
