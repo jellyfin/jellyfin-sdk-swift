@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Defines the types of content an individual Jellyfin.Data.Entities.MediaSegment represents.
+/// Defines the types of content an individual Jellyfin.Database.Implementations.Entities.MediaSegment represents.
 public enum MediaSegmentType: String, Codable, CaseIterable {
     case unknown = "Unknown"
     case commercial = "Commercial"

@@ -16,6 +16,8 @@ public struct ServerConfiguration: Codable, Hashable {
     public var allowClientLogUpload: Bool?
     /// Gets or sets the cache path.
     public var cachePath: String?
+    /// Gets or sets the maximum amount of items to cache.
+    public var cacheSize: Int?
     /// Gets or sets the list of cast receiver applications.
     public var castReceiverApplications: [CastReceiverApplication]?
     /// Gets or sets the chapter image resolution.
@@ -26,13 +28,16 @@ public struct ServerConfiguration: Codable, Hashable {
     public var corsHosts: [String]?
     public var isDisableLiveTvChannelUserDataName: Bool?
     public var isDisplaySpecialsWithinSeasons: Bool?
-    /// Gets or sets the dummy chapter duration in seconds, use 0 (zero) or less to disable generation alltogether.
+    /// Gets or sets the dummy chapter duration in seconds, use 0 (zero) or less to disable generation altogether.
     public var dummyChapterDuration: Int?
-    /// Gets or sets a value indicating whether [enable case sensitive item ids].
+    /// Gets or sets a value indicating whether [enable case-sensitive item ids].
     public var enableCaseSensitiveItemIDs: Bool?
     public var enableExternalContentInSuggestions: Bool?
     public var enableFolderView: Bool?
-    public var enableGroupingIntoCollections: Bool?
+    public var enableGroupingMoviesIntoCollections: Bool?
+    public var enableGroupingShowsIntoCollections: Bool?
+    /// Gets or sets a value indicating whether old authorization methods are allowed.
+    public var enableLegacyAuthorization: Bool?
     /// Gets or sets a value indicating whether to enable prometheus metrics exporting.
     public var enableMetrics: Bool?
     public var enableNormalizedItemByNameIDs: Bool?
@@ -96,8 +101,6 @@ public struct ServerConfiguration: Codable, Hashable {
     /// Gets or sets a value indicating whether quick connect is available for use on this server.
     public var isQuickConnectAvailable: Bool?
     public var remoteClientBitrateLimit: Int?
-    /// Gets or sets a value indicating whether older plugins should automatically be deleted from the plugin folder.
-    public var isRemoveOldPlugins: Bool?
     public var isSaveMetadataHidden: Bool?
     public var serverName: String?
     public var isSkipDeserializationForBasicTypes: Bool?
@@ -117,6 +120,7 @@ public struct ServerConfiguration: Codable, Hashable {
         activityLogRetentionDays: Int? = nil,
         allowClientLogUpload: Bool? = nil,
         cachePath: String? = nil,
+        cacheSize: Int? = nil,
         castReceiverApplications: [CastReceiverApplication]? = nil,
         chapterImageResolution: ImageResolution? = nil,
         codecsUsed: [String]? = nil,
@@ -128,7 +132,9 @@ public struct ServerConfiguration: Codable, Hashable {
         enableCaseSensitiveItemIDs: Bool? = nil,
         enableExternalContentInSuggestions: Bool? = nil,
         enableFolderView: Bool? = nil,
-        enableGroupingIntoCollections: Bool? = nil,
+        enableGroupingMoviesIntoCollections: Bool? = nil,
+        enableGroupingShowsIntoCollections: Bool? = nil,
+        enableLegacyAuthorization: Bool? = nil,
         enableMetrics: Bool? = nil,
         enableNormalizedItemByNameIDs: Bool? = nil,
         enableSlowResponseWarning: Bool? = nil,
@@ -158,7 +164,6 @@ public struct ServerConfiguration: Codable, Hashable {
         previousVersionStr: String? = nil,
         isQuickConnectAvailable: Bool? = nil,
         remoteClientBitrateLimit: Int? = nil,
-        isRemoveOldPlugins: Bool? = nil,
         isSaveMetadataHidden: Bool? = nil,
         serverName: String? = nil,
         isSkipDeserializationForBasicTypes: Bool? = nil,
@@ -172,6 +177,7 @@ public struct ServerConfiguration: Codable, Hashable {
         self.activityLogRetentionDays = activityLogRetentionDays
         self.allowClientLogUpload = allowClientLogUpload
         self.cachePath = cachePath
+        self.cacheSize = cacheSize
         self.castReceiverApplications = castReceiverApplications
         self.chapterImageResolution = chapterImageResolution
         self.codecsUsed = codecsUsed
@@ -183,7 +189,9 @@ public struct ServerConfiguration: Codable, Hashable {
         self.enableCaseSensitiveItemIDs = enableCaseSensitiveItemIDs
         self.enableExternalContentInSuggestions = enableExternalContentInSuggestions
         self.enableFolderView = enableFolderView
-        self.enableGroupingIntoCollections = enableGroupingIntoCollections
+        self.enableGroupingMoviesIntoCollections = enableGroupingMoviesIntoCollections
+        self.enableGroupingShowsIntoCollections = enableGroupingShowsIntoCollections
+        self.enableLegacyAuthorization = enableLegacyAuthorization
         self.enableMetrics = enableMetrics
         self.enableNormalizedItemByNameIDs = enableNormalizedItemByNameIDs
         self.enableSlowResponseWarning = enableSlowResponseWarning
@@ -213,7 +221,6 @@ public struct ServerConfiguration: Codable, Hashable {
         self.previousVersionStr = previousVersionStr
         self.isQuickConnectAvailable = isQuickConnectAvailable
         self.remoteClientBitrateLimit = remoteClientBitrateLimit
-        self.isRemoveOldPlugins = isRemoveOldPlugins
         self.isSaveMetadataHidden = isSaveMetadataHidden
         self.serverName = serverName
         self.isSkipDeserializationForBasicTypes = isSkipDeserializationForBasicTypes
@@ -230,6 +237,7 @@ public struct ServerConfiguration: Codable, Hashable {
         self.activityLogRetentionDays = try values.decodeIfPresent(Int.self, forKey: "ActivityLogRetentionDays")
         self.allowClientLogUpload = try values.decodeIfPresent(Bool.self, forKey: "AllowClientLogUpload")
         self.cachePath = try values.decodeIfPresent(String.self, forKey: "CachePath")
+        self.cacheSize = try values.decodeIfPresent(Int.self, forKey: "CacheSize")
         self.castReceiverApplications = try values.decodeIfPresent([CastReceiverApplication].self, forKey: "CastReceiverApplications")
         self.chapterImageResolution = try values.decodeIfPresent(ImageResolution.self, forKey: "ChapterImageResolution")
         self.codecsUsed = try values.decodeIfPresent([String].self, forKey: "CodecsUsed")
@@ -241,7 +249,9 @@ public struct ServerConfiguration: Codable, Hashable {
         self.enableCaseSensitiveItemIDs = try values.decodeIfPresent(Bool.self, forKey: "EnableCaseSensitiveItemIds")
         self.enableExternalContentInSuggestions = try values.decodeIfPresent(Bool.self, forKey: "EnableExternalContentInSuggestions")
         self.enableFolderView = try values.decodeIfPresent(Bool.self, forKey: "EnableFolderView")
-        self.enableGroupingIntoCollections = try values.decodeIfPresent(Bool.self, forKey: "EnableGroupingIntoCollections")
+        self.enableGroupingMoviesIntoCollections = try values.decodeIfPresent(Bool.self, forKey: "EnableGroupingMoviesIntoCollections")
+        self.enableGroupingShowsIntoCollections = try values.decodeIfPresent(Bool.self, forKey: "EnableGroupingShowsIntoCollections")
+        self.enableLegacyAuthorization = try values.decodeIfPresent(Bool.self, forKey: "EnableLegacyAuthorization")
         self.enableMetrics = try values.decodeIfPresent(Bool.self, forKey: "EnableMetrics")
         self.enableNormalizedItemByNameIDs = try values.decodeIfPresent(Bool.self, forKey: "EnableNormalizedItemByNameIds")
         self.enableSlowResponseWarning = try values.decodeIfPresent(Bool.self, forKey: "EnableSlowResponseWarning")
@@ -271,7 +281,6 @@ public struct ServerConfiguration: Codable, Hashable {
         self.previousVersionStr = try values.decodeIfPresent(String.self, forKey: "PreviousVersionStr")
         self.isQuickConnectAvailable = try values.decodeIfPresent(Bool.self, forKey: "QuickConnectAvailable")
         self.remoteClientBitrateLimit = try values.decodeIfPresent(Int.self, forKey: "RemoteClientBitrateLimit")
-        self.isRemoveOldPlugins = try values.decodeIfPresent(Bool.self, forKey: "RemoveOldPlugins")
         self.isSaveMetadataHidden = try values.decodeIfPresent(Bool.self, forKey: "SaveMetadataHidden")
         self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
         self.isSkipDeserializationForBasicTypes = try values.decodeIfPresent(Bool.self, forKey: "SkipDeserializationForBasicTypes")
@@ -288,6 +297,7 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(activityLogRetentionDays, forKey: "ActivityLogRetentionDays")
         try values.encodeIfPresent(allowClientLogUpload, forKey: "AllowClientLogUpload")
         try values.encodeIfPresent(cachePath, forKey: "CachePath")
+        try values.encodeIfPresent(cacheSize, forKey: "CacheSize")
         try values.encodeIfPresent(castReceiverApplications, forKey: "CastReceiverApplications")
         try values.encodeIfPresent(chapterImageResolution, forKey: "ChapterImageResolution")
         try values.encodeIfPresent(codecsUsed, forKey: "CodecsUsed")
@@ -299,7 +309,9 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(enableCaseSensitiveItemIDs, forKey: "EnableCaseSensitiveItemIds")
         try values.encodeIfPresent(enableExternalContentInSuggestions, forKey: "EnableExternalContentInSuggestions")
         try values.encodeIfPresent(enableFolderView, forKey: "EnableFolderView")
-        try values.encodeIfPresent(enableGroupingIntoCollections, forKey: "EnableGroupingIntoCollections")
+        try values.encodeIfPresent(enableGroupingMoviesIntoCollections, forKey: "EnableGroupingMoviesIntoCollections")
+        try values.encodeIfPresent(enableGroupingShowsIntoCollections, forKey: "EnableGroupingShowsIntoCollections")
+        try values.encodeIfPresent(enableLegacyAuthorization, forKey: "EnableLegacyAuthorization")
         try values.encodeIfPresent(enableMetrics, forKey: "EnableMetrics")
         try values.encodeIfPresent(enableNormalizedItemByNameIDs, forKey: "EnableNormalizedItemByNameIds")
         try values.encodeIfPresent(enableSlowResponseWarning, forKey: "EnableSlowResponseWarning")
@@ -329,7 +341,6 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(previousVersionStr, forKey: "PreviousVersionStr")
         try values.encodeIfPresent(isQuickConnectAvailable, forKey: "QuickConnectAvailable")
         try values.encodeIfPresent(remoteClientBitrateLimit, forKey: "RemoteClientBitrateLimit")
-        try values.encodeIfPresent(isRemoveOldPlugins, forKey: "RemoveOldPlugins")
         try values.encodeIfPresent(isSaveMetadataHidden, forKey: "SaveMetadataHidden")
         try values.encodeIfPresent(serverName, forKey: "ServerName")
         try values.encodeIfPresent(isSkipDeserializationForBasicTypes, forKey: "SkipDeserializationForBasicTypes")

@@ -40,6 +40,4 @@ public enum ItemSortBy: String, Codable, CaseIterable {
     case seriesDatePlayed = "SeriesDatePlayed"
     case parentIndexNumber = "ParentIndexNumber"
     case indexNumber = "IndexNumber"
-    case similarityScore = "SimilarityScore"
-    case searchScore = "SearchScore"
 }

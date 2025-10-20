@@ -11,7 +11,7 @@ import Get
 import URLQueryEncoder
 
 public extension Paths {
-    /// Get guid info.
+    /// Get guide info.
     static var getGuideInfo: Request<JellyfinAPI.GuideInfo> {
         Request(path: "/LiveTv/GuideInfo", method: "GET", id: "GetGuideInfo")
     }

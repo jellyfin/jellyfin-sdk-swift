@@ -30,6 +30,8 @@ public struct NetworkConfiguration: Codable, Hashable {
     /// Gets or sets a value indicating whether access from outside of the LAN is permitted.
     public var enableRemoteAccess: Bool?
     /// Gets or sets a value indicating whether to enable automatic port forwarding.
+    ///
+    /// - warning: Deprecated.
     public var enableUPnP: Bool?
     /// Gets or sets a value indicating whether address names that match MediaBrowser.Common.Net.NetworkConfiguration.VirtualInterfaceNames
     /// should be ignored for the purposes of binding.
