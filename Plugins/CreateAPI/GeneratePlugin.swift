@@ -17,8 +17,9 @@ struct Plugin: CommandPlugin {
 
     func performCommand(context: PluginContext, arguments: [String]) async throws {
 
+        /// Not needed for 10.11. Put patchwork here if needed in the future.
         // Apply schema pre patches
-        try await patchTaskTriggerInfoSchema(context: context)
+        // try await patchTaskTriggerInfoSchema(context: context)
 
         try await generate(context: context)
 
@@ -27,15 +28,13 @@ struct Plugin: CommandPlugin {
         try await patchAnyJSON(context: context)
         try await patchGroupUpdateDiscriminator(context: context)
 
-        // Move patch files
-        try await addTaskTriggerType(context: context)
-
         // Create the version SDK
         try await generateVersionFile(context: context)
 
         try await lint(context: context)
 
-        try await deletePatchedSchema(context: context)
+        /// Not needed for 10.11. Put patchwork deletion here if needed in the future.
+        // try await deletePatchedSchema(context: context)
     }
 
     private func runProcess(_ commandLine: String, context: PluginContext, workingDirectory: String? = nil) throws {
@@ -88,50 +87,54 @@ struct Plugin: CommandPlugin {
         return try decoder.decode(AnyJSON.self, from: data)
     }
 
-    private func savePatchedSchema(context: PluginContext, json: AnyJSON) async throws {
-        let filePath = context
-            .package
-            .directory
-            .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
+    // MARK: Unused Patch File Functions
 
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .withoutEscapingSlashes]
-        let data = try encoder.encode(json)
+    /// Leaving this in place as an example to use if anything needs to be patched in the future.
 
-        try data.write(to: URL(fileURLWithPath: filePath.string))
-    }
+    // private func savePatchedSchema(context: PluginContext, json: AnyJSON) async throws {
+    //     let filePath = context
+    //         .package
+    //         .directory
+    //         .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
 
-    private func deletePatchedSchema(context: PluginContext) async throws {
-        let filePath = context
-            .package
-            .directory
-            .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
+    //     let encoder = JSONEncoder()
+    //     encoder.outputFormatting = [.prettyPrinted, .withoutEscapingSlashes]
+    //     let data = try encoder.encode(json)
 
-        try FileManager.default.removeItem(atPath: filePath.string)
-    }
+    //     try data.write(to: URL(fileURLWithPath: filePath.string))
+    // }
 
-    private func patchTaskTriggerInfoSchema(context: PluginContext) async throws {
-        let contents = try await parseOriginalSchema(context: context)
+    // private func deletePatchedSchema(context: PluginContext) async throws {
+    //     let filePath = context
+    //         .package
+    //         .directory
+    //         .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
 
-        guard case var .object(file) = contents else { return }
-        guard case var .object(components) = file["components"] else { return }
-        guard case var .object(schemas) = components["schemas"] else { return }
-        guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
-        guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
+    //     try FileManager.default.removeItem(atPath: filePath.string)
+    // }
 
-        properties["Type"] = AnyJSON.object([
-            "type": .string("string"),
-            "format": .string("TaskTriggerType"),
-            "nullable": .bool(true),
-        ])
+    // private func patchTaskTriggerInfoSchema(context: PluginContext) async throws {
+    //     let contents = try await parseOriginalSchema(context: context)
 
-        taskTriggerInfo["properties"] = .object(properties)
-        schemas["TaskTriggerInfo"] = .object(taskTriggerInfo)
-        components["schemas"] = .object(schemas)
-        file["components"] = .object(components)
+    //     guard case var .object(file) = contents else { return }
+    //     guard case var .object(components) = file["components"] else { return }
+    //     guard case var .object(schemas) = components["schemas"] else { return }
+    //     guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
+    //     guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
 
-        try await savePatchedSchema(context: context, json: .object(file))
-    }
+    //     properties["Type"] = AnyJSON.object([
+    //         "type": .string("string"),
+    //         "format": .string("TaskTriggerType"),
+    //         "nullable": .bool(true),
+    //     ])
+
+    //     taskTriggerInfo["properties"] = .object(properties)
+    //     schemas["TaskTriggerInfo"] = .object(taskTriggerInfo)
+    //     components["schemas"] = .object(schemas)
+    //     file["components"] = .object(components)
+
+    //     try await savePatchedSchema(context: context, json: .object(file))
+    // }
 
     // Entities/RemoteSearchResult.swift: remove `Hashable`
     private func patchRemoteSearchResult(context: PluginContext) async throws {
@@ -171,26 +174,6 @@ struct Plugin: CommandPlugin {
             .joined(separator: "\n")
             .data(using: .utf8)?
             .write(to: URL(fileURLWithPath: filePath.string))
-    }
-
-    private func addTaskTriggerType(context: PluginContext) async throws {
-        let sourceFilePath = context
-            .package
-            .directory
-            .appending(["Plugins", "CreateAPI", "PatchFiles", "TaskTriggerType.swift"])
-
-        let destinationFilePath = context
-            .package
-            .directory
-            .appending(["Sources", "Entities", "TaskTriggerType.swift"])
-
-        let fileManager = FileManager.default
-
-        if fileManager.fileExists(atPath: destinationFilePath.string) {
-            try fileManager.removeItem(atPath: destinationFilePath.string)
-        }
-
-        try fileManager.copyItem(atPath: sourceFilePath.string, toPath: destinationFilePath.string)
     }
 
     // TODO: Remove if/when fixed within CreateAPI

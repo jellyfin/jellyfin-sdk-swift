@@ -18,14 +18,14 @@ public struct TaskTriggerInfo: Codable, Hashable {
     public var maxRuntimeTicks: Int?
     /// Gets or sets the time of day.
     public var timeOfDayTicks: Int?
-    public var type: TaskTriggerType?
+    public var type: TaskTriggerInfoType?
 
     public init(
         dayOfWeek: DayOfWeek? = nil,
         intervalTicks: Int? = nil,
         maxRuntimeTicks: Int? = nil,
         timeOfDayTicks: Int? = nil,
-        type: TaskTriggerType? = nil
+        type: TaskTriggerInfoType? = nil
     ) {
         self.dayOfWeek = dayOfWeek
         self.intervalTicks = intervalTicks
@@ -40,7 +40,7 @@ public struct TaskTriggerInfo: Codable, Hashable {
         self.intervalTicks = try values.decodeIfPresent(Int.self, forKey: "IntervalTicks")
         self.maxRuntimeTicks = try values.decodeIfPresent(Int.self, forKey: "MaxRuntimeTicks")
         self.timeOfDayTicks = try values.decodeIfPresent(Int.self, forKey: "TimeOfDayTicks")
-        self.type = try values.decodeIfPresent(TaskTriggerType.self, forKey: "Type")
+        self.type = try values.decodeIfPresent(TaskTriggerInfoType.self, forKey: "Type")
     }
 
     public func encode(to encoder: Encoder) throws {
