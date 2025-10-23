@@ -18,7 +18,6 @@ struct Plugin: CommandPlugin {
     func performCommand(context: PluginContext, arguments: [String]) async throws {
 
         // Apply schema pre patches
-        try await patchTaskTriggerInfoSchema(context: context)
 
         try await generate(context: context)
 
@@ -107,35 +106,6 @@ struct Plugin: CommandPlugin {
         if FileManager.default.fileExists(atPath: filePath.string) {
             try FileManager.default.removeItem(atPath: filePath.string)
         }
-    }
-
-    private func patchTaskTriggerInfoSchema(context: PluginContext) async throws {
-        let contents = try await parseOriginalSchema(context: context)
-
-        guard case var .object(file) = contents else { return }
-
-        guard case var .object(components) = file["components"] else { return }
-        guard case var .object(schemas) = components["schemas"] else { return }
-
-        /// Leaving this in place as an example to use if anything needs to be patched in the future.
-        /// - This was used to replace TaskTriggerType Strings with a custom type in a Patch File
-
-        //     guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
-        //     guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
-
-        //     properties["Type"] = AnyJSON.object([
-        //         "type": .string("string"),
-        //         "format": .string("TaskTriggerType"),
-        //         "nullable": .bool(true),
-        //     ])
-
-        //     taskTriggerInfo["properties"] = .object(properties)
-        //     schemas["TaskTriggerInfo"] = .object(taskTriggerInfo)
-
-        components["schemas"] = .object(schemas)
-        file["components"] = .object(components)
-
-        try await savePatchedSchema(context: context, json: .object(file))
     }
 
     // Entities/RemoteSearchResult.swift: remove `Hashable`
