@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Gets the descriptor from an existing archive is present.
-    static func getBackup(path: String) -> Request<JellyfinAPI.BackupManifestDto> {
+    static func getBackup(path: String) -> Request<Void> {
         Request(path: "/Backup/Manifest", method: "GET", query: [("path", path)], id: "GetBackup")
     }
 }
