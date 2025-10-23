@@ -37,4 +37,4 @@ rename:
     VideoRangeType.DOVIWithHDR10Plus: "doviWithHDR10Plus"
     VideoRangeType.DOVIWithELHDR10Plus: "doviWithELHDR10Plus"
     VideoRangeType.DOVIInvalid: "doviInvalid"
-    VideoRangeType,HDR10Plus: "hdr10Plus"
+    VideoRangeType.HDR10Plus: "hdr10Plus"
