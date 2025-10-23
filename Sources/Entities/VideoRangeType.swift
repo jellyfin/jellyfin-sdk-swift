@@ -18,5 +18,9 @@ public enum VideoRangeType: String, Codable, CaseIterable {
     case doviWithHDR10 = "DOVIWithHDR10"
     case doviWithHLG = "DOVIWithHLG"
     case doviWithSDR = "DOVIWithSDR"
+    case doviWithEL = "DOVIWithEL"
+    case doviWithHDR10Plus = "DOVIWithHDR10Plus"
+    case doviWithELHDR10Plus = "DOVIWithELHDR10Plus"
+    case doviInvalid = "DOVIInvalid"
     case hdr10Plus = "HDR10Plus"
 }

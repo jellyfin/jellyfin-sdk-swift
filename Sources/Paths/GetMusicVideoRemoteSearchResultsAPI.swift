@@ -12,9 +12,8 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Get music video remote search.
-    static func getMusicVideoRemoteSearchResults(
-        _ body: JellyfinAPI
-            .MusicVideoInfoRemoteSearchQuery
+    static func getMusicVideoRemoteSearchResults(_ body: JellyfinAPI
+        .MusicVideoInfoRemoteSearchQuery
     ) -> Request<[JellyfinAPI.RemoteSearchResult]> {
         Request(path: "/Items/RemoteSearch/MusicVideo", method: "POST", body: body, id: "GetMusicVideoRemoteSearchResults")
     }

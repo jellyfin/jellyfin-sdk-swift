@@ -14,12 +14,20 @@ public struct StartupConfigurationDto: Codable, Hashable {
     public var metadataCountryCode: String?
     /// Gets or sets the preferred language for the metadata.
     public var preferredMetadataLanguage: String?
+    /// Gets or sets the server name.
+    public var serverName: String?
     /// Gets or sets UI language culture.
     public var uICulture: String?
 
-    public init(metadataCountryCode: String? = nil, preferredMetadataLanguage: String? = nil, uICulture: String? = nil) {
+    public init(
+        metadataCountryCode: String? = nil,
+        preferredMetadataLanguage: String? = nil,
+        serverName: String? = nil,
+        uICulture: String? = nil
+    ) {
         self.metadataCountryCode = metadataCountryCode
         self.preferredMetadataLanguage = preferredMetadataLanguage
+        self.serverName = serverName
         self.uICulture = uICulture
     }
 
@@ -27,6 +35,7 @@ public struct StartupConfigurationDto: Codable, Hashable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.metadataCountryCode = try values.decodeIfPresent(String.self, forKey: "MetadataCountryCode")
         self.preferredMetadataLanguage = try values.decodeIfPresent(String.self, forKey: "PreferredMetadataLanguage")
+        self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
         self.uICulture = try values.decodeIfPresent(String.self, forKey: "UICulture")
     }
 
@@ -34,6 +43,7 @@ public struct StartupConfigurationDto: Codable, Hashable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(metadataCountryCode, forKey: "MetadataCountryCode")
         try values.encodeIfPresent(preferredMetadataLanguage, forKey: "PreferredMetadataLanguage")
+        try values.encodeIfPresent(serverName, forKey: "ServerName")
         try values.encodeIfPresent(uICulture, forKey: "UICulture")
     }
 }

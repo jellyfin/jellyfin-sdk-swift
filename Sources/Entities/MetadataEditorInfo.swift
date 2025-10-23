@@ -8,12 +8,19 @@
 
 import Foundation
 
+/// A class representing metadata editor information.
 public struct MetadataEditorInfo: Codable, Hashable {
+    /// Gets or sets the content type.
     public var contentType: CollectionType?
+    /// Gets or sets the content type options.
     public var contentTypeOptions: [NameValuePair]?
+    /// Gets or sets the countries.
     public var countries: [CountryInfo]?
+    /// Gets or sets the cultures.
     public var cultures: [CultureDto]?
+    /// Gets or sets the external id infos.
     public var externalIDInfos: [ExternalIDInfo]?
+    /// Gets or sets the parental rating options.
     public var parentalRatingOptions: [ParentalRating]?
 
     public init(

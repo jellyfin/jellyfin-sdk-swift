@@ -33,7 +33,7 @@ public struct OpenLiveStreamDto: Codable, Hashable {
     public var directPlayProtocols: [MediaProtocol]?
     /// Gets or sets a value indicating whether to enable direct play.
     public var enableDirectPlay: Bool?
-    /// Gets or sets a value indicating whether to enale direct stream.
+    /// Gets or sets a value indicating whether to enable direct stream.
     public var enableDirectStream: Bool?
     /// Gets or sets the item id.
     public var itemID: String?

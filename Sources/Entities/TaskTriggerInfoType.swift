@@ -8,9 +8,10 @@
 
 import Foundation
 
-public enum TaskTriggerType: String, Codable, CaseIterable {
-    case daily = "DailyTrigger"
-    case weekly = "WeeklyTrigger"
-    case interval = "IntervalTrigger"
-    case startup = "StartupTrigger"
+/// Enum TaskTriggerInfoType.
+public enum TaskTriggerInfoType: String, Codable, CaseIterable {
+    case dailyTrigger = "DailyTrigger"
+    case weeklyTrigger = "WeeklyTrigger"
+    case intervalTrigger = "IntervalTrigger"
+    case startupTrigger = "StartupTrigger"
 }

@@ -17,7 +17,6 @@ dataTypes:
     int64: Int
   string:
     uuid: String
-    TaskTriggerType: TaskTriggerType
 entities:
   protocols: ["Codable", "Hashable"]
   includeIdentifiableConformance: true
@@ -30,7 +29,12 @@ paths:
   filenameTemplate: "%0API.swift"
 rename:
   enumCases:
+    VideoRangeType.DOVI: "dovi"
     VideoRangeType.DOVIWithHDR10: "doviWithHDR10"
     VideoRangeType.DOVIWithHLG: "doviWithHLG"
     VideoRangeType.DOVIWithSDR: "doviWithSDR"
+    VideoRangeType.DOVIWithEL: "doviWithEL"
+    VideoRangeType.DOVIWithHDR10Plus: "doviWithHDR10Plus"
+    VideoRangeType.DOVIWithELHDR10Plus: "doviWithELHDR10Plus"
+    VideoRangeType.DOVIInvalid: "doviInvalid"
     VideoRangeType.HDR10Plus: "hdr10Plus"
