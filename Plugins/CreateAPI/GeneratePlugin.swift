@@ -17,9 +17,8 @@ struct Plugin: CommandPlugin {
 
     func performCommand(context: PluginContext, arguments: [String]) async throws {
 
-        /// Not needed for 10.11. Put patchwork here if needed in the future.
         // Apply schema pre patches
-        // try await patchTaskTriggerInfoSchema(context: context)
+        try await patchTaskTriggerInfoSchema(context: context)
 
         try await generate(context: context)
 
@@ -33,8 +32,7 @@ struct Plugin: CommandPlugin {
 
         try await lint(context: context)
 
-        /// Not needed for 10.11. Put patchwork deletion here if needed in the future.
-        // try await deletePatchedSchema(context: context)
+        try await deletePatchedSchema(context: context)
     }
 
     private func runProcess(_ commandLine: String, context: PluginContext, workingDirectory: String? = nil) throws {
@@ -87,54 +85,58 @@ struct Plugin: CommandPlugin {
         return try decoder.decode(AnyJSON.self, from: data)
     }
 
-    // MARK: Unused Patch File Functions
+    private func savePatchedSchema(context: PluginContext, json: AnyJSON) async throws {
+        let filePath = context
+            .package
+            .directory
+            .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
 
-    /// Leaving this in place as an example to use if anything needs to be patched in the future.
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .withoutEscapingSlashes]
+        let data = try encoder.encode(json)
 
-    // private func savePatchedSchema(context: PluginContext, json: AnyJSON) async throws {
-    //     let filePath = context
-    //         .package
-    //         .directory
-    //         .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
+        try data.write(to: URL(fileURLWithPath: filePath.string))
+    }
 
-    //     let encoder = JSONEncoder()
-    //     encoder.outputFormatting = [.prettyPrinted, .withoutEscapingSlashes]
-    //     let data = try encoder.encode(json)
+    private func deletePatchedSchema(context: PluginContext) async throws {
+        let filePath = context
+            .package
+            .directory
+            .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
 
-    //     try data.write(to: URL(fileURLWithPath: filePath.string))
-    // }
+        if FileManager.default.fileExists(atPath: filePath.string) {
+            try FileManager.default.removeItem(atPath: filePath.string)
+        }
+    }
 
-    // private func deletePatchedSchema(context: PluginContext) async throws {
-    //     let filePath = context
-    //         .package
-    //         .directory
-    //         .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
+    private func patchTaskTriggerInfoSchema(context: PluginContext) async throws {
+        let contents = try await parseOriginalSchema(context: context)
 
-    //     try FileManager.default.removeItem(atPath: filePath.string)
-    // }
+        guard case var .object(file) = contents else { return }
 
-    // private func patchTaskTriggerInfoSchema(context: PluginContext) async throws {
-    //     let contents = try await parseOriginalSchema(context: context)
+        guard case var .object(components) = file["components"] else { return }
+        guard case var .object(schemas) = components["schemas"] else { return }
 
-    //     guard case var .object(file) = contents else { return }
-    //     guard case var .object(components) = file["components"] else { return }
-    //     guard case var .object(schemas) = components["schemas"] else { return }
-    //     guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
-    //     guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
+        /// Leaving this in place as an example to use if anything needs to be patched in the future.
+        /// - This was used to replace TaskTriggerType Strings with a custom type in a Patch File
 
-    //     properties["Type"] = AnyJSON.object([
-    //         "type": .string("string"),
-    //         "format": .string("TaskTriggerType"),
-    //         "nullable": .bool(true),
-    //     ])
+        //     guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
+        //     guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
 
-    //     taskTriggerInfo["properties"] = .object(properties)
-    //     schemas["TaskTriggerInfo"] = .object(taskTriggerInfo)
-    //     components["schemas"] = .object(schemas)
-    //     file["components"] = .object(components)
+        //     properties["Type"] = AnyJSON.object([
+        //         "type": .string("string"),
+        //         "format": .string("TaskTriggerType"),
+        //         "nullable": .bool(true),
+        //     ])
 
-    //     try await savePatchedSchema(context: context, json: .object(file))
-    // }
+        //     taskTriggerInfo["properties"] = .object(properties)
+        //     schemas["TaskTriggerInfo"] = .object(taskTriggerInfo)
+
+        components["schemas"] = .object(schemas)
+        file["components"] = .object(components)
+
+        try await savePatchedSchema(context: context, json: .object(file))
+    }
 
     // Entities/RemoteSearchResult.swift: remove `Hashable`
     private func patchRemoteSearchResult(context: PluginContext) async throws {

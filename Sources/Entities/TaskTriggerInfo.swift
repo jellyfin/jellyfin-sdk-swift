@@ -18,6 +18,7 @@ public struct TaskTriggerInfo: Codable, Hashable {
     public var maxRuntimeTicks: Int?
     /// Gets or sets the time of day.
     public var timeOfDayTicks: Int?
+    /// Gets or sets the type.
     public var type: TaskTriggerInfoType?
 
     public init(

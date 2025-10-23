@@ -12,7 +12,7 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Create a new SyncPlay group.
-    static func syncPlayCreateGroup(_ body: JellyfinAPI.NewGroupRequestDto) -> Request<JellyfinAPI.GroupInfoDto> {
+    static func syncPlayCreateGroup(_ body: JellyfinAPI.NewGroupRequestDto) -> Request<Void> {
         Request(path: "/SyncPlay/New", method: "POST", body: body, id: "SyncPlayCreateGroup")
     }
 }
