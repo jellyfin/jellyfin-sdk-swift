@@ -14,7 +14,7 @@ fileHeaderComment: |
 dataTypes:
   integer:
     int32: Int
-    int64: Int
+    int64: Int64
   string:
     uuid: String
 entities:
