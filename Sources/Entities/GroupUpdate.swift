@@ -23,11 +23,11 @@ public enum GroupUpdate: Codable, Hashable {
     public init(from decoder: Decoder) throws {
 
         struct Discriminator: Decodable {
-            let _Type: String
+            let __Type: String
         }
 
         let container = try decoder.singleValueContainer()
-        let discriminatorValue = try container.decode(Discriminator.self)._Type
+        let discriminatorValue = try container.decode(Discriminator.self).__Type
 
         switch discriminatorValue {
         case "GroupDoesNotExist": self = try .syncPlayGroupDoesNotExistUpdate(container.decode(SyncPlayGroupDoesNotExistUpdate.self))

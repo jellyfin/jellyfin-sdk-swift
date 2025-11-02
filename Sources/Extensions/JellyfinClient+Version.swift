@@ -8,7 +8,7 @@
 
 public extension JellyfinClient {
     /// Version of Jellyfin used to generate the SDK
-    static let sdkVersion: Version = "10.11.0"
+    static let sdkVersion: Version = "10.12.0"
 }
 
 public extension JellyfinClient {
