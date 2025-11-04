@@ -12,6 +12,7 @@ import URLQueryEncoder
 
 public extension Paths {
     /// Reports a session's playback progress.
+    @available(*, deprecated, message: "Deprecated")
     static func onPlaybackProgress(itemID: String, parameters: OnPlaybackProgressParameters? = nil) -> Request<Void> {
         Request(path: "/PlayingItems/\(itemID)/Progress", method: "POST", query: parameters?.asQuery, id: "OnPlaybackProgress")
     }

@@ -57,9 +57,10 @@ public struct UserPolicy: Codable, Hashable {
     public var maxActiveSessions: Int?
     /// Gets or sets the max parental rating.
     public var maxParentalRating: Int?
+    public var maxParentalSubRating: Int?
     public var passwordResetProviderID: String
     public var remoteClientBitrateLimit: Int?
-    /// Gets or sets a value indicating what SyncPlay features the user can access.
+    /// Enum SyncPlayUserAccessType.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
     public init(
@@ -103,6 +104,7 @@ public struct UserPolicy: Codable, Hashable {
         loginAttemptsBeforeLockout: Int? = nil,
         maxActiveSessions: Int? = nil,
         maxParentalRating: Int? = nil,
+        maxParentalSubRating: Int? = nil,
         passwordResetProviderID: String,
         remoteClientBitrateLimit: Int? = nil,
         syncPlayAccess: SyncPlayUserAccessType? = nil
@@ -147,6 +149,7 @@ public struct UserPolicy: Codable, Hashable {
         self.loginAttemptsBeforeLockout = loginAttemptsBeforeLockout
         self.maxActiveSessions = maxActiveSessions
         self.maxParentalRating = maxParentalRating
+        self.maxParentalSubRating = maxParentalSubRating
         self.passwordResetProviderID = passwordResetProviderID
         self.remoteClientBitrateLimit = remoteClientBitrateLimit
         self.syncPlayAccess = syncPlayAccess
@@ -194,6 +197,7 @@ public struct UserPolicy: Codable, Hashable {
         self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int.self, forKey: "LoginAttemptsBeforeLockout")
         self.maxActiveSessions = try values.decodeIfPresent(Int.self, forKey: "MaxActiveSessions")
         self.maxParentalRating = try values.decodeIfPresent(Int.self, forKey: "MaxParentalRating")
+        self.maxParentalSubRating = try values.decodeIfPresent(Int.self, forKey: "MaxParentalSubRating")
         self.passwordResetProviderID = try values.decode(String.self, forKey: "PasswordResetProviderId")
         self.remoteClientBitrateLimit = try values.decodeIfPresent(Int.self, forKey: "RemoteClientBitrateLimit")
         self.syncPlayAccess = try values.decodeIfPresent(SyncPlayUserAccessType.self, forKey: "SyncPlayAccess")
@@ -241,6 +245,7 @@ public struct UserPolicy: Codable, Hashable {
         try values.encodeIfPresent(loginAttemptsBeforeLockout, forKey: "LoginAttemptsBeforeLockout")
         try values.encodeIfPresent(maxActiveSessions, forKey: "MaxActiveSessions")
         try values.encodeIfPresent(maxParentalRating, forKey: "MaxParentalRating")
+        try values.encodeIfPresent(maxParentalSubRating, forKey: "MaxParentalSubRating")
         try values.encode(passwordResetProviderID, forKey: "PasswordResetProviderId")
         try values.encodeIfPresent(remoteClientBitrateLimit, forKey: "RemoteClientBitrateLimit")
         try values.encodeIfPresent(syncPlayAccess, forKey: "SyncPlayAccess")

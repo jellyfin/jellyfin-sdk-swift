@@ -19,6 +19,7 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
     public var id: String?
     public var isIgnoreDts: Bool?
     public var isImportFavoritesOnly: Bool?
+    public var isReadAtNativeFramerate: Bool?
     public var source: String?
     public var tunerCount: Int?
     public var type: String?
@@ -36,6 +37,7 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         id: String? = nil,
         isIgnoreDts: Bool? = nil,
         isImportFavoritesOnly: Bool? = nil,
+        isReadAtNativeFramerate: Bool? = nil,
         source: String? = nil,
         tunerCount: Int? = nil,
         type: String? = nil,
@@ -52,6 +54,7 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         self.id = id
         self.isIgnoreDts = isIgnoreDts
         self.isImportFavoritesOnly = isImportFavoritesOnly
+        self.isReadAtNativeFramerate = isReadAtNativeFramerate
         self.source = source
         self.tunerCount = tunerCount
         self.type = type
@@ -71,6 +74,7 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isIgnoreDts = try values.decodeIfPresent(Bool.self, forKey: "IgnoreDts")
         self.isImportFavoritesOnly = try values.decodeIfPresent(Bool.self, forKey: "ImportFavoritesOnly")
+        self.isReadAtNativeFramerate = try values.decodeIfPresent(Bool.self, forKey: "ReadAtNativeFramerate")
         self.source = try values.decodeIfPresent(String.self, forKey: "Source")
         self.tunerCount = try values.decodeIfPresent(Int.self, forKey: "TunerCount")
         self.type = try values.decodeIfPresent(String.self, forKey: "Type")
@@ -90,6 +94,7 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(isIgnoreDts, forKey: "IgnoreDts")
         try values.encodeIfPresent(isImportFavoritesOnly, forKey: "ImportFavoritesOnly")
+        try values.encodeIfPresent(isReadAtNativeFramerate, forKey: "ReadAtNativeFramerate")
         try values.encodeIfPresent(source, forKey: "Source")
         try values.encodeIfPresent(tunerCount, forKey: "TunerCount")
         try values.encodeIfPresent(type, forKey: "Type")

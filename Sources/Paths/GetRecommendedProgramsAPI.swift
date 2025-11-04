@@ -18,6 +18,7 @@ public extension Paths {
 
     struct GetRecommendedProgramsParameters {
         public var userID: String?
+        public var startIndex: Int?
         public var limit: Int?
         public var isAiring: Bool?
         public var hasAired: Bool?
@@ -36,6 +37,7 @@ public extension Paths {
 
         public init(
             userID: String? = nil,
+            startIndex: Int? = nil,
             limit: Int? = nil,
             isAiring: Bool? = nil,
             hasAired: Bool? = nil,
@@ -53,6 +55,7 @@ public extension Paths {
             enableTotalRecordCount: Bool? = nil
         ) {
             self.userID = userID
+            self.startIndex = startIndex
             self.limit = limit
             self.isAiring = isAiring
             self.hasAired = hasAired
@@ -73,6 +76,7 @@ public extension Paths {
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(userID, forKey: "userId")
+            encoder.encode(startIndex, forKey: "startIndex")
             encoder.encode(limit, forKey: "limit")
             encoder.encode(isAiring, forKey: "isAiring")
             encoder.encode(hasAired, forKey: "hasAired")

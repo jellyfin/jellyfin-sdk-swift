@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Plabyback info dto.
+/// Playback info dto.
 public struct PlaybackInfoDto: Codable, Hashable {
     /// Gets or sets a value indicating whether to allow audio stream copy.
     public var allowAudioStreamCopy: Bool?

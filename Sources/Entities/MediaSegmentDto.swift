@@ -18,7 +18,7 @@ public struct MediaSegmentDto: Codable, Hashable, Identifiable {
     public var itemID: String?
     /// Gets or sets the start of the segment.
     public var startTicks: Int?
-    /// Gets or sets the type of content this segment defines.
+    /// Defines the types of content an individual Jellyfin.Database.Implementations.Entities.MediaSegment represents.
     public var type: MediaSegmentType?
 
     public init(endTicks: Int? = nil, id: String? = nil, itemID: String? = nil, startTicks: Int? = nil, type: MediaSegmentType? = nil) {
