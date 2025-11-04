@@ -52,6 +52,46 @@ let quickConnectState = Task {
 quickConnect.start()
 ```
 
+## Server Discovery
+
+The `ServerDiscovery` class allows you to discover Jellyfin servers on your local network using UDP broadcast. It shoudl work on both IPv4 and IPv6 networks to maximize discovery capabilities.
+
+```swift
+/// Create a ServerDiscovery instance
+let discovery = ServerDiscovery()
+
+/// Subscribe to discovered servers
+discovery.discoveredServers
+    .receive(on: RunLoop.main)
+    .sink { server in
+        print("Found server: \(server.name) at \(server.url)")
+        /// Handle the found servers as needed
+    }
+    .store(in: &cancellables)
+
+/// Track discovery state changes
+discovery.state
+    .receive(on: RunLoop.main)
+    .sink { state in
+        switch state {
+        case .active:
+            print("Discovery in progress...")
+        case .inactive:
+            print("Discovery inactive")
+        case .error(let message):
+            print("Discovery error: \(message)")
+        }
+    }
+    .store(in: &cancellables)
+
+/// Broadcast to the network then listen for a response for 6 seconds afterwards
+/// Calling this again will reuse the same bindings for IPv4 and IPv6
+discovery.broadcast(duration: 6)
+
+/// Reset all of the bindings for IPv4 and IPv6
+discovery.reset()
+```
+
 ## Generation
 
 ```bash
