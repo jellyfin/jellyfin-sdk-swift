@@ -14,31 +14,56 @@ import Get
 public final class JellyfinClient {
 
     /// Current user access token
-    public private(set) var accessToken: String?
+    public var accessToken: String? {
+        configuration.accessToken
+    }
 
     /// Configuration for this instance of `JellyfinClient`
-    public let configuration: Configuration
+    public private(set) var configuration: Configuration
 
     private var _apiClient: APIClient!
     private let sessionConfiguration: URLSessionConfiguration
-    private let delegate: APIClientDelegate?
+    private var passthroughDelegate: PassthroughAPIClientDelegate
 
-    /// Create a `JellyfinClient` instance given a configuration and optional access token
-    public init(
+    /// Create a `JellyfinClient` instance given a configuration and optional access token.
+    ///
+    /// - Note: A strong reference is made to the `delegate` if one is provided. Make sure to avoid
+    /// retain cycles if you are referencing the `JellyfinClient` instance from the delegate.
+    @available(*, deprecated, message: "Use the updated initializer to pass the access token in the configuration directly")
+    public convenience init(
         configuration: Configuration,
         sessionConfiguration: URLSessionConfiguration = .default,
         sessionDelegate: URLSessionDelegate? = nil,
         delegate: APIClientDelegate? = nil,
         accessToken: String? = nil
     ) {
+        let newConfiguration = configuration.with(accessToken: accessToken)
+
+        self.init(
+            configuration: newConfiguration,
+            delegate: delegate,
+            sessionConfiguration: sessionConfiguration,
+            sessionDelegate: sessionDelegate
+        )
+    }
+
+    /// Create a `JellyfinClient` instance given a configuration.
+    ///
+    /// - Note: A strong reference is made to the `delegate` if one is provided. Make sure to avoid
+    /// retain cycles if you are referencing the `JellyfinClient` instance from the delegate.
+    public init(
+        configuration: Configuration,
+        delegate: APIClientDelegate? = nil,
+        sessionConfiguration: URLSessionConfiguration = .default,
+        sessionDelegate: URLSessionDelegate? = nil
+    ) {
         self.configuration = configuration
         self.sessionConfiguration = sessionConfiguration
-        self.delegate = delegate
-        self.accessToken = accessToken
+        self.passthroughDelegate = PassthroughAPIClientDelegate()
 
         self._apiClient = APIClient(baseURL: configuration.url) { configuration in
+            configuration.delegate = passthroughDelegate
             configuration.sessionConfiguration = sessionConfiguration
-            configuration.delegate = self
             configuration.sessionDelegate = sessionDelegate
 
             let isoDateFormatter: DateFormatter = OpenISO8601DateFormatter()
@@ -52,12 +77,18 @@ public final class JellyfinClient {
             encoder.outputFormatting = .prettyPrinted
             configuration.encoder = encoder
         }
+
+        self.passthroughDelegate.jellyfinClient = self
+        self.passthroughDelegate.actualDelegate = delegate
     }
 
     public struct Configuration {
 
         /// Server URL
         public let url: URL
+
+        /// Access token
+        public internal(set) var accessToken: String?
 
         /// Client name
         ///
@@ -71,7 +102,7 @@ public final class JellyfinClient {
 
         /// Unique device ID
         ///
-        /// - Note: This ID should be consistent for proper device management
+        /// - Note: This ID should be consistent for proper device management.
         public let deviceID: String
 
         /// Version of your application
@@ -81,16 +112,29 @@ public final class JellyfinClient {
 
         public init(
             url: URL,
+            accessToken: String? = nil,
             client: String,
             deviceName: String,
             deviceID: String,
             version: String
         ) {
             self.url = url
+            self.accessToken = accessToken
             self.client = client
             self.deviceName = deviceName
             self.deviceID = deviceID
             self.version = version
+        }
+
+        func with(accessToken: String?) -> Configuration {
+            Configuration(
+                url: url,
+                accessToken: accessToken,
+                client: client,
+                deviceName: deviceName,
+                deviceID: deviceID,
+                version: version
+            )
         }
     }
 
@@ -133,50 +177,6 @@ public final class JellyfinClient {
     ) async throws -> Response<URL> {
         try await _apiClient.download(resumeFrom: resumeData, delegate: delegate)
     }
-
-    private func authHeaders() -> String {
-        let fields = [
-            "DeviceId": configuration.deviceID,
-            "Device": configuration.deviceName,
-            "Client": configuration.client,
-            "Version": configuration.version,
-            "Token": accessToken ?? "",
-        ]
-            .map { "\($0.key)=\($0.value)" }
-            .joined(separator: ", ")
-
-        return "MediaBrowser \(fields)"
-    }
-}
-
-// MARK: APIClientDelegate
-
-extension JellyfinClient: APIClientDelegate {
-
-    public func client(_ client: APIClient, willSendRequest request: inout URLRequest) async throws {
-        // Inject required headers
-        request.addValue(authHeaders(), forHTTPHeaderField: "Authorization")
-
-        try await delegate?.client(_apiClient, willSendRequest: &request)
-    }
-
-    public func client(_ client: APIClient, validateResponse response: HTTPURLResponse, data: Data, task: URLSessionTask) throws {
-        if let delegate {
-            try delegate.client(_apiClient, validateResponse: response, data: data, task: task)
-        } else {
-            guard (200 ..< 300).contains(response.statusCode) else {
-                throw APIError.unacceptableStatusCode(response.statusCode)
-            }
-        }
-    }
-
-    public func client(_ client: APIClient, shouldRetry task: URLSessionTask, error: Error, attempts: Int) async throws -> Bool {
-        try await delegate?.client(_apiClient, shouldRetry: task, error: error, attempts: attempts) ?? false
-    }
-
-    public func client(_ client: APIClient, makeURLForRequest request: Request<some Any>) throws -> URL? {
-        try delegate?.client(_apiClient, makeURLForRequest: request)
-    }
 }
 
 // MARK: Helpers
@@ -199,7 +199,7 @@ public extension JellyfinClient {
         let response = try await send(request).value
 
         if let accessToken = response.accessToken {
-            self.accessToken = accessToken
+            self.configuration.accessToken = accessToken
         } else {
             throw ClientError.noAccessTokenInResponse
         }
@@ -222,7 +222,7 @@ public extension JellyfinClient {
         let response = try await send(request).value
 
         if let accessToken = response.accessToken {
-            self.accessToken = accessToken
+            self.configuration.accessToken = accessToken
         } else {
             throw ClientError.noAccessTokenInResponse
         }
@@ -238,7 +238,7 @@ public extension JellyfinClient {
             try await send(revokeKeyRequest)
         }
 
-        self.accessToken = nil
+        self.configuration.accessToken = nil
     }
 }
 

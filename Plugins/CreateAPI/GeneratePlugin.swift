@@ -18,7 +18,6 @@ struct Plugin: CommandPlugin {
     func performCommand(context: PluginContext, arguments: [String]) async throws {
 
         // Apply schema pre patches
-        try await patchTaskTriggerInfoSchema(context: context)
 
         try await generate(context: context)
 
@@ -26,9 +25,6 @@ struct Plugin: CommandPlugin {
         try await patchRemoteSearchResult(context: context)
         try await patchAnyJSON(context: context)
         try await patchGroupUpdateDiscriminator(context: context)
-
-        // Move patch files
-        try await addTaskTriggerType(context: context)
 
         // Create the version SDK
         try await generateVersionFile(context: context)
@@ -107,30 +103,9 @@ struct Plugin: CommandPlugin {
             .directory
             .appending(["Sources", "jellyfin-openapi-stable-patched.json"])
 
-        try FileManager.default.removeItem(atPath: filePath.string)
-    }
-
-    private func patchTaskTriggerInfoSchema(context: PluginContext) async throws {
-        let contents = try await parseOriginalSchema(context: context)
-
-        guard case var .object(file) = contents else { return }
-        guard case var .object(components) = file["components"] else { return }
-        guard case var .object(schemas) = components["schemas"] else { return }
-        guard case var .object(taskTriggerInfo) = schemas["TaskTriggerInfo"] else { return }
-        guard case var .object(properties) = taskTriggerInfo["properties"] else { return }
-
-        properties["Type"] = AnyJSON.object([
-            "type": .string("string"),
-            "format": .string("TaskTriggerType"),
-            "nullable": .bool(true),
-        ])
-
-        taskTriggerInfo["properties"] = .object(properties)
-        schemas["TaskTriggerInfo"] = .object(taskTriggerInfo)
-        components["schemas"] = .object(schemas)
-        file["components"] = .object(components)
-
-        try await savePatchedSchema(context: context, json: .object(file))
+        if FileManager.default.fileExists(atPath: filePath.string) {
+            try FileManager.default.removeItem(atPath: filePath.string)
+        }
     }
 
     // Entities/RemoteSearchResult.swift: remove `Hashable`
@@ -171,26 +146,6 @@ struct Plugin: CommandPlugin {
             .joined(separator: "\n")
             .data(using: .utf8)?
             .write(to: URL(fileURLWithPath: filePath.string))
-    }
-
-    private func addTaskTriggerType(context: PluginContext) async throws {
-        let sourceFilePath = context
-            .package
-            .directory
-            .appending(["Plugins", "CreateAPI", "PatchFiles", "TaskTriggerType.swift"])
-
-        let destinationFilePath = context
-            .package
-            .directory
-            .appending(["Sources", "Entities", "TaskTriggerType.swift"])
-
-        let fileManager = FileManager.default
-
-        if fileManager.fileExists(atPath: destinationFilePath.string) {
-            try fileManager.removeItem(atPath: destinationFilePath.string)
-        }
-
-        try fileManager.copyItem(atPath: sourceFilePath.string, toPath: destinationFilePath.string)
     }
 
     // TODO: Remove if/when fixed within CreateAPI

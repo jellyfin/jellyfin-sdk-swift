@@ -42,7 +42,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     public var itemID: String?
     /// Gets or sets the matched term.
     public var matchedTerm: String?
-    /// Gets or sets the type of the media.
+    /// Media types.
     public var mediaType: MediaType?
     /// Gets or sets the name.
     public var name: String?
@@ -68,7 +68,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     public var thumbImageItemID: String?
     /// Gets or sets the thumb image tag.
     public var thumbImageTag: String?
-    /// Gets or sets the type.
+    /// The base item kind.
     public var type: BaseItemKind?
 
     public init(

@@ -154,7 +154,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var mediaSources: [MediaSourceInfo]?
     /// Gets or sets the media streams.
     public var mediaStreams: [MediaStream]?
-    /// Gets or sets the type of the media.
+    /// Media types.
     public var mediaType: MediaType?
     /// Gets or sets the movie count.
     public var movieCount: Int?
@@ -272,8 +272,8 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     /// Gets or sets the trailer count.
     public var trailerCount: Int?
     /// Gets or sets the trickplay manifest.
-    public var trickplay: [String: [String: TrickplayInfo]]?
-    /// Gets or sets the type.
+    public var trickplay: [String: [String: TrickplayInfoDto]]?
+    /// The base item kind.
     public var type: BaseItemKind?
     /// Gets or sets the user data for this item based on the user it's being requested for.
     public var userData: UserItemDataDto?
@@ -513,7 +513,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         tags: [String]? = nil,
         timerID: String? = nil,
         trailerCount: Int? = nil,
-        trickplay: [String: [String: TrickplayInfo]]? = nil,
+        trickplay: [String: [String: TrickplayInfoDto]]? = nil,
         type: BaseItemKind? = nil,
         userData: UserItemDataDto? = nil,
         video3DFormat: Video3DFormat? = nil,
@@ -822,7 +822,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.tags = try values.decodeIfPresent([String].self, forKey: "Tags")
         self.timerID = try values.decodeIfPresent(String.self, forKey: "TimerId")
         self.trailerCount = try values.decodeIfPresent(Int.self, forKey: "TrailerCount")
-        self.trickplay = try values.decodeIfPresent([String: [String: TrickplayInfo]].self, forKey: "Trickplay")
+        self.trickplay = try values.decodeIfPresent([String: [String: TrickplayInfoDto]].self, forKey: "Trickplay")
         self.type = try values.decodeIfPresent(BaseItemKind.self, forKey: "Type")
         self.userData = try values.decodeIfPresent(UserItemDataDto.self, forKey: "UserData")
         self.video3DFormat = try values.decodeIfPresent(Video3DFormat.self, forKey: "Video3DFormat")
