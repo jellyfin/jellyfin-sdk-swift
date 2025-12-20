@@ -10,21 +10,17 @@ import Foundation
 
 /// Types of subscriptions supported by the Jellyfin WebSocket
 public enum SocketSubscription: Hashable {
-    case sessions(initialDelayMs: Int = 0, intervalMs: Int = 10000)
-    case scheduledTasks(initialDelayMs: Int = 0, intervalMs: Int = 60000)
-    case activityLog(initialDelayMs: Int = 0, intervalMs: Int = 5000)
 
-    /// Formats the subscription parameters as a string for the server
-    var data: String? {
-        let parameters: (Int, Int)
+    case activityLog(initialDelayMs: Int = 5000, intervalMs: Int = 5000)
+    case scheduledTasks(initialDelayMs: Int = 0, intervalMs: Int = 5000)
+    case sessions(initialDelayMs: Int = 0, intervalMs: Int = 2000)
+
+    var data: String {
         switch self {
-        case .sessions(let delay, let interval):
-            parameters = (delay, interval)
-        case .scheduledTasks(let delay, let interval):
-            parameters = (delay, interval)
-        case .activityLog(let delay, let interval):
-            parameters = (delay, interval)
+        case .activityLog(let delay, let interval),
+             .scheduledTasks(let delay, let interval),
+             .sessions(let delay, let interval):
+            return "\(delay),\(interval)"
         }
-        return "\(parameters.0),\(parameters.1)"
     }
 }

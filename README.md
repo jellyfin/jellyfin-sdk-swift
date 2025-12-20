@@ -35,9 +35,8 @@ Alternatively, you can use your own network stack with the generated **Entities*
 let socket = JellyfinSocket(
     client: client,
     userID: user.id,
-    isSupportsMediaControl: true,
-    supportedCommands: [.displayMessage, .play, .pause],
-    logLevel: .debug
+    supportsMediaControl: true,
+    supportedCommands: [.displayMessage, .play, .pause]
 )
 
 /// Observe socket state changes
