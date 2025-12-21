@@ -37,10 +37,10 @@ public final class JellyfinSocket: ObservableObject, @unchecked Sendable {
     // MARK: - Connection Settings
 
     private let maxReconnectAttempts = 5
-    private let reconnectDelayBase: TimeInterval = 2.0
-    private let connectionTimeout: TimeInterval = 10.0
-    private let serverResponseTimeout: TimeInterval = 90.0
-    private var keepAliveInterval: TimeInterval = 20.0
+    private let reconnectDelayBase: Duration = .seconds(2)
+    private let connectionTimeout: TimeInterval = 10
+    private let serverResponseTimeout: TimeInterval = 90
+    private var keepAliveInterval: TimeInterval = 20
 
     // MARK: - Internal State
 
@@ -366,13 +366,13 @@ private extension JellyfinSocket {
         }
 
         reconnectAttempts += 1
-        let delay = pow(reconnectDelayBase, Double(reconnectAttempts))
-        logger.info("Reconnecting in \(delay)s (attempt \(reconnectAttempts)/\(maxReconnectAttempts))")
+        let delay = reconnectDelayBase * Int(pow(2.0, Double(reconnectAttempts - 1)))
+        logger.info("Reconnecting in \(delay) (attempt \(reconnectAttempts)/\(maxReconnectAttempts))")
 
         state = .connecting
 
         Task {
-            try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+            try? await Task.sleep(for: delay)
             guard !explicitlyDisconnected else { return }
             await establishConnection()
         }
@@ -490,6 +490,6 @@ private extension JellyfinSocket {
         parameters.isSupportsMediaControl = enable ? supportsMediaControl : false
         parameters.supportedCommands = enable ? supportedCommands : nil
 
-        try? await client.send(Paths.postCapabilities(parameters: parameters))
+        _ = try? await client.send(Paths.postCapabilities(parameters: parameters))
     }
 }
