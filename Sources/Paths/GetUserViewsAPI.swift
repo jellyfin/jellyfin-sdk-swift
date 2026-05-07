@@ -17,28 +17,28 @@ public extension Paths {
 
     struct GetUserViewsParameters {
         public var userID: String?
-        public var isIncludeexternalcontent: Bool?
+        public var isIncludeExternalContent: Bool?
         public var presetViews: [CollectionType]?
-        public var isIncludehidden: Bool?
+        public var isIncludeHidden: Bool?
 
         public init(
             userID: String? = nil,
-            isIncludeexternalcontent: Bool? = nil,
+            isIncludeExternalContent: Bool? = nil,
             presetViews: [CollectionType]? = nil,
-            isIncludehidden: Bool? = nil
+            isIncludeHidden: Bool? = nil
         ) {
             self.userID = userID
-            self.isIncludeexternalcontent = isIncludeexternalcontent
+            self.isIncludeExternalContent = isIncludeExternalContent
             self.presetViews = presetViews
-            self.isIncludehidden = isIncludehidden
+            self.isIncludeHidden = isIncludeHidden
         }
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(userID, forKey: "userId")
-            encoder.encode(isIncludeexternalcontent, forKey: "includeExternalContent")
+            encoder.encode(isIncludeExternalContent, forKey: "includeExternalContent")
             encoder.encode(presetViews, forKey: "presetViews")
-            encoder.encode(isIncludehidden, forKey: "includeHidden")
+            encoder.encode(isIncludeHidden, forKey: "includeHidden")
             return encoder.items
         }
     }

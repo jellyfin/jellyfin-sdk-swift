@@ -20,20 +20,20 @@ public extension Paths {
         public var startIndex: Int?
         public var limit: Int?
         public var providerName: String?
-        public var isIncludealllanguages: Bool?
+        public var isIncludeAllLanguages: Bool?
 
         public init(
             type: ImageType? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
             providerName: String? = nil,
-            isIncludealllanguages: Bool? = nil
+            isIncludeAllLanguages: Bool? = nil
         ) {
             self.type = type
             self.startIndex = startIndex
             self.limit = limit
             self.providerName = providerName
-            self.isIncludealllanguages = isIncludealllanguages
+            self.isIncludeAllLanguages = isIncludeAllLanguages
         }
 
         public var asQuery: [(String, String?)] {
@@ -42,7 +42,7 @@ public extension Paths {
             encoder.encode(startIndex, forKey: "startIndex")
             encoder.encode(limit, forKey: "limit")
             encoder.encode(providerName, forKey: "providerName")
-            encoder.encode(isIncludealllanguages, forKey: "includeAllLanguages")
+            encoder.encode(isIncludeAllLanguages, forKey: "includeAllLanguages")
             return encoder.items
         }
     }

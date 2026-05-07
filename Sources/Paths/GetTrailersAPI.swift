@@ -86,7 +86,7 @@ public extension Paths {
         public var isLocked: Bool?
         public var isPlaceHolder: Bool?
         public var hasOfficialRating: Bool?
-        public var isCollapseboxsetitems: Bool?
+        public var isCollapseBoxSetItems: Bool?
         public var minWidth: Int?
         public var minHeight: Int?
         public var maxWidth: Int?
@@ -172,7 +172,7 @@ public extension Paths {
             isLocked: Bool? = nil,
             isPlaceHolder: Bool? = nil,
             hasOfficialRating: Bool? = nil,
-            isCollapseboxsetitems: Bool? = nil,
+            isCollapseBoxSetItems: Bool? = nil,
             minWidth: Int? = nil,
             minHeight: Int? = nil,
             maxWidth: Int? = nil,
@@ -257,7 +257,7 @@ public extension Paths {
             self.isLocked = isLocked
             self.isPlaceHolder = isPlaceHolder
             self.hasOfficialRating = hasOfficialRating
-            self.isCollapseboxsetitems = isCollapseboxsetitems
+            self.isCollapseBoxSetItems = isCollapseBoxSetItems
             self.minWidth = minWidth
             self.minHeight = minHeight
             self.maxWidth = maxWidth
@@ -345,7 +345,7 @@ public extension Paths {
             encoder.encode(isLocked, forKey: "isLocked")
             encoder.encode(isPlaceHolder, forKey: "isPlaceHolder")
             encoder.encode(hasOfficialRating, forKey: "hasOfficialRating")
-            encoder.encode(isCollapseboxsetitems, forKey: "collapseBoxSetItems")
+            encoder.encode(isCollapseBoxSetItems, forKey: "collapseBoxSetItems")
             encoder.encode(minWidth, forKey: "minWidth")
             encoder.encode(minHeight, forKey: "minHeight")
             encoder.encode(maxWidth, forKey: "maxWidth")

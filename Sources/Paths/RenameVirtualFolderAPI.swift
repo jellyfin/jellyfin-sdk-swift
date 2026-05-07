@@ -18,19 +18,19 @@ public extension Paths {
     struct RenameVirtualFolderParameters {
         public var name: String?
         public var newName: String?
-        public var isRefreshlibrary: Bool?
+        public var isRefreshLibrary: Bool?
 
-        public init(name: String? = nil, newName: String? = nil, isRefreshlibrary: Bool? = nil) {
+        public init(name: String? = nil, newName: String? = nil, isRefreshLibrary: Bool? = nil) {
             self.name = name
             self.newName = newName
-            self.isRefreshlibrary = isRefreshlibrary
+            self.isRefreshLibrary = isRefreshLibrary
         }
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(name, forKey: "name")
             encoder.encode(newName, forKey: "newName")
-            encoder.encode(isRefreshlibrary, forKey: "refreshLibrary")
+            encoder.encode(isRefreshLibrary, forKey: "refreshLibrary")
             return encoder.items
         }
     }

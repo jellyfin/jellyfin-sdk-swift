@@ -23,19 +23,19 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable, Sendable {
     public var formats: [String]?
     public var hasSegments: Bool?
     public var id: String?
-    public var isGenptsinput: Bool?
-    public var isIgnoredts: Bool?
-    public var isIgnoreindex: Bool?
+    public var isGenPtsInput: Bool?
+    public var isIgnoreDts: Bool?
+    public var isIgnoreIndex: Bool?
     public var isInfiniteStream: Bool?
-    public var isReadatnativeframerate: Bool?
+    public var isReadAtNativeFramerate: Bool?
     /// Gets or sets a value indicating whether the media is remote.
     ///
     /// Differentiate internet url vs local network.
     public var isRemote: Bool?
-    public var isSupportsdirectplay: Bool?
-    public var isSupportsdirectstream: Bool?
-    public var isSupportsprobing: Bool?
-    public var isSupportstranscoding: Bool?
+    public var isSupportsDirectPlay: Bool?
+    public var isSupportsDirectStream: Bool?
+    public var isSupportsProbing: Bool?
+    public var isSupportsTranscoding: Bool?
     public var isoType: IsoType?
     public var liveStreamID: String?
     public var mediaAttachments: [MediaAttachment]?
@@ -76,16 +76,16 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable, Sendable {
         formats: [String]? = nil,
         hasSegments: Bool? = nil,
         id: String? = nil,
-        isGenptsinput: Bool? = nil,
-        isIgnoredts: Bool? = nil,
-        isIgnoreindex: Bool? = nil,
+        isGenPtsInput: Bool? = nil,
+        isIgnoreDts: Bool? = nil,
+        isIgnoreIndex: Bool? = nil,
         isInfiniteStream: Bool? = nil,
-        isReadatnativeframerate: Bool? = nil,
+        isReadAtNativeFramerate: Bool? = nil,
         isRemote: Bool? = nil,
-        isSupportsdirectplay: Bool? = nil,
-        isSupportsdirectstream: Bool? = nil,
-        isSupportsprobing: Bool? = nil,
-        isSupportstranscoding: Bool? = nil,
+        isSupportsDirectPlay: Bool? = nil,
+        isSupportsDirectStream: Bool? = nil,
+        isSupportsProbing: Bool? = nil,
+        isSupportsTranscoding: Bool? = nil,
         isoType: IsoType? = nil,
         liveStreamID: String? = nil,
         mediaAttachments: [MediaAttachment]? = nil,
@@ -122,16 +122,16 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable, Sendable {
         self.formats = formats
         self.hasSegments = hasSegments
         self.id = id
-        self.isGenptsinput = isGenptsinput
-        self.isIgnoredts = isIgnoredts
-        self.isIgnoreindex = isIgnoreindex
+        self.isGenPtsInput = isGenPtsInput
+        self.isIgnoreDts = isIgnoreDts
+        self.isIgnoreIndex = isIgnoreIndex
         self.isInfiniteStream = isInfiniteStream
-        self.isReadatnativeframerate = isReadatnativeframerate
+        self.isReadAtNativeFramerate = isReadAtNativeFramerate
         self.isRemote = isRemote
-        self.isSupportsdirectplay = isSupportsdirectplay
-        self.isSupportsdirectstream = isSupportsdirectstream
-        self.isSupportsprobing = isSupportsprobing
-        self.isSupportstranscoding = isSupportstranscoding
+        self.isSupportsDirectPlay = isSupportsDirectPlay
+        self.isSupportsDirectStream = isSupportsDirectStream
+        self.isSupportsProbing = isSupportsProbing
+        self.isSupportsTranscoding = isSupportsTranscoding
         self.isoType = isoType
         self.liveStreamID = liveStreamID
         self.mediaAttachments = mediaAttachments
@@ -171,16 +171,16 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable, Sendable {
         self.formats = try values.decodeIfPresent([String].self, forKey: "Formats")
         self.hasSegments = try values.decodeIfPresent(Bool.self, forKey: "HasSegments")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.isGenptsinput = try values.decodeIfPresent(Bool.self, forKey: "GenPtsInput")
-        self.isIgnoredts = try values.decodeIfPresent(Bool.self, forKey: "IgnoreDts")
-        self.isIgnoreindex = try values.decodeIfPresent(Bool.self, forKey: "IgnoreIndex")
+        self.isGenPtsInput = try values.decodeIfPresent(Bool.self, forKey: "GenPtsInput")
+        self.isIgnoreDts = try values.decodeIfPresent(Bool.self, forKey: "IgnoreDts")
+        self.isIgnoreIndex = try values.decodeIfPresent(Bool.self, forKey: "IgnoreIndex")
         self.isInfiniteStream = try values.decodeIfPresent(Bool.self, forKey: "IsInfiniteStream")
-        self.isReadatnativeframerate = try values.decodeIfPresent(Bool.self, forKey: "ReadAtNativeFramerate")
+        self.isReadAtNativeFramerate = try values.decodeIfPresent(Bool.self, forKey: "ReadAtNativeFramerate")
         self.isRemote = try values.decodeIfPresent(Bool.self, forKey: "IsRemote")
-        self.isSupportsdirectplay = try values.decodeIfPresent(Bool.self, forKey: "SupportsDirectPlay")
-        self.isSupportsdirectstream = try values.decodeIfPresent(Bool.self, forKey: "SupportsDirectStream")
-        self.isSupportsprobing = try values.decodeIfPresent(Bool.self, forKey: "SupportsProbing")
-        self.isSupportstranscoding = try values.decodeIfPresent(Bool.self, forKey: "SupportsTranscoding")
+        self.isSupportsDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "SupportsDirectPlay")
+        self.isSupportsDirectStream = try values.decodeIfPresent(Bool.self, forKey: "SupportsDirectStream")
+        self.isSupportsProbing = try values.decodeIfPresent(Bool.self, forKey: "SupportsProbing")
+        self.isSupportsTranscoding = try values.decodeIfPresent(Bool.self, forKey: "SupportsTranscoding")
         self.isoType = try values.decodeIfPresent(IsoType.self, forKey: "IsoType")
         self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
         self.mediaAttachments = try values.decodeIfPresent([MediaAttachment].self, forKey: "MediaAttachments")
@@ -221,16 +221,16 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(formats, forKey: "Formats")
         try values.encodeIfPresent(hasSegments, forKey: "HasSegments")
         try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(isGenptsinput, forKey: "GenPtsInput")
-        try values.encodeIfPresent(isIgnoredts, forKey: "IgnoreDts")
-        try values.encodeIfPresent(isIgnoreindex, forKey: "IgnoreIndex")
+        try values.encodeIfPresent(isGenPtsInput, forKey: "GenPtsInput")
+        try values.encodeIfPresent(isIgnoreDts, forKey: "IgnoreDts")
+        try values.encodeIfPresent(isIgnoreIndex, forKey: "IgnoreIndex")
         try values.encodeIfPresent(isInfiniteStream, forKey: "IsInfiniteStream")
-        try values.encodeIfPresent(isReadatnativeframerate, forKey: "ReadAtNativeFramerate")
+        try values.encodeIfPresent(isReadAtNativeFramerate, forKey: "ReadAtNativeFramerate")
         try values.encodeIfPresent(isRemote, forKey: "IsRemote")
-        try values.encodeIfPresent(isSupportsdirectplay, forKey: "SupportsDirectPlay")
-        try values.encodeIfPresent(isSupportsdirectstream, forKey: "SupportsDirectStream")
-        try values.encodeIfPresent(isSupportsprobing, forKey: "SupportsProbing")
-        try values.encodeIfPresent(isSupportstranscoding, forKey: "SupportsTranscoding")
+        try values.encodeIfPresent(isSupportsDirectPlay, forKey: "SupportsDirectPlay")
+        try values.encodeIfPresent(isSupportsDirectStream, forKey: "SupportsDirectStream")
+        try values.encodeIfPresent(isSupportsProbing, forKey: "SupportsProbing")
+        try values.encodeIfPresent(isSupportsTranscoding, forKey: "SupportsTranscoding")
         try values.encodeIfPresent(isoType, forKey: "IsoType")
         try values.encodeIfPresent(liveStreamID, forKey: "LiveStreamId")
         try values.encodeIfPresent(mediaAttachments, forKey: "MediaAttachments")

@@ -17,13 +17,13 @@ public extension Paths {
 
     struct GetThemeVideosParameters {
         public var userID: String?
-        public var isInheritfromparent: Bool?
+        public var isInheritFromParent: Bool?
         public var sortBy: [ItemSortBy]?
         public var sortOrder: [SortOrder]?
 
-        public init(userID: String? = nil, isInheritfromparent: Bool? = nil, sortBy: [ItemSortBy]? = nil, sortOrder: [SortOrder]? = nil) {
+        public init(userID: String? = nil, isInheritFromParent: Bool? = nil, sortBy: [ItemSortBy]? = nil, sortOrder: [SortOrder]? = nil) {
             self.userID = userID
-            self.isInheritfromparent = isInheritfromparent
+            self.isInheritFromParent = isInheritFromParent
             self.sortBy = sortBy
             self.sortOrder = sortOrder
         }
@@ -31,7 +31,7 @@ public extension Paths {
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(userID, forKey: "userId")
-            encoder.encode(isInheritfromparent, forKey: "inheritFromParent")
+            encoder.encode(isInheritFromParent, forKey: "inheritFromParent")
             encoder.encode(sortBy, forKey: "sortBy")
             encoder.encode(sortOrder, forKey: "sortOrder")
             return encoder.items

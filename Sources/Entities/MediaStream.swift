@@ -74,13 +74,13 @@ public struct MediaStream: Codable, Hashable, Sendable {
     public var isExternalURL: Bool?
     /// Gets or sets a value indicating whether this instance is forced.
     public var isForced: Bool?
-    public var isHdr10Pluspresentflag: Bool?
+    public var isHdr10PlusPresentFlag: Bool?
     /// Gets or sets a value indicating whether this instance is for the hearing impaired.
     public var isHearingImpaired: Bool?
     /// Gets or sets a value indicating whether this instance is interlaced.
     public var isInterlaced: Bool?
     /// Gets or sets a value indicating whether [supports external stream].
-    public var isSupportsexternalstream: Bool?
+    public var isSupportsExternalStream: Bool?
     public var isTextSubtitleStream: Bool?
     /// Gets or sets the language.
     public var language: String?
@@ -167,10 +167,10 @@ public struct MediaStream: Codable, Hashable, Sendable {
         isExternal: Bool? = nil,
         isExternalURL: Bool? = nil,
         isForced: Bool? = nil,
-        isHdr10Pluspresentflag: Bool? = nil,
+        isHdr10PlusPresentFlag: Bool? = nil,
         isHearingImpaired: Bool? = nil,
         isInterlaced: Bool? = nil,
-        isSupportsexternalstream: Bool? = nil,
+        isSupportsExternalStream: Bool? = nil,
         isTextSubtitleStream: Bool? = nil,
         language: String? = nil,
         level: Double? = nil,
@@ -232,10 +232,10 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.isExternal = isExternal
         self.isExternalURL = isExternalURL
         self.isForced = isForced
-        self.isHdr10Pluspresentflag = isHdr10Pluspresentflag
+        self.isHdr10PlusPresentFlag = isHdr10PlusPresentFlag
         self.isHearingImpaired = isHearingImpaired
         self.isInterlaced = isInterlaced
-        self.isSupportsexternalstream = isSupportsexternalstream
+        self.isSupportsExternalStream = isSupportsExternalStream
         self.isTextSubtitleStream = isTextSubtitleStream
         self.language = language
         self.level = level
@@ -300,10 +300,10 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.isExternal = try values.decodeIfPresent(Bool.self, forKey: "IsExternal")
         self.isExternalURL = try values.decodeIfPresent(Bool.self, forKey: "IsExternalUrl")
         self.isForced = try values.decodeIfPresent(Bool.self, forKey: "IsForced")
-        self.isHdr10Pluspresentflag = try values.decodeIfPresent(Bool.self, forKey: "Hdr10PlusPresentFlag")
+        self.isHdr10PlusPresentFlag = try values.decodeIfPresent(Bool.self, forKey: "Hdr10PlusPresentFlag")
         self.isHearingImpaired = try values.decodeIfPresent(Bool.self, forKey: "IsHearingImpaired")
         self.isInterlaced = try values.decodeIfPresent(Bool.self, forKey: "IsInterlaced")
-        self.isSupportsexternalstream = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalStream")
+        self.isSupportsExternalStream = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalStream")
         self.isTextSubtitleStream = try values.decodeIfPresent(Bool.self, forKey: "IsTextSubtitleStream")
         self.language = try values.decodeIfPresent(String.self, forKey: "Language")
         self.level = try values.decodeIfPresent(Double.self, forKey: "Level")
@@ -368,10 +368,10 @@ public struct MediaStream: Codable, Hashable, Sendable {
         try values.encodeIfPresent(isExternal, forKey: "IsExternal")
         try values.encodeIfPresent(isExternalURL, forKey: "IsExternalUrl")
         try values.encodeIfPresent(isForced, forKey: "IsForced")
-        try values.encodeIfPresent(isHdr10Pluspresentflag, forKey: "Hdr10PlusPresentFlag")
+        try values.encodeIfPresent(isHdr10PlusPresentFlag, forKey: "Hdr10PlusPresentFlag")
         try values.encodeIfPresent(isHearingImpaired, forKey: "IsHearingImpaired")
         try values.encodeIfPresent(isInterlaced, forKey: "IsInterlaced")
-        try values.encodeIfPresent(isSupportsexternalstream, forKey: "SupportsExternalStream")
+        try values.encodeIfPresent(isSupportsExternalStream, forKey: "SupportsExternalStream")
         try values.encodeIfPresent(isTextSubtitleStream, forKey: "IsTextSubtitleStream")
         try values.encodeIfPresent(language, forKey: "Language")
         try values.encodeIfPresent(level, forKey: "Level")

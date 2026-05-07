@@ -31,9 +31,9 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets a value indicating whether this session is active.
     public var isActive: Bool?
     /// Gets or sets a value indicating whether the session supports media control.
-    public var isSupportsmediacontrol: Bool?
+    public var isSupportsMediaControl: Bool?
     /// Gets or sets a value indicating whether the session supports remote control.
-    public var isSupportsremotecontrol: Bool?
+    public var isSupportsRemoteControl: Bool?
     /// Gets or sets the last activity date.
     public var lastActivityDate: Date?
     /// Gets or sets the last paused date.
@@ -80,8 +80,8 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
         hasCustomDeviceName: Bool? = nil,
         id: String? = nil,
         isActive: Bool? = nil,
-        isSupportsmediacontrol: Bool? = nil,
-        isSupportsremotecontrol: Bool? = nil,
+        isSupportsMediaControl: Bool? = nil,
+        isSupportsRemoteControl: Bool? = nil,
         lastActivityDate: Date? = nil,
         lastPausedDate: Date? = nil,
         lastPlaybackCheckIn: Date? = nil,
@@ -110,8 +110,8 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
         self.hasCustomDeviceName = hasCustomDeviceName
         self.id = id
         self.isActive = isActive
-        self.isSupportsmediacontrol = isSupportsmediacontrol
-        self.isSupportsremotecontrol = isSupportsremotecontrol
+        self.isSupportsMediaControl = isSupportsMediaControl
+        self.isSupportsRemoteControl = isSupportsRemoteControl
         self.lastActivityDate = lastActivityDate
         self.lastPausedDate = lastPausedDate
         self.lastPlaybackCheckIn = lastPlaybackCheckIn
@@ -143,8 +143,8 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
         self.hasCustomDeviceName = try values.decodeIfPresent(Bool.self, forKey: "HasCustomDeviceName")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
-        self.isSupportsmediacontrol = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
-        self.isSupportsremotecontrol = try values.decodeIfPresent(Bool.self, forKey: "SupportsRemoteControl")
+        self.isSupportsMediaControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
+        self.isSupportsRemoteControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsRemoteControl")
         self.lastActivityDate = try values.decodeIfPresent(Date.self, forKey: "LastActivityDate")
         self.lastPausedDate = try values.decodeIfPresent(Date.self, forKey: "LastPausedDate")
         self.lastPlaybackCheckIn = try values.decodeIfPresent(Date.self, forKey: "LastPlaybackCheckIn")
@@ -176,8 +176,8 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(hasCustomDeviceName, forKey: "HasCustomDeviceName")
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(isActive, forKey: "IsActive")
-        try values.encodeIfPresent(isSupportsmediacontrol, forKey: "SupportsMediaControl")
-        try values.encodeIfPresent(isSupportsremotecontrol, forKey: "SupportsRemoteControl")
+        try values.encodeIfPresent(isSupportsMediaControl, forKey: "SupportsMediaControl")
+        try values.encodeIfPresent(isSupportsRemoteControl, forKey: "SupportsRemoteControl")
         try values.encodeIfPresent(lastActivityDate, forKey: "LastActivityDate")
         try values.encodeIfPresent(lastPausedDate, forKey: "LastPausedDate")
         try values.encodeIfPresent(lastPlaybackCheckIn, forKey: "LastPlaybackCheckIn")

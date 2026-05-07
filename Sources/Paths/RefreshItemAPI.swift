@@ -18,31 +18,31 @@ public extension Paths {
     struct RefreshItemParameters {
         public var metadataRefreshMode: MetadataRefreshMode?
         public var imageRefreshMode: MetadataRefreshMode?
-        public var isReplaceallmetadata: Bool?
-        public var isReplaceallimages: Bool?
-        public var isRegeneratetrickplay: Bool?
+        public var isReplaceAllMetadata: Bool?
+        public var isReplaceAllImages: Bool?
+        public var isRegenerateTrickplay: Bool?
 
         public init(
             metadataRefreshMode: MetadataRefreshMode? = nil,
             imageRefreshMode: MetadataRefreshMode? = nil,
-            isReplaceallmetadata: Bool? = nil,
-            isReplaceallimages: Bool? = nil,
-            isRegeneratetrickplay: Bool? = nil
+            isReplaceAllMetadata: Bool? = nil,
+            isReplaceAllImages: Bool? = nil,
+            isRegenerateTrickplay: Bool? = nil
         ) {
             self.metadataRefreshMode = metadataRefreshMode
             self.imageRefreshMode = imageRefreshMode
-            self.isReplaceallmetadata = isReplaceallmetadata
-            self.isReplaceallimages = isReplaceallimages
-            self.isRegeneratetrickplay = isRegeneratetrickplay
+            self.isReplaceAllMetadata = isReplaceAllMetadata
+            self.isReplaceAllImages = isReplaceAllImages
+            self.isRegenerateTrickplay = isRegenerateTrickplay
         }
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(metadataRefreshMode, forKey: "metadataRefreshMode")
             encoder.encode(imageRefreshMode, forKey: "imageRefreshMode")
-            encoder.encode(isReplaceallmetadata, forKey: "replaceAllMetadata")
-            encoder.encode(isReplaceallimages, forKey: "replaceAllImages")
-            encoder.encode(isRegeneratetrickplay, forKey: "regenerateTrickplay")
+            encoder.encode(isReplaceAllMetadata, forKey: "replaceAllMetadata")
+            encoder.encode(isReplaceAllImages, forKey: "replaceAllImages")
+            encoder.encode(isRegenerateTrickplay, forKey: "regenerateTrickplay")
             return encoder.items
         }
     }

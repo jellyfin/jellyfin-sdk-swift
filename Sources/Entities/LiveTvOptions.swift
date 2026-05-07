@@ -12,8 +12,8 @@ public struct LiveTvOptions: Codable, Hashable, Sendable {
     public var enableOriginalAudioWithEncodedRecordings: Bool?
     public var enableRecordingSubfolders: Bool?
     public var guideDays: Int?
-    public var isSaverecordingimages: Bool?
-    public var isSaverecordingnfo: Bool?
+    public var isSaveRecordingImages: Bool?
+    public var isSaveRecordingNFO: Bool?
     public var listingProviders: [ListingsProviderInfo]?
     public var mediaLocationsCreated: [String]?
     public var movieRecordingPath: String?
@@ -29,8 +29,8 @@ public struct LiveTvOptions: Codable, Hashable, Sendable {
         enableOriginalAudioWithEncodedRecordings: Bool? = nil,
         enableRecordingSubfolders: Bool? = nil,
         guideDays: Int? = nil,
-        isSaverecordingimages: Bool? = nil,
-        isSaverecordingnfo: Bool? = nil,
+        isSaveRecordingImages: Bool? = nil,
+        isSaveRecordingNFO: Bool? = nil,
         listingProviders: [ListingsProviderInfo]? = nil,
         mediaLocationsCreated: [String]? = nil,
         movieRecordingPath: String? = nil,
@@ -45,8 +45,8 @@ public struct LiveTvOptions: Codable, Hashable, Sendable {
         self.enableOriginalAudioWithEncodedRecordings = enableOriginalAudioWithEncodedRecordings
         self.enableRecordingSubfolders = enableRecordingSubfolders
         self.guideDays = guideDays
-        self.isSaverecordingimages = isSaverecordingimages
-        self.isSaverecordingnfo = isSaverecordingnfo
+        self.isSaveRecordingImages = isSaveRecordingImages
+        self.isSaveRecordingNFO = isSaveRecordingNFO
         self.listingProviders = listingProviders
         self.mediaLocationsCreated = mediaLocationsCreated
         self.movieRecordingPath = movieRecordingPath
@@ -67,8 +67,8 @@ public struct LiveTvOptions: Codable, Hashable, Sendable {
         )
         self.enableRecordingSubfolders = try values.decodeIfPresent(Bool.self, forKey: "EnableRecordingSubfolders")
         self.guideDays = try values.decodeIfPresent(Int.self, forKey: "GuideDays")
-        self.isSaverecordingimages = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingImages")
-        self.isSaverecordingnfo = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingNFO")
+        self.isSaveRecordingImages = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingImages")
+        self.isSaveRecordingNFO = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingNFO")
         self.listingProviders = try values.decodeIfPresent([ListingsProviderInfo].self, forKey: "ListingProviders")
         self.mediaLocationsCreated = try values.decodeIfPresent([String].self, forKey: "MediaLocationsCreated")
         self.movieRecordingPath = try values.decodeIfPresent(String.self, forKey: "MovieRecordingPath")
@@ -86,8 +86,8 @@ public struct LiveTvOptions: Codable, Hashable, Sendable {
         try values.encodeIfPresent(enableOriginalAudioWithEncodedRecordings, forKey: "EnableOriginalAudioWithEncodedRecordings")
         try values.encodeIfPresent(enableRecordingSubfolders, forKey: "EnableRecordingSubfolders")
         try values.encodeIfPresent(guideDays, forKey: "GuideDays")
-        try values.encodeIfPresent(isSaverecordingimages, forKey: "SaveRecordingImages")
-        try values.encodeIfPresent(isSaverecordingnfo, forKey: "SaveRecordingNFO")
+        try values.encodeIfPresent(isSaveRecordingImages, forKey: "SaveRecordingImages")
+        try values.encodeIfPresent(isSaveRecordingNFO, forKey: "SaveRecordingNFO")
         try values.encodeIfPresent(listingProviders, forKey: "ListingProviders")
         try values.encodeIfPresent(mediaLocationsCreated, forKey: "MediaLocationsCreated")
         try values.encodeIfPresent(movieRecordingPath, forKey: "MovieRecordingPath")

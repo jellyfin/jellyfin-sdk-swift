@@ -36,12 +36,12 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets a value indicating whether this instance is pre padding required.
     public var isPrePaddingRequired: Bool?
     /// Gets or sets a value indicating whether [record any channel].
-    public var isRecordanychannel: Bool?
+    public var isRecordAnyChannel: Bool?
     /// Gets or sets a value indicating whether [record any time].
-    public var isRecordanytime: Bool?
+    public var isRecordAnyTime: Bool?
     /// Gets or sets a value indicating whether [record new only].
-    public var isRecordnewonly: Bool?
-    public var isSkipepisodesinlibrary: Bool?
+    public var isRecordNewOnly: Bool?
+    public var isSkipEpisodesInLibrary: Bool?
     public var keepUntil: KeepUntil?
     public var keepUpTo: Int?
     /// Gets or sets the name of the recording.
@@ -90,10 +90,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable, Sendable {
         imageTags: [String: String]? = nil,
         isPostPaddingRequired: Bool? = nil,
         isPrePaddingRequired: Bool? = nil,
-        isRecordanychannel: Bool? = nil,
-        isRecordanytime: Bool? = nil,
-        isRecordnewonly: Bool? = nil,
-        isSkipepisodesinlibrary: Bool? = nil,
+        isRecordAnyChannel: Bool? = nil,
+        isRecordAnyTime: Bool? = nil,
+        isRecordNewOnly: Bool? = nil,
+        isSkipEpisodesInLibrary: Bool? = nil,
         keepUntil: KeepUntil? = nil,
         keepUpTo: Int? = nil,
         name: String? = nil,
@@ -126,10 +126,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable, Sendable {
         self.imageTags = imageTags
         self.isPostPaddingRequired = isPostPaddingRequired
         self.isPrePaddingRequired = isPrePaddingRequired
-        self.isRecordanychannel = isRecordanychannel
-        self.isRecordanytime = isRecordanytime
-        self.isRecordnewonly = isRecordnewonly
-        self.isSkipepisodesinlibrary = isSkipepisodesinlibrary
+        self.isRecordAnyChannel = isRecordAnyChannel
+        self.isRecordAnyTime = isRecordAnyTime
+        self.isRecordNewOnly = isRecordNewOnly
+        self.isSkipEpisodesInLibrary = isSkipEpisodesInLibrary
         self.keepUntil = keepUntil
         self.keepUpTo = keepUpTo
         self.name = name
@@ -165,10 +165,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable, Sendable {
         self.imageTags = try values.decodeIfPresent([String: String].self, forKey: "ImageTags")
         self.isPostPaddingRequired = try values.decodeIfPresent(Bool.self, forKey: "IsPostPaddingRequired")
         self.isPrePaddingRequired = try values.decodeIfPresent(Bool.self, forKey: "IsPrePaddingRequired")
-        self.isRecordanychannel = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyChannel")
-        self.isRecordanytime = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyTime")
-        self.isRecordnewonly = try values.decodeIfPresent(Bool.self, forKey: "RecordNewOnly")
-        self.isSkipepisodesinlibrary = try values.decodeIfPresent(Bool.self, forKey: "SkipEpisodesInLibrary")
+        self.isRecordAnyChannel = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyChannel")
+        self.isRecordAnyTime = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyTime")
+        self.isRecordNewOnly = try values.decodeIfPresent(Bool.self, forKey: "RecordNewOnly")
+        self.isSkipEpisodesInLibrary = try values.decodeIfPresent(Bool.self, forKey: "SkipEpisodesInLibrary")
         self.keepUntil = try values.decodeIfPresent(KeepUntil.self, forKey: "KeepUntil")
         self.keepUpTo = try values.decodeIfPresent(Int.self, forKey: "KeepUpTo")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
@@ -204,10 +204,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(imageTags, forKey: "ImageTags")
         try values.encodeIfPresent(isPostPaddingRequired, forKey: "IsPostPaddingRequired")
         try values.encodeIfPresent(isPrePaddingRequired, forKey: "IsPrePaddingRequired")
-        try values.encodeIfPresent(isRecordanychannel, forKey: "RecordAnyChannel")
-        try values.encodeIfPresent(isRecordanytime, forKey: "RecordAnyTime")
-        try values.encodeIfPresent(isRecordnewonly, forKey: "RecordNewOnly")
-        try values.encodeIfPresent(isSkipepisodesinlibrary, forKey: "SkipEpisodesInLibrary")
+        try values.encodeIfPresent(isRecordAnyChannel, forKey: "RecordAnyChannel")
+        try values.encodeIfPresent(isRecordAnyTime, forKey: "RecordAnyTime")
+        try values.encodeIfPresent(isRecordNewOnly, forKey: "RecordNewOnly")
+        try values.encodeIfPresent(isSkipEpisodesInLibrary, forKey: "SkipEpisodesInLibrary")
         try values.encodeIfPresent(keepUntil, forKey: "KeepUntil")
         try values.encodeIfPresent(keepUpTo, forKey: "KeepUpTo")
         try values.encodeIfPresent(name, forKey: "Name")

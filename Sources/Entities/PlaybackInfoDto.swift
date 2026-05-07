@@ -38,9 +38,9 @@ public struct PlaybackInfoDto: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether to enable transcoding.
     public var enableTranscoding: Bool?
     /// Gets or sets a value indicating whether always burn in subtitles when transcoding.
-    public var isAlwaysburninsubtitlewhentranscoding: Bool?
+    public var isAlwaysBurnInSubtitleWhenTranscoding: Bool?
     /// Gets or sets a value indicating whether to auto open the live stream.
-    public var isAutoopenlivestream: Bool?
+    public var isAutoOpenLiveStream: Bool?
     /// Gets or sets the live stream id.
     public var liveStreamID: String?
     /// Gets or sets the max audio channels.
@@ -64,8 +64,8 @@ public struct PlaybackInfoDto: Codable, Hashable, Sendable {
         enableDirectPlay: Bool? = nil,
         enableDirectStream: Bool? = nil,
         enableTranscoding: Bool? = nil,
-        isAlwaysburninsubtitlewhentranscoding: Bool? = nil,
-        isAutoopenlivestream: Bool? = nil,
+        isAlwaysBurnInSubtitleWhenTranscoding: Bool? = nil,
+        isAutoOpenLiveStream: Bool? = nil,
         liveStreamID: String? = nil,
         maxAudioChannels: Int? = nil,
         maxStreamingBitrate: Int? = nil,
@@ -81,8 +81,8 @@ public struct PlaybackInfoDto: Codable, Hashable, Sendable {
         self.enableDirectPlay = enableDirectPlay
         self.enableDirectStream = enableDirectStream
         self.enableTranscoding = enableTranscoding
-        self.isAlwaysburninsubtitlewhentranscoding = isAlwaysburninsubtitlewhentranscoding
-        self.isAutoopenlivestream = isAutoopenlivestream
+        self.isAlwaysBurnInSubtitleWhenTranscoding = isAlwaysBurnInSubtitleWhenTranscoding
+        self.isAutoOpenLiveStream = isAutoOpenLiveStream
         self.liveStreamID = liveStreamID
         self.maxAudioChannels = maxAudioChannels
         self.maxStreamingBitrate = maxStreamingBitrate
@@ -101,8 +101,8 @@ public struct PlaybackInfoDto: Codable, Hashable, Sendable {
         self.enableDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectPlay")
         self.enableDirectStream = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectStream")
         self.enableTranscoding = try values.decodeIfPresent(Bool.self, forKey: "EnableTranscoding")
-        self.isAlwaysburninsubtitlewhentranscoding = try values.decodeIfPresent(Bool.self, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
-        self.isAutoopenlivestream = try values.decodeIfPresent(Bool.self, forKey: "AutoOpenLiveStream")
+        self.isAlwaysBurnInSubtitleWhenTranscoding = try values.decodeIfPresent(Bool.self, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
+        self.isAutoOpenLiveStream = try values.decodeIfPresent(Bool.self, forKey: "AutoOpenLiveStream")
         self.liveStreamID = try values.decodeIfPresent(String.self, forKey: "LiveStreamId")
         self.maxAudioChannels = try values.decodeIfPresent(Int.self, forKey: "MaxAudioChannels")
         self.maxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStreamingBitrate")
@@ -121,8 +121,8 @@ public struct PlaybackInfoDto: Codable, Hashable, Sendable {
         try values.encodeIfPresent(enableDirectPlay, forKey: "EnableDirectPlay")
         try values.encodeIfPresent(enableDirectStream, forKey: "EnableDirectStream")
         try values.encodeIfPresent(enableTranscoding, forKey: "EnableTranscoding")
-        try values.encodeIfPresent(isAlwaysburninsubtitlewhentranscoding, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
-        try values.encodeIfPresent(isAutoopenlivestream, forKey: "AutoOpenLiveStream")
+        try values.encodeIfPresent(isAlwaysBurnInSubtitleWhenTranscoding, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
+        try values.encodeIfPresent(isAutoOpenLiveStream, forKey: "AutoOpenLiveStream")
         try values.encodeIfPresent(liveStreamID, forKey: "LiveStreamId")
         try values.encodeIfPresent(maxAudioChannels, forKey: "MaxAudioChannels")
         try values.encodeIfPresent(maxStreamingBitrate, forKey: "MaxStreamingBitrate")

@@ -34,8 +34,8 @@ public extension Paths {
         public var startPositionTicks: Int?
         public var format: String?
         public var endPositionTicks: Int?
-        public var isCopytimestamps: Bool?
-        public var isAddvtttimemap: Bool?
+        public var isCopyTimestamps: Bool?
+        public var isAddVttTimeMap: Bool?
 
         public init(
             itemID: String? = nil,
@@ -44,8 +44,8 @@ public extension Paths {
             startPositionTicks: Int? = nil,
             format: String? = nil,
             endPositionTicks: Int? = nil,
-            isCopytimestamps: Bool? = nil,
-            isAddvtttimemap: Bool? = nil
+            isCopyTimestamps: Bool? = nil,
+            isAddVttTimeMap: Bool? = nil
         ) {
             self.itemID = itemID
             self.mediaSourceID = mediaSourceID
@@ -53,8 +53,8 @@ public extension Paths {
             self.startPositionTicks = startPositionTicks
             self.format = format
             self.endPositionTicks = endPositionTicks
-            self.isCopytimestamps = isCopytimestamps
-            self.isAddvtttimemap = isAddvtttimemap
+            self.isCopyTimestamps = isCopyTimestamps
+            self.isAddVttTimeMap = isAddVttTimeMap
         }
 
         public var asQuery: [(String, String?)] {
@@ -65,8 +65,8 @@ public extension Paths {
             encoder.encode(startPositionTicks, forKey: "startPositionTicks")
             encoder.encode(format, forKey: "format")
             encoder.encode(endPositionTicks, forKey: "endPositionTicks")
-            encoder.encode(isCopytimestamps, forKey: "copyTimestamps")
-            encoder.encode(isAddvtttimemap, forKey: "addVttTimeMap")
+            encoder.encode(isCopyTimestamps, forKey: "copyTimestamps")
+            encoder.encode(isAddVttTimeMap, forKey: "addVttTimeMap")
             return encoder.items
         }
     }

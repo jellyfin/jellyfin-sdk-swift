@@ -32,7 +32,7 @@ public extension Paths {
         public var maxAudioBitDepth: Int?
         public var enableRemoteMedia: Bool?
         public var enableAudioVbrEncoding: Bool?
-        public var isBreakonnonkeyframes: Bool?
+        public var isBreakOnNonKeyFrames: Bool?
         public var enableRedirection: Bool?
 
         public init(
@@ -52,7 +52,7 @@ public extension Paths {
             maxAudioBitDepth: Int? = nil,
             enableRemoteMedia: Bool? = nil,
             enableAudioVbrEncoding: Bool? = nil,
-            isBreakonnonkeyframes: Bool? = nil,
+            isBreakOnNonKeyFrames: Bool? = nil,
             enableRedirection: Bool? = nil
         ) {
             self.container = container
@@ -71,7 +71,7 @@ public extension Paths {
             self.maxAudioBitDepth = maxAudioBitDepth
             self.enableRemoteMedia = enableRemoteMedia
             self.enableAudioVbrEncoding = enableAudioVbrEncoding
-            self.isBreakonnonkeyframes = isBreakonnonkeyframes
+            self.isBreakOnNonKeyFrames = isBreakOnNonKeyFrames
             self.enableRedirection = enableRedirection
         }
 
@@ -93,7 +93,7 @@ public extension Paths {
             encoder.encode(maxAudioBitDepth, forKey: "maxAudioBitDepth")
             encoder.encode(enableRemoteMedia, forKey: "enableRemoteMedia")
             encoder.encode(enableAudioVbrEncoding, forKey: "enableAudioVbrEncoding")
-            encoder.encode(isBreakonnonkeyframes, forKey: "breakOnNonKeyFrames")
+            encoder.encode(isBreakOnNonKeyFrames, forKey: "breakOnNonKeyFrames")
             encoder.encode(enableRedirection, forKey: "enableRedirection")
             return encoder.items
         }

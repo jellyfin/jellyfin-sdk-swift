@@ -36,7 +36,7 @@ public extension Paths {
         public var sortBy: [ItemSortBy]?
         public var sortOrder: SortOrder?
         public var enableFavoriteSorting: Bool?
-        public var isAddcurrentprogram: Bool?
+        public var isAddCurrentProgram: Bool?
 
         public init(
             type: ChannelType? = nil,
@@ -59,7 +59,7 @@ public extension Paths {
             sortBy: [ItemSortBy]? = nil,
             sortOrder: SortOrder? = nil,
             enableFavoriteSorting: Bool? = nil,
-            isAddcurrentprogram: Bool? = nil
+            isAddCurrentProgram: Bool? = nil
         ) {
             self.type = type
             self.userID = userID
@@ -81,7 +81,7 @@ public extension Paths {
             self.sortBy = sortBy
             self.sortOrder = sortOrder
             self.enableFavoriteSorting = enableFavoriteSorting
-            self.isAddcurrentprogram = isAddcurrentprogram
+            self.isAddCurrentProgram = isAddCurrentProgram
         }
 
         public var asQuery: [(String, String?)] {
@@ -106,7 +106,7 @@ public extension Paths {
             encoder.encode(sortBy, forKey: "sortBy")
             encoder.encode(sortOrder, forKey: "sortOrder")
             encoder.encode(enableFavoriteSorting, forKey: "enableFavoriteSorting")
-            encoder.encode(isAddcurrentprogram, forKey: "addCurrentProgram")
+            encoder.encode(isAddCurrentProgram, forKey: "addCurrentProgram")
             return encoder.items
         }
     }

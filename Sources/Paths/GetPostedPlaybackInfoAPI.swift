@@ -32,7 +32,7 @@ public extension Paths {
         public var maxAudioChannels: Int?
         public var mediaSourceID: String?
         public var liveStreamID: String?
-        public var isAutoopenlivestream: Bool?
+        public var isAutoOpenLiveStream: Bool?
         public var enableDirectPlay: Bool?
         public var enableDirectStream: Bool?
         public var enableTranscoding: Bool?
@@ -48,7 +48,7 @@ public extension Paths {
             maxAudioChannels: Int? = nil,
             mediaSourceID: String? = nil,
             liveStreamID: String? = nil,
-            isAutoopenlivestream: Bool? = nil,
+            isAutoOpenLiveStream: Bool? = nil,
             enableDirectPlay: Bool? = nil,
             enableDirectStream: Bool? = nil,
             enableTranscoding: Bool? = nil,
@@ -63,7 +63,7 @@ public extension Paths {
             self.maxAudioChannels = maxAudioChannels
             self.mediaSourceID = mediaSourceID
             self.liveStreamID = liveStreamID
-            self.isAutoopenlivestream = isAutoopenlivestream
+            self.isAutoOpenLiveStream = isAutoOpenLiveStream
             self.enableDirectPlay = enableDirectPlay
             self.enableDirectStream = enableDirectStream
             self.enableTranscoding = enableTranscoding
@@ -81,7 +81,7 @@ public extension Paths {
             encoder.encode(maxAudioChannels, forKey: "maxAudioChannels")
             encoder.encode(mediaSourceID, forKey: "mediaSourceId")
             encoder.encode(liveStreamID, forKey: "liveStreamId")
-            encoder.encode(isAutoopenlivestream, forKey: "autoOpenLiveStream")
+            encoder.encode(isAutoOpenLiveStream, forKey: "autoOpenLiveStream")
             encoder.encode(enableDirectPlay, forKey: "enableDirectPlay")
             encoder.encode(enableDirectStream, forKey: "enableDirectStream")
             encoder.encode(enableTranscoding, forKey: "enableTranscoding")

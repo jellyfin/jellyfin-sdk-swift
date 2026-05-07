@@ -17,11 +17,11 @@ public struct RemoteSubtitleInfo: Codable, Hashable, Identifiable, Sendable {
     public var format: String?
     public var frameRate: Float?
     public var id: String?
-    public var isAitranslated: Bool?
+    public var isAiTranslated: Bool?
     public var isForced: Bool?
     public var isHashMatch: Bool?
-    public var isHearingimpaired: Bool?
-    public var isMachinetranslated: Bool?
+    public var isHearingImpaired: Bool?
+    public var isMachineTranslated: Bool?
     public var name: String?
     public var providerName: String?
     public var threeLetterISOLanguageName: String?
@@ -35,11 +35,11 @@ public struct RemoteSubtitleInfo: Codable, Hashable, Identifiable, Sendable {
         format: String? = nil,
         frameRate: Float? = nil,
         id: String? = nil,
-        isAitranslated: Bool? = nil,
+        isAiTranslated: Bool? = nil,
         isForced: Bool? = nil,
         isHashMatch: Bool? = nil,
-        isHearingimpaired: Bool? = nil,
-        isMachinetranslated: Bool? = nil,
+        isHearingImpaired: Bool? = nil,
+        isMachineTranslated: Bool? = nil,
         name: String? = nil,
         providerName: String? = nil,
         threeLetterISOLanguageName: String? = nil
@@ -52,11 +52,11 @@ public struct RemoteSubtitleInfo: Codable, Hashable, Identifiable, Sendable {
         self.format = format
         self.frameRate = frameRate
         self.id = id
-        self.isAitranslated = isAitranslated
+        self.isAiTranslated = isAiTranslated
         self.isForced = isForced
         self.isHashMatch = isHashMatch
-        self.isHearingimpaired = isHearingimpaired
-        self.isMachinetranslated = isMachinetranslated
+        self.isHearingImpaired = isHearingImpaired
+        self.isMachineTranslated = isMachineTranslated
         self.name = name
         self.providerName = providerName
         self.threeLetterISOLanguageName = threeLetterISOLanguageName
@@ -72,11 +72,11 @@ public struct RemoteSubtitleInfo: Codable, Hashable, Identifiable, Sendable {
         self.format = try values.decodeIfPresent(String.self, forKey: "Format")
         self.frameRate = try values.decodeIfPresent(Float.self, forKey: "FrameRate")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.isAitranslated = try values.decodeIfPresent(Bool.self, forKey: "AiTranslated")
+        self.isAiTranslated = try values.decodeIfPresent(Bool.self, forKey: "AiTranslated")
         self.isForced = try values.decodeIfPresent(Bool.self, forKey: "Forced")
         self.isHashMatch = try values.decodeIfPresent(Bool.self, forKey: "IsHashMatch")
-        self.isHearingimpaired = try values.decodeIfPresent(Bool.self, forKey: "HearingImpaired")
-        self.isMachinetranslated = try values.decodeIfPresent(Bool.self, forKey: "MachineTranslated")
+        self.isHearingImpaired = try values.decodeIfPresent(Bool.self, forKey: "HearingImpaired")
+        self.isMachineTranslated = try values.decodeIfPresent(Bool.self, forKey: "MachineTranslated")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
         self.providerName = try values.decodeIfPresent(String.self, forKey: "ProviderName")
         self.threeLetterISOLanguageName = try values.decodeIfPresent(String.self, forKey: "ThreeLetterISOLanguageName")
@@ -92,11 +92,11 @@ public struct RemoteSubtitleInfo: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(format, forKey: "Format")
         try values.encodeIfPresent(frameRate, forKey: "FrameRate")
         try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(isAitranslated, forKey: "AiTranslated")
+        try values.encodeIfPresent(isAiTranslated, forKey: "AiTranslated")
         try values.encodeIfPresent(isForced, forKey: "Forced")
         try values.encodeIfPresent(isHashMatch, forKey: "IsHashMatch")
-        try values.encodeIfPresent(isHearingimpaired, forKey: "HearingImpaired")
-        try values.encodeIfPresent(isMachinetranslated, forKey: "MachineTranslated")
+        try values.encodeIfPresent(isHearingImpaired, forKey: "HearingImpaired")
+        try values.encodeIfPresent(isMachineTranslated, forKey: "MachineTranslated")
         try values.encodeIfPresent(name, forKey: "Name")
         try values.encodeIfPresent(providerName, forKey: "ProviderName")
         try values.encodeIfPresent(threeLetterISOLanguageName, forKey: "ThreeLetterISOLanguageName")

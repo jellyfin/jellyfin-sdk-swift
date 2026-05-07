@@ -13,27 +13,27 @@ public struct ValidatePathDto: Codable, Hashable, Sendable {
     /// Gets or sets is path file.
     public var isFile: Bool?
     /// Gets or sets a value indicating whether validate if path is writable.
-    public var isValidatewritable: Bool?
+    public var isValidateWritable: Bool?
     /// Gets or sets the path.
     public var path: String?
 
-    public init(isFile: Bool? = nil, isValidatewritable: Bool? = nil, path: String? = nil) {
+    public init(isFile: Bool? = nil, isValidateWritable: Bool? = nil, path: String? = nil) {
         self.isFile = isFile
-        self.isValidatewritable = isValidatewritable
+        self.isValidateWritable = isValidateWritable
         self.path = path
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isFile = try values.decodeIfPresent(Bool.self, forKey: "IsFile")
-        self.isValidatewritable = try values.decodeIfPresent(Bool.self, forKey: "ValidateWritable")
+        self.isValidateWritable = try values.decodeIfPresent(Bool.self, forKey: "ValidateWritable")
         self.path = try values.decodeIfPresent(String.self, forKey: "Path")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(isFile, forKey: "IsFile")
-        try values.encodeIfPresent(isValidatewritable, forKey: "ValidateWritable")
+        try values.encodeIfPresent(isValidateWritable, forKey: "ValidateWritable")
         try values.encodeIfPresent(path, forKey: "Path")
     }
 }

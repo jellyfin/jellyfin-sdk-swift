@@ -19,21 +19,21 @@ public extension Paths {
         public var id: String?
         public var playableMediaTypes: [MediaType]?
         public var supportedCommands: [GeneralCommandType]?
-        public var isSupportsmediacontrol: Bool?
-        public var isSupportspersistentidentifier: Bool?
+        public var isSupportsMediaControl: Bool?
+        public var isSupportsPersistentIdentifier: Bool?
 
         public init(
             id: String? = nil,
             playableMediaTypes: [MediaType]? = nil,
             supportedCommands: [GeneralCommandType]? = nil,
-            isSupportsmediacontrol: Bool? = nil,
-            isSupportspersistentidentifier: Bool? = nil
+            isSupportsMediaControl: Bool? = nil,
+            isSupportsPersistentIdentifier: Bool? = nil
         ) {
             self.id = id
             self.playableMediaTypes = playableMediaTypes
             self.supportedCommands = supportedCommands
-            self.isSupportsmediacontrol = isSupportsmediacontrol
-            self.isSupportspersistentidentifier = isSupportspersistentidentifier
+            self.isSupportsMediaControl = isSupportsMediaControl
+            self.isSupportsPersistentIdentifier = isSupportsPersistentIdentifier
         }
 
         public var asQuery: [(String, String?)] {
@@ -41,8 +41,8 @@ public extension Paths {
             encoder.encode(id, forKey: "id")
             encoder.encode(playableMediaTypes, forKey: "playableMediaTypes")
             encoder.encode(supportedCommands, forKey: "supportedCommands")
-            encoder.encode(isSupportsmediacontrol, forKey: "supportsMediaControl")
-            encoder.encode(isSupportspersistentidentifier, forKey: "supportsPersistentIdentifier")
+            encoder.encode(isSupportsMediaControl, forKey: "supportsMediaControl")
+            encoder.encode(isSupportsPersistentIdentifier, forKey: "supportsPersistentIdentifier")
             return encoder.items
         }
     }

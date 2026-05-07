@@ -15,27 +15,27 @@ public struct BrandingOptionsDto: Codable, Hashable, Sendable {
     /// Gets or sets the custom CSS.
     public var customCss: String?
     /// Gets or sets a value indicating whether to enable the splashscreen.
-    public var isSplashscreenenabled: Bool?
+    public var isSplashscreenEnabled: Bool?
     /// Gets or sets the login disclaimer.
     public var loginDisclaimer: String?
 
-    public init(customCss: String? = nil, isSplashscreenenabled: Bool? = nil, loginDisclaimer: String? = nil) {
+    public init(customCss: String? = nil, isSplashscreenEnabled: Bool? = nil, loginDisclaimer: String? = nil) {
         self.customCss = customCss
-        self.isSplashscreenenabled = isSplashscreenenabled
+        self.isSplashscreenEnabled = isSplashscreenEnabled
         self.loginDisclaimer = loginDisclaimer
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.customCss = try values.decodeIfPresent(String.self, forKey: "CustomCss")
-        self.isSplashscreenenabled = try values.decodeIfPresent(Bool.self, forKey: "SplashscreenEnabled")
+        self.isSplashscreenEnabled = try values.decodeIfPresent(Bool.self, forKey: "SplashscreenEnabled")
         self.loginDisclaimer = try values.decodeIfPresent(String.self, forKey: "LoginDisclaimer")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(customCss, forKey: "CustomCss")
-        try values.encodeIfPresent(isSplashscreenenabled, forKey: "SplashscreenEnabled")
+        try values.encodeIfPresent(isSplashscreenEnabled, forKey: "SplashscreenEnabled")
         try values.encodeIfPresent(loginDisclaimer, forKey: "LoginDisclaimer")
     }
 }

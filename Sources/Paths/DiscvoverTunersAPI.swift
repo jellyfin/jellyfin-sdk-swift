@@ -11,13 +11,13 @@ import Get
 
 extension Paths {
     /// Discover tuners.
-    public static func discvoverTuners(isNewdevicesonly: Bool? = nil) -> Request<[TunerHostInfo]> {
-        Request(path: "/LiveTv/Tuners/Discvover", method: "GET", query: makeDiscvoverTunersQuery(isNewdevicesonly), id: "DiscvoverTuners")
+    public static func discvoverTuners(isNewDevicesOnly: Bool? = nil) -> Request<[TunerHostInfo]> {
+        Request(path: "/LiveTv/Tuners/Discvover", method: "GET", query: makeDiscvoverTunersQuery(isNewDevicesOnly), id: "DiscvoverTuners")
     }
 
-    private static func makeDiscvoverTunersQuery(_ isNewdevicesonly: Bool?) -> [(String, String?)] {
+    private static func makeDiscvoverTunersQuery(_ isNewDevicesOnly: Bool?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
-        encoder.encode(isNewdevicesonly, forKey: "newDevicesOnly")
+        encoder.encode(isNewDevicesOnly, forKey: "newDevicesOnly")
         return encoder.items
     }
 }

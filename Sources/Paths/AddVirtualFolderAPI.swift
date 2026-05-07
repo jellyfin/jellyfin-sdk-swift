@@ -19,18 +19,18 @@ public extension Paths {
         public var name: String?
         public var collectionType: CollectionTypeOptions?
         public var paths: [String]?
-        public var isRefreshlibrary: Bool?
+        public var isRefreshLibrary: Bool?
 
         public init(
             name: String? = nil,
             collectionType: CollectionTypeOptions? = nil,
             paths: [String]? = nil,
-            isRefreshlibrary: Bool? = nil
+            isRefreshLibrary: Bool? = nil
         ) {
             self.name = name
             self.collectionType = collectionType
             self.paths = paths
-            self.isRefreshlibrary = isRefreshlibrary
+            self.isRefreshLibrary = isRefreshLibrary
         }
 
         public var asQuery: [(String, String?)] {
@@ -38,7 +38,7 @@ public extension Paths {
             encoder.encode(name, forKey: "name")
             encoder.encode(collectionType, forKey: "collectionType")
             encoder.encode(paths, forKey: "paths")
-            encoder.encode(isRefreshlibrary, forKey: "refreshLibrary")
+            encoder.encode(isRefreshLibrary, forKey: "refreshLibrary")
             return encoder.items
         }
     }

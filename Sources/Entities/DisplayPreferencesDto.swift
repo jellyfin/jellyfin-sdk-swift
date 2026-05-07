@@ -19,13 +19,13 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the index by.
     public var indexBy: String?
     /// Gets or sets a value indicating whether [remember indexing].
-    public var isRememberindexing: Bool?
+    public var isRememberIndexing: Bool?
     /// Gets or sets a value indicating whether [remember sorting].
-    public var isRemembersorting: Bool?
+    public var isRememberSorting: Bool?
     /// Gets or sets a value indicating whether to show backdrops on this item.
-    public var isShowbackdrop: Bool?
+    public var isShowBackdrop: Bool?
     /// Gets or sets a value indicating whether [show sidebar].
-    public var isShowsidebar: Bool?
+    public var isShowSidebar: Bool?
     /// Gets or sets the height of the primary image.
     public var primaryImageHeight: Int?
     /// Gets or sets the width of the primary image.
@@ -44,10 +44,10 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable, Sendable {
         customPrefs: [String: String]? = nil,
         id: String? = nil,
         indexBy: String? = nil,
-        isRememberindexing: Bool? = nil,
-        isRemembersorting: Bool? = nil,
-        isShowbackdrop: Bool? = nil,
-        isShowsidebar: Bool? = nil,
+        isRememberIndexing: Bool? = nil,
+        isRememberSorting: Bool? = nil,
+        isShowBackdrop: Bool? = nil,
+        isShowSidebar: Bool? = nil,
         primaryImageHeight: Int? = nil,
         primaryImageWidth: Int? = nil,
         scrollDirection: ScrollDirection? = nil,
@@ -59,10 +59,10 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable, Sendable {
         self.customPrefs = customPrefs
         self.id = id
         self.indexBy = indexBy
-        self.isRememberindexing = isRememberindexing
-        self.isRemembersorting = isRemembersorting
-        self.isShowbackdrop = isShowbackdrop
-        self.isShowsidebar = isShowsidebar
+        self.isRememberIndexing = isRememberIndexing
+        self.isRememberSorting = isRememberSorting
+        self.isShowBackdrop = isShowBackdrop
+        self.isShowSidebar = isShowSidebar
         self.primaryImageHeight = primaryImageHeight
         self.primaryImageWidth = primaryImageWidth
         self.scrollDirection = scrollDirection
@@ -77,10 +77,10 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable, Sendable {
         self.customPrefs = try values.decodeIfPresent([String: String].self, forKey: "CustomPrefs")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.indexBy = try values.decodeIfPresent(String.self, forKey: "IndexBy")
-        self.isRememberindexing = try values.decodeIfPresent(Bool.self, forKey: "RememberIndexing")
-        self.isRemembersorting = try values.decodeIfPresent(Bool.self, forKey: "RememberSorting")
-        self.isShowbackdrop = try values.decodeIfPresent(Bool.self, forKey: "ShowBackdrop")
-        self.isShowsidebar = try values.decodeIfPresent(Bool.self, forKey: "ShowSidebar")
+        self.isRememberIndexing = try values.decodeIfPresent(Bool.self, forKey: "RememberIndexing")
+        self.isRememberSorting = try values.decodeIfPresent(Bool.self, forKey: "RememberSorting")
+        self.isShowBackdrop = try values.decodeIfPresent(Bool.self, forKey: "ShowBackdrop")
+        self.isShowSidebar = try values.decodeIfPresent(Bool.self, forKey: "ShowSidebar")
         self.primaryImageHeight = try values.decodeIfPresent(Int.self, forKey: "PrimaryImageHeight")
         self.primaryImageWidth = try values.decodeIfPresent(Int.self, forKey: "PrimaryImageWidth")
         self.scrollDirection = try values.decodeIfPresent(ScrollDirection.self, forKey: "ScrollDirection")
@@ -95,10 +95,10 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(customPrefs, forKey: "CustomPrefs")
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(indexBy, forKey: "IndexBy")
-        try values.encodeIfPresent(isRememberindexing, forKey: "RememberIndexing")
-        try values.encodeIfPresent(isRemembersorting, forKey: "RememberSorting")
-        try values.encodeIfPresent(isShowbackdrop, forKey: "ShowBackdrop")
-        try values.encodeIfPresent(isShowsidebar, forKey: "ShowSidebar")
+        try values.encodeIfPresent(isRememberIndexing, forKey: "RememberIndexing")
+        try values.encodeIfPresent(isRememberSorting, forKey: "RememberSorting")
+        try values.encodeIfPresent(isShowBackdrop, forKey: "ShowBackdrop")
+        try values.encodeIfPresent(isShowSidebar, forKey: "ShowSidebar")
         try values.encodeIfPresent(primaryImageHeight, forKey: "PrimaryImageHeight")
         try values.encodeIfPresent(primaryImageWidth, forKey: "PrimaryImageWidth")
         try values.encodeIfPresent(scrollDirection, forKey: "ScrollDirection")

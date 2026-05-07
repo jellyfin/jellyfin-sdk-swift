@@ -50,7 +50,7 @@ public struct UserPolicy: Codable, Hashable, Sendable {
     public var isAdministrator: Bool?
     /// Gets or sets a value indicating whether this instance is disabled.
     public var isDisabled: Bool?
-    public var isForceremotesourcetranscoding: Bool?
+    public var isForceRemoteSourceTranscoding: Bool?
     /// Gets or sets a value indicating whether this instance is hidden.
     public var isHidden: Bool?
     public var loginAttemptsBeforeLockout: Int?
@@ -99,7 +99,7 @@ public struct UserPolicy: Codable, Hashable, Sendable {
         invalidLoginAttemptCount: Int? = nil,
         isAdministrator: Bool? = nil,
         isDisabled: Bool? = nil,
-        isForceremotesourcetranscoding: Bool? = nil,
+        isForceRemoteSourceTranscoding: Bool? = nil,
         isHidden: Bool? = nil,
         loginAttemptsBeforeLockout: Int? = nil,
         maxActiveSessions: Int? = nil,
@@ -144,7 +144,7 @@ public struct UserPolicy: Codable, Hashable, Sendable {
         self.invalidLoginAttemptCount = invalidLoginAttemptCount
         self.isAdministrator = isAdministrator
         self.isDisabled = isDisabled
-        self.isForceremotesourcetranscoding = isForceremotesourcetranscoding
+        self.isForceRemoteSourceTranscoding = isForceRemoteSourceTranscoding
         self.isHidden = isHidden
         self.loginAttemptsBeforeLockout = loginAttemptsBeforeLockout
         self.maxActiveSessions = maxActiveSessions
@@ -192,7 +192,7 @@ public struct UserPolicy: Codable, Hashable, Sendable {
         self.invalidLoginAttemptCount = try values.decodeIfPresent(Int.self, forKey: "InvalidLoginAttemptCount")
         self.isAdministrator = try values.decodeIfPresent(Bool.self, forKey: "IsAdministrator")
         self.isDisabled = try values.decodeIfPresent(Bool.self, forKey: "IsDisabled")
-        self.isForceremotesourcetranscoding = try values.decodeIfPresent(Bool.self, forKey: "ForceRemoteSourceTranscoding")
+        self.isForceRemoteSourceTranscoding = try values.decodeIfPresent(Bool.self, forKey: "ForceRemoteSourceTranscoding")
         self.isHidden = try values.decodeIfPresent(Bool.self, forKey: "IsHidden")
         self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int.self, forKey: "LoginAttemptsBeforeLockout")
         self.maxActiveSessions = try values.decodeIfPresent(Int.self, forKey: "MaxActiveSessions")
@@ -240,7 +240,7 @@ public struct UserPolicy: Codable, Hashable, Sendable {
         try values.encodeIfPresent(invalidLoginAttemptCount, forKey: "InvalidLoginAttemptCount")
         try values.encodeIfPresent(isAdministrator, forKey: "IsAdministrator")
         try values.encodeIfPresent(isDisabled, forKey: "IsDisabled")
-        try values.encodeIfPresent(isForceremotesourcetranscoding, forKey: "ForceRemoteSourceTranscoding")
+        try values.encodeIfPresent(isForceRemoteSourceTranscoding, forKey: "ForceRemoteSourceTranscoding")
         try values.encodeIfPresent(isHidden, forKey: "IsHidden")
         try values.encodeIfPresent(loginAttemptsBeforeLockout, forKey: "LoginAttemptsBeforeLockout")
         try values.encodeIfPresent(maxActiveSessions, forKey: "MaxActiveSessions")

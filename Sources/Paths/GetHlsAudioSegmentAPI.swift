@@ -43,7 +43,7 @@ public extension Paths {
         public var enableAutoStreamCopy: Bool?
         public var allowVideoStreamCopy: Bool?
         public var allowAudioStreamCopy: Bool?
-        public var isBreakonnonkeyframes: Bool?
+        public var isBreakOnNonKeyFrames: Bool?
         public var audioSampleRate: Int?
         public var maxAudioBitDepth: Int?
         public var maxStreamingBitrate: Int?
@@ -54,7 +54,7 @@ public extension Paths {
         public var level: String?
         public var framerate: Float?
         public var maxFramerate: Float?
-        public var isCopytimestamps: Bool?
+        public var isCopyTimestamps: Bool?
         public var startTimeTicks: Int?
         public var width: Int?
         public var height: Int?
@@ -64,7 +64,7 @@ public extension Paths {
         public var maxRefFrames: Int?
         public var maxVideoBitDepth: Int?
         public var requireAvc: Bool?
-        public var isDeinterlace: Bool?
+        public var isDeInterlace: Bool?
         public var requireNonAnamorphic: Bool?
         public var transcodingMaxAudioChannels: Int?
         public var cpuCoreLimit: Int?
@@ -96,7 +96,7 @@ public extension Paths {
             enableAutoStreamCopy: Bool? = nil,
             allowVideoStreamCopy: Bool? = nil,
             allowAudioStreamCopy: Bool? = nil,
-            isBreakonnonkeyframes: Bool? = nil,
+            isBreakOnNonKeyFrames: Bool? = nil,
             audioSampleRate: Int? = nil,
             maxAudioBitDepth: Int? = nil,
             maxStreamingBitrate: Int? = nil,
@@ -107,7 +107,7 @@ public extension Paths {
             level: String? = nil,
             framerate: Float? = nil,
             maxFramerate: Float? = nil,
-            isCopytimestamps: Bool? = nil,
+            isCopyTimestamps: Bool? = nil,
             startTimeTicks: Int? = nil,
             width: Int? = nil,
             height: Int? = nil,
@@ -117,7 +117,7 @@ public extension Paths {
             maxRefFrames: Int? = nil,
             maxVideoBitDepth: Int? = nil,
             requireAvc: Bool? = nil,
-            isDeinterlace: Bool? = nil,
+            isDeInterlace: Bool? = nil,
             requireNonAnamorphic: Bool? = nil,
             transcodingMaxAudioChannels: Int? = nil,
             cpuCoreLimit: Int? = nil,
@@ -148,7 +148,7 @@ public extension Paths {
             self.enableAutoStreamCopy = enableAutoStreamCopy
             self.allowVideoStreamCopy = allowVideoStreamCopy
             self.allowAudioStreamCopy = allowAudioStreamCopy
-            self.isBreakonnonkeyframes = isBreakonnonkeyframes
+            self.isBreakOnNonKeyFrames = isBreakOnNonKeyFrames
             self.audioSampleRate = audioSampleRate
             self.maxAudioBitDepth = maxAudioBitDepth
             self.maxStreamingBitrate = maxStreamingBitrate
@@ -159,7 +159,7 @@ public extension Paths {
             self.level = level
             self.framerate = framerate
             self.maxFramerate = maxFramerate
-            self.isCopytimestamps = isCopytimestamps
+            self.isCopyTimestamps = isCopyTimestamps
             self.startTimeTicks = startTimeTicks
             self.width = width
             self.height = height
@@ -169,7 +169,7 @@ public extension Paths {
             self.maxRefFrames = maxRefFrames
             self.maxVideoBitDepth = maxVideoBitDepth
             self.requireAvc = requireAvc
-            self.isDeinterlace = isDeinterlace
+            self.isDeInterlace = isDeInterlace
             self.requireNonAnamorphic = requireNonAnamorphic
             self.transcodingMaxAudioChannels = transcodingMaxAudioChannels
             self.cpuCoreLimit = cpuCoreLimit
@@ -203,7 +203,7 @@ public extension Paths {
             encoder.encode(enableAutoStreamCopy, forKey: "enableAutoStreamCopy")
             encoder.encode(allowVideoStreamCopy, forKey: "allowVideoStreamCopy")
             encoder.encode(allowAudioStreamCopy, forKey: "allowAudioStreamCopy")
-            encoder.encode(isBreakonnonkeyframes, forKey: "breakOnNonKeyFrames")
+            encoder.encode(isBreakOnNonKeyFrames, forKey: "breakOnNonKeyFrames")
             encoder.encode(audioSampleRate, forKey: "audioSampleRate")
             encoder.encode(maxAudioBitDepth, forKey: "maxAudioBitDepth")
             encoder.encode(maxStreamingBitrate, forKey: "maxStreamingBitrate")
@@ -214,7 +214,7 @@ public extension Paths {
             encoder.encode(level, forKey: "level")
             encoder.encode(framerate, forKey: "framerate")
             encoder.encode(maxFramerate, forKey: "maxFramerate")
-            encoder.encode(isCopytimestamps, forKey: "copyTimestamps")
+            encoder.encode(isCopyTimestamps, forKey: "copyTimestamps")
             encoder.encode(startTimeTicks, forKey: "startTimeTicks")
             encoder.encode(width, forKey: "width")
             encoder.encode(height, forKey: "height")
@@ -224,7 +224,7 @@ public extension Paths {
             encoder.encode(maxRefFrames, forKey: "maxRefFrames")
             encoder.encode(maxVideoBitDepth, forKey: "maxVideoBitDepth")
             encoder.encode(requireAvc, forKey: "requireAvc")
-            encoder.encode(isDeinterlace, forKey: "deInterlace")
+            encoder.encode(isDeInterlace, forKey: "deInterlace")
             encoder.encode(requireNonAnamorphic, forKey: "requireNonAnamorphic")
             encoder.encode(transcodingMaxAudioChannels, forKey: "transcodingMaxAudioChannels")
             encoder.encode(cpuCoreLimit, forKey: "cpuCoreLimit")

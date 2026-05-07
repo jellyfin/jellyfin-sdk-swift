@@ -11,20 +11,20 @@ import Foundation
 public struct XbmcMetadataOptions: Codable, Hashable, Sendable {
     public var enableExtraThumbsDuplication: Bool?
     public var enablePathSubstitution: Bool?
-    public var isSaveimagepathsinnfo: Bool?
+    public var isSaveImagePathsInNfo: Bool?
     public var releaseDateFormat: String?
     public var userID: String?
 
     public init(
         enableExtraThumbsDuplication: Bool? = nil,
         enablePathSubstitution: Bool? = nil,
-        isSaveimagepathsinnfo: Bool? = nil,
+        isSaveImagePathsInNfo: Bool? = nil,
         releaseDateFormat: String? = nil,
         userID: String? = nil
     ) {
         self.enableExtraThumbsDuplication = enableExtraThumbsDuplication
         self.enablePathSubstitution = enablePathSubstitution
-        self.isSaveimagepathsinnfo = isSaveimagepathsinnfo
+        self.isSaveImagePathsInNfo = isSaveImagePathsInNfo
         self.releaseDateFormat = releaseDateFormat
         self.userID = userID
     }
@@ -33,7 +33,7 @@ public struct XbmcMetadataOptions: Codable, Hashable, Sendable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.enableExtraThumbsDuplication = try values.decodeIfPresent(Bool.self, forKey: "EnableExtraThumbsDuplication")
         self.enablePathSubstitution = try values.decodeIfPresent(Bool.self, forKey: "EnablePathSubstitution")
-        self.isSaveimagepathsinnfo = try values.decodeIfPresent(Bool.self, forKey: "SaveImagePathsInNfo")
+        self.isSaveImagePathsInNfo = try values.decodeIfPresent(Bool.self, forKey: "SaveImagePathsInNfo")
         self.releaseDateFormat = try values.decodeIfPresent(String.self, forKey: "ReleaseDateFormat")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
@@ -42,7 +42,7 @@ public struct XbmcMetadataOptions: Codable, Hashable, Sendable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(enableExtraThumbsDuplication, forKey: "EnableExtraThumbsDuplication")
         try values.encodeIfPresent(enablePathSubstitution, forKey: "EnablePathSubstitution")
-        try values.encodeIfPresent(isSaveimagepathsinnfo, forKey: "SaveImagePathsInNfo")
+        try values.encodeIfPresent(isSaveImagePathsInNfo, forKey: "SaveImagePathsInNfo")
         try values.encodeIfPresent(releaseDateFormat, forKey: "ReleaseDateFormat")
         try values.encodeIfPresent(userID, forKey: "UserId")
     }

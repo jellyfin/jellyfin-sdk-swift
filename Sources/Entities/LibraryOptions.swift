@@ -29,17 +29,17 @@ public struct LibraryOptions: Codable, Hashable, Sendable {
     public var enablePhotos: Bool?
     public var enableRealtimeMonitor: Bool?
     public var enableTrickplayImageExtraction: Bool?
-    public var isAutomaticallyaddtocollection: Bool?
+    public var isAutomaticallyAddToCollection: Bool?
     public var isEnabled: Bool?
-    public var isExtractchapterimagesduringlibraryscan: Bool?
-    public var isExtracttrickplayimagesduringlibraryscan: Bool?
-    public var isPrefernonstandardartiststag: Bool
-    public var isSavelocalmetadata: Bool?
-    public var isSavelyricswithmedia: Bool
-    public var isSavesubtitleswithmedia: Bool?
-    public var isSavetrickplaywithmedia: Bool
-    public var isSkipsubtitlesifaudiotrackmatches: Bool?
-    public var isSkipsubtitlesifembeddedsubtitlespresent: Bool?
+    public var isExtractChapterImagesDuringLibraryScan: Bool?
+    public var isExtractTrickplayImagesDuringLibraryScan: Bool?
+    public var isPreferNonstandardArtistsTag: Bool
+    public var isSaveLocalMetadata: Bool?
+    public var isSaveLyricsWithMedia: Bool
+    public var isSaveSubtitlesWithMedia: Bool?
+    public var isSaveTrickplayWithMedia: Bool
+    public var isSkipSubtitlesIfAudioTrackMatches: Bool?
+    public var isSkipSubtitlesIfEmbeddedSubtitlesPresent: Bool?
     public var localMetadataReaderOrder: [String]?
     public var lyricFetcherOrder: [String]?
     public var mediaSegmentProviderOrder: [String]?
@@ -75,17 +75,17 @@ public struct LibraryOptions: Codable, Hashable, Sendable {
         enablePhotos: Bool? = nil,
         enableRealtimeMonitor: Bool? = nil,
         enableTrickplayImageExtraction: Bool? = nil,
-        isAutomaticallyaddtocollection: Bool? = nil,
+        isAutomaticallyAddToCollection: Bool? = nil,
         isEnabled: Bool? = nil,
-        isExtractchapterimagesduringlibraryscan: Bool? = nil,
-        isExtracttrickplayimagesduringlibraryscan: Bool? = nil,
-        isPrefernonstandardartiststag: Bool? = nil,
-        isSavelocalmetadata: Bool? = nil,
-        isSavelyricswithmedia: Bool? = nil,
-        isSavesubtitleswithmedia: Bool? = nil,
-        isSavetrickplaywithmedia: Bool? = nil,
-        isSkipsubtitlesifaudiotrackmatches: Bool? = nil,
-        isSkipsubtitlesifembeddedsubtitlespresent: Bool? = nil,
+        isExtractChapterImagesDuringLibraryScan: Bool? = nil,
+        isExtractTrickplayImagesDuringLibraryScan: Bool? = nil,
+        isPreferNonstandardArtistsTag: Bool? = nil,
+        isSaveLocalMetadata: Bool? = nil,
+        isSaveLyricsWithMedia: Bool? = nil,
+        isSaveSubtitlesWithMedia: Bool? = nil,
+        isSaveTrickplayWithMedia: Bool? = nil,
+        isSkipSubtitlesIfAudioTrackMatches: Bool? = nil,
+        isSkipSubtitlesIfEmbeddedSubtitlesPresent: Bool? = nil,
         localMetadataReaderOrder: [String]? = nil,
         lyricFetcherOrder: [String]? = nil,
         mediaSegmentProviderOrder: [String]? = nil,
@@ -118,17 +118,17 @@ public struct LibraryOptions: Codable, Hashable, Sendable {
         self.enablePhotos = enablePhotos
         self.enableRealtimeMonitor = enableRealtimeMonitor
         self.enableTrickplayImageExtraction = enableTrickplayImageExtraction
-        self.isAutomaticallyaddtocollection = isAutomaticallyaddtocollection
+        self.isAutomaticallyAddToCollection = isAutomaticallyAddToCollection
         self.isEnabled = isEnabled
-        self.isExtractchapterimagesduringlibraryscan = isExtractchapterimagesduringlibraryscan
-        self.isExtracttrickplayimagesduringlibraryscan = isExtracttrickplayimagesduringlibraryscan
-        self.isPrefernonstandardartiststag = isPrefernonstandardartiststag ?? false
-        self.isSavelocalmetadata = isSavelocalmetadata
-        self.isSavelyricswithmedia = isSavelyricswithmedia ?? false
-        self.isSavesubtitleswithmedia = isSavesubtitleswithmedia
-        self.isSavetrickplaywithmedia = isSavetrickplaywithmedia ?? false
-        self.isSkipsubtitlesifaudiotrackmatches = isSkipsubtitlesifaudiotrackmatches
-        self.isSkipsubtitlesifembeddedsubtitlespresent = isSkipsubtitlesifembeddedsubtitlespresent
+        self.isExtractChapterImagesDuringLibraryScan = isExtractChapterImagesDuringLibraryScan
+        self.isExtractTrickplayImagesDuringLibraryScan = isExtractTrickplayImagesDuringLibraryScan
+        self.isPreferNonstandardArtistsTag = isPreferNonstandardArtistsTag ?? false
+        self.isSaveLocalMetadata = isSaveLocalMetadata
+        self.isSaveLyricsWithMedia = isSaveLyricsWithMedia ?? false
+        self.isSaveSubtitlesWithMedia = isSaveSubtitlesWithMedia
+        self.isSaveTrickplayWithMedia = isSaveTrickplayWithMedia ?? false
+        self.isSkipSubtitlesIfAudioTrackMatches = isSkipSubtitlesIfAudioTrackMatches
+        self.isSkipSubtitlesIfEmbeddedSubtitlesPresent = isSkipSubtitlesIfEmbeddedSubtitlesPresent
         self.localMetadataReaderOrder = localMetadataReaderOrder
         self.lyricFetcherOrder = lyricFetcherOrder
         self.mediaSegmentProviderOrder = mediaSegmentProviderOrder
@@ -164,23 +164,23 @@ public struct LibraryOptions: Codable, Hashable, Sendable {
         self.enablePhotos = try values.decodeIfPresent(Bool.self, forKey: "EnablePhotos")
         self.enableRealtimeMonitor = try values.decodeIfPresent(Bool.self, forKey: "EnableRealtimeMonitor")
         self.enableTrickplayImageExtraction = try values.decodeIfPresent(Bool.self, forKey: "EnableTrickplayImageExtraction")
-        self.isAutomaticallyaddtocollection = try values.decodeIfPresent(Bool.self, forKey: "AutomaticallyAddToCollection")
+        self.isAutomaticallyAddToCollection = try values.decodeIfPresent(Bool.self, forKey: "AutomaticallyAddToCollection")
         self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "Enabled")
-        self.isExtractchapterimagesduringlibraryscan = try values.decodeIfPresent(
+        self.isExtractChapterImagesDuringLibraryScan = try values.decodeIfPresent(
             Bool.self,
             forKey: "ExtractChapterImagesDuringLibraryScan"
         )
-        self.isExtracttrickplayimagesduringlibraryscan = try values.decodeIfPresent(
+        self.isExtractTrickplayImagesDuringLibraryScan = try values.decodeIfPresent(
             Bool.self,
             forKey: "ExtractTrickplayImagesDuringLibraryScan"
         )
-        self.isPrefernonstandardartiststag = try values.decodeIfPresent(Bool.self, forKey: "PreferNonstandardArtistsTag") ?? false
-        self.isSavelocalmetadata = try values.decodeIfPresent(Bool.self, forKey: "SaveLocalMetadata")
-        self.isSavelyricswithmedia = try values.decodeIfPresent(Bool.self, forKey: "SaveLyricsWithMedia") ?? false
-        self.isSavesubtitleswithmedia = try values.decodeIfPresent(Bool.self, forKey: "SaveSubtitlesWithMedia")
-        self.isSavetrickplaywithmedia = try values.decodeIfPresent(Bool.self, forKey: "SaveTrickplayWithMedia") ?? false
-        self.isSkipsubtitlesifaudiotrackmatches = try values.decodeIfPresent(Bool.self, forKey: "SkipSubtitlesIfAudioTrackMatches")
-        self.isSkipsubtitlesifembeddedsubtitlespresent = try values.decodeIfPresent(
+        self.isPreferNonstandardArtistsTag = try values.decodeIfPresent(Bool.self, forKey: "PreferNonstandardArtistsTag") ?? false
+        self.isSaveLocalMetadata = try values.decodeIfPresent(Bool.self, forKey: "SaveLocalMetadata")
+        self.isSaveLyricsWithMedia = try values.decodeIfPresent(Bool.self, forKey: "SaveLyricsWithMedia") ?? false
+        self.isSaveSubtitlesWithMedia = try values.decodeIfPresent(Bool.self, forKey: "SaveSubtitlesWithMedia")
+        self.isSaveTrickplayWithMedia = try values.decodeIfPresent(Bool.self, forKey: "SaveTrickplayWithMedia") ?? false
+        self.isSkipSubtitlesIfAudioTrackMatches = try values.decodeIfPresent(Bool.self, forKey: "SkipSubtitlesIfAudioTrackMatches")
+        self.isSkipSubtitlesIfEmbeddedSubtitlesPresent = try values.decodeIfPresent(
             Bool.self,
             forKey: "SkipSubtitlesIfEmbeddedSubtitlesPresent"
         )
@@ -219,17 +219,17 @@ public struct LibraryOptions: Codable, Hashable, Sendable {
         try values.encodeIfPresent(enablePhotos, forKey: "EnablePhotos")
         try values.encodeIfPresent(enableRealtimeMonitor, forKey: "EnableRealtimeMonitor")
         try values.encodeIfPresent(enableTrickplayImageExtraction, forKey: "EnableTrickplayImageExtraction")
-        try values.encodeIfPresent(isAutomaticallyaddtocollection, forKey: "AutomaticallyAddToCollection")
+        try values.encodeIfPresent(isAutomaticallyAddToCollection, forKey: "AutomaticallyAddToCollection")
         try values.encodeIfPresent(isEnabled, forKey: "Enabled")
-        try values.encodeIfPresent(isExtractchapterimagesduringlibraryscan, forKey: "ExtractChapterImagesDuringLibraryScan")
-        try values.encodeIfPresent(isExtracttrickplayimagesduringlibraryscan, forKey: "ExtractTrickplayImagesDuringLibraryScan")
-        try values.encodeIfPresent(isPrefernonstandardartiststag, forKey: "PreferNonstandardArtistsTag")
-        try values.encodeIfPresent(isSavelocalmetadata, forKey: "SaveLocalMetadata")
-        try values.encodeIfPresent(isSavelyricswithmedia, forKey: "SaveLyricsWithMedia")
-        try values.encodeIfPresent(isSavesubtitleswithmedia, forKey: "SaveSubtitlesWithMedia")
-        try values.encodeIfPresent(isSavetrickplaywithmedia, forKey: "SaveTrickplayWithMedia")
-        try values.encodeIfPresent(isSkipsubtitlesifaudiotrackmatches, forKey: "SkipSubtitlesIfAudioTrackMatches")
-        try values.encodeIfPresent(isSkipsubtitlesifembeddedsubtitlespresent, forKey: "SkipSubtitlesIfEmbeddedSubtitlesPresent")
+        try values.encodeIfPresent(isExtractChapterImagesDuringLibraryScan, forKey: "ExtractChapterImagesDuringLibraryScan")
+        try values.encodeIfPresent(isExtractTrickplayImagesDuringLibraryScan, forKey: "ExtractTrickplayImagesDuringLibraryScan")
+        try values.encodeIfPresent(isPreferNonstandardArtistsTag, forKey: "PreferNonstandardArtistsTag")
+        try values.encodeIfPresent(isSaveLocalMetadata, forKey: "SaveLocalMetadata")
+        try values.encodeIfPresent(isSaveLyricsWithMedia, forKey: "SaveLyricsWithMedia")
+        try values.encodeIfPresent(isSaveSubtitlesWithMedia, forKey: "SaveSubtitlesWithMedia")
+        try values.encodeIfPresent(isSaveTrickplayWithMedia, forKey: "SaveTrickplayWithMedia")
+        try values.encodeIfPresent(isSkipSubtitlesIfAudioTrackMatches, forKey: "SkipSubtitlesIfAudioTrackMatches")
+        try values.encodeIfPresent(isSkipSubtitlesIfEmbeddedSubtitlesPresent, forKey: "SkipSubtitlesIfEmbeddedSubtitlesPresent")
         try values.encodeIfPresent(localMetadataReaderOrder, forKey: "LocalMetadataReaderOrder")
         try values.encodeIfPresent(lyricFetcherOrder, forKey: "LyricFetcherOrder")
         try values.encodeIfPresent(mediaSegmentProviderOrder, forKey: "MediaSegmentProviderOrder")

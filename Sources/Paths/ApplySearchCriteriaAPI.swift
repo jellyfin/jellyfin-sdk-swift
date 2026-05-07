@@ -11,19 +11,19 @@ import Get
 
 extension Paths {
     /// Applies search criteria to an item and refreshes metadata.
-    public static func applySearchCriteria(itemID: String, isReplaceallimages: Bool? = nil, _ body: RemoteSearchResult) -> Request<Void> {
+    public static func applySearchCriteria(itemID: String, isReplaceAllImages: Bool? = nil, _ body: RemoteSearchResult) -> Request<Void> {
         Request(
             path: "/Items/RemoteSearch/Apply/\(itemID)",
             method: "POST",
-            query: makeApplySearchCriteriaQuery(isReplaceallimages),
+            query: makeApplySearchCriteriaQuery(isReplaceAllImages),
             body: body,
             id: "ApplySearchCriteria"
         )
     }
 
-    private static func makeApplySearchCriteriaQuery(_ isReplaceallimages: Bool?) -> [(String, String?)] {
+    private static func makeApplySearchCriteriaQuery(_ isReplaceAllImages: Bool?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
-        encoder.encode(isReplaceallimages, forKey: "replaceAllImages")
+        encoder.encode(isReplaceAllImages, forKey: "replaceAllImages")
         return encoder.items
     }
 }

@@ -19,23 +19,23 @@ public extension Paths {
         public var userID: String?
         public var startIndex: Int?
         public var limit: Int?
-        public var isSupportslatestitems: Bool?
-        public var isSupportsmediadeletion: Bool?
+        public var isSupportsLatestItems: Bool?
+        public var isSupportsMediaDeletion: Bool?
         public var isFavorite: Bool?
 
         public init(
             userID: String? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
-            isSupportslatestitems: Bool? = nil,
-            isSupportsmediadeletion: Bool? = nil,
+            isSupportsLatestItems: Bool? = nil,
+            isSupportsMediaDeletion: Bool? = nil,
             isFavorite: Bool? = nil
         ) {
             self.userID = userID
             self.startIndex = startIndex
             self.limit = limit
-            self.isSupportslatestitems = isSupportslatestitems
-            self.isSupportsmediadeletion = isSupportsmediadeletion
+            self.isSupportsLatestItems = isSupportsLatestItems
+            self.isSupportsMediaDeletion = isSupportsMediaDeletion
             self.isFavorite = isFavorite
         }
 
@@ -44,8 +44,8 @@ public extension Paths {
             encoder.encode(userID, forKey: "userId")
             encoder.encode(startIndex, forKey: "startIndex")
             encoder.encode(limit, forKey: "limit")
-            encoder.encode(isSupportslatestitems, forKey: "supportsLatestItems")
-            encoder.encode(isSupportsmediadeletion, forKey: "supportsMediaDeletion")
+            encoder.encode(isSupportsLatestItems, forKey: "supportsLatestItems")
+            encoder.encode(isSupportsMediaDeletion, forKey: "supportsMediaDeletion")
             encoder.encode(isFavorite, forKey: "isFavorite")
             return encoder.items
         }

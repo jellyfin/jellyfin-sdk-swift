@@ -10,19 +10,19 @@ import Foundation
 
 public struct BookInfoRemoteSearchQuery: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether disabled providers should be included.
-    public var isIncludedisabledproviders: Bool?
+    public var isIncludeDisabledProviders: Bool?
     public var itemID: String?
     public var searchInfo: BookInfo?
     /// Gets or sets the provider name to search within if set.
     public var searchProviderName: String?
 
     public init(
-        isIncludedisabledproviders: Bool? = nil,
+        isIncludeDisabledProviders: Bool? = nil,
         itemID: String? = nil,
         searchInfo: BookInfo? = nil,
         searchProviderName: String? = nil
     ) {
-        self.isIncludedisabledproviders = isIncludedisabledproviders
+        self.isIncludeDisabledProviders = isIncludeDisabledProviders
         self.itemID = itemID
         self.searchInfo = searchInfo
         self.searchProviderName = searchProviderName
@@ -30,7 +30,7 @@ public struct BookInfoRemoteSearchQuery: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isIncludedisabledproviders = try values.decodeIfPresent(Bool.self, forKey: "IncludeDisabledProviders")
+        self.isIncludeDisabledProviders = try values.decodeIfPresent(Bool.self, forKey: "IncludeDisabledProviders")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.searchInfo = try values.decodeIfPresent(BookInfo.self, forKey: "SearchInfo")
         self.searchProviderName = try values.decodeIfPresent(String.self, forKey: "SearchProviderName")
@@ -38,7 +38,7 @@ public struct BookInfoRemoteSearchQuery: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isIncludedisabledproviders, forKey: "IncludeDisabledProviders")
+        try values.encodeIfPresent(isIncludeDisabledProviders, forKey: "IncludeDisabledProviders")
         try values.encodeIfPresent(itemID, forKey: "ItemId")
         try values.encodeIfPresent(searchInfo, forKey: "SearchInfo")
         try values.encodeIfPresent(searchProviderName, forKey: "SearchProviderName")

@@ -73,9 +73,9 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
     /// Gets or sets the codecs hardware encoding is used for.
     public var hardwareDecodingCodecs: [String]?
     /// Gets or sets a value indicating whether the framerate is doubled when deinterlacing.
-    public var isDeinterlacedoublerate: Bool?
+    public var isDeinterlaceDoubleRate: Bool?
     /// Gets or sets a value indicating whether the system native hardware decoder should be used.
-    public var isPrefersystemnativehwdecoder: Bool?
+    public var isPreferSystemNativeHwDecoder: Bool?
     /// Gets or sets the maximum size of the muxing queue.
     public var maxMuxingQueueSize: Int?
     /// Gets or sets the QSV device.
@@ -137,8 +137,8 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
         h265Crf: Int? = nil,
         hardwareAccelerationType: HardwareAccelerationType? = nil,
         hardwareDecodingCodecs: [String]? = nil,
-        isDeinterlacedoublerate: Bool? = nil,
-        isPrefersystemnativehwdecoder: Bool? = nil,
+        isDeinterlaceDoubleRate: Bool? = nil,
+        isPreferSystemNativeHwDecoder: Bool? = nil,
         maxMuxingQueueSize: Int? = nil,
         qsvDevice: String? = nil,
         segmentKeepSeconds: Int? = nil,
@@ -185,8 +185,8 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
         self.h265Crf = h265Crf
         self.hardwareAccelerationType = hardwareAccelerationType
         self.hardwareDecodingCodecs = hardwareDecodingCodecs
-        self.isDeinterlacedoublerate = isDeinterlacedoublerate
-        self.isPrefersystemnativehwdecoder = isPrefersystemnativehwdecoder
+        self.isDeinterlaceDoubleRate = isDeinterlaceDoubleRate
+        self.isPreferSystemNativeHwDecoder = isPreferSystemNativeHwDecoder
         self.maxMuxingQueueSize = maxMuxingQueueSize
         self.qsvDevice = qsvDevice
         self.segmentKeepSeconds = segmentKeepSeconds
@@ -239,8 +239,8 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
         self.h265Crf = try values.decodeIfPresent(Int.self, forKey: "H265Crf")
         self.hardwareAccelerationType = try values.decodeIfPresent(HardwareAccelerationType.self, forKey: "HardwareAccelerationType")
         self.hardwareDecodingCodecs = try values.decodeIfPresent([String].self, forKey: "HardwareDecodingCodecs")
-        self.isDeinterlacedoublerate = try values.decodeIfPresent(Bool.self, forKey: "DeinterlaceDoubleRate")
-        self.isPrefersystemnativehwdecoder = try values.decodeIfPresent(Bool.self, forKey: "PreferSystemNativeHwDecoder")
+        self.isDeinterlaceDoubleRate = try values.decodeIfPresent(Bool.self, forKey: "DeinterlaceDoubleRate")
+        self.isPreferSystemNativeHwDecoder = try values.decodeIfPresent(Bool.self, forKey: "PreferSystemNativeHwDecoder")
         self.maxMuxingQueueSize = try values.decodeIfPresent(Int.self, forKey: "MaxMuxingQueueSize")
         self.qsvDevice = try values.decodeIfPresent(String.self, forKey: "QsvDevice")
         self.segmentKeepSeconds = try values.decodeIfPresent(Int.self, forKey: "SegmentKeepSeconds")
@@ -293,8 +293,8 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
         try values.encodeIfPresent(h265Crf, forKey: "H265Crf")
         try values.encodeIfPresent(hardwareAccelerationType, forKey: "HardwareAccelerationType")
         try values.encodeIfPresent(hardwareDecodingCodecs, forKey: "HardwareDecodingCodecs")
-        try values.encodeIfPresent(isDeinterlacedoublerate, forKey: "DeinterlaceDoubleRate")
-        try values.encodeIfPresent(isPrefersystemnativehwdecoder, forKey: "PreferSystemNativeHwDecoder")
+        try values.encodeIfPresent(isDeinterlaceDoubleRate, forKey: "DeinterlaceDoubleRate")
+        try values.encodeIfPresent(isPreferSystemNativeHwDecoder, forKey: "PreferSystemNativeHwDecoder")
         try values.encodeIfPresent(maxMuxingQueueSize, forKey: "MaxMuxingQueueSize")
         try values.encodeIfPresent(qsvDevice, forKey: "QsvDevice")
         try values.encodeIfPresent(segmentKeepSeconds, forKey: "SegmentKeepSeconds")

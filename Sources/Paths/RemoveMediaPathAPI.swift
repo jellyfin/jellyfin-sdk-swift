@@ -18,19 +18,19 @@ public extension Paths {
     struct RemoveMediaPathParameters {
         public var name: String?
         public var path: String?
-        public var isRefreshlibrary: Bool?
+        public var isRefreshLibrary: Bool?
 
-        public init(name: String? = nil, path: String? = nil, isRefreshlibrary: Bool? = nil) {
+        public init(name: String? = nil, path: String? = nil, isRefreshLibrary: Bool? = nil) {
             self.name = name
             self.path = path
-            self.isRefreshlibrary = isRefreshlibrary
+            self.isRefreshLibrary = isRefreshLibrary
         }
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(name, forKey: "name")
             encoder.encode(path, forKey: "path")
-            encoder.encode(isRefreshlibrary, forKey: "refreshLibrary")
+            encoder.encode(isRefreshLibrary, forKey: "refreshLibrary")
             return encoder.items
         }
     }

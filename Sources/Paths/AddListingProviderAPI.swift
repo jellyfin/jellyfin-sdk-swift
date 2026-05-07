@@ -20,20 +20,20 @@ public extension Paths {
 
     struct AddListingProviderParameters {
         public var pw: String?
-        public var isValidatelistings: Bool?
-        public var isValidatelogin: Bool?
+        public var isValidateListings: Bool?
+        public var isValidateLogin: Bool?
 
-        public init(pw: String? = nil, isValidatelistings: Bool? = nil, isValidatelogin: Bool? = nil) {
+        public init(pw: String? = nil, isValidateListings: Bool? = nil, isValidateLogin: Bool? = nil) {
             self.pw = pw
-            self.isValidatelistings = isValidatelistings
-            self.isValidatelogin = isValidatelogin
+            self.isValidateListings = isValidateListings
+            self.isValidateLogin = isValidateLogin
         }
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(pw, forKey: "pw")
-            encoder.encode(isValidatelistings, forKey: "validateListings")
-            encoder.encode(isValidatelogin, forKey: "validateLogin")
+            encoder.encode(isValidateListings, forKey: "validateListings")
+            encoder.encode(isValidateLogin, forKey: "validateLogin")
             return encoder.items
         }
     }

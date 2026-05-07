@@ -11,19 +11,19 @@ import Get
 
 extension Paths {
     /// Removes a virtual folder.
-    public static func removeVirtualFolder(name: String? = nil, isRefreshlibrary: Bool? = nil) -> Request<Void> {
+    public static func removeVirtualFolder(name: String? = nil, isRefreshLibrary: Bool? = nil) -> Request<Void> {
         Request(
             path: "/Library/VirtualFolders",
             method: "DELETE",
-            query: makeRemoveVirtualFolderQuery(name, isRefreshlibrary),
+            query: makeRemoveVirtualFolderQuery(name, isRefreshLibrary),
             id: "RemoveVirtualFolder"
         )
     }
 
-    private static func makeRemoveVirtualFolderQuery(_ name: String?, _ isRefreshlibrary: Bool?) -> [(String, String?)] {
+    private static func makeRemoveVirtualFolderQuery(_ name: String?, _ isRefreshLibrary: Bool?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(name, forKey: "name")
-        encoder.encode(isRefreshlibrary, forKey: "refreshLibrary")
+        encoder.encode(isRefreshLibrary, forKey: "refreshLibrary")
         return encoder.items
     }
 }

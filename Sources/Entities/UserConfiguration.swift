@@ -17,13 +17,13 @@ public struct UserConfiguration: Codable, Hashable, Sendable {
     public var enableLocalPassword: Bool?
     public var enableNextEpisodeAutoPlay: Bool?
     public var groupedFolders: [String]?
-    public var isDisplaycollectionsview: Bool?
-    public var isDisplaymissingepisodes: Bool?
-    public var isHideplayedinlatest: Bool?
+    public var isDisplayCollectionsView: Bool?
+    public var isDisplayMissingEpisodes: Bool?
+    public var isHidePlayedInLatest: Bool?
     /// Gets or sets a value indicating whether [play default audio track].
-    public var isPlaydefaultaudiotrack: Bool?
-    public var isRememberaudioselections: Bool?
-    public var isRemembersubtitleselections: Bool?
+    public var isPlayDefaultAudioTrack: Bool?
+    public var isRememberAudioSelections: Bool?
+    public var isRememberSubtitleSelections: Bool?
     public var latestItemsExcludes: [String]?
     public var myMediaExcludes: [String]?
     public var orderedViews: [String]?
@@ -38,12 +38,12 @@ public struct UserConfiguration: Codable, Hashable, Sendable {
         enableLocalPassword: Bool? = nil,
         enableNextEpisodeAutoPlay: Bool? = nil,
         groupedFolders: [String]? = nil,
-        isDisplaycollectionsview: Bool? = nil,
-        isDisplaymissingepisodes: Bool? = nil,
-        isHideplayedinlatest: Bool? = nil,
-        isPlaydefaultaudiotrack: Bool? = nil,
-        isRememberaudioselections: Bool? = nil,
-        isRemembersubtitleselections: Bool? = nil,
+        isDisplayCollectionsView: Bool? = nil,
+        isDisplayMissingEpisodes: Bool? = nil,
+        isHidePlayedInLatest: Bool? = nil,
+        isPlayDefaultAudioTrack: Bool? = nil,
+        isRememberAudioSelections: Bool? = nil,
+        isRememberSubtitleSelections: Bool? = nil,
         latestItemsExcludes: [String]? = nil,
         myMediaExcludes: [String]? = nil,
         orderedViews: [String]? = nil,
@@ -55,12 +55,12 @@ public struct UserConfiguration: Codable, Hashable, Sendable {
         self.enableLocalPassword = enableLocalPassword
         self.enableNextEpisodeAutoPlay = enableNextEpisodeAutoPlay
         self.groupedFolders = groupedFolders
-        self.isDisplaycollectionsview = isDisplaycollectionsview
-        self.isDisplaymissingepisodes = isDisplaymissingepisodes
-        self.isHideplayedinlatest = isHideplayedinlatest
-        self.isPlaydefaultaudiotrack = isPlaydefaultaudiotrack
-        self.isRememberaudioselections = isRememberaudioselections
-        self.isRemembersubtitleselections = isRemembersubtitleselections
+        self.isDisplayCollectionsView = isDisplayCollectionsView
+        self.isDisplayMissingEpisodes = isDisplayMissingEpisodes
+        self.isHidePlayedInLatest = isHidePlayedInLatest
+        self.isPlayDefaultAudioTrack = isPlayDefaultAudioTrack
+        self.isRememberAudioSelections = isRememberAudioSelections
+        self.isRememberSubtitleSelections = isRememberSubtitleSelections
         self.latestItemsExcludes = latestItemsExcludes
         self.myMediaExcludes = myMediaExcludes
         self.orderedViews = orderedViews
@@ -75,12 +75,12 @@ public struct UserConfiguration: Codable, Hashable, Sendable {
         self.enableLocalPassword = try values.decodeIfPresent(Bool.self, forKey: "EnableLocalPassword")
         self.enableNextEpisodeAutoPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableNextEpisodeAutoPlay")
         self.groupedFolders = try values.decodeIfPresent([String].self, forKey: "GroupedFolders")
-        self.isDisplaycollectionsview = try values.decodeIfPresent(Bool.self, forKey: "DisplayCollectionsView")
-        self.isDisplaymissingepisodes = try values.decodeIfPresent(Bool.self, forKey: "DisplayMissingEpisodes")
-        self.isHideplayedinlatest = try values.decodeIfPresent(Bool.self, forKey: "HidePlayedInLatest")
-        self.isPlaydefaultaudiotrack = try values.decodeIfPresent(Bool.self, forKey: "PlayDefaultAudioTrack")
-        self.isRememberaudioselections = try values.decodeIfPresent(Bool.self, forKey: "RememberAudioSelections")
-        self.isRemembersubtitleselections = try values.decodeIfPresent(Bool.self, forKey: "RememberSubtitleSelections")
+        self.isDisplayCollectionsView = try values.decodeIfPresent(Bool.self, forKey: "DisplayCollectionsView")
+        self.isDisplayMissingEpisodes = try values.decodeIfPresent(Bool.self, forKey: "DisplayMissingEpisodes")
+        self.isHidePlayedInLatest = try values.decodeIfPresent(Bool.self, forKey: "HidePlayedInLatest")
+        self.isPlayDefaultAudioTrack = try values.decodeIfPresent(Bool.self, forKey: "PlayDefaultAudioTrack")
+        self.isRememberAudioSelections = try values.decodeIfPresent(Bool.self, forKey: "RememberAudioSelections")
+        self.isRememberSubtitleSelections = try values.decodeIfPresent(Bool.self, forKey: "RememberSubtitleSelections")
         self.latestItemsExcludes = try values.decodeIfPresent([String].self, forKey: "LatestItemsExcludes")
         self.myMediaExcludes = try values.decodeIfPresent([String].self, forKey: "MyMediaExcludes")
         self.orderedViews = try values.decodeIfPresent([String].self, forKey: "OrderedViews")
@@ -95,12 +95,12 @@ public struct UserConfiguration: Codable, Hashable, Sendable {
         try values.encodeIfPresent(enableLocalPassword, forKey: "EnableLocalPassword")
         try values.encodeIfPresent(enableNextEpisodeAutoPlay, forKey: "EnableNextEpisodeAutoPlay")
         try values.encodeIfPresent(groupedFolders, forKey: "GroupedFolders")
-        try values.encodeIfPresent(isDisplaycollectionsview, forKey: "DisplayCollectionsView")
-        try values.encodeIfPresent(isDisplaymissingepisodes, forKey: "DisplayMissingEpisodes")
-        try values.encodeIfPresent(isHideplayedinlatest, forKey: "HidePlayedInLatest")
-        try values.encodeIfPresent(isPlaydefaultaudiotrack, forKey: "PlayDefaultAudioTrack")
-        try values.encodeIfPresent(isRememberaudioselections, forKey: "RememberAudioSelections")
-        try values.encodeIfPresent(isRemembersubtitleselections, forKey: "RememberSubtitleSelections")
+        try values.encodeIfPresent(isDisplayCollectionsView, forKey: "DisplayCollectionsView")
+        try values.encodeIfPresent(isDisplayMissingEpisodes, forKey: "DisplayMissingEpisodes")
+        try values.encodeIfPresent(isHidePlayedInLatest, forKey: "HidePlayedInLatest")
+        try values.encodeIfPresent(isPlayDefaultAudioTrack, forKey: "PlayDefaultAudioTrack")
+        try values.encodeIfPresent(isRememberAudioSelections, forKey: "RememberAudioSelections")
+        try values.encodeIfPresent(isRememberSubtitleSelections, forKey: "RememberSubtitleSelections")
         try values.encodeIfPresent(latestItemsExcludes, forKey: "LatestItemsExcludes")
         try values.encodeIfPresent(myMediaExcludes, forKey: "MyMediaExcludes")
         try values.encodeIfPresent(orderedViews, forKey: "OrderedViews")

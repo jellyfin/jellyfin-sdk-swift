@@ -48,14 +48,14 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
     ///
     /// If set to 0 the check for inactive sessions gets disabled.
     public var inactiveSessionThreshold: Int?
-    public var isDisablelivetvchanneluserdataname: Bool?
-    public var isDisplayspecialswithinseasons: Bool?
+    public var isDisableLiveTvChannelUserDataName: Bool?
+    public var isDisplaySpecialsWithinSeasons: Bool?
     /// Gets or sets a value indicating whether this instance is port authorized.
     public var isPortAuthorized: Bool?
     /// Gets or sets a value indicating whether quick connect is available for use on this server.
-    public var isQuickconnectavailable: Bool?
-    public var isSavemetadatahidden: Bool?
-    public var isSkipdeserializationforbasictypes: Bool?
+    public var isQuickConnectAvailable: Bool?
+    public var isSaveMetadataHidden: Bool?
+    public var isSkipDeserializationForBasicTypes: Bool?
     /// Gets or sets a value indicating whether this instance is first run.
     public var isStartupWizardCompleted: Bool?
     /// Gets or sets the how many metadata refreshes can run concurrently.
@@ -139,12 +139,12 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
         imageExtractionTimeoutMs: Int? = nil,
         imageSavingConvention: ImageSavingConvention? = nil,
         inactiveSessionThreshold: Int? = nil,
-        isDisablelivetvchanneluserdataname: Bool? = nil,
-        isDisplayspecialswithinseasons: Bool? = nil,
+        isDisableLiveTvChannelUserDataName: Bool? = nil,
+        isDisplaySpecialsWithinSeasons: Bool? = nil,
         isPortAuthorized: Bool? = nil,
-        isQuickconnectavailable: Bool? = nil,
-        isSavemetadatahidden: Bool? = nil,
-        isSkipdeserializationforbasictypes: Bool? = nil,
+        isQuickConnectAvailable: Bool? = nil,
+        isSaveMetadataHidden: Bool? = nil,
+        isSkipDeserializationForBasicTypes: Bool? = nil,
         isStartupWizardCompleted: Bool? = nil,
         libraryMetadataRefreshConcurrency: Int? = nil,
         libraryMonitorDelay: Int? = nil,
@@ -196,12 +196,12 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
         self.imageExtractionTimeoutMs = imageExtractionTimeoutMs
         self.imageSavingConvention = imageSavingConvention
         self.inactiveSessionThreshold = inactiveSessionThreshold
-        self.isDisablelivetvchanneluserdataname = isDisablelivetvchanneluserdataname
-        self.isDisplayspecialswithinseasons = isDisplayspecialswithinseasons
+        self.isDisableLiveTvChannelUserDataName = isDisableLiveTvChannelUserDataName
+        self.isDisplaySpecialsWithinSeasons = isDisplaySpecialsWithinSeasons
         self.isPortAuthorized = isPortAuthorized
-        self.isQuickconnectavailable = isQuickconnectavailable
-        self.isSavemetadatahidden = isSavemetadatahidden
-        self.isSkipdeserializationforbasictypes = isSkipdeserializationforbasictypes
+        self.isQuickConnectAvailable = isQuickConnectAvailable
+        self.isSaveMetadataHidden = isSaveMetadataHidden
+        self.isSkipDeserializationForBasicTypes = isSkipDeserializationForBasicTypes
         self.isStartupWizardCompleted = isStartupWizardCompleted
         self.libraryMetadataRefreshConcurrency = libraryMetadataRefreshConcurrency
         self.libraryMonitorDelay = libraryMonitorDelay
@@ -256,12 +256,12 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
         self.imageExtractionTimeoutMs = try values.decodeIfPresent(Int.self, forKey: "ImageExtractionTimeoutMs")
         self.imageSavingConvention = try values.decodeIfPresent(ImageSavingConvention.self, forKey: "ImageSavingConvention")
         self.inactiveSessionThreshold = try values.decodeIfPresent(Int.self, forKey: "InactiveSessionThreshold")
-        self.isDisablelivetvchanneluserdataname = try values.decodeIfPresent(Bool.self, forKey: "DisableLiveTvChannelUserDataName")
-        self.isDisplayspecialswithinseasons = try values.decodeIfPresent(Bool.self, forKey: "DisplaySpecialsWithinSeasons")
+        self.isDisableLiveTvChannelUserDataName = try values.decodeIfPresent(Bool.self, forKey: "DisableLiveTvChannelUserDataName")
+        self.isDisplaySpecialsWithinSeasons = try values.decodeIfPresent(Bool.self, forKey: "DisplaySpecialsWithinSeasons")
         self.isPortAuthorized = try values.decodeIfPresent(Bool.self, forKey: "IsPortAuthorized")
-        self.isQuickconnectavailable = try values.decodeIfPresent(Bool.self, forKey: "QuickConnectAvailable")
-        self.isSavemetadatahidden = try values.decodeIfPresent(Bool.self, forKey: "SaveMetadataHidden")
-        self.isSkipdeserializationforbasictypes = try values.decodeIfPresent(Bool.self, forKey: "SkipDeserializationForBasicTypes")
+        self.isQuickConnectAvailable = try values.decodeIfPresent(Bool.self, forKey: "QuickConnectAvailable")
+        self.isSaveMetadataHidden = try values.decodeIfPresent(Bool.self, forKey: "SaveMetadataHidden")
+        self.isSkipDeserializationForBasicTypes = try values.decodeIfPresent(Bool.self, forKey: "SkipDeserializationForBasicTypes")
         self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "IsStartupWizardCompleted")
         self.libraryMetadataRefreshConcurrency = try values.decodeIfPresent(Int.self, forKey: "LibraryMetadataRefreshConcurrency")
         self.libraryMonitorDelay = try values.decodeIfPresent(Int.self, forKey: "LibraryMonitorDelay")
@@ -316,12 +316,12 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
         try values.encodeIfPresent(imageExtractionTimeoutMs, forKey: "ImageExtractionTimeoutMs")
         try values.encodeIfPresent(imageSavingConvention, forKey: "ImageSavingConvention")
         try values.encodeIfPresent(inactiveSessionThreshold, forKey: "InactiveSessionThreshold")
-        try values.encodeIfPresent(isDisablelivetvchanneluserdataname, forKey: "DisableLiveTvChannelUserDataName")
-        try values.encodeIfPresent(isDisplayspecialswithinseasons, forKey: "DisplaySpecialsWithinSeasons")
+        try values.encodeIfPresent(isDisableLiveTvChannelUserDataName, forKey: "DisableLiveTvChannelUserDataName")
+        try values.encodeIfPresent(isDisplaySpecialsWithinSeasons, forKey: "DisplaySpecialsWithinSeasons")
         try values.encodeIfPresent(isPortAuthorized, forKey: "IsPortAuthorized")
-        try values.encodeIfPresent(isQuickconnectavailable, forKey: "QuickConnectAvailable")
-        try values.encodeIfPresent(isSavemetadatahidden, forKey: "SaveMetadataHidden")
-        try values.encodeIfPresent(isSkipdeserializationforbasictypes, forKey: "SkipDeserializationForBasicTypes")
+        try values.encodeIfPresent(isQuickConnectAvailable, forKey: "QuickConnectAvailable")
+        try values.encodeIfPresent(isSaveMetadataHidden, forKey: "SaveMetadataHidden")
+        try values.encodeIfPresent(isSkipDeserializationForBasicTypes, forKey: "SkipDeserializationForBasicTypes")
         try values.encodeIfPresent(isStartupWizardCompleted, forKey: "IsStartupWizardCompleted")
         try values.encodeIfPresent(libraryMetadataRefreshConcurrency, forKey: "LibraryMetadataRefreshConcurrency")
         try values.encodeIfPresent(libraryMonitorDelay, forKey: "LibraryMonitorDelay")

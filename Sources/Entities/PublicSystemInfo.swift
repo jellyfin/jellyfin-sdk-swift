@@ -12,7 +12,7 @@ public struct PublicSystemInfo: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the id.
     public var id: String?
     /// Gets or sets a value indicating whether the startup wizard is completed.
-    public var isStartupwizardcompleted: Bool?
+    public var isStartupWizardCompleted: Bool?
     /// Gets or sets the local address.
     public var localAddress: String?
     /// Gets or sets the operating system.
@@ -27,7 +27,7 @@ public struct PublicSystemInfo: Codable, Hashable, Identifiable, Sendable {
 
     public init(
         id: String? = nil,
-        isStartupwizardcompleted: Bool? = nil,
+        isStartupWizardCompleted: Bool? = nil,
         localAddress: String? = nil,
         operatingSystem: String? = nil,
         productName: String? = nil,
@@ -35,7 +35,7 @@ public struct PublicSystemInfo: Codable, Hashable, Identifiable, Sendable {
         version: String? = nil
     ) {
         self.id = id
-        self.isStartupwizardcompleted = isStartupwizardcompleted
+        self.isStartupWizardCompleted = isStartupWizardCompleted
         self.localAddress = localAddress
         self.operatingSystem = operatingSystem
         self.productName = productName
@@ -46,7 +46,7 @@ public struct PublicSystemInfo: Codable, Hashable, Identifiable, Sendable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.isStartupwizardcompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
+        self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
         self.localAddress = try values.decodeIfPresent(String.self, forKey: "LocalAddress")
         self.operatingSystem = try values.decodeIfPresent(String.self, forKey: "OperatingSystem")
         self.productName = try values.decodeIfPresent(String.self, forKey: "ProductName")
@@ -57,7 +57,7 @@ public struct PublicSystemInfo: Codable, Hashable, Identifiable, Sendable {
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(isStartupwizardcompleted, forKey: "StartupWizardCompleted")
+        try values.encodeIfPresent(isStartupWizardCompleted, forKey: "StartupWizardCompleted")
         try values.encodeIfPresent(localAddress, forKey: "LocalAddress")
         try values.encodeIfPresent(operatingSystem, forKey: "OperatingSystem")
         try values.encodeIfPresent(productName, forKey: "ProductName")

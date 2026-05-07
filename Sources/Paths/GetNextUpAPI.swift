@@ -28,7 +28,7 @@ public extension Paths {
         public var enableUserData: Bool?
         public var nextUpDateCutoff: Date?
         public var enableTotalRecordCount: Bool?
-        public var isDisablefirstepisode: Bool?
+        public var isDisableFirstEpisode: Bool?
         public var enableResumable: Bool?
         public var enableRewatching: Bool?
 
@@ -45,7 +45,7 @@ public extension Paths {
             enableUserData: Bool? = nil,
             nextUpDateCutoff: Date? = nil,
             enableTotalRecordCount: Bool? = nil,
-            isDisablefirstepisode: Bool? = nil,
+            isDisableFirstEpisode: Bool? = nil,
             enableResumable: Bool? = nil,
             enableRewatching: Bool? = nil
         ) {
@@ -61,7 +61,7 @@ public extension Paths {
             self.enableUserData = enableUserData
             self.nextUpDateCutoff = nextUpDateCutoff
             self.enableTotalRecordCount = enableTotalRecordCount
-            self.isDisablefirstepisode = isDisablefirstepisode
+            self.isDisableFirstEpisode = isDisableFirstEpisode
             self.enableResumable = enableResumable
             self.enableRewatching = enableRewatching
         }
@@ -80,7 +80,7 @@ public extension Paths {
             encoder.encode(enableUserData, forKey: "enableUserData")
             encoder.encode(nextUpDateCutoff, forKey: "nextUpDateCutoff")
             encoder.encode(enableTotalRecordCount, forKey: "enableTotalRecordCount")
-            encoder.encode(isDisablefirstepisode, forKey: "disableFirstEpisode")
+            encoder.encode(isDisableFirstEpisode, forKey: "disableFirstEpisode")
             encoder.encode(enableResumable, forKey: "enableResumable")
             encoder.encode(enableRewatching, forKey: "enableRewatching")
             return encoder.items

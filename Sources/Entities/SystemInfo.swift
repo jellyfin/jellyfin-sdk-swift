@@ -36,9 +36,9 @@ public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
     public var internalMetadataPath: String?
     public var isShuttingDown: Bool?
     /// Gets or sets a value indicating whether the startup wizard is completed.
-    public var isStartupwizardcompleted: Bool?
+    public var isStartupWizardCompleted: Bool?
     /// Gets or sets a value indicating whether [supports library monitor].
-    public var isSupportslibrarymonitor: Bool?
+    public var isSupportsLibraryMonitor: Bool?
     /// Gets or sets the items by name path.
     @available(*, deprecated, message: "Deprecated")
     public var itemsByNamePath: String?
@@ -87,8 +87,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
         id: String? = nil,
         internalMetadataPath: String? = nil,
         isShuttingDown: Bool? = nil,
-        isStartupwizardcompleted: Bool? = nil,
-        isSupportslibrarymonitor: Bool? = nil,
+        isStartupWizardCompleted: Bool? = nil,
+        isSupportsLibraryMonitor: Bool? = nil,
         itemsByNamePath: String? = nil,
         localAddress: String? = nil,
         logPath: String? = nil,
@@ -115,8 +115,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
         self.id = id
         self.internalMetadataPath = internalMetadataPath
         self.isShuttingDown = isShuttingDown
-        self.isStartupwizardcompleted = isStartupwizardcompleted
-        self.isSupportslibrarymonitor = isSupportslibrarymonitor
+        self.isStartupWizardCompleted = isStartupWizardCompleted
+        self.isSupportsLibraryMonitor = isSupportsLibraryMonitor
         self.itemsByNamePath = itemsByNamePath
         self.localAddress = localAddress
         self.logPath = logPath
@@ -146,8 +146,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.internalMetadataPath = try values.decodeIfPresent(String.self, forKey: "InternalMetadataPath")
         self.isShuttingDown = try values.decodeIfPresent(Bool.self, forKey: "IsShuttingDown")
-        self.isStartupwizardcompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
-        self.isSupportslibrarymonitor = try values.decodeIfPresent(Bool.self, forKey: "SupportsLibraryMonitor")
+        self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
+        self.isSupportsLibraryMonitor = try values.decodeIfPresent(Bool.self, forKey: "SupportsLibraryMonitor")
         self.itemsByNamePath = try values.decodeIfPresent(String.self, forKey: "ItemsByNamePath")
         self.localAddress = try values.decodeIfPresent(String.self, forKey: "LocalAddress")
         self.logPath = try values.decodeIfPresent(String.self, forKey: "LogPath")
@@ -177,8 +177,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(internalMetadataPath, forKey: "InternalMetadataPath")
         try values.encodeIfPresent(isShuttingDown, forKey: "IsShuttingDown")
-        try values.encodeIfPresent(isStartupwizardcompleted, forKey: "StartupWizardCompleted")
-        try values.encodeIfPresent(isSupportslibrarymonitor, forKey: "SupportsLibraryMonitor")
+        try values.encodeIfPresent(isStartupWizardCompleted, forKey: "StartupWizardCompleted")
+        try values.encodeIfPresent(isSupportsLibraryMonitor, forKey: "SupportsLibraryMonitor")
         try values.encodeIfPresent(itemsByNamePath, forKey: "ItemsByNamePath")
         try values.encodeIfPresent(localAddress, forKey: "LocalAddress")
         try values.encodeIfPresent(logPath, forKey: "LogPath")

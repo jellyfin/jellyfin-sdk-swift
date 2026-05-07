@@ -22,11 +22,11 @@ public struct ChannelFeatures: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the identifier.
     public var id: String?
     /// Gets or sets a value indicating whether [supports content downloading].
-    public var isSupportscontentdownloading: Bool?
+    public var isSupportsContentDownloading: Bool?
     /// Gets or sets a value indicating whether [supports latest media].
-    public var isSupportslatestmedia: Bool?
+    public var isSupportsLatestMedia: Bool?
     /// Gets or sets a value indicating whether a sort ascending/descending toggle is supported.
-    public var isSupportssortordertoggle: Bool?
+    public var isSupportsSortOrderToggle: Bool?
     /// Gets or sets the maximum number of records the channel allows retrieving at a time.
     public var maxPageSize: Int?
     /// Gets or sets the media types.
@@ -41,9 +41,9 @@ public struct ChannelFeatures: Codable, Hashable, Identifiable, Sendable {
         contentTypes: [ChannelMediaContentType]? = nil,
         defaultSortFields: [ChannelItemSortField]? = nil,
         id: String? = nil,
-        isSupportscontentdownloading: Bool? = nil,
-        isSupportslatestmedia: Bool? = nil,
-        isSupportssortordertoggle: Bool? = nil,
+        isSupportsContentDownloading: Bool? = nil,
+        isSupportsLatestMedia: Bool? = nil,
+        isSupportsSortOrderToggle: Bool? = nil,
         maxPageSize: Int? = nil,
         mediaTypes: [ChannelMediaType]? = nil,
         name: String? = nil
@@ -54,9 +54,9 @@ public struct ChannelFeatures: Codable, Hashable, Identifiable, Sendable {
         self.contentTypes = contentTypes
         self.defaultSortFields = defaultSortFields
         self.id = id
-        self.isSupportscontentdownloading = isSupportscontentdownloading
-        self.isSupportslatestmedia = isSupportslatestmedia
-        self.isSupportssortordertoggle = isSupportssortordertoggle
+        self.isSupportsContentDownloading = isSupportsContentDownloading
+        self.isSupportsLatestMedia = isSupportsLatestMedia
+        self.isSupportsSortOrderToggle = isSupportsSortOrderToggle
         self.maxPageSize = maxPageSize
         self.mediaTypes = mediaTypes
         self.name = name
@@ -70,9 +70,9 @@ public struct ChannelFeatures: Codable, Hashable, Identifiable, Sendable {
         self.contentTypes = try values.decodeIfPresent([ChannelMediaContentType].self, forKey: "ContentTypes")
         self.defaultSortFields = try values.decodeIfPresent([ChannelItemSortField].self, forKey: "DefaultSortFields")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.isSupportscontentdownloading = try values.decodeIfPresent(Bool.self, forKey: "SupportsContentDownloading")
-        self.isSupportslatestmedia = try values.decodeIfPresent(Bool.self, forKey: "SupportsLatestMedia")
-        self.isSupportssortordertoggle = try values.decodeIfPresent(Bool.self, forKey: "SupportsSortOrderToggle")
+        self.isSupportsContentDownloading = try values.decodeIfPresent(Bool.self, forKey: "SupportsContentDownloading")
+        self.isSupportsLatestMedia = try values.decodeIfPresent(Bool.self, forKey: "SupportsLatestMedia")
+        self.isSupportsSortOrderToggle = try values.decodeIfPresent(Bool.self, forKey: "SupportsSortOrderToggle")
         self.maxPageSize = try values.decodeIfPresent(Int.self, forKey: "MaxPageSize")
         self.mediaTypes = try values.decodeIfPresent([ChannelMediaType].self, forKey: "MediaTypes")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
@@ -86,9 +86,9 @@ public struct ChannelFeatures: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(contentTypes, forKey: "ContentTypes")
         try values.encodeIfPresent(defaultSortFields, forKey: "DefaultSortFields")
         try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(isSupportscontentdownloading, forKey: "SupportsContentDownloading")
-        try values.encodeIfPresent(isSupportslatestmedia, forKey: "SupportsLatestMedia")
-        try values.encodeIfPresent(isSupportssortordertoggle, forKey: "SupportsSortOrderToggle")
+        try values.encodeIfPresent(isSupportsContentDownloading, forKey: "SupportsContentDownloading")
+        try values.encodeIfPresent(isSupportsLatestMedia, forKey: "SupportsLatestMedia")
+        try values.encodeIfPresent(isSupportsSortOrderToggle, forKey: "SupportsSortOrderToggle")
         try values.encodeIfPresent(maxPageSize, forKey: "MaxPageSize")
         try values.encodeIfPresent(mediaTypes, forKey: "MediaTypes")
         try values.encodeIfPresent(name, forKey: "Name")

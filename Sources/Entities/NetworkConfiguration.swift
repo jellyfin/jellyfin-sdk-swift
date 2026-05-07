@@ -35,10 +35,10 @@ public struct NetworkConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets the internal HTTPS server port.
     public var internalHTTPSPort: Int?
     /// Gets or sets a value indicating whether Autodiscovery is enabled.
-    public var isAutodiscovery: Bool?
+    public var isAutoDiscovery: Bool?
     /// Gets or sets a value indicating whether address names that match MediaBrowser.Common.Net.NetworkConfiguration.VirtualInterfaceNames
     /// should be ignored for the purposes of binding.
-    public var isIgnorevirtualinterfaces: Bool?
+    public var isIgnoreVirtualInterfaces: Bool?
     /// Gets or sets a value indicating whether <seealso cref="P:MediaBrowser.Common.Net.NetworkConfiguration.RemoteIPFilter" /> contains a
     /// blacklist or a whitelist. Default is a whitelist.
     public var isRemoteIPFilterBlacklist: Bool?
@@ -77,8 +77,8 @@ public struct NetworkConfiguration: Codable, Hashable, Sendable {
         enableUPnP: Bool? = nil,
         internalHTTPPort: Int? = nil,
         internalHTTPSPort: Int? = nil,
-        isAutodiscovery: Bool? = nil,
-        isIgnorevirtualinterfaces: Bool? = nil,
+        isAutoDiscovery: Bool? = nil,
+        isIgnoreVirtualInterfaces: Bool? = nil,
         isRemoteIPFilterBlacklist: Bool? = nil,
         knownProxies: [String]? = nil,
         localNetworkAddresses: [String]? = nil,
@@ -101,8 +101,8 @@ public struct NetworkConfiguration: Codable, Hashable, Sendable {
         self.enableUPnP = enableUPnP
         self.internalHTTPPort = internalHTTPPort
         self.internalHTTPSPort = internalHTTPSPort
-        self.isAutodiscovery = isAutodiscovery
-        self.isIgnorevirtualinterfaces = isIgnorevirtualinterfaces
+        self.isAutoDiscovery = isAutoDiscovery
+        self.isIgnoreVirtualInterfaces = isIgnoreVirtualInterfaces
         self.isRemoteIPFilterBlacklist = isRemoteIPFilterBlacklist
         self.knownProxies = knownProxies
         self.localNetworkAddresses = localNetworkAddresses
@@ -128,8 +128,8 @@ public struct NetworkConfiguration: Codable, Hashable, Sendable {
         self.enableUPnP = try values.decodeIfPresent(Bool.self, forKey: "EnableUPnP")
         self.internalHTTPPort = try values.decodeIfPresent(Int.self, forKey: "InternalHttpPort")
         self.internalHTTPSPort = try values.decodeIfPresent(Int.self, forKey: "InternalHttpsPort")
-        self.isAutodiscovery = try values.decodeIfPresent(Bool.self, forKey: "AutoDiscovery")
-        self.isIgnorevirtualinterfaces = try values.decodeIfPresent(Bool.self, forKey: "IgnoreVirtualInterfaces")
+        self.isAutoDiscovery = try values.decodeIfPresent(Bool.self, forKey: "AutoDiscovery")
+        self.isIgnoreVirtualInterfaces = try values.decodeIfPresent(Bool.self, forKey: "IgnoreVirtualInterfaces")
         self.isRemoteIPFilterBlacklist = try values.decodeIfPresent(Bool.self, forKey: "IsRemoteIPFilterBlacklist")
         self.knownProxies = try values.decodeIfPresent([String].self, forKey: "KnownProxies")
         self.localNetworkAddresses = try values.decodeIfPresent([String].self, forKey: "LocalNetworkAddresses")
@@ -155,8 +155,8 @@ public struct NetworkConfiguration: Codable, Hashable, Sendable {
         try values.encodeIfPresent(enableUPnP, forKey: "EnableUPnP")
         try values.encodeIfPresent(internalHTTPPort, forKey: "InternalHttpPort")
         try values.encodeIfPresent(internalHTTPSPort, forKey: "InternalHttpsPort")
-        try values.encodeIfPresent(isAutodiscovery, forKey: "AutoDiscovery")
-        try values.encodeIfPresent(isIgnorevirtualinterfaces, forKey: "IgnoreVirtualInterfaces")
+        try values.encodeIfPresent(isAutoDiscovery, forKey: "AutoDiscovery")
+        try values.encodeIfPresent(isIgnoreVirtualInterfaces, forKey: "IgnoreVirtualInterfaces")
         try values.encodeIfPresent(isRemoteIPFilterBlacklist, forKey: "IsRemoteIPFilterBlacklist")
         try values.encodeIfPresent(knownProxies, forKey: "KnownProxies")
         try values.encodeIfPresent(localNetworkAddresses, forKey: "LocalNetworkAddresses")

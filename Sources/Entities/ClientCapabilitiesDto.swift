@@ -17,9 +17,9 @@ public struct ClientCapabilitiesDto: Codable, Hashable, Sendable {
     /// Gets or sets the icon url.
     public var iconURL: String?
     /// Gets or sets a value indicating whether session supports media control.
-    public var isSupportsmediacontrol: Bool?
+    public var isSupportsMediaControl: Bool?
     /// Gets or sets a value indicating whether session supports a persistent identifier.
-    public var isSupportspersistentidentifier: Bool?
+    public var isSupportsPersistentIdentifier: Bool?
     /// Gets or sets the list of playable media types.
     public var playableMediaTypes: [MediaType]?
     /// Gets or sets the list of supported commands.
@@ -29,16 +29,16 @@ public struct ClientCapabilitiesDto: Codable, Hashable, Sendable {
         appStoreURL: String? = nil,
         deviceProfile: DeviceProfile? = nil,
         iconURL: String? = nil,
-        isSupportsmediacontrol: Bool? = nil,
-        isSupportspersistentidentifier: Bool? = nil,
+        isSupportsMediaControl: Bool? = nil,
+        isSupportsPersistentIdentifier: Bool? = nil,
         playableMediaTypes: [MediaType]? = nil,
         supportedCommands: [GeneralCommandType]? = nil
     ) {
         self.appStoreURL = appStoreURL
         self.deviceProfile = deviceProfile
         self.iconURL = iconURL
-        self.isSupportsmediacontrol = isSupportsmediacontrol
-        self.isSupportspersistentidentifier = isSupportspersistentidentifier
+        self.isSupportsMediaControl = isSupportsMediaControl
+        self.isSupportsPersistentIdentifier = isSupportsPersistentIdentifier
         self.playableMediaTypes = playableMediaTypes
         self.supportedCommands = supportedCommands
     }
@@ -48,8 +48,8 @@ public struct ClientCapabilitiesDto: Codable, Hashable, Sendable {
         self.appStoreURL = try values.decodeIfPresent(String.self, forKey: "AppStoreUrl")
         self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
         self.iconURL = try values.decodeIfPresent(String.self, forKey: "IconUrl")
-        self.isSupportsmediacontrol = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
-        self.isSupportspersistentidentifier = try values.decodeIfPresent(Bool.self, forKey: "SupportsPersistentIdentifier")
+        self.isSupportsMediaControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
+        self.isSupportsPersistentIdentifier = try values.decodeIfPresent(Bool.self, forKey: "SupportsPersistentIdentifier")
         self.playableMediaTypes = try values.decodeIfPresent([MediaType].self, forKey: "PlayableMediaTypes")
         self.supportedCommands = try values.decodeIfPresent([GeneralCommandType].self, forKey: "SupportedCommands")
     }
@@ -59,8 +59,8 @@ public struct ClientCapabilitiesDto: Codable, Hashable, Sendable {
         try values.encodeIfPresent(appStoreURL, forKey: "AppStoreUrl")
         try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")
         try values.encodeIfPresent(iconURL, forKey: "IconUrl")
-        try values.encodeIfPresent(isSupportsmediacontrol, forKey: "SupportsMediaControl")
-        try values.encodeIfPresent(isSupportspersistentidentifier, forKey: "SupportsPersistentIdentifier")
+        try values.encodeIfPresent(isSupportsMediaControl, forKey: "SupportsMediaControl")
+        try values.encodeIfPresent(isSupportsPersistentIdentifier, forKey: "SupportsPersistentIdentifier")
         try values.encodeIfPresent(playableMediaTypes, forKey: "PlayableMediaTypes")
         try values.encodeIfPresent(supportedCommands, forKey: "SupportedCommands")
     }

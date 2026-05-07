@@ -15,14 +15,14 @@ public struct UpdateUserPassword: Codable, Hashable, Sendable {
     /// Gets or sets the current plain text password.
     public var currentPw: String?
     /// Gets or sets a value indicating whether to reset the password.
-    public var isResetpassword: Bool?
+    public var isResetPassword: Bool?
     /// Gets or sets the new plain text password.
     public var newPw: String?
 
-    public init(currentPassword: String? = nil, currentPw: String? = nil, isResetpassword: Bool? = nil, newPw: String? = nil) {
+    public init(currentPassword: String? = nil, currentPw: String? = nil, isResetPassword: Bool? = nil, newPw: String? = nil) {
         self.currentPassword = currentPassword
         self.currentPw = currentPw
-        self.isResetpassword = isResetpassword
+        self.isResetPassword = isResetPassword
         self.newPw = newPw
     }
 
@@ -30,7 +30,7 @@ public struct UpdateUserPassword: Codable, Hashable, Sendable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.currentPassword = try values.decodeIfPresent(String.self, forKey: "CurrentPassword")
         self.currentPw = try values.decodeIfPresent(String.self, forKey: "CurrentPw")
-        self.isResetpassword = try values.decodeIfPresent(Bool.self, forKey: "ResetPassword")
+        self.isResetPassword = try values.decodeIfPresent(Bool.self, forKey: "ResetPassword")
         self.newPw = try values.decodeIfPresent(String.self, forKey: "NewPw")
     }
 
@@ -38,7 +38,7 @@ public struct UpdateUserPassword: Codable, Hashable, Sendable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(currentPassword, forKey: "CurrentPassword")
         try values.encodeIfPresent(currentPw, forKey: "CurrentPw")
-        try values.encodeIfPresent(isResetpassword, forKey: "ResetPassword")
+        try values.encodeIfPresent(isResetPassword, forKey: "ResetPassword")
         try values.encodeIfPresent(newPw, forKey: "NewPw")
     }
 }

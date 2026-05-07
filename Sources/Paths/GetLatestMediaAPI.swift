@@ -26,7 +26,7 @@ public extension Paths {
         public var enableImageTypes: [ImageType]?
         public var enableUserData: Bool?
         public var limit: Int?
-        public var isGroupitems: Bool?
+        public var isGroupItems: Bool?
 
         public init(
             userID: String? = nil,
@@ -39,7 +39,7 @@ public extension Paths {
             enableImageTypes: [ImageType]? = nil,
             enableUserData: Bool? = nil,
             limit: Int? = nil,
-            isGroupitems: Bool? = nil
+            isGroupItems: Bool? = nil
         ) {
             self.userID = userID
             self.parentID = parentID
@@ -51,7 +51,7 @@ public extension Paths {
             self.enableImageTypes = enableImageTypes
             self.enableUserData = enableUserData
             self.limit = limit
-            self.isGroupitems = isGroupitems
+            self.isGroupItems = isGroupItems
         }
 
         public var asQuery: [(String, String?)] {
@@ -66,7 +66,7 @@ public extension Paths {
             encoder.encode(enableImageTypes, forKey: "enableImageTypes")
             encoder.encode(enableUserData, forKey: "enableUserData")
             encoder.encode(limit, forKey: "limit")
-            encoder.encode(isGroupitems, forKey: "groupItems")
+            encoder.encode(isGroupItems, forKey: "groupItems")
             return encoder.items
         }
     }

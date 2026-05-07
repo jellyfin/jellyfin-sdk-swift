@@ -30,11 +30,11 @@ public struct TranscodingProfile: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether subtitles are allowed in the manifest.
     public var enableSubtitlesInManifest: Bool
     /// Gets or sets a value indicating whether breaking the video stream on non-keyframes is supported.
-    public var isBreakonnonkeyframes: Bool
+    public var isBreakOnNonKeyFrames: Bool
     /// Gets or sets a value indicating whether timestamps should be copied.
-    public var isCopytimestamps: Bool
+    public var isCopyTimestamps: Bool
     /// Gets or sets a value indicating whether the content length should be estimated.
-    public var isEstimatecontentlength: Bool
+    public var isEstimateContentLength: Bool
     /// Gets or sets the maximum audio channels.
     public var maxAudioChannels: String?
     /// Gets or sets the minimum amount of segments.
@@ -57,9 +57,9 @@ public struct TranscodingProfile: Codable, Hashable, Sendable {
         enableAudioVbrEncoding: Bool? = nil,
         enableMpegtsM2TsMode: Bool? = nil,
         enableSubtitlesInManifest: Bool? = nil,
-        isBreakonnonkeyframes: Bool? = nil,
-        isCopytimestamps: Bool? = nil,
-        isEstimatecontentlength: Bool? = nil,
+        isBreakOnNonKeyFrames: Bool? = nil,
+        isCopyTimestamps: Bool? = nil,
+        isEstimateContentLength: Bool? = nil,
         maxAudioChannels: String? = nil,
         minSegments: Int? = nil,
         segmentLength: Int? = nil,
@@ -75,9 +75,9 @@ public struct TranscodingProfile: Codable, Hashable, Sendable {
         self.enableAudioVbrEncoding = enableAudioVbrEncoding ?? true
         self.enableMpegtsM2TsMode = enableMpegtsM2TsMode ?? false
         self.enableSubtitlesInManifest = enableSubtitlesInManifest ?? false
-        self.isBreakonnonkeyframes = isBreakonnonkeyframes ?? false
-        self.isCopytimestamps = isCopytimestamps ?? false
-        self.isEstimatecontentlength = isEstimatecontentlength ?? false
+        self.isBreakOnNonKeyFrames = isBreakOnNonKeyFrames ?? false
+        self.isCopyTimestamps = isCopyTimestamps ?? false
+        self.isEstimateContentLength = isEstimateContentLength ?? false
         self.maxAudioChannels = maxAudioChannels
         self.minSegments = minSegments
         self.segmentLength = segmentLength
@@ -96,9 +96,9 @@ public struct TranscodingProfile: Codable, Hashable, Sendable {
         self.enableAudioVbrEncoding = try values.decodeIfPresent(Bool.self, forKey: "EnableAudioVbrEncoding") ?? true
         self.enableMpegtsM2TsMode = try values.decodeIfPresent(Bool.self, forKey: "EnableMpegtsM2TsMode") ?? false
         self.enableSubtitlesInManifest = try values.decodeIfPresent(Bool.self, forKey: "EnableSubtitlesInManifest") ?? false
-        self.isBreakonnonkeyframes = try values.decodeIfPresent(Bool.self, forKey: "BreakOnNonKeyFrames") ?? false
-        self.isCopytimestamps = try values.decodeIfPresent(Bool.self, forKey: "CopyTimestamps") ?? false
-        self.isEstimatecontentlength = try values.decodeIfPresent(Bool.self, forKey: "EstimateContentLength") ?? false
+        self.isBreakOnNonKeyFrames = try values.decodeIfPresent(Bool.self, forKey: "BreakOnNonKeyFrames") ?? false
+        self.isCopyTimestamps = try values.decodeIfPresent(Bool.self, forKey: "CopyTimestamps") ?? false
+        self.isEstimateContentLength = try values.decodeIfPresent(Bool.self, forKey: "EstimateContentLength") ?? false
         self.maxAudioChannels = try values.decodeIfPresent(String.self, forKey: "MaxAudioChannels")
         self.minSegments = try values.decodeIfPresent(Int.self, forKey: "MinSegments")
         self.segmentLength = try values.decodeIfPresent(Int.self, forKey: "SegmentLength")
@@ -117,9 +117,9 @@ public struct TranscodingProfile: Codable, Hashable, Sendable {
         try values.encodeIfPresent(enableAudioVbrEncoding, forKey: "EnableAudioVbrEncoding")
         try values.encodeIfPresent(enableMpegtsM2TsMode, forKey: "EnableMpegtsM2TsMode")
         try values.encodeIfPresent(enableSubtitlesInManifest, forKey: "EnableSubtitlesInManifest")
-        try values.encodeIfPresent(isBreakonnonkeyframes, forKey: "BreakOnNonKeyFrames")
-        try values.encodeIfPresent(isCopytimestamps, forKey: "CopyTimestamps")
-        try values.encodeIfPresent(isEstimatecontentlength, forKey: "EstimateContentLength")
+        try values.encodeIfPresent(isBreakOnNonKeyFrames, forKey: "BreakOnNonKeyFrames")
+        try values.encodeIfPresent(isCopyTimestamps, forKey: "CopyTimestamps")
+        try values.encodeIfPresent(isEstimateContentLength, forKey: "EstimateContentLength")
         try values.encodeIfPresent(maxAudioChannels, forKey: "MaxAudioChannels")
         try values.encodeIfPresent(minSegments, forKey: "MinSegments")
         try values.encodeIfPresent(segmentLength, forKey: "SegmentLength")

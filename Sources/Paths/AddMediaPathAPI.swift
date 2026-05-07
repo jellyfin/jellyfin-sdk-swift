@@ -11,19 +11,19 @@ import Get
 
 extension Paths {
     /// Add a media path to a library.
-    public static func addMediaPath(isRefreshlibrary: Bool? = nil, _ body: MediaPathDto) -> Request<Void> {
+    public static func addMediaPath(isRefreshLibrary: Bool? = nil, _ body: MediaPathDto) -> Request<Void> {
         Request(
             path: "/Library/VirtualFolders/Paths",
             method: "POST",
-            query: makeAddMediaPathQuery(isRefreshlibrary),
+            query: makeAddMediaPathQuery(isRefreshLibrary),
             body: body,
             id: "AddMediaPath"
         )
     }
 
-    private static func makeAddMediaPathQuery(_ isRefreshlibrary: Bool?) -> [(String, String?)] {
+    private static func makeAddMediaPathQuery(_ isRefreshLibrary: Bool?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
-        encoder.encode(isRefreshlibrary, forKey: "refreshLibrary")
+        encoder.encode(isRefreshLibrary, forKey: "refreshLibrary")
         return encoder.items
     }
 }

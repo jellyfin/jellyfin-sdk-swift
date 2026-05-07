@@ -29,11 +29,11 @@ public extension Paths {
         public var isNews: Bool?
         public var isKids: Bool?
         public var isSports: Bool?
-        public var isIncludepeople: Bool?
-        public var isIncludemedia: Bool?
-        public var isIncludegenres: Bool?
-        public var isIncludestudios: Bool?
-        public var isIncludeartists: Bool?
+        public var isIncludePeople: Bool?
+        public var isIncludeMedia: Bool?
+        public var isIncludeGenres: Bool?
+        public var isIncludeStudios: Bool?
+        public var isIncludeArtists: Bool?
 
         public init(
             startIndex: Int? = nil,
@@ -49,11 +49,11 @@ public extension Paths {
             isNews: Bool? = nil,
             isKids: Bool? = nil,
             isSports: Bool? = nil,
-            isIncludepeople: Bool? = nil,
-            isIncludemedia: Bool? = nil,
-            isIncludegenres: Bool? = nil,
-            isIncludestudios: Bool? = nil,
-            isIncludeartists: Bool? = nil
+            isIncludePeople: Bool? = nil,
+            isIncludeMedia: Bool? = nil,
+            isIncludeGenres: Bool? = nil,
+            isIncludeStudios: Bool? = nil,
+            isIncludeArtists: Bool? = nil
         ) {
             self.startIndex = startIndex
             self.limit = limit
@@ -68,11 +68,11 @@ public extension Paths {
             self.isNews = isNews
             self.isKids = isKids
             self.isSports = isSports
-            self.isIncludepeople = isIncludepeople
-            self.isIncludemedia = isIncludemedia
-            self.isIncludegenres = isIncludegenres
-            self.isIncludestudios = isIncludestudios
-            self.isIncludeartists = isIncludeartists
+            self.isIncludePeople = isIncludePeople
+            self.isIncludeMedia = isIncludeMedia
+            self.isIncludeGenres = isIncludeGenres
+            self.isIncludeStudios = isIncludeStudios
+            self.isIncludeArtists = isIncludeArtists
         }
 
         public var asQuery: [(String, String?)] {
@@ -90,11 +90,11 @@ public extension Paths {
             encoder.encode(isNews, forKey: "isNews")
             encoder.encode(isKids, forKey: "isKids")
             encoder.encode(isSports, forKey: "isSports")
-            encoder.encode(isIncludepeople, forKey: "includePeople")
-            encoder.encode(isIncludemedia, forKey: "includeMedia")
-            encoder.encode(isIncludegenres, forKey: "includeGenres")
-            encoder.encode(isIncludestudios, forKey: "includeStudios")
-            encoder.encode(isIncludeartists, forKey: "includeArtists")
+            encoder.encode(isIncludePeople, forKey: "includePeople")
+            encoder.encode(isIncludeMedia, forKey: "includeMedia")
+            encoder.encode(isIncludeGenres, forKey: "includeGenres")
+            encoder.encode(isIncludeStudios, forKey: "includeStudios")
+            encoder.encode(isIncludeArtists, forKey: "includeArtists")
             return encoder.items
         }
     }

@@ -17,20 +17,20 @@ public extension Paths {
 
     struct GetDirectoryContentsParameters {
         public var path: String
-        public var isIncludefiles: Bool?
-        public var isIncludedirectories: Bool?
+        public var isIncludeFiles: Bool?
+        public var isIncludeDirectories: Bool?
 
-        public init(path: String, isIncludefiles: Bool? = nil, isIncludedirectories: Bool? = nil) {
+        public init(path: String, isIncludeFiles: Bool? = nil, isIncludeDirectories: Bool? = nil) {
             self.path = path
-            self.isIncludefiles = isIncludefiles
-            self.isIncludedirectories = isIncludedirectories
+            self.isIncludeFiles = isIncludeFiles
+            self.isIncludeDirectories = isIncludeDirectories
         }
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(path, forKey: "path")
-            encoder.encode(isIncludefiles, forKey: "includeFiles")
-            encoder.encode(isIncludedirectories, forKey: "includeDirectories")
+            encoder.encode(isIncludeFiles, forKey: "includeFiles")
+            encoder.encode(isIncludeDirectories, forKey: "includeDirectories")
             return encoder.items
         }
     }
