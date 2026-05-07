@@ -3,26 +3,26 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct SeriesInfoRemoteSearchQuery: Codable, Hashable {
+public struct SeriesInfoRemoteSearchQuery: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether disabled providers should be included.
-    public var isIncludeDisabledProviders: Bool?
+    public var isIncludedisabledproviders: Bool?
     public var itemID: String?
     public var searchInfo: SeriesInfo?
     /// Gets or sets the provider name to search within if set.
     public var searchProviderName: String?
 
     public init(
-        isIncludeDisabledProviders: Bool? = nil,
+        isIncludedisabledproviders: Bool? = nil,
         itemID: String? = nil,
         searchInfo: SeriesInfo? = nil,
         searchProviderName: String? = nil
     ) {
-        self.isIncludeDisabledProviders = isIncludeDisabledProviders
+        self.isIncludedisabledproviders = isIncludedisabledproviders
         self.itemID = itemID
         self.searchInfo = searchInfo
         self.searchProviderName = searchProviderName
@@ -30,7 +30,7 @@ public struct SeriesInfoRemoteSearchQuery: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isIncludeDisabledProviders = try values.decodeIfPresent(Bool.self, forKey: "IncludeDisabledProviders")
+        self.isIncludedisabledproviders = try values.decodeIfPresent(Bool.self, forKey: "IncludeDisabledProviders")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.searchInfo = try values.decodeIfPresent(SeriesInfo.self, forKey: "SearchInfo")
         self.searchProviderName = try values.decodeIfPresent(String.self, forKey: "SearchProviderName")
@@ -38,7 +38,7 @@ public struct SeriesInfoRemoteSearchQuery: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isIncludeDisabledProviders, forKey: "IncludeDisabledProviders")
+        try values.encodeIfPresent(isIncludedisabledproviders, forKey: "IncludeDisabledProviders")
         try values.encodeIfPresent(itemID, forKey: "ItemId")
         try values.encodeIfPresent(searchInfo, forKey: "SearchInfo")
         try values.encodeIfPresent(searchProviderName, forKey: "SearchProviderName")

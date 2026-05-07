@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class PlaybackStartInfo.
-public struct PlaybackStartInfo: Codable, Hashable {
+public struct PlaybackStartInfo: Codable, Hashable, Sendable {
     public var aspectRatio: String?
     /// Gets or sets the index of the audio stream.
     public var audioStreamIndex: Int?

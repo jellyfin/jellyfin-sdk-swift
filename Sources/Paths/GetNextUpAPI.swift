@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets a list of next up episodes.
-    static func getNextUp(parameters: GetNextUpParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getNextUp(parameters: GetNextUpParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Shows/NextUp", method: "GET", query: parameters?.asQuery, id: "GetNextUp")
     }
 
@@ -20,16 +19,16 @@ public extension Paths {
         public var userID: String?
         public var startIndex: Int?
         public var limit: Int?
-        public var fields: [JellyfinAPI.ItemFields]?
+        public var fields: [ItemFields]?
         public var seriesID: String?
         public var parentID: String?
         public var enableImages: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
+        public var enableImageTypes: [ImageType]?
         public var enableUserData: Bool?
         public var nextUpDateCutoff: Date?
         public var enableTotalRecordCount: Bool?
-        public var isDisableFirstEpisode: Bool?
+        public var isDisablefirstepisode: Bool?
         public var enableResumable: Bool?
         public var enableRewatching: Bool?
 
@@ -37,16 +36,16 @@ public extension Paths {
             userID: String? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
+            fields: [ItemFields]? = nil,
             seriesID: String? = nil,
             parentID: String? = nil,
             enableImages: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableImageTypes: [ImageType]? = nil,
             enableUserData: Bool? = nil,
             nextUpDateCutoff: Date? = nil,
             enableTotalRecordCount: Bool? = nil,
-            isDisableFirstEpisode: Bool? = nil,
+            isDisablefirstepisode: Bool? = nil,
             enableResumable: Bool? = nil,
             enableRewatching: Bool? = nil
         ) {
@@ -62,7 +61,7 @@ public extension Paths {
             self.enableUserData = enableUserData
             self.nextUpDateCutoff = nextUpDateCutoff
             self.enableTotalRecordCount = enableTotalRecordCount
-            self.isDisableFirstEpisode = isDisableFirstEpisode
+            self.isDisablefirstepisode = isDisablefirstepisode
             self.enableResumable = enableResumable
             self.enableRewatching = enableRewatching
         }
@@ -81,7 +80,7 @@ public extension Paths {
             encoder.encode(enableUserData, forKey: "enableUserData")
             encoder.encode(nextUpDateCutoff, forKey: "nextUpDateCutoff")
             encoder.encode(enableTotalRecordCount, forKey: "enableTotalRecordCount")
-            encoder.encode(isDisableFirstEpisode, forKey: "disableFirstEpisode")
+            encoder.encode(isDisablefirstepisode, forKey: "disableFirstEpisode")
             encoder.encode(enableResumable, forKey: "enableResumable")
             encoder.encode(enableRewatching, forKey: "enableRewatching")
             return encoder.items

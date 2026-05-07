@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SearchHintResult.
-public struct SearchHint: Codable, Hashable, Identifiable {
+public struct SearchHint: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the album.
     public var album: String?
     /// Gets or sets the album artist.
@@ -37,12 +37,11 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     /// Gets or sets a value indicating whether this instance is folder.
     public var isFolder: Bool?
     /// Gets or sets the item id.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var itemID: String?
     /// Gets or sets the matched term.
     public var matchedTerm: String?
-    /// Media types.
+    /// Gets or sets the type of the media.
     public var mediaType: MediaType?
     /// Gets or sets the name.
     public var name: String?
@@ -68,7 +67,7 @@ public struct SearchHint: Codable, Hashable, Identifiable {
     public var thumbImageItemID: String?
     /// Gets or sets the thumb image tag.
     public var thumbImageTag: String?
-    /// The base item kind.
+    /// Gets or sets the type.
     public var type: BaseItemKind?
 
     public init(

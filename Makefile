@@ -1,4 +1,4 @@
-# Download latest spec and run CreateAPI
+# Download latest spec and generate sources
 .PHONY: update
 update: download generate
 
@@ -7,12 +7,15 @@ update: download generate
 download:
 	curl -fsSl https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json -o Sources/jellyfin-openapi-stable.json
 
-# Run CreateAPI
+# Generate sources
 .PHONY: generate
 generate:
+	rm -rf Sources/Paths Sources/Entities Sources/Extensions
 	swift package --allow-writing-to-package-directory generate-api
+	sed -i '' 's|public struct Info: Sendable {|extension JellyfinClient {|g' Sources/Extensions/Info.swift
+	swiftformat .
 
-# Download latest unstable spec and run CreateAPI
+# Download latest unstable spec and generate sources
 .PHONY: update-unstable
 update-unstable: download-unstable generate
 

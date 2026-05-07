@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets an audio stream.
@@ -32,7 +31,7 @@ public extension Paths {
         public var enableAutoStreamCopy: Bool?
         public var allowVideoStreamCopy: Bool?
         public var allowAudioStreamCopy: Bool?
-        public var isBreakOnNonKeyFrames: Bool?
+        public var isBreakonnonkeyframes: Bool?
         public var audioSampleRate: Int?
         public var maxAudioBitDepth: Int?
         public var audioBitRate: Int?
@@ -42,17 +41,17 @@ public extension Paths {
         public var level: String?
         public var framerate: Float?
         public var maxFramerate: Float?
-        public var isCopyTimestamps: Bool?
+        public var isCopytimestamps: Bool?
         public var startTimeTicks: Int?
         public var width: Int?
         public var height: Int?
         public var videoBitRate: Int?
         public var subtitleStreamIndex: Int?
-        public var subtitleMethod: SubtitleMethod?
+        public var subtitleMethod: SubtitleDeliveryMethod?
         public var maxRefFrames: Int?
         public var maxVideoBitDepth: Int?
         public var requireAvc: Bool?
-        public var isDeInterlace: Bool?
+        public var isDeinterlace: Bool?
         public var requireNonAnamorphic: Bool?
         public var transcodingMaxAudioChannels: Int?
         public var cpuCoreLimit: Int?
@@ -63,15 +62,9 @@ public extension Paths {
         public var transcodeReasons: String?
         public var audioStreamIndex: Int?
         public var videoStreamIndex: Int?
-        public var context: Context?
-        public var streamOptions: StreamOptions?
+        public var context: EncodingContext?
+        public var streamOptions: [String: String]?
         public var enableAudioVbrEncoding: Bool?
-
-        public typealias SubtitleMethod = JellyfinAPI.SubtitleDeliveryMethod
-
-        public typealias Context = JellyfinAPI.EncodingContext
-
-        public typealias StreamOptions = [String: String]
 
         public init(
             container: String? = nil,
@@ -89,7 +82,7 @@ public extension Paths {
             enableAutoStreamCopy: Bool? = nil,
             allowVideoStreamCopy: Bool? = nil,
             allowAudioStreamCopy: Bool? = nil,
-            isBreakOnNonKeyFrames: Bool? = nil,
+            isBreakonnonkeyframes: Bool? = nil,
             audioSampleRate: Int? = nil,
             maxAudioBitDepth: Int? = nil,
             audioBitRate: Int? = nil,
@@ -99,17 +92,17 @@ public extension Paths {
             level: String? = nil,
             framerate: Float? = nil,
             maxFramerate: Float? = nil,
-            isCopyTimestamps: Bool? = nil,
+            isCopytimestamps: Bool? = nil,
             startTimeTicks: Int? = nil,
             width: Int? = nil,
             height: Int? = nil,
             videoBitRate: Int? = nil,
             subtitleStreamIndex: Int? = nil,
-            subtitleMethod: SubtitleMethod? = nil,
+            subtitleMethod: SubtitleDeliveryMethod? = nil,
             maxRefFrames: Int? = nil,
             maxVideoBitDepth: Int? = nil,
             requireAvc: Bool? = nil,
-            isDeInterlace: Bool? = nil,
+            isDeinterlace: Bool? = nil,
             requireNonAnamorphic: Bool? = nil,
             transcodingMaxAudioChannels: Int? = nil,
             cpuCoreLimit: Int? = nil,
@@ -120,8 +113,8 @@ public extension Paths {
             transcodeReasons: String? = nil,
             audioStreamIndex: Int? = nil,
             videoStreamIndex: Int? = nil,
-            context: Context? = nil,
-            streamOptions: StreamOptions? = nil,
+            context: EncodingContext? = nil,
+            streamOptions: [String: String]? = nil,
             enableAudioVbrEncoding: Bool? = nil
         ) {
             self.container = container
@@ -139,7 +132,7 @@ public extension Paths {
             self.enableAutoStreamCopy = enableAutoStreamCopy
             self.allowVideoStreamCopy = allowVideoStreamCopy
             self.allowAudioStreamCopy = allowAudioStreamCopy
-            self.isBreakOnNonKeyFrames = isBreakOnNonKeyFrames
+            self.isBreakonnonkeyframes = isBreakonnonkeyframes
             self.audioSampleRate = audioSampleRate
             self.maxAudioBitDepth = maxAudioBitDepth
             self.audioBitRate = audioBitRate
@@ -149,7 +142,7 @@ public extension Paths {
             self.level = level
             self.framerate = framerate
             self.maxFramerate = maxFramerate
-            self.isCopyTimestamps = isCopyTimestamps
+            self.isCopytimestamps = isCopytimestamps
             self.startTimeTicks = startTimeTicks
             self.width = width
             self.height = height
@@ -159,7 +152,7 @@ public extension Paths {
             self.maxRefFrames = maxRefFrames
             self.maxVideoBitDepth = maxVideoBitDepth
             self.requireAvc = requireAvc
-            self.isDeInterlace = isDeInterlace
+            self.isDeinterlace = isDeinterlace
             self.requireNonAnamorphic = requireNonAnamorphic
             self.transcodingMaxAudioChannels = transcodingMaxAudioChannels
             self.cpuCoreLimit = cpuCoreLimit
@@ -192,7 +185,7 @@ public extension Paths {
             encoder.encode(enableAutoStreamCopy, forKey: "enableAutoStreamCopy")
             encoder.encode(allowVideoStreamCopy, forKey: "allowVideoStreamCopy")
             encoder.encode(allowAudioStreamCopy, forKey: "allowAudioStreamCopy")
-            encoder.encode(isBreakOnNonKeyFrames, forKey: "breakOnNonKeyFrames")
+            encoder.encode(isBreakonnonkeyframes, forKey: "breakOnNonKeyFrames")
             encoder.encode(audioSampleRate, forKey: "audioSampleRate")
             encoder.encode(maxAudioBitDepth, forKey: "maxAudioBitDepth")
             encoder.encode(audioBitRate, forKey: "audioBitRate")
@@ -202,7 +195,7 @@ public extension Paths {
             encoder.encode(level, forKey: "level")
             encoder.encode(framerate, forKey: "framerate")
             encoder.encode(maxFramerate, forKey: "maxFramerate")
-            encoder.encode(isCopyTimestamps, forKey: "copyTimestamps")
+            encoder.encode(isCopytimestamps, forKey: "copyTimestamps")
             encoder.encode(startTimeTicks, forKey: "startTimeTicks")
             encoder.encode(width, forKey: "width")
             encoder.encode(height, forKey: "height")
@@ -212,7 +205,7 @@ public extension Paths {
             encoder.encode(maxRefFrames, forKey: "maxRefFrames")
             encoder.encode(maxVideoBitDepth, forKey: "maxVideoBitDepth")
             encoder.encode(requireAvc, forKey: "requireAvc")
-            encoder.encode(isDeInterlace, forKey: "deInterlace")
+            encoder.encode(isDeinterlace, forKey: "deInterlace")
             encoder.encode(requireNonAnamorphic, forKey: "requireNonAnamorphic")
             encoder.encode(transcodingMaxAudioChannels, forKey: "transcodingMaxAudioChannels")
             encoder.encode(cpuCoreLimit, forKey: "cpuCoreLimit")

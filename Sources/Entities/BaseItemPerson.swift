@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// This is used by the api to get information about a Person within a BaseItem.
-public struct BaseItemPerson: Codable, Hashable, Identifiable {
+public struct BaseItemPerson: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the identifier.
     public var id: String?
     /// Gets or sets the primary image blurhash.
@@ -20,11 +20,11 @@ public struct BaseItemPerson: Codable, Hashable, Identifiable {
     public var primaryImageTag: String?
     /// Gets or sets the role.
     public var role: String?
-    /// The person kind.
+    /// Gets or sets the type.
     public var type: PersonKind?
 
     /// Gets or sets the primary image blurhash.
-    public struct ImageBlurHashes: Codable, Hashable {
+    public struct ImageBlurHashes: Codable, Hashable, Sendable {
         public var art: [String: String]?
         public var backdrop: [String: String]?
         public var banner: [String: String]?

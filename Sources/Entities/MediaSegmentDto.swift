@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Api model for MediaSegment's.
-public struct MediaSegmentDto: Codable, Hashable, Identifiable {
+public struct MediaSegmentDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the end of the segment.
     public var endTicks: Int?
     /// Gets or sets the id of the media segment.
@@ -18,7 +18,7 @@ public struct MediaSegmentDto: Codable, Hashable, Identifiable {
     public var itemID: String?
     /// Gets or sets the start of the segment.
     public var startTicks: Int?
-    /// Defines the types of content an individual Jellyfin.Database.Implementations.Entities.MediaSegment represents.
+    /// Gets or sets the type of content this segment defines.
     public var type: MediaSegmentType?
 
     public init(endTicks: Int? = nil, id: String? = nil, itemID: String? = nil, startTicks: Int? = nil, type: MediaSegmentType? = nil) {

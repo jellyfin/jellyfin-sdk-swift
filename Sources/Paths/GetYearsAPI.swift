@@ -3,32 +3,31 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Get years.
-    static func getYears(parameters: GetYearsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getYears(parameters: GetYearsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Years", method: "GET", query: parameters?.asQuery, id: "GetYears")
     }
 
     struct GetYearsParameters {
         public var startIndex: Int?
         public var limit: Int?
-        public var sortOrder: [JellyfinAPI.SortOrder]?
+        public var sortOrder: [SortOrder]?
         public var parentID: String?
-        public var fields: [JellyfinAPI.ItemFields]?
-        public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var mediaTypes: [JellyfinAPI.MediaType]?
-        public var sortBy: [JellyfinAPI.ItemSortBy]?
+        public var fields: [ItemFields]?
+        public var excludeItemTypes: [BaseItemKind]?
+        public var includeItemTypes: [BaseItemKind]?
+        public var mediaTypes: [MediaType]?
+        public var sortBy: [ItemSortBy]?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
+        public var enableImageTypes: [ImageType]?
         public var userID: String?
         public var isRecursive: Bool?
         public var enableImages: Bool?
@@ -36,16 +35,16 @@ public extension Paths {
         public init(
             startIndex: Int? = nil,
             limit: Int? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
+            sortOrder: [SortOrder]? = nil,
             parentID: String? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            mediaTypes: [JellyfinAPI.MediaType]? = nil,
-            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
+            fields: [ItemFields]? = nil,
+            excludeItemTypes: [BaseItemKind]? = nil,
+            includeItemTypes: [BaseItemKind]? = nil,
+            mediaTypes: [MediaType]? = nil,
+            sortBy: [ItemSortBy]? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableImageTypes: [ImageType]? = nil,
             userID: String? = nil,
             isRecursive: Bool? = nil,
             enableImages: Bool? = nil

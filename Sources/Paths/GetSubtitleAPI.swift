@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets subtitles in a specified format.
@@ -33,8 +32,8 @@ public extension Paths {
         public var index: Int?
         public var format: String?
         public var endPositionTicks: Int?
-        public var isCopyTimestamps: Bool?
-        public var isAddVttTimeMap: Bool?
+        public var isCopytimestamps: Bool?
+        public var isAddvtttimemap: Bool?
         public var startPositionTicks: Int?
 
         public init(
@@ -43,8 +42,8 @@ public extension Paths {
             index: Int? = nil,
             format: String? = nil,
             endPositionTicks: Int? = nil,
-            isCopyTimestamps: Bool? = nil,
-            isAddVttTimeMap: Bool? = nil,
+            isCopytimestamps: Bool? = nil,
+            isAddvtttimemap: Bool? = nil,
             startPositionTicks: Int? = nil
         ) {
             self.itemID = itemID
@@ -52,8 +51,8 @@ public extension Paths {
             self.index = index
             self.format = format
             self.endPositionTicks = endPositionTicks
-            self.isCopyTimestamps = isCopyTimestamps
-            self.isAddVttTimeMap = isAddVttTimeMap
+            self.isCopytimestamps = isCopytimestamps
+            self.isAddvtttimemap = isAddvtttimemap
             self.startPositionTicks = startPositionTicks
         }
 
@@ -64,8 +63,8 @@ public extension Paths {
             encoder.encode(index, forKey: "index")
             encoder.encode(format, forKey: "format")
             encoder.encode(endPositionTicks, forKey: "endPositionTicks")
-            encoder.encode(isCopyTimestamps, forKey: "copyTimestamps")
-            encoder.encode(isAddVttTimeMap, forKey: "addVttTimeMap")
+            encoder.encode(isCopytimestamps, forKey: "copyTimestamps")
+            encoder.encode(isAddvtttimemap, forKey: "addVttTimeMap")
             encoder.encode(startPositionTicks, forKey: "startPositionTicks")
             return encoder.items
         }

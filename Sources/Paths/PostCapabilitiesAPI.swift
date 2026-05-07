@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Updates capabilities for a device.
@@ -18,23 +17,23 @@ public extension Paths {
 
     struct PostCapabilitiesParameters {
         public var id: String?
-        public var playableMediaTypes: [JellyfinAPI.MediaType]?
-        public var supportedCommands: [JellyfinAPI.GeneralCommandType]?
-        public var isSupportsMediaControl: Bool?
-        public var isSupportsPersistentIdentifier: Bool?
+        public var playableMediaTypes: [MediaType]?
+        public var supportedCommands: [GeneralCommandType]?
+        public var isSupportsmediacontrol: Bool?
+        public var isSupportspersistentidentifier: Bool?
 
         public init(
             id: String? = nil,
-            playableMediaTypes: [JellyfinAPI.MediaType]? = nil,
-            supportedCommands: [JellyfinAPI.GeneralCommandType]? = nil,
-            isSupportsMediaControl: Bool? = nil,
-            isSupportsPersistentIdentifier: Bool? = nil
+            playableMediaTypes: [MediaType]? = nil,
+            supportedCommands: [GeneralCommandType]? = nil,
+            isSupportsmediacontrol: Bool? = nil,
+            isSupportspersistentidentifier: Bool? = nil
         ) {
             self.id = id
             self.playableMediaTypes = playableMediaTypes
             self.supportedCommands = supportedCommands
-            self.isSupportsMediaControl = isSupportsMediaControl
-            self.isSupportsPersistentIdentifier = isSupportsPersistentIdentifier
+            self.isSupportsmediacontrol = isSupportsmediacontrol
+            self.isSupportspersistentidentifier = isSupportspersistentidentifier
         }
 
         public var asQuery: [(String, String?)] {
@@ -42,8 +41,8 @@ public extension Paths {
             encoder.encode(id, forKey: "id")
             encoder.encode(playableMediaTypes, forKey: "playableMediaTypes")
             encoder.encode(supportedCommands, forKey: "supportedCommands")
-            encoder.encode(isSupportsMediaControl, forKey: "supportsMediaControl")
-            encoder.encode(isSupportsPersistentIdentifier, forKey: "supportsPersistentIdentifier")
+            encoder.encode(isSupportsmediacontrol, forKey: "supportsMediaControl")
+            encoder.encode(isSupportspersistentidentifier, forKey: "supportsPersistentIdentifier")
             return encoder.items
         }
     }

@@ -3,35 +3,34 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets the contents of a given directory in the file system.
-    static func getDirectoryContents(parameters: GetDirectoryContentsParameters) -> Request<[JellyfinAPI.FileSystemEntryInfo]> {
+    static func getDirectoryContents(parameters: GetDirectoryContentsParameters) -> Request<[FileSystemEntryInfo]> {
         Request(path: "/Environment/DirectoryContents", method: "GET", query: parameters.asQuery, id: "GetDirectoryContents")
     }
 
     struct GetDirectoryContentsParameters {
         public var path: String
-        public var isIncludeFiles: Bool?
-        public var isIncludeDirectories: Bool?
+        public var isIncludefiles: Bool?
+        public var isIncludedirectories: Bool?
 
-        public init(path: String, isIncludeFiles: Bool? = nil, isIncludeDirectories: Bool? = nil) {
+        public init(path: String, isIncludefiles: Bool? = nil, isIncludedirectories: Bool? = nil) {
             self.path = path
-            self.isIncludeFiles = isIncludeFiles
-            self.isIncludeDirectories = isIncludeDirectories
+            self.isIncludefiles = isIncludefiles
+            self.isIncludedirectories = isIncludedirectories
         }
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(path, forKey: "path")
-            encoder.encode(isIncludeFiles, forKey: "includeFiles")
-            encoder.encode(isIncludeDirectories, forKey: "includeDirectories")
+            encoder.encode(isIncludefiles, forKey: "includeFiles")
+            encoder.encode(isIncludedirectories, forKey: "includeDirectories")
             return encoder.items
         }
     }

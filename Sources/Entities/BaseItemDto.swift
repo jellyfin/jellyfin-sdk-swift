@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -11,7 +11,7 @@ import Foundation
 /// This is strictly used as a data transfer object from the api layer.
 ///
 /// This holds information about a BaseItem in a format that is convenient for the client.
-public struct BaseItemDto: Codable, Hashable, Identifiable {
+public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the air days.
     public var airDays: [DayOfWeek]?
     /// Gets or sets the air time.
@@ -71,6 +71,9 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var criticRating: Float?
     /// Gets or sets the cumulative run time ticks.
     public var cumulativeRunTimeTicks: Int?
+    /// Gets or sets the current program.
+    @Indirect
+    public var currentProgram: BaseItemDto?
     /// Gets or sets the custom rating.
     public var customRating: String?
     /// Gets or sets the date created.
@@ -154,7 +157,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var mediaSources: [MediaSourceInfo]?
     /// Gets or sets the media streams.
     public var mediaStreams: [MediaStream]?
-    /// Media types.
+    /// Gets or sets the type of the media.
     public var mediaType: MediaType?
     /// Gets or sets the movie count.
     public var movieCount: Int?
@@ -273,7 +276,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     public var trailerCount: Int?
     /// Gets or sets the trickplay manifest.
     public var trickplay: [String: [String: TrickplayInfoDto]]?
-    /// The base item kind.
+    /// Gets or sets the type.
     public var type: BaseItemKind?
     /// Gets or sets the user data for this item based on the user it's being requested for.
     public var userData: UserItemDataDto?
@@ -286,7 +289,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
     /// Gets or sets the blurhashes for the image tags.
     ///
     /// Maps image type to dictionary mapping image tag to blurhash value.
-    public struct ImageBlurHashes: Codable, Hashable {
+    public struct ImageBlurHashes: Codable, Hashable, Sendable {
         public var art: [String: String]?
         public var backdrop: [String: String]?
         public var banner: [String: String]?
@@ -403,6 +406,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         container: String? = nil,
         criticRating: Float? = nil,
         cumulativeRunTimeTicks: Int? = nil,
+        currentProgram: BaseItemDto? = nil,
         customRating: String? = nil,
         dateCreated: Date? = nil,
         dateLastMediaAdded: Date? = nil,
@@ -556,6 +560,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.container = container
         self.criticRating = criticRating
         self.cumulativeRunTimeTicks = cumulativeRunTimeTicks
+        self.currentProgram = currentProgram
         self.customRating = customRating
         self.dateCreated = dateCreated
         self.dateLastMediaAdded = dateLastMediaAdded
@@ -712,6 +717,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         self.container = try values.decodeIfPresent(String.self, forKey: "Container")
         self.criticRating = try values.decodeIfPresent(Float.self, forKey: "CriticRating")
         self.cumulativeRunTimeTicks = try values.decodeIfPresent(Int.self, forKey: "CumulativeRunTimeTicks")
+        self.currentProgram = try values.decodeIfPresent(BaseItemDto.self, forKey: "CurrentProgram")
         self.customRating = try values.decodeIfPresent(String.self, forKey: "CustomRating")
         self.dateCreated = try values.decodeIfPresent(Date.self, forKey: "DateCreated")
         self.dateLastMediaAdded = try values.decodeIfPresent(Date.self, forKey: "DateLastMediaAdded")
@@ -868,6 +874,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(container, forKey: "Container")
         try values.encodeIfPresent(criticRating, forKey: "CriticRating")
         try values.encodeIfPresent(cumulativeRunTimeTicks, forKey: "CumulativeRunTimeTicks")
+        try values.encodeIfPresent(currentProgram, forKey: "CurrentProgram")
         try values.encodeIfPresent(customRating, forKey: "CustomRating")
         try values.encodeIfPresent(dateCreated, forKey: "DateCreated")
         try values.encodeIfPresent(dateLastMediaAdded, forKey: "DateLastMediaAdded")

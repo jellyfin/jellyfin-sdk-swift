@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Query result container.
-public struct MediaSegmentDtoQueryResult: Codable, Hashable {
+public struct MediaSegmentDtoQueryResult: Codable, Hashable, Sendable {
     /// Gets or sets the items.
     public var items: [MediaSegmentDto]?
     /// Gets or sets the index of the first record in Items.

@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -11,31 +11,31 @@ import Foundation
 /// The branding options DTO for API use.
 ///
 /// This DTO excludes SplashscreenLocation to prevent it from being updated via API.
-public struct BrandingOptionsDto: Codable, Hashable {
+public struct BrandingOptionsDto: Codable, Hashable, Sendable {
     /// Gets or sets the custom CSS.
     public var customCss: String?
+    /// Gets or sets a value indicating whether to enable the splashscreen.
+    public var isSplashscreenenabled: Bool?
     /// Gets or sets the login disclaimer.
     public var loginDisclaimer: String?
-    /// Gets or sets a value indicating whether to enable the splashscreen.
-    public var isSplashscreenEnabled: Bool?
 
-    public init(customCss: String? = nil, loginDisclaimer: String? = nil, isSplashscreenEnabled: Bool? = nil) {
+    public init(customCss: String? = nil, isSplashscreenenabled: Bool? = nil, loginDisclaimer: String? = nil) {
         self.customCss = customCss
+        self.isSplashscreenenabled = isSplashscreenenabled
         self.loginDisclaimer = loginDisclaimer
-        self.isSplashscreenEnabled = isSplashscreenEnabled
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.customCss = try values.decodeIfPresent(String.self, forKey: "CustomCss")
+        self.isSplashscreenenabled = try values.decodeIfPresent(Bool.self, forKey: "SplashscreenEnabled")
         self.loginDisclaimer = try values.decodeIfPresent(String.self, forKey: "LoginDisclaimer")
-        self.isSplashscreenEnabled = try values.decodeIfPresent(Bool.self, forKey: "SplashscreenEnabled")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(customCss, forKey: "CustomCss")
+        try values.encodeIfPresent(isSplashscreenenabled, forKey: "SplashscreenEnabled")
         try values.encodeIfPresent(loginDisclaimer, forKey: "LoginDisclaimer")
-        try values.encodeIfPresent(isSplashscreenEnabled, forKey: "SplashscreenEnabled")
     }
 }

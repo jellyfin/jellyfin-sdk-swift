@@ -3,12 +3,12 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct TunerHostInfo: Codable, Hashable, Identifiable {
+public struct TunerHostInfo: Codable, Hashable, Identifiable, Sendable {
     public var allowFmp4TranscodingContainer: Bool?
     public var allowHWTranscoding: Bool?
     public var allowStreamSharing: Bool?
@@ -17,9 +17,9 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
     public var fallbackMaxStreamingBitrate: Int?
     public var friendlyName: String?
     public var id: String?
-    public var isIgnoreDts: Bool?
-    public var isImportFavoritesOnly: Bool?
-    public var isReadAtNativeFramerate: Bool?
+    public var isIgnoredts: Bool?
+    public var isImportfavoritesonly: Bool?
+    public var isReadatnativeframerate: Bool?
     public var source: String?
     public var tunerCount: Int?
     public var type: String?
@@ -35,9 +35,9 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         fallbackMaxStreamingBitrate: Int? = nil,
         friendlyName: String? = nil,
         id: String? = nil,
-        isIgnoreDts: Bool? = nil,
-        isImportFavoritesOnly: Bool? = nil,
-        isReadAtNativeFramerate: Bool? = nil,
+        isIgnoredts: Bool? = nil,
+        isImportfavoritesonly: Bool? = nil,
+        isReadatnativeframerate: Bool? = nil,
         source: String? = nil,
         tunerCount: Int? = nil,
         type: String? = nil,
@@ -52,9 +52,9 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         self.fallbackMaxStreamingBitrate = fallbackMaxStreamingBitrate
         self.friendlyName = friendlyName
         self.id = id
-        self.isIgnoreDts = isIgnoreDts
-        self.isImportFavoritesOnly = isImportFavoritesOnly
-        self.isReadAtNativeFramerate = isReadAtNativeFramerate
+        self.isIgnoredts = isIgnoredts
+        self.isImportfavoritesonly = isImportfavoritesonly
+        self.isReadatnativeframerate = isReadatnativeframerate
         self.source = source
         self.tunerCount = tunerCount
         self.type = type
@@ -72,9 +72,9 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         self.fallbackMaxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "FallbackMaxStreamingBitrate")
         self.friendlyName = try values.decodeIfPresent(String.self, forKey: "FriendlyName")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.isIgnoreDts = try values.decodeIfPresent(Bool.self, forKey: "IgnoreDts")
-        self.isImportFavoritesOnly = try values.decodeIfPresent(Bool.self, forKey: "ImportFavoritesOnly")
-        self.isReadAtNativeFramerate = try values.decodeIfPresent(Bool.self, forKey: "ReadAtNativeFramerate")
+        self.isIgnoredts = try values.decodeIfPresent(Bool.self, forKey: "IgnoreDts")
+        self.isImportfavoritesonly = try values.decodeIfPresent(Bool.self, forKey: "ImportFavoritesOnly")
+        self.isReadatnativeframerate = try values.decodeIfPresent(Bool.self, forKey: "ReadAtNativeFramerate")
         self.source = try values.decodeIfPresent(String.self, forKey: "Source")
         self.tunerCount = try values.decodeIfPresent(Int.self, forKey: "TunerCount")
         self.type = try values.decodeIfPresent(String.self, forKey: "Type")
@@ -92,9 +92,9 @@ public struct TunerHostInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(fallbackMaxStreamingBitrate, forKey: "FallbackMaxStreamingBitrate")
         try values.encodeIfPresent(friendlyName, forKey: "FriendlyName")
         try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(isIgnoreDts, forKey: "IgnoreDts")
-        try values.encodeIfPresent(isImportFavoritesOnly, forKey: "ImportFavoritesOnly")
-        try values.encodeIfPresent(isReadAtNativeFramerate, forKey: "ReadAtNativeFramerate")
+        try values.encodeIfPresent(isIgnoredts, forKey: "IgnoreDts")
+        try values.encodeIfPresent(isImportfavoritesonly, forKey: "ImportFavoritesOnly")
+        try values.encodeIfPresent(isReadatnativeframerate, forKey: "ReadAtNativeFramerate")
         try values.encodeIfPresent(source, forKey: "Source")
         try values.encodeIfPresent(tunerCount, forKey: "TunerCount")
         try values.encodeIfPresent(type, forKey: "Type")

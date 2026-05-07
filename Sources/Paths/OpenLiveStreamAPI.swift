@@ -3,19 +3,18 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Opens a media source.
     static func openLiveStream(
         parameters: OpenLiveStreamParameters? = nil,
-        _ body: JellyfinAPI.OpenLiveStreamDto? = nil
-    ) -> Request<JellyfinAPI.LiveStreamResponse> {
+        _ body: OpenLiveStreamDto? = nil
+    ) -> Request<LiveStreamResponse> {
         Request(path: "/LiveStreams/Open", method: "POST", query: parameters?.asQuery, body: body, id: "OpenLiveStream")
     }
 
@@ -31,7 +30,7 @@ public extension Paths {
         public var itemID: String?
         public var enableDirectPlay: Bool?
         public var enableDirectStream: Bool?
-        public var isAlwaysBurnInSubtitleWhenTranscoding: Bool?
+        public var isAlwaysburninsubtitlewhentranscoding: Bool?
 
         public init(
             openToken: String? = nil,
@@ -45,7 +44,7 @@ public extension Paths {
             itemID: String? = nil,
             enableDirectPlay: Bool? = nil,
             enableDirectStream: Bool? = nil,
-            isAlwaysBurnInSubtitleWhenTranscoding: Bool? = nil
+            isAlwaysburninsubtitlewhentranscoding: Bool? = nil
         ) {
             self.openToken = openToken
             self.userID = userID
@@ -58,7 +57,7 @@ public extension Paths {
             self.itemID = itemID
             self.enableDirectPlay = enableDirectPlay
             self.enableDirectStream = enableDirectStream
-            self.isAlwaysBurnInSubtitleWhenTranscoding = isAlwaysBurnInSubtitleWhenTranscoding
+            self.isAlwaysburninsubtitlewhentranscoding = isAlwaysburninsubtitlewhentranscoding
         }
 
         public var asQuery: [(String, String?)] {
@@ -74,7 +73,7 @@ public extension Paths {
             encoder.encode(itemID, forKey: "itemId")
             encoder.encode(enableDirectPlay, forKey: "enableDirectPlay")
             encoder.encode(enableDirectStream, forKey: "enableDirectStream")
-            encoder.encode(isAlwaysBurnInSubtitleWhenTranscoding, forKey: "alwaysBurnInSubtitleWhenTranscoding")
+            encoder.encode(isAlwaysburninsubtitlewhentranscoding, forKey: "alwaysBurnInSubtitleWhenTranscoding")
             return encoder.items
         }
     }

@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets live playback media info for an item.
@@ -19,8 +18,8 @@ public extension Paths {
     static func getPostedPlaybackInfo(
         itemID: String,
         parameters: GetPostedPlaybackInfoParameters? = nil,
-        _ body: JellyfinAPI.PlaybackInfoDto? = nil
-    ) -> Request<JellyfinAPI.PlaybackInfoResponse> {
+        _ body: PlaybackInfoDto? = nil
+    ) -> Request<PlaybackInfoResponse> {
         Request(path: "/Items/\(itemID)/PlaybackInfo", method: "POST", query: parameters?.asQuery, body: body, id: "GetPostedPlaybackInfo")
     }
 
@@ -33,7 +32,7 @@ public extension Paths {
         public var maxAudioChannels: Int?
         public var mediaSourceID: String?
         public var liveStreamID: String?
-        public var isAutoOpenLiveStream: Bool?
+        public var isAutoopenlivestream: Bool?
         public var enableDirectPlay: Bool?
         public var enableDirectStream: Bool?
         public var enableTranscoding: Bool?
@@ -49,7 +48,7 @@ public extension Paths {
             maxAudioChannels: Int? = nil,
             mediaSourceID: String? = nil,
             liveStreamID: String? = nil,
-            isAutoOpenLiveStream: Bool? = nil,
+            isAutoopenlivestream: Bool? = nil,
             enableDirectPlay: Bool? = nil,
             enableDirectStream: Bool? = nil,
             enableTranscoding: Bool? = nil,
@@ -64,7 +63,7 @@ public extension Paths {
             self.maxAudioChannels = maxAudioChannels
             self.mediaSourceID = mediaSourceID
             self.liveStreamID = liveStreamID
-            self.isAutoOpenLiveStream = isAutoOpenLiveStream
+            self.isAutoopenlivestream = isAutoopenlivestream
             self.enableDirectPlay = enableDirectPlay
             self.enableDirectStream = enableDirectStream
             self.enableTranscoding = enableTranscoding
@@ -82,7 +81,7 @@ public extension Paths {
             encoder.encode(maxAudioChannels, forKey: "maxAudioChannels")
             encoder.encode(mediaSourceID, forKey: "mediaSourceId")
             encoder.encode(liveStreamID, forKey: "liveStreamId")
-            encoder.encode(isAutoOpenLiveStream, forKey: "autoOpenLiveStream")
+            encoder.encode(isAutoopenlivestream, forKey: "autoOpenLiveStream")
             encoder.encode(enableDirectPlay, forKey: "enableDirectPlay")
             encoder.encode(enableDirectStream, forKey: "enableDirectStream")
             encoder.encode(enableTranscoding, forKey: "enableTranscoding")

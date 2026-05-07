@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets a list of upcoming episodes.
-    static func getUpcomingEpisodes(parameters: GetUpcomingEpisodesParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getUpcomingEpisodes(parameters: GetUpcomingEpisodesParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Shows/Upcoming", method: "GET", query: parameters?.asQuery, id: "GetUpcomingEpisodes")
     }
 
@@ -20,22 +19,22 @@ public extension Paths {
         public var userID: String?
         public var startIndex: Int?
         public var limit: Int?
-        public var fields: [JellyfinAPI.ItemFields]?
+        public var fields: [ItemFields]?
         public var parentID: String?
         public var enableImages: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
+        public var enableImageTypes: [ImageType]?
         public var enableUserData: Bool?
 
         public init(
             userID: String? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
+            fields: [ItemFields]? = nil,
             parentID: String? = nil,
             enableImages: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableImageTypes: [ImageType]? = nil,
             enableUserData: Bool? = nil
         ) {
             self.userID = userID

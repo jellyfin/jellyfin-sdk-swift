@@ -2,8 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Jellyfin API",
-    "version": "10.11.0",
-    "x-jellyfin-version": "10.11.0"
+    "version": "10.11.8",
+    "x-jellyfin-version": "10.11.8"
   },
   "servers": [
     {
@@ -27613,8 +27613,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvAccess",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -27718,8 +27717,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvManagement",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28365,8 +28363,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvManagement",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28425,8 +28422,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvManagement",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -28666,8 +28662,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvAccess",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -31489,8 +31484,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvManagement",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -31549,8 +31543,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvManagement",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -31690,8 +31683,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvManagement",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -31779,8 +31771,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvManagement",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -31868,8 +31859,7 @@
         "security": [
           {
             "CustomAuthentication": [
-              "LiveTvManagement",
-              "DefaultAuthorization"
+              "RequiresElevation"
             ]
           }
         ]
@@ -54198,7 +54188,7 @@
                 "$ref": "#/components/schemas/UserDto"
               }
             ],
-            "description": "Gets or sets the user.",
+            "description": "Class UserDto.",
             "nullable": true
           },
           "SessionInfo": {
@@ -54207,7 +54197,7 @@
                 "$ref": "#/components/schemas/SessionInfoDto"
               }
             ],
-            "description": "Gets or sets the session info.",
+            "description": "Session info DTO.",
             "nullable": true
           },
           "AccessToken": {
@@ -54665,7 +54655,7 @@
                 "$ref": "#/components/schemas/BaseItemKind"
               }
             ],
-            "description": "The base item kind."
+            "description": "Gets or sets the type."
           },
           "People": {
             "type": "array",
@@ -55132,7 +55122,7 @@
                 "$ref": "#/components/schemas/MediaType"
               }
             ],
-            "description": "Media types.",
+            "description": "Gets or sets the type of the media.",
             "default": "Unknown"
           },
           "EndDate": {
@@ -55530,7 +55520,7 @@
                 "$ref": "#/components/schemas/PersonKind"
               }
             ],
-            "description": "The person kind.",
+            "description": "Gets or sets the type.",
             "default": "Unknown"
           },
           "PrimaryImageTag": {
@@ -56868,7 +56858,7 @@
                 "$ref": "#/components/schemas/ScrollDirection"
               }
             ],
-            "description": "An enum representing the axis that should be scrolled."
+            "description": "Gets or sets the scroll direction."
           },
           "ShowBackdrop": {
             "type": "boolean",
@@ -56888,7 +56878,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "An enum representing the sorting order."
+            "description": "Gets or sets the sort order."
           },
           "ShowSidebar": {
             "type": "boolean",
@@ -58787,7 +58777,7 @@
                 "$ref": "#/components/schemas/LibraryUpdateInfo"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class LibraryUpdateInfo.",
             "nullable": true
           },
           "MessageId": {
@@ -59801,7 +59791,7 @@
                 "$ref": "#/components/schemas/MediaSegmentType"
               }
             ],
-            "description": "Defines the types of content an individual Jellyfin.Database.Implementations.Entities.MediaSegment represents.",
+            "description": "Gets or sets the type of content this segment defines.",
             "default": "Unknown"
           },
           "StartTicks": {
@@ -60262,7 +60252,7 @@
                 "$ref": "#/components/schemas/VideoRange"
               }
             ],
-            "description": "An enum representing video ranges.",
+            "description": "Gets the video range.",
             "default": "Unknown",
             "readOnly": true
           },
@@ -60287,7 +60277,7 @@
                 "$ref": "#/components/schemas/VideoRangeType"
               }
             ],
-            "description": "An enum representing types of video ranges.",
+            "description": "Gets the video range type.",
             "default": "Unknown",
             "readOnly": true
           },
@@ -60308,7 +60298,7 @@
                 "$ref": "#/components/schemas/AudioSpatialFormat"
               }
             ],
-            "description": "An enum representing formats of spatial audio.",
+            "description": "Gets the audio spatial format.",
             "default": "None",
             "readOnly": true
           },
@@ -61160,6 +61150,8 @@
         "type": "object",
         "properties": {
           "GroupName": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
             "description": "Gets or sets the group name."
           }
@@ -62388,7 +62380,7 @@
                 "$ref": "#/components/schemas/PlayRequest"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class PlayRequest.",
             "nullable": true
           },
           "MessageId": {
@@ -62815,7 +62807,7 @@
                 "$ref": "#/components/schemas/InstallationInfo"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class InstallationInfo.",
             "nullable": true
           },
           "MessageId": {
@@ -62882,7 +62874,7 @@
                 "$ref": "#/components/schemas/InstallationInfo"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class InstallationInfo.",
             "nullable": true
           },
           "MessageId": {
@@ -62949,7 +62941,7 @@
                 "$ref": "#/components/schemas/InstallationInfo"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class InstallationInfo.",
             "nullable": true
           },
           "MessageId": {
@@ -63016,7 +63008,7 @@
                 "$ref": "#/components/schemas/InstallationInfo"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class InstallationInfo.",
             "nullable": true
           },
           "MessageId": {
@@ -63097,7 +63089,7 @@
                 "$ref": "#/components/schemas/PluginInfo"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "This is a serializable stub class that is used by the api to provide information about installed plugins.",
             "nullable": true
           },
           "MessageId": {
@@ -64071,7 +64063,7 @@
                 "$ref": "#/components/schemas/TaskResult"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class TaskExecutionInfo.",
             "nullable": true
           },
           "MessageId": {
@@ -64425,7 +64417,7 @@
                 "$ref": "#/components/schemas/BaseItemKind"
               }
             ],
-            "description": "The base item kind."
+            "description": "Gets or sets the type."
           },
           "IsFolder": {
             "type": "boolean",
@@ -64451,7 +64443,7 @@
                 "$ref": "#/components/schemas/MediaType"
               }
             ],
-            "description": "Media types.",
+            "description": "Gets or sets the type of the media.",
             "default": "Unknown"
           },
           "StartDate": {
@@ -66283,7 +66275,7 @@
                 "$ref": "#/components/schemas/SendCommand"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class SendCommand.",
             "nullable": true
           },
           "MessageId": {
@@ -67925,7 +67917,7 @@
                 "$ref": "#/components/schemas/MediaStreamProtocol"
               }
             ],
-            "description": "Media streaming protocol.\r\nLowercase for backwards compatibility."
+            "description": "Gets or sets the protocol."
           },
           "EstimateContentLength": {
             "type": "boolean",
@@ -68616,7 +68608,7 @@
                 "$ref": "#/components/schemas/UserDataChangeInfo"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class UserDataChangeInfo.",
             "nullable": true
           },
           "MessageId": {
@@ -69115,7 +69107,7 @@
                 "$ref": "#/components/schemas/SyncPlayUserAccessType"
               }
             ],
-            "description": "Enum SyncPlayUserAccessType."
+            "description": "Gets or sets a value indicating what SyncPlay features the user can access."
           }
         },
         "additionalProperties": false
@@ -69129,7 +69121,7 @@
                 "$ref": "#/components/schemas/UserDto"
               }
             ],
-            "description": "Gets or sets the data.",
+            "description": "Class UserDto.",
             "nullable": true
           },
           "MessageId": {

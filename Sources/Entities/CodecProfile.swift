@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Defines the MediaBrowser.Model.Dlna.CodecProfile.
-public struct CodecProfile: Codable, Hashable {
+public struct CodecProfile: Codable, Hashable, Sendable {
     /// Gets or sets the list of MediaBrowser.Model.Dlna.ProfileCondition to apply if this profile is met.
     public var applyConditions: [ProfileCondition]?
     /// Gets or sets the codec(s) that this profile applies to.

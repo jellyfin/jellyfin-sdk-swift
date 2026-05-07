@@ -3,39 +3,38 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Creates an instant playlist based on a given artist.
     static func getInstantMixFromArtists(
         itemID: String,
         parameters: GetInstantMixFromArtistsParameters? = nil
-    ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    ) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Artists/\(itemID)/InstantMix", method: "GET", query: parameters?.asQuery, id: "GetInstantMixFromArtists")
     }
 
     struct GetInstantMixFromArtistsParameters {
         public var userID: String?
         public var limit: Int?
-        public var fields: [JellyfinAPI.ItemFields]?
+        public var fields: [ItemFields]?
         public var enableImages: Bool?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
+        public var enableImageTypes: [ImageType]?
 
         public init(
             userID: String? = nil,
             limit: Int? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
+            fields: [ItemFields]? = nil,
             enableImages: Bool? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil
+            enableImageTypes: [ImageType]? = nil
         ) {
             self.userID = userID
             self.limit = limit

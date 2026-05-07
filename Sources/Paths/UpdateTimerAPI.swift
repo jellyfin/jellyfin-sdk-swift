@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Updates a live tv timer.
-    static func updateTimer(timerID: String, _ body: JellyfinAPI.TimerInfoDto? = nil) -> Request<Void> {
+    static func updateTimer(timerID: String, _ body: TimerInfoDto? = nil) -> Request<Void> {
         Request(path: "/LiveTv/Timers/\(timerID)", method: "POST", body: body, id: "UpdateTimer")
     }
 }
