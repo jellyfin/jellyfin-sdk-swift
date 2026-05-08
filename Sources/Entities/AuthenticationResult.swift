@@ -3,20 +3,20 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// A class representing an authentication result.
-public struct AuthenticationResult: Codable, Hashable {
+public struct AuthenticationResult: Codable, Hashable, Sendable {
     /// Gets or sets the access token.
     public var accessToken: String?
     /// Gets or sets the server id.
     public var serverID: String?
-    /// Gets or sets the session info.
+    /// Session info DTO.
     public var sessionInfo: SessionInfoDto?
-    /// Gets or sets the user.
+    /// Class UserDto.
     public var user: UserDto?
 
     public init(accessToken: String? = nil, serverID: String? = nil, sessionInfo: SessionInfoDto? = nil, user: UserDto? = nil) {

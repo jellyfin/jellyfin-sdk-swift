@@ -3,15 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Defines the MediaBrowser.Common.Net.NetworkConfiguration.
-public struct NetworkConfiguration: Codable, Hashable {
-    /// Gets or sets a value indicating whether Autodiscovery is enabled.
-    public var isAutoDiscovery: Bool?
+public struct NetworkConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets a value used to specify the URL prefix that your Jellyfin instance can be accessed at.
     public var baseURL: String?
     /// Gets or sets the password required to access the X.509 certificate data in the file specified by
@@ -30,16 +28,17 @@ public struct NetworkConfiguration: Codable, Hashable {
     /// Gets or sets a value indicating whether access from outside of the LAN is permitted.
     public var enableRemoteAccess: Bool?
     /// Gets or sets a value indicating whether to enable automatic port forwarding.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var enableUPnP: Bool?
-    /// Gets or sets a value indicating whether address names that match MediaBrowser.Common.Net.NetworkConfiguration.VirtualInterfaceNames
-    /// should be ignored for the purposes of binding.
-    public var isIgnoreVirtualInterfaces: Bool?
     /// Gets or sets the internal HTTP server port.
     public var internalHTTPPort: Int?
     /// Gets or sets the internal HTTPS server port.
     public var internalHTTPSPort: Int?
+    /// Gets or sets a value indicating whether Autodiscovery is enabled.
+    public var isAutoDiscovery: Bool?
+    /// Gets or sets a value indicating whether address names that match MediaBrowser.Common.Net.NetworkConfiguration.VirtualInterfaceNames
+    /// should be ignored for the purposes of binding.
+    public var isIgnoreVirtualInterfaces: Bool?
     /// Gets or sets a value indicating whether <seealso cref="P:MediaBrowser.Common.Net.NetworkConfiguration.RemoteIPFilter" /> contains a
     /// blacklist or a whitelist. Default is a whitelist.
     public var isRemoteIPFilterBlacklist: Bool?
@@ -67,7 +66,6 @@ public struct NetworkConfiguration: Codable, Hashable {
     public var virtualInterfaceNames: [String]?
 
     public init(
-        isAutoDiscovery: Bool? = nil,
         baseURL: String? = nil,
         certificatePassword: String? = nil,
         certificatePath: String? = nil,
@@ -77,9 +75,10 @@ public struct NetworkConfiguration: Codable, Hashable {
         enablePublishedServerUriByRequest: Bool? = nil,
         enableRemoteAccess: Bool? = nil,
         enableUPnP: Bool? = nil,
-        isIgnoreVirtualInterfaces: Bool? = nil,
         internalHTTPPort: Int? = nil,
         internalHTTPSPort: Int? = nil,
+        isAutoDiscovery: Bool? = nil,
+        isIgnoreVirtualInterfaces: Bool? = nil,
         isRemoteIPFilterBlacklist: Bool? = nil,
         knownProxies: [String]? = nil,
         localNetworkAddresses: [String]? = nil,
@@ -91,7 +90,6 @@ public struct NetworkConfiguration: Codable, Hashable {
         requireHTTPS: Bool? = nil,
         virtualInterfaceNames: [String]? = nil
     ) {
-        self.isAutoDiscovery = isAutoDiscovery
         self.baseURL = baseURL
         self.certificatePassword = certificatePassword
         self.certificatePath = certificatePath
@@ -101,9 +99,10 @@ public struct NetworkConfiguration: Codable, Hashable {
         self.enablePublishedServerUriByRequest = enablePublishedServerUriByRequest
         self.enableRemoteAccess = enableRemoteAccess
         self.enableUPnP = enableUPnP
-        self.isIgnoreVirtualInterfaces = isIgnoreVirtualInterfaces
         self.internalHTTPPort = internalHTTPPort
         self.internalHTTPSPort = internalHTTPSPort
+        self.isAutoDiscovery = isAutoDiscovery
+        self.isIgnoreVirtualInterfaces = isIgnoreVirtualInterfaces
         self.isRemoteIPFilterBlacklist = isRemoteIPFilterBlacklist
         self.knownProxies = knownProxies
         self.localNetworkAddresses = localNetworkAddresses
@@ -118,7 +117,6 @@ public struct NetworkConfiguration: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isAutoDiscovery = try values.decodeIfPresent(Bool.self, forKey: "AutoDiscovery")
         self.baseURL = try values.decodeIfPresent(String.self, forKey: "BaseUrl")
         self.certificatePassword = try values.decodeIfPresent(String.self, forKey: "CertificatePassword")
         self.certificatePath = try values.decodeIfPresent(String.self, forKey: "CertificatePath")
@@ -128,9 +126,10 @@ public struct NetworkConfiguration: Codable, Hashable {
         self.enablePublishedServerUriByRequest = try values.decodeIfPresent(Bool.self, forKey: "EnablePublishedServerUriByRequest")
         self.enableRemoteAccess = try values.decodeIfPresent(Bool.self, forKey: "EnableRemoteAccess")
         self.enableUPnP = try values.decodeIfPresent(Bool.self, forKey: "EnableUPnP")
-        self.isIgnoreVirtualInterfaces = try values.decodeIfPresent(Bool.self, forKey: "IgnoreVirtualInterfaces")
         self.internalHTTPPort = try values.decodeIfPresent(Int.self, forKey: "InternalHttpPort")
         self.internalHTTPSPort = try values.decodeIfPresent(Int.self, forKey: "InternalHttpsPort")
+        self.isAutoDiscovery = try values.decodeIfPresent(Bool.self, forKey: "AutoDiscovery")
+        self.isIgnoreVirtualInterfaces = try values.decodeIfPresent(Bool.self, forKey: "IgnoreVirtualInterfaces")
         self.isRemoteIPFilterBlacklist = try values.decodeIfPresent(Bool.self, forKey: "IsRemoteIPFilterBlacklist")
         self.knownProxies = try values.decodeIfPresent([String].self, forKey: "KnownProxies")
         self.localNetworkAddresses = try values.decodeIfPresent([String].self, forKey: "LocalNetworkAddresses")
@@ -145,7 +144,6 @@ public struct NetworkConfiguration: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isAutoDiscovery, forKey: "AutoDiscovery")
         try values.encodeIfPresent(baseURL, forKey: "BaseUrl")
         try values.encodeIfPresent(certificatePassword, forKey: "CertificatePassword")
         try values.encodeIfPresent(certificatePath, forKey: "CertificatePath")
@@ -155,9 +153,10 @@ public struct NetworkConfiguration: Codable, Hashable {
         try values.encodeIfPresent(enablePublishedServerUriByRequest, forKey: "EnablePublishedServerUriByRequest")
         try values.encodeIfPresent(enableRemoteAccess, forKey: "EnableRemoteAccess")
         try values.encodeIfPresent(enableUPnP, forKey: "EnableUPnP")
-        try values.encodeIfPresent(isIgnoreVirtualInterfaces, forKey: "IgnoreVirtualInterfaces")
         try values.encodeIfPresent(internalHTTPPort, forKey: "InternalHttpPort")
         try values.encodeIfPresent(internalHTTPSPort, forKey: "InternalHttpsPort")
+        try values.encodeIfPresent(isAutoDiscovery, forKey: "AutoDiscovery")
+        try values.encodeIfPresent(isIgnoreVirtualInterfaces, forKey: "IgnoreVirtualInterfaces")
         try values.encodeIfPresent(isRemoteIPFilterBlacklist, forKey: "IsRemoteIPFilterBlacklist")
         try values.encodeIfPresent(knownProxies, forKey: "KnownProxies")
         try values.encodeIfPresent(localNetworkAddresses, forKey: "LocalNetworkAddresses")

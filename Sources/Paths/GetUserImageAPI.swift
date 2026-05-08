@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Get user profile image.
@@ -19,11 +18,9 @@ public extension Paths {
     struct GetUserImageParameters {
         public var userID: String?
         public var tag: String?
-        public var format: Format?
+        public var format: ImageFormat?
 
-        public typealias Format = JellyfinAPI.ImageFormat
-
-        public init(userID: String? = nil, tag: String? = nil, format: Format? = nil) {
+        public init(userID: String? = nil, tag: String? = nil, format: ImageFormat? = nil) {
             self.userID = userID
             self.tag = tag
             self.format = format

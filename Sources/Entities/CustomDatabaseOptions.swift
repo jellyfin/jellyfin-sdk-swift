@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Defines the options for a custom database connector.
-public struct CustomDatabaseOptions: Codable, Hashable {
+public struct CustomDatabaseOptions: Codable, Hashable, Sendable {
     /// Gets or sets the connection string for the custom database provider.
     public var connectionString: String?
     /// Gets or sets the list of extra options for the custom provider.

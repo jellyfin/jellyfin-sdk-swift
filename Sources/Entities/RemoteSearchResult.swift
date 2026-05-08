@@ -3,27 +3,29 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public final class RemoteSearchResult: Codable {
-    public let albumArtist: RemoteSearchResult?
-    public let artists: [RemoteSearchResult]?
-    public let imageURL: String?
-    public let indexNumber: Int?
-    public let indexNumberEnd: Int?
+public struct RemoteSearchResult: Codable, Hashable, Sendable {
+    @Indirect
+    public var albumArtist: RemoteSearchResult?
+    public var artists: [RemoteSearchResult]?
+    public var imageURL: String?
+    public var indexNumber: Int?
+    public var indexNumberEnd: Int?
     /// Gets or sets the name.
-    public let name: String?
-    public let overview: String?
-    public let parentIndexNumber: Int?
-    public let premiereDate: Date?
+    public var name: String?
+    public var overview: String?
+    public var parentIndexNumber: Int?
+    public var premiereDate: Date?
     /// Gets or sets the year.
-    public let productionYear: Int?
+    public var productionYear: Int?
     /// Gets or sets the provider ids.
-    public let providerIDs: [String: String]?
-    public let searchProviderName: String?
+    public var providerIDs: [String: String]?
+    public var searchProviderName: String?
+
     public init(
         albumArtist: RemoteSearchResult? = nil,
         artists: [RemoteSearchResult]? = nil,

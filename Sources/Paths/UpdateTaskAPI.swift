@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Update specified task triggers.
-    static func updateTask(taskID: String, _ body: [JellyfinAPI.TaskTriggerInfo]) -> Request<Void> {
+    static func updateTask(taskID: String, _ body: [TaskTriggerInfo]) -> Request<Void> {
         Request(path: "/ScheduledTasks/\(taskID)/Triggers", method: "POST", body: body, id: "UpdateTask")
     }
 }

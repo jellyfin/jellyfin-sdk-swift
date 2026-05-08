@@ -3,21 +3,19 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class EncodingOptions.
-public struct EncodingOptions: Codable, Hashable {
+public struct EncodingOptions: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether AV1 encoding is enabled.
     public var allowAv1Encoding: Bool?
     /// Gets or sets a value indicating whether HEVC encoding is enabled.
     public var allowHevcEncoding: Bool?
     /// Gets or sets the file extensions on-demand metadata based keyframe extraction is enabled for.
     public var allowOnDemandMetadataBasedKeyframeExtractionForExtensions: [String]?
-    /// Gets or sets a value indicating whether the framerate is doubled when deinterlacing.
-    public var isDeinterlaceDoubleRate: Bool?
     /// Gets or sets the deinterlace method.
     public var deinterlaceMethod: DeinterlaceMethod?
     /// Gets or sets the audio boost applied when downmixing audio.
@@ -74,10 +72,12 @@ public struct EncodingOptions: Codable, Hashable {
     public var hardwareAccelerationType: HardwareAccelerationType?
     /// Gets or sets the codecs hardware encoding is used for.
     public var hardwareDecodingCodecs: [String]?
-    /// Gets or sets the maximum size of the muxing queue.
-    public var maxMuxingQueueSize: Int?
+    /// Gets or sets a value indicating whether the framerate is doubled when deinterlacing.
+    public var isDeinterlaceDoubleRate: Bool?
     /// Gets or sets a value indicating whether the system native hardware decoder should be used.
     public var isPreferSystemNativeHwDecoder: Bool?
+    /// Gets or sets the maximum size of the muxing queue.
+    public var maxMuxingQueueSize: Int?
     /// Gets or sets the QSV device.
     public var qsvDevice: String?
     /// Gets or sets seconds for which segments should be kept before being deleted.
@@ -109,7 +109,6 @@ public struct EncodingOptions: Codable, Hashable {
         allowAv1Encoding: Bool? = nil,
         allowHevcEncoding: Bool? = nil,
         allowOnDemandMetadataBasedKeyframeExtractionForExtensions: [String]? = nil,
-        isDeinterlaceDoubleRate: Bool? = nil,
         deinterlaceMethod: DeinterlaceMethod? = nil,
         downMixAudioBoost: Double? = nil,
         downMixStereoAlgorithm: DownMixStereoAlgorithms? = nil,
@@ -138,8 +137,9 @@ public struct EncodingOptions: Codable, Hashable {
         h265Crf: Int? = nil,
         hardwareAccelerationType: HardwareAccelerationType? = nil,
         hardwareDecodingCodecs: [String]? = nil,
-        maxMuxingQueueSize: Int? = nil,
+        isDeinterlaceDoubleRate: Bool? = nil,
         isPreferSystemNativeHwDecoder: Bool? = nil,
+        maxMuxingQueueSize: Int? = nil,
         qsvDevice: String? = nil,
         segmentKeepSeconds: Int? = nil,
         throttleDelaySeconds: Int? = nil,
@@ -157,7 +157,6 @@ public struct EncodingOptions: Codable, Hashable {
         self.allowAv1Encoding = allowAv1Encoding
         self.allowHevcEncoding = allowHevcEncoding
         self.allowOnDemandMetadataBasedKeyframeExtractionForExtensions = allowOnDemandMetadataBasedKeyframeExtractionForExtensions
-        self.isDeinterlaceDoubleRate = isDeinterlaceDoubleRate
         self.deinterlaceMethod = deinterlaceMethod
         self.downMixAudioBoost = downMixAudioBoost
         self.downMixStereoAlgorithm = downMixStereoAlgorithm
@@ -186,8 +185,9 @@ public struct EncodingOptions: Codable, Hashable {
         self.h265Crf = h265Crf
         self.hardwareAccelerationType = hardwareAccelerationType
         self.hardwareDecodingCodecs = hardwareDecodingCodecs
-        self.maxMuxingQueueSize = maxMuxingQueueSize
+        self.isDeinterlaceDoubleRate = isDeinterlaceDoubleRate
         self.isPreferSystemNativeHwDecoder = isPreferSystemNativeHwDecoder
+        self.maxMuxingQueueSize = maxMuxingQueueSize
         self.qsvDevice = qsvDevice
         self.segmentKeepSeconds = segmentKeepSeconds
         self.throttleDelaySeconds = throttleDelaySeconds
@@ -211,7 +211,6 @@ public struct EncodingOptions: Codable, Hashable {
             [String].self,
             forKey: "AllowOnDemandMetadataBasedKeyframeExtractionForExtensions"
         )
-        self.isDeinterlaceDoubleRate = try values.decodeIfPresent(Bool.self, forKey: "DeinterlaceDoubleRate")
         self.deinterlaceMethod = try values.decodeIfPresent(DeinterlaceMethod.self, forKey: "DeinterlaceMethod")
         self.downMixAudioBoost = try values.decodeIfPresent(Double.self, forKey: "DownMixAudioBoost")
         self.downMixStereoAlgorithm = try values.decodeIfPresent(DownMixStereoAlgorithms.self, forKey: "DownMixStereoAlgorithm")
@@ -240,8 +239,9 @@ public struct EncodingOptions: Codable, Hashable {
         self.h265Crf = try values.decodeIfPresent(Int.self, forKey: "H265Crf")
         self.hardwareAccelerationType = try values.decodeIfPresent(HardwareAccelerationType.self, forKey: "HardwareAccelerationType")
         self.hardwareDecodingCodecs = try values.decodeIfPresent([String].self, forKey: "HardwareDecodingCodecs")
-        self.maxMuxingQueueSize = try values.decodeIfPresent(Int.self, forKey: "MaxMuxingQueueSize")
+        self.isDeinterlaceDoubleRate = try values.decodeIfPresent(Bool.self, forKey: "DeinterlaceDoubleRate")
         self.isPreferSystemNativeHwDecoder = try values.decodeIfPresent(Bool.self, forKey: "PreferSystemNativeHwDecoder")
+        self.maxMuxingQueueSize = try values.decodeIfPresent(Int.self, forKey: "MaxMuxingQueueSize")
         self.qsvDevice = try values.decodeIfPresent(String.self, forKey: "QsvDevice")
         self.segmentKeepSeconds = try values.decodeIfPresent(Int.self, forKey: "SegmentKeepSeconds")
         self.throttleDelaySeconds = try values.decodeIfPresent(Int.self, forKey: "ThrottleDelaySeconds")
@@ -265,7 +265,6 @@ public struct EncodingOptions: Codable, Hashable {
             allowOnDemandMetadataBasedKeyframeExtractionForExtensions,
             forKey: "AllowOnDemandMetadataBasedKeyframeExtractionForExtensions"
         )
-        try values.encodeIfPresent(isDeinterlaceDoubleRate, forKey: "DeinterlaceDoubleRate")
         try values.encodeIfPresent(deinterlaceMethod, forKey: "DeinterlaceMethod")
         try values.encodeIfPresent(downMixAudioBoost, forKey: "DownMixAudioBoost")
         try values.encodeIfPresent(downMixStereoAlgorithm, forKey: "DownMixStereoAlgorithm")
@@ -294,8 +293,9 @@ public struct EncodingOptions: Codable, Hashable {
         try values.encodeIfPresent(h265Crf, forKey: "H265Crf")
         try values.encodeIfPresent(hardwareAccelerationType, forKey: "HardwareAccelerationType")
         try values.encodeIfPresent(hardwareDecodingCodecs, forKey: "HardwareDecodingCodecs")
-        try values.encodeIfPresent(maxMuxingQueueSize, forKey: "MaxMuxingQueueSize")
+        try values.encodeIfPresent(isDeinterlaceDoubleRate, forKey: "DeinterlaceDoubleRate")
         try values.encodeIfPresent(isPreferSystemNativeHwDecoder, forKey: "PreferSystemNativeHwDecoder")
+        try values.encodeIfPresent(maxMuxingQueueSize, forKey: "MaxMuxingQueueSize")
         try values.encodeIfPresent(qsvDevice, forKey: "QsvDevice")
         try values.encodeIfPresent(segmentKeepSeconds, forKey: "SegmentKeepSeconds")
         try values.encodeIfPresent(throttleDelaySeconds, forKey: "ThrottleDelaySeconds")

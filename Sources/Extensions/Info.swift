@@ -3,18 +3,21 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-public extension JellyfinClient {
-    /// Version of Jellyfin used to generate the SDK
-    static let sdkVersion: Version = "<SDK_VERSION>"
-}
+import Foundation
 
 public extension JellyfinClient {
+    var title: String {
+        "Jellyfin API"
+    }
 
-    struct Version: Comparable, CustomStringConvertible, ExpressibleByStringLiteral {
+    var version: Version {
+        "10.11.8"
+    }
 
+    struct Version: Comparable, CustomStringConvertible, ExpressibleByStringLiteral, Sendable {
         public let major: Int
         public let minor: Int
         public let patch: Int

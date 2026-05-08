@@ -3,12 +3,12 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct UserPolicy: Codable, Hashable {
+public struct UserPolicy: Codable, Hashable, Sendable {
     public var accessSchedules: [AccessSchedule]?
     public var allowedTags: [String]?
     public var authenticationProviderID: String
@@ -45,12 +45,12 @@ public struct UserPolicy: Codable, Hashable {
     public var enabledChannels: [String]?
     public var enabledDevices: [String]?
     public var enabledFolders: [String]?
-    public var isForceRemoteSourceTranscoding: Bool?
     public var invalidLoginAttemptCount: Int?
     /// Gets or sets a value indicating whether this instance is administrator.
     public var isAdministrator: Bool?
     /// Gets or sets a value indicating whether this instance is disabled.
     public var isDisabled: Bool?
+    public var isForceRemoteSourceTranscoding: Bool?
     /// Gets or sets a value indicating whether this instance is hidden.
     public var isHidden: Bool?
     public var loginAttemptsBeforeLockout: Int?
@@ -60,7 +60,7 @@ public struct UserPolicy: Codable, Hashable {
     public var maxParentalSubRating: Int?
     public var passwordResetProviderID: String
     public var remoteClientBitrateLimit: Int?
-    /// Enum SyncPlayUserAccessType.
+    /// Gets or sets a value indicating what SyncPlay features the user can access.
     public var syncPlayAccess: SyncPlayUserAccessType?
 
     public init(
@@ -96,10 +96,10 @@ public struct UserPolicy: Codable, Hashable {
         enabledChannels: [String]? = nil,
         enabledDevices: [String]? = nil,
         enabledFolders: [String]? = nil,
-        isForceRemoteSourceTranscoding: Bool? = nil,
         invalidLoginAttemptCount: Int? = nil,
         isAdministrator: Bool? = nil,
         isDisabled: Bool? = nil,
+        isForceRemoteSourceTranscoding: Bool? = nil,
         isHidden: Bool? = nil,
         loginAttemptsBeforeLockout: Int? = nil,
         maxActiveSessions: Int? = nil,
@@ -141,10 +141,10 @@ public struct UserPolicy: Codable, Hashable {
         self.enabledChannels = enabledChannels
         self.enabledDevices = enabledDevices
         self.enabledFolders = enabledFolders
-        self.isForceRemoteSourceTranscoding = isForceRemoteSourceTranscoding
         self.invalidLoginAttemptCount = invalidLoginAttemptCount
         self.isAdministrator = isAdministrator
         self.isDisabled = isDisabled
+        self.isForceRemoteSourceTranscoding = isForceRemoteSourceTranscoding
         self.isHidden = isHidden
         self.loginAttemptsBeforeLockout = loginAttemptsBeforeLockout
         self.maxActiveSessions = maxActiveSessions
@@ -189,10 +189,10 @@ public struct UserPolicy: Codable, Hashable {
         self.enabledChannels = try values.decodeIfPresent([String].self, forKey: "EnabledChannels")
         self.enabledDevices = try values.decodeIfPresent([String].self, forKey: "EnabledDevices")
         self.enabledFolders = try values.decodeIfPresent([String].self, forKey: "EnabledFolders")
-        self.isForceRemoteSourceTranscoding = try values.decodeIfPresent(Bool.self, forKey: "ForceRemoteSourceTranscoding")
         self.invalidLoginAttemptCount = try values.decodeIfPresent(Int.self, forKey: "InvalidLoginAttemptCount")
         self.isAdministrator = try values.decodeIfPresent(Bool.self, forKey: "IsAdministrator")
         self.isDisabled = try values.decodeIfPresent(Bool.self, forKey: "IsDisabled")
+        self.isForceRemoteSourceTranscoding = try values.decodeIfPresent(Bool.self, forKey: "ForceRemoteSourceTranscoding")
         self.isHidden = try values.decodeIfPresent(Bool.self, forKey: "IsHidden")
         self.loginAttemptsBeforeLockout = try values.decodeIfPresent(Int.self, forKey: "LoginAttemptsBeforeLockout")
         self.maxActiveSessions = try values.decodeIfPresent(Int.self, forKey: "MaxActiveSessions")
@@ -237,10 +237,10 @@ public struct UserPolicy: Codable, Hashable {
         try values.encodeIfPresent(enabledChannels, forKey: "EnabledChannels")
         try values.encodeIfPresent(enabledDevices, forKey: "EnabledDevices")
         try values.encodeIfPresent(enabledFolders, forKey: "EnabledFolders")
-        try values.encodeIfPresent(isForceRemoteSourceTranscoding, forKey: "ForceRemoteSourceTranscoding")
         try values.encodeIfPresent(invalidLoginAttemptCount, forKey: "InvalidLoginAttemptCount")
         try values.encodeIfPresent(isAdministrator, forKey: "IsAdministrator")
         try values.encodeIfPresent(isDisabled, forKey: "IsDisabled")
+        try values.encodeIfPresent(isForceRemoteSourceTranscoding, forKey: "ForceRemoteSourceTranscoding")
         try values.encodeIfPresent(isHidden, forKey: "IsHidden")
         try values.encodeIfPresent(loginAttemptsBeforeLockout, forKey: "LoginAttemptsBeforeLockout")
         try values.encodeIfPresent(maxActiveSessions, forKey: "MaxActiveSessions")

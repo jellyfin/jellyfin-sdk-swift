@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Finds movies and trailers similar to a given trailer.
-    static func getTrailers(parameters: GetTrailersParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getTrailers(parameters: GetTrailersParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Trailers", method: "GET", query: parameters?.asQuery, id: "GetTrailers")
     }
 
@@ -29,8 +28,8 @@ public extension Paths {
         public var hasParentalRating: Bool?
         public var isHd: Bool?
         public var isIs4K: Bool?
-        public var locationTypes: [JellyfinAPI.LocationType]?
-        public var excludeLocationTypes: [JellyfinAPI.LocationType]?
+        public var locationTypes: [LocationType]?
+        public var excludeLocationTypes: [LocationType]?
         public var isMissing: Bool?
         public var isUnaired: Bool?
         public var minCommunityRating: Double?
@@ -53,15 +52,15 @@ public extension Paths {
         public var limit: Int?
         public var isRecursive: Bool?
         public var searchTerm: String?
-        public var sortOrder: [JellyfinAPI.SortOrder]?
+        public var sortOrder: [SortOrder]?
         public var parentID: String?
-        public var fields: [JellyfinAPI.ItemFields]?
-        public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var filters: [JellyfinAPI.ItemFilter]?
+        public var fields: [ItemFields]?
+        public var excludeItemTypes: [BaseItemKind]?
+        public var filters: [ItemFilter]?
         public var isFavorite: Bool?
-        public var mediaTypes: [JellyfinAPI.MediaType]?
-        public var imageTypes: [JellyfinAPI.ImageType]?
-        public var sortBy: [JellyfinAPI.ItemSortBy]?
+        public var mediaTypes: [MediaType]?
+        public var imageTypes: [ImageType]?
+        public var sortBy: [ItemSortBy]?
         public var isPlayed: Bool?
         public var genres: [String]?
         public var officialRatings: [String]?
@@ -69,7 +68,7 @@ public extension Paths {
         public var years: [Int]?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
+        public var enableImageTypes: [ImageType]?
         public var person: String?
         public var personIDs: [String]?
         public var personTypes: [String]?
@@ -82,7 +81,7 @@ public extension Paths {
         public var albums: [String]?
         public var albumIDs: [String]?
         public var ids: [String]?
-        public var videoTypes: [JellyfinAPI.VideoType]?
+        public var videoTypes: [VideoType]?
         public var minOfficialRating: String?
         public var isLocked: Bool?
         public var isPlaceHolder: Bool?
@@ -93,7 +92,7 @@ public extension Paths {
         public var maxWidth: Int?
         public var maxHeight: Int?
         public var isIs3D: Bool?
-        public var seriesStatus: [JellyfinAPI.SeriesStatus]?
+        public var seriesStatus: [SeriesStatus]?
         public var nameStartsWithOrGreater: String?
         public var nameStartsWith: String?
         public var nameLessThan: String?
@@ -115,8 +114,8 @@ public extension Paths {
             hasParentalRating: Bool? = nil,
             isHd: Bool? = nil,
             isIs4K: Bool? = nil,
-            locationTypes: [JellyfinAPI.LocationType]? = nil,
-            excludeLocationTypes: [JellyfinAPI.LocationType]? = nil,
+            locationTypes: [LocationType]? = nil,
+            excludeLocationTypes: [LocationType]? = nil,
             isMissing: Bool? = nil,
             isUnaired: Bool? = nil,
             minCommunityRating: Double? = nil,
@@ -139,15 +138,15 @@ public extension Paths {
             limit: Int? = nil,
             isRecursive: Bool? = nil,
             searchTerm: String? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
+            sortOrder: [SortOrder]? = nil,
             parentID: String? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
+            fields: [ItemFields]? = nil,
+            excludeItemTypes: [BaseItemKind]? = nil,
+            filters: [ItemFilter]? = nil,
             isFavorite: Bool? = nil,
-            mediaTypes: [JellyfinAPI.MediaType]? = nil,
-            imageTypes: [JellyfinAPI.ImageType]? = nil,
-            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
+            mediaTypes: [MediaType]? = nil,
+            imageTypes: [ImageType]? = nil,
+            sortBy: [ItemSortBy]? = nil,
             isPlayed: Bool? = nil,
             genres: [String]? = nil,
             officialRatings: [String]? = nil,
@@ -155,7 +154,7 @@ public extension Paths {
             years: [Int]? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableImageTypes: [ImageType]? = nil,
             person: String? = nil,
             personIDs: [String]? = nil,
             personTypes: [String]? = nil,
@@ -168,7 +167,7 @@ public extension Paths {
             albums: [String]? = nil,
             albumIDs: [String]? = nil,
             ids: [String]? = nil,
-            videoTypes: [JellyfinAPI.VideoType]? = nil,
+            videoTypes: [VideoType]? = nil,
             minOfficialRating: String? = nil,
             isLocked: Bool? = nil,
             isPlaceHolder: Bool? = nil,
@@ -179,7 +178,7 @@ public extension Paths {
             maxWidth: Int? = nil,
             maxHeight: Int? = nil,
             isIs3D: Bool? = nil,
-            seriesStatus: [JellyfinAPI.SeriesStatus]? = nil,
+            seriesStatus: [SeriesStatus]? = nil,
             nameStartsWithOrGreater: String? = nil,
             nameStartsWith: String? = nil,
             nameLessThan: String? = nil,

@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Creates a new playlist.
@@ -18,8 +17,8 @@ public extension Paths {
     /// Query parameters are obsolete.
     static func createPlaylist(
         parameters: CreatePlaylistParameters? = nil,
-        _ body: JellyfinAPI.CreatePlaylistDto? = nil
-    ) -> Request<JellyfinAPI.PlaylistCreationResult> {
+        _ body: CreatePlaylistDto? = nil
+    ) -> Request<PlaylistCreationResult> {
         Request(path: "/Playlists", method: "POST", query: parameters?.asQuery, body: body, id: "CreatePlaylist")
     }
 
@@ -28,8 +27,6 @@ public extension Paths {
         public var ids: [String]?
         public var userID: String?
         public var mediaType: MediaType?
-
-        public typealias MediaType = JellyfinAPI.MediaType
 
         public init(name: String? = nil, ids: [String]? = nil, userID: String? = nil, mediaType: MediaType? = nil) {
             self.name = name

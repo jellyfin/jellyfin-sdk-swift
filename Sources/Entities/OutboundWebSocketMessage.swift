@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Represents the list of possible outbound websocket types
-public enum OutboundWebSocketMessage: Codable, Hashable {
+public enum OutboundWebSocketMessage: Codable, Hashable, Sendable {
     case activityLogEntryMessage(ActivityLogEntryMessage)
     case forceKeepAliveMessage(ForceKeepAliveMessage)
     case generalCommandMessage(GeneralCommandMessage)
@@ -57,14 +57,11 @@ public enum OutboundWebSocketMessage: Codable, Hashable {
         case "Play": self = try .playMessage(container.decode(PlayMessage.self))
         case "Playstate": self = try .playstateMessage(container.decode(PlaystateMessage.self))
         case "PackageInstallationCancelled": self = try .pluginInstallationCancelledMessage(container
-                .decode(PluginInstallationCancelledMessage.self)
-            )
+                .decode(PluginInstallationCancelledMessage.self))
         case "PackageInstallationCompleted": self = try .pluginInstallationCompletedMessage(container
-                .decode(PluginInstallationCompletedMessage.self)
-            )
+                .decode(PluginInstallationCompletedMessage.self))
         case "PackageInstallationFailed": self = try .pluginInstallationFailedMessage(container
-                .decode(PluginInstallationFailedMessage.self)
-            )
+                .decode(PluginInstallationFailedMessage.self))
         case "PackageInstalling": self = try .pluginInstallingMessage(container.decode(PluginInstallingMessage.self))
         case "PackageUninstalled": self = try .pluginUninstalledMessage(container.decode(PluginUninstalledMessage.self))
         case "RefreshProgress": self = try .refreshProgressMessage(container.decode(RefreshProgressMessage.self))

@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Represents the server configuration.
-public struct ServerConfiguration: Codable, Hashable {
+public struct ServerConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets the number of days we should retain activity logs.
     public var activityLogRetentionDays: Int?
     /// Gets or sets a value indicating whether clients should be allowed to upload logs.
@@ -26,8 +26,6 @@ public struct ServerConfiguration: Codable, Hashable {
     public var contentTypes: [NameValuePair]?
     /// Gets or sets the cors hosts.
     public var corsHosts: [String]?
-    public var isDisableLiveTvChannelUserDataName: Bool?
-    public var isDisplaySpecialsWithinSeasons: Bool?
     /// Gets or sets the dummy chapter duration in seconds, use 0 (zero) or less to disable generation altogether.
     public var dummyChapterDuration: Int?
     /// Gets or sets a value indicating whether [enable case-sensitive item ids].
@@ -50,8 +48,14 @@ public struct ServerConfiguration: Codable, Hashable {
     ///
     /// If set to 0 the check for inactive sessions gets disabled.
     public var inactiveSessionThreshold: Int?
+    public var isDisableLiveTvChannelUserDataName: Bool?
+    public var isDisplaySpecialsWithinSeasons: Bool?
     /// Gets or sets a value indicating whether this instance is port authorized.
     public var isPortAuthorized: Bool?
+    /// Gets or sets a value indicating whether quick connect is available for use on this server.
+    public var isQuickConnectAvailable: Bool?
+    public var isSaveMetadataHidden: Bool?
+    public var isSkipDeserializationForBasicTypes: Bool?
     /// Gets or sets a value indicating whether this instance is first run.
     public var isStartupWizardCompleted: Bool?
     /// Gets or sets the how many metadata refreshes can run concurrently.
@@ -98,12 +102,8 @@ public struct ServerConfiguration: Codable, Hashable {
     ///
     /// because System.Version itself isn't xml-serializable.
     public var previousVersionStr: String?
-    /// Gets or sets a value indicating whether quick connect is available for use on this server.
-    public var isQuickConnectAvailable: Bool?
     public var remoteClientBitrateLimit: Int?
-    public var isSaveMetadataHidden: Bool?
     public var serverName: String?
-    public var isSkipDeserializationForBasicTypes: Bool?
     /// Gets or sets the threshold for the slow response time warning in ms.
     public var slowResponseThresholdMs: Int?
     /// Gets or sets characters to be removed from strings to create a sort name.
@@ -126,8 +126,6 @@ public struct ServerConfiguration: Codable, Hashable {
         codecsUsed: [String]? = nil,
         contentTypes: [NameValuePair]? = nil,
         corsHosts: [String]? = nil,
-        isDisableLiveTvChannelUserDataName: Bool? = nil,
-        isDisplaySpecialsWithinSeasons: Bool? = nil,
         dummyChapterDuration: Int? = nil,
         enableCaseSensitiveItemIDs: Bool? = nil,
         enableExternalContentInSuggestions: Bool? = nil,
@@ -141,7 +139,12 @@ public struct ServerConfiguration: Codable, Hashable {
         imageExtractionTimeoutMs: Int? = nil,
         imageSavingConvention: ImageSavingConvention? = nil,
         inactiveSessionThreshold: Int? = nil,
+        isDisableLiveTvChannelUserDataName: Bool? = nil,
+        isDisplaySpecialsWithinSeasons: Bool? = nil,
         isPortAuthorized: Bool? = nil,
+        isQuickConnectAvailable: Bool? = nil,
+        isSaveMetadataHidden: Bool? = nil,
+        isSkipDeserializationForBasicTypes: Bool? = nil,
         isStartupWizardCompleted: Bool? = nil,
         libraryMetadataRefreshConcurrency: Int? = nil,
         libraryMonitorDelay: Int? = nil,
@@ -162,11 +165,8 @@ public struct ServerConfiguration: Codable, Hashable {
         preferredMetadataLanguage: String? = nil,
         previousVersion: String? = nil,
         previousVersionStr: String? = nil,
-        isQuickConnectAvailable: Bool? = nil,
         remoteClientBitrateLimit: Int? = nil,
-        isSaveMetadataHidden: Bool? = nil,
         serverName: String? = nil,
-        isSkipDeserializationForBasicTypes: Bool? = nil,
         slowResponseThresholdMs: Int? = nil,
         sortRemoveCharacters: [String]? = nil,
         sortRemoveWords: [String]? = nil,
@@ -183,8 +183,6 @@ public struct ServerConfiguration: Codable, Hashable {
         self.codecsUsed = codecsUsed
         self.contentTypes = contentTypes
         self.corsHosts = corsHosts
-        self.isDisableLiveTvChannelUserDataName = isDisableLiveTvChannelUserDataName
-        self.isDisplaySpecialsWithinSeasons = isDisplaySpecialsWithinSeasons
         self.dummyChapterDuration = dummyChapterDuration
         self.enableCaseSensitiveItemIDs = enableCaseSensitiveItemIDs
         self.enableExternalContentInSuggestions = enableExternalContentInSuggestions
@@ -198,7 +196,12 @@ public struct ServerConfiguration: Codable, Hashable {
         self.imageExtractionTimeoutMs = imageExtractionTimeoutMs
         self.imageSavingConvention = imageSavingConvention
         self.inactiveSessionThreshold = inactiveSessionThreshold
+        self.isDisableLiveTvChannelUserDataName = isDisableLiveTvChannelUserDataName
+        self.isDisplaySpecialsWithinSeasons = isDisplaySpecialsWithinSeasons
         self.isPortAuthorized = isPortAuthorized
+        self.isQuickConnectAvailable = isQuickConnectAvailable
+        self.isSaveMetadataHidden = isSaveMetadataHidden
+        self.isSkipDeserializationForBasicTypes = isSkipDeserializationForBasicTypes
         self.isStartupWizardCompleted = isStartupWizardCompleted
         self.libraryMetadataRefreshConcurrency = libraryMetadataRefreshConcurrency
         self.libraryMonitorDelay = libraryMonitorDelay
@@ -219,11 +222,8 @@ public struct ServerConfiguration: Codable, Hashable {
         self.preferredMetadataLanguage = preferredMetadataLanguage
         self.previousVersion = previousVersion
         self.previousVersionStr = previousVersionStr
-        self.isQuickConnectAvailable = isQuickConnectAvailable
         self.remoteClientBitrateLimit = remoteClientBitrateLimit
-        self.isSaveMetadataHidden = isSaveMetadataHidden
         self.serverName = serverName
-        self.isSkipDeserializationForBasicTypes = isSkipDeserializationForBasicTypes
         self.slowResponseThresholdMs = slowResponseThresholdMs
         self.sortRemoveCharacters = sortRemoveCharacters
         self.sortRemoveWords = sortRemoveWords
@@ -243,8 +243,6 @@ public struct ServerConfiguration: Codable, Hashable {
         self.codecsUsed = try values.decodeIfPresent([String].self, forKey: "CodecsUsed")
         self.contentTypes = try values.decodeIfPresent([NameValuePair].self, forKey: "ContentTypes")
         self.corsHosts = try values.decodeIfPresent([String].self, forKey: "CorsHosts")
-        self.isDisableLiveTvChannelUserDataName = try values.decodeIfPresent(Bool.self, forKey: "DisableLiveTvChannelUserDataName")
-        self.isDisplaySpecialsWithinSeasons = try values.decodeIfPresent(Bool.self, forKey: "DisplaySpecialsWithinSeasons")
         self.dummyChapterDuration = try values.decodeIfPresent(Int.self, forKey: "DummyChapterDuration")
         self.enableCaseSensitiveItemIDs = try values.decodeIfPresent(Bool.self, forKey: "EnableCaseSensitiveItemIds")
         self.enableExternalContentInSuggestions = try values.decodeIfPresent(Bool.self, forKey: "EnableExternalContentInSuggestions")
@@ -258,7 +256,12 @@ public struct ServerConfiguration: Codable, Hashable {
         self.imageExtractionTimeoutMs = try values.decodeIfPresent(Int.self, forKey: "ImageExtractionTimeoutMs")
         self.imageSavingConvention = try values.decodeIfPresent(ImageSavingConvention.self, forKey: "ImageSavingConvention")
         self.inactiveSessionThreshold = try values.decodeIfPresent(Int.self, forKey: "InactiveSessionThreshold")
+        self.isDisableLiveTvChannelUserDataName = try values.decodeIfPresent(Bool.self, forKey: "DisableLiveTvChannelUserDataName")
+        self.isDisplaySpecialsWithinSeasons = try values.decodeIfPresent(Bool.self, forKey: "DisplaySpecialsWithinSeasons")
         self.isPortAuthorized = try values.decodeIfPresent(Bool.self, forKey: "IsPortAuthorized")
+        self.isQuickConnectAvailable = try values.decodeIfPresent(Bool.self, forKey: "QuickConnectAvailable")
+        self.isSaveMetadataHidden = try values.decodeIfPresent(Bool.self, forKey: "SaveMetadataHidden")
+        self.isSkipDeserializationForBasicTypes = try values.decodeIfPresent(Bool.self, forKey: "SkipDeserializationForBasicTypes")
         self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "IsStartupWizardCompleted")
         self.libraryMetadataRefreshConcurrency = try values.decodeIfPresent(Int.self, forKey: "LibraryMetadataRefreshConcurrency")
         self.libraryMonitorDelay = try values.decodeIfPresent(Int.self, forKey: "LibraryMonitorDelay")
@@ -279,11 +282,8 @@ public struct ServerConfiguration: Codable, Hashable {
         self.preferredMetadataLanguage = try values.decodeIfPresent(String.self, forKey: "PreferredMetadataLanguage")
         self.previousVersion = try values.decodeIfPresent(String.self, forKey: "PreviousVersion")
         self.previousVersionStr = try values.decodeIfPresent(String.self, forKey: "PreviousVersionStr")
-        self.isQuickConnectAvailable = try values.decodeIfPresent(Bool.self, forKey: "QuickConnectAvailable")
         self.remoteClientBitrateLimit = try values.decodeIfPresent(Int.self, forKey: "RemoteClientBitrateLimit")
-        self.isSaveMetadataHidden = try values.decodeIfPresent(Bool.self, forKey: "SaveMetadataHidden")
         self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
-        self.isSkipDeserializationForBasicTypes = try values.decodeIfPresent(Bool.self, forKey: "SkipDeserializationForBasicTypes")
         self.slowResponseThresholdMs = try values.decodeIfPresent(Int.self, forKey: "SlowResponseThresholdMs")
         self.sortRemoveCharacters = try values.decodeIfPresent([String].self, forKey: "SortRemoveCharacters")
         self.sortRemoveWords = try values.decodeIfPresent([String].self, forKey: "SortRemoveWords")
@@ -303,8 +303,6 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(codecsUsed, forKey: "CodecsUsed")
         try values.encodeIfPresent(contentTypes, forKey: "ContentTypes")
         try values.encodeIfPresent(corsHosts, forKey: "CorsHosts")
-        try values.encodeIfPresent(isDisableLiveTvChannelUserDataName, forKey: "DisableLiveTvChannelUserDataName")
-        try values.encodeIfPresent(isDisplaySpecialsWithinSeasons, forKey: "DisplaySpecialsWithinSeasons")
         try values.encodeIfPresent(dummyChapterDuration, forKey: "DummyChapterDuration")
         try values.encodeIfPresent(enableCaseSensitiveItemIDs, forKey: "EnableCaseSensitiveItemIds")
         try values.encodeIfPresent(enableExternalContentInSuggestions, forKey: "EnableExternalContentInSuggestions")
@@ -318,7 +316,12 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(imageExtractionTimeoutMs, forKey: "ImageExtractionTimeoutMs")
         try values.encodeIfPresent(imageSavingConvention, forKey: "ImageSavingConvention")
         try values.encodeIfPresent(inactiveSessionThreshold, forKey: "InactiveSessionThreshold")
+        try values.encodeIfPresent(isDisableLiveTvChannelUserDataName, forKey: "DisableLiveTvChannelUserDataName")
+        try values.encodeIfPresent(isDisplaySpecialsWithinSeasons, forKey: "DisplaySpecialsWithinSeasons")
         try values.encodeIfPresent(isPortAuthorized, forKey: "IsPortAuthorized")
+        try values.encodeIfPresent(isQuickConnectAvailable, forKey: "QuickConnectAvailable")
+        try values.encodeIfPresent(isSaveMetadataHidden, forKey: "SaveMetadataHidden")
+        try values.encodeIfPresent(isSkipDeserializationForBasicTypes, forKey: "SkipDeserializationForBasicTypes")
         try values.encodeIfPresent(isStartupWizardCompleted, forKey: "IsStartupWizardCompleted")
         try values.encodeIfPresent(libraryMetadataRefreshConcurrency, forKey: "LibraryMetadataRefreshConcurrency")
         try values.encodeIfPresent(libraryMonitorDelay, forKey: "LibraryMonitorDelay")
@@ -339,11 +342,8 @@ public struct ServerConfiguration: Codable, Hashable {
         try values.encodeIfPresent(preferredMetadataLanguage, forKey: "PreferredMetadataLanguage")
         try values.encodeIfPresent(previousVersion, forKey: "PreviousVersion")
         try values.encodeIfPresent(previousVersionStr, forKey: "PreviousVersionStr")
-        try values.encodeIfPresent(isQuickConnectAvailable, forKey: "QuickConnectAvailable")
         try values.encodeIfPresent(remoteClientBitrateLimit, forKey: "RemoteClientBitrateLimit")
-        try values.encodeIfPresent(isSaveMetadataHidden, forKey: "SaveMetadataHidden")
         try values.encodeIfPresent(serverName, forKey: "ServerName")
-        try values.encodeIfPresent(isSkipDeserializationForBasicTypes, forKey: "SkipDeserializationForBasicTypes")
         try values.encodeIfPresent(slowResponseThresholdMs, forKey: "SlowResponseThresholdMs")
         try values.encodeIfPresent(sortRemoveCharacters, forKey: "SortRemoveCharacters")
         try values.encodeIfPresent(sortRemoveWords, forKey: "SortRemoveWords")

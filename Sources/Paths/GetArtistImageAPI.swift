@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Get artist image by name.
@@ -23,7 +22,7 @@ public extension Paths {
 
     struct GetArtistImageParameters {
         public var tag: String?
-        public var format: Format?
+        public var format: ImageFormat?
         public var maxWidth: Int?
         public var maxHeight: Int?
         public var percentPlayed: Double?
@@ -37,11 +36,9 @@ public extension Paths {
         public var backgroundColor: String?
         public var foregroundLayer: String?
 
-        public typealias Format = JellyfinAPI.ImageFormat
-
         public init(
             tag: String? = nil,
-            format: Format? = nil,
+            format: ImageFormat? = nil,
             maxWidth: Int? = nil,
             maxHeight: Int? = nil,
             percentPlayed: Double? = nil,

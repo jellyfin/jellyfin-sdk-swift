@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets available live tv epgs.
-    static func getPrograms(_ body: JellyfinAPI.GetProgramsDto? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getPrograms(_ body: GetProgramsDto? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/LiveTv/Programs", method: "POST", body: body, id: "GetPrograms")
     }
 }

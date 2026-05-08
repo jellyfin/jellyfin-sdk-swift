@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-// https://stackoverflow.com/a/50281094/976628
-public class OpenISO8601DateFormatter: DateFormatter {
+/// https://stackoverflow.com/a/50281094/976628
+public class OpenISO8601DateFormatter: DateFormatter, @unchecked Sendable {
     static let withoutSeconds: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)

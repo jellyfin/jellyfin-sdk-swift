@@ -3,30 +3,29 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets legacy query filters.
-    static func getQueryFiltersLegacy(parameters: GetQueryFiltersLegacyParameters? = nil) -> Request<JellyfinAPI.QueryFiltersLegacy> {
+    static func getQueryFiltersLegacy(parameters: GetQueryFiltersLegacyParameters? = nil) -> Request<QueryFiltersLegacy> {
         Request(path: "/Items/Filters", method: "GET", query: parameters?.asQuery, id: "GetQueryFiltersLegacy")
     }
 
     struct GetQueryFiltersLegacyParameters {
         public var userID: String?
         public var parentID: String?
-        public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var mediaTypes: [JellyfinAPI.MediaType]?
+        public var includeItemTypes: [BaseItemKind]?
+        public var mediaTypes: [MediaType]?
 
         public init(
             userID: String? = nil,
             parentID: String? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            mediaTypes: [JellyfinAPI.MediaType]? = nil
+            includeItemTypes: [BaseItemKind]? = nil,
+            mediaTypes: [MediaType]? = nil
         ) {
             self.userID = userID
             self.parentID = parentID

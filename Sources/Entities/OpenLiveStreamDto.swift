@@ -3,15 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Open live stream dto.
-public struct OpenLiveStreamDto: Codable, Hashable {
-    /// Gets or sets a value indicating whether always burn in subtitles when transcoding.
-    public var isAlwaysBurnInSubtitleWhenTranscoding: Bool?
+public struct OpenLiveStreamDto: Codable, Hashable, Sendable {
     /// Gets or sets the audio stream index.
     public var audioStreamIndex: Int?
     /// A MediaBrowser.Model.Dlna.DeviceProfile represents a set of metadata which determines which content a certain device is able to
@@ -35,6 +33,8 @@ public struct OpenLiveStreamDto: Codable, Hashable {
     public var enableDirectPlay: Bool?
     /// Gets or sets a value indicating whether to enable direct stream.
     public var enableDirectStream: Bool?
+    /// Gets or sets a value indicating whether always burn in subtitles when transcoding.
+    public var isAlwaysBurnInSubtitleWhenTranscoding: Bool?
     /// Gets or sets the item id.
     public var itemID: String?
     /// Gets or sets the max audio channels.
@@ -53,12 +53,12 @@ public struct OpenLiveStreamDto: Codable, Hashable {
     public var userID: String?
 
     public init(
-        isAlwaysBurnInSubtitleWhenTranscoding: Bool? = nil,
         audioStreamIndex: Int? = nil,
         deviceProfile: DeviceProfile? = nil,
         directPlayProtocols: [MediaProtocol]? = nil,
         enableDirectPlay: Bool? = nil,
         enableDirectStream: Bool? = nil,
+        isAlwaysBurnInSubtitleWhenTranscoding: Bool? = nil,
         itemID: String? = nil,
         maxAudioChannels: Int? = nil,
         maxStreamingBitrate: Int? = nil,
@@ -68,12 +68,12 @@ public struct OpenLiveStreamDto: Codable, Hashable {
         subtitleStreamIndex: Int? = nil,
         userID: String? = nil
     ) {
-        self.isAlwaysBurnInSubtitleWhenTranscoding = isAlwaysBurnInSubtitleWhenTranscoding
         self.audioStreamIndex = audioStreamIndex
         self.deviceProfile = deviceProfile
         self.directPlayProtocols = directPlayProtocols
         self.enableDirectPlay = enableDirectPlay
         self.enableDirectStream = enableDirectStream
+        self.isAlwaysBurnInSubtitleWhenTranscoding = isAlwaysBurnInSubtitleWhenTranscoding
         self.itemID = itemID
         self.maxAudioChannels = maxAudioChannels
         self.maxStreamingBitrate = maxStreamingBitrate
@@ -86,12 +86,12 @@ public struct OpenLiveStreamDto: Codable, Hashable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.isAlwaysBurnInSubtitleWhenTranscoding = try values.decodeIfPresent(Bool.self, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
         self.audioStreamIndex = try values.decodeIfPresent(Int.self, forKey: "AudioStreamIndex")
         self.deviceProfile = try values.decodeIfPresent(DeviceProfile.self, forKey: "DeviceProfile")
         self.directPlayProtocols = try values.decodeIfPresent([MediaProtocol].self, forKey: "DirectPlayProtocols")
         self.enableDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectPlay")
         self.enableDirectStream = try values.decodeIfPresent(Bool.self, forKey: "EnableDirectStream")
+        self.isAlwaysBurnInSubtitleWhenTranscoding = try values.decodeIfPresent(Bool.self, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
         self.maxAudioChannels = try values.decodeIfPresent(Int.self, forKey: "MaxAudioChannels")
         self.maxStreamingBitrate = try values.decodeIfPresent(Int.self, forKey: "MaxStreamingBitrate")
@@ -104,12 +104,12 @@ public struct OpenLiveStreamDto: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(isAlwaysBurnInSubtitleWhenTranscoding, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
         try values.encodeIfPresent(audioStreamIndex, forKey: "AudioStreamIndex")
         try values.encodeIfPresent(deviceProfile, forKey: "DeviceProfile")
         try values.encodeIfPresent(directPlayProtocols, forKey: "DirectPlayProtocols")
         try values.encodeIfPresent(enableDirectPlay, forKey: "EnableDirectPlay")
         try values.encodeIfPresent(enableDirectStream, forKey: "EnableDirectStream")
+        try values.encodeIfPresent(isAlwaysBurnInSubtitleWhenTranscoding, forKey: "AlwaysBurnInSubtitleWhenTranscoding")
         try values.encodeIfPresent(itemID, forKey: "ItemId")
         try values.encodeIfPresent(maxAudioChannels, forKey: "MaxAudioChannels")
         try values.encodeIfPresent(maxStreamingBitrate, forKey: "MaxStreamingBitrate")

@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets the search hint result.
-    static func getSearchHints(parameters: GetSearchHintsParameters) -> Request<JellyfinAPI.SearchHintResult> {
+    static func getSearchHints(parameters: GetSearchHintsParameters) -> Request<SearchHintResult> {
         Request(path: "/Search/Hints", method: "GET", query: parameters.asQuery, id: "GetSearchHints")
     }
 
@@ -21,9 +20,9 @@ public extension Paths {
         public var limit: Int?
         public var userID: String?
         public var searchTerm: String
-        public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var mediaTypes: [JellyfinAPI.MediaType]?
+        public var includeItemTypes: [BaseItemKind]?
+        public var excludeItemTypes: [BaseItemKind]?
+        public var mediaTypes: [MediaType]?
         public var parentID: String?
         public var isMovie: Bool?
         public var isSeries: Bool?
@@ -41,9 +40,9 @@ public extension Paths {
             limit: Int? = nil,
             userID: String? = nil,
             searchTerm: String,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            mediaTypes: [JellyfinAPI.MediaType]? = nil,
+            includeItemTypes: [BaseItemKind]? = nil,
+            excludeItemTypes: [BaseItemKind]? = nil,
+            mediaTypes: [MediaType]? = nil,
             parentID: String? = nil,
             isMovie: Bool? = nil,
             isSeries: Bool? = nil,

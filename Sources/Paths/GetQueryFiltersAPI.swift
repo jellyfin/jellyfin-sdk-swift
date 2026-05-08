@@ -3,23 +3,22 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets query filters.
-    static func getQueryFilters(parameters: GetQueryFiltersParameters? = nil) -> Request<JellyfinAPI.QueryFilters> {
+    static func getQueryFilters(parameters: GetQueryFiltersParameters? = nil) -> Request<QueryFilters> {
         Request(path: "/Items/Filters2", method: "GET", query: parameters?.asQuery, id: "GetQueryFilters")
     }
 
     struct GetQueryFiltersParameters {
         public var userID: String?
         public var parentID: String?
-        public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
+        public var includeItemTypes: [BaseItemKind]?
         public var isAiring: Bool?
         public var isMovie: Bool?
         public var isSports: Bool?
@@ -31,7 +30,7 @@ public extension Paths {
         public init(
             userID: String? = nil,
             parentID: String? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            includeItemTypes: [BaseItemKind]? = nil,
             isAiring: Bool? = nil,
             isMovie: Bool? = nil,
             isSports: Bool? = nil,

@@ -1,4 +1,4 @@
-// swift-tools-version:5.7
+// swift-tools-version:6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -14,6 +14,7 @@ let package = Package(
     ],
     products: [
         .library(name: "JellyfinAPI", targets: ["JellyfinAPI"]),
+        .plugin(name: "GenerateAPI", targets: ["GenerateAPI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/kean/Get", from: "2.1.6"),
@@ -31,28 +32,29 @@ let package = Package(
             path: "Sources",
             exclude: [
                 "jellyfin-openapi-stable.json",
-                "create-api-config.yaml",
+                "openapi-generator.yaml",
             ]
         ),
         .binaryTarget(
-            name: "create-api",
-            url: "https://github.com/CreateAPI/CreateAPI/releases/download/0.2.0/create-api.artifactbundle.zip",
-            checksum: "6f8a3ce099f07eb2655ccaf6f66d8c9a09b74bb2307781c4adec36609ddac009"
+            name: "openapi-generator",
+            url: "https://github.com/LePips/openapi-generator/releases/download/v0.6.0/openapi-generator.artifactbundle.zip",
+            checksum: "4721af17006e512b5cd7f84200f22513da506d2031d24a6e500762704a1bf2f2"
         ),
         .plugin(
-            name: "CreateAPI",
+            name: "GenerateAPI",
             capability: .command(
                 intent: .custom(
                     verb: "generate-api",
-                    description: "Generates the OpenAPI entities and paths using CreateAPI"
+                    description: "Generate Jellyfin API sources."
                 ),
                 permissions: [
-                    .writeToPackageDirectory(reason: "To output the generated source code"),
+                    .writeToPackageDirectory(reason: "Generated Swift sources are written into the package directory."),
                 ]
             ),
             dependencies: [
-                .target(name: "create-api"),
-            ]
+                .target(name: "openapi-generator"),
+            ],
+            path: "Plugins/GenerateAPI"
         ),
     ]
 )

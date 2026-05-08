@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Authenticates a user with quick connect.
-    static func authenticateWithQuickConnect(_ body: JellyfinAPI.QuickConnectDto) -> Request<JellyfinAPI.AuthenticationResult> {
+    static func authenticateWithQuickConnect(_ body: QuickConnectDto) -> Request<AuthenticationResult> {
         Request(path: "/Users/AuthenticateWithQuickConnect", method: "POST", body: body, id: "AuthenticateWithQuickConnect")
     }
 }

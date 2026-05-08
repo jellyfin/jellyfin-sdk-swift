@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SeriesTimerInfoDto.
-public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
+public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the channel id of the recording.
     public var channelID: String?
     /// Gets or sets the channel name of the recording.
@@ -35,6 +35,13 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
     public var isPostPaddingRequired: Bool?
     /// Gets or sets a value indicating whether this instance is pre padding required.
     public var isPrePaddingRequired: Bool?
+    /// Gets or sets a value indicating whether [record any channel].
+    public var isRecordAnyChannel: Bool?
+    /// Gets or sets a value indicating whether [record any time].
+    public var isRecordAnyTime: Bool?
+    /// Gets or sets a value indicating whether [record new only].
+    public var isRecordNewOnly: Bool?
+    public var isSkipEpisodesInLibrary: Bool?
     public var keepUntil: KeepUntil?
     public var keepUpTo: Int?
     /// Gets or sets the name of the recording.
@@ -61,17 +68,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
     public var priority: Int?
     /// Gets or sets the program identifier.
     public var programID: String?
-    /// Gets or sets a value indicating whether [record any channel].
-    public var isRecordAnyChannel: Bool?
-    /// Gets or sets a value indicating whether [record any time].
-    public var isRecordAnyTime: Bool?
-    /// Gets or sets a value indicating whether [record new only].
-    public var isRecordNewOnly: Bool?
     /// Gets or sets the server identifier.
     public var serverID: String?
     /// Gets or sets the name of the service.
     public var serviceName: String?
-    public var isSkipEpisodesInLibrary: Bool?
     /// Gets or sets the start date of the recording, in UTC.
     public var startDate: Date?
     public var type: String?
@@ -90,6 +90,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
         imageTags: [String: String]? = nil,
         isPostPaddingRequired: Bool? = nil,
         isPrePaddingRequired: Bool? = nil,
+        isRecordAnyChannel: Bool? = nil,
+        isRecordAnyTime: Bool? = nil,
+        isRecordNewOnly: Bool? = nil,
+        isSkipEpisodesInLibrary: Bool? = nil,
         keepUntil: KeepUntil? = nil,
         keepUpTo: Int? = nil,
         name: String? = nil,
@@ -104,12 +108,8 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
         prePaddingSeconds: Int? = nil,
         priority: Int? = nil,
         programID: String? = nil,
-        isRecordAnyChannel: Bool? = nil,
-        isRecordAnyTime: Bool? = nil,
-        isRecordNewOnly: Bool? = nil,
         serverID: String? = nil,
         serviceName: String? = nil,
-        isSkipEpisodesInLibrary: Bool? = nil,
         startDate: Date? = nil,
         type: String? = nil
     ) {
@@ -126,6 +126,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
         self.imageTags = imageTags
         self.isPostPaddingRequired = isPostPaddingRequired
         self.isPrePaddingRequired = isPrePaddingRequired
+        self.isRecordAnyChannel = isRecordAnyChannel
+        self.isRecordAnyTime = isRecordAnyTime
+        self.isRecordNewOnly = isRecordNewOnly
+        self.isSkipEpisodesInLibrary = isSkipEpisodesInLibrary
         self.keepUntil = keepUntil
         self.keepUpTo = keepUpTo
         self.name = name
@@ -140,12 +144,8 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
         self.prePaddingSeconds = prePaddingSeconds
         self.priority = priority
         self.programID = programID
-        self.isRecordAnyChannel = isRecordAnyChannel
-        self.isRecordAnyTime = isRecordAnyTime
-        self.isRecordNewOnly = isRecordNewOnly
         self.serverID = serverID
         self.serviceName = serviceName
-        self.isSkipEpisodesInLibrary = isSkipEpisodesInLibrary
         self.startDate = startDate
         self.type = type
     }
@@ -165,6 +165,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
         self.imageTags = try values.decodeIfPresent([String: String].self, forKey: "ImageTags")
         self.isPostPaddingRequired = try values.decodeIfPresent(Bool.self, forKey: "IsPostPaddingRequired")
         self.isPrePaddingRequired = try values.decodeIfPresent(Bool.self, forKey: "IsPrePaddingRequired")
+        self.isRecordAnyChannel = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyChannel")
+        self.isRecordAnyTime = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyTime")
+        self.isRecordNewOnly = try values.decodeIfPresent(Bool.self, forKey: "RecordNewOnly")
+        self.isSkipEpisodesInLibrary = try values.decodeIfPresent(Bool.self, forKey: "SkipEpisodesInLibrary")
         self.keepUntil = try values.decodeIfPresent(KeepUntil.self, forKey: "KeepUntil")
         self.keepUpTo = try values.decodeIfPresent(Int.self, forKey: "KeepUpTo")
         self.name = try values.decodeIfPresent(String.self, forKey: "Name")
@@ -179,12 +183,8 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
         self.prePaddingSeconds = try values.decodeIfPresent(Int.self, forKey: "PrePaddingSeconds")
         self.priority = try values.decodeIfPresent(Int.self, forKey: "Priority")
         self.programID = try values.decodeIfPresent(String.self, forKey: "ProgramId")
-        self.isRecordAnyChannel = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyChannel")
-        self.isRecordAnyTime = try values.decodeIfPresent(Bool.self, forKey: "RecordAnyTime")
-        self.isRecordNewOnly = try values.decodeIfPresent(Bool.self, forKey: "RecordNewOnly")
         self.serverID = try values.decodeIfPresent(String.self, forKey: "ServerId")
         self.serviceName = try values.decodeIfPresent(String.self, forKey: "ServiceName")
-        self.isSkipEpisodesInLibrary = try values.decodeIfPresent(Bool.self, forKey: "SkipEpisodesInLibrary")
         self.startDate = try values.decodeIfPresent(Date.self, forKey: "StartDate")
         self.type = try values.decodeIfPresent(String.self, forKey: "Type")
     }
@@ -204,6 +204,10 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(imageTags, forKey: "ImageTags")
         try values.encodeIfPresent(isPostPaddingRequired, forKey: "IsPostPaddingRequired")
         try values.encodeIfPresent(isPrePaddingRequired, forKey: "IsPrePaddingRequired")
+        try values.encodeIfPresent(isRecordAnyChannel, forKey: "RecordAnyChannel")
+        try values.encodeIfPresent(isRecordAnyTime, forKey: "RecordAnyTime")
+        try values.encodeIfPresent(isRecordNewOnly, forKey: "RecordNewOnly")
+        try values.encodeIfPresent(isSkipEpisodesInLibrary, forKey: "SkipEpisodesInLibrary")
         try values.encodeIfPresent(keepUntil, forKey: "KeepUntil")
         try values.encodeIfPresent(keepUpTo, forKey: "KeepUpTo")
         try values.encodeIfPresent(name, forKey: "Name")
@@ -218,12 +222,8 @@ public struct SeriesTimerInfoDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(prePaddingSeconds, forKey: "PrePaddingSeconds")
         try values.encodeIfPresent(priority, forKey: "Priority")
         try values.encodeIfPresent(programID, forKey: "ProgramId")
-        try values.encodeIfPresent(isRecordAnyChannel, forKey: "RecordAnyChannel")
-        try values.encodeIfPresent(isRecordAnyTime, forKey: "RecordAnyTime")
-        try values.encodeIfPresent(isRecordNewOnly, forKey: "RecordNewOnly")
         try values.encodeIfPresent(serverID, forKey: "ServerId")
         try values.encodeIfPresent(serviceName, forKey: "ServiceName")
-        try values.encodeIfPresent(isSkipEpisodesInLibrary, forKey: "SkipEpisodesInLibrary")
         try values.encodeIfPresent(startDate, forKey: "StartDate")
         try values.encodeIfPresent(type, forKey: "Type")
     }

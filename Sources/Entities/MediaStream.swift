@@ -3,16 +3,16 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class MediaStream.
-public struct MediaStream: Codable, Hashable {
+public struct MediaStream: Codable, Hashable, Sendable {
     /// Gets or sets the aspect ratio.
     public var aspectRatio: String?
-    /// An enum representing formats of spatial audio.
+    /// Gets the audio spatial format.
     public var audioSpatialFormat: AudioSpatialFormat?
     /// Gets or sets the average frame rate.
     public var averageFrameRate: Float?
@@ -59,7 +59,6 @@ public struct MediaStream: Codable, Hashable {
     public var dvVersionMinor: Int?
     /// Gets or sets the Dolby Vision el present flag.
     public var elPresentFlag: Int?
-    public var isHdr10PlusPresentFlag: Bool?
     /// Gets or sets the height.
     public var height: Int?
     /// Gets or sets the index.
@@ -75,10 +74,13 @@ public struct MediaStream: Codable, Hashable {
     public var isExternalURL: Bool?
     /// Gets or sets a value indicating whether this instance is forced.
     public var isForced: Bool?
+    public var isHdr10PlusPresentFlag: Bool?
     /// Gets or sets a value indicating whether this instance is for the hearing impaired.
     public var isHearingImpaired: Bool?
     /// Gets or sets a value indicating whether this instance is interlaced.
     public var isInterlaced: Bool?
+    /// Gets or sets a value indicating whether [supports external stream].
+    public var isSupportsExternalStream: Bool?
     public var isTextSubtitleStream: Bool?
     /// Gets or sets the language.
     public var language: String?
@@ -116,8 +118,6 @@ public struct MediaStream: Codable, Hashable {
     public var sampleRate: Int?
     /// Gets or sets the score.
     public var score: Int?
-    /// Gets or sets a value indicating whether [supports external stream].
-    public var isSupportsExternalStream: Bool?
     /// Gets or sets the time base.
     public var timeBase: String?
     /// Gets or sets the title.
@@ -126,9 +126,9 @@ public struct MediaStream: Codable, Hashable {
     public var type: MediaStreamType?
     /// Gets the video dovi title.
     public var videoDoViTitle: String?
-    /// An enum representing video ranges.
+    /// Gets the video range.
     public var videoRange: VideoRange?
-    /// An enum representing types of video ranges.
+    /// Gets the video range type.
     public var videoRangeType: VideoRangeType?
     /// Gets or sets the width.
     public var width: Int?
@@ -159,7 +159,6 @@ public struct MediaStream: Codable, Hashable {
         dvVersionMajor: Int? = nil,
         dvVersionMinor: Int? = nil,
         elPresentFlag: Int? = nil,
-        isHdr10PlusPresentFlag: Bool? = nil,
         height: Int? = nil,
         index: Int? = nil,
         isAVC: Bool? = nil,
@@ -168,8 +167,10 @@ public struct MediaStream: Codable, Hashable {
         isExternal: Bool? = nil,
         isExternalURL: Bool? = nil,
         isForced: Bool? = nil,
+        isHdr10PlusPresentFlag: Bool? = nil,
         isHearingImpaired: Bool? = nil,
         isInterlaced: Bool? = nil,
+        isSupportsExternalStream: Bool? = nil,
         isTextSubtitleStream: Bool? = nil,
         language: String? = nil,
         level: Double? = nil,
@@ -190,7 +191,6 @@ public struct MediaStream: Codable, Hashable {
         rpuPresentFlag: Int? = nil,
         sampleRate: Int? = nil,
         score: Int? = nil,
-        isSupportsExternalStream: Bool? = nil,
         timeBase: String? = nil,
         title: String? = nil,
         type: MediaStreamType? = nil,
@@ -224,7 +224,6 @@ public struct MediaStream: Codable, Hashable {
         self.dvVersionMajor = dvVersionMajor
         self.dvVersionMinor = dvVersionMinor
         self.elPresentFlag = elPresentFlag
-        self.isHdr10PlusPresentFlag = isHdr10PlusPresentFlag
         self.height = height
         self.index = index
         self.isAVC = isAVC
@@ -233,8 +232,10 @@ public struct MediaStream: Codable, Hashable {
         self.isExternal = isExternal
         self.isExternalURL = isExternalURL
         self.isForced = isForced
+        self.isHdr10PlusPresentFlag = isHdr10PlusPresentFlag
         self.isHearingImpaired = isHearingImpaired
         self.isInterlaced = isInterlaced
+        self.isSupportsExternalStream = isSupportsExternalStream
         self.isTextSubtitleStream = isTextSubtitleStream
         self.language = language
         self.level = level
@@ -255,7 +256,6 @@ public struct MediaStream: Codable, Hashable {
         self.rpuPresentFlag = rpuPresentFlag
         self.sampleRate = sampleRate
         self.score = score
-        self.isSupportsExternalStream = isSupportsExternalStream
         self.timeBase = timeBase
         self.title = title
         self.type = type
@@ -292,7 +292,6 @@ public struct MediaStream: Codable, Hashable {
         self.dvVersionMajor = try values.decodeIfPresent(Int.self, forKey: "DvVersionMajor")
         self.dvVersionMinor = try values.decodeIfPresent(Int.self, forKey: "DvVersionMinor")
         self.elPresentFlag = try values.decodeIfPresent(Int.self, forKey: "ElPresentFlag")
-        self.isHdr10PlusPresentFlag = try values.decodeIfPresent(Bool.self, forKey: "Hdr10PlusPresentFlag")
         self.height = try values.decodeIfPresent(Int.self, forKey: "Height")
         self.index = try values.decodeIfPresent(Int.self, forKey: "Index")
         self.isAVC = try values.decodeIfPresent(Bool.self, forKey: "IsAVC")
@@ -301,8 +300,10 @@ public struct MediaStream: Codable, Hashable {
         self.isExternal = try values.decodeIfPresent(Bool.self, forKey: "IsExternal")
         self.isExternalURL = try values.decodeIfPresent(Bool.self, forKey: "IsExternalUrl")
         self.isForced = try values.decodeIfPresent(Bool.self, forKey: "IsForced")
+        self.isHdr10PlusPresentFlag = try values.decodeIfPresent(Bool.self, forKey: "Hdr10PlusPresentFlag")
         self.isHearingImpaired = try values.decodeIfPresent(Bool.self, forKey: "IsHearingImpaired")
         self.isInterlaced = try values.decodeIfPresent(Bool.self, forKey: "IsInterlaced")
+        self.isSupportsExternalStream = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalStream")
         self.isTextSubtitleStream = try values.decodeIfPresent(Bool.self, forKey: "IsTextSubtitleStream")
         self.language = try values.decodeIfPresent(String.self, forKey: "Language")
         self.level = try values.decodeIfPresent(Double.self, forKey: "Level")
@@ -323,7 +324,6 @@ public struct MediaStream: Codable, Hashable {
         self.rpuPresentFlag = try values.decodeIfPresent(Int.self, forKey: "RpuPresentFlag")
         self.sampleRate = try values.decodeIfPresent(Int.self, forKey: "SampleRate")
         self.score = try values.decodeIfPresent(Int.self, forKey: "Score")
-        self.isSupportsExternalStream = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalStream")
         self.timeBase = try values.decodeIfPresent(String.self, forKey: "TimeBase")
         self.title = try values.decodeIfPresent(String.self, forKey: "Title")
         self.type = try values.decodeIfPresent(MediaStreamType.self, forKey: "Type")
@@ -360,7 +360,6 @@ public struct MediaStream: Codable, Hashable {
         try values.encodeIfPresent(dvVersionMajor, forKey: "DvVersionMajor")
         try values.encodeIfPresent(dvVersionMinor, forKey: "DvVersionMinor")
         try values.encodeIfPresent(elPresentFlag, forKey: "ElPresentFlag")
-        try values.encodeIfPresent(isHdr10PlusPresentFlag, forKey: "Hdr10PlusPresentFlag")
         try values.encodeIfPresent(height, forKey: "Height")
         try values.encodeIfPresent(index, forKey: "Index")
         try values.encodeIfPresent(isAVC, forKey: "IsAVC")
@@ -369,8 +368,10 @@ public struct MediaStream: Codable, Hashable {
         try values.encodeIfPresent(isExternal, forKey: "IsExternal")
         try values.encodeIfPresent(isExternalURL, forKey: "IsExternalUrl")
         try values.encodeIfPresent(isForced, forKey: "IsForced")
+        try values.encodeIfPresent(isHdr10PlusPresentFlag, forKey: "Hdr10PlusPresentFlag")
         try values.encodeIfPresent(isHearingImpaired, forKey: "IsHearingImpaired")
         try values.encodeIfPresent(isInterlaced, forKey: "IsInterlaced")
+        try values.encodeIfPresent(isSupportsExternalStream, forKey: "SupportsExternalStream")
         try values.encodeIfPresent(isTextSubtitleStream, forKey: "IsTextSubtitleStream")
         try values.encodeIfPresent(language, forKey: "Language")
         try values.encodeIfPresent(level, forKey: "Level")
@@ -391,7 +392,6 @@ public struct MediaStream: Codable, Hashable {
         try values.encodeIfPresent(rpuPresentFlag, forKey: "RpuPresentFlag")
         try values.encodeIfPresent(sampleRate, forKey: "SampleRate")
         try values.encodeIfPresent(score, forKey: "Score")
-        try values.encodeIfPresent(isSupportsExternalStream, forKey: "SupportsExternalStream")
         try values.encodeIfPresent(timeBase, forKey: "TimeBase")
         try values.encodeIfPresent(title, forKey: "Title")
         try values.encodeIfPresent(type, forKey: "Type")

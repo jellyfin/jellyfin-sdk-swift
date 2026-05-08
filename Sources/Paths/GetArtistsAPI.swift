@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets all artists from a given item, folder, or the entire library.
-    static func getArtists(parameters: GetArtistsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getArtists(parameters: GetArtistsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Artists", method: "GET", query: parameters?.asQuery, id: "GetArtists")
     }
 
@@ -22,12 +21,12 @@ public extension Paths {
         public var limit: Int?
         public var searchTerm: String?
         public var parentID: String?
-        public var fields: [JellyfinAPI.ItemFields]?
-        public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var filters: [JellyfinAPI.ItemFilter]?
+        public var fields: [ItemFields]?
+        public var excludeItemTypes: [BaseItemKind]?
+        public var includeItemTypes: [BaseItemKind]?
+        public var filters: [ItemFilter]?
         public var isFavorite: Bool?
-        public var mediaTypes: [JellyfinAPI.MediaType]?
+        public var mediaTypes: [MediaType]?
         public var genres: [String]?
         public var genreIDs: [String]?
         public var officialRatings: [String]?
@@ -35,7 +34,7 @@ public extension Paths {
         public var years: [Int]?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
+        public var enableImageTypes: [ImageType]?
         public var person: String?
         public var personIDs: [String]?
         public var personTypes: [String]?
@@ -45,8 +44,8 @@ public extension Paths {
         public var nameStartsWithOrGreater: String?
         public var nameStartsWith: String?
         public var nameLessThan: String?
-        public var sortBy: [JellyfinAPI.ItemSortBy]?
-        public var sortOrder: [JellyfinAPI.SortOrder]?
+        public var sortBy: [ItemSortBy]?
+        public var sortOrder: [SortOrder]?
         public var enableImages: Bool?
         public var enableTotalRecordCount: Bool?
 
@@ -56,12 +55,12 @@ public extension Paths {
             limit: Int? = nil,
             searchTerm: String? = nil,
             parentID: String? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
+            fields: [ItemFields]? = nil,
+            excludeItemTypes: [BaseItemKind]? = nil,
+            includeItemTypes: [BaseItemKind]? = nil,
+            filters: [ItemFilter]? = nil,
             isFavorite: Bool? = nil,
-            mediaTypes: [JellyfinAPI.MediaType]? = nil,
+            mediaTypes: [MediaType]? = nil,
             genres: [String]? = nil,
             genreIDs: [String]? = nil,
             officialRatings: [String]? = nil,
@@ -69,7 +68,7 @@ public extension Paths {
             years: [Int]? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableImageTypes: [ImageType]? = nil,
             person: String? = nil,
             personIDs: [String]? = nil,
             personTypes: [String]? = nil,
@@ -79,8 +78,8 @@ public extension Paths {
             nameStartsWithOrGreater: String? = nil,
             nameStartsWith: String? = nil,
             nameLessThan: String? = nil,
-            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
+            sortBy: [ItemSortBy]? = nil,
+            sortOrder: [SortOrder]? = nil,
             enableImages: Bool? = nil,
             enableTotalRecordCount: Bool? = nil
         ) {

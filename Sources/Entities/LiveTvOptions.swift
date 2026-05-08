@@ -3,15 +3,17 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public struct LiveTvOptions: Codable, Hashable {
+public struct LiveTvOptions: Codable, Hashable, Sendable {
     public var enableOriginalAudioWithEncodedRecordings: Bool?
     public var enableRecordingSubfolders: Bool?
     public var guideDays: Int?
+    public var isSaveRecordingImages: Bool?
+    public var isSaveRecordingNFO: Bool?
     public var listingProviders: [ListingsProviderInfo]?
     public var mediaLocationsCreated: [String]?
     public var movieRecordingPath: String?
@@ -20,8 +22,6 @@ public struct LiveTvOptions: Codable, Hashable {
     public var recordingPath: String?
     public var recordingPostProcessor: String?
     public var recordingPostProcessorArguments: String?
-    public var isSaveRecordingImages: Bool?
-    public var isSaveRecordingNFO: Bool?
     public var seriesRecordingPath: String?
     public var tunerHosts: [TunerHostInfo]?
 
@@ -29,6 +29,8 @@ public struct LiveTvOptions: Codable, Hashable {
         enableOriginalAudioWithEncodedRecordings: Bool? = nil,
         enableRecordingSubfolders: Bool? = nil,
         guideDays: Int? = nil,
+        isSaveRecordingImages: Bool? = nil,
+        isSaveRecordingNFO: Bool? = nil,
         listingProviders: [ListingsProviderInfo]? = nil,
         mediaLocationsCreated: [String]? = nil,
         movieRecordingPath: String? = nil,
@@ -37,14 +39,14 @@ public struct LiveTvOptions: Codable, Hashable {
         recordingPath: String? = nil,
         recordingPostProcessor: String? = nil,
         recordingPostProcessorArguments: String? = nil,
-        isSaveRecordingImages: Bool? = nil,
-        isSaveRecordingNFO: Bool? = nil,
         seriesRecordingPath: String? = nil,
         tunerHosts: [TunerHostInfo]? = nil
     ) {
         self.enableOriginalAudioWithEncodedRecordings = enableOriginalAudioWithEncodedRecordings
         self.enableRecordingSubfolders = enableRecordingSubfolders
         self.guideDays = guideDays
+        self.isSaveRecordingImages = isSaveRecordingImages
+        self.isSaveRecordingNFO = isSaveRecordingNFO
         self.listingProviders = listingProviders
         self.mediaLocationsCreated = mediaLocationsCreated
         self.movieRecordingPath = movieRecordingPath
@@ -53,8 +55,6 @@ public struct LiveTvOptions: Codable, Hashable {
         self.recordingPath = recordingPath
         self.recordingPostProcessor = recordingPostProcessor
         self.recordingPostProcessorArguments = recordingPostProcessorArguments
-        self.isSaveRecordingImages = isSaveRecordingImages
-        self.isSaveRecordingNFO = isSaveRecordingNFO
         self.seriesRecordingPath = seriesRecordingPath
         self.tunerHosts = tunerHosts
     }
@@ -67,6 +67,8 @@ public struct LiveTvOptions: Codable, Hashable {
         )
         self.enableRecordingSubfolders = try values.decodeIfPresent(Bool.self, forKey: "EnableRecordingSubfolders")
         self.guideDays = try values.decodeIfPresent(Int.self, forKey: "GuideDays")
+        self.isSaveRecordingImages = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingImages")
+        self.isSaveRecordingNFO = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingNFO")
         self.listingProviders = try values.decodeIfPresent([ListingsProviderInfo].self, forKey: "ListingProviders")
         self.mediaLocationsCreated = try values.decodeIfPresent([String].self, forKey: "MediaLocationsCreated")
         self.movieRecordingPath = try values.decodeIfPresent(String.self, forKey: "MovieRecordingPath")
@@ -75,8 +77,6 @@ public struct LiveTvOptions: Codable, Hashable {
         self.recordingPath = try values.decodeIfPresent(String.self, forKey: "RecordingPath")
         self.recordingPostProcessor = try values.decodeIfPresent(String.self, forKey: "RecordingPostProcessor")
         self.recordingPostProcessorArguments = try values.decodeIfPresent(String.self, forKey: "RecordingPostProcessorArguments")
-        self.isSaveRecordingImages = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingImages")
-        self.isSaveRecordingNFO = try values.decodeIfPresent(Bool.self, forKey: "SaveRecordingNFO")
         self.seriesRecordingPath = try values.decodeIfPresent(String.self, forKey: "SeriesRecordingPath")
         self.tunerHosts = try values.decodeIfPresent([TunerHostInfo].self, forKey: "TunerHosts")
     }
@@ -86,6 +86,8 @@ public struct LiveTvOptions: Codable, Hashable {
         try values.encodeIfPresent(enableOriginalAudioWithEncodedRecordings, forKey: "EnableOriginalAudioWithEncodedRecordings")
         try values.encodeIfPresent(enableRecordingSubfolders, forKey: "EnableRecordingSubfolders")
         try values.encodeIfPresent(guideDays, forKey: "GuideDays")
+        try values.encodeIfPresent(isSaveRecordingImages, forKey: "SaveRecordingImages")
+        try values.encodeIfPresent(isSaveRecordingNFO, forKey: "SaveRecordingNFO")
         try values.encodeIfPresent(listingProviders, forKey: "ListingProviders")
         try values.encodeIfPresent(mediaLocationsCreated, forKey: "MediaLocationsCreated")
         try values.encodeIfPresent(movieRecordingPath, forKey: "MovieRecordingPath")
@@ -94,8 +96,6 @@ public struct LiveTvOptions: Codable, Hashable {
         try values.encodeIfPresent(recordingPath, forKey: "RecordingPath")
         try values.encodeIfPresent(recordingPostProcessor, forKey: "RecordingPostProcessor")
         try values.encodeIfPresent(recordingPostProcessorArguments, forKey: "RecordingPostProcessorArguments")
-        try values.encodeIfPresent(isSaveRecordingImages, forKey: "SaveRecordingImages")
-        try values.encodeIfPresent(isSaveRecordingNFO, forKey: "SaveRecordingNFO")
         try values.encodeIfPresent(seriesRecordingPath, forKey: "SeriesRecordingPath")
         try values.encodeIfPresent(tunerHosts, forKey: "TunerHosts")
     }

@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// An activity log entry.
-public struct ActivityLogEntry: Codable, Hashable, Identifiable {
+public struct ActivityLogEntry: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the date.
     public var date: Date?
     /// Gets or sets the identifier.
@@ -29,8 +29,7 @@ public struct ActivityLogEntry: Codable, Hashable, Identifiable {
     /// Gets or sets the user identifier.
     public var userID: String?
     /// Gets or sets the user primary image tag.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var userPrimaryImageTag: String?
 
     public init(
