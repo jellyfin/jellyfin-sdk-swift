@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -14,13 +14,16 @@ public enum AnyJSON: Hashable, Codable {
     case object([String: AnyJSON])
     case array([AnyJSON])
     case bool(Bool)
-    var value: Any {
+    case null
+
+    var value: Any? {
         switch self {
         case let .string(string): string
         case let .number(double): double
         case let .object(dictionary): dictionary
         case let .array(array): array
         case let .bool(bool): bool
+        case .null: nil
         }
     }
 
@@ -32,12 +35,15 @@ public enum AnyJSON: Hashable, Codable {
         case let .string(string): try container.encode(string)
         case let .number(number): try container.encode(number)
         case let .bool(bool): try container.encode(bool)
+        case .null: try container.encodeNil()
         }
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let object = try? container.decode([String: AnyJSON].self) {
+        if container.decodeNil() {
+            self = .null
+        } else if let object = try? container.decode([String: AnyJSON].self) {
             self = .object(object)
         } else if let array = try? container.decode([AnyJSON].self) {
             self = .array(array)

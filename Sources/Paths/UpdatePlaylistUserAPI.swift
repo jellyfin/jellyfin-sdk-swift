@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Modify a user of a playlist's users.
-    static func updatePlaylistUser(playlistID: String, userID: String, _ body: JellyfinAPI.UpdatePlaylistUserDto) -> Request<Void> {
+    static func updatePlaylistUser(playlistID: String, userID: String, _ body: UpdatePlaylistUserDto) -> Request<Void> {
         Request(path: "/Playlists/\(playlistID)/Users/\(userID)", method: "POST", body: body, id: "UpdatePlaylistUser")
     }
 }

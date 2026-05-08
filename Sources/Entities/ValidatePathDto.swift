@@ -3,37 +3,37 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Validate path object.
-public struct ValidatePathDto: Codable, Hashable {
+public struct ValidatePathDto: Codable, Hashable, Sendable {
     /// Gets or sets is path file.
     public var isFile: Bool?
-    /// Gets or sets the path.
-    public var path: String?
     /// Gets or sets a value indicating whether validate if path is writable.
     public var isValidateWritable: Bool?
+    /// Gets or sets the path.
+    public var path: String?
 
-    public init(isFile: Bool? = nil, path: String? = nil, isValidateWritable: Bool? = nil) {
+    public init(isFile: Bool? = nil, isValidateWritable: Bool? = nil, path: String? = nil) {
         self.isFile = isFile
-        self.path = path
         self.isValidateWritable = isValidateWritable
+        self.path = path
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isFile = try values.decodeIfPresent(Bool.self, forKey: "IsFile")
-        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
         self.isValidateWritable = try values.decodeIfPresent(Bool.self, forKey: "ValidateWritable")
+        self.path = try values.decodeIfPresent(String.self, forKey: "Path")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(isFile, forKey: "IsFile")
-        try values.encodeIfPresent(path, forKey: "Path")
         try values.encodeIfPresent(isValidateWritable, forKey: "ValidateWritable")
+        try values.encodeIfPresent(path, forKey: "Path")
     }
 }

@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Session info DTO.
-public struct SessionInfoDto: Codable, Hashable, Identifiable {
+public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the additional users.
     public var additionalUsers: [SessionUserInfo]?
     /// Gets or sets the application version.
@@ -30,6 +30,10 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
     public var id: String?
     /// Gets or sets a value indicating whether this session is active.
     public var isActive: Bool?
+    /// Gets or sets a value indicating whether the session supports media control.
+    public var isSupportsMediaControl: Bool?
+    /// Gets or sets a value indicating whether the session supports remote control.
+    public var isSupportsRemoteControl: Bool?
     /// Gets or sets the last activity date.
     public var lastActivityDate: Date?
     /// Gets or sets the last paused date.
@@ -56,10 +60,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
     public var serverID: String?
     /// Gets or sets the supported commands.
     public var supportedCommands: [GeneralCommandType]?
-    /// Gets or sets a value indicating whether the session supports media control.
-    public var isSupportsMediaControl: Bool?
-    /// Gets or sets a value indicating whether the session supports remote control.
-    public var isSupportsRemoteControl: Bool?
     /// Gets or sets the transcoding info.
     public var transcodingInfo: TranscodingInfo?
     /// Gets or sets the user id.
@@ -80,6 +80,8 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
         hasCustomDeviceName: Bool? = nil,
         id: String? = nil,
         isActive: Bool? = nil,
+        isSupportsMediaControl: Bool? = nil,
+        isSupportsRemoteControl: Bool? = nil,
         lastActivityDate: Date? = nil,
         lastPausedDate: Date? = nil,
         lastPlaybackCheckIn: Date? = nil,
@@ -93,8 +95,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
         remoteEndPoint: String? = nil,
         serverID: String? = nil,
         supportedCommands: [GeneralCommandType]? = nil,
-        isSupportsMediaControl: Bool? = nil,
-        isSupportsRemoteControl: Bool? = nil,
         transcodingInfo: TranscodingInfo? = nil,
         userID: String? = nil,
         userName: String? = nil,
@@ -110,6 +110,8 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
         self.hasCustomDeviceName = hasCustomDeviceName
         self.id = id
         self.isActive = isActive
+        self.isSupportsMediaControl = isSupportsMediaControl
+        self.isSupportsRemoteControl = isSupportsRemoteControl
         self.lastActivityDate = lastActivityDate
         self.lastPausedDate = lastPausedDate
         self.lastPlaybackCheckIn = lastPlaybackCheckIn
@@ -123,8 +125,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
         self.remoteEndPoint = remoteEndPoint
         self.serverID = serverID
         self.supportedCommands = supportedCommands
-        self.isSupportsMediaControl = isSupportsMediaControl
-        self.isSupportsRemoteControl = isSupportsRemoteControl
         self.transcodingInfo = transcodingInfo
         self.userID = userID
         self.userName = userName
@@ -143,6 +143,8 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
         self.hasCustomDeviceName = try values.decodeIfPresent(Bool.self, forKey: "HasCustomDeviceName")
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.isActive = try values.decodeIfPresent(Bool.self, forKey: "IsActive")
+        self.isSupportsMediaControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
+        self.isSupportsRemoteControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsRemoteControl")
         self.lastActivityDate = try values.decodeIfPresent(Date.self, forKey: "LastActivityDate")
         self.lastPausedDate = try values.decodeIfPresent(Date.self, forKey: "LastPausedDate")
         self.lastPlaybackCheckIn = try values.decodeIfPresent(Date.self, forKey: "LastPlaybackCheckIn")
@@ -156,8 +158,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
         self.remoteEndPoint = try values.decodeIfPresent(String.self, forKey: "RemoteEndPoint")
         self.serverID = try values.decodeIfPresent(String.self, forKey: "ServerId")
         self.supportedCommands = try values.decodeIfPresent([GeneralCommandType].self, forKey: "SupportedCommands")
-        self.isSupportsMediaControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsMediaControl")
-        self.isSupportsRemoteControl = try values.decodeIfPresent(Bool.self, forKey: "SupportsRemoteControl")
         self.transcodingInfo = try values.decodeIfPresent(TranscodingInfo.self, forKey: "TranscodingInfo")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
         self.userName = try values.decodeIfPresent(String.self, forKey: "UserName")
@@ -176,6 +176,8 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(hasCustomDeviceName, forKey: "HasCustomDeviceName")
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(isActive, forKey: "IsActive")
+        try values.encodeIfPresent(isSupportsMediaControl, forKey: "SupportsMediaControl")
+        try values.encodeIfPresent(isSupportsRemoteControl, forKey: "SupportsRemoteControl")
         try values.encodeIfPresent(lastActivityDate, forKey: "LastActivityDate")
         try values.encodeIfPresent(lastPausedDate, forKey: "LastPausedDate")
         try values.encodeIfPresent(lastPlaybackCheckIn, forKey: "LastPlaybackCheckIn")
@@ -189,8 +191,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(remoteEndPoint, forKey: "RemoteEndPoint")
         try values.encodeIfPresent(serverID, forKey: "ServerId")
         try values.encodeIfPresent(supportedCommands, forKey: "SupportedCommands")
-        try values.encodeIfPresent(isSupportsMediaControl, forKey: "SupportsMediaControl")
-        try values.encodeIfPresent(isSupportsRemoteControl, forKey: "SupportsRemoteControl")
         try values.encodeIfPresent(transcodingInfo, forKey: "TranscodingInfo")
         try values.encodeIfPresent(userID, forKey: "UserId")
         try values.encodeIfPresent(userName, forKey: "UserName")

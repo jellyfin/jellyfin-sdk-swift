@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Upload subtitles dto.
-public struct UploadSubtitleDto: Codable, Hashable {
+public struct UploadSubtitleDto: Codable, Hashable, Sendable {
     /// Gets or sets the subtitle data.
     public var data: String
     /// Gets or sets the subtitle format.

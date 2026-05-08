@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SendCommand.
-public struct SendCommand: Codable, Hashable {
+public struct SendCommand: Codable, Hashable, Sendable {
     /// Gets the command.
     public var command: SendCommandType?
     /// Gets the UTC time when this command has been emitted.

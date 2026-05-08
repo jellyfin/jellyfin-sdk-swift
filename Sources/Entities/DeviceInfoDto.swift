@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// A DTO representing device information.
-public struct DeviceInfoDto: Codable, Hashable, Identifiable {
+public struct DeviceInfoDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the access token.
     public var accessToken: String?
     /// Gets or sets the name of the application.

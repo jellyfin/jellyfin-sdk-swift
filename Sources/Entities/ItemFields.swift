@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Used to control the data that gets attached to DtoBaseItems.
-public enum ItemFields: String, Codable, CaseIterable {
+public enum ItemFields: String, Codable, CaseIterable, Sendable {
     case airTime = "AirTime"
     case canDelete = "CanDelete"
     case canDownload = "CanDownload"

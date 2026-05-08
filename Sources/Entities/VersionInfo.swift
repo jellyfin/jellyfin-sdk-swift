@@ -3,15 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Defines the MediaBrowser.Model.Updates.VersionInfo class.
-public struct VersionInfo: Codable, Hashable {
-    /// Gets the version as a System.Version.
-    public var versionNumber: String?
+public struct VersionInfo: Codable, Hashable, Sendable {
     /// Gets or sets the changelog for this version.
     public var changelog: String?
     /// Gets or sets a checksum for the binary.
@@ -28,9 +26,10 @@ public struct VersionInfo: Codable, Hashable {
     public var timestamp: String?
     /// Gets or sets the version.
     public var version: String?
+    /// Gets the version as a System.Version.
+    public var versionNumber: String?
 
     public init(
-        versionNumber: String? = nil,
         changelog: String? = nil,
         checksum: String? = nil,
         repositoryName: String? = nil,
@@ -38,9 +37,9 @@ public struct VersionInfo: Codable, Hashable {
         sourceURL: String? = nil,
         targetAbi: String? = nil,
         timestamp: String? = nil,
-        version: String? = nil
+        version: String? = nil,
+        versionNumber: String? = nil
     ) {
-        self.versionNumber = versionNumber
         self.changelog = changelog
         self.checksum = checksum
         self.repositoryName = repositoryName
@@ -49,11 +48,11 @@ public struct VersionInfo: Codable, Hashable {
         self.targetAbi = targetAbi
         self.timestamp = timestamp
         self.version = version
+        self.versionNumber = versionNumber
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.versionNumber = try values.decodeIfPresent(String.self, forKey: "VersionNumber")
         self.changelog = try values.decodeIfPresent(String.self, forKey: "changelog")
         self.checksum = try values.decodeIfPresent(String.self, forKey: "checksum")
         self.repositoryName = try values.decodeIfPresent(String.self, forKey: "repositoryName")
@@ -62,11 +61,11 @@ public struct VersionInfo: Codable, Hashable {
         self.targetAbi = try values.decodeIfPresent(String.self, forKey: "targetAbi")
         self.timestamp = try values.decodeIfPresent(String.self, forKey: "timestamp")
         self.version = try values.decodeIfPresent(String.self, forKey: "version")
+        self.versionNumber = try values.decodeIfPresent(String.self, forKey: "VersionNumber")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(versionNumber, forKey: "VersionNumber")
         try values.encodeIfPresent(changelog, forKey: "changelog")
         try values.encodeIfPresent(checksum, forKey: "checksum")
         try values.encodeIfPresent(repositoryName, forKey: "repositoryName")
@@ -75,5 +74,6 @@ public struct VersionInfo: Codable, Hashable {
         try values.encodeIfPresent(targetAbi, forKey: "targetAbi")
         try values.encodeIfPresent(timestamp, forKey: "timestamp")
         try values.encodeIfPresent(version, forKey: "version")
+        try values.encodeIfPresent(versionNumber, forKey: "VersionNumber")
     }
 }

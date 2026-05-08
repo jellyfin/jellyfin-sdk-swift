@@ -3,28 +3,27 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets all persons.
-    static func getPersons(parameters: GetPersonsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getPersons(parameters: GetPersonsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Persons", method: "GET", query: parameters?.asQuery, id: "GetPersons")
     }
 
     struct GetPersonsParameters {
         public var limit: Int?
         public var searchTerm: String?
-        public var fields: [JellyfinAPI.ItemFields]?
-        public var filters: [JellyfinAPI.ItemFilter]?
+        public var fields: [ItemFields]?
+        public var filters: [ItemFilter]?
         public var isFavorite: Bool?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
+        public var enableImageTypes: [ImageType]?
         public var excludePersonTypes: [String]?
         public var personTypes: [String]?
         public var appearsInItemID: String?
@@ -34,12 +33,12 @@ public extension Paths {
         public init(
             limit: Int? = nil,
             searchTerm: String? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
+            fields: [ItemFields]? = nil,
+            filters: [ItemFilter]? = nil,
             isFavorite: Bool? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
+            enableImageTypes: [ImageType]? = nil,
             excludePersonTypes: [String]? = nil,
             personTypes: [String]? = nil,
             appearsInItemID: String? = nil,

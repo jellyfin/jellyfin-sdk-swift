@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -15,7 +15,7 @@ import Foundation
 /// async/await or Combine. See `QuickConnect.State` for all possible states.
 ///
 /// To stop the authorization flow, typically for user cancellation, call `stop()`.
-public final class QuickConnect: ObservableObject {
+public final class QuickConnect: ObservableObject, @unchecked Sendable {
 
     // MARK: State
 
@@ -150,7 +150,7 @@ public final class QuickConnect: ObservableObject {
 
     private func retrieveSecretAndCode() async throws -> (secret: String, code: String) {
 
-        let initiatePath = Paths.initiate
+        let initiatePath = Paths.initiateQuickConnect
         let response = try await client.send(initiatePath)
 
         guard let secret = response.value.secret,
@@ -162,8 +162,8 @@ public final class QuickConnect: ObservableObject {
         return (secret, code)
     }
 
-    // Note: `Task.sleep` doesn't guarantee actual time == given time, but
-    //       variance is fairly tight and exact time doesn't matter.
+    /// Note: `Task.sleep` doesn't guarantee actual time == given time, but
+    ///       variance is fairly tight and exact time doesn't matter.
     private func poll(secret: String) async throws -> String {
 
         for _ in 0 ..< maxPolls {
@@ -179,7 +179,7 @@ public final class QuickConnect: ObservableObject {
 
     private func checkAuthorization(secret: String) async throws -> String? {
 
-        let request = Paths.connect(secret: secret)
+        let request = Paths.getQuickConnectState(secret: secret)
         let response = try await client.send(request)
 
         let isAuthenticated = response.value.isAuthenticated ?? false

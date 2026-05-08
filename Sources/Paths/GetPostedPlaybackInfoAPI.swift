@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets live playback media info for an item.
@@ -19,8 +18,8 @@ public extension Paths {
     static func getPostedPlaybackInfo(
         itemID: String,
         parameters: GetPostedPlaybackInfoParameters? = nil,
-        _ body: JellyfinAPI.PlaybackInfoDto? = nil
-    ) -> Request<JellyfinAPI.PlaybackInfoResponse> {
+        _ body: PlaybackInfoDto? = nil
+    ) -> Request<PlaybackInfoResponse> {
         Request(path: "/Items/\(itemID)/PlaybackInfo", method: "POST", query: parameters?.asQuery, body: body, id: "GetPostedPlaybackInfo")
     }
 

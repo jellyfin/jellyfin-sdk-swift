@@ -3,13 +3,13 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// The remote lyric info dto.
-public struct RemoteLyricInfoDto: Codable, Hashable, Identifiable {
+public struct RemoteLyricInfoDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the id for the lyric.
     public var id: String?
     /// Gets the lyrics.

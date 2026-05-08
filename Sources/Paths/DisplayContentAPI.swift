@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Instructs a session to browse to an item or view.
@@ -18,13 +17,11 @@ public extension Paths {
 
     struct DisplayContentParameters {
         /// The base item kind.
-        public var itemType: ItemType
+        public var itemType: BaseItemKind
         public var itemID: String
         public var itemName: String
 
-        public typealias ItemType = JellyfinAPI.BaseItemKind
-
-        public init(itemType: ItemType, itemID: String, itemName: String) {
+        public init(itemType: BaseItemKind, itemID: String, itemName: String) {
             self.itemType = itemType
             self.itemID = itemID
             self.itemName = itemName

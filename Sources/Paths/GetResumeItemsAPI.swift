@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets items based on a query.
-    static func getResumeItems(parameters: GetResumeItemsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getResumeItems(parameters: GetResumeItemsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/UserItems/Resume", method: "GET", query: parameters?.asQuery, id: "GetResumeItems")
     }
 
@@ -22,13 +21,13 @@ public extension Paths {
         public var limit: Int?
         public var searchTerm: String?
         public var parentID: String?
-        public var fields: [JellyfinAPI.ItemFields]?
-        public var mediaTypes: [JellyfinAPI.MediaType]?
+        public var fields: [ItemFields]?
+        public var mediaTypes: [MediaType]?
         public var enableUserData: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
-        public var excludeItemTypes: [JellyfinAPI.BaseItemKind]?
-        public var includeItemTypes: [JellyfinAPI.BaseItemKind]?
+        public var enableImageTypes: [ImageType]?
+        public var excludeItemTypes: [BaseItemKind]?
+        public var includeItemTypes: [BaseItemKind]?
         public var enableTotalRecordCount: Bool?
         public var enableImages: Bool?
         public var excludeActiveSessions: Bool?
@@ -39,13 +38,13 @@ public extension Paths {
             limit: Int? = nil,
             searchTerm: String? = nil,
             parentID: String? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
-            mediaTypes: [JellyfinAPI.MediaType]? = nil,
+            fields: [ItemFields]? = nil,
+            mediaTypes: [MediaType]? = nil,
             enableUserData: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            excludeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
-            includeItemTypes: [JellyfinAPI.BaseItemKind]? = nil,
+            enableImageTypes: [ImageType]? = nil,
+            excludeItemTypes: [BaseItemKind]? = nil,
+            includeItemTypes: [BaseItemKind]? = nil,
             enableTotalRecordCount: Bool? = nil,
             enableImages: Bool? = nil,
             excludeActiveSessions: Bool? = nil

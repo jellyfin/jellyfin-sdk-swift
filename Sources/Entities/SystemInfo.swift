@@ -3,85 +3,74 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
 /// Class SystemInfo.
-public struct SystemInfo: Codable, Hashable, Identifiable {
+public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the cache path.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var cachePath: String?
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var canLaunchWebBrowser: Bool
     /// Gets or sets a value indicating whether this instance can self restart.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var canSelfRestart: Bool
     /// Gets or sets the list of cast receiver applications.
     public var castReceiverApplications: [CastReceiverApplication]?
     /// Gets or sets the completed installations.
     public var completedInstallations: [InstallationInfo]?
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var encoderLocation: String?
     /// Gets or sets a value indicating whether this instance has pending restart.
     public var hasPendingRestart: Bool?
     /// Gets or sets a value indicating whether this instance has update available.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var hasUpdateAvailable: Bool
     /// Gets or sets the id.
     public var id: String?
     /// Gets or sets the internal metadata path.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var internalMetadataPath: String?
     public var isShuttingDown: Bool?
+    /// Gets or sets a value indicating whether the startup wizard is completed.
+    public var isStartupWizardCompleted: Bool?
+    /// Gets or sets a value indicating whether [supports library monitor].
+    public var isSupportsLibraryMonitor: Bool?
     /// Gets or sets the items by name path.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var itemsByNamePath: String?
     /// Gets or sets the local address.
     public var localAddress: String?
     /// Gets or sets the log path.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var logPath: String?
     /// Gets or sets the operating system.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var operatingSystem: String?
     /// Gets or sets the display name of the operating system.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var operatingSystemDisplayName: String?
     /// Gets or sets the package name.
     public var packageName: String?
     /// Gets or sets the product name. This is the AssemblyProduct name.
     public var productName: String?
     /// Gets or sets the program data path.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var programDataPath: String?
     /// Gets or sets the name of the server.
     public var serverName: String?
-    /// Gets or sets a value indicating whether the startup wizard is completed.
-    public var isStartupWizardCompleted: Bool?
-    /// Gets or sets a value indicating whether [supports library monitor].
-    public var isSupportsLibraryMonitor: Bool?
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var systemArchitecture: String?
     /// Gets or sets the transcode path.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var transcodingTempPath: String?
     /// Gets or sets the server version.
     public var version: String?
     /// Gets or sets the web UI resources path.
-    ///
-    /// - warning: Deprecated.
+    @available(*, deprecated, message: "Deprecated")
     public var webPath: String?
     /// Gets or sets the web socket port number.
     public var webSocketPortNumber: Int?
@@ -98,6 +87,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         id: String? = nil,
         internalMetadataPath: String? = nil,
         isShuttingDown: Bool? = nil,
+        isStartupWizardCompleted: Bool? = nil,
+        isSupportsLibraryMonitor: Bool? = nil,
         itemsByNamePath: String? = nil,
         localAddress: String? = nil,
         logPath: String? = nil,
@@ -107,8 +98,6 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         productName: String? = nil,
         programDataPath: String? = nil,
         serverName: String? = nil,
-        isStartupWizardCompleted: Bool? = nil,
-        isSupportsLibraryMonitor: Bool? = nil,
         systemArchitecture: String? = nil,
         transcodingTempPath: String? = nil,
         version: String? = nil,
@@ -126,6 +115,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         self.id = id
         self.internalMetadataPath = internalMetadataPath
         self.isShuttingDown = isShuttingDown
+        self.isStartupWizardCompleted = isStartupWizardCompleted
+        self.isSupportsLibraryMonitor = isSupportsLibraryMonitor
         self.itemsByNamePath = itemsByNamePath
         self.localAddress = localAddress
         self.logPath = logPath
@@ -135,8 +126,6 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         self.productName = productName
         self.programDataPath = programDataPath
         self.serverName = serverName
-        self.isStartupWizardCompleted = isStartupWizardCompleted
-        self.isSupportsLibraryMonitor = isSupportsLibraryMonitor
         self.systemArchitecture = systemArchitecture
         self.transcodingTempPath = transcodingTempPath
         self.version = version
@@ -157,6 +146,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         self.id = try values.decodeIfPresent(String.self, forKey: "Id")
         self.internalMetadataPath = try values.decodeIfPresent(String.self, forKey: "InternalMetadataPath")
         self.isShuttingDown = try values.decodeIfPresent(Bool.self, forKey: "IsShuttingDown")
+        self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
+        self.isSupportsLibraryMonitor = try values.decodeIfPresent(Bool.self, forKey: "SupportsLibraryMonitor")
         self.itemsByNamePath = try values.decodeIfPresent(String.self, forKey: "ItemsByNamePath")
         self.localAddress = try values.decodeIfPresent(String.self, forKey: "LocalAddress")
         self.logPath = try values.decodeIfPresent(String.self, forKey: "LogPath")
@@ -166,8 +157,6 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         self.productName = try values.decodeIfPresent(String.self, forKey: "ProductName")
         self.programDataPath = try values.decodeIfPresent(String.self, forKey: "ProgramDataPath")
         self.serverName = try values.decodeIfPresent(String.self, forKey: "ServerName")
-        self.isStartupWizardCompleted = try values.decodeIfPresent(Bool.self, forKey: "StartupWizardCompleted")
-        self.isSupportsLibraryMonitor = try values.decodeIfPresent(Bool.self, forKey: "SupportsLibraryMonitor")
         self.systemArchitecture = try values.decodeIfPresent(String.self, forKey: "SystemArchitecture")
         self.transcodingTempPath = try values.decodeIfPresent(String.self, forKey: "TranscodingTempPath")
         self.version = try values.decodeIfPresent(String.self, forKey: "Version")
@@ -188,6 +177,8 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(id, forKey: "Id")
         try values.encodeIfPresent(internalMetadataPath, forKey: "InternalMetadataPath")
         try values.encodeIfPresent(isShuttingDown, forKey: "IsShuttingDown")
+        try values.encodeIfPresent(isStartupWizardCompleted, forKey: "StartupWizardCompleted")
+        try values.encodeIfPresent(isSupportsLibraryMonitor, forKey: "SupportsLibraryMonitor")
         try values.encodeIfPresent(itemsByNamePath, forKey: "ItemsByNamePath")
         try values.encodeIfPresent(localAddress, forKey: "LocalAddress")
         try values.encodeIfPresent(logPath, forKey: "LogPath")
@@ -197,8 +188,6 @@ public struct SystemInfo: Codable, Hashable, Identifiable {
         try values.encodeIfPresent(productName, forKey: "ProductName")
         try values.encodeIfPresent(programDataPath, forKey: "ProgramDataPath")
         try values.encodeIfPresent(serverName, forKey: "ServerName")
-        try values.encodeIfPresent(isStartupWizardCompleted, forKey: "StartupWizardCompleted")
-        try values.encodeIfPresent(isSupportsLibraryMonitor, forKey: "SupportsLibraryMonitor")
         try values.encodeIfPresent(systemArchitecture, forKey: "SystemArchitecture")
         try values.encodeIfPresent(transcodingTempPath, forKey: "TranscodingTempPath")
         try values.encodeIfPresent(version, forKey: "Version")

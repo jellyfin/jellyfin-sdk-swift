@@ -3,12 +3,11 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets an audio stream.
@@ -51,7 +50,7 @@ public extension Paths {
         public var height: Int?
         public var videoBitRate: Int?
         public var subtitleStreamIndex: Int?
-        public var subtitleMethod: SubtitleMethod?
+        public var subtitleMethod: SubtitleDeliveryMethod?
         public var maxRefFrames: Int?
         public var maxVideoBitDepth: Int?
         public var requireAvc: Bool?
@@ -66,15 +65,9 @@ public extension Paths {
         public var transcodeReasons: String?
         public var audioStreamIndex: Int?
         public var videoStreamIndex: Int?
-        public var context: Context?
-        public var streamOptions: StreamOptions?
+        public var context: EncodingContext?
+        public var streamOptions: [String: String]?
         public var enableAudioVbrEncoding: Bool?
-
-        public typealias SubtitleMethod = JellyfinAPI.SubtitleDeliveryMethod
-
-        public typealias Context = JellyfinAPI.EncodingContext
-
-        public typealias StreamOptions = [String: String]
 
         public init(
             isStatic: Bool? = nil,
@@ -107,7 +100,7 @@ public extension Paths {
             height: Int? = nil,
             videoBitRate: Int? = nil,
             subtitleStreamIndex: Int? = nil,
-            subtitleMethod: SubtitleMethod? = nil,
+            subtitleMethod: SubtitleDeliveryMethod? = nil,
             maxRefFrames: Int? = nil,
             maxVideoBitDepth: Int? = nil,
             requireAvc: Bool? = nil,
@@ -122,8 +115,8 @@ public extension Paths {
             transcodeReasons: String? = nil,
             audioStreamIndex: Int? = nil,
             videoStreamIndex: Int? = nil,
-            context: Context? = nil,
-            streamOptions: StreamOptions? = nil,
+            context: EncodingContext? = nil,
+            streamOptions: [String: String]? = nil,
             enableAudioVbrEncoding: Bool? = nil
         ) {
             self.isStatic = isStatic

@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets the contents of a given directory in the file system.
-    static func getDirectoryContents(parameters: GetDirectoryContentsParameters) -> Request<[JellyfinAPI.FileSystemEntryInfo]> {
+    static func getDirectoryContents(parameters: GetDirectoryContentsParameters) -> Request<[FileSystemEntryInfo]> {
         Request(path: "/Environment/DirectoryContents", method: "GET", query: parameters.asQuery, id: "GetDirectoryContents")
     }
 

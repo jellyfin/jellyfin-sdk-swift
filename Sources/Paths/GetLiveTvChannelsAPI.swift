@@ -3,21 +3,20 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets available live tv channels.
-    static func getLiveTvChannels(parameters: GetLiveTvChannelsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getLiveTvChannels(parameters: GetLiveTvChannelsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/LiveTv/Channels", method: "GET", query: parameters?.asQuery, id: "GetLiveTvChannels")
     }
 
     struct GetLiveTvChannelsParameters {
-        public var type: `Type`?
+        public var type: ChannelType?
         public var userID: String?
         public var startIndex: Int?
         public var isMovie: Bool?
@@ -31,20 +30,16 @@ public extension Paths {
         public var isDisliked: Bool?
         public var enableImages: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
-        public var fields: [JellyfinAPI.ItemFields]?
+        public var enableImageTypes: [ImageType]?
+        public var fields: [ItemFields]?
         public var enableUserData: Bool?
-        public var sortBy: [JellyfinAPI.ItemSortBy]?
+        public var sortBy: [ItemSortBy]?
         public var sortOrder: SortOrder?
         public var enableFavoriteSorting: Bool?
         public var isAddCurrentProgram: Bool?
 
-        public typealias `Type` = JellyfinAPI.ChannelType
-
-        public typealias SortOrder = JellyfinAPI.SortOrder
-
         public init(
-            type: Type? = nil,
+            type: ChannelType? = nil,
             userID: String? = nil,
             startIndex: Int? = nil,
             isMovie: Bool? = nil,
@@ -58,10 +53,10 @@ public extension Paths {
             isDisliked: Bool? = nil,
             enableImages: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
+            enableImageTypes: [ImageType]? = nil,
+            fields: [ItemFields]? = nil,
             enableUserData: Bool? = nil,
-            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
+            sortBy: [ItemSortBy]? = nil,
             sortOrder: SortOrder? = nil,
             enableFavoriteSorting: Bool? = nil,
             isAddCurrentProgram: Bool? = nil

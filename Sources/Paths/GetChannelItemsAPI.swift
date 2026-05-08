@@ -3,19 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Get channel items.
-    static func getChannelItems(
-        channelID: String,
-        parameters: GetChannelItemsParameters? = nil
-    ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getChannelItems(channelID: String, parameters: GetChannelItemsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Channels/\(channelID)/Items", method: "GET", query: parameters?.asQuery, id: "GetChannelItems")
     }
 
@@ -24,20 +20,20 @@ public extension Paths {
         public var userID: String?
         public var startIndex: Int?
         public var limit: Int?
-        public var sortOrder: [JellyfinAPI.SortOrder]?
-        public var filters: [JellyfinAPI.ItemFilter]?
-        public var sortBy: [JellyfinAPI.ItemSortBy]?
-        public var fields: [JellyfinAPI.ItemFields]?
+        public var sortOrder: [SortOrder]?
+        public var filters: [ItemFilter]?
+        public var sortBy: [ItemSortBy]?
+        public var fields: [ItemFields]?
 
         public init(
             folderID: String? = nil,
             userID: String? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
-            sortOrder: [JellyfinAPI.SortOrder]? = nil,
-            filters: [JellyfinAPI.ItemFilter]? = nil,
-            sortBy: [JellyfinAPI.ItemSortBy]? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil
+            sortOrder: [SortOrder]? = nil,
+            filters: [ItemFilter]? = nil,
+            sortBy: [ItemSortBy]? = nil,
+            fields: [ItemFields]? = nil
         ) {
             self.folderID = folderID
             self.userID = userID

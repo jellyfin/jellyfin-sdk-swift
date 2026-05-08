@@ -3,19 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets similar items.
-    static func getSimilarItems(
-        itemID: String,
-        parameters: GetSimilarItemsParameters? = nil
-    ) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getSimilarItems(itemID: String, parameters: GetSimilarItemsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Items/\(itemID)/Similar", method: "GET", query: parameters?.asQuery, id: "GetSimilarItems")
     }
 
@@ -23,9 +19,9 @@ public extension Paths {
         public var excludeArtistIDs: [String]?
         public var userID: String?
         public var limit: Int?
-        public var fields: [JellyfinAPI.ItemFields]?
+        public var fields: [ItemFields]?
 
-        public init(excludeArtistIDs: [String]? = nil, userID: String? = nil, limit: Int? = nil, fields: [JellyfinAPI.ItemFields]? = nil) {
+        public init(excludeArtistIDs: [String]? = nil, userID: String? = nil, limit: Int? = nil, fields: [ItemFields]? = nil) {
             self.excludeArtistIDs = excludeArtistIDs
             self.userID = userID
             self.limit = limit

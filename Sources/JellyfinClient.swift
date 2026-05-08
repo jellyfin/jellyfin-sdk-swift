@@ -3,7 +3,7 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
@@ -11,7 +11,7 @@ import Get
 
 /// Basic wrapper of `Get.APIClient` with helper methods for interfacing with the `JellyfinAPI` package,
 /// like injecting required headers for API calls with the current access token.
-public final class JellyfinClient {
+public final class JellyfinClient: @unchecked Sendable {
 
     /// Current user access token
     public var accessToken: String? {
@@ -59,7 +59,9 @@ public final class JellyfinClient {
     ) {
         self.configuration = configuration
         self.sessionConfiguration = sessionConfiguration
-        self.passthroughDelegate = PassthroughAPIClientDelegate()
+        let passthroughDelegate = PassthroughAPIClientDelegate()
+
+        self.passthroughDelegate = passthroughDelegate
 
         self._apiClient = APIClient(baseURL: configuration.url) { configuration in
             configuration.delegate = passthroughDelegate
@@ -82,7 +84,7 @@ public final class JellyfinClient {
         self.passthroughDelegate.actualDelegate = delegate
     }
 
-    public struct Configuration {
+    public struct Configuration: Sendable {
 
         /// Server URL
         public let url: URL
@@ -138,12 +140,13 @@ public final class JellyfinClient {
         }
     }
 
-    public func send<T>(
+    public func send<T: Decodable & Sendable & Decodable>(
         _ request: Request<T>,
         delegate: URLSessionDataDelegate? = nil,
         configure: ((inout URLRequest) throws -> Void)? = nil
-    ) async throws -> Response<T> where T: Decodable {
-        try await _apiClient.send(request, delegate: delegate, configure: configure)
+    ) async throws -> Response<T> {
+        nonisolated(unsafe) let configure = configure
+        return try await _apiClient.send(request, delegate: delegate, configure: configure)
     }
 
     @discardableResult
@@ -152,7 +155,8 @@ public final class JellyfinClient {
         delegate: URLSessionDataDelegate? = nil,
         configure: ((inout URLRequest) throws -> Void)? = nil
     ) async throws -> Response<Void> {
-        try await _apiClient.send(request, delegate: delegate, configure: configure)
+        nonisolated(unsafe) let configure = configure
+        return try await _apiClient.send(request, delegate: delegate, configure: configure)
     }
 
     public func data(
@@ -160,7 +164,8 @@ public final class JellyfinClient {
         delegate: URLSessionDataDelegate? = nil,
         configure: ((inout URLRequest) throws -> Void)? = nil
     ) async throws -> Response<Data> {
-        try await _apiClient.data(for: request, delegate: delegate, configure: configure)
+        nonisolated(unsafe) let configure = configure
+        return try await _apiClient.data(for: request, delegate: delegate, configure: configure)
     }
 
     public func download(
@@ -168,7 +173,8 @@ public final class JellyfinClient {
         delegate: URLSessionDownloadDelegate? = nil,
         configure: ((inout URLRequest) throws -> Void)? = nil
     ) async throws -> Response<URL> {
-        try await _apiClient.download(for: request, delegate: delegate, configure: configure)
+        nonisolated(unsafe) let configure = configure
+        return try await _apiClient.download(for: request, delegate: delegate, configure: configure)
     }
 
     public func download(

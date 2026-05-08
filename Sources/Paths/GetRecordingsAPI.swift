@@ -3,16 +3,15 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 import Get
-import URLQueryEncoder
 
 public extension Paths {
     /// Gets live tv recordings.
-    static func getRecordings(parameters: GetRecordingsParameters? = nil) -> Request<JellyfinAPI.BaseItemDtoQueryResult> {
+    static func getRecordings(parameters: GetRecordingsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/LiveTv/Recordings", method: "GET", query: parameters?.asQuery, id: "GetRecordings")
     }
 
@@ -21,13 +20,13 @@ public extension Paths {
         public var userID: String?
         public var startIndex: Int?
         public var limit: Int?
-        public var status: Status?
+        public var status: RecordingStatus?
         public var isInProgress: Bool?
         public var seriesTimerID: String?
         public var enableImages: Bool?
         public var imageTypeLimit: Int?
-        public var enableImageTypes: [JellyfinAPI.ImageType]?
-        public var fields: [JellyfinAPI.ItemFields]?
+        public var enableImageTypes: [ImageType]?
+        public var fields: [ItemFields]?
         public var enableUserData: Bool?
         public var isMovie: Bool?
         public var isSeries: Bool?
@@ -37,20 +36,18 @@ public extension Paths {
         public var isLibraryItem: Bool?
         public var enableTotalRecordCount: Bool?
 
-        public typealias Status = JellyfinAPI.RecordingStatus
-
         public init(
             channelID: String? = nil,
             userID: String? = nil,
             startIndex: Int? = nil,
             limit: Int? = nil,
-            status: Status? = nil,
+            status: RecordingStatus? = nil,
             isInProgress: Bool? = nil,
             seriesTimerID: String? = nil,
             enableImages: Bool? = nil,
             imageTypeLimit: Int? = nil,
-            enableImageTypes: [JellyfinAPI.ImageType]? = nil,
-            fields: [JellyfinAPI.ItemFields]? = nil,
+            enableImageTypes: [ImageType]? = nil,
+            fields: [ItemFields]? = nil,
             enableUserData: Bool? = nil,
             isMovie: Bool? = nil,
             isSeries: Bool? = nil,
