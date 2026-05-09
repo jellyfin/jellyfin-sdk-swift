@@ -10,61 +10,23 @@ import Foundation
 import NIOCore
 import NIOPosix
 
-/// A provider for discovering Jellyfin servers on the local network.
-///
-/// To start discovery, call `start()`. The `state` variable will be
-/// updated to the current discovery state and can be subscribed to
-/// with async/await or Combine. See `ServerDiscovery.State` for all
-/// possible states. Discovered servers are appended to `responses`
-/// as they arrive.
-///
-/// To stop discovery, typically for user cancellation, call `stop()`.
-public final class ServerDiscovery: ObservableObject, @unchecked Sendable {
+public extension JellyfinClient {
 
-    // MARK: State
-
-    public enum State: Equatable {
-
-        /// Idle
-        case idle
-        /// Listening for server responses
-        case discovering
-        /// An internal error has occurred
-        case error(DiscoveryError)
-    }
-
-    // MARK: Error
-
-    public enum DiscoveryError: LocalizedError, Equatable {
-
-        /// No network interface with a usable broadcast address was found
+    /// Errors produced by server discovery setup.
+    enum DiscoveryError: Error, Equatable, Sendable {
         case noUsableNetworkInterface
-        /// The discovery socket could not be created
         case noUsableChannel
-        /// An other error has occurred, typically a network error
-        case other(String)
-
-        var localizedError: String {
-            switch self {
-            case .noUsableNetworkInterface:
-                "No usable network interface"
-            case .noUsableChannel:
-                "No usable channel"
-            case let .other(message):
-                message
-            }
-        }
     }
 
-    // MARK: Response
-
-    /// A response from a Jellyfin server discovery probe.
-    public struct Response: Codable, Hashable, Identifiable, Sendable {
+    /// A response from UDP Jellyfin server discovery.
+    struct PublicServer: Codable, Identifiable, Sendable {
 
         /// The server's ID.
         public let id: String
+
         /// The server's display name.
         public let name: String
+
         /// The server's URL.
         public let url: URL
 
@@ -75,85 +37,39 @@ public final class ServerDiscovery: ObservableObject, @unchecked Sendable {
         }
     }
 
-    /// The current state of the discovery flow.
-    @Published
-    public private(set) var state: State = .idle
-
-    /// Servers discovered during the current or most recent run.
-    @Published
-    public private(set) var responses: [Response] = []
-
-    private let duration: TimeInterval
-
-    private var mainTask: Task<Void, Never>?
-
-    /// Creates a manager for performing a Jellyfin server discovery flow.
-    public init(duration: TimeInterval = 5) {
-        precondition(duration > 0, "Duration must be positive")
-
-        self.duration = duration
-    }
-
-    /// Starts the server discovery flow. Resets `responses` to empty.
-    @MainActor
-    public func start() {
-        guard state == .idle else { return }
-
-        responses = []
-
-        mainTask = Task {
-            await run()
-        }
-    }
-
-    /// Stops the current server discovery flow.
-    @MainActor
-    public func stop() {
-        mainTask?.cancel()
-        state = .idle
-    }
-
-    private func run() async {
-        do {
-            await MainActor.run {
-                state = .discovering
-            }
-
-            try await listen { [weak self] response in
-                Task { @MainActor in
-                    guard let self else { return }
-                    if !self.responses.contains(where: { $0.id == response.id }) {
-                        self.responses.append(response)
-                    }
-                }
-            }
-
-            await MainActor.run {
-                if state == .discovering {
-                    state = .idle
-                }
-            }
-        } catch let error as DiscoveryError {
-            await MainActor.run {
-                state = .error(error)
-            }
-        } catch is CancellationError {
-            // Task was cancelled, not an issue
-        } catch {
-            await MainActor.run {
-                state = .error(.other(error.localizedDescription))
-            }
-        }
-    }
-
-    // MARK: Networking
-
     private typealias Datagram = AddressedEnvelope<ByteBuffer>
     private typealias AsyncDatagramChannel = NIOAsyncChannel<Datagram, Datagram>
 
     private static let discoveryPort = 7359
-    private static let globalBroadcast = "255.255.255.255"
-    private static let payload = "who is JellyfinServer?"
+    private static let broadcastAddress = "255.255.255.255"
+    private static let payload = "Who is JellyfinServer?"
+
+    /// Discovers Jellyfin servers on the local network using UDP broadcast.
+    ///
+    /// - Parameter duration: Duration to listen for responses.
+    static func discover(duration: Duration = .seconds(5)) -> AsyncThrowingStream<PublicServer, Error> {
+        AsyncThrowingStream { continuation in
+            let task = Task {
+                do {
+                    try await Self.run(duration: duration) { response in
+                        continuation.yield(response)
+                    }
+                    continuation.finish()
+                } catch is CancellationError {
+                    continuation.finish()
+                } catch {
+                    continuation.finish(throwing: error)
+                }
+            }
+
+            continuation.onTermination = { _ in
+                task.cancel()
+            }
+        }
+    }
+}
+
+extension JellyfinClient {
 
     private struct NetworkInterface: Hashable {
         var name: String
@@ -161,31 +77,35 @@ public final class ServerDiscovery: ObservableObject, @unchecked Sendable {
         var broadcastAddress: SocketAddress
     }
 
-    private func listen(onResponse: @Sendable @escaping (Response) -> Void) async throws {
-        let interfaces = Self.networkInterfaces()
+    private static func run(
+        duration: Duration,
+        onResponse: @Sendable @escaping (PublicServer) -> Void
+    ) async throws {
+        guard duration > .zero else { return }
+
+        let interfaces = networkInterfaces()
         guard !interfaces.isEmpty else { throw DiscoveryError.noUsableNetworkInterface }
 
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         do {
-            let channel = try await Self.makeChannel(on: group)
+            guard let channel = try? await makeChannel(on: group) else {
+                throw DiscoveryError.noUsableChannel
+            }
+
             try await channel.executeThenClose { inbound, outbound in
-                try await Self.sendProbe(
+                try await sendProbe(
                     outbound: outbound,
                     allocator: channel.channel.allocator,
                     interfaces: interfaces
                 )
-                try await Self.readResponses(
-                    inbound: inbound,
-                    duration: duration,
-                    onResponse: onResponse
-                )
+                try await readResponses(inbound: inbound, duration: duration, onResponse: onResponse)
             }
         } catch {
-            await Self.shutdown(group)
+            try? await group.shutdownGracefully()
             throw error
         }
 
-        await Self.shutdown(group)
+        try? await group.shutdownGracefully()
     }
 
     private static func makeChannel(on group: EventLoopGroup) async throws -> AsyncDatagramChannel {
@@ -205,7 +125,7 @@ public final class ServerDiscovery: ObservableObject, @unchecked Sendable {
         interfaces: [NetworkInterface]
     ) async throws {
         let targets = Set(interfaces.map(\.broadcastAddress) + [
-            try SocketAddress(ipAddress: globalBroadcast, port: discoveryPort),
+            try SocketAddress(ipAddress: broadcastAddress, port: discoveryPort),
         ])
         let envelopes = targets.map {
             Datagram(
@@ -219,20 +139,20 @@ public final class ServerDiscovery: ObservableObject, @unchecked Sendable {
 
     private static func readResponses(
         inbound: NIOAsyncChannelInboundStream<Datagram>,
-        duration: TimeInterval,
-        onResponse: @Sendable @escaping (Response) -> Void
+        duration: Duration,
+        onResponse: @Sendable @escaping (PublicServer) -> Void
     ) async throws {
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
                 for try await envelope in inbound {
-                    if let response = decode(envelope.data) {
+                    if let response = try? JSONDecoder().decode(PublicServer.self, from: Data(envelope.data.readableBytesView)) {
                         onResponse(response)
                     }
                 }
             }
 
             group.addTask {
-                try await sleep(seconds: duration)
+                try await Task.sleep(for: duration)
             }
 
             try await group.next()
@@ -240,40 +160,16 @@ public final class ServerDiscovery: ObservableObject, @unchecked Sendable {
         }
     }
 
-    private static func shutdown(_ group: EventLoopGroup) async {
-        await withCheckedContinuation { continuation in
-            group.shutdownGracefully { _ in
-                continuation.resume()
-            }
-        }
-    }
-
-    private static func sleep(seconds: TimeInterval) async throws {
-        let nanoseconds = UInt64(min(seconds, TimeInterval(UInt64.max) / 1_000_000_000) * 1_000_000_000)
-        try await Task.sleep(nanoseconds: nanoseconds)
-    }
-
-    private static func decode(_ buffer: ByteBuffer) -> Response? {
-        guard let bytes = buffer.getBytes(at: buffer.readerIndex, length: buffer.readableBytes),
-              bytes.first == UInt8(ascii: "{")
-        else {
-            return nil
-        }
-
-        return try? JSONDecoder().decode(Response.self, from: Data(bytes))
-    }
-
     private static func networkInterfaces() -> [NetworkInterface] {
         let devices = (try? System.enumerateDevices()) ?? []
+
         var interfaces: [String: NetworkInterface] = [:]
 
         for device in devices {
-            guard device.interfaceIndex != 0,
-                  device.address?.ipAddress != "127.0.0.1",
-                  let broadcast = device.broadcastAddress
-            else { continue }
+            guard device.interfaceIndex != 0, !isLoopback(device.address) else { continue }
+            guard case .some(.v4) = device.address, let broadcastAddress = device.broadcastAddress else { continue }
 
-            var address = broadcast
+            var address = broadcastAddress
             address.port = discoveryPort
 
             interfaces[device.name] = NetworkInterface(
@@ -284,5 +180,12 @@ public final class ServerDiscovery: ObservableObject, @unchecked Sendable {
         }
 
         return Array(interfaces.values)
+    }
+
+    private static func isLoopback(_ address: SocketAddress?) -> Bool {
+        guard case .v4(let v4) = address else { return false }
+
+        /// 127.0.0.0/8
+        return UInt32(bigEndian: v4.address.sin_addr.s_addr) >> 24 == 127
     }
 }

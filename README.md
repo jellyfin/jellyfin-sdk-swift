@@ -43,36 +43,12 @@ for try await state in client.quickConnect.connect() {
 
 ## Server Discovery
 
-The `ServerDiscovery` object discovers Jellyfin servers on the local network using UDP broadcast. This is intentionally limted to IPv4 only to mirror the server funcitonality.
+`JellyfinClient` discovers other Jellyfin servers on the local network via UDP broadcast. IPv4 only, mirroring the server's behavior.
 
 ```swift
-/// Create a ServerDiscovery instance with a listening duration
-let discovery = ServerDiscovery(duration: 5)
-
-let discoveryState = Task {
-    /// Listen to ServerDiscovery states with async/await or Combine
-    for await state in discovery.$state.values {
-        switch state {
-        /// Other cases ommitted
-        case .discovering:
-            print("Discovery in progress...")
-        case let .error(error):
-            print("Discovery error: \(error)")
-        }
-    }
+for try await server in JellyfinClient.discover(duration: .seconds(5)) {
+    print("Found server: \(server.name) at \(server.url)")
 }
-
-let responseObserver = Task {
-    /// Observe servers as they respond with async/await or Combine
-    for await responses in discovery.$responses.values {
-        for response in responses {
-            print("Found server: \(response.name) at \(response.url)")
-        }
-    }
-}
-
-/// Start a discovery window for the configured duration
-discovery.start()
 ```
 
 ## Generation
