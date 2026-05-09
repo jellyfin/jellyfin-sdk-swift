@@ -54,42 +54,36 @@ quickConnect.start()
 
 ## Server Discovery
 
-The `ServerDiscovery` class allows you to discover Jellyfin servers on your local network using UDP broadcast. It shoudl work on both IPv4 and IPv6 networks to maximize discovery capabilities.
+The `ServerDiscovery` object discovers Jellyfin servers on the local network using UDP broadcast. This is intentionally limted to IPv4 only to mirror the server funcitonality.
 
 ```swift
-/// Create a ServerDiscovery instance
-let discovery = ServerDiscovery()
+/// Create a ServerDiscovery instance with a listening duration
+let discovery = ServerDiscovery(duration: 5)
 
-/// Subscribe to discovered servers
-discovery.discoveredServers
-    .receive(on: RunLoop.main)
-    .sink { server in
-        print("Found server: \(server.name) at \(server.url)")
-        /// Handle the found servers as needed
-    }
-    .store(in: &cancellables)
-
-/// Track discovery state changes
-discovery.state
-    .receive(on: RunLoop.main)
-    .sink { state in
+let discoveryState = Task {
+    /// Listen to ServerDiscovery states with async/await or Combine
+    for await state in discovery.$state.values {
         switch state {
-        case .active:
+        /// Other cases ommitted
+        case .discovering:
             print("Discovery in progress...")
-        case .inactive:
-            print("Discovery inactive")
-        case .error(let message):
-            print("Discovery error: \(message)")
+        case let .error(error):
+            print("Discovery error: \(error)")
         }
     }
-    .store(in: &cancellables)
+}
 
-/// Broadcast to the network then listen for a response for 6 seconds afterwards
-/// Calling this again will reuse the same bindings for IPv4 and IPv6
-discovery.broadcast(duration: 6)
+let responseObserver = Task {
+    /// Observe servers as they respond with async/await or Combine
+    for await responses in discovery.$responses.values {
+        for response in responses {
+            print("Found server: \(response.name) at \(response.url)")
+        }
+    }
+}
 
-/// Reset all of the bindings for IPv4 and IPv6
-discovery.reset()
+/// Start a discovery window for the configured duration
+discovery.start()
 ```
 
 ## Generation
