@@ -28,28 +28,17 @@ Alternatively, you can use your own network stack with the generated **Entities*
 
 ## Quick Connect
 
-The `QuickConnect` object has been provided to perform the Quick Connect authorization flow.
+`JellyfinClient` provides a Quick Connect authorization flow.
 
 ```swift
-/// Create a QuickConnect object with a JellyfinClient
-let quickConnect = QuickConnect(client: client)
-
-let quickConnectState = Task {
-	/// Listen to QuickConnect states with async/await or Combine
-	for await state in quickConnect.$state.values {
-		switch state {
-		/// Other cases ommitted
-		case let .polling(code: code):
-			print(code)
-		case let .authenticated(secret: secret):
-			/// Sign in with the Quick Connect secret
-			client.signIn(quickConnectSecret: secret)
-		}
-	}
+for try await state in client.quickConnect.connect() {
+    switch state {
+    case let .polling(code: code):
+        print("Code: \(code)")
+    case let .authenticated(secret: secret):
+        try await client.signIn(quickConnectSecret: secret)
+    }
 }
-
-/// Start the Quick Connect authorization flow
-quickConnect.start()
 ```
 
 ## Generation

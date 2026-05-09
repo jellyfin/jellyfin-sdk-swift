@@ -25,28 +25,6 @@ public final class JellyfinClient: @unchecked Sendable {
     private let sessionConfiguration: URLSessionConfiguration
     private var passthroughDelegate: PassthroughAPIClientDelegate
 
-    /// Create a `JellyfinClient` instance given a configuration and optional access token.
-    ///
-    /// - Note: A strong reference is made to the `delegate` if one is provided. Make sure to avoid
-    /// retain cycles if you are referencing the `JellyfinClient` instance from the delegate.
-    @available(*, deprecated, message: "Use the updated initializer to pass the access token in the configuration directly")
-    public convenience init(
-        configuration: Configuration,
-        sessionConfiguration: URLSessionConfiguration = .default,
-        sessionDelegate: URLSessionDelegate? = nil,
-        delegate: APIClientDelegate? = nil,
-        accessToken: String? = nil
-    ) {
-        let newConfiguration = configuration.with(accessToken: accessToken)
-
-        self.init(
-            configuration: newConfiguration,
-            delegate: delegate,
-            sessionConfiguration: sessionConfiguration,
-            sessionDelegate: sessionDelegate
-        )
-    }
-
     /// Create a `JellyfinClient` instance given a configuration.
     ///
     /// - Note: A strong reference is made to the `delegate` if one is provided. Make sure to avoid
@@ -80,9 +58,11 @@ public final class JellyfinClient: @unchecked Sendable {
             configuration.encoder = encoder
         }
 
-        self.passthroughDelegate.jellyfinClient = self
         self.passthroughDelegate.actualDelegate = delegate
+        self.passthroughDelegate.jellyfinClient = self
     }
+
+    // MARK: - Configuration
 
     public struct Configuration: Sendable {
 
@@ -189,6 +169,15 @@ public final class JellyfinClient: @unchecked Sendable {
 
 public extension JellyfinClient {
 
+    enum ClientError: Error {
+        case noAccessTokenInResponse
+    }
+
+    /// Quick Connect authorization helper.
+    var quickConnect: QuickConnect {
+        .init(client: self)
+    }
+
     /// Signs in a user given a username and password. On a successful response `accessToken` is set to the given access token.
     ///
     /// - Note: Overrides the current access token if one was previously set. Save this token locally or revoke it with `signOut` for proper
@@ -246,20 +235,25 @@ public extension JellyfinClient {
 
         self.configuration.accessToken = nil
     }
-}
 
-// MARK: ClientError
+    /// Creates a URL against the current server with the given `Request`.
+    func url(with request: Request<some Any>, queryAPIKey: Bool = false) -> URL? {
 
-extension JellyfinClient {
+        guard let path = request.url?.path else { return configuration.url }
+        let fullURL = url(path: path)
+        guard var components = URLComponents(url: fullURL, resolvingAgainstBaseURL: false) else { return nil }
 
-    enum ClientError: Error {
-        case noAccessTokenInResponse
+        components.queryItems = request.query?.map { URLQueryItem(name: $0.0, value: $0.1) } ?? []
 
-        var localizedDescription: String {
-            switch self {
-            case .noAccessTokenInResponse:
-                "No access token in authenticated response"
-            }
+        if queryAPIKey, let accessToken {
+            components.queryItems?.append(.init(name: "api_key", value: accessToken))
         }
+
+        return components.url ?? fullURL
+    }
+
+    /// Creates a URL against the current server with the given path.
+    func url(path: String) -> URL {
+        configuration.url.appending(component: path.trimmingPrefix(while: { $0 == "/" }))
     }
 }
