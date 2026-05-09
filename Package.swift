@@ -6,11 +6,11 @@ import PackageDescription
 let package = Package(
     name: "JellyfinAPI",
     platforms: [
-        .iOS(.v13),
-        .macCatalyst(.v13),
-        .macOS(.v10_15),
-        .watchOS(.v6),
-        .tvOS(.v13),
+        .iOS(.v16),
+        .macCatalyst(.v16),
+        .macOS(.v13),
+        .watchOS(.v9),
+        .tvOS(.v16),
     ],
     products: [
         .library(name: "JellyfinAPI", targets: ["JellyfinAPI"]),
