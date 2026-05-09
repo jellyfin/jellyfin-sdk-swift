@@ -49,11 +49,9 @@ public struct QuickConnect: Sendable {
     /// - Parameters:
     ///   - poll: Poll interval in seconds
     ///   - max: Maximum number of polls
-    ///   - signIn: Automatically sign in with the retrieved secret when authenticated using `JellyfinClient.signIn(quickConnectSecret:)`
     public func connect(
         poll: Int = 5,
-        max: Int = 200,
-        signIn: Bool = false
+        max: Int = 200
     ) -> AsyncThrowingStream<Event, Error> {
 
         precondition(poll > 0, "Polling interval must be at least one second")
@@ -62,7 +60,7 @@ public struct QuickConnect: Sendable {
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    try await run(poll: poll, max: max, signIn: signIn) { state in
+                    try await run(poll: poll, max: max) { state in
                         continuation.yield(state)
                     }
                     continuation.finish()
@@ -82,7 +80,6 @@ public struct QuickConnect: Sendable {
     private func run(
         poll: Int,
         max: Int,
-        signIn: Bool,
         yield: (Event) -> Void
     ) async throws {
 
@@ -93,10 +90,6 @@ public struct QuickConnect: Sendable {
         let authorizedSecret = try await pollForAuthorization(secret: secret, interval: poll, max: max)
 
         yield(.authenticated(secret: authorizedSecret))
-
-        if signIn {
-            try await client.signIn(quickConnectSecret: authorizedSecret)
-        }
     }
 
     private func retrieveSecretAndCode() async throws -> (secret: String, code: String) {

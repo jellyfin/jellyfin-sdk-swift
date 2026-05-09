@@ -45,19 +45,19 @@ struct QuickConnect: AsyncParsableCommand {
 
         for try await state in client.quickConnect.connect(
             poll: poll,
-            max: max,
-            signIn: signIn
+            max: max
         ) {
             switch state {
             case let .polling(code):
                 print("Code: \(code)")
             case let .authenticated(secret):
                 print("Authenticated with secret: \(secret)")
-            }
-        }
 
-        if signIn {
-            print("JellyfinClient signed in with token: \(client.accessToken ?? "<missing>")")
+                if signIn {
+                    try await client.signIn(quickConnectSecret: secret)
+                    print("Signed in with token: \(client.accessToken ?? "<missing>")")
+                }
+            }
         }
     }
 }
