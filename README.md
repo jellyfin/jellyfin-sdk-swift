@@ -92,5 +92,3 @@ discovery.start()
 # Download latest spec and run CreateAPI
 $ make update
 ```
-
-Alternatively, you can generate your own Swift Jellyfin SDK using [CreateAPI](https://github.com/CreateAPI/CreateAPI) or any other OpenAPI generator.
