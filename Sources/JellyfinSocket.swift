@@ -318,8 +318,7 @@ private extension JellyfinSocket.Session {
             client: client,
             supportsMediaControl: supportsMediaControl,
             supportedCommands: supportedCommands,
-            playableMediaTypes: playableMediaTypes,
-            enable: true
+            playableMediaTypes: playableMediaTypes
         )
 
         let urlSession = URLSession(configuration: .default)
@@ -338,8 +337,7 @@ private extension JellyfinSocket.Session {
                     client: client,
                     supportsMediaControl: supportsMediaControl,
                     supportedCommands: supportedCommands,
-                    playableMediaTypes: playableMediaTypes,
-                    enable: false
+                    playableMediaTypes: playableMediaTypes
                 )
             }
         }
@@ -482,13 +480,12 @@ private extension JellyfinSocket.Session {
         client: JellyfinClient,
         supportsMediaControl: Bool,
         supportedCommands: [GeneralCommandType],
-        playableMediaTypes: [MediaType],
-        enable: Bool
+        playableMediaTypes: [MediaType]
     ) async throws {
         var parameters = Paths.PostCapabilitiesParameters()
-        parameters.isSupportsMediaControl = enable && supportsMediaControl
-        parameters.supportedCommands = enable ? supportedCommands : []
-        parameters.playableMediaTypes = enable ? playableMediaTypes : []
+        parameters.isSupportsMediaControl = supportsMediaControl
+        parameters.supportedCommands = supportedCommands
+        parameters.playableMediaTypes = playableMediaTypes
 
         try await client.send(Paths.postCapabilities(parameters: parameters))
     }
