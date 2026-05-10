@@ -11,7 +11,7 @@ let package = Package(
         .executable(name: "tools", targets: ["Tools"]),
     ],
     dependencies: [
-        .package(path: ".."),
+        .package(name: "jellyfin-sdk-swift", path: ".."),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.7.0"),
     ],
     targets: [

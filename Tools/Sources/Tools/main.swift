@@ -16,6 +16,7 @@ struct JellyfinTools: AsyncParsableCommand {
         commandName: "tools",
         abstract: "Tools for testing JellyfinAPI features",
         subcommands: [
+            Discover.self,
             QuickConnect.self,
             SignIn.self,
             Socket.self,
@@ -28,69 +29,22 @@ struct JellyfinTools: AsyncParsableCommand {
     )
 }
 
-struct PostCapabilities: AsyncParsableCommand {
+struct Discover: AsyncParsableCommand {
     static let configuration = CommandConfiguration(
-        commandName: "post-capabilities",
-        abstract: "Manually POST capabilities and print the URL + response status (debug)"
+        commandName: "discover",
+        abstract: "Discover Jellyfin servers on the local network"
     )
 
-    @OptionGroup var options: SocketOptions
-
-    @Flag(help: "Use the JSON-body /Sessions/Capabilities/Full endpoint instead of the query-string one")
-    var full = false
+    @Option(help: "Discovery duration in seconds")
+    var duration: Double = 5
 
     func run() async throws {
-        guard let url = URL(string: options.server) else {
-            throw ValidationError("Invalid server URL")
+        guard duration > 0 else {
+            throw ValidationError("Duration must be greater than 0")
         }
 
-        let path = full ? "/Sessions/Capabilities/Full" : "/Sessions/Capabilities"
-        var components = URLComponents(url: url.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
-
-        let supportedCommands = GeneralCommandType.allCases.map(\.rawValue).joined(separator: ",")
-        let playable = "Video,Audio"
-
-        if full {
-            // JSON body
-        } else {
-            components.queryItems = [
-                URLQueryItem(name: "supportsMediaControl", value: "true"),
-                URLQueryItem(name: "supportsPersistentIdentifier", value: "false"),
-                URLQueryItem(name: "playableMediaTypes", value: playable),
-                URLQueryItem(name: "supportedCommands", value: supportedCommands),
-            ]
-        }
-
-        var request = URLRequest(url: components.url!)
-        request.httpMethod = "POST"
-        request.addValue(
-            "MediaBrowser DeviceId=jellyfin-sdk-swift-tools, Device=JPK-LAPTOP, Client=JellyfinAPI Tools, Version=1, Token=\(options.token)",
-            forHTTPHeaderField: "Authorization"
-        )
-
-        if full {
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            let body: [String: Any] = [
-                "SupportsMediaControl": true,
-                "SupportsPersistentIdentifier": false,
-                "PlayableMediaTypes": ["Video", "Audio"],
-                "SupportedCommands": GeneralCommandType.allCases.map(\.rawValue),
-            ]
-            request.httpBody = try JSONSerialization.data(withJSONObject: body)
-        }
-
-        print("URL: \(request.url!.absoluteString)")
-        print("Method: \(request.httpMethod ?? "?")")
-        if let body = request.httpBody, let json = String(data: body, encoding: .utf8) {
-            print("Body: \(json)")
-        }
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-        if let http = response as? HTTPURLResponse {
-            print("Status: \(http.statusCode)")
-        }
-        if !data.isEmpty, let body = String(data: data, encoding: .utf8) {
-            print("Response: \(body)")
+        for try await response in JellyfinClient.discover(duration: .seconds(duration)) {
+            print("\(response.name) - \(response.id) - \(response.url.absoluteString)")
         }
     }
 }
@@ -159,6 +113,75 @@ struct SignIn: AsyncParsableCommand {
         }
 
         print("Signed in with access token: \(accessToken)")
+    }
+}
+
+// MARK: - Register socket capabilities
+
+struct PostCapabilities: AsyncParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "post-capabilities",
+        abstract: "Manually POST capabilities and print the URL + response status (debug)"
+    )
+    
+    @OptionGroup var options: SocketOptions
+    
+    @Flag(help: "Use the JSON-body /Sessions/Capabilities/Full endpoint instead of the query-string one")
+    var full = false
+    
+    func run() async throws {
+        guard let url = URL(string: options.server) else {
+            throw ValidationError("Invalid server URL")
+        }
+        
+        let path = full ? "/Sessions/Capabilities/Full" : "/Sessions/Capabilities"
+        var components = URLComponents(url: url.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
+        
+        let supportedCommands = GeneralCommandType.allCases.map(\.rawValue).joined(separator: ",")
+        let playable = "Video,Audio"
+        
+        if full {
+            // JSON body
+        } else {
+            components.queryItems = [
+                URLQueryItem(name: "supportsMediaControl", value: "true"),
+                URLQueryItem(name: "supportsPersistentIdentifier", value: "false"),
+                URLQueryItem(name: "playableMediaTypes", value: playable),
+                URLQueryItem(name: "supportedCommands", value: supportedCommands),
+            ]
+        }
+        
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "POST"
+        request.addValue(
+            "MediaBrowser DeviceId=jellyfin-sdk-swift-tools, Device=JPK-LAPTOP, Client=JellyfinAPI Tools, Version=1, Token=\(options.token)",
+            forHTTPHeaderField: "Authorization"
+        )
+        
+        if full {
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            let body: [String: Any] = [
+                "SupportsMediaControl": true,
+                "SupportsPersistentIdentifier": false,
+                "PlayableMediaTypes": ["Video", "Audio"],
+                "SupportedCommands": GeneralCommandType.allCases.map(\.rawValue),
+            ]
+            request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        }
+        
+        print("URL: \(request.url!.absoluteString)")
+        print("Method: \(request.httpMethod ?? "?")")
+        if let body = request.httpBody, let json = String(data: body, encoding: .utf8) {
+            print("Body: \(json)")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        if let http = response as? HTTPURLResponse {
+            print("Status: \(http.statusCode)")
+        }
+        if !data.isEmpty, let body = String(data: data, encoding: .utf8) {
+            print("Response: \(body)")
+        }
     }
 }
 

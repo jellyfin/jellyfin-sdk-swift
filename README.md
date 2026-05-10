@@ -80,11 +80,19 @@ for try await state in client.quickConnect.connect() {
 }
 ```
 
+## Server Discovery
+
+`JellyfinClient` discovers other Jellyfin servers on the local network via UDP broadcast. IPv4 only, mirroring the server's behavior.
+
+```swift
+for try await server in JellyfinClient.discover(duration: .seconds(5)) {
+    print("Found server: \(server.name) at \(server.url)")
+}
+```
+
 ## Generation
 
 ```bash
 # Download latest spec and run CreateAPI
 $ make update
 ```
-
-Alternatively, you can generate your own Swift Jellyfin SDK using [CreateAPI](https://github.com/CreateAPI/CreateAPI) or any other OpenAPI generator.
