@@ -8,150 +8,94 @@
 
 import Foundation
 
-/// A provider for the Quick Connect authorization flow.
+/// Start `QuickConnect` from a `JellyfinClient` instance.
 ///
-/// To start the authorization flow, call `start()`. The `state` variable
-/// will be updated to the current flow state and can be subscribed to with
-/// async/await or Combine. See `QuickConnect.State` for all possible states.
-///
-/// To stop the authorization flow, typically for user cancellation, call `stop()`.
-public final class QuickConnect: ObservableObject, @unchecked Sendable {
+/// ## Example
+/// ```swift
+/// for try await event in client.quickConnect.connect() {
+///     switch event {
+///     case let .polling(code: code):
+///         print("Code: \(code)")
+///     case let .authenticated(secret: secret):
+///         try await client.signIn(quickConnectSecret: secret)
+///     }
+/// }
+/// ```
+public struct QuickConnect: Sendable {
 
-    // MARK: State
-
-    public enum State: Equatable {
-
-        /// Idle
-        case idle
-
-        /// Retrieving Quick Connect code
-        case retrievingCode
+    public enum Event: Equatable, Sendable {
 
         /// Polling with code
         case polling(code: String)
 
         /// Authenticated with secret
         case authenticated(secret: String)
-
-        /// An internal error has occurred
-        case error(QuickConnectError)
     }
 
-    // MARK: Error
+    enum QuickConnectError: Error {
 
-    public enum QuickConnectError: LocalizedError, Equatable {
-
-        /// Polling has hit its maximum
         case maxPollingHit
-
-        /// An other error has occurred, typically a network error
-        case other(String)
-
-        /// Retrieving the Quick Connect code failed.
-        ///
-        /// Only thrown when incorrect/incomplete expected data
-        /// is returned from the server.
         case retrievingCodeFailed
-
-        var localizedError: String {
-            switch self {
-            case .maxPollingHit:
-                "Max polling hit"
-            case let .other(message):
-                message
-            case .retrievingCodeFailed:
-                "Retrieving code failed"
-            }
-        }
     }
-
-    /// The current state of the authorization flow.
-    @Published
-    public private(set) var state: State = .idle
 
     private let client: JellyfinClient
-    private let pollInterval: Int
-    private let maxPolls: Int
 
-    private var mainTask: Task<Void, Never>?
+    init(client: JellyfinClient) {
+        self.client = client
+    }
 
-    /// Creates a manager for performing a Quick Connect authorization flow.
+    /// Starts a Quick Connect authorization flow when iterated.
     ///
     /// - Parameters:
-    ///   - client: The `JellyfinClient` to perform Quick Connect authorization with.
-    ///   - pollInterval: The polling interval, in seconds, while in the `polling` state.
-    ///   - maxPolls: The maximum number of polls while in the `polling` state. Hitting
-    ///               this amount of polls will throw a `maxPollingHit` error state.
-    ///
-    /// - Precondition: `pollInterval > 0`
-    /// - Precondition: `maxPolls > 0`
-    public init(
-        client: JellyfinClient,
-        pollInterval: Int = 5,
-        maxPolls: Int = 200
-    ) {
-        precondition(pollInterval > 0, "Polling interval must be at least one second")
-        precondition(maxPolls > 0, "Maximum polling must be positive")
+    ///   - poll: Poll interval in seconds
+    ///   - max: Maximum number of polls
+    public func connect(
+        poll: Int = 5,
+        max: Int = 200
+    ) -> AsyncThrowingStream<Event, Error> {
 
-        self.client = client
-        self.pollInterval = pollInterval
-        self.maxPolls = maxPolls
-    }
+        precondition(poll > 0, "Polling interval must be at least one second")
+        precondition(max > 0, "Maximum polling must be positive")
 
-    /// Starts the Quick Connect authorization flow.
-    ///
-    /// - Important: Make sure to subscribe or await for `state` changes
-    ///              prior to starting Quick Connect.
-    @MainActor
-    public func start() {
-        guard state == .idle else { return }
-
-        mainTask = Task {
-            await run()
-        }
-    }
-
-    /// Stops the current Quick Connect authorization flow.
-    @MainActor
-    public func stop() {
-        mainTask?.cancel()
-        state = .idle
-    }
-
-    private func run() async {
-        do {
-            await MainActor.run {
-                state = .retrievingCode
+        return AsyncThrowingStream { continuation in
+            let task = Task {
+                do {
+                    try await run(poll: poll, max: max) { state in
+                        continuation.yield(state)
+                    }
+                    continuation.finish()
+                } catch is CancellationError {
+                    continuation.finish()
+                } catch {
+                    continuation.finish(throwing: error)
+                }
             }
 
-            let (secret, code) = try await retrieveSecretAndCode()
-
-            await MainActor.run {
-                self.state = .polling(code: code)
-            }
-
-            let authorizedSecret = try await poll(secret: secret)
-
-            await MainActor.run {
-                state = .authenticated(secret: authorizedSecret)
-            }
-        } catch let error as QuickConnectError {
-            await MainActor.run {
-                state = .error(error)
-            }
-        } catch is CancellationError {
-            // Task was cancelled, not an issue
-        } catch {
-            await MainActor.run {
-                state = .error(.other(error.localizedDescription))
+            continuation.onTermination = { _ in
+                task.cancel()
             }
         }
+    }
+
+    private func run(
+        poll: Int,
+        max: Int,
+        yield: (Event) -> Void
+    ) async throws {
+
+        let (secret, code) = try await retrieveSecretAndCode()
+
+        yield(.polling(code: code))
+
+        let authorizedSecret = try await pollForAuthorization(secret: secret, interval: poll, max: max)
+
+        yield(.authenticated(secret: authorizedSecret))
     }
 
     private func retrieveSecretAndCode() async throws -> (secret: String, code: String) {
 
-        let initiatePath = Paths.initiateQuickConnect
-        let response = try await client.send(initiatePath)
+        let request = Paths.initiateQuickConnect
+        let response = try await client.send(request)
 
         guard let secret = response.value.secret,
               let code = response.value.code
@@ -162,16 +106,18 @@ public final class QuickConnect: ObservableObject, @unchecked Sendable {
         return (secret, code)
     }
 
-    /// Note: `Task.sleep` doesn't guarantee actual time == given time, but
-    ///       variance is fairly tight and exact time doesn't matter.
-    private func poll(secret: String) async throws -> String {
+    private func pollForAuthorization(
+        secret: String,
+        interval: Int,
+        max: Int
+    ) async throws -> String {
 
-        for _ in 0 ..< maxPolls {
+        for _ in 0 ..< max {
             if let authSecret = try await checkAuthorization(secret: secret) {
                 return authSecret
             }
 
-            try await Task.sleep(nanoseconds: UInt64(1_000_000_000 * pollInterval))
+            try await Task.sleep(for: .seconds(interval))
         }
 
         throw QuickConnectError.maxPollingHit
@@ -182,9 +128,7 @@ public final class QuickConnect: ObservableObject, @unchecked Sendable {
         let request = Paths.getQuickConnectState(secret: secret)
         let response = try await client.send(request)
 
-        let isAuthenticated = response.value.isAuthenticated ?? false
-
-        guard isAuthenticated, let authorizedSecret = response.value.secret else { return nil }
+        guard response.value.isAuthenticated == true, let authorizedSecret = response.value.secret else { return nil }
 
         return authorizedSecret
     }
