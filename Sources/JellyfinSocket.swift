@@ -325,7 +325,10 @@ private extension JellyfinSocket.Session {
         let urlSession = URLSession(configuration: .default)
         defer { urlSession.invalidateAndCancel() }
 
-        let webSocketTask = urlSession.webSocketTask(with: url)
+        var request = URLRequest(url: url)
+        request.setValue(client.authHeaders, forHTTPHeaderField: "Authorization")
+
+        let webSocketTask = urlSession.webSocketTask(with: request)
         webSocketTask.resume()
 
         defer {

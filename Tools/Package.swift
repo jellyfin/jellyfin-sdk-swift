@@ -18,7 +18,7 @@ let package = Package(
         .executableTarget(
             name: "Tools",
             dependencies: [
-                .product(name: "JellyfinAPI", package: "SDK"),
+                .product(name: "JellyfinAPI", package: "jellyfin-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]
         ),

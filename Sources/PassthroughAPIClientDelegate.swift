@@ -45,7 +45,7 @@ extension JellyfinClient {
         }
     }
 
-    private var authHeaders: String {
+    var authHeaders: String {
         var rawFields = [
             "DeviceId": configuration.deviceID,
             "Device": configuration.deviceName,
