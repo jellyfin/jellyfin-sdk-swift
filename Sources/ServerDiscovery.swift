@@ -42,11 +42,11 @@ public extension JellyfinClient {
 
     private static let discoveryPort = 7359
     private static let broadcastAddress = "255.255.255.255"
-    private static let payload = "Who is JellyfinServer?"
+    private static let payload = "who is JellyfinServer?"
 
     /// Discovers Jellyfin servers on the local network using UDP broadcast.
-    ///
-    /// - Parameter duration: Duration to listen for responses.
+    /// - Note: Server Discovery only works on IPv4 per Jellyfin's usage of `ipaddress.any`
+    /// - https://learn.microsoft.com/en-us/dotnet/api/system.net.ipaddress.any
     static func discover(duration: Duration = .seconds(5)) -> AsyncThrowingStream<PublicServer, Error> {
         AsyncThrowingStream { continuation in
             let task = Task {
@@ -84,39 +84,29 @@ extension JellyfinClient {
         guard duration > .zero else { return }
 
         let interfaces = networkInterfaces()
+
         guard !interfaces.isEmpty else { throw DiscoveryError.noUsableNetworkInterface }
 
-        let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-        do {
-            guard let channel = try? await makeChannel(on: group) else {
-                throw DiscoveryError.noUsableChannel
-            }
-
-            try await channel.executeThenClose { inbound, outbound in
-                try await sendProbe(
-                    outbound: outbound,
-                    allocator: channel.channel.allocator,
-                    interfaces: interfaces
-                )
-                try await readResponses(inbound: inbound, duration: duration, onResponse: onResponse)
-            }
-        } catch {
-            try? await group.shutdownGracefully()
-            throw error
-        }
-
-        try? await group.shutdownGracefully()
-    }
-
-    private static func makeChannel(on group: EventLoopGroup) async throws -> AsyncDatagramChannel {
-        try await DatagramBootstrap(group: group)
+        guard let channel = try? await DatagramBootstrap(group: MultiThreadedEventLoopGroup.singleton)
             .channelOption(.socketOption(.so_reuseaddr), value: 1)
             .channelOption(.socketOption(.so_broadcast), value: 1)
-            .bind(host: "0.0.0.0", port: 0) { channel in
+            .bind(host: "0.0.0.0", port: 0, channelInitializer: { channel in
                 channel.eventLoop.makeCompletedFuture {
                     try AsyncDatagramChannel(wrappingChannelSynchronously: channel)
                 }
-            }
+            })
+        else {
+            throw DiscoveryError.noUsableChannel
+        }
+
+        try await channel.executeThenClose { inbound, outbound in
+            try await sendProbe(
+                outbound: outbound,
+                allocator: channel.channel.allocator,
+                interfaces: interfaces
+            )
+            try await readResponses(inbound: inbound, duration: duration, onResponse: onResponse)
+        }
     }
 
     private static func sendProbe(
