@@ -37,21 +37,8 @@ struct Discover: AsyncParsableCommand {
             throw ValidationError("Duration must be greater than 0")
         }
 
-        var discovered = Set<String>()
-
         for try await response in JellyfinClient.discover(duration: .seconds(duration)) {
-            let key = "\(response.id)|\(response.url.absoluteString)"
-            guard discovered.insert(key).inserted else { continue }
-
-            print()
-            print("Server \(discovered.count)")
-            print("  Name: \(response.name)")
-            print("  ID: \(response.id)")
-            print("  URL: \(response.url.absoluteString)")
-        }
-
-        if discovered.isEmpty {
-            print("No servers discovered")
+            print("\(response.name) - \(response.id) - \(response.url.absoluteString)")
         }
     }
 }

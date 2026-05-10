@@ -12,8 +12,7 @@ import NIOPosix
 
 public extension JellyfinClient {
 
-    /// Errors produced by server discovery setup.
-    enum DiscoveryError: Error, Equatable, Sendable {
+    enum ServerDiscoveryError: Error, Equatable, Sendable {
         case noUsableNetworkInterface
         case noUsableChannel
     }
@@ -38,15 +37,15 @@ public extension JellyfinClient {
     }
 
     private typealias Datagram = AddressedEnvelope<ByteBuffer>
-    private typealias AsyncDatagramChannel = NIOAsyncChannel<Datagram, Datagram>
 
     private static let discoveryPort = 7359
     private static let broadcastAddress = "255.255.255.255"
     private static let payload = "who is JellyfinServer?"
 
     /// Discovers Jellyfin servers on the local network using UDP broadcast.
-    /// - Note: Server Discovery only works on IPv4 per Jellyfin's usage of `ipaddress.any`
-    /// - https://learn.microsoft.com/en-us/dotnet/api/system.net.ipaddress.any
+    ///
+    /// - Parameters:
+    ///   - duration: Duration to listen for server responses
     static func discover(duration: Duration = .seconds(5)) -> AsyncThrowingStream<PublicServer, Error> {
         AsyncThrowingStream { continuation in
             let task = Task {
@@ -85,18 +84,18 @@ extension JellyfinClient {
 
         let interfaces = networkInterfaces()
 
-        guard !interfaces.isEmpty else { throw DiscoveryError.noUsableNetworkInterface }
+        guard !interfaces.isEmpty else { throw ServerDiscoveryError.noUsableNetworkInterface }
 
         guard let channel = try? await DatagramBootstrap(group: MultiThreadedEventLoopGroup.singleton)
             .channelOption(.socketOption(.so_reuseaddr), value: 1)
             .channelOption(.socketOption(.so_broadcast), value: 1)
             .bind(host: "0.0.0.0", port: 0, channelInitializer: { channel in
                 channel.eventLoop.makeCompletedFuture {
-                    try AsyncDatagramChannel(wrappingChannelSynchronously: channel)
+                    try NIOAsyncChannel<Datagram, Datagram>(wrappingChannelSynchronously: channel)
                 }
             })
         else {
-            throw DiscoveryError.noUsableChannel
+            throw ServerDiscoveryError.noUsableChannel
         }
 
         try await channel.executeThenClose { inbound, outbound in
@@ -114,9 +113,10 @@ extension JellyfinClient {
         allocator: ByteBufferAllocator,
         interfaces: [NetworkInterface]
     ) async throws {
-        let targets = Set(interfaces.map(\.broadcastAddress) + [
-            try SocketAddress(ipAddress: broadcastAddress, port: discoveryPort),
+        let targets = try Set(interfaces.map(\.broadcastAddress) + [
+            SocketAddress(ipAddress: broadcastAddress, port: discoveryPort),
         ])
+
         let envelopes = targets.map {
             Datagram(
                 remoteAddress: $0,
@@ -173,9 +173,9 @@ extension JellyfinClient {
     }
 
     private static func isLoopback(_ address: SocketAddress?) -> Bool {
-        guard case .v4(let v4) = address else { return false }
+        guard case let .v4(v4) = address else { return false }
 
-        /// 127.0.0.0/8
+        // 127.0.0.0/8
         return UInt32(bigEndian: v4.address.sin_addr.s_addr) >> 24 == 127
     }
 }
