@@ -3,26 +3,78 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
 import Foundation
 
-public enum SocketSubscription: Hashable {
+/// Specific high-volume sockets that must be opted into to receive data.
+public enum SocketSubscription: Hashable, Sendable {
 
-    case activityLog(initialDelay: Duration = .seconds(5), interval: Duration = .seconds(5))
-    case scheduledTasks(initialDelay: Duration = .zero, interval: Duration = .seconds(5))
-    case sessions(initialDelay: Duration = .zero, interval: Duration = .seconds(2))
+    case activityLog
+    case scheduledTasks
+    case sessions
 
-    var data: String {
+    /// Default initial delay before the server starts sending updates.
+    public var defaultInitialDelay: Duration {
         switch self {
-        case .activityLog(let delay, let interval),
-             .scheduledTasks(let delay, let interval),
-             .sessions(let delay, let interval):
-            return "\(toMilliseconds(delay)),\(toMilliseconds(interval))"
+        case .activityLog:
+            .seconds(5)
+        case .scheduledTasks, .sessions:
+            .zero
         }
     }
 
+    /// Default interval between updates.
+    public var defaultInterval: Duration {
+        switch self {
+        case .activityLog, .scheduledTasks:
+            .seconds(5)
+        case .sessions:
+            .seconds(2)
+        }
+    }
+
+    func startMessage(initialDelay: Duration, interval: Duration) -> InboundWebSocketMessage {
+        let data = "\(toMilliseconds(initialDelay)),\(toMilliseconds(interval))"
+
+        switch self {
+        case .activityLog:
+            return .activityLogEntryStartMessage(
+                ActivityLogEntryStartMessage(
+                    data: data,
+                    messageType: .activityLogEntryStart
+                )
+            )
+        case .scheduledTasks:
+            return .scheduledTasksInfoStartMessage(
+                ScheduledTasksInfoStartMessage(
+                    data: data,
+                    messageType: .scheduledTasksInfoStart
+                )
+            )
+        case .sessions:
+            return .sessionsStartMessage(
+                SessionsStartMessage(
+                    data: data,
+                    messageType: .sessionsStart
+                )
+            )
+        }
+    }
+
+    var stopMessage: InboundWebSocketMessage {
+        switch self {
+        case .activityLog:
+            .activityLogEntryStopMessage(ActivityLogEntryStopMessage(messageType: .activityLogEntryStop))
+        case .scheduledTasks:
+            .scheduledTasksInfoStopMessage(ScheduledTasksInfoStopMessage(messageType: .scheduledTasksInfoStop))
+        case .sessions:
+            .sessionsStopMessage(SessionsStopMessage(messageType: .sessionsStop))
+        }
+    }
+
+    /// Jellyfin only accepts an Int as Milliseconds.
     private func toMilliseconds(_ duration: Duration) -> Int {
         Int(duration.components.seconds * 1000 + duration.components.attoseconds / 1_000_000_000_000_000)
     }

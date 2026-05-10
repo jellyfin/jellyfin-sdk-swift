@@ -178,6 +178,20 @@ public extension JellyfinClient {
         .init(client: self)
     }
 
+    /// WebSocket helper.
+    func socket(
+        supportsMediaControl: Bool = false,
+        supportedCommands: [GeneralCommandType] = GeneralCommandType.allCases,
+        playableMediaTypes: [MediaType] = []
+    ) -> JellyfinSocket {
+        JellyfinSocket(
+            client: self,
+            supportsMediaControl: supportsMediaControl,
+            supportedCommands: supportedCommands,
+            playableMediaTypes: playableMediaTypes
+        )
+    }
+
     /// Signs in a user given a username and password. On a successful response `accessToken` is set to the given access token.
     ///
     /// - Note: Overrides the current access token if one was previously set. Save this token locally or revoke it with `signOut` for proper

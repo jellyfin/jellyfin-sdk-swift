@@ -28,62 +28,41 @@ Alternatively, you can use your own network stack with the generated **Entities*
 
 ## WebSocket
 
-`JellyfinSocket` creates and manages a persistent WebSocket connection to the Jellyfin server, delivering real-time updates. Once connected, higher volumne endpoints can be subscribed to like sessions, scheduled tasks, or activity logs.
+`JellyfinSocket` opens a long-lived WebSocket session to the Jellyfin server, delivering real-time updates as a stream of events. Subscriptions can be added or removed imperatively at any time and are restored automatically across reconnects.
 
 ```swift
-/// Create a WebSocket instance with all available parameters
-let socket = JellyfinSocket(
-    client: client,
-    userID: user.id,
+/// Open a session
+let session = client.socket(
     supportsMediaControl: true,
     supportedCommands: [.displayMessage, .play, .pause]
-)
+).connect()
 
-/// Observe socket state changes
-let stateSubscription = socket.$state
-    .receive(on: DispatchQueue.main)
-    .sink { state in
-        switch state {
-        case .idle:
-            print("Socket is idle")
-        case .connecting:
-            print("Connecting...")
-        case .connected(let url):
-            print("Connected to: \(url)")
-        case .disconnecting:
-            print("Disconnecting...")
-        case .closed(let error):
-            print("Closed: \(String(describing: error))")
-        case .error(let error):
-            print("Socket error: \(error)")
-        }
-    }
+/// Subscribe to feeds (uses each subscription's default timing)
+session.subscribe(.sessions)
+session.subscribe(.activityLog, interval: .seconds(10))
 
-/// Observe parsed server messages
-let messageSubscription = socket.messages
-    .receive(on: DispatchQueue.main)
-    .sink { message in
+/// Iterate events for the lifetime of the session
+for try await event in session.events {
+    switch event {
+    case .connecting:
+        print("Connecting…")
+    case let .connected(url):
+        print("Connected to \(url)")
+    case let .message(message):
         switch message {
-        case .sessionsMessage(let msg):
-            print("Received session update: \(msg)")
-        case .outboundKeepAliveMessage:
-            print("Received keep-alive pong")
+        case let .sessionsMessage(msg):
+            print("Sessions: \(msg)")
         default:
             break
         }
     }
+}
 
-/// Connect the socket
-socket.connect()
+/// Remove a subscription
+session.unsubscribe(.activityLog)
 
-/// Subscribe to sessions feed immediately with updates every 2 seconds
-socket.subscribe(.sessions(initialDelayMs: 0, intervalMs: 2000))
-
-/// Later, unsubscribe
-socket.unsubscribe(.sessions())
-
-/// Gracefully disconnect (optional; also triggered by deinit)
-socket.disconnect()
+/// Close the session (also triggered on `deinit`)
+session.disconnect()
 ```
 
 ## Quick Connect

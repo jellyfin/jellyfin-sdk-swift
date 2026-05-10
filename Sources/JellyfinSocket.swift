@@ -3,493 +3,510 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, you can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// Copyright (c) 2025 Jellyfin & Jellyfin Contributors
+// Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import Combine
 import Foundation
-import Logging
 
-public final class JellyfinSocket: ObservableObject, @unchecked Sendable {
-
-    // MARK: - Public Properties
-
-    @MainActor
-    public let messages = PassthroughSubject<OutboundWebSocketMessage, Never>()
-
-    @Published
-    public private(set) var state: SocketState = .idle
-
-    @Published
-    public private(set) var lastServerActivity: Date?
-
-    @Published
-    public private(set) var subscriptions = Set<SocketSubscription>()
-
-    // MARK: - Configuration
+/// Connect to the Jellyfin WebSocket from the `JellyfinClient`.
+///
+/// ## Example
+/// ```swift
+/// let session = client.socket().connect()
+/// session.subscribe(.sessions)
+///
+/// for try await event in session.events {
+///     switch event {
+///     case .connecting:
+///         print("connecting…")
+///     case let .connected(url):
+///         print("connected to \(url)")
+///     case let .message(message):
+///         print(message)
+///     }
+/// }
+///
+/// session.unsubscribe(.sessions)
+/// session.disconnect()
+/// ```
+public struct JellyfinSocket: Sendable {
 
     private let client: JellyfinClient
-    private let userID: String?
     private let supportsMediaControl: Bool
     private let supportedCommands: [GeneralCommandType]
-    private var logger: Logger
-
-    // MARK: - Connection Settings
-
-    private let maxReconnectAttempts = 5
-    private let reconnectDelayBase: Duration = .seconds(2)
-    private let connectionTimeout: TimeInterval = 10
-    private let serverResponseTimeout: TimeInterval = 90
-    private var keepAliveInterval: TimeInterval = 20
-
-    // MARK: - Internal State
-
-    private var urlSession: URLSession!
-    private var webSocketTask: URLSessionWebSocketTask?
-    private var reconnectAttempts = 0
-    private var explicitlyDisconnected = false
-    private var messageQueue: [Data] = []
-    private var cancellables = Set<AnyCancellable>()
-
-    // MARK: - Timers
-
-    private var keepAliveTimer: Timer?
-    private var connectionTimeoutTimer: Timer?
-    private var responseTimeoutTimer: Timer?
-
-    // MARK: - JSON Coding
-
-    private let encoder = JSONEncoder()
-    private let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(OpenISO8601DateFormatter())
-        return decoder
-    }()
-
-    // MARK: - Init
+    private let playableMediaTypes: [MediaType]
 
     public init(
         client: JellyfinClient,
-        userID: String? = nil,
         supportsMediaControl: Bool = false,
         supportedCommands: [GeneralCommandType] = GeneralCommandType.allCases,
-        logger: Logger = Logger(label: "JellyfinSocket")
+        playableMediaTypes: [MediaType] = [.video, .audio]
     ) {
         self.client = client
-        self.userID = userID
         self.supportsMediaControl = supportsMediaControl
         self.supportedCommands = supportedCommands
-        self.logger = logger
+        self.playableMediaTypes = playableMediaTypes
+    }
 
-        let queue = OperationQueue()
-        queue.name = "org.jellyfin.sdk.websocket"
-        queue.maxConcurrentOperationCount = 1
-
-        self.urlSession = URLSession(
-            configuration: .default,
-            delegate: nil,
-            delegateQueue: queue
+    /// Open a WebSocket session.
+    ///
+    /// The session reconnects with exponential backoff on transport errors and
+    /// re-sends active subscriptions on each reconnect.
+    ///
+    /// - Parameters:
+    ///   - maxReconnectAttempts: Number of times to retry on transport errors.
+    ///   - reconnectDelayBase: Initial backoff delay that doubles for each retry.
+    ///   - responseTimeout: Maximum silence from the server before disconnecting.
+    public func connect(
+        maxReconnectAttempts: Int = 5,
+        reconnectDelayBase: Duration = .seconds(2),
+        responseTimeout: Duration = .seconds(90)
+    ) -> Session {
+        Session(
+            client: client,
+            supportsMediaControl: supportsMediaControl,
+            supportedCommands: supportedCommands,
+            playableMediaTypes: playableMediaTypes,
+            maxReconnectAttempts: maxReconnectAttempts,
+            reconnectDelayBase: reconnectDelayBase,
+            responseTimeout: responseTimeout
         )
-    }
-
-    deinit {
-        explicitlyDisconnected = true
-        webSocketTask?.cancel(with: .goingAway, reason: nil)
-        invalidateTimers()
-
-        Task.detached { [client, supportsMediaControl, supportedCommands] in
-            await Self.updateCapabilities(
-                client: client,
-                supportsMediaControl: supportsMediaControl,
-                supportedCommands: supportedCommands,
-                enable: false
-            )
-        }
-    }
-
-    // MARK: - Connect
-
-    public func connect() {
-        guard !state.isConnected, webSocketTask == nil else {
-            logger.warning("Already connected or connecting")
-            return
-        }
-
-        explicitlyDisconnected = false
-        state = .connecting
-        reconnectAttempts = 0
-
-        startConnectionTimeout()
-
-        Task.detached { [weak self] in
-            await self?.establishConnection()
-        }
-    }
-
-    // MARK: - Disconnect
-
-    public func disconnect() {
-        logger.info("Disconnecting")
-        explicitlyDisconnected = true
-        performDisconnect(error: SocketError.explicitDisconnect)
-    }
-
-    // MARK: - Send
-
-    @discardableResult
-    public func send(_ message: InboundWebSocketMessage) -> Bool {
-        guard !explicitlyDisconnected else {
-            logger.warning("Cannot send while disconnected")
-            return false
-        }
-
-        do {
-            let data = try encoder.encode(message)
-            return send(data)
-        } catch {
-            logger.error("Failed to encode message: \(error)")
-            return false
-        }
-    }
-
-    // MARK: - Subscribe
-
-    public func subscribe(_ subscription: SocketSubscription) {
-        subscriptions.insert(subscription)
-
-        let message: InboundWebSocketMessage = switch subscription {
-        case .activityLog:
-            .activityLogEntryStartMessage(ActivityLogEntryStartMessage(data: subscription.data, messageType: .activityLogEntryStart))
-        case .scheduledTasks:
-            .scheduledTasksInfoStartMessage(ScheduledTasksInfoStartMessage(data: subscription.data, messageType: .scheduledTasksInfoStart))
-        case .sessions:
-            .sessionsStartMessage(SessionsStartMessage(data: subscription.data, messageType: .sessionsStart))
-        }
-
-        send(message)
-    }
-
-    // MARK: - Unsubscribe
-
-    public func unsubscribe(_ subscription: SocketSubscription) {
-        subscriptions.remove(subscription)
-
-        let message: InboundWebSocketMessage = switch subscription {
-        case .activityLog:
-            .activityLogEntryStopMessage(ActivityLogEntryStopMessage(messageType: .activityLogEntryStop))
-        case .scheduledTasks:
-            .scheduledTasksInfoStopMessage(ScheduledTasksInfoStopMessage(messageType: .scheduledTasksInfoStop))
-        case .sessions:
-            .sessionsStopMessage(SessionsStopMessage(messageType: .sessionsStop))
-        }
-
-        send(message)
     }
 }
 
-// MARK: - Connection
+// MARK: - Session
 
-private extension JellyfinSocket {
+public extension JellyfinSocket {
 
-    func establishConnection() async {
-        guard !explicitlyDisconnected else {
-            await MainActor.run { state = .closed(error: SocketError.explicitDisconnect) }
-            return
+    final class Session: @unchecked Sendable {
+
+        public enum Event: Sendable {
+
+            /// The socket has begun connecting (initial connection or a reconnect).
+            case connecting
+
+            /// The socket has received its first message and is connected.
+            case connected(URL)
+
+            /// A message was received from the server.
+            case message(OutboundWebSocketMessage)
         }
 
-        guard let url = buildSocketURL() else {
-            await MainActor.run { handleDisconnection(error: SocketError.invalidURL) }
-            return
+        public enum SocketError: Error, LocalizedError, Equatable, Sendable {
+
+            case connectionTimeout
+            case invalidURL
+            case maxReconnectAttemptsReached
+            case missingAccessToken
+
+            public var errorDescription: String? {
+                switch self {
+                case .connectionTimeout:
+                    "Connection timed out"
+                case .invalidURL: 
+                    "Invalid WebSocket URL"
+                case .maxReconnectAttemptsReached: 
+                    "Maximum reconnection attempts reached"
+                case .missingAccessToken: 
+                    "Missing access token"
+                }
+            }
         }
 
-        logger.info("Connecting to \(url.host ?? "unknown")")
+        /// Stream of events emitted by the server.
+        /// Iterating this stream pulls events for the lifetime of the session.
+        public let events: AsyncThrowingStream<Event, Error>
 
-        webSocketTask = urlSession.webSocketTask(with: URLRequest(url: url))
-        webSocketTask?.resume()
-        listen()
+        // MARK: - State
+
+        struct Config: Sendable, Hashable {
+            let initialDelay: Duration
+            let interval: Duration
+        }
+
+        private let lock = NSLock()
+        private var _subscriptions: [SocketSubscription: Config] = [:]
+        private var _pending: [InboundWebSocketMessage] = []
+        private var _wakeup: (@Sendable () -> Void)?
+        private var _explicitlyDisconnected = false
+
+        private let eventsContinuation: AsyncThrowingStream<Event, Error>.Continuation
+        private var task: Task<Void, Never>!
+
+        // MARK: - Init
+
+        init(
+            client: JellyfinClient,
+            supportsMediaControl: Bool,
+            supportedCommands: [GeneralCommandType],
+            playableMediaTypes: [MediaType],
+            maxReconnectAttempts: Int,
+            reconnectDelayBase: Duration,
+            responseTimeout: Duration
+        ) {
+            let (events, continuation) = AsyncThrowingStream<Event, Error>.makeStream()
+            self.events = events
+            self.eventsContinuation = continuation
+
+            self.task = Task { [weak self] in
+                await self?.run(
+                    client: client,
+                    supportsMediaControl: supportsMediaControl,
+                    supportedCommands: supportedCommands,
+                    playableMediaTypes: playableMediaTypes,
+                    maxReconnectAttempts: maxReconnectAttempts,
+                    reconnectDelayBase: reconnectDelayBase,
+                    responseTimeout: responseTimeout
+                )
+            }
+        }
+
+        deinit {
+            task?.cancel()
+            eventsContinuation.finish()
+        }
+
+        // MARK: - Public API
+
+        /// Add a subscription. Sends the start message for a subscription type.
+        ///
+        /// - Parameters:
+        ///   - subscription: The subscription topic.
+        ///   - initialDelay: Delay before the first update; defaults to the
+        ///     subscription's `defaultInitialDelay`.
+        ///   - interval: Update cadence; defaults to the subscription's
+        ///     `defaultInterval`.
+        public func subscribe(
+            _ subscription: SocketSubscription,
+            initialDelay: Duration? = nil,
+            interval: Duration? = nil
+        ) {
+            let config = Config(
+                initialDelay: initialDelay ?? subscription.defaultInitialDelay,
+                interval: interval ?? subscription.defaultInterval
+            )
+
+            lock.lock()
+            _subscriptions[subscription] = config
+            _pending.append(subscription.startMessage(initialDelay: config.initialDelay, interval: config.interval))
+            let wake = _wakeup
+            lock.unlock()
+            wake?()
+        }
+
+        /// Remove a subscription.
+        /// Sends the stop message if connected, otherwise drops it from the active set.
+        public func unsubscribe(_ subscription: SocketSubscription) {
+            lock.lock()
+            _subscriptions[subscription] = nil
+            _pending.append(subscription.stopMessage)
+            let wake = _wakeup
+            lock.unlock()
+            wake?()
+        }
+
+        /// Close the session. The `events` stream finishes after this call.
+        public func disconnect() {
+            lock.lock()
+            _explicitlyDisconnected = true
+            lock.unlock()
+            task?.cancel()
+        }
+    }
+}
+
+// MARK: - State helpers
+
+private extension JellyfinSocket.Session {
+
+    var isExplicitlyDisconnected: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return _explicitlyDisconnected
     }
 
-    func buildSocketURL() -> URL? {
-        guard let token = client.accessToken else {
-            logger.error("Missing access token")
-            return nil
+    func setWakeup(_ block: (@Sendable () -> Void)?) {
+        lock.lock()
+        defer { lock.unlock() }
+        _wakeup = block
+    }
+
+    /// Snapshot active subscriptions and clear the pending queue.
+    /// Used at (re)connect so the initial state matches the active subscription set without duplicating buffered start/stop messages.
+    func consumeInitialMessages() -> [InboundWebSocketMessage] {
+        lock.lock()
+        defer { lock.unlock() }
+        _pending = []
+        return _subscriptions.map { subscription, config in
+            subscription.startMessage(initialDelay: config.initialDelay, interval: config.interval)
+        }
+    }
+
+    func drainPending() -> [InboundWebSocketMessage] {
+        lock.lock()
+        defer { lock.unlock() }
+        let pending = _pending
+        _pending = []
+        return pending
+    }
+}
+
+// MARK: - Run loop
+
+private extension JellyfinSocket.Session {
+
+    func run(
+        client: JellyfinClient,
+        supportsMediaControl: Bool,
+        supportedCommands: [GeneralCommandType],
+        playableMediaTypes: [MediaType],
+        maxReconnectAttempts: Int,
+        reconnectDelayBase: Duration,
+        responseTimeout: Duration
+    ) async {
+        var attempts = 0
+
+        while !Task.isCancelled, !isExplicitlyDisconnected {
+            do {
+                try await sessionAttempt(
+                    client: client,
+                    supportsMediaControl: supportsMediaControl,
+                    supportedCommands: supportedCommands,
+                    playableMediaTypes: playableMediaTypes,
+                    responseTimeout: responseTimeout
+                )
+                eventsContinuation.finish()
+                return
+            } catch is CancellationError {
+                eventsContinuation.finish()
+                return
+            } catch let error as SocketError where error == .invalidURL || error == .missingAccessToken {
+                eventsContinuation.finish(throwing: error)
+                return
+            } catch {
+                attempts += 1
+                guard attempts <= maxReconnectAttempts else {
+                    eventsContinuation.finish(throwing: SocketError.maxReconnectAttemptsReached)
+                    return
+                }
+                let delay = reconnectDelayBase * Int(pow(2.0, Double(attempts - 1)))
+                do {
+                    try await Task.sleep(for: delay)
+                } catch {
+                    eventsContinuation.finish()
+                    return
+                }
+            }
         }
 
-        guard var components = URLComponents(url: client.configuration.url, resolvingAgainstBaseURL: false) else {
-            return nil
+        eventsContinuation.finish()
+    }
+
+    func sessionAttempt(
+        client: JellyfinClient,
+        supportsMediaControl: Bool,
+        supportedCommands: [GeneralCommandType],
+        playableMediaTypes: [MediaType],
+        responseTimeout: Duration
+    ) async throws {
+        guard let url = try buildSocketURL(client: client) else { throw SocketError.invalidURL }
+
+        eventsContinuation.yield(.connecting)
+
+        // Register capabilities BEFORE the WebSocket connects so the session is controllable.
+        try await Self.updateCapabilities(
+            client: client,
+            supportsMediaControl: supportsMediaControl,
+            supportedCommands: supportedCommands,
+            playableMediaTypes: playableMediaTypes,
+            enable: true
+        )
+
+        let urlSession = URLSession(configuration: .default)
+        defer { urlSession.invalidateAndCancel() }
+
+        let webSocketTask = urlSession.webSocketTask(with: url)
+        webSocketTask.resume()
+
+        defer {
+            webSocketTask.cancel(with: .goingAway, reason: nil)
+            Task.detached { [client, supportsMediaControl, supportedCommands, playableMediaTypes] in
+                try? await Self.updateCapabilities(
+                    client: client,
+                    supportsMediaControl: supportsMediaControl,
+                    supportedCommands: supportedCommands,
+                    playableMediaTypes: playableMediaTypes,
+                    enable: false
+                )
+            }
         }
+
+        let (wakeupStream, wakeupContinuation) = AsyncStream<Void>.makeStream()
+        setWakeup { wakeupContinuation.yield(()) }
+        defer {
+            setWakeup(nil)
+            wakeupContinuation.finish()
+        }
+
+        let encoder = JSONEncoder()
+        for message in consumeInitialMessages() {
+            try await webSocketTask.send(.data(try encoder.encode(message)))
+        }
+
+        try await runPipes(
+            webSocketTask: webSocketTask,
+            url: url,
+            wakeupStream: wakeupStream,
+            responseTimeout: responseTimeout
+        )
+    }
+
+    func runPipes(
+        webSocketTask: URLSessionWebSocketTask,
+        url: URL,
+        wakeupStream: AsyncStream<Void>,
+        responseTimeout: Duration
+    ) async throws {
+        let activity = ActivityClock()
+        let (intervalStream, intervalContinuation) = AsyncStream<Duration>.makeStream()
+        let eventsContinuation = self.eventsContinuation
+
+        try await withThrowingTaskGroup(of: Void.self) { group in
+
+            // Read loop
+            group.addTask {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .formatted(OpenISO8601DateFormatter())
+
+                var hasYieldedConnected = false
+                defer { intervalContinuation.finish() }
+
+                while !Task.isCancelled {
+                    let message = try await webSocketTask.receive()
+                    activity.touch()
+
+                    if !hasYieldedConnected {
+                        hasYieldedConnected = true
+                        eventsContinuation.yield(.connected(url))
+                    }
+
+                    guard let data = Self.extractData(from: message),
+                          let decoded = try? decoder.decode(OutboundWebSocketMessage.self, from: data)
+                    else { continue }
+
+                    if case let .forceKeepAliveMessage(message) = decoded, let seconds = message.data {
+                        intervalContinuation.yield(.seconds(Double(seconds) / 2.0))
+                    }
+
+                    eventsContinuation.yield(.message(decoded))
+                }
+            }
+
+            // Outbound writer — drains pending on each wakeup
+            group.addTask { [weak self] in
+                let encoder = JSONEncoder()
+                for await _ in wakeupStream {
+                    guard let self else { return }
+                    for message in self.drainPending() {
+                        try await webSocketTask.send(.data(try encoder.encode(message)))
+                    }
+                }
+            }
+
+            // Keep-alive sender — starts on first ForceKeepAlive
+            group.addTask {
+                let encoder = JSONEncoder()
+                let keepAlive = InboundWebSocketMessage.inboundKeepAliveMessage(
+                    InboundKeepAliveMessage(messageType: .keepAlive)
+                )
+
+                for await interval in intervalStream {
+                    while !Task.isCancelled {
+                        let data = try encoder.encode(keepAlive)
+                        try await webSocketTask.send(.data(data))
+                        try await Task.sleep(for: interval)
+                    }
+                }
+            }
+
+            // Server response timeout
+            group.addTask {
+                while !Task.isCancelled {
+                    try await Task.sleep(for: .seconds(5))
+                    if activity.elapsed > responseTimeout {
+                        throw SocketError.connectionTimeout
+                    }
+                }
+            }
+
+            try await group.next()
+            group.cancelAll()
+        }
+    }
+}
+
+// MARK: - Helpers
+
+private extension JellyfinSocket.Session {
+
+    func buildSocketURL(client: JellyfinClient) throws -> URL? {
+        guard let token = client.accessToken else { throw SocketError.missingAccessToken }
+        guard var components = URLComponents(url: client.configuration.url, resolvingAgainstBaseURL: false)
+        else { return nil }
 
         components.scheme = components.scheme == "https" ? "wss" : "ws"
         components.path = "/socket"
         components.queryItems = [
             URLQueryItem(name: "api_key", value: token),
-            URLQueryItem(name: "deviceId", value: client.configuration.deviceID),
-            userID.map { URLQueryItem(name: "user_id", value: $0) }
+            URLQueryItem(name: "deviceId", value: client.configuration.deviceID)
         ].compactMap { $0 }
 
         return components.url
     }
-}
 
-// MARK: - Listening
-
-private extension JellyfinSocket {
-
-    func listen() {
-        webSocketTask?.receive { [weak self] result in
-            guard let self else { return }
-
-            Task { @MainActor in
-                guard !self.explicitlyDisconnected else { return }
-
-                switch result {
-                case .success(let message):
-                    self.handleMessage(message)
-                    self.listen()
-                case .failure(let error):
-                    self.handleReceiveError(error)
-                }
-            }
-        }
-    }
-
-    func handleMessage(_ message: URLSessionWebSocketTask.Message) {
-        connectionTimeoutTimer?.invalidate()
-
-        if case .connecting = state {
-            onConnected()
-        }
-
-        lastServerActivity = Date()
-        resetResponseTimeout()
-
-        guard let data = extractData(from: message) else { return }
-
-        do {
-            let decoded = try decoder.decode(OutboundWebSocketMessage.self, from: data)
-            handleDecodedMessage(decoded)
-        } catch {
-            logger.error("Failed to decode message: \(error)")
-        }
-    }
-
-    func extractData(from message: URLSessionWebSocketTask.Message) -> Data? {
+    static func extractData(from message: URLSessionWebSocketTask.Message) -> Data? {
         switch message {
-        case .string(let text):
-            return text.data(using: .utf8)
-        case .data(let data):
-            return data
+        case let .string(text):
+            text.data(using: .utf8)
+        case let .data(data):
+            data
         @unknown default:
-            return nil
+            nil
         }
     }
-
-    func handleDecodedMessage(_ message: OutboundWebSocketMessage) {
-        Task { @MainActor in
-            messages.send(message)
-        }
-
-        switch message {
-        case .forceKeepAliveMessage(let msg):
-            if let interval = msg.data {
-                keepAliveInterval = Double(interval) / 2.0
-                startKeepAlive()
-                sendKeepAlive()
-            }
-        case .outboundKeepAliveMessage:
-            logger.debug("KeepAlive pong")
-        default:
-            break
-        }
-    }
-
-    func handleReceiveError(_ error: Error) {
-        let nsError = error as NSError
-        if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled {
-            logger.info("WebSocket cancelled")
-            return
-        }
-        logger.error("Receive error: \(error)")
-        handleDisconnection(error: error)
-    }
-}
-
-// MARK: - Connection Lifecycle
-
-private extension JellyfinSocket {
-
-    func onConnected() {
-        logger.info("Connected")
-
-        if let url = webSocketTask?.currentRequest?.url {
-            state = .connected(url: url)
-        }
-
-        reconnectAttempts = 0
-
-        Task.detached { [client, supportsMediaControl, supportedCommands] in
-            await Self.updateCapabilities(
-                client: client,
-                supportsMediaControl: supportsMediaControl,
-                supportedCommands: supportedCommands,
-                enable: true
-            )
-        }
-
-        resubscribe()
-        flushMessageQueue()
-        startKeepAlive()
-    }
-
-    func performDisconnect(error: Error?) {
-        invalidateTimers()
-        webSocketTask?.cancel(with: .goingAway, reason: nil)
-        webSocketTask = nil
-        messageQueue.removeAll()
-        state = .closed(error: error)
-    }
-
-    func handleDisconnection(error: Error?) {
-        invalidateTimers()
-        webSocketTask?.cancel(with: .normalClosure, reason: nil)
-        webSocketTask = nil
-
-        if explicitlyDisconnected {
-            state = .closed(error: SocketError.explicitDisconnect)
-            return
-        }
-
-        guard reconnectAttempts < maxReconnectAttempts else {
-            logger.error("Max reconnect attempts reached")
-            state = .error(SocketError.maxReconnectAttemptsReached)
-            return
-        }
-
-        reconnectAttempts += 1
-        let delay = reconnectDelayBase * Int(pow(2.0, Double(reconnectAttempts - 1)))
-        logger.info("Reconnecting in \(delay) (attempt \(reconnectAttempts)/\(maxReconnectAttempts))")
-
-        state = .connecting
-
-        Task {
-            try? await Task.sleep(for: delay)
-            guard !explicitlyDisconnected else { return }
-            await establishConnection()
-        }
-    }
-}
-
-// MARK: - Message Queue
-
-private extension JellyfinSocket {
-
-    @discardableResult
-    func send(_ data: Data) -> Bool {
-        guard state.isConnected, let task = webSocketTask else {
-            if !explicitlyDisconnected {
-                messageQueue.append(data)
-            }
-            return !explicitlyDisconnected
-        }
-
-        task.send(.data(data)) { [weak self] error in
-            if let error {
-                self?.logger.error("Send error: \(error)")
-            }
-        }
-        return true
-    }
-
-    func flushMessageQueue() {
-        let queued = messageQueue
-        messageQueue.removeAll()
-        queued.forEach { send($0) }
-    }
-
-    func resubscribe() {
-        subscriptions.forEach { subscribe($0) }
-    }
-}
-
-// MARK: - Keep Alive
-
-private extension JellyfinSocket {
-
-    func sendKeepAlive() {
-        logger.debug("KeepAlive ping")
-        send(.inboundKeepAliveMessage(InboundKeepAliveMessage(messageType: .keepAlive)))
-    }
-
-    func startKeepAlive() {
-        stopKeepAlive()
-
-        sendKeepAlive()
-        resetResponseTimeout()
-
-        keepAliveTimer = Timer.scheduledTimer(withTimeInterval: keepAliveInterval, repeats: true) { [weak self] _ in
-            guard let self, self.state.isConnected, !self.explicitlyDisconnected else {
-                self?.stopKeepAlive()
-                return
-            }
-            self.sendKeepAlive()
-            self.resetResponseTimeout()
-        }
-    }
-
-    func stopKeepAlive() {
-        keepAliveTimer?.invalidate()
-        keepAliveTimer = nil
-        responseTimeoutTimer?.invalidate()
-        responseTimeoutTimer = nil
-    }
-}
-
-// MARK: - Timers
-
-private extension JellyfinSocket {
-
-    func startConnectionTimeout() {
-        connectionTimeoutTimer?.invalidate()
-        connectionTimeoutTimer = Timer.scheduledTimer(withTimeInterval: connectionTimeout, repeats: false) { [weak self] _ in
-            guard let self, self.state == .connecting else { return }
-            self.logger.error("Connection timeout")
-            self.handleDisconnection(error: SocketError.connectionTimeout)
-        }
-    }
-
-    func resetResponseTimeout() {
-        responseTimeoutTimer?.invalidate()
-        responseTimeoutTimer = Timer.scheduledTimer(withTimeInterval: serverResponseTimeout, repeats: false) { [weak self] _ in
-            guard let self, self.state.isConnected, !self.explicitlyDisconnected else { return }
-            self.logger.warning("Server response timeout")
-            self.handleDisconnection(error: SocketError.connectionTimeout)
-        }
-    }
-
-    func invalidateTimers() {
-        keepAliveTimer?.invalidate()
-        keepAliveTimer = nil
-        connectionTimeoutTimer?.invalidate()
-        connectionTimeoutTimer = nil
-        responseTimeoutTimer?.invalidate()
-        responseTimeoutTimer = nil
-    }
-}
-
-// MARK: - Capabilities
-
-private extension JellyfinSocket {
 
     static func updateCapabilities(
         client: JellyfinClient,
         supportsMediaControl: Bool,
         supportedCommands: [GeneralCommandType],
+        playableMediaTypes: [MediaType],
         enable: Bool
-    ) async {
+    ) async throws {
         var parameters = Paths.PostCapabilitiesParameters()
-        parameters.isSupportsMediaControl = enable ? supportsMediaControl : false
-        parameters.supportedCommands = enable ? supportedCommands : nil
+        parameters.isSupportsMediaControl = enable && supportsMediaControl
+        parameters.supportedCommands = enable ? supportedCommands : []
+        parameters.playableMediaTypes = enable ? playableMediaTypes : []
 
-        _ = try? await client.send(Paths.postCapabilities(parameters: parameters))
+        try await client.send(Paths.postCapabilities(parameters: parameters))
+    }
+}
+
+// MARK: - ActivityClock
+
+private final class ActivityClock: @unchecked Sendable {
+
+    private let lock = NSLock()
+    private var instant: ContinuousClock.Instant = .now
+
+    func touch() {
+        lock.lock()
+        defer { lock.unlock() }
+        instant = .now
+    }
+
+    var elapsed: Duration {
+        lock.lock()
+        defer { lock.unlock() }
+        return instant.duration(to: .now)
     }
 }
