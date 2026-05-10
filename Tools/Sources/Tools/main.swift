@@ -43,7 +43,11 @@ struct Discover: AsyncParsableCommand {
             let key = "\(response.id)|\(response.url.absoluteString)"
             guard discovered.insert(key).inserted else { continue }
 
-            print("\(response.name) (\(response.id)): \(response.url.absoluteString)")
+            print()
+            print("Server \(discovered.count)")
+            print("  Name: \(response.name)")
+            print("  ID: \(response.id)")
+            print("  URL: \(response.url.absoluteString)")
         }
 
         if discovered.isEmpty {
