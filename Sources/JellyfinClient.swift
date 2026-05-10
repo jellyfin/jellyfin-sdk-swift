@@ -254,6 +254,6 @@ public extension JellyfinClient {
 
     /// Creates a URL against the current server with the given path.
     func url(path: String) -> URL {
-        configuration.url.appending(component: path.trimmingPrefix(while: { $0 == "/" }))
+        configuration.url.appending(path: path.trimmingPrefix(while: { $0 == "/" }))
     }
 }
