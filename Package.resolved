@@ -1,5 +1,5 @@
 {
-  "originHash" : "47f94edc6b8cb82b5d68845ca0a2e5c1edd059e60769aaab5ef59007fcdc0647",
+  "originHash" : "f9ad287ba4eb1d2752115fe852682ee85fed690413530431de97deceb5fe4313",
   "pins" : [
     {
       "identity" : "get",
@@ -11,12 +11,48 @@
       }
     },
     {
-      "identity" : "urlqueryencoder",
+      "identity" : "swift-atomics",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/CreateAPI/URLQueryEncoder",
+      "location" : "https://github.com/apple/swift-atomics.git",
       "state" : {
-        "revision" : "4cc975d4d075d0e62699a796a08284e217d4ee93",
-        "version" : "0.2.0"
+        "revision" : "cd142fd2f64be2100422d658e7411e39489da985",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
+        "version" : "1.1.4"
+      }
+    },
+    {
+      "identity" : "swift-nio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-nio.git",
+      "state" : {
+        "revision" : "0f54d58bb5db9e064f332e8524150de379d1e51c",
+        "version" : "2.82.1"
+      }
+    },
+    {
+      "identity" : "swift-nio-transport-services",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-nio-transport-services.git",
+      "state" : {
+        "revision" : "cd1e89816d345d2523b11c55654570acd5cd4c56",
+        "version" : "1.24.0"
+      }
+    },
+    {
+      "identity" : "swift-system",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-system.git",
+      "state" : {
+        "revision" : "a34201439c74b53f0fd71ef11741af7e7caf01e1",
+        "version" : "1.4.2"
       }
     }
   ],

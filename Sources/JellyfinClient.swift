@@ -270,7 +270,7 @@ public extension JellyfinClient {
     func url(path: String) -> URL {
         configuration.url.appending(component: path.trimmingPrefix(while: { $0 == "/" }))
     }
-    
+
     /// The URL used for web socket connections.
     ///
     /// - Throws: `ClientError.noAccessToken` if there is no current access token
@@ -284,7 +284,7 @@ public extension JellyfinClient {
             components.path = "/socket"
             components.queryItems = [
                 URLQueryItem(name: "api_key", value: accessToken),
-                URLQueryItem(name: "deviceId", value: configuration.deviceID)
+                URLQueryItem(name: "deviceId", value: configuration.deviceID),
             ]
 
             return components.url!

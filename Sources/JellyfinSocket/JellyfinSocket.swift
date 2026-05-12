@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Network
 
 /// Connect to the Jellyfin WebSocket from the `JellyfinClient`.
 ///
@@ -95,7 +94,7 @@ public extension JellyfinSocket {
         struct Configuration: Hashable {
             let initialDelay: Duration
             let interval: Duration
-            
+
             var startMessage: String {
                 "\(initialDelay.milliseconds),\(interval.milliseconds)"
             }
@@ -108,9 +107,8 @@ public extension JellyfinSocket {
         private var _pending: [InboundWebSocketMessage] = []
         private var _wakeup: (@Sendable () -> Void)?
         private var _explicitlyDisconnected = false
-        
+
         private let eventsContinuation: AsyncThrowingStream<Event, Error>.Continuation
-        private let queue = DispatchQueue(label: "JellyfinAPI.JellyfinSocket")
         private var task: Task<Void, Never>!
 
         // MARK: - Init
@@ -129,10 +127,10 @@ public extension JellyfinSocket {
             capabilities.isSupportsMediaControl = supportsMediaControl
             capabilities.supportedCommands = supportedCommands
             capabilities.playableMediaTypes = playableMediaTypes
-            
+
             self.capabilities = capabilities
             self.client = client
-            
+
             let (events, continuation) = AsyncThrowingStream<Event, Error>.makeStream()
             self.events = events
             self.eventsContinuation = continuation
@@ -290,13 +288,18 @@ private extension JellyfinSocket.Session {
         // Register capabilities before the WebSocket connects so the session is controllable.
         try await client.send(Paths.postCapabilities(parameters: capabilities))
 
-        let connection = NWConnection(url: url, authorizationHeaders: client.authorizationHeaders)
+        let urlSession = URLSession(configuration: .default)
+        defer { urlSession.invalidateAndCancel() }
 
-        try await connection.start(on: queue)
+        var request = URLRequest(url: url)
+        request.setValue(client.authorizationHeaders, forHTTPHeaderField: "Authorization")
+
+        let webSocketTask = urlSession.webSocketTask(with: request)
+        webSocketTask.resume()
 
         defer {
-            connection.cancel()
-            
+            webSocketTask.cancel(with: .goingAway, reason: nil)
+
             Task.detached { [capabilities, client] in
                 try await client.send(Paths.postCapabilities(parameters: capabilities))
             }
@@ -314,11 +317,11 @@ private extension JellyfinSocket.Session {
         let encoder = JSONEncoder()
 
         for message in consumeInitialMessages() {
-            try await connection.sendWebSocketData(encoder.encode(message))
+            try await webSocketTask.send(.data(encoder.encode(message)))
         }
 
         try await listen(
-            connection: connection,
+            webSocketTask: webSocketTask,
             url: url,
             wakeupStream: wakeupStream,
             responseTimeout: responseTimeout
@@ -326,7 +329,7 @@ private extension JellyfinSocket.Session {
     }
 
     func listen(
-        connection: NWConnection,
+        webSocketTask: URLSessionWebSocketTask,
         url: URL,
         wakeupStream: AsyncStream<Void>,
         responseTimeout: Duration
@@ -346,7 +349,7 @@ private extension JellyfinSocket.Session {
                 defer { intervalContinuation.finish() }
 
                 while !Task.isCancelled {
-                    guard let data = try await connection.receiveWebSocketMessage() else { continue }
+                    let message = try await webSocketTask.receive()
 
                     activity.touch()
 
@@ -355,6 +358,7 @@ private extension JellyfinSocket.Session {
                         eventsContinuation.yield(.connected(url))
                     }
 
+                    guard let data = Self.extractData(from: message) else { continue }
                     guard let decoded = try? decoder.decode(OutboundWebSocketMessage.self, from: data) else { continue }
 
                     if case let .forceKeepAliveMessage(message) = decoded, let seconds = message.data {
@@ -373,7 +377,7 @@ private extension JellyfinSocket.Session {
                     guard let self else { return }
 
                     for message in self.pendingMessages() {
-                        try await connection.sendWebSocketData(encoder.encode(message))
+                        try await webSocketTask.send(.data(encoder.encode(message)))
                     }
                 }
             }
@@ -389,7 +393,7 @@ private extension JellyfinSocket.Session {
                 for await interval in intervalStream {
                     while !Task.isCancelled {
                         let data = try encoder.encode(keepAlive)
-                        try await connection.sendWebSocketData(data)
+                        try await webSocketTask.send(.data(data))
                         try await Task.sleep(for: interval)
                     }
                 }
@@ -409,6 +413,17 @@ private extension JellyfinSocket.Session {
             try await group.next()
 
             group.cancelAll()
+        }
+    }
+
+    static func extractData(from message: URLSessionWebSocketTask.Message) -> Data? {
+        switch message {
+        case let .string(text):
+            text.data(using: .utf8)
+        case let .data(data):
+            data
+        @unknown default:
+            nil
         }
     }
 }

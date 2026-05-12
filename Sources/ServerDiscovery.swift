@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import Network
+import NIOCore
+import NIOPosix
 
 public extension JellyfinClient {
 
@@ -17,7 +18,7 @@ public extension JellyfinClient {
     }
 
     /// A response from UDP Jellyfin server discovery.
-    struct PublicServer: Codable, Identifiable, Sendable {
+    struct PublicServer: Codable, Hashable, Identifiable, Sendable {
 
         /// The server's ID.
         public let id: String
@@ -35,6 +36,12 @@ public extension JellyfinClient {
         }
     }
 
+    private typealias Datagram = AddressedEnvelope<ByteBuffer>
+
+    private static let discoveryPort = 7359
+    private static let broadcastAddress = "255.255.255.255"
+    private static let payload = "who is JellyfinServer?"
+
     /// Discovers Jellyfin servers on the local network using UDP broadcast.
     ///
     /// - Parameters:
@@ -43,19 +50,9 @@ public extension JellyfinClient {
         AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    guard duration > .zero else {
-                        continuation.finish()
-                        return
+                    try await Self.run(duration: duration) { response in
+                        continuation.yield(response)
                     }
-
-                    let discovery = try ServerDiscovery(continuation: continuation)
-                    
-                    defer { discovery.listener.cancel() }
-
-                    let port = try await discovery.discover()
-
-                    try await Task.sleep(for: duration)
-                    
                     continuation.finish()
                 } catch is CancellationError {
                     continuation.finish()
@@ -73,85 +70,112 @@ public extension JellyfinClient {
 
 extension JellyfinClient {
 
-    private final class ServerDiscovery: @unchecked Sendable {
+    private struct NetworkInterface: Hashable {
+        var name: String
+        var index: Int
+        var broadcastAddress: SocketAddress
+    }
 
-        let listener: NWListener
-        private let queue = DispatchQueue(label: "JellyfinAPI.ServerDiscovery")
-        private let decoder = JSONDecoder()
-        private let continuation: AsyncThrowingStream<PublicServer, Error>.Continuation
+    private static func run(
+        duration: Duration,
+        onResponse: @Sendable @escaping (PublicServer) -> Void
+    ) async throws {
+        guard duration > .zero else { return }
 
-        init(continuation: AsyncThrowingStream<PublicServer, Error>.Continuation) throws {
-            self.continuation = continuation
-            self.listener = try NWListener(using: Self.parameters(), on: .any)
+        let interfaces = networkInterfaces()
+
+        guard !interfaces.isEmpty else { throw ServerDiscoveryError.noUsableNetworkInterface }
+
+        guard let channel = try? await DatagramBootstrap(group: MultiThreadedEventLoopGroup.singleton)
+            .channelOption(.socketOption(.so_reuseaddr), value: 1)
+            .channelOption(.socketOption(.so_broadcast), value: 1)
+            .bind(host: "0.0.0.0", port: 0, channelInitializer: { channel in
+                channel.eventLoop.makeCompletedFuture {
+                    try NIOAsyncChannel<Datagram, Datagram>(wrappingChannelSynchronously: channel)
+                }
+            })
+        else {
+            throw ServerDiscoveryError.noUsableChannel
         }
 
-        func discover() async throws{
-            let port: NWEndpoint.Port = try await withCheckedThrowingContinuation { continuation in
-                let startup = SingleContinuation(continuation)
+        try await channel.executeThenClose { inbound, outbound in
+            try await sendProbe(
+                outbound: outbound,
+                allocator: channel.channel.allocator,
+                interfaces: interfaces
+            )
+            try await readResponses(inbound: inbound, duration: duration, onResponse: onResponse)
+        }
+    }
 
-                listener.stateUpdateHandler = { [weak self] state in
-                    switch state {
-                    case .ready:
-                        guard let port = self?.listener.port else {
-                            startup.resume(throwing: ServerDiscoveryError.noUsableChannel)
-                            return
-                        }
+    private static func sendProbe(
+        outbound: NIOAsyncChannelOutboundWriter<Datagram>,
+        allocator: ByteBufferAllocator,
+        interfaces: [NetworkInterface]
+    ) async throws {
+        let targets = try Set(interfaces.map(\.broadcastAddress) + [
+            SocketAddress(ipAddress: broadcastAddress, port: discoveryPort),
+        ])
 
-                        startup.resume(returning: port)
-                    case let .failed(error):
-                        startup.resume(throwing: error)
-                    case .cancelled:
-                        startup.resume(throwing: CancellationError())
-                    default:
-                        break
+        let envelopes = targets.map {
+            Datagram(
+                remoteAddress: $0,
+                data: allocator.buffer(string: payload)
+            )
+        }
+
+        try await outbound.write(contentsOf: envelopes)
+    }
+
+    private static func readResponses(
+        inbound: NIOAsyncChannelInboundStream<Datagram>,
+        duration: Duration,
+        onResponse: @Sendable @escaping (PublicServer) -> Void
+    ) async throws {
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask {
+                for try await envelope in inbound {
+                    if let response = try? JSONDecoder().decode(PublicServer.self, from: Data(envelope.data.readableBytesView)) {
+                        onResponse(response)
                     }
                 }
-
-                listener.newConnectionHandler = { [weak self] connection in
-                    self?.receive(on: connection)
-                }
-
-                listener.start(queue: queue)
             }
-            
-            let parameters = Self.parameters()
-            parameters.requiredLocalEndpoint = .hostPort(host: .ipv4(.any), port: port)
-            
-            let host = ProcessInfo.processInfo.environment["JELLYFIN_DISCOVERY_HOST"] ?? "255.255.255.255"
 
-            let connection = NWConnection(
-                host: .init(host),
-                port: 7359,
-                using: parameters
+            group.addTask {
+                try await Task.sleep(for: duration)
+            }
+
+            try await group.next()
+            group.cancelAll()
+        }
+    }
+
+    private static func networkInterfaces() -> [NetworkInterface] {
+        let devices = (try? System.enumerateDevices()) ?? []
+
+        var interfaces: [String: NetworkInterface] = [:]
+
+        for device in devices {
+            guard device.interfaceIndex != 0, !isLoopback(device.address) else { continue }
+            guard case .some(.v4) = device.address, let broadcastAddress = device.broadcastAddress else { continue }
+
+            var address = broadcastAddress
+            address.port = discoveryPort
+
+            interfaces[device.name] = NetworkInterface(
+                name: device.name,
+                index: device.interfaceIndex,
+                broadcastAddress: address
             )
-
-            defer { connection.cancel() }
-
-            try await connection.start(on: queue)
-            try await connection.send("who is JellyfinServer?".data(using: .utf8)!)
         }
 
-        private static func parameters() -> NWParameters {
-            let parameters = NWParameters.udp
-            parameters.allowLocalEndpointReuse = true
-            return parameters
-        }
+        return Array(interfaces.values)
+    }
 
-        private func receive(on connection: NWConnection) {
-            connection.start(queue: queue)
-            receiveNext(on: connection)
-        }
+    private static func isLoopback(_ address: SocketAddress?) -> Bool {
+        guard case let .v4(v4) = address else { return false }
 
-        private func receiveNext(on connection: NWConnection) {
-            connection.receiveMessage { [weak self] data, _, _, error in
-                guard let self, error == nil else { return }
-
-                if let data, let response = try? decoder.decode(PublicServer.self, from: data) {
-                    continuation.yield(response)
-                }
-
-                receiveNext(on: connection)
-            }
-        }
+        // 127.0.0.0/8
+        return UInt32(bigEndian: v4.address.sin_addr.s_addr) >> 24 == 127
     }
 }

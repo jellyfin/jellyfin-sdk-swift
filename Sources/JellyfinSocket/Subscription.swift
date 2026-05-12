@@ -20,26 +20,26 @@ public extension JellyfinSocket {
         func startMessage(data: String) -> InboundWebSocketMessage {
             switch self {
             case .activityLog:
-                    .activityLogEntryStartMessage(
-                        .init(
-                            data: data,
-                            messageType: .activityLogEntryStart
-                        )
+                .activityLogEntryStartMessage(
+                    .init(
+                        data: data,
+                        messageType: .activityLogEntryStart
                     )
+                )
             case .scheduledTasks:
-                    .scheduledTasksInfoStartMessage(
-                        .init(
-                            data: data,
-                            messageType: .scheduledTasksInfoStart
-                        )
+                .scheduledTasksInfoStartMessage(
+                    .init(
+                        data: data,
+                        messageType: .scheduledTasksInfoStart
                     )
+                )
             case .sessions:
-                    .sessionsStartMessage(
-                        .init(
-                            data: data,
-                            messageType: .sessionsStart
-                        )
+                .sessionsStartMessage(
+                    .init(
+                        data: data,
+                        messageType: .sessionsStart
                     )
+                )
             }
         }
 

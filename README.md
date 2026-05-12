@@ -45,7 +45,7 @@ session.subscribe(.activityLog, interval: .seconds(10))
 for try await event in session.events {
     switch event {
     case .connecting:
-        print("Connecting…")
+        print("Connecting...")
     case let .connected(url):
         print("Connected to \(url)")
     case let .message(message):
