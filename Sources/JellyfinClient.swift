@@ -170,7 +170,7 @@ public final class JellyfinClient: @unchecked Sendable {
 public extension JellyfinClient {
 
     enum ClientError: Error {
-        case noAccessTokenInResponse
+        case noAccessToken
     }
 
     /// Quick Connect authorization helper.
@@ -210,7 +210,7 @@ public extension JellyfinClient {
         if let accessToken = response.accessToken {
             self.configuration.accessToken = accessToken
         } else {
-            throw ClientError.noAccessTokenInResponse
+            throw ClientError.noAccessToken
         }
 
         return response
@@ -233,7 +233,7 @@ public extension JellyfinClient {
         if let accessToken = response.accessToken {
             self.configuration.accessToken = accessToken
         } else {
-            throw ClientError.noAccessTokenInResponse
+            throw ClientError.noAccessToken
         }
 
         return response
@@ -269,5 +269,25 @@ public extension JellyfinClient {
     /// Creates a URL against the current server with the given path.
     func url(path: String) -> URL {
         configuration.url.appending(component: path.trimmingPrefix(while: { $0 == "/" }))
+    }
+    
+    /// The URL used for web socket connections.
+    ///
+    /// - Throws: `ClientError.noAccessToken` if there is no current access token
+    var socketURL: URL {
+        get throws {
+            guard let accessToken else { throw ClientError.noAccessToken }
+
+            var components = URLComponents(url: configuration.url, resolvingAgainstBaseURL: false)!
+
+            components.scheme = components.scheme == "https" ? "wss" : "ws"
+            components.path = "/socket"
+            components.queryItems = [
+                URLQueryItem(name: "api_key", value: accessToken),
+                URLQueryItem(name: "deviceId", value: configuration.deviceID)
+            ]
+
+            return components.url!
+        }
     }
 }

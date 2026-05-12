@@ -19,7 +19,7 @@ extension JellyfinClient {
         func client(_ client: APIClient, willSendRequest request: inout URLRequest) async throws {
 
             // Inject required headers
-            if let headers = jellyfinClient?.authHeaders {
+            if let headers = jellyfinClient?.authorizationHeaders {
                 request.addValue(headers, forHTTPHeaderField: "Authorization")
             }
 
@@ -45,7 +45,7 @@ extension JellyfinClient {
         }
     }
 
-    var authHeaders: String {
+    var authorizationHeaders: String {
         var rawFields = [
             "DeviceId": configuration.deviceID,
             "Device": configuration.deviceName,

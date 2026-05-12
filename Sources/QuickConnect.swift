@@ -33,7 +33,6 @@ public struct QuickConnect: Sendable {
     }
 
     enum QuickConnectError: Error {
-
         case maxPollingHit
         case retrievingCodeFailed
     }

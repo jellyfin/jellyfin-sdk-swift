@@ -14,6 +14,7 @@ generate:
 	swift package --allow-writing-to-package-directory generate-api
 	sed -i '' 's|public struct Info: Sendable {|extension JellyfinClient {|g' Sources/Extensions/Info.swift
 	swiftformat .
+	rm -f Sources/jellyfin-openapi-stable.json
 
 # Download latest unstable spec and generate sources
 .PHONY: update-unstable
