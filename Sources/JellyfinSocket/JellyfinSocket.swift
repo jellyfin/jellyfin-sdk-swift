@@ -390,22 +390,28 @@ private extension JellyfinSocket.Session {
                     InboundKeepAliveMessage(messageType: .keepAlive)
                 )
 
+                let missLimit = 2
+                var misses = 0
+
                 for await interval in intervalStream {
                     while !Task.isCancelled {
-                        let data = try encoder.encode(keepAlive)
-                        try await webSocketTask.send(.data(data))
-                        try await Task.sleep(for: interval)
-                    }
-                }
-            }
+                        let sendInstant = ContinuousClock.now
+                        try await webSocketTask.send(.data(encoder.encode(keepAlive)))
+                        try await Task.sleep(for: responseTimeout)
 
-            // Server response timeout
-            group.addTask {
-                while !Task.isCancelled {
-                    try await Task.sleep(for: .seconds(5))
-
-                    if activity.elapsed > responseTimeout {
-                        throw SocketError.connectionTimeout
+                        if activity.hasActivity(since: sendInstant) {
+                            misses = 0
+                            let waited = sendInstant.duration(to: .now)
+                            if waited < interval {
+                                try await Task.sleep(for: interval - waited)
+                            }
+                        } else {
+                            misses += 1
+                            if misses > missLimit {
+                                throw SocketError.connectionTimeout
+                            }
+                            // Loop to resend immediately.
+                        }
                     }
                 }
             }
