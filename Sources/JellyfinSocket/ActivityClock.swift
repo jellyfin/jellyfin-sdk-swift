@@ -24,10 +24,4 @@ final class ActivityClock: @unchecked Sendable {
         defer { lock.unlock() }
         return instant.duration(to: .now)
     }
-
-    func hasActivity(since reference: ContinuousClock.Instant) -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        return instant > reference
-    }
 }

@@ -395,16 +395,12 @@ private extension JellyfinSocket.Session {
 
                 for await interval in intervalStream {
                     while !Task.isCancelled {
-                        let sendInstant = ContinuousClock.now
                         try await webSocketTask.send(.data(encoder.encode(keepAlive)))
                         try await Task.sleep(for: responseTimeout)
 
-                        if activity.hasActivity(since: sendInstant) {
+                        if activity.elapsed < responseTimeout {
                             misses = 0
-                            let waited = sendInstant.duration(to: .now)
-                            if waited < interval {
-                                try await Task.sleep(for: interval - waited)
-                            }
+                            try await Task.sleep(for: interval - responseTimeout)
                         } else {
                             misses += 1
                             if misses > missLimit {
