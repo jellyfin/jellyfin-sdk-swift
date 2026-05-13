@@ -281,7 +281,11 @@ public extension JellyfinClient {
             var components = URLComponents(url: configuration.url, resolvingAgainstBaseURL: false)!
 
             components.scheme = components.scheme == "https" ? "wss" : "ws"
-            components.path = "/socket"
+
+            var basePath = components.path
+            while basePath.hasSuffix("/") { basePath.removeLast() }
+            components.path = basePath + "/socket"
+
             components.queryItems = [
                 URLQueryItem(name: "api_key", value: accessToken),
                 URLQueryItem(name: "deviceId", value: configuration.deviceID),
