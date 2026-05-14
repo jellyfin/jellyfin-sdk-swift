@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Notify SyncPlay group that member is buffering.
-    static func syncPlayBuffering(_ body: BufferRequestDto) -> Request<Void> {
+    static func syncPlayBuffering(_ body: PlaybackQueueStateInfo) -> Request<Void> {
         Request(path: "/SyncPlay/Buffering", method: "POST", body: body, id: "SyncPlayBuffering")
     }
 }

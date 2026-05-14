@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Gets localization options.
-    static var getLocalizationOptions: Request<[LocalizationOption]> {
+    static var getLocalizationOptions: Request<[NameValuePair]> {
         Request(path: "/Localization/Options", method: "GET", id: "GetLocalizationOptions")
     }
 }

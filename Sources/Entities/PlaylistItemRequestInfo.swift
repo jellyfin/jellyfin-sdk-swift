@@ -8,22 +8,22 @@
 
 import Foundation
 
-/// Keep alive websocket messages.
-public struct InboundKeepAliveMessage: Codable, Hashable, Sendable {
-    /// The different kinds of messages that are used in the WebSocket api.
-    public var messageType: SessionMessageType?
+/// Class NextItemRequestDto.
+public struct PlaylistItemRequestInfo: Codable, Hashable, Sendable {
+    /// Gets or sets the playing item identifier.
+    public var playlistItemID: String?
 
-    public init(messageType: SessionMessageType? = nil) {
-        self.messageType = messageType
+    public init(playlistItemID: String? = nil) {
+        self.playlistItemID = playlistItemID
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.messageType = try values.decodeIfPresent(SessionMessageType.self, forKey: "MessageType")
+        self.playlistItemID = try values.decodeIfPresent(String.self, forKey: "PlaylistItemId")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(messageType, forKey: "MessageType")
+        try values.encodeIfPresent(playlistItemID, forKey: "PlaylistItemId")
     }
 }

@@ -9,17 +9,17 @@
 import Foundation
 
 public struct QueryFilters: Codable, Hashable, Sendable {
-    public var genres: [NameGuidPair]?
+    public var genres: [NameIDPair]?
     public var tags: [String]?
 
-    public init(genres: [NameGuidPair]? = nil, tags: [String]? = nil) {
+    public init(genres: [NameIDPair]? = nil, tags: [String]? = nil) {
         self.genres = genres
         self.tags = tags
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.genres = try values.decodeIfPresent([NameGuidPair].self, forKey: "Genres")
+        self.genres = try values.decodeIfPresent([NameIDPair].self, forKey: "Genres")
         self.tags = try values.decodeIfPresent([String].self, forKey: "Tags")
     }
 

@@ -12,14 +12,14 @@ public struct BoxSetInfoRemoteSearchQuery: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether disabled providers should be included.
     public var isIncludeDisabledProviders: Bool?
     public var itemID: String?
-    public var searchInfo: BoxSetInfo?
+    public var searchInfo: MetadataLookupInfo?
     /// Gets or sets the provider name to search within if set.
     public var searchProviderName: String?
 
     public init(
         isIncludeDisabledProviders: Bool? = nil,
         itemID: String? = nil,
-        searchInfo: BoxSetInfo? = nil,
+        searchInfo: MetadataLookupInfo? = nil,
         searchProviderName: String? = nil
     ) {
         self.isIncludeDisabledProviders = isIncludeDisabledProviders
@@ -32,7 +32,7 @@ public struct BoxSetInfoRemoteSearchQuery: Codable, Hashable, Sendable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isIncludeDisabledProviders = try values.decodeIfPresent(Bool.self, forKey: "IncludeDisabledProviders")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
-        self.searchInfo = try values.decodeIfPresent(BoxSetInfo.self, forKey: "SearchInfo")
+        self.searchInfo = try values.decodeIfPresent(MetadataLookupInfo.self, forKey: "SearchInfo")
         self.searchProviderName = try values.decodeIfPresent(String.self, forKey: "SearchProviderName")
     }
 

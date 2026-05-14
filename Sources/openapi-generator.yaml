@@ -24,6 +24,21 @@ entities:
   indirectProperties:
     - RemoteSearchResult.albumArtist
     - BaseItemDto.currentProgram
+  sharedShapeTypes:
+    ActivityLogEntryStartMessage: WebSocketDataMessageInfo
+    ActivityLogEntryStopMessage: WebSocketMessageTypeInfo
+    BaseItemDto.ImageBlurHashes: ImageBlurHashes
+    BoxSetInfo: MetadataLookupInfo
+    BufferRequestDto: PlaybackQueueStateInfo
+    ExternalURL: NamedURL
+    LocalizationOption: NameValuePair
+    NameIDPair: NameIDPair
+    NextItemRequestDto: PlaylistItemRequestInfo
+    OutboundKeepAliveMessage: WebSocketMessageIDInfo
+    PlaybackProgressInfo: PlaybackStateInfo
+    PluginInstallationCancelledMessage: PluginInstallationMessageInfo
+    SeriesTimerCancelledMessage: TimerMessageInfo
+    SyncPlayGroupDoesNotExistUpdate: SyncPlayGroupUpdate
   sortProperties: true
 
 paths:

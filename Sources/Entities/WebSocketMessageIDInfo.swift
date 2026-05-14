@@ -8,29 +8,27 @@
 
 import Foundation
 
-/// Activity log entry start message.
-///
-/// Data is the timing data encoded as "$initialDelay,$interval" in ms.
-public struct ActivityLogEntryStartMessage: Codable, Hashable, Sendable {
-    /// Gets or sets the data.
-    public var data: String?
+/// Keep alive websocket messages.
+public struct WebSocketMessageIDInfo: Codable, Hashable, Sendable {
+    /// Gets or sets the message id.
+    public var messageID: String?
     /// The different kinds of messages that are used in the WebSocket api.
     public var messageType: SessionMessageType?
 
-    public init(data: String? = nil, messageType: SessionMessageType? = nil) {
-        self.data = data
+    public init(messageID: String? = nil, messageType: SessionMessageType? = nil) {
+        self.messageID = messageID
         self.messageType = messageType
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.data = try values.decodeIfPresent(String.self, forKey: "Data")
+        self.messageID = try values.decodeIfPresent(String.self, forKey: "MessageId")
         self.messageType = try values.decodeIfPresent(SessionMessageType.self, forKey: "MessageType")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(data, forKey: "Data")
+        try values.encodeIfPresent(messageID, forKey: "MessageId")
         try values.encodeIfPresent(messageType, forKey: "MessageType")
     }
 }

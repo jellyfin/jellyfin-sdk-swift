@@ -283,7 +283,9 @@ public extension JellyfinClient {
             components.scheme = components.scheme == "https" ? "wss" : "ws"
 
             var basePath = components.path
-            while basePath.hasSuffix("/") { basePath.removeLast() }
+            while basePath.hasSuffix("/") {
+                basePath.removeLast()
+            }
             components.path = basePath + "/socket"
 
             components.queryItems = [

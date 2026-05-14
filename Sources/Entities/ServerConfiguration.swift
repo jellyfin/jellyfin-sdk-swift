@@ -19,7 +19,7 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets the maximum amount of items to cache.
     public var cacheSize: Int?
     /// Gets or sets the list of cast receiver applications.
-    public var castReceiverApplications: [CastReceiverApplication]?
+    public var castReceiverApplications: [NameIDPair]?
     /// Gets or sets the chapter image resolution.
     public var chapterImageResolution: ImageResolution?
     public var codecsUsed: [String]?
@@ -121,7 +121,7 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
         allowClientLogUpload: Bool? = nil,
         cachePath: String? = nil,
         cacheSize: Int? = nil,
-        castReceiverApplications: [CastReceiverApplication]? = nil,
+        castReceiverApplications: [NameIDPair]? = nil,
         chapterImageResolution: ImageResolution? = nil,
         codecsUsed: [String]? = nil,
         contentTypes: [NameValuePair]? = nil,
@@ -238,7 +238,7 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
         self.allowClientLogUpload = try values.decodeIfPresent(Bool.self, forKey: "AllowClientLogUpload")
         self.cachePath = try values.decodeIfPresent(String.self, forKey: "CachePath")
         self.cacheSize = try values.decodeIfPresent(Int.self, forKey: "CacheSize")
-        self.castReceiverApplications = try values.decodeIfPresent([CastReceiverApplication].self, forKey: "CastReceiverApplications")
+        self.castReceiverApplications = try values.decodeIfPresent([NameIDPair].self, forKey: "CastReceiverApplications")
         self.chapterImageResolution = try values.decodeIfPresent(ImageResolution.self, forKey: "ChapterImageResolution")
         self.codecsUsed = try values.decodeIfPresent([String].self, forKey: "CodecsUsed")
         self.contentTypes = try values.decodeIfPresent([NameValuePair].self, forKey: "ContentTypes")

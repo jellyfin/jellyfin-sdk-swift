@@ -10,13 +10,13 @@ import Foundation
 
 /// Represents the list of possible inbound websocket types
 public enum InboundWebSocketMessage: Codable, Hashable, Sendable {
-    case activityLogEntryStartMessage(ActivityLogEntryStartMessage)
-    case activityLogEntryStopMessage(ActivityLogEntryStopMessage)
-    case inboundKeepAliveMessage(InboundKeepAliveMessage)
-    case scheduledTasksInfoStartMessage(ScheduledTasksInfoStartMessage)
-    case scheduledTasksInfoStopMessage(ScheduledTasksInfoStopMessage)
-    case sessionsStartMessage(SessionsStartMessage)
-    case sessionsStopMessage(SessionsStopMessage)
+    case activityLogEntryStartMessage(WebSocketDataMessageInfo)
+    case activityLogEntryStopMessage(WebSocketMessageTypeInfo)
+    case inboundKeepAliveMessage(WebSocketMessageTypeInfo)
+    case scheduledTasksInfoStartMessage(WebSocketDataMessageInfo)
+    case scheduledTasksInfoStopMessage(WebSocketMessageTypeInfo)
+    case sessionsStartMessage(WebSocketDataMessageInfo)
+    case sessionsStopMessage(WebSocketMessageTypeInfo)
 
     public init(from decoder: Decoder) throws {
 
@@ -28,13 +28,13 @@ public enum InboundWebSocketMessage: Codable, Hashable, Sendable {
         let discriminatorValue = try container.decode(Discriminator.self).MessageType
 
         switch discriminatorValue {
-        case "ActivityLogEntryStart": self = try .activityLogEntryStartMessage(container.decode(ActivityLogEntryStartMessage.self))
-        case "ActivityLogEntryStop": self = try .activityLogEntryStopMessage(container.decode(ActivityLogEntryStopMessage.self))
-        case "KeepAlive": self = try .inboundKeepAliveMessage(container.decode(InboundKeepAliveMessage.self))
-        case "ScheduledTasksInfoStart": self = try .scheduledTasksInfoStartMessage(container.decode(ScheduledTasksInfoStartMessage.self))
-        case "ScheduledTasksInfoStop": self = try .scheduledTasksInfoStopMessage(container.decode(ScheduledTasksInfoStopMessage.self))
-        case "SessionsStart": self = try .sessionsStartMessage(container.decode(SessionsStartMessage.self))
-        case "SessionsStop": self = try .sessionsStopMessage(container.decode(SessionsStopMessage.self))
+        case "ActivityLogEntryStart": self = try .activityLogEntryStartMessage(container.decode(WebSocketDataMessageInfo.self))
+        case "ActivityLogEntryStop": self = try .activityLogEntryStopMessage(container.decode(WebSocketMessageTypeInfo.self))
+        case "KeepAlive": self = try .inboundKeepAliveMessage(container.decode(WebSocketMessageTypeInfo.self))
+        case "ScheduledTasksInfoStart": self = try .scheduledTasksInfoStartMessage(container.decode(WebSocketDataMessageInfo.self))
+        case "ScheduledTasksInfoStop": self = try .scheduledTasksInfoStopMessage(container.decode(WebSocketMessageTypeInfo.self))
+        case "SessionsStart": self = try .sessionsStartMessage(container.decode(WebSocketDataMessageInfo.self))
+        case "SessionsStop": self = try .sessionsStopMessage(container.decode(WebSocketMessageTypeInfo.self))
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,

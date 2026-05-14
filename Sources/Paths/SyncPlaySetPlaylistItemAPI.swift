@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Request to change playlist item in SyncPlay group.
-    static func syncPlaySetPlaylistItem(_ body: SetPlaylistItemRequestDto) -> Request<Void> {
+    static func syncPlaySetPlaylistItem(_ body: PlaylistItemRequestInfo) -> Request<Void> {
         Request(path: "/SyncPlay/SetPlaylistItem", method: "POST", body: body, id: "SyncPlaySetPlaylistItem")
     }
 }

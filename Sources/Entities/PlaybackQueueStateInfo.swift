@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class BufferRequestDto.
-public struct BufferRequestDto: Codable, Hashable, Sendable {
+public struct PlaybackQueueStateInfo: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether the client playback is unpaused.
     public var isPlaying: Bool?
     /// Gets or sets the playlist item identifier of the playing item.

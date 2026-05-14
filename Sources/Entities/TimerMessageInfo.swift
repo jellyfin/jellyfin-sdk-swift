@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// Timer created message.
-public struct TimerCreatedMessage: Codable, Hashable, Sendable {
+/// Series timer cancelled message.
+public struct TimerMessageInfo: Codable, Hashable, Sendable {
     /// Gets or sets the data.
     public var data: TimerEventInfo?
     /// Gets or sets the message id.

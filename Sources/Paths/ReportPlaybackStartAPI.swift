@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Reports playback has started within a session.
-    static func reportPlaybackStart(_ body: PlaybackStartInfo? = nil) -> Request<Void> {
+    static func reportPlaybackStart(_ body: PlaybackStateInfo? = nil) -> Request<Void> {
         Request(path: "/Sessions/Playing", method: "POST", body: body, id: "ReportPlaybackStart")
     }
 }

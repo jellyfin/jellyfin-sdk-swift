@@ -9,9 +9,7 @@
 import Foundation
 
 public struct NameValuePair: Codable, Hashable, Sendable {
-    /// Gets or sets the name.
     public var name: String?
-    /// Gets or sets the value.
     public var value: String?
 
     public init(name: String? = nil, value: String? = nil) {
