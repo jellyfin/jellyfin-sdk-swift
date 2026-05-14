@@ -10,15 +10,15 @@ import Foundation
 
 /// Represents the list of possible group update types
 public enum GroupUpdate: Codable, Hashable, Sendable {
-    case syncPlayGroupDoesNotExistUpdate(SyncPlayGroupDoesNotExistUpdate)
+    case syncPlayGroupDoesNotExistUpdate(SyncPlayGroupUpdate)
     case syncPlayGroupJoinedUpdate(SyncPlayGroupJoinedUpdate)
-    case syncPlayGroupLeftUpdate(SyncPlayGroupLeftUpdate)
-    case syncPlayLibraryAccessDeniedUpdate(SyncPlayLibraryAccessDeniedUpdate)
-    case syncPlayNotInGroupUpdate(SyncPlayNotInGroupUpdate)
+    case syncPlayGroupLeftUpdate(SyncPlayGroupUpdate)
+    case syncPlayLibraryAccessDeniedUpdate(SyncPlayGroupUpdate)
+    case syncPlayNotInGroupUpdate(SyncPlayGroupUpdate)
     case syncPlayPlayQueueUpdate(SyncPlayPlayQueueUpdate)
     case syncPlayStateUpdate(SyncPlayStateUpdate)
-    case syncPlayUserJoinedUpdate(SyncPlayUserJoinedUpdate)
-    case syncPlayUserLeftUpdate(SyncPlayUserLeftUpdate)
+    case syncPlayUserJoinedUpdate(SyncPlayGroupUpdate)
+    case syncPlayUserLeftUpdate(SyncPlayGroupUpdate)
 
     public init(from decoder: Decoder) throws {
 
@@ -30,15 +30,15 @@ public enum GroupUpdate: Codable, Hashable, Sendable {
         let discriminatorValue = try container.decode(Discriminator.self)._Type
 
         switch discriminatorValue {
-        case "GroupDoesNotExist": self = try .syncPlayGroupDoesNotExistUpdate(container.decode(SyncPlayGroupDoesNotExistUpdate.self))
+        case "GroupDoesNotExist": self = try .syncPlayGroupDoesNotExistUpdate(container.decode(SyncPlayGroupUpdate.self))
         case "GroupJoined": self = try .syncPlayGroupJoinedUpdate(container.decode(SyncPlayGroupJoinedUpdate.self))
-        case "GroupLeft": self = try .syncPlayGroupLeftUpdate(container.decode(SyncPlayGroupLeftUpdate.self))
-        case "LibraryAccessDenied": self = try .syncPlayLibraryAccessDeniedUpdate(container.decode(SyncPlayLibraryAccessDeniedUpdate.self))
-        case "NotInGroup": self = try .syncPlayNotInGroupUpdate(container.decode(SyncPlayNotInGroupUpdate.self))
+        case "GroupLeft": self = try .syncPlayGroupLeftUpdate(container.decode(SyncPlayGroupUpdate.self))
+        case "LibraryAccessDenied": self = try .syncPlayLibraryAccessDeniedUpdate(container.decode(SyncPlayGroupUpdate.self))
+        case "NotInGroup": self = try .syncPlayNotInGroupUpdate(container.decode(SyncPlayGroupUpdate.self))
         case "PlayQueue": self = try .syncPlayPlayQueueUpdate(container.decode(SyncPlayPlayQueueUpdate.self))
         case "StateUpdate": self = try .syncPlayStateUpdate(container.decode(SyncPlayStateUpdate.self))
-        case "UserJoined": self = try .syncPlayUserJoinedUpdate(container.decode(SyncPlayUserJoinedUpdate.self))
-        case "UserLeft": self = try .syncPlayUserLeftUpdate(container.decode(SyncPlayUserLeftUpdate.self))
+        case "UserJoined": self = try .syncPlayUserJoinedUpdate(container.decode(SyncPlayGroupUpdate.self))
+        case "UserLeft": self = try .syncPlayUserLeftUpdate(container.decode(SyncPlayGroupUpdate.self))
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,

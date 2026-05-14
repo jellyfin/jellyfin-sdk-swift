@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Notify SyncPlay group that member is ready for playback.
-    static func syncPlayReady(_ body: ReadyRequestDto) -> Request<Void> {
+    static func syncPlayReady(_ body: PlaybackQueueStateInfo) -> Request<Void> {
         Request(path: "/SyncPlay/Ready", method: "POST", body: body, id: "SyncPlayReady")
     }
 }

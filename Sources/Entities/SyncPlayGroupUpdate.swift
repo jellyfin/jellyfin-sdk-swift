@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SyncPlayLibraryAccessDeniedUpdate: Codable, Hashable, Sendable {
+public struct SyncPlayGroupUpdate: Codable, Hashable, Sendable {
     /// Gets the update data.
     public var data: String?
     /// Gets the group identifier.

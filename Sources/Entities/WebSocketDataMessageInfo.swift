@@ -8,31 +8,29 @@
 
 import Foundation
 
-public struct SyncPlayGroupLeftUpdate: Codable, Hashable, Sendable {
-    /// Gets the update data.
+/// Activity log entry start message.
+///
+/// Data is the timing data encoded as "$initialDelay,$interval" in ms.
+public struct WebSocketDataMessageInfo: Codable, Hashable, Sendable {
+    /// Gets or sets the data.
     public var data: String?
-    /// Gets the group identifier.
-    public var groupID: String?
-    /// Enum GroupUpdateType.
-    public var type: GroupUpdateType?
+    /// The different kinds of messages that are used in the WebSocket api.
+    public var messageType: SessionMessageType?
 
-    public init(data: String? = nil, groupID: String? = nil, type: GroupUpdateType? = nil) {
+    public init(data: String? = nil, messageType: SessionMessageType? = nil) {
         self.data = data
-        self.groupID = groupID
-        self.type = type
+        self.messageType = messageType
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.data = try values.decodeIfPresent(String.self, forKey: "Data")
-        self.groupID = try values.decodeIfPresent(String.self, forKey: "GroupId")
-        self.type = try values.decodeIfPresent(GroupUpdateType.self, forKey: "Type")
+        self.messageType = try values.decodeIfPresent(SessionMessageType.self, forKey: "MessageType")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(data, forKey: "Data")
-        try values.encodeIfPresent(groupID, forKey: "GroupId")
-        try values.encodeIfPresent(type, forKey: "Type")
+        try values.encodeIfPresent(messageType, forKey: "MessageType")
     }
 }

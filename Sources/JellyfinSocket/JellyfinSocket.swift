@@ -387,7 +387,7 @@ private extension JellyfinSocket.Session {
                 let encoder = JSONEncoder()
 
                 let keepAlive = InboundWebSocketMessage.inboundKeepAliveMessage(
-                    InboundKeepAliveMessage(messageType: .keepAlive)
+                    WebSocketMessageTypeInfo(messageType: .keepAlive)
                 )
 
                 let missLimit = 2

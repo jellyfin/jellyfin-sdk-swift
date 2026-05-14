@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct SeriesInfo: Codable, Hashable, Sendable {
+public struct MetadataLookupInfo: Codable, Hashable, Sendable {
     public var indexNumber: Int?
     public var isAutomated: Bool?
     /// Gets or sets the metadata country code.

@@ -24,7 +24,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the album artist.
     public var albumArtist: String?
     /// Gets or sets the album artists.
-    public var albumArtists: [NameGuidPair]?
+    public var albumArtists: [NameIDPair]?
     /// Gets or sets the album count.
     public var albumCount: Int?
     /// Gets or sets the album id.
@@ -35,7 +35,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     public var aperture: Double?
     public var artistCount: Int?
     /// Gets or sets the artist items.
-    public var artistItems: [NameGuidPair]?
+    public var artistItems: [NameIDPair]?
     /// Gets or sets the artists.
     public var artists: [String]?
     /// Gets or sets the aspect ratio.
@@ -94,11 +94,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     public var etag: String?
     public var exposureTime: Double?
     /// Gets or sets the external urls.
-    public var externalURLs: [ExternalURL]?
+    public var externalURLs: [NamedURL]?
     public var extraType: ExtraType?
     public var focalLength: Double?
     public var forcedSortName: String?
-    public var genreItems: [NameGuidPair]?
+    public var genreItems: [NameIDPair]?
     /// Gets or sets the genres.
     public var genres: [String]?
     public var hasLyrics: Bool?
@@ -225,7 +225,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the recursive item count.
     public var recursiveItemCount: Int?
     /// Gets or sets the trailer urls.
-    public var remoteTrailers: [MediaURL]?
+    public var remoteTrailers: [NamedURL]?
     /// Gets or sets the run time ticks.
     public var runTimeTicks: Int?
     /// Gets or sets the screenshot image tags.
@@ -265,7 +265,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the status.
     public var status: String?
     /// Gets or sets the studios.
-    public var studios: [NameGuidPair]?
+    public var studios: [NameIDPair]?
     /// Gets or sets the taglines.
     public var taglines: [String]?
     /// Gets or sets the tags.
@@ -286,89 +286,6 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     public var videoType: VideoType?
     public var width: Int?
 
-    /// Gets or sets the blurhashes for the image tags.
-    ///
-    /// Maps image type to dictionary mapping image tag to blurhash value.
-    public struct ImageBlurHashes: Codable, Hashable, Sendable {
-        public var art: [String: String]?
-        public var backdrop: [String: String]?
-        public var banner: [String: String]?
-        public var box: [String: String]?
-        public var boxRear: [String: String]?
-        public var chapter: [String: String]?
-        public var disc: [String: String]?
-        public var logo: [String: String]?
-        public var menu: [String: String]?
-        public var primary: [String: String]?
-        public var profile: [String: String]?
-        public var screenshot: [String: String]?
-        public var thumb: [String: String]?
-
-        public init(
-            art: [String: String]? = nil,
-            backdrop: [String: String]? = nil,
-            banner: [String: String]? = nil,
-            box: [String: String]? = nil,
-            boxRear: [String: String]? = nil,
-            chapter: [String: String]? = nil,
-            disc: [String: String]? = nil,
-            logo: [String: String]? = nil,
-            menu: [String: String]? = nil,
-            primary: [String: String]? = nil,
-            profile: [String: String]? = nil,
-            screenshot: [String: String]? = nil,
-            thumb: [String: String]? = nil
-        ) {
-            self.art = art
-            self.backdrop = backdrop
-            self.banner = banner
-            self.box = box
-            self.boxRear = boxRear
-            self.chapter = chapter
-            self.disc = disc
-            self.logo = logo
-            self.menu = menu
-            self.primary = primary
-            self.profile = profile
-            self.screenshot = screenshot
-            self.thumb = thumb
-        }
-
-        public init(from decoder: Decoder) throws {
-            let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.art = try values.decodeIfPresent([String: String].self, forKey: "Art")
-            self.backdrop = try values.decodeIfPresent([String: String].self, forKey: "Backdrop")
-            self.banner = try values.decodeIfPresent([String: String].self, forKey: "Banner")
-            self.box = try values.decodeIfPresent([String: String].self, forKey: "Box")
-            self.boxRear = try values.decodeIfPresent([String: String].self, forKey: "BoxRear")
-            self.chapter = try values.decodeIfPresent([String: String].self, forKey: "Chapter")
-            self.disc = try values.decodeIfPresent([String: String].self, forKey: "Disc")
-            self.logo = try values.decodeIfPresent([String: String].self, forKey: "Logo")
-            self.menu = try values.decodeIfPresent([String: String].self, forKey: "Menu")
-            self.primary = try values.decodeIfPresent([String: String].self, forKey: "Primary")
-            self.profile = try values.decodeIfPresent([String: String].self, forKey: "Profile")
-            self.screenshot = try values.decodeIfPresent([String: String].self, forKey: "Screenshot")
-            self.thumb = try values.decodeIfPresent([String: String].self, forKey: "Thumb")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encodeIfPresent(art, forKey: "Art")
-            try values.encodeIfPresent(backdrop, forKey: "Backdrop")
-            try values.encodeIfPresent(banner, forKey: "Banner")
-            try values.encodeIfPresent(box, forKey: "Box")
-            try values.encodeIfPresent(boxRear, forKey: "BoxRear")
-            try values.encodeIfPresent(chapter, forKey: "Chapter")
-            try values.encodeIfPresent(disc, forKey: "Disc")
-            try values.encodeIfPresent(logo, forKey: "Logo")
-            try values.encodeIfPresent(menu, forKey: "Menu")
-            try values.encodeIfPresent(primary, forKey: "Primary")
-            try values.encodeIfPresent(profile, forKey: "Profile")
-            try values.encodeIfPresent(screenshot, forKey: "Screenshot")
-            try values.encodeIfPresent(thumb, forKey: "Thumb")
-        }
-    }
-
     public init(
         airDays: [DayOfWeek]? = nil,
         airTime: String? = nil,
@@ -377,14 +294,14 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         airsBeforeSeasonNumber: Int? = nil,
         album: String? = nil,
         albumArtist: String? = nil,
-        albumArtists: [NameGuidPair]? = nil,
+        albumArtists: [NameIDPair]? = nil,
         albumCount: Int? = nil,
         albumID: String? = nil,
         albumPrimaryImageTag: String? = nil,
         altitude: Double? = nil,
         aperture: Double? = nil,
         artistCount: Int? = nil,
-        artistItems: [NameGuidPair]? = nil,
+        artistItems: [NameIDPair]? = nil,
         artists: [String]? = nil,
         aspectRatio: String? = nil,
         audio: ProgramAudio? = nil,
@@ -418,11 +335,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         episodeTitle: String? = nil,
         etag: String? = nil,
         exposureTime: Double? = nil,
-        externalURLs: [ExternalURL]? = nil,
+        externalURLs: [NamedURL]? = nil,
         extraType: ExtraType? = nil,
         focalLength: Double? = nil,
         forcedSortName: String? = nil,
-        genreItems: [NameGuidPair]? = nil,
+        genreItems: [NameIDPair]? = nil,
         genres: [String]? = nil,
         hasLyrics: Bool? = nil,
         hasSubtitles: Bool? = nil,
@@ -491,7 +408,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         programID: String? = nil,
         providerIDs: [String: String]? = nil,
         recursiveItemCount: Int? = nil,
-        remoteTrailers: [MediaURL]? = nil,
+        remoteTrailers: [NamedURL]? = nil,
         runTimeTicks: Int? = nil,
         screenshotImageTags: [String]? = nil,
         seasonID: String? = nil,
@@ -512,7 +429,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         specialFeatureCount: Int? = nil,
         startDate: Date? = nil,
         status: String? = nil,
-        studios: [NameGuidPair]? = nil,
+        studios: [NameIDPair]? = nil,
         taglines: [String]? = nil,
         tags: [String]? = nil,
         timerID: String? = nil,
@@ -688,14 +605,14 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         self.airsBeforeSeasonNumber = try values.decodeIfPresent(Int.self, forKey: "AirsBeforeSeasonNumber")
         self.album = try values.decodeIfPresent(String.self, forKey: "Album")
         self.albumArtist = try values.decodeIfPresent(String.self, forKey: "AlbumArtist")
-        self.albumArtists = try values.decodeIfPresent([NameGuidPair].self, forKey: "AlbumArtists")
+        self.albumArtists = try values.decodeIfPresent([NameIDPair].self, forKey: "AlbumArtists")
         self.albumCount = try values.decodeIfPresent(Int.self, forKey: "AlbumCount")
         self.albumID = try values.decodeIfPresent(String.self, forKey: "AlbumId")
         self.albumPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "AlbumPrimaryImageTag")
         self.altitude = try values.decodeIfPresent(Double.self, forKey: "Altitude")
         self.aperture = try values.decodeIfPresent(Double.self, forKey: "Aperture")
         self.artistCount = try values.decodeIfPresent(Int.self, forKey: "ArtistCount")
-        self.artistItems = try values.decodeIfPresent([NameGuidPair].self, forKey: "ArtistItems")
+        self.artistItems = try values.decodeIfPresent([NameIDPair].self, forKey: "ArtistItems")
         self.artists = try values.decodeIfPresent([String].self, forKey: "Artists")
         self.aspectRatio = try values.decodeIfPresent(String.self, forKey: "AspectRatio")
         self.audio = try values.decodeIfPresent(ProgramAudio.self, forKey: "Audio")
@@ -729,11 +646,11 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         self.episodeTitle = try values.decodeIfPresent(String.self, forKey: "EpisodeTitle")
         self.etag = try values.decodeIfPresent(String.self, forKey: "Etag")
         self.exposureTime = try values.decodeIfPresent(Double.self, forKey: "ExposureTime")
-        self.externalURLs = try values.decodeIfPresent([ExternalURL].self, forKey: "ExternalUrls")
+        self.externalURLs = try values.decodeIfPresent([NamedURL].self, forKey: "ExternalUrls")
         self.extraType = try values.decodeIfPresent(ExtraType.self, forKey: "ExtraType")
         self.focalLength = try values.decodeIfPresent(Double.self, forKey: "FocalLength")
         self.forcedSortName = try values.decodeIfPresent(String.self, forKey: "ForcedSortName")
-        self.genreItems = try values.decodeIfPresent([NameGuidPair].self, forKey: "GenreItems")
+        self.genreItems = try values.decodeIfPresent([NameIDPair].self, forKey: "GenreItems")
         self.genres = try values.decodeIfPresent([String].self, forKey: "Genres")
         self.hasLyrics = try values.decodeIfPresent(Bool.self, forKey: "HasLyrics")
         self.hasSubtitles = try values.decodeIfPresent(Bool.self, forKey: "HasSubtitles")
@@ -802,7 +719,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         self.programID = try values.decodeIfPresent(String.self, forKey: "ProgramId")
         self.providerIDs = try values.decodeIfPresent([String: String].self, forKey: "ProviderIds")
         self.recursiveItemCount = try values.decodeIfPresent(Int.self, forKey: "RecursiveItemCount")
-        self.remoteTrailers = try values.decodeIfPresent([MediaURL].self, forKey: "RemoteTrailers")
+        self.remoteTrailers = try values.decodeIfPresent([NamedURL].self, forKey: "RemoteTrailers")
         self.runTimeTicks = try values.decodeIfPresent(Int.self, forKey: "RunTimeTicks")
         self.screenshotImageTags = try values.decodeIfPresent([String].self, forKey: "ScreenshotImageTags")
         self.seasonID = try values.decodeIfPresent(String.self, forKey: "SeasonId")
@@ -823,7 +740,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         self.specialFeatureCount = try values.decodeIfPresent(Int.self, forKey: "SpecialFeatureCount")
         self.startDate = try values.decodeIfPresent(Date.self, forKey: "StartDate")
         self.status = try values.decodeIfPresent(String.self, forKey: "Status")
-        self.studios = try values.decodeIfPresent([NameGuidPair].self, forKey: "Studios")
+        self.studios = try values.decodeIfPresent([NameIDPair].self, forKey: "Studios")
         self.taglines = try values.decodeIfPresent([String].self, forKey: "Taglines")
         self.tags = try values.decodeIfPresent([String].self, forKey: "Tags")
         self.timerID = try values.decodeIfPresent(String.self, forKey: "TimerId")

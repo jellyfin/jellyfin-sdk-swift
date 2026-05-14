@@ -8,27 +8,22 @@
 
 import Foundation
 
-/// Server shutting down message.
-public struct ServerShuttingDownMessage: Codable, Hashable, Sendable {
-    /// Gets or sets the message id.
-    public var messageID: String?
+/// Activity log entry stop message.
+public struct WebSocketMessageTypeInfo: Codable, Hashable, Sendable {
     /// The different kinds of messages that are used in the WebSocket api.
     public var messageType: SessionMessageType?
 
-    public init(messageID: String? = nil, messageType: SessionMessageType? = nil) {
-        self.messageID = messageID
+    public init(messageType: SessionMessageType? = nil) {
         self.messageType = messageType
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.messageID = try values.decodeIfPresent(String.self, forKey: "MessageId")
         self.messageType = try values.decodeIfPresent(SessionMessageType.self, forKey: "MessageType")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(messageID, forKey: "MessageId")
         try values.encodeIfPresent(messageType, forKey: "MessageType")
     }
 }

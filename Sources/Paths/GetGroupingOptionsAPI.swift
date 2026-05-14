@@ -11,7 +11,7 @@ import Get
 
 extension Paths {
     /// Get user view grouping options.
-    public static func getGroupingOptions(userID: String? = nil) -> Request<[SpecialViewOptionDto]> {
+    public static func getGroupingOptions(userID: String? = nil) -> Request<[NameIDPair]> {
         Request(path: "/UserViews/GroupingOptions", method: "GET", query: makeGetGroupingOptionsQuery(userID), id: "GetGroupingOptions")
     }
 

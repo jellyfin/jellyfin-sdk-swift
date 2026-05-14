@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Request previous item in SyncPlay group.
-    static func syncPlayPreviousItem(_ body: PreviousItemRequestDto) -> Request<Void> {
+    static func syncPlayPreviousItem(_ body: PlaylistItemRequestInfo) -> Request<Void> {
         Request(path: "/SyncPlay/PreviousItem", method: "POST", body: body, id: "SyncPlayPreviousItem")
     }
 }

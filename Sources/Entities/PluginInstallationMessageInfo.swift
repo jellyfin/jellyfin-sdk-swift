@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// Package installing message.
-public struct PluginInstallingMessage: Codable, Hashable, Sendable {
+/// Plugin installation cancelled message.
+public struct PluginInstallationMessageInfo: Codable, Hashable, Sendable {
     /// Class InstallationInfo.
     public var data: InstallationInfo?
     /// Gets or sets the message id.

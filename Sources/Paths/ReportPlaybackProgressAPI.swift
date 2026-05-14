@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Reports playback progress within a session.
-    static func reportPlaybackProgress(_ body: PlaybackProgressInfo? = nil) -> Request<Void> {
+    static func reportPlaybackProgress(_ body: PlaybackStateInfo? = nil) -> Request<Void> {
         Request(path: "/Sessions/Playing/Progress", method: "POST", body: body, id: "ReportPlaybackProgress")
     }
 }
