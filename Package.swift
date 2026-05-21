@@ -53,5 +53,9 @@ let package = Package(
             ],
             path: "Plugins/GenerateAPI"
         ),
+        .testTarget(
+            name: "JellyfinAPITests",
+            dependencies: ["JellyfinAPI"]
+        ),
     ]
 )
