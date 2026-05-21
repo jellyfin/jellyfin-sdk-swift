@@ -254,21 +254,60 @@ public extension JellyfinClient {
     func url(with request: Request<some Any>, queryAPIKey: Bool = false) -> URL? {
 
         guard let path = request.url?.path else { return configuration.url }
-        let fullURL = url(path: path)
+        guard let fullURL = url(path: path) else { return nil }
         guard var components = URLComponents(url: fullURL, resolvingAgainstBaseURL: false) else { return nil }
 
-        components.queryItems = request.query?.map { URLQueryItem(name: $0.0, value: $0.1) } ?? []
+        var requestQueryItems = request.query?.map { URLQueryItem(name: $0.0, value: $0.1) } ?? []
 
         if queryAPIKey, let accessToken {
-            components.queryItems?.append(.init(name: "api_key", value: accessToken))
+            requestQueryItems.append(.init(name: "api_key", value: accessToken))
+        }
+
+        if !requestQueryItems.isEmpty {
+            var requestComponents = URLComponents()
+            requestComponents.queryItems = requestQueryItems
+            components
+                .percentEncodedQueryItems = (components.percentEncodedQueryItems ?? []) + (requestComponents.percentEncodedQueryItems ?? [])
         }
 
         return components.url ?? fullURL
     }
 
-    /// Creates a URL against the current server with the given path.
-    func url(path: String) -> URL {
-        configuration.url.appending(path: path.trimmingPrefix(while: { $0 == "/" }))
+    /// Creates a URL by appending the given path to the server URL.
+    ///
+    /// Existing path components in the server URL are preserved. Query items from the given
+    /// path are merged with any query items in the server URL.
+    ///
+    /// - Parameters:
+    ///   - path: the path to combine with the server URL
+    ///   - combine: A closure that takes the current and new query items for any
+    ///     duplicate query items.
+    func url(
+        path: String,
+        uniquingQueryItemsWith combine: (URLQueryItem, URLQueryItem) -> URLQueryItem = { x, _ in x }
+    ) -> URL? {
+        guard let pathComponents = URLComponents(string: path) else { return nil }
+
+        let relativePath = String(pathComponents.path.drop(while: { $0 == "/" }))
+        let url = configuration.url.appending(path: relativePath, directoryHint: .notDirectory)
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return nil }
+
+        if let pathQueryItems = pathComponents.percentEncodedQueryItems {
+            var queryItems = components.percentEncodedQueryItems ?? []
+            let filteredQueryItems = pathQueryItems.filter { !$0.name.isEmpty || $0.value != nil }
+
+            for pathQueryItem in filteredQueryItems {
+                if let index = queryItems.firstIndex(where: { $0.name == pathQueryItem.name }) {
+                    queryItems[index] = combine(queryItems[index], pathQueryItem)
+                } else {
+                    queryItems.append(pathQueryItem)
+                }
+            }
+
+            components.percentEncodedQueryItems = queryItems
+        }
+
+        return components.url
     }
 
     /// The URL used for web socket connections.
