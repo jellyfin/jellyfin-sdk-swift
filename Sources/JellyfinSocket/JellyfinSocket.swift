@@ -478,7 +478,10 @@ private extension JellyfinSocket.Session {
         _ = try? await client.send(Paths.postCapabilities(parameters: capabilities))
 
         let urlSession = URLSession(configuration: .default)
-        defer { urlSession.invalidateAndCancel() }
+
+        // Runs last, after the close below, so the frame flushes instead of being cut off
+        // and logged server-side as a connection dropped without a handshake.
+        defer { urlSession.finishTasksAndInvalidate() }
 
         var request = URLRequest(url: url)
         request.setValue(client.authorizationHeaders, forHTTPHeaderField: "Authorization")
