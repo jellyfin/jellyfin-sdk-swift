@@ -20,9 +20,7 @@ enum TestConnection {
     // ~/.zshrc. In Xcode, set them under Product > Scheme > Edit Scheme > Test >
     // Arguments > Environment Variables, since a scheme ignores the shell's environment.
     //
-    // The password is plaintext wherever it is put: shell history for a one-off run,
-    // ~/.zshrc for a permanent export, and the .xcscheme file in Xcode, which is
-    // committed when the scheme is shared. Using a test account/server or resetting
+    // The password is PLAINTEXT wherever it is put! Using a test account/server or resetting
     // your password is recommended after testing is complete.
 
     static let serverURL = ProcessInfo.processInfo.environment["JELLYFIN_SERVER"] ?? "https://demo.jellyfin.org/stable"

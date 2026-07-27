@@ -51,7 +51,7 @@ struct JellyfinClientLoginTests {
     }
 
     @Test
-    func tokenIsUsableFromAnotherClient() async throws {
+    func tokenIsTransferable() async throws {
         let signInClient = try TestConnection.makeClient(deviceID: "login-transfer")
         let result = try await signInClient.signIn(username: TestConnection.username, password: TestConnection.password)
         let token = try #require(result.accessToken)
