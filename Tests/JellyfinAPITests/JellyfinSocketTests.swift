@@ -64,6 +64,41 @@ struct JellyfinSocketTests {
         #expect(session.keepAliveInterval <= .seconds(45))
     }
 
+    @Test
+    func aSubscriptionOutlivesOneOfItsSubscribers() throws {
+        let session = try makeUnreachableSession()
+
+        defer { session.disconnect() }
+
+        let first = session.subscribe(.sessions, delay: .seconds(5), interval: .seconds(5))
+        let second = session.subscribe(.sessions, delay: .seconds(1), interval: .seconds(2))
+
+        #expect(session.effectiveConfiguration(for: .sessions)?.interval == .seconds(2))
+
+        second.cancel()
+
+        #expect(session.effectiveConfiguration(for: .sessions)?.interval == .seconds(5))
+
+        second.cancel()
+
+        #expect(session.effectiveConfiguration(for: .sessions) != nil)
+
+        first.cancel()
+
+        #expect(session.effectiveConfiguration(for: .sessions) == nil)
+    }
+
+    @Test
+    func subscriptionsAreIdentifiableFromTheirMessages() {
+        #expect(OutboundWebSocketMessage.sessionsMessage(.init()).subscription == .sessions)
+        #expect(OutboundWebSocketMessage.activityLogEntryMessage(.init()).subscription == .activityLog)
+        #expect(OutboundWebSocketMessage.scheduledTasksInfoMessage(.init()).subscription == .scheduledTasks)
+        #expect(OutboundWebSocketMessage.forceKeepAliveMessage(.init()).subscription == nil)
+
+        #expect(JellyfinSocket.Session.Event.connecting.subscription == nil)
+        #expect(JellyfinSocket.Session.Event.disconnected.subscription == nil)
+    }
+
     @Test(.timeLimit(.minutes(1)))
     func releasingTheSessionEndsIt() async throws {
         weak var session: JellyfinSocket.Session?
@@ -93,6 +128,7 @@ struct JellyfinSocketTests {
 
         #expect(result.messages > 0)
         #expect(result.attempts == 1)
+        #expect(result.disconnects == 0)
     }
 
     @Test(.timeLimit(.minutes(5)))
@@ -105,6 +141,36 @@ struct JellyfinSocketTests {
 
         #expect(result.sessionMessages > 0)
         #expect(result.attempts == 1)
+    }
+
+    @Test(.timeLimit(.minutes(1)))
+    func socketReportsWhenAConnectionIsLost() async throws {
+        let client = try TestConnection.makeClient(deviceID: "socket-disconnect")
+
+        try await client.signIn(username: TestConnection.username, password: TestConnection.password)
+
+        let session = client.socket().connect()
+
+        defer { session.disconnect() }
+
+        var result = Observation()
+
+        for try await event in session.events {
+            switch event {
+            case .connected:
+                result.connects += 1
+                session.disconnect()
+
+            case .disconnected:
+                result.disconnects += 1
+
+            default:
+                break
+            }
+        }
+
+        #expect(result.connects == 1)
+        #expect(result.disconnects == 1)
     }
 
     @Test(.timeLimit(.minutes(1)))
@@ -148,6 +214,7 @@ struct JellyfinSocketTests {
     private struct Observation {
         var attempts = 0
         var connects = 0
+        var disconnects = 0
         var messages = 0
         var sessionMessages = 0
     }
@@ -186,6 +253,9 @@ struct JellyfinSocketTests {
 
             case .connected:
                 result.connects += 1
+
+            case .disconnected:
+                result.disconnects += 1
 
             case let .message(message):
                 result.messages += 1

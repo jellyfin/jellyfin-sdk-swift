@@ -55,3 +55,30 @@ public extension JellyfinSocket {
         }
     }
 }
+
+public extension OutboundWebSocketMessage {
+
+    /// The subscription this message is an update for
+    var subscription: JellyfinSocket.Subscription? {
+        switch self {
+        case .activityLogEntryMessage:
+            .activityLog
+        case .scheduledTasksInfoMessage:
+            .scheduledTasks
+        case .sessionsMessage:
+            .sessions
+        default:
+            nil
+        }
+    }
+}
+
+public extension JellyfinSocket.Session.Event {
+
+    /// The subscription this event carries an update for
+    var subscription: JellyfinSocket.Subscription? {
+        guard case let .message(message) = self else { return nil }
+
+        return message.subscription
+    }
+}
