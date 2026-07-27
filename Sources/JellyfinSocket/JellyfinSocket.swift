@@ -42,7 +42,7 @@ public struct JellyfinSocket: Sendable {
     /// re-sends active subscriptions on each reconnect.
     ///
     /// - Parameters:
-    ///   - reconnectAttempts: Number of times to retry on transport errors.
+    ///   - reconnectAttempts: Number of consecutive times to retry on transport errors.
     ///   - reconnectDelay: Initial backoff delay that doubles for each retry.
     ///   - responseTimeout: Maximum silence from the server before disconnecting.
     public func connect(
@@ -107,6 +107,7 @@ public extension JellyfinSocket {
         private var _pending: [InboundWebSocketMessage] = []
         private var _wakeup: (@Sendable () -> Void)?
         private var _explicitlyDisconnected = false
+        private var _hasConnected = false
 
         private let eventsContinuation: AsyncThrowingStream<Event, Error>.Continuation
         private var task: Task<Void, Never>!
@@ -209,6 +210,24 @@ private extension JellyfinSocket.Session {
         return _explicitlyDisconnected
     }
 
+    /// Record that a connection was established.
+    func markConnected() {
+        lock.lock()
+        defer { lock.unlock() }
+
+        _hasConnected = true
+    }
+
+    /// Whether a connection was established since this was last called.
+    func consumeHasConnected() -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+
+        let didConnect = _hasConnected
+        _hasConnected = false
+        return didConnect
+    }
+
     func setWakeup(_ block: (@Sendable () -> Void)?) {
         lock.lock()
         defer { lock.unlock() }
@@ -251,29 +270,30 @@ private extension JellyfinSocket.Session {
                 try await connect(
                     responseTimeout: responseTimeout
                 )
-
-                eventsContinuation.finish()
-
-                return
-            } catch is CancellationError {
-                eventsContinuation.finish()
-                return
             } catch {
-                attempts += 1
+                // Thrown or returned, the socket is gone. Retry below.
+            }
 
-                guard attempts <= reconnectAttempts else {
-                    eventsContinuation.finish(throwing: SocketError.reconnectAttemptsReached)
-                    return
-                }
+            guard !Task.isCancelled, !isExplicitlyDisconnected else { break }
 
-                let delay = reconnectDelay * Int(pow(2.0, Double(attempts - 1)))
+            // Limit consecutive failures, not failures over the session's lifetime.
+            if consumeHasConnected() {
+                attempts = 0
+            }
 
-                do {
-                    try await Task.sleep(for: delay)
-                } catch {
-                    eventsContinuation.finish()
-                    return
-                }
+            attempts += 1
+
+            guard attempts <= reconnectAttempts else {
+                eventsContinuation.finish(throwing: SocketError.reconnectAttemptsReached)
+                return
+            }
+
+            let delay = reconnectDelay * Int(pow(2.0, Double(attempts - 1)))
+
+            do {
+                try await Task.sleep(for: delay)
+            } catch {
+                break
             }
         }
 
@@ -341,7 +361,7 @@ private extension JellyfinSocket.Session {
         let _: Void = try await withThrowingTaskGroup { group in
 
             // Read loop
-            group.addTask {
+            group.addTask { [weak self] in
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .formatted(OpenISO8601DateFormatter())
 
@@ -355,6 +375,7 @@ private extension JellyfinSocket.Session {
 
                     if !hasYieldedConnected {
                         hasYieldedConnected = true
+                        self?.markConnected()
                         eventsContinuation.yield(.connected(url))
                     }
 
