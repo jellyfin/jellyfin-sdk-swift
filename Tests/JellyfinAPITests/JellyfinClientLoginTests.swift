@@ -22,7 +22,7 @@ struct JellyfinClientLoginTests {
 
         let user = try #require(result.user)
 
-        #expect(user.name?.lowercased() == TestConnection.username)
+        #expect(user.name?.lowercased() == TestConnection.username.lowercased())
         #expect(!(user.id ?? "").isEmpty)
     }
 
@@ -34,7 +34,7 @@ struct JellyfinClientLoginTests {
         let user = try await client.send(Paths.getCurrentUser).value
 
         #expect(user.id == result.user?.id)
-        #expect(user.name?.lowercased() == TestConnection.username)
+        #expect(user.name?.lowercased() == TestConnection.username.lowercased())
     }
 
     @Test

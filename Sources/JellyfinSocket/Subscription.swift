@@ -10,7 +10,7 @@ import Foundation
 
 public extension JellyfinSocket {
 
-    /// High volume socket subscriptions
+    /// High volume socket subscriptions.
     enum Subscription: Hashable, Sendable {
 
         case activityLog
@@ -58,7 +58,7 @@ public extension JellyfinSocket {
 
 public extension OutboundWebSocketMessage {
 
-    /// The subscription this message is an update for
+    /// The subscription that this message updates.
     var subscription: JellyfinSocket.Subscription? {
         switch self {
         case .activityLogEntryMessage:
@@ -75,7 +75,7 @@ public extension OutboundWebSocketMessage {
 
 public extension JellyfinSocket.Session.Event {
 
-    /// The subscription this event carries an update for
+    /// The subscription this event updates.
     var subscription: JellyfinSocket.Subscription? {
         guard case let .message(message) = self else { return nil }
 

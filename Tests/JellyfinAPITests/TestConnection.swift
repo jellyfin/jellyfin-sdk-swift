@@ -34,16 +34,46 @@ enum TestConnection {
         return formatter.string(from: Date())
     }()
 
-    static func makeClient(deviceID: String = UUID().uuidString, accessToken: String? = nil) throws -> JellyfinClient {
-        try JellyfinClient(
+    /// Points at a port nothing listens on, with a token so the socket reaches the transport.
+    static func makeUnreachableClient(deviceID: String = UUID().uuidString) throws -> JellyfinClient {
+        try makeClient(
+            url: "http://127.0.0.1:1",
+            deviceID: deviceID,
+            accessToken: "0000000000000000000000000000dead",
+            requestTimeout: 1
+        )
+    }
+
+    static func makeClient(
+        url: String = serverURL,
+        deviceID: String = UUID().uuidString,
+        accessToken: String? = nil,
+        requestTimeout: TimeInterval = 30
+    ) throws -> JellyfinClient {
+        let sessionConfiguration = URLSessionConfiguration.default
+        sessionConfiguration.timeoutIntervalForRequest = requestTimeout
+
+        return try JellyfinClient(
             configuration: .init(
-                url: #require(URL(string: serverURL)),
+                url: #require(URL(string: url)),
                 accessToken: accessToken,
                 client: "JellyfinSDKTests",
                 deviceName: "Tests",
                 deviceID: "jellyfin-sdk-swift-\(deviceID)",
                 version: version
-            )
+            ),
+            sessionConfiguration: sessionConfiguration
         )
+    }
+
+    static func makeSocket(
+        client: JellyfinClient,
+        reconnectDelay: Duration = .seconds(2)
+    ) -> JellyfinSocket.Session {
+        client
+            .socket()
+            .connect(
+                reconnectDelay: reconnectDelay
+            )
     }
 }

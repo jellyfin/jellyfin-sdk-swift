@@ -19,17 +19,10 @@ final class ActivityClock: @unchecked Sendable {
         instant = .now
     }
 
-    /// When the last message was received
+    /// When the last message was received.
     var lastMessage: ContinuousClock.Instant {
         lock.lock()
         defer { lock.unlock() }
         return instant
-    }
-
-    /// How long since the last message was received.
-    var idle: Duration {
-        lock.lock()
-        defer { lock.unlock() }
-        return instant.duration(to: .now)
     }
 }
