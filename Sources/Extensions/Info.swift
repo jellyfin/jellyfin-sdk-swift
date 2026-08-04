@@ -14,7 +14,7 @@ public extension JellyfinClient {
     }
 
     var version: Version {
-        "10.11.8"
+        "10.11.11"
     }
 
     struct Version: Comparable, CustomStringConvertible, ExpressibleByStringLiteral, Sendable {

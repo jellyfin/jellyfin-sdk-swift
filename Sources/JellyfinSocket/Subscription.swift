@@ -10,7 +10,7 @@ import Foundation
 
 public extension JellyfinSocket {
 
-    /// High volume socket subscriptions
+    /// High volume socket subscriptions.
     enum Subscription: Hashable, Sendable {
 
         case activityLog
@@ -53,5 +53,32 @@ public extension JellyfinSocket {
                 .sessionsStopMessage(.init(messageType: .sessionsStop))
             }
         }
+    }
+}
+
+public extension OutboundWebSocketMessage {
+
+    /// The subscription that this message updates.
+    var subscription: JellyfinSocket.Subscription? {
+        switch self {
+        case .activityLogEntryMessage:
+            .activityLog
+        case .scheduledTasksInfoMessage:
+            .scheduledTasks
+        case .sessionsMessage:
+            .sessions
+        default:
+            nil
+        }
+    }
+}
+
+public extension JellyfinSocket.Session.Event {
+
+    /// The subscription this event updates.
+    var subscription: JellyfinSocket.Subscription? {
+        guard case let .message(message) = self else { return nil }
+
+        return message.subscription
     }
 }
