@@ -53,7 +53,6 @@ public struct NetworkConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets the public HTTPS port.
     public var publicHTTPSPort: Int?
     /// Gets or sets the PublishedServerUriBySubnet
-    ///
     /// Gets or sets PublishedServerUri to advertise for specific subnets.
     public var publishedServerUriBySubnet: [String]?
     /// Gets or sets the filter for remote IP connectivity. Used in conjunction with <seealso

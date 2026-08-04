@@ -9,7 +9,6 @@
 import Foundation
 
 /// The branding options DTO for API use.
-///
 /// This DTO excludes SplashscreenLocation to prevent it from being updated via API.
 public struct BrandingOptionsDto: Codable, Hashable, Sendable {
     /// Gets or sets the custom CSS.

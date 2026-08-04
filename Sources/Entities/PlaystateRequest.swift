@@ -8,11 +8,13 @@
 
 import Foundation
 
+/// A request to change the playstate of a session.
 public struct PlaystateRequest: Codable, Hashable, Sendable {
-    /// Enum PlaystateCommand.
+    /// Gets or sets the playstate command.
     public var command: PlaystateCommand?
     /// Gets or sets the controlling user identifier.
     public var controllingUserID: String?
+    /// Gets or sets the seek position in ticks.
     public var seekPositionTicks: Int?
 
     public init(command: PlaystateCommand? = nil, controllingUserID: String? = nil, seekPositionTicks: Int? = nil) {

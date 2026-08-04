@@ -15,7 +15,6 @@ public struct TrickplayOptions: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether or not to use HW accelerated MJPEG encoding.
     public var enableHwEncoding: Bool?
     /// Gets or sets a value indicating whether to only extract key frames.
-    ///
     /// Significantly faster, but is not compatible with all decoders and/or video files.
     public var enableKeyFrameOnlyExtraction: Bool?
     /// Gets or sets the interval, in ms, between each new trickplay image.

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The lookup info for box sets.
 public struct MetadataLookupInfo: Codable, Hashable, Sendable {
     public var indexNumber: Int?
     public var isAutomated: Bool?

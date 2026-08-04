@@ -72,6 +72,8 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
     public var hardwareAccelerationType: HardwareAccelerationType?
     /// Gets or sets the codecs hardware encoding is used for.
     public var hardwareDecodingCodecs: [String]?
+    /// Gets or sets the method used for audio seeking in HLS.
+    public var hlsAudioSeekStrategy: HlsAudioSeekStrategy?
     /// Gets or sets a value indicating whether the framerate is doubled when deinterlacing.
     public var isDeinterlaceDoubleRate: Bool?
     /// Gets or sets a value indicating whether the system native hardware decoder should be used.
@@ -82,6 +84,8 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
     public var qsvDevice: String?
     /// Gets or sets seconds for which segments should be kept before being deleted.
     public var segmentKeepSeconds: Int?
+    /// Gets or sets the timeout for subtitle extraction in minutes.
+    public var subtitleExtractionTimeoutMinutes: Int?
     /// Gets or sets the delay after which throttling happens.
     public var throttleDelaySeconds: Int?
     /// Gets or sets the tone-mapping algorithm.
@@ -137,11 +141,13 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
         h265Crf: Int? = nil,
         hardwareAccelerationType: HardwareAccelerationType? = nil,
         hardwareDecodingCodecs: [String]? = nil,
+        hlsAudioSeekStrategy: HlsAudioSeekStrategy? = nil,
         isDeinterlaceDoubleRate: Bool? = nil,
         isPreferSystemNativeHwDecoder: Bool? = nil,
         maxMuxingQueueSize: Int? = nil,
         qsvDevice: String? = nil,
         segmentKeepSeconds: Int? = nil,
+        subtitleExtractionTimeoutMinutes: Int? = nil,
         throttleDelaySeconds: Int? = nil,
         tonemappingAlgorithm: TonemappingAlgorithm? = nil,
         tonemappingDesat: Double? = nil,
@@ -185,11 +191,13 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
         self.h265Crf = h265Crf
         self.hardwareAccelerationType = hardwareAccelerationType
         self.hardwareDecodingCodecs = hardwareDecodingCodecs
+        self.hlsAudioSeekStrategy = hlsAudioSeekStrategy
         self.isDeinterlaceDoubleRate = isDeinterlaceDoubleRate
         self.isPreferSystemNativeHwDecoder = isPreferSystemNativeHwDecoder
         self.maxMuxingQueueSize = maxMuxingQueueSize
         self.qsvDevice = qsvDevice
         self.segmentKeepSeconds = segmentKeepSeconds
+        self.subtitleExtractionTimeoutMinutes = subtitleExtractionTimeoutMinutes
         self.throttleDelaySeconds = throttleDelaySeconds
         self.tonemappingAlgorithm = tonemappingAlgorithm
         self.tonemappingDesat = tonemappingDesat
@@ -239,11 +247,13 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
         self.h265Crf = try values.decodeIfPresent(Int.self, forKey: "H265Crf")
         self.hardwareAccelerationType = try values.decodeIfPresent(HardwareAccelerationType.self, forKey: "HardwareAccelerationType")
         self.hardwareDecodingCodecs = try values.decodeIfPresent([String].self, forKey: "HardwareDecodingCodecs")
+        self.hlsAudioSeekStrategy = try values.decodeIfPresent(HlsAudioSeekStrategy.self, forKey: "HlsAudioSeekStrategy")
         self.isDeinterlaceDoubleRate = try values.decodeIfPresent(Bool.self, forKey: "DeinterlaceDoubleRate")
         self.isPreferSystemNativeHwDecoder = try values.decodeIfPresent(Bool.self, forKey: "PreferSystemNativeHwDecoder")
         self.maxMuxingQueueSize = try values.decodeIfPresent(Int.self, forKey: "MaxMuxingQueueSize")
         self.qsvDevice = try values.decodeIfPresent(String.self, forKey: "QsvDevice")
         self.segmentKeepSeconds = try values.decodeIfPresent(Int.self, forKey: "SegmentKeepSeconds")
+        self.subtitleExtractionTimeoutMinutes = try values.decodeIfPresent(Int.self, forKey: "SubtitleExtractionTimeoutMinutes")
         self.throttleDelaySeconds = try values.decodeIfPresent(Int.self, forKey: "ThrottleDelaySeconds")
         self.tonemappingAlgorithm = try values.decodeIfPresent(TonemappingAlgorithm.self, forKey: "TonemappingAlgorithm")
         self.tonemappingDesat = try values.decodeIfPresent(Double.self, forKey: "TonemappingDesat")
@@ -293,11 +303,13 @@ public struct EncodingOptions: Codable, Hashable, Sendable {
         try values.encodeIfPresent(h265Crf, forKey: "H265Crf")
         try values.encodeIfPresent(hardwareAccelerationType, forKey: "HardwareAccelerationType")
         try values.encodeIfPresent(hardwareDecodingCodecs, forKey: "HardwareDecodingCodecs")
+        try values.encodeIfPresent(hlsAudioSeekStrategy, forKey: "HlsAudioSeekStrategy")
         try values.encodeIfPresent(isDeinterlaceDoubleRate, forKey: "DeinterlaceDoubleRate")
         try values.encodeIfPresent(isPreferSystemNativeHwDecoder, forKey: "PreferSystemNativeHwDecoder")
         try values.encodeIfPresent(maxMuxingQueueSize, forKey: "MaxMuxingQueueSize")
         try values.encodeIfPresent(qsvDevice, forKey: "QsvDevice")
         try values.encodeIfPresent(segmentKeepSeconds, forKey: "SegmentKeepSeconds")
+        try values.encodeIfPresent(subtitleExtractionTimeoutMinutes, forKey: "SubtitleExtractionTimeoutMinutes")
         try values.encodeIfPresent(throttleDelaySeconds, forKey: "ThrottleDelaySeconds")
         try values.encodeIfPresent(tonemappingAlgorithm, forKey: "TonemappingAlgorithm")
         try values.encodeIfPresent(tonemappingDesat, forKey: "TonemappingDesat")

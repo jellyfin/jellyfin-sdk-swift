@@ -11,6 +11,7 @@ import Get
 
 public extension Paths {
     /// Sets remote access and UPnP.
+    @available(*, deprecated, message: "Deprecated")
     static func setRemoteAccess(_ body: StartupRemoteAccessDto) -> Request<Void> {
         Request(path: "/Startup/RemoteAccess", method: "POST", body: body, id: "SetRemoteAccess")
     }

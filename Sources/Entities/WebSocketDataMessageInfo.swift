@@ -9,7 +9,6 @@
 import Foundation
 
 /// Activity log entry start message.
-///
 /// Data is the timing data encoded as "$initialDelay,$interval" in ms.
 public struct WebSocketDataMessageInfo: Codable, Hashable, Sendable {
     /// Gets or sets the data.

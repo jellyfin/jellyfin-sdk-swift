@@ -8,9 +8,13 @@
 
 import Foundation
 
+/// A command to display a message on a client.
 public struct MessageCommand: Codable, Hashable, Sendable {
+    /// Gets or sets the message header.
     public var header: String?
+    /// Gets or sets the message text.
     public var text: String
+    /// Gets or sets the timeout in milliseconds after which the message should be dismissed.
     public var timeoutMs: Int?
 
     public init(header: String? = nil, text: String, timeoutMs: Int? = nil) {

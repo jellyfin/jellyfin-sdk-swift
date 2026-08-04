@@ -34,4 +34,5 @@ public enum ProfileConditionValue: String, Codable, CaseIterable, Sendable {
     case audioBitDepth = "AudioBitDepth"
     case videoRangeType = "VideoRangeType"
     case numStreams = "NumStreams"
+    case videoRotation = "VideoRotation"
 }

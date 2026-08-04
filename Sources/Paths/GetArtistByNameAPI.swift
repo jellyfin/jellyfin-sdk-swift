@@ -11,6 +11,7 @@ import Get
 
 extension Paths {
     /// Gets an artist by name.
+    @available(*, deprecated, message: "Deprecated")
     public static func getArtistByName(name: String, userID: String? = nil) -> Request<BaseItemDto> {
         Request(path: "/Artists/\(name)", method: "GET", query: makeGetArtistByNameQuery(userID), id: "GetArtistByName")
     }

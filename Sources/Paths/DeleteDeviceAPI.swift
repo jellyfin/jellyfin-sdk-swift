@@ -9,9 +9,15 @@
 import Foundation
 import Get
 
-public extension Paths {
-    /// Deletes a device.
-    static func deleteDevice(id: String) -> Request<Void> {
-        Request(path: "/Devices", method: "DELETE", query: [("id", id)], id: "DeleteDevice")
+extension Paths {
+    /// Deletes devices.
+    public static func deleteDevice(id: [String]? = nil) -> Request<Void> {
+        Request(path: "/Devices", method: "DELETE", query: makeDeleteDeviceQuery(id), id: "DeleteDevice")
+    }
+
+    private static func makeDeleteDeviceQuery(_ id: [String]?) -> [(String, String?)] {
+        let encoder = URLQueryEncoder()
+        encoder.encode(id, forKey: "id")
+        return encoder.items
     }
 }

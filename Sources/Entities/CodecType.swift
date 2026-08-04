@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The codec type of a codec profile.
 public enum CodecType: String, Codable, CaseIterable, Sendable {
     case video = "Video"
     case videoAudio = "VideoAudio"

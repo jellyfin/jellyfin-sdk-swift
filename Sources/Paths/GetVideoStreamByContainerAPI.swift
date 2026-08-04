@@ -34,7 +34,6 @@ public extension Paths {
         public var enableAutoStreamCopy: Bool?
         public var allowVideoStreamCopy: Bool?
         public var allowAudioStreamCopy: Bool?
-        public var isBreakOnNonKeyFrames: Bool?
         public var audioSampleRate: Int?
         public var maxAudioBitDepth: Int?
         public var audioBitRate: Int?
@@ -86,7 +85,6 @@ public extension Paths {
             enableAutoStreamCopy: Bool? = nil,
             allowVideoStreamCopy: Bool? = nil,
             allowAudioStreamCopy: Bool? = nil,
-            isBreakOnNonKeyFrames: Bool? = nil,
             audioSampleRate: Int? = nil,
             maxAudioBitDepth: Int? = nil,
             audioBitRate: Int? = nil,
@@ -137,7 +135,6 @@ public extension Paths {
             self.enableAutoStreamCopy = enableAutoStreamCopy
             self.allowVideoStreamCopy = allowVideoStreamCopy
             self.allowAudioStreamCopy = allowAudioStreamCopy
-            self.isBreakOnNonKeyFrames = isBreakOnNonKeyFrames
             self.audioSampleRate = audioSampleRate
             self.maxAudioBitDepth = maxAudioBitDepth
             self.audioBitRate = audioBitRate
@@ -191,7 +188,6 @@ public extension Paths {
             encoder.encode(enableAutoStreamCopy, forKey: "enableAutoStreamCopy")
             encoder.encode(allowVideoStreamCopy, forKey: "allowVideoStreamCopy")
             encoder.encode(allowAudioStreamCopy, forKey: "allowAudioStreamCopy")
-            encoder.encode(isBreakOnNonKeyFrames, forKey: "breakOnNonKeyFrames")
             encoder.encode(audioSampleRate, forKey: "audioSampleRate")
             encoder.encode(maxAudioBitDepth, forKey: "maxAudioBitDepth")
             encoder.encode(audioBitRate, forKey: "audioBitRate")
@@ -225,7 +221,7 @@ public extension Paths {
             encoder.encode(audioStreamIndex, forKey: "audioStreamIndex")
             encoder.encode(videoStreamIndex, forKey: "videoStreamIndex")
             encoder.encode(context, forKey: "context")
-            encoder.encode(streamOptions, forKey: "streamOptions")
+            encoder.encode(streamOptions, forKey: "streamOptions", explode: false, isDeepObject: true)
             encoder.encode(enableAudioVbrEncoding, forKey: "enableAudioVbrEncoding")
             return encoder.items
         }

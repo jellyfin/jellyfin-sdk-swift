@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The type of a media source.
 public enum MediaSourceType: String, Codable, CaseIterable, Sendable {
     case `default` = "Default"
     case grouping = "Grouping"

@@ -13,7 +13,6 @@ public extension Paths {
     /// Gets live playback media info for an item.
     ///
     /// For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.
-    ///
     /// Query parameters are obsolete.
     static func getPostedPlaybackInfo(
         itemID: String,

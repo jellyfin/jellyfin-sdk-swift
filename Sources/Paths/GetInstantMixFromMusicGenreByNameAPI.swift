@@ -11,6 +11,7 @@ import Get
 
 public extension Paths {
     /// Creates an instant playlist based on a given genre.
+    @available(*, deprecated, message: "Deprecated")
     static func getInstantMixFromMusicGenreByName(
         name: String,
         parameters: GetInstantMixFromMusicGenreByNameParameters? = nil

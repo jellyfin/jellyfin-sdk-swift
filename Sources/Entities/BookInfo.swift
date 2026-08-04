@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The lookup info for books.
 public struct BookInfo: Codable, Hashable, Sendable {
     public var indexNumber: Int?
     public var isAutomated: Bool?
@@ -25,6 +26,7 @@ public struct BookInfo: Codable, Hashable, Sendable {
     public var premiereDate: Date?
     /// Gets or sets the provider ids.
     public var providerIDs: [String: String]?
+    /// Gets or sets the name of the series the book belongs to.
     public var seriesName: String?
     /// Gets or sets the year.
     public var year: Int?

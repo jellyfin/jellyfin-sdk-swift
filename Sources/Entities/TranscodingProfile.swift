@@ -9,7 +9,6 @@
 import Foundation
 
 /// A class for transcoding profile information.
-///
 /// Note for client developers: Conditions defined in MediaBrowser.Model.Dlna.CodecProfile has higher priority and can override values
 /// defined here.
 public struct TranscodingProfile: Codable, Hashable, Sendable {
@@ -30,6 +29,7 @@ public struct TranscodingProfile: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether subtitles are allowed in the manifest.
     public var enableSubtitlesInManifest: Bool
     /// Gets or sets a value indicating whether breaking the video stream on non-keyframes is supported.
+    @available(*, deprecated, message: "Deprecated")
     public var isBreakOnNonKeyFrames: Bool
     /// Gets or sets a value indicating whether timestamps should be copied.
     public var isCopyTimestamps: Bool

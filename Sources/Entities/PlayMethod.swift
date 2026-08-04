@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The play method.
 public enum PlayMethod: String, Codable, CaseIterable, Sendable {
     case transcode = "Transcode"
     case directStream = "DirectStream"

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The type of timestamps used in a transport stream.
 public enum TransportStreamTimestamp: String, Codable, CaseIterable, Sendable {
     case none = "None"
     case zero = "Zero"

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The convention used for naming saved images.
 public enum ImageSavingConvention: String, Codable, CaseIterable, Sendable {
     case legacy = "Legacy"
     case compatible = "Compatible"

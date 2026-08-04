@@ -9,7 +9,6 @@
 import Foundation
 
 /// Media streaming protocol.
-///
 /// Lowercase for backwards compatibility.
 public enum MediaStreamProtocol: String, Codable, CaseIterable, Sendable {
     case http

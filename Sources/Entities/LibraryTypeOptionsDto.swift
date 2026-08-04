@@ -16,6 +16,8 @@ public struct LibraryTypeOptionsDto: Codable, Hashable, Sendable {
     public var imageFetchers: [LibraryOptionInfoDto]?
     /// Gets or sets the metadata fetchers.
     public var metadataFetchers: [LibraryOptionInfoDto]?
+    /// Gets or sets the similar item providers.
+    public var similarItemProviders: [LibraryOptionInfoDto]?
     /// Gets or sets the supported image types.
     public var supportedImageTypes: [ImageType]?
     /// Gets or sets the type.
@@ -25,12 +27,14 @@ public struct LibraryTypeOptionsDto: Codable, Hashable, Sendable {
         defaultImageOptions: [ImageOption]? = nil,
         imageFetchers: [LibraryOptionInfoDto]? = nil,
         metadataFetchers: [LibraryOptionInfoDto]? = nil,
+        similarItemProviders: [LibraryOptionInfoDto]? = nil,
         supportedImageTypes: [ImageType]? = nil,
         type: String? = nil
     ) {
         self.defaultImageOptions = defaultImageOptions
         self.imageFetchers = imageFetchers
         self.metadataFetchers = metadataFetchers
+        self.similarItemProviders = similarItemProviders
         self.supportedImageTypes = supportedImageTypes
         self.type = type
     }
@@ -40,6 +44,7 @@ public struct LibraryTypeOptionsDto: Codable, Hashable, Sendable {
         self.defaultImageOptions = try values.decodeIfPresent([ImageOption].self, forKey: "DefaultImageOptions")
         self.imageFetchers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "ImageFetchers")
         self.metadataFetchers = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "MetadataFetchers")
+        self.similarItemProviders = try values.decodeIfPresent([LibraryOptionInfoDto].self, forKey: "SimilarItemProviders")
         self.supportedImageTypes = try values.decodeIfPresent([ImageType].self, forKey: "SupportedImageTypes")
         self.type = try values.decodeIfPresent(String.self, forKey: "Type")
     }
@@ -49,6 +54,7 @@ public struct LibraryTypeOptionsDto: Codable, Hashable, Sendable {
         try values.encodeIfPresent(defaultImageOptions, forKey: "DefaultImageOptions")
         try values.encodeIfPresent(imageFetchers, forKey: "ImageFetchers")
         try values.encodeIfPresent(metadataFetchers, forKey: "MetadataFetchers")
+        try values.encodeIfPresent(similarItemProviders, forKey: "SimilarItemProviders")
         try values.encodeIfPresent(supportedImageTypes, forKey: "SupportedImageTypes")
         try values.encodeIfPresent(type, forKey: "Type")
     }

@@ -11,6 +11,7 @@ import Get
 
 public extension Paths {
     /// Sets the initial startup wizard configuration.
+    @available(*, deprecated, message: "Deprecated")
     static func updateInitialConfiguration(_ body: StartupConfigurationDto) -> Request<Void> {
         Request(path: "/Startup/Configuration", method: "POST", body: body, id: "UpdateInitialConfiguration")
     }

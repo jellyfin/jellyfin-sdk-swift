@@ -36,4 +36,5 @@ public enum TranscodeReason: String, Codable, CaseIterable, Sendable {
     case videoRangeTypeNotSupported = "VideoRangeTypeNotSupported"
     case videoCodecTagNotSupported = "VideoCodecTagNotSupported"
     case streamCountExceedsLimit = "StreamCountExceedsLimit"
+    case videoRotationNotSupported = "VideoRotationNotSupported"
 }

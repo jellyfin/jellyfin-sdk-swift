@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The play access of an item.
 public enum PlayAccess: String, Codable, CaseIterable, Sendable {
     case full = "Full"
     case none = "None"

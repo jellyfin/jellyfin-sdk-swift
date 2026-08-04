@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The playback error code.
 public enum PlaybackErrorCode: String, Codable, CaseIterable, Sendable {
     case notAllowed = "NotAllowed"
     case noCompatibleStream = "NoCompatibleStream"

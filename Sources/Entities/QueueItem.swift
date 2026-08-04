@@ -8,8 +8,11 @@
 
 import Foundation
 
+/// An item in a play queue.
 public struct QueueItem: Codable, Hashable, Identifiable, Sendable {
+    /// Gets or sets the item id.
     public var id: String?
+    /// Gets or sets the playlist item id.
     public var playlistItemID: String?
 
     public init(id: String? = nil, playlistItemID: String? = nil) {

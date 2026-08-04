@@ -18,8 +18,10 @@ public struct UserDto: Codable, Hashable, Identifiable, Sendable {
     @available(*, deprecated, message: "Deprecated")
     public var hasConfiguredEasyPassword: Bool?
     /// Gets or sets a value indicating whether this instance has configured password.
+    @available(*, deprecated, message: "Deprecated")
     public var hasConfiguredPassword: Bool?
     /// Gets or sets a value indicating whether this instance has password.
+    @available(*, deprecated, message: "Deprecated")
     public var hasPassword: Bool?
     /// Gets or sets the id.
     public var id: String?
@@ -38,7 +40,6 @@ public struct UserDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the server identifier.
     public var serverID: String?
     /// Gets or sets the name of the server.
-    ///
     /// This is not used by the server and is for client-side usage only.
     public var serverName: String?
 

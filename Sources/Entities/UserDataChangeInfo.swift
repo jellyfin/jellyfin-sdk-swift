@@ -11,24 +11,24 @@ import Foundation
 /// Class UserDataChangeInfo.
 public struct UserDataChangeInfo: Codable, Hashable, Sendable {
     /// Gets or sets the user data list.
-    public var userDataList: [UserItemDataDto]?
+    public var userDataList: [UserItemDataDto]
     /// Gets or sets the user id.
     public var userID: String?
 
-    public init(userDataList: [UserItemDataDto]? = nil, userID: String? = nil) {
+    public init(userDataList: [UserItemDataDto], userID: String? = nil) {
         self.userDataList = userDataList
         self.userID = userID
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.userDataList = try values.decodeIfPresent([UserItemDataDto].self, forKey: "UserDataList")
+        self.userDataList = try values.decode([UserItemDataDto].self, forKey: "UserDataList")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(userDataList, forKey: "UserDataList")
+        try values.encode(userDataList, forKey: "UserDataList")
         try values.encodeIfPresent(userID, forKey: "UserId")
     }
 }

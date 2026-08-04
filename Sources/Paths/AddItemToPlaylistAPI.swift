@@ -9,21 +9,29 @@
 import Foundation
 import Get
 
-extension Paths {
+public extension Paths {
     /// Adds items to a playlist.
-    public static func addItemToPlaylist(playlistID: String, ids: [String]? = nil, userID: String? = nil) -> Request<Void> {
-        Request(
-            path: "/Playlists/\(playlistID)/Items",
-            method: "POST",
-            query: makeAddItemToPlaylistQuery(ids, userID),
-            id: "AddItemToPlaylist"
-        )
+    static func addItemToPlaylist(playlistID: String, parameters: AddItemToPlaylistParameters? = nil) -> Request<Void> {
+        Request(path: "/Playlists/\(playlistID)/Items", method: "POST", query: parameters?.asQuery, id: "AddItemToPlaylist")
     }
 
-    private static func makeAddItemToPlaylistQuery(_ ids: [String]?, _ userID: String?) -> [(String, String?)] {
-        let encoder = URLQueryEncoder()
-        encoder.encode(ids, forKey: "ids")
-        encoder.encode(userID, forKey: "userId")
-        return encoder.items
+    struct AddItemToPlaylistParameters {
+        public var ids: [String]?
+        public var position: Int?
+        public var userID: String?
+
+        public init(ids: [String]? = nil, position: Int? = nil, userID: String? = nil) {
+            self.ids = ids
+            self.position = position
+            self.userID = userID
+        }
+
+        public var asQuery: [(String, String?)] {
+            let encoder = URLQueryEncoder()
+            encoder.encode(ids, forKey: "ids")
+            encoder.encode(position, forKey: "position")
+            encoder.encode(userID, forKey: "userId")
+            return encoder.items
+        }
     }
 }

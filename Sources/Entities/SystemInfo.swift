@@ -19,7 +19,7 @@ public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
     @available(*, deprecated, message: "Deprecated")
     public var canSelfRestart: Bool
     /// Gets or sets the list of cast receiver applications.
-    public var castReceiverApplications: [NameIDPair]?
+    public var castReceiverApplications: [CastReceiverApplication]?
     /// Gets or sets the completed installations.
     public var completedInstallations: [InstallationInfo]?
     @available(*, deprecated, message: "Deprecated")
@@ -79,7 +79,7 @@ public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
         cachePath: String? = nil,
         canLaunchWebBrowser: Bool? = nil,
         canSelfRestart: Bool? = nil,
-        castReceiverApplications: [NameIDPair]? = nil,
+        castReceiverApplications: [CastReceiverApplication]? = nil,
         completedInstallations: [InstallationInfo]? = nil,
         encoderLocation: String? = nil,
         hasPendingRestart: Bool? = nil,
@@ -138,7 +138,7 @@ public struct SystemInfo: Codable, Hashable, Identifiable, Sendable {
         self.cachePath = try values.decodeIfPresent(String.self, forKey: "CachePath")
         self.canLaunchWebBrowser = try values.decodeIfPresent(Bool.self, forKey: "CanLaunchWebBrowser") ?? false
         self.canSelfRestart = try values.decodeIfPresent(Bool.self, forKey: "CanSelfRestart") ?? true
-        self.castReceiverApplications = try values.decodeIfPresent([NameIDPair].self, forKey: "CastReceiverApplications")
+        self.castReceiverApplications = try values.decodeIfPresent([CastReceiverApplication].self, forKey: "CastReceiverApplications")
         self.completedInstallations = try values.decodeIfPresent([InstallationInfo].self, forKey: "CompletedInstallations")
         self.encoderLocation = try values.decodeIfPresent(String.self, forKey: "EncoderLocation")
         self.hasPendingRestart = try values.decodeIfPresent(Bool.self, forKey: "HasPendingRestart")

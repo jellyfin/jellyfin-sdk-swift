@@ -14,68 +14,57 @@ public extension JellyfinClient {
     }
 
     var version: Version {
-        "10.11.11"
+        "12.0"
     }
 
     struct Version: Comparable, CustomStringConvertible, ExpressibleByStringLiteral, Sendable {
         public let major: Int
         public let minor: Int
-        public let patch: Int
 
         public var description: String {
-            "\(major).\(minor).\(patch)"
-        }
-
-        public var majorMinor: Version {
-            Version(major: major, minor: minor, patch: 0)
+            "\(major).\(minor)"
         }
 
         public init(stringLiteral value: StringLiteralType) {
             let parsed = Version.parse(value: value)
             self.major = parsed.major
             self.minor = parsed.minor
-            self.patch = parsed.patch
         }
 
-        public init(major: Int, minor: Int, patch: Int) {
+        public init(major: Int, minor: Int) {
             self.major = max(0, major)
             self.minor = max(0, minor)
-            self.patch = max(0, patch)
         }
 
-        private static func parse(value: String) -> (major: Int, minor: Int, patch: Int) {
+        private static func parse(value: String) -> (major: Int, minor: Int) {
             let components = value.split(separator: ".")
 
-            guard components.count == 3 else {
-                return (0, 0, 0)
+            guard components.count == 2 else {
+                return (0, 0)
             }
 
             guard let major = Int(components[0]),
-                  let minor = Int(components[1]),
-                  let patch = Int(components[2])
+                  let minor = Int(components[1])
             else {
-                return (0, 0, 0)
+                return (0, 0)
             }
 
-            guard major >= 0 && minor >= 0 && patch >= 0 else {
-                return (0, 0, 0)
+            guard major >= 0 && minor >= 0 else {
+                return (0, 0)
             }
 
-            return (major, minor, patch)
+            return (major, minor)
         }
 
         public static func == (lhs: Version, rhs: Version) -> Bool {
-            lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch
+            lhs.major == rhs.major && lhs.minor == rhs.minor
         }
 
         public static func < (lhs: Version, rhs: Version) -> Bool {
             if lhs.major != rhs.major {
                 return lhs.major < rhs.major
             }
-            if lhs.minor != rhs.minor {
-                return lhs.minor < rhs.minor
-            }
-            return lhs.patch < rhs.patch
+            return lhs.minor < rhs.minor
         }
     }
 }
