@@ -13,17 +13,17 @@ public struct ChannelMappingOptionsDto: Codable, Hashable, Sendable {
     /// Gets or sets list of mappings.
     public var mappings: [NameValuePair]?
     /// Gets or sets list of provider channels.
-    public var providerChannels: [NameIDPair]?
+    public var providerChannels: [NameIDPair]
     /// Gets or sets provider name.
     public var providerName: String?
     /// Gets or sets list of tuner channels.
-    public var tunerChannels: [TunerChannelMapping]?
+    public var tunerChannels: [TunerChannelMapping]
 
     public init(
         mappings: [NameValuePair]? = nil,
-        providerChannels: [NameIDPair]? = nil,
+        providerChannels: [NameIDPair],
         providerName: String? = nil,
-        tunerChannels: [TunerChannelMapping]? = nil
+        tunerChannels: [TunerChannelMapping]
     ) {
         self.mappings = mappings
         self.providerChannels = providerChannels
@@ -34,16 +34,16 @@ public struct ChannelMappingOptionsDto: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.mappings = try values.decodeIfPresent([NameValuePair].self, forKey: "Mappings")
-        self.providerChannels = try values.decodeIfPresent([NameIDPair].self, forKey: "ProviderChannels")
+        self.providerChannels = try values.decode([NameIDPair].self, forKey: "ProviderChannels")
         self.providerName = try values.decodeIfPresent(String.self, forKey: "ProviderName")
-        self.tunerChannels = try values.decodeIfPresent([TunerChannelMapping].self, forKey: "TunerChannels")
+        self.tunerChannels = try values.decode([TunerChannelMapping].self, forKey: "TunerChannels")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(mappings, forKey: "Mappings")
-        try values.encodeIfPresent(providerChannels, forKey: "ProviderChannels")
+        try values.encode(providerChannels, forKey: "ProviderChannels")
         try values.encodeIfPresent(providerName, forKey: "ProviderName")
-        try values.encodeIfPresent(tunerChannels, forKey: "TunerChannels")
+        try values.encode(tunerChannels, forKey: "TunerChannels")
     }
 }

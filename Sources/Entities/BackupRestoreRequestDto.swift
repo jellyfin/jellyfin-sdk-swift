@@ -12,19 +12,19 @@ import Foundation
 public struct BackupRestoreRequestDto: Codable, Hashable, Sendable {
     /// Gets or Sets the name of the backup archive to restore from. Must be present in
     /// MediaBrowser.Common.Configuration.IApplicationPaths.BackupPath.
-    public var archiveFileName: String?
+    public var archiveFileName: String
 
-    public init(archiveFileName: String? = nil) {
+    public init(archiveFileName: String) {
         self.archiveFileName = archiveFileName
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.archiveFileName = try values.decodeIfPresent(String.self, forKey: "ArchiveFileName")
+        self.archiveFileName = try values.decode(String.self, forKey: "ArchiveFileName")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(archiveFileName, forKey: "ArchiveFileName")
+        try values.encode(archiveFileName, forKey: "ArchiveFileName")
     }
 }

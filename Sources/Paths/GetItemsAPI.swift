@@ -100,6 +100,8 @@ public extension Paths {
         public var nameLessThan: String?
         public var studioIDs: [String]?
         public var genreIDs: [String]?
+        public var audioLanguages: [String]?
+        public var subtitleLanguages: [String]?
         public var enableTotalRecordCount: Bool?
         public var enableImages: Bool?
 
@@ -188,6 +190,8 @@ public extension Paths {
             nameLessThan: String? = nil,
             studioIDs: [String]? = nil,
             genreIDs: [String]? = nil,
+            audioLanguages: [String]? = nil,
+            subtitleLanguages: [String]? = nil,
             enableTotalRecordCount: Bool? = nil,
             enableImages: Bool? = nil
         ) {
@@ -275,6 +279,8 @@ public extension Paths {
             self.nameLessThan = nameLessThan
             self.studioIDs = studioIDs
             self.genreIDs = genreIDs
+            self.audioLanguages = audioLanguages
+            self.subtitleLanguages = subtitleLanguages
             self.enableTotalRecordCount = enableTotalRecordCount
             self.enableImages = enableImages
         }
@@ -365,6 +371,8 @@ public extension Paths {
             encoder.encode(nameLessThan, forKey: "nameLessThan")
             encoder.encode(studioIDs, forKey: "studioIds")
             encoder.encode(genreIDs, forKey: "genreIds")
+            encoder.encode(audioLanguages, forKey: "audioLanguages")
+            encoder.encode(subtitleLanguages, forKey: "subtitleLanguages")
             encoder.encode(enableTotalRecordCount, forKey: "enableTotalRecordCount")
             encoder.encode(enableImages, forKey: "enableImages")
             return encoder.items

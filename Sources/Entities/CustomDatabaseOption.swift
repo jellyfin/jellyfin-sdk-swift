@@ -11,24 +11,24 @@ import Foundation
 /// The custom value option for custom database providers.
 public struct CustomDatabaseOption: Codable, Hashable, Sendable {
     /// Gets or sets the key of the value.
-    public var key: String?
+    public var key: String
     /// Gets or sets the value.
-    public var value: String?
+    public var value: String
 
-    public init(key: String? = nil, value: String? = nil) {
+    public init(key: String, value: String) {
         self.key = key
         self.value = value
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.key = try values.decodeIfPresent(String.self, forKey: "Key")
-        self.value = try values.decodeIfPresent(String.self, forKey: "Value")
+        self.key = try values.decode(String.self, forKey: "Key")
+        self.value = try values.decode(String.self, forKey: "Value")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(key, forKey: "Key")
-        try values.encodeIfPresent(value, forKey: "Value")
+        try values.encode(key, forKey: "Key")
+        try values.encode(value, forKey: "Value")
     }
 }

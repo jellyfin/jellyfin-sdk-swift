@@ -11,13 +11,13 @@ import Foundation
 /// The remote lyric info dto.
 public struct RemoteLyricInfoDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the id for the lyric.
-    public var id: String?
+    public var id: String
     /// Gets the lyrics.
-    public var lyrics: LyricDto?
+    public var lyrics: LyricDto
     /// Gets the provider name.
-    public var providerName: String?
+    public var providerName: String
 
-    public init(id: String? = nil, lyrics: LyricDto? = nil, providerName: String? = nil) {
+    public init(id: String, lyrics: LyricDto, providerName: String) {
         self.id = id
         self.lyrics = lyrics
         self.providerName = providerName
@@ -25,15 +25,15 @@ public struct RemoteLyricInfoDto: Codable, Hashable, Identifiable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(String.self, forKey: "Id")
-        self.lyrics = try values.decodeIfPresent(LyricDto.self, forKey: "Lyrics")
-        self.providerName = try values.decodeIfPresent(String.self, forKey: "ProviderName")
+        self.id = try values.decode(String.self, forKey: "Id")
+        self.lyrics = try values.decode(LyricDto.self, forKey: "Lyrics")
+        self.providerName = try values.decode(String.self, forKey: "ProviderName")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(id, forKey: "Id")
-        try values.encodeIfPresent(lyrics, forKey: "Lyrics")
-        try values.encodeIfPresent(providerName, forKey: "ProviderName")
+        try values.encode(id, forKey: "Id")
+        try values.encode(lyrics, forKey: "Lyrics")
+        try values.encode(providerName, forKey: "ProviderName")
     }
 }

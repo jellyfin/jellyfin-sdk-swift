@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The day pattern of a recurring timer.
 public enum DayPattern: String, Codable, CaseIterable, Sendable {
     case daily = "Daily"
     case weekdays = "Weekdays"

@@ -10,7 +10,7 @@ import Foundation
 
 /// Plugin installation cancelled message.
 public struct PluginInstallationMessageInfo: Codable, Hashable, Sendable {
-    /// Class InstallationInfo.
+    /// Gets or sets the data.
     public var data: InstallationInfo?
     /// Gets or sets the message id.
     public var messageID: String?

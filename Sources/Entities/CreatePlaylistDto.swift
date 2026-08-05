@@ -17,7 +17,7 @@ public struct CreatePlaylistDto: Codable, Hashable, Sendable {
     /// Gets or sets the media type.
     public var mediaType: MediaType?
     /// Gets or sets the name of the new playlist.
-    public var name: String?
+    public var name: String
     /// Gets or sets the user id.
     public var userID: String?
     /// Gets or sets the playlist users.
@@ -27,7 +27,7 @@ public struct CreatePlaylistDto: Codable, Hashable, Sendable {
         ids: [String]? = nil,
         isPublic: Bool? = nil,
         mediaType: MediaType? = nil,
-        name: String? = nil,
+        name: String,
         userID: String? = nil,
         users: [PlaylistUserPermissions]? = nil
     ) {
@@ -44,7 +44,7 @@ public struct CreatePlaylistDto: Codable, Hashable, Sendable {
         self.ids = try values.decodeIfPresent([String].self, forKey: "Ids")
         self.isPublic = try values.decodeIfPresent(Bool.self, forKey: "IsPublic")
         self.mediaType = try values.decodeIfPresent(MediaType.self, forKey: "MediaType")
-        self.name = try values.decodeIfPresent(String.self, forKey: "Name")
+        self.name = try values.decode(String.self, forKey: "Name")
         self.userID = try values.decodeIfPresent(String.self, forKey: "UserId")
         self.users = try values.decodeIfPresent([PlaylistUserPermissions].self, forKey: "Users")
     }
@@ -54,7 +54,7 @@ public struct CreatePlaylistDto: Codable, Hashable, Sendable {
         try values.encodeIfPresent(ids, forKey: "Ids")
         try values.encodeIfPresent(isPublic, forKey: "IsPublic")
         try values.encodeIfPresent(mediaType, forKey: "MediaType")
-        try values.encodeIfPresent(name, forKey: "Name")
+        try values.encode(name, forKey: "Name")
         try values.encodeIfPresent(userID, forKey: "UserId")
         try values.encodeIfPresent(users, forKey: "Users")
     }

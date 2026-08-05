@@ -19,7 +19,7 @@ public struct UserItemDataDto: Codable, Hashable, Sendable {
     /// Gets or sets the item identifier.
     public var itemID: String?
     /// Gets or sets the key.
-    public var key: String?
+    public var key: String
     /// Gets or sets the last played date.
     public var lastPlayedDate: Date?
     /// Gets or sets the play count.
@@ -38,7 +38,7 @@ public struct UserItemDataDto: Codable, Hashable, Sendable {
         isLikes: Bool? = nil,
         isPlayed: Bool? = nil,
         itemID: String? = nil,
-        key: String? = nil,
+        key: String,
         lastPlayedDate: Date? = nil,
         playCount: Int? = nil,
         playbackPositionTicks: Int? = nil,
@@ -65,7 +65,7 @@ public struct UserItemDataDto: Codable, Hashable, Sendable {
         self.isLikes = try values.decodeIfPresent(Bool.self, forKey: "Likes")
         self.isPlayed = try values.decodeIfPresent(Bool.self, forKey: "Played")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
-        self.key = try values.decodeIfPresent(String.self, forKey: "Key")
+        self.key = try values.decode(String.self, forKey: "Key")
         self.lastPlayedDate = try values.decodeIfPresent(Date.self, forKey: "LastPlayedDate")
         self.playCount = try values.decodeIfPresent(Int.self, forKey: "PlayCount")
         self.playbackPositionTicks = try values.decodeIfPresent(Int.self, forKey: "PlaybackPositionTicks")
@@ -80,7 +80,7 @@ public struct UserItemDataDto: Codable, Hashable, Sendable {
         try values.encodeIfPresent(isLikes, forKey: "Likes")
         try values.encodeIfPresent(isPlayed, forKey: "Played")
         try values.encodeIfPresent(itemID, forKey: "ItemId")
-        try values.encodeIfPresent(key, forKey: "Key")
+        try values.encode(key, forKey: "Key")
         try values.encodeIfPresent(lastPlayedDate, forKey: "LastPlayedDate")
         try values.encodeIfPresent(playCount, forKey: "PlayCount")
         try values.encodeIfPresent(playbackPositionTicks, forKey: "PlaybackPositionTicks")

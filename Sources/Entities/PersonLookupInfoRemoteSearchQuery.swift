@@ -12,6 +12,7 @@ public struct PersonLookupInfoRemoteSearchQuery: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether disabled providers should be included.
     public var isIncludeDisabledProviders: Bool?
     public var itemID: String?
+    /// The lookup info for persons.
     public var searchInfo: MetadataLookupInfo?
     /// Gets or sets the provider name to search within if set.
     public var searchProviderName: String?

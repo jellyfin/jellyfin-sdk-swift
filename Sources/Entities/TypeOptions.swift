@@ -14,6 +14,8 @@ public struct TypeOptions: Codable, Hashable, Sendable {
     public var imageOptions: [ImageOption]?
     public var metadataFetcherOrder: [String]?
     public var metadataFetchers: [String]?
+    public var similarItemProviderOrder: [String]?
+    public var similarItemProviders: [String]?
     public var type: String?
 
     public init(
@@ -22,6 +24,8 @@ public struct TypeOptions: Codable, Hashable, Sendable {
         imageOptions: [ImageOption]? = nil,
         metadataFetcherOrder: [String]? = nil,
         metadataFetchers: [String]? = nil,
+        similarItemProviderOrder: [String]? = nil,
+        similarItemProviders: [String]? = nil,
         type: String? = nil
     ) {
         self.imageFetcherOrder = imageFetcherOrder
@@ -29,6 +33,8 @@ public struct TypeOptions: Codable, Hashable, Sendable {
         self.imageOptions = imageOptions
         self.metadataFetcherOrder = metadataFetcherOrder
         self.metadataFetchers = metadataFetchers
+        self.similarItemProviderOrder = similarItemProviderOrder
+        self.similarItemProviders = similarItemProviders
         self.type = type
     }
 
@@ -39,6 +45,8 @@ public struct TypeOptions: Codable, Hashable, Sendable {
         self.imageOptions = try values.decodeIfPresent([ImageOption].self, forKey: "ImageOptions")
         self.metadataFetcherOrder = try values.decodeIfPresent([String].self, forKey: "MetadataFetcherOrder")
         self.metadataFetchers = try values.decodeIfPresent([String].self, forKey: "MetadataFetchers")
+        self.similarItemProviderOrder = try values.decodeIfPresent([String].self, forKey: "SimilarItemProviderOrder")
+        self.similarItemProviders = try values.decodeIfPresent([String].self, forKey: "SimilarItemProviders")
         self.type = try values.decodeIfPresent(String.self, forKey: "Type")
     }
 
@@ -49,6 +57,8 @@ public struct TypeOptions: Codable, Hashable, Sendable {
         try values.encodeIfPresent(imageOptions, forKey: "ImageOptions")
         try values.encodeIfPresent(metadataFetcherOrder, forKey: "MetadataFetcherOrder")
         try values.encodeIfPresent(metadataFetchers, forKey: "MetadataFetchers")
+        try values.encodeIfPresent(similarItemProviderOrder, forKey: "SimilarItemProviderOrder")
+        try values.encodeIfPresent(similarItemProviders, forKey: "SimilarItemProviders")
         try values.encodeIfPresent(type, forKey: "Type")
     }
 }

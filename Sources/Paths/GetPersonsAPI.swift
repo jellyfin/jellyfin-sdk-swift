@@ -16,8 +16,12 @@ public extension Paths {
     }
 
     struct GetPersonsParameters {
+        public var startIndex: Int?
         public var limit: Int?
         public var searchTerm: String?
+        public var nameStartsWith: String?
+        public var nameLessThan: String?
+        public var nameStartsWithOrGreater: String?
         public var fields: [ItemFields]?
         public var filters: [ItemFilter]?
         public var isFavorite: Bool?
@@ -26,13 +30,18 @@ public extension Paths {
         public var enableImageTypes: [ImageType]?
         public var excludePersonTypes: [String]?
         public var personTypes: [String]?
+        public var parentID: String?
         public var appearsInItemID: String?
         public var userID: String?
         public var enableImages: Bool?
 
         public init(
+            startIndex: Int? = nil,
             limit: Int? = nil,
             searchTerm: String? = nil,
+            nameStartsWith: String? = nil,
+            nameLessThan: String? = nil,
+            nameStartsWithOrGreater: String? = nil,
             fields: [ItemFields]? = nil,
             filters: [ItemFilter]? = nil,
             isFavorite: Bool? = nil,
@@ -41,12 +50,17 @@ public extension Paths {
             enableImageTypes: [ImageType]? = nil,
             excludePersonTypes: [String]? = nil,
             personTypes: [String]? = nil,
+            parentID: String? = nil,
             appearsInItemID: String? = nil,
             userID: String? = nil,
             enableImages: Bool? = nil
         ) {
+            self.startIndex = startIndex
             self.limit = limit
             self.searchTerm = searchTerm
+            self.nameStartsWith = nameStartsWith
+            self.nameLessThan = nameLessThan
+            self.nameStartsWithOrGreater = nameStartsWithOrGreater
             self.fields = fields
             self.filters = filters
             self.isFavorite = isFavorite
@@ -55,6 +69,7 @@ public extension Paths {
             self.enableImageTypes = enableImageTypes
             self.excludePersonTypes = excludePersonTypes
             self.personTypes = personTypes
+            self.parentID = parentID
             self.appearsInItemID = appearsInItemID
             self.userID = userID
             self.enableImages = enableImages
@@ -62,8 +77,12 @@ public extension Paths {
 
         public var asQuery: [(String, String?)] {
             let encoder = URLQueryEncoder()
+            encoder.encode(startIndex, forKey: "startIndex")
             encoder.encode(limit, forKey: "limit")
             encoder.encode(searchTerm, forKey: "searchTerm")
+            encoder.encode(nameStartsWith, forKey: "nameStartsWith")
+            encoder.encode(nameLessThan, forKey: "nameLessThan")
+            encoder.encode(nameStartsWithOrGreater, forKey: "nameStartsWithOrGreater")
             encoder.encode(fields, forKey: "fields")
             encoder.encode(filters, forKey: "filters")
             encoder.encode(isFavorite, forKey: "isFavorite")
@@ -72,6 +91,7 @@ public extension Paths {
             encoder.encode(enableImageTypes, forKey: "enableImageTypes")
             encoder.encode(excludePersonTypes, forKey: "excludePersonTypes")
             encoder.encode(personTypes, forKey: "personTypes")
+            encoder.encode(parentID, forKey: "parentId")
             encoder.encode(appearsInItemID, forKey: "appearsInItemId")
             encoder.encode(userID, forKey: "userId")
             encoder.encode(enableImages, forKey: "enableImages")

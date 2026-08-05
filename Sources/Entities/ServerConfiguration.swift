@@ -19,7 +19,7 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets the maximum amount of items to cache.
     public var cacheSize: Int?
     /// Gets or sets the list of cast receiver applications.
-    public var castReceiverApplications: [NameIDPair]?
+    public var castReceiverApplications: [CastReceiverApplication]?
     /// Gets or sets the chapter image resolution.
     public var chapterImageResolution: ImageResolution?
     public var codecsUsed: [String]?
@@ -45,7 +45,6 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets the image saving convention.
     public var imageSavingConvention: ImageSavingConvention?
     /// Gets or sets the threshold in minutes after a inactive session gets closed automatically.
-    ///
     /// If set to 0 the check for inactive sessions gets disabled.
     public var inactiveSessionThreshold: Int?
     public var isDisableLiveTvChannelUserDataName: Bool?
@@ -61,9 +60,7 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets the how many metadata refreshes can run concurrently.
     public var libraryMetadataRefreshConcurrency: Int?
     /// Gets or sets the delay in seconds that we will wait after a file system change to try and discover what has been added/removed
-    ///
     /// Some delay is necessary with some items because their creation is not atomic.  It involves the creation of several
-    ///
     /// different directories and files.
     public var libraryMonitorDelay: Int?
     /// Gets or sets the how the library scan fans out.
@@ -99,7 +96,6 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
     /// Gets or sets the last known version that was ran using the configuration.
     public var previousVersion: String?
     /// Gets or sets the stringified PreviousVersion to be stored/loaded,
-    ///
     /// because System.Version itself isn't xml-serializable.
     public var previousVersionStr: String?
     public var remoteClientBitrateLimit: Int?
@@ -121,7 +117,7 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
         allowClientLogUpload: Bool? = nil,
         cachePath: String? = nil,
         cacheSize: Int? = nil,
-        castReceiverApplications: [NameIDPair]? = nil,
+        castReceiverApplications: [CastReceiverApplication]? = nil,
         chapterImageResolution: ImageResolution? = nil,
         codecsUsed: [String]? = nil,
         contentTypes: [NameValuePair]? = nil,
@@ -238,7 +234,7 @@ public struct ServerConfiguration: Codable, Hashable, Sendable {
         self.allowClientLogUpload = try values.decodeIfPresent(Bool.self, forKey: "AllowClientLogUpload")
         self.cachePath = try values.decodeIfPresent(String.self, forKey: "CachePath")
         self.cacheSize = try values.decodeIfPresent(Int.self, forKey: "CacheSize")
-        self.castReceiverApplications = try values.decodeIfPresent([NameIDPair].self, forKey: "CastReceiverApplications")
+        self.castReceiverApplications = try values.decodeIfPresent([CastReceiverApplication].self, forKey: "CastReceiverApplications")
         self.chapterImageResolution = try values.decodeIfPresent(ImageResolution.self, forKey: "ChapterImageResolution")
         self.codecsUsed = try values.decodeIfPresent([String].self, forKey: "CodecsUsed")
         self.contentTypes = try values.decodeIfPresent([NameValuePair].self, forKey: "ContentTypes")

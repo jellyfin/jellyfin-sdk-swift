@@ -35,4 +35,5 @@ public enum PersonKind: String, Codable, CaseIterable, Sendable {
     case coverArtist = "CoverArtist"
     case editor = "Editor"
     case translator = "Translator"
+    case narrator = "Narrator"
 }

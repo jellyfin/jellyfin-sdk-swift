@@ -29,7 +29,6 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable, Sendable {
     public var isInfiniteStream: Bool?
     public var isReadAtNativeFramerate: Bool?
     /// Gets or sets a value indicating whether the media is remote.
-    ///
     /// Differentiate internet url vs local network.
     public var isRemote: Bool?
     public var isSupportsDirectPlay: Bool?
@@ -52,10 +51,10 @@ public struct MediaSourceInfo: Codable, Hashable, Identifiable, Sendable {
     public var timestamp: TransportStreamTimestamp?
     public var transcodingContainer: String?
     /// Media streaming protocol.
-    ///
     /// Lowercase for backwards compatibility.
     public var transcodingSubProtocol: MediaStreamProtocol?
     public var transcodingURL: String?
+    /// The type of a media source.
     public var type: MediaSourceType?
     public var useMostCompatibleTranscodingProfile: Bool
     public var video3DFormat: Video3DFormat?

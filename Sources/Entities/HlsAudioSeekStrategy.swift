@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import Get
 
-public extension Paths {
-    /// Gets the TMDb image configuration options.
-    static var tmdbClientConfiguration: Request<ConfigImageTypes> {
-        Request(path: "/Tmdb/ClientConfiguration", method: "GET", id: "TmdbClientConfiguration")
-    }
+/// An enum representing the options to seek the input audio stream when
+/// transcoding HLS segments.
+public enum HlsAudioSeekStrategy: String, Codable, CaseIterable, Sendable {
+    case trimCopiedAudio = "TrimCopiedAudio"
+    case transcodeAudio = "TranscodeAudio"
 }

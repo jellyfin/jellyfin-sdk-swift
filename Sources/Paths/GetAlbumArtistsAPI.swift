@@ -11,6 +11,7 @@ import Get
 
 public extension Paths {
     /// Gets all album artists from a given item, folder, or the entire library.
+    @available(*, deprecated, message: "Deprecated")
     static func getAlbumArtists(parameters: GetAlbumArtistsParameters? = nil) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/Artists/AlbumArtists", method: "GET", query: parameters?.asQuery, id: "GetAlbumArtists")
     }

@@ -13,7 +13,6 @@ public extension Paths {
     /// Creates a new playlist.
     ///
     /// For backwards compatibility parameters can be sent via Query or Body, with Query having higher precedence.
-    ///
     /// Query parameters are obsolete.
     static func createPlaylist(
         parameters: CreatePlaylistParameters? = nil,

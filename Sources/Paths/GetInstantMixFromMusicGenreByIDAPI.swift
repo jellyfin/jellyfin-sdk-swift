@@ -11,6 +11,7 @@ import Get
 
 public extension Paths {
     /// Creates an instant playlist based on a given genre.
+    @available(*, deprecated, message: "Deprecated")
     static func getInstantMixFromMusicGenreByID(parameters: GetInstantMixFromMusicGenreByIDParameters) -> Request<BaseItemDtoQueryResult> {
         Request(path: "/MusicGenres/InstantMix", method: "GET", query: parameters.asQuery, id: "GetInstantMixFromMusicGenreById")
     }

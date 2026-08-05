@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The repeat mode of a play queue.
 public enum RepeatMode: String, Codable, CaseIterable, Sendable {
     case repeatNone = "RepeatNone"
     case repeatAll = "RepeatAll"

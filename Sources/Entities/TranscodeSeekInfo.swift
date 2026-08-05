@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The transcode seek info.
 public enum TranscodeSeekInfo: String, Codable, CaseIterable, Sendable {
     case auto = "Auto"
     case bytes = "Bytes"

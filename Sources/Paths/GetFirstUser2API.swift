@@ -11,6 +11,7 @@ import Get
 
 public extension Paths {
     /// Gets the first user.
+    @available(*, deprecated, message: "Deprecated")
     static var getFirstUser2: Request<StartupUserDto> {
         Request(path: "/Startup/FirstUser", method: "GET", id: "GetFirstUser_2")
     }

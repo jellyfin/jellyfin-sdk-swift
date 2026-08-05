@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The type of a community rating.
 public enum RatingType: String, Codable, CaseIterable, Sendable {
     case score = "Score"
     case likes = "Likes"

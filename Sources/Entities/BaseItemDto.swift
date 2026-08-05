@@ -9,7 +9,6 @@
 import Foundation
 
 /// This is strictly used as a data transfer object from the api layer.
-///
 /// This holds information about a BaseItem in a format that is convenient for the client.
 public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the air days.
@@ -29,6 +28,8 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     public var albumCount: Int?
     /// Gets or sets the album id.
     public var albumID: String?
+    /// Gets or sets the gain required for audio normalization. This field is inherited from music album normalization gain.
+    public var albumNormalizationGain: Float?
     /// Gets or sets the album image tag.
     public var albumPrimaryImageTag: String?
     public var altitude: Double?
@@ -107,7 +108,6 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the id.
     public var id: String?
     /// Gets or sets the blurhashes for the image tags.
-    ///
     /// Maps image type to dictionary mapping image tag to blurhash value.
     public var imageBlurHashes: ImageBlurHashes?
     public var imageOrientation: ImageOrientation?
@@ -171,6 +171,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
     public var number: String?
     /// Gets or sets the official rating.
     public var officialRating: String?
+    public var originalLanguage: String?
     public var originalTitle: String?
     /// Gets or sets the overview.
     public var overview: String?
@@ -297,6 +298,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         albumArtists: [NameIDPair]? = nil,
         albumCount: Int? = nil,
         albumID: String? = nil,
+        albumNormalizationGain: Float? = nil,
         albumPrimaryImageTag: String? = nil,
         altitude: Double? = nil,
         aperture: Double? = nil,
@@ -379,6 +381,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         normalizationGain: Float? = nil,
         number: String? = nil,
         officialRating: String? = nil,
+        originalLanguage: String? = nil,
         originalTitle: String? = nil,
         overview: String? = nil,
         parentArtImageTag: String? = nil,
@@ -451,6 +454,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         self.albumArtists = albumArtists
         self.albumCount = albumCount
         self.albumID = albumID
+        self.albumNormalizationGain = albumNormalizationGain
         self.albumPrimaryImageTag = albumPrimaryImageTag
         self.altitude = altitude
         self.aperture = aperture
@@ -533,6 +537,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         self.normalizationGain = normalizationGain
         self.number = number
         self.officialRating = officialRating
+        self.originalLanguage = originalLanguage
         self.originalTitle = originalTitle
         self.overview = overview
         self.parentArtImageTag = parentArtImageTag
@@ -608,6 +613,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         self.albumArtists = try values.decodeIfPresent([NameIDPair].self, forKey: "AlbumArtists")
         self.albumCount = try values.decodeIfPresent(Int.self, forKey: "AlbumCount")
         self.albumID = try values.decodeIfPresent(String.self, forKey: "AlbumId")
+        self.albumNormalizationGain = try values.decodeIfPresent(Float.self, forKey: "AlbumNormalizationGain")
         self.albumPrimaryImageTag = try values.decodeIfPresent(String.self, forKey: "AlbumPrimaryImageTag")
         self.altitude = try values.decodeIfPresent(Double.self, forKey: "Altitude")
         self.aperture = try values.decodeIfPresent(Double.self, forKey: "Aperture")
@@ -690,6 +696,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         self.normalizationGain = try values.decodeIfPresent(Float.self, forKey: "NormalizationGain")
         self.number = try values.decodeIfPresent(String.self, forKey: "Number")
         self.officialRating = try values.decodeIfPresent(String.self, forKey: "OfficialRating")
+        self.originalLanguage = try values.decodeIfPresent(String.self, forKey: "OriginalLanguage")
         self.originalTitle = try values.decodeIfPresent(String.self, forKey: "OriginalTitle")
         self.overview = try values.decodeIfPresent(String.self, forKey: "Overview")
         self.parentArtImageTag = try values.decodeIfPresent(String.self, forKey: "ParentArtImageTag")
@@ -765,6 +772,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(albumArtists, forKey: "AlbumArtists")
         try values.encodeIfPresent(albumCount, forKey: "AlbumCount")
         try values.encodeIfPresent(albumID, forKey: "AlbumId")
+        try values.encodeIfPresent(albumNormalizationGain, forKey: "AlbumNormalizationGain")
         try values.encodeIfPresent(albumPrimaryImageTag, forKey: "AlbumPrimaryImageTag")
         try values.encodeIfPresent(altitude, forKey: "Altitude")
         try values.encodeIfPresent(aperture, forKey: "Aperture")
@@ -847,6 +855,7 @@ public struct BaseItemDto: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(normalizationGain, forKey: "NormalizationGain")
         try values.encodeIfPresent(number, forKey: "Number")
         try values.encodeIfPresent(officialRating, forKey: "OfficialRating")
+        try values.encodeIfPresent(originalLanguage, forKey: "OriginalLanguage")
         try values.encodeIfPresent(originalTitle, forKey: "OriginalTitle")
         try values.encodeIfPresent(overview, forKey: "Overview")
         try values.encodeIfPresent(parentArtImageTag, forKey: "ParentArtImageTag")

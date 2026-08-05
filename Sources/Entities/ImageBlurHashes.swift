@@ -9,7 +9,6 @@
 import Foundation
 
 /// Gets or sets the blurhashes for the image tags.
-///
 /// Maps image type to dictionary mapping image tag to blurhash value.
 public struct ImageBlurHashes: Codable, Hashable, Sendable {
     public var art: [String: String]?

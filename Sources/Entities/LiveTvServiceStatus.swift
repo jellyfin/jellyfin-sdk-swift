@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The status of a live TV service.
 public enum LiveTvServiceStatus: String, Codable, CaseIterable, Sendable {
     case ok = "Ok"
     case unavailable = "Unavailable"

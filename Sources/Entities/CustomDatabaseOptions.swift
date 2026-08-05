@@ -11,20 +11,15 @@ import Foundation
 /// Defines the options for a custom database connector.
 public struct CustomDatabaseOptions: Codable, Hashable, Sendable {
     /// Gets or sets the connection string for the custom database provider.
-    public var connectionString: String?
+    public var connectionString: String
     /// Gets or sets the list of extra options for the custom provider.
     public var options: [CustomDatabaseOption]?
     /// Gets or sets the plugin assembly to search for providers.
-    public var pluginAssembly: String?
+    public var pluginAssembly: String
     /// Gets or sets the Plugin name to search for database providers.
-    public var pluginName: String?
+    public var pluginName: String
 
-    public init(
-        connectionString: String? = nil,
-        options: [CustomDatabaseOption]? = nil,
-        pluginAssembly: String? = nil,
-        pluginName: String? = nil
-    ) {
+    public init(connectionString: String, options: [CustomDatabaseOption]? = nil, pluginAssembly: String, pluginName: String) {
         self.connectionString = connectionString
         self.options = options
         self.pluginAssembly = pluginAssembly
@@ -33,17 +28,17 @@ public struct CustomDatabaseOptions: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.connectionString = try values.decodeIfPresent(String.self, forKey: "ConnectionString")
+        self.connectionString = try values.decode(String.self, forKey: "ConnectionString")
         self.options = try values.decodeIfPresent([CustomDatabaseOption].self, forKey: "Options")
-        self.pluginAssembly = try values.decodeIfPresent(String.self, forKey: "PluginAssembly")
-        self.pluginName = try values.decodeIfPresent(String.self, forKey: "PluginName")
+        self.pluginAssembly = try values.decode(String.self, forKey: "PluginAssembly")
+        self.pluginName = try values.decode(String.self, forKey: "PluginName")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(connectionString, forKey: "ConnectionString")
+        try values.encode(connectionString, forKey: "ConnectionString")
         try values.encodeIfPresent(options, forKey: "Options")
-        try values.encodeIfPresent(pluginAssembly, forKey: "PluginAssembly")
-        try values.encodeIfPresent(pluginName, forKey: "PluginName")
+        try values.encode(pluginAssembly, forKey: "PluginAssembly")
+        try values.encode(pluginName, forKey: "PluginName")
     }
 }

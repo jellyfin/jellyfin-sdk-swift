@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The encoding context.
 public enum EncodingContext: String, Codable, CaseIterable, Sendable {
     case streaming = "Streaming"
     case `static` = "Static"

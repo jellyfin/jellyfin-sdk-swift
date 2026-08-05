@@ -24,7 +24,7 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
     public var deviceName: String?
     /// Gets or sets the type of the device.
     public var deviceType: String?
-    /// Gets or sets a value indicating whether the session has a custom device name.
+    /// Gets or sets a value indicating whether this session has a custom device name.
     public var hasCustomDeviceName: Bool?
     /// Gets or sets the id.
     public var id: String?
@@ -44,8 +44,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
     public var nowPlayingItem: BaseItemDto?
     /// Gets or sets the now playing queue.
     public var nowPlayingQueue: [QueueItem]?
-    /// Gets or sets the now playing queue full items.
-    public var nowPlayingQueueFullItems: [BaseItemDto]?
     /// Gets or sets the now viewing item.
     public var nowViewingItem: BaseItemDto?
     /// Gets or sets the play state.
@@ -87,7 +85,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
         lastPlaybackCheckIn: Date? = nil,
         nowPlayingItem: BaseItemDto? = nil,
         nowPlayingQueue: [QueueItem]? = nil,
-        nowPlayingQueueFullItems: [BaseItemDto]? = nil,
         nowViewingItem: BaseItemDto? = nil,
         playState: PlayerStateInfo? = nil,
         playableMediaTypes: [MediaType]? = nil,
@@ -117,7 +114,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
         self.lastPlaybackCheckIn = lastPlaybackCheckIn
         self.nowPlayingItem = nowPlayingItem
         self.nowPlayingQueue = nowPlayingQueue
-        self.nowPlayingQueueFullItems = nowPlayingQueueFullItems
         self.nowViewingItem = nowViewingItem
         self.playState = playState
         self.playableMediaTypes = playableMediaTypes
@@ -150,7 +146,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
         self.lastPlaybackCheckIn = try values.decodeIfPresent(Date.self, forKey: "LastPlaybackCheckIn")
         self.nowPlayingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowPlayingItem")
         self.nowPlayingQueue = try values.decodeIfPresent([QueueItem].self, forKey: "NowPlayingQueue")
-        self.nowPlayingQueueFullItems = try values.decodeIfPresent([BaseItemDto].self, forKey: "NowPlayingQueueFullItems")
         self.nowViewingItem = try values.decodeIfPresent(BaseItemDto.self, forKey: "NowViewingItem")
         self.playState = try values.decodeIfPresent(PlayerStateInfo.self, forKey: "PlayState")
         self.playableMediaTypes = try values.decodeIfPresent([MediaType].self, forKey: "PlayableMediaTypes")
@@ -183,7 +178,6 @@ public struct SessionInfoDto: Codable, Hashable, Identifiable, Sendable {
         try values.encodeIfPresent(lastPlaybackCheckIn, forKey: "LastPlaybackCheckIn")
         try values.encodeIfPresent(nowPlayingItem, forKey: "NowPlayingItem")
         try values.encodeIfPresent(nowPlayingQueue, forKey: "NowPlayingQueue")
-        try values.encodeIfPresent(nowPlayingQueueFullItems, forKey: "NowPlayingQueueFullItems")
         try values.encodeIfPresent(nowViewingItem, forKey: "NowViewingItem")
         try values.encodeIfPresent(playState, forKey: "PlayState")
         try values.encodeIfPresent(playableMediaTypes, forKey: "PlayableMediaTypes")

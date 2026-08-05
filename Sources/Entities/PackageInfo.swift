@@ -15,7 +15,6 @@ public struct PackageInfo: Codable, Hashable, Sendable {
     /// Gets or sets a long description of the plugin containing features or helpful explanations.
     public var description: String?
     /// Gets or sets the guid of the assembly associated with this plugin.
-    ///
     /// This is used to identify the proper item for automatic updates.
     public var guid: String?
     /// Gets or sets the image url for the package.

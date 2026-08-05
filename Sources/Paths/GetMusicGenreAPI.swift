@@ -11,6 +11,7 @@ import Get
 
 extension Paths {
     /// Gets a music genre, by name.
+    @available(*, deprecated, message: "Deprecated")
     public static func getMusicGenre(genreName: String, userID: String? = nil) -> Request<BaseItemDto> {
         Request(path: "/MusicGenres/\(genreName)", method: "GET", query: makeGetMusicGenreQuery(userID), id: "GetMusicGenre")
     }

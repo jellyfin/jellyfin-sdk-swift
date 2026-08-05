@@ -79,6 +79,8 @@ public struct MediaStream: Codable, Hashable, Sendable {
     public var isHearingImpaired: Bool?
     /// Gets or sets a value indicating whether this instance is interlaced.
     public var isInterlaced: Bool?
+    /// Gets or sets a value indicating whether this instance is original.
+    public var isOriginal: Bool?
     /// Gets or sets a value indicating whether [supports external stream].
     public var isSupportsExternalStream: Bool?
     public var isTextSubtitleStream: Bool?
@@ -90,6 +92,8 @@ public struct MediaStream: Codable, Hashable, Sendable {
     public var localizedExternal: String?
     public var localizedForced: String?
     public var localizedHearingImpaired: String?
+    public var localizedLanguage: String?
+    public var localizedOriginal: String?
     public var localizedUndefined: String?
     public var nalLengthSize: String?
     /// Gets or sets the length of the packet.
@@ -105,9 +109,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
     /// Gets or sets the reference frames.
     public var refFrames: Int?
     /// Gets the framerate used as reference.
-    ///
     /// Prefer AverageFrameRate, if that is null or an unrealistic value
-    ///
     /// then fallback to RealFrameRate.
     public var referenceFrameRate: Float?
     /// Gets or sets the Rotation in degrees.
@@ -170,6 +172,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         isHdr10PlusPresentFlag: Bool? = nil,
         isHearingImpaired: Bool? = nil,
         isInterlaced: Bool? = nil,
+        isOriginal: Bool? = nil,
         isSupportsExternalStream: Bool? = nil,
         isTextSubtitleStream: Bool? = nil,
         language: String? = nil,
@@ -178,6 +181,8 @@ public struct MediaStream: Codable, Hashable, Sendable {
         localizedExternal: String? = nil,
         localizedForced: String? = nil,
         localizedHearingImpaired: String? = nil,
+        localizedLanguage: String? = nil,
+        localizedOriginal: String? = nil,
         localizedUndefined: String? = nil,
         nalLengthSize: String? = nil,
         packetLength: Int? = nil,
@@ -235,6 +240,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.isHdr10PlusPresentFlag = isHdr10PlusPresentFlag
         self.isHearingImpaired = isHearingImpaired
         self.isInterlaced = isInterlaced
+        self.isOriginal = isOriginal
         self.isSupportsExternalStream = isSupportsExternalStream
         self.isTextSubtitleStream = isTextSubtitleStream
         self.language = language
@@ -243,6 +249,8 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.localizedExternal = localizedExternal
         self.localizedForced = localizedForced
         self.localizedHearingImpaired = localizedHearingImpaired
+        self.localizedLanguage = localizedLanguage
+        self.localizedOriginal = localizedOriginal
         self.localizedUndefined = localizedUndefined
         self.nalLengthSize = nalLengthSize
         self.packetLength = packetLength
@@ -303,6 +311,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.isHdr10PlusPresentFlag = try values.decodeIfPresent(Bool.self, forKey: "Hdr10PlusPresentFlag")
         self.isHearingImpaired = try values.decodeIfPresent(Bool.self, forKey: "IsHearingImpaired")
         self.isInterlaced = try values.decodeIfPresent(Bool.self, forKey: "IsInterlaced")
+        self.isOriginal = try values.decodeIfPresent(Bool.self, forKey: "IsOriginal")
         self.isSupportsExternalStream = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalStream")
         self.isTextSubtitleStream = try values.decodeIfPresent(Bool.self, forKey: "IsTextSubtitleStream")
         self.language = try values.decodeIfPresent(String.self, forKey: "Language")
@@ -311,6 +320,8 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.localizedExternal = try values.decodeIfPresent(String.self, forKey: "LocalizedExternal")
         self.localizedForced = try values.decodeIfPresent(String.self, forKey: "LocalizedForced")
         self.localizedHearingImpaired = try values.decodeIfPresent(String.self, forKey: "LocalizedHearingImpaired")
+        self.localizedLanguage = try values.decodeIfPresent(String.self, forKey: "LocalizedLanguage")
+        self.localizedOriginal = try values.decodeIfPresent(String.self, forKey: "LocalizedOriginal")
         self.localizedUndefined = try values.decodeIfPresent(String.self, forKey: "LocalizedUndefined")
         self.nalLengthSize = try values.decodeIfPresent(String.self, forKey: "NalLengthSize")
         self.packetLength = try values.decodeIfPresent(Int.self, forKey: "PacketLength")
@@ -371,6 +382,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         try values.encodeIfPresent(isHdr10PlusPresentFlag, forKey: "Hdr10PlusPresentFlag")
         try values.encodeIfPresent(isHearingImpaired, forKey: "IsHearingImpaired")
         try values.encodeIfPresent(isInterlaced, forKey: "IsInterlaced")
+        try values.encodeIfPresent(isOriginal, forKey: "IsOriginal")
         try values.encodeIfPresent(isSupportsExternalStream, forKey: "SupportsExternalStream")
         try values.encodeIfPresent(isTextSubtitleStream, forKey: "IsTextSubtitleStream")
         try values.encodeIfPresent(language, forKey: "Language")
@@ -379,6 +391,8 @@ public struct MediaStream: Codable, Hashable, Sendable {
         try values.encodeIfPresent(localizedExternal, forKey: "LocalizedExternal")
         try values.encodeIfPresent(localizedForced, forKey: "LocalizedForced")
         try values.encodeIfPresent(localizedHearingImpaired, forKey: "LocalizedHearingImpaired")
+        try values.encodeIfPresent(localizedLanguage, forKey: "LocalizedLanguage")
+        try values.encodeIfPresent(localizedOriginal, forKey: "LocalizedOriginal")
         try values.encodeIfPresent(localizedUndefined, forKey: "LocalizedUndefined")
         try values.encodeIfPresent(nalLengthSize, forKey: "NalLengthSize")
         try values.encodeIfPresent(packetLength, forKey: "PacketLength")
