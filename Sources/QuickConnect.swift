@@ -48,18 +48,21 @@ public struct QuickConnect: Sendable {
     /// - Parameters:
     ///   - poll: Poll interval in seconds
     ///   - max: Maximum number of polls
+    ///   - failureTolerance: Maximum number of consecutive failed polls before the flow fails
     public func connect(
         poll: Int = 5,
-        max: Int = 200
+        max: Int = 200,
+        failureTolerance: Int = 5
     ) -> AsyncThrowingStream<Event, Error> {
 
         precondition(poll > 0, "Polling interval must be at least one second")
         precondition(max > 0, "Maximum polling must be positive")
+        precondition(failureTolerance >= 0, "Failure tolerance must be non-negative")
 
         return AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    try await run(poll: poll, max: max) { state in
+                    try await run(poll: poll, max: max, failureTolerance: failureTolerance) { state in
                         continuation.yield(state)
                     }
                     continuation.finish()
@@ -79,6 +82,7 @@ public struct QuickConnect: Sendable {
     private func run(
         poll: Int,
         max: Int,
+        failureTolerance: Int,
         yield: (Event) -> Void
     ) async throws {
 
@@ -86,7 +90,7 @@ public struct QuickConnect: Sendable {
 
         yield(.polling(code: code))
 
-        let authorizedSecret = try await pollForAuthorization(secret: secret, interval: poll, max: max)
+        let authorizedSecret = try await pollForAuthorization(secret: secret, interval: poll, max: max, failureTolerance: failureTolerance)
 
         yield(.authenticated(secret: authorizedSecret))
     }
@@ -108,12 +112,24 @@ public struct QuickConnect: Sendable {
     private func pollForAuthorization(
         secret: String,
         interval: Int,
-        max: Int
+        max: Int,
+        failureTolerance: Int
     ) async throws -> String {
 
+        var consecutiveFailures = 0
+
         for _ in 0 ..< max {
-            if let authSecret = try await checkAuthorization(secret: secret) {
-                return authSecret
+            do {
+                if let authSecret = try await checkAuthorization(secret: secret) {
+                    return authSecret
+                }
+
+                consecutiveFailures = 0
+            } catch is CancellationError {
+                throw CancellationError()
+            } catch {
+                consecutiveFailures += 1
+                guard consecutiveFailures <= failureTolerance else { throw error }
             }
 
             try await Task.sleep(for: .seconds(interval))
