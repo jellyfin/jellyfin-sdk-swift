@@ -10,7 +10,7 @@ import Foundation
 
 /// Playstate message.
 public struct PlaystateMessage: Codable, Hashable, Sendable {
-    /// Gets or sets the data.
+    /// A request to change the playstate of a session.
     public var data: PlaystateRequest?
     /// Gets or sets the message id.
     public var messageID: String?

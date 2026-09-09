@@ -10,7 +10,7 @@ import Foundation
 
 /// Scheduled task ended message.
 public struct ScheduledTaskEndedMessage: Codable, Hashable, Sendable {
-    /// Gets or sets the data.
+    /// Class TaskExecutionInfo.
     public var data: TaskResult?
     /// Gets or sets the message id.
     public var messageID: String?
