@@ -103,7 +103,7 @@ struct JellyfinClientURLTests {
         )
         let url = try #require(client.url(with: Paths.getItem(itemID: "bar", userID: "baz"), queryAPIKey: true))
 
-        #expect(url.absoluteString == "https://example.com/foo/Items/bar?token=base&userId=baz&api_key=token")
+        #expect(url.absoluteString == "https://example.com/foo/Items/bar?token=base&userId=baz&ApiKey=token")
     }
 
     private func makeClient(baseURL: String, accessToken: String? = nil) throws -> JellyfinClient {
