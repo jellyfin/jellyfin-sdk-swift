@@ -260,7 +260,7 @@ public extension JellyfinClient {
         var requestQueryItems = request.query?.map { URLQueryItem(name: $0.0, value: $0.1) } ?? []
 
         if queryAPIKey, let accessToken {
-            requestQueryItems.append(.init(name: "api_key", value: accessToken))
+            requestQueryItems.append(.init(name: "ApiKey", value: accessToken))
         }
 
         if !requestQueryItems.isEmpty {
@@ -328,7 +328,7 @@ public extension JellyfinClient {
             components.path = basePath + "/socket"
 
             components.queryItems = [
-                URLQueryItem(name: "api_key", value: accessToken),
+                URLQueryItem(name: "ApiKey", value: accessToken),
                 URLQueryItem(name: "deviceId", value: configuration.deviceID),
             ]
 
