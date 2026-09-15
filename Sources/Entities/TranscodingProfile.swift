@@ -12,7 +12,8 @@ import Foundation
 /// Note for client developers: Conditions defined in MediaBrowser.Model.Dlna.CodecProfile has higher priority and can override values
 /// defined here.
 public struct TranscodingProfile: Codable, Hashable, Sendable {
-    /// Gets or sets the protocol.
+    /// Media streaming protocol.
+    /// Lowercase for backwards compatibility.
     public var `protocol`: MediaStreamProtocol?
     /// Gets or sets the audio codec.
     public var audioCodec: String?
