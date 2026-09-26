@@ -8,7 +8,9 @@
 
 import Foundation
 
-/// Force keep alive websocket messages.
+/// Force keep alive websocket messages. The data is the timeout in seconds after which the
+/// server considers the connection lost; clients are expected to answer with a KeepAlive
+/// message and to keep sending one at least every half of that timeout.
 public struct ForceKeepAliveMessage: Codable, Hashable, Sendable {
     /// Gets or sets the data.
     public var data: Int?
