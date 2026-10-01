@@ -21,6 +21,7 @@ generate:
 	rm -rf Sources/Paths Sources/Entities Sources/Extensions
 	swift package --allow-writing-to-package-directory generate-api
 	sed -i '' 's|public struct Info: Sendable {|extension JellyfinClient {|g' Sources/Extensions/Info.swift
+	sed -i '' -e 's/let _Type: String/let `Type`: String/' -e 's/)\._Type$$/).`Type`/' Sources/Entities/GroupUpdate.swift
 	swiftformat .
 	rm -f Sources/jellyfin-openapi-stable.json
 
