@@ -42,11 +42,15 @@ public enum OutboundWebSocketMessage: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
 
         struct Discriminator: Decodable {
-            let MessageType: String
+            let value: String
+
+            enum CodingKeys: String, CodingKey {
+                case value = "MessageType"
+            }
         }
 
         let container = try decoder.singleValueContainer()
-        let discriminatorValue = try container.decode(Discriminator.self).MessageType
+        let discriminatorValue = try container.decode(Discriminator.self).value
 
         switch discriminatorValue {
         case "ActivityLogEntry": self = try .activityLogEntryMessage(container.decode(ActivityLogEntryMessage.self))

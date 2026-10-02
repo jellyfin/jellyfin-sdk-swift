@@ -30,11 +30,11 @@ public struct DisplayPreferencesDto: Codable, Hashable, Identifiable, Sendable {
     public var primaryImageHeight: Int?
     /// Gets or sets the width of the primary image.
     public var primaryImageWidth: Int?
-    /// Gets or sets the scroll direction.
+    /// An enum representing the axis that should be scrolled.
     public var scrollDirection: ScrollDirection?
     /// Gets or sets the sort by.
     public var sortBy: String?
-    /// Gets or sets the sort order.
+    /// An enum representing the sorting order.
     public var sortOrder: SortOrder?
     /// Gets or sets the type of the view.
     public var viewType: String?

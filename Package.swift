@@ -34,8 +34,8 @@ let package = Package(
         ),
         .binaryTarget(
             name: "openapi-generator",
-            url: "https://github.com/LePips/openapi-generator/releases/download/v0.7.1/openapi-generator.artifactbundle.zip",
-            checksum: "a882367e67ddb2d23b596992dcde77d522b0c5e7301afe5c49d9c8c6523f8aca"
+            url: "https://github.com/LePips/openapi-generator/releases/download/v0.8.0/openapi-generator.artifactbundle.zip",
+            checksum: "3c337d93a13089fe0502566e13c522c1c9a929718a89c40432853b1f2416180a"
         ),
         .plugin(
             name: "GenerateAPI",
