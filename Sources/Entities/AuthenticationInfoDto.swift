@@ -8,17 +8,19 @@
 
 import Foundation
 
-public struct AuthenticationInfo: Codable, Hashable, Identifiable, Sendable {
+/// An API key.
+public struct AuthenticationInfoDto: Codable, Hashable, Identifiable, Sendable {
     /// Gets or sets the access token.
     public var accessToken: String?
-    /// Gets or sets the name of the application.
+    /// Gets or sets the name of the app using the key.
     public var appName: String?
     /// Gets or sets the application version.
     public var appVersion: String?
-    /// Gets or sets the date created.
+    /// Gets or sets the date the key was created.
     public var dateCreated: Date?
+    /// Gets or sets the date of the last activity.
     public var dateLastActivity: Date?
-    /// Gets or sets the date revoked.
+    /// Gets or sets the date the key was revoked.
     public var dateRevoked: Date?
     /// Gets or sets the device identifier.
     public var deviceID: String?
@@ -30,6 +32,7 @@ public struct AuthenticationInfo: Codable, Hashable, Identifiable, Sendable {
     public var isActive: Bool?
     /// Gets or sets the user identifier.
     public var userID: String?
+    /// Gets or sets the user name.
     public var userName: String?
 
     public init(

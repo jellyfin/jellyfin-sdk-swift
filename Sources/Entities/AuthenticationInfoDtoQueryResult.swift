@@ -9,15 +9,15 @@
 import Foundation
 
 /// Query result container.
-public struct AuthenticationInfoQueryResult: Codable, Hashable, Sendable {
+public struct AuthenticationInfoDtoQueryResult: Codable, Hashable, Sendable {
     /// Gets or sets the items.
-    public var items: [AuthenticationInfo]?
+    public var items: [AuthenticationInfoDto]?
     /// Gets or sets the index of the first record in Items.
     public var startIndex: Int?
     /// Gets or sets the total number of records available.
     public var totalRecordCount: Int?
 
-    public init(items: [AuthenticationInfo]? = nil, startIndex: Int? = nil, totalRecordCount: Int? = nil) {
+    public init(items: [AuthenticationInfoDto]? = nil, startIndex: Int? = nil, totalRecordCount: Int? = nil) {
         self.items = items
         self.startIndex = startIndex
         self.totalRecordCount = totalRecordCount
@@ -25,7 +25,7 @@ public struct AuthenticationInfoQueryResult: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.items = try values.decodeIfPresent([AuthenticationInfo].self, forKey: "Items")
+        self.items = try values.decodeIfPresent([AuthenticationInfoDto].self, forKey: "Items")
         self.startIndex = try values.decodeIfPresent(Int.self, forKey: "StartIndex")
         self.totalRecordCount = try values.decodeIfPresent(Int.self, forKey: "TotalRecordCount")
     }
