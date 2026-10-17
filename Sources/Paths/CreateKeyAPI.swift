@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Create a new api key.
-    static func createKey(app: String) -> Request<Void> {
+    static func createKey(app: String) -> Request<AuthenticationInfoDto> {
         Request(path: "/Auth/Keys", method: "POST", query: [("app", app)], id: "CreateKey")
     }
 }

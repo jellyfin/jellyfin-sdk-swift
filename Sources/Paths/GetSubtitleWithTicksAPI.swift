@@ -36,6 +36,7 @@ public extension Paths {
         public var endPositionTicks: Int?
         public var isCopyTimestamps: Bool?
         public var isAddVttTimeMap: Bool?
+        public var vttTimestampMapMpegts: Int?
 
         public init(
             itemID: String? = nil,
@@ -45,7 +46,8 @@ public extension Paths {
             format: String? = nil,
             endPositionTicks: Int? = nil,
             isCopyTimestamps: Bool? = nil,
-            isAddVttTimeMap: Bool? = nil
+            isAddVttTimeMap: Bool? = nil,
+            vttTimestampMapMpegts: Int? = nil
         ) {
             self.itemID = itemID
             self.mediaSourceID = mediaSourceID
@@ -55,6 +57,7 @@ public extension Paths {
             self.endPositionTicks = endPositionTicks
             self.isCopyTimestamps = isCopyTimestamps
             self.isAddVttTimeMap = isAddVttTimeMap
+            self.vttTimestampMapMpegts = vttTimestampMapMpegts
         }
 
         public var asQuery: [(String, String?)] {
@@ -67,6 +70,7 @@ public extension Paths {
             encoder.encode(endPositionTicks, forKey: "endPositionTicks")
             encoder.encode(isCopyTimestamps, forKey: "copyTimestamps")
             encoder.encode(isAddVttTimeMap, forKey: "addVttTimeMap")
+            encoder.encode(vttTimestampMapMpegts, forKey: "vttTimestampMapMpegts")
             return encoder.items
         }
     }
