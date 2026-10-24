@@ -204,7 +204,7 @@ public extension JellyfinSocket {
 
                 var state = RunState()
 
-                /// Scoped so an abandoned session can deinit between cycles.
+                // Scoped so an abandoned session can deinit between cycles.
                 func cycle() async -> (RunState, Duration)? {
                     guard let self else { return nil }
 
