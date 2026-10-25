@@ -9,9 +9,9 @@
 import Foundation
 import Get
 
+@available(*, deprecated, message: "Deprecated")
 public extension Paths {
     /// Gets the initial startup wizard configuration.
-    @available(*, deprecated, message: "Deprecated")
     static var getStartupConfiguration: Request<StartupConfigurationDto> {
         Request(path: "/Startup/Configuration", method: "GET", id: "GetStartupConfiguration")
     }

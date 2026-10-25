@@ -214,6 +214,7 @@ private extension URLQueryEncoder {
         guard !codingPath.isEmpty else {
             return // Should never happen
         }
+
         let key = codingPath[0].stringValue
         if _explode {
             if codingPath.count == 2 { // Encoding an object

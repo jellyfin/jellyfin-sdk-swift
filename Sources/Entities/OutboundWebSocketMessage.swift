@@ -54,35 +54,63 @@ public enum OutboundWebSocketMessage: Codable, Hashable, Sendable {
 
         switch discriminatorValue {
         case "ActivityLogEntry": self = try .activityLogEntryMessage(container.decode(ActivityLogEntryMessage.self))
+
         case "ForceKeepAlive": self = try .forceKeepAliveMessage(container.decode(ForceKeepAliveMessage.self))
+
         case "GeneralCommand": self = try .generalCommandMessage(container.decode(GeneralCommandMessage.self))
+
         case "KeepAlive": self = try .outboundKeepAliveMessage(container.decode(WebSocketMessageIDInfo.self))
+
         case "LibraryChanged": self = try .libraryChangedMessage(container.decode(LibraryChangedMessage.self))
+
         case "PackageInstallationCancelled": self = try .pluginInstallationCancelledMessage(container
                 .decode(PluginInstallationMessageInfo.self))
+
         case "PackageInstallationCompleted": self = try .pluginInstallationCompletedMessage(container
                 .decode(PluginInstallationMessageInfo.self))
+
         case "PackageInstallationFailed": self = try .pluginInstallationFailedMessage(container.decode(PluginInstallationMessageInfo.self))
+
         case "PackageInstalling": self = try .pluginInstallingMessage(container.decode(PluginInstallationMessageInfo.self))
+
         case "PackageUninstalled": self = try .pluginUninstalledMessage(container.decode(PluginUninstalledMessage.self))
+
         case "Play": self = try .playMessage(container.decode(PlayMessage.self))
+
         case "Playstate": self = try .playstateMessage(container.decode(PlaystateMessage.self))
+
         case "RefreshProgress": self = try .refreshProgressMessage(container.decode(RefreshProgressMessage.self))
+
         case "RestartRequired": self = try .restartRequiredMessage(container.decode(WebSocketMessageIDInfo.self))
+
         case "ScheduledTaskEnded": self = try .scheduledTaskEndedMessage(container.decode(ScheduledTaskEndedMessage.self))
+
         case "ScheduledTasksInfo": self = try .scheduledTasksInfoMessage(container.decode(ScheduledTasksInfoMessage.self))
+
         case "SeriesTimerCancelled": self = try .seriesTimerCancelledMessage(container.decode(TimerMessageInfo.self))
+
         case "SeriesTimerCreated": self = try .seriesTimerCreatedMessage(container.decode(TimerMessageInfo.self))
+
         case "ServerRestarting": self = try .serverRestartingMessage(container.decode(WebSocketMessageIDInfo.self))
+
         case "ServerShuttingDown": self = try .serverShuttingDownMessage(container.decode(WebSocketMessageIDInfo.self))
+
         case "Sessions": self = try .sessionsMessage(container.decode(SessionsMessage.self))
+
         case "SyncPlayCommand": self = try .syncPlayCommandMessage(container.decode(SyncPlayCommandMessage.self))
+
         case "SyncPlayGroupUpdate": self = try .syncPlayGroupUpdateMessage(container.decode(SyncPlayGroupUpdateMessage.self))
+
         case "TimerCancelled": self = try .timerCancelledMessage(container.decode(TimerMessageInfo.self))
+
         case "TimerCreated": self = try .timerCreatedMessage(container.decode(TimerMessageInfo.self))
+
         case "UserDataChanged": self = try .userDataChangedMessage(container.decode(UserDataChangedMessage.self))
+
         case "UserDeleted": self = try .userDeletedMessage(container.decode(UserDeletedMessage.self))
+
         case "UserUpdated": self = try .userUpdatedMessage(container.decode(UserUpdatedMessage.self))
+
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,

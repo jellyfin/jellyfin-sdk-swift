@@ -117,6 +117,7 @@ public extension JellyfinSocket {
             /// The fatal error for a refused status, if it is one.
             static func rejection(statusCode: Int) -> SocketError? {
                 guard statusCode == 401 || statusCode == 403 else { return nil }
+
                 return .unauthorized(statusCode: statusCode)
             }
         }
@@ -141,7 +142,7 @@ public extension JellyfinSocket {
         struct RunState {
             var failedConnections = 0
             var unhealthyCycles = 0
-            var lastError: (any Error)?
+            var lastError: any Error?
         }
 
         private let capabilities: Paths.PostCapabilitiesParameters
@@ -204,7 +205,7 @@ public extension JellyfinSocket {
 
                 var state = RunState()
 
-                /// Scoped so an abandoned session can deinit between cycles.
+                // Scoped so an abandoned session can deinit between cycles.
                 func cycle() async -> (RunState, Duration)? {
                     guard let self else { return nil }
 
@@ -495,7 +496,7 @@ private extension JellyfinSocket.Session {
         // Not fatal: refused credentials surface again on the handshake.
         _ = try? await client.send(Paths.postCapabilities(parameters: capabilities))
 
-        let urlSession = URLSession(configuration: .default)
+        let urlSession = client.makeURLSession()
 
         // Runs after the close below so the frame flushes instead of being cut off.
         defer { urlSession.finishTasksAndInvalidate() }
@@ -513,7 +514,7 @@ private extension JellyfinSocket.Session {
 
             // The server drops the device from /Sessions once the socket closes.
             if !isRejected, !isExplicitlyDisconnected {
-                Task.detached { [capabilities, client] in
+                _ = Task.detached { [capabilities, client] in
                     try await client.send(Paths.postCapabilities(parameters: capabilities))
                 }
             }
@@ -587,8 +588,10 @@ private extension JellyfinSocket.Session {
                             eventsContinuation.yield(.connected(url))
                         }
 
-                        guard let data = Self.extractData(from: message) else { continue }
-                        guard let decoded = try? decoder.decode(OutboundWebSocketMessage.self, from: data) else { continue }
+                        guard let data = Self.extractData(from: message), let decoded = try? decoder.decode(
+                            OutboundWebSocketMessage.self,
+                            from: data
+                        ) else { continue }
 
                         eventsContinuation.yield(.message(decoded))
                     }

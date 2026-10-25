@@ -23,6 +23,7 @@ public final class JellyfinClient: @unchecked Sendable {
 
     private var _apiClient: APIClient!
     private let sessionConfiguration: URLSessionConfiguration
+    private let sessionDelegate: URLSessionDelegate?
     private var passthroughDelegate: PassthroughAPIClientDelegate
 
     /// Create a `JellyfinClient` instance given a configuration.
@@ -36,7 +37,9 @@ public final class JellyfinClient: @unchecked Sendable {
         sessionDelegate: URLSessionDelegate? = nil
     ) {
         self.configuration = configuration
-        self.sessionConfiguration = sessionConfiguration
+        self.sessionConfiguration = sessionConfiguration.copy() as! URLSessionConfiguration
+        self.sessionDelegate = sessionDelegate
+
         let passthroughDelegate = PassthroughAPIClientDelegate()
 
         self.passthroughDelegate = passthroughDelegate
@@ -63,6 +66,14 @@ public final class JellyfinClient: @unchecked Sendable {
     }
 
     // MARK: - Configuration
+
+    func makeURLSession() -> URLSession {
+        URLSession(
+            configuration: sessionConfiguration,
+            delegate: sessionDelegate,
+            delegateQueue: nil
+        )
+    }
 
     public struct Configuration: Sendable {
 
@@ -254,8 +265,8 @@ public extension JellyfinClient {
     func url(with request: Request<some Any>, queryAPIKey: Bool = false) -> URL? {
 
         guard let path = request.url?.path else { return configuration.url }
-        guard let fullURL = url(path: path) else { return nil }
-        guard var components = URLComponents(url: fullURL, resolvingAgainstBaseURL: false) else { return nil }
+        guard let fullURL = url(path: path),
+              var components = URLComponents(url: fullURL, resolvingAgainstBaseURL: false) else { return nil }
 
         var requestQueryItems = request.query?.map { URLQueryItem(name: $0.0, value: $0.1) } ?? []
 

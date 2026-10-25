@@ -85,7 +85,6 @@ extension JellyfinClient {
         let interfaces = networkInterfaces()
 
         guard !interfaces.isEmpty else { throw ServerDiscoveryError.noUsableNetworkInterface }
-
         guard let channel = try? await DatagramBootstrap(group: MultiThreadedEventLoopGroup.singleton)
             .channelOption(.socketOption(.so_reuseaddr), value: 1)
             .channelOption(.socketOption(.so_broadcast), value: 1)
@@ -156,8 +155,8 @@ extension JellyfinClient {
         var interfaces: [String: NetworkInterface] = [:]
 
         for device in devices {
-            guard device.interfaceIndex != 0, !isLoopback(device.address) else { continue }
-            guard case .some(.v4) = device.address, let broadcastAddress = device.broadcastAddress else { continue }
+            guard device.interfaceIndex != 0, !isLoopback(device.address), case .some(.v4) = device.address,
+                  let broadcastAddress = device.broadcastAddress else { continue }
 
             var address = broadcastAddress
             address.port = discoveryPort

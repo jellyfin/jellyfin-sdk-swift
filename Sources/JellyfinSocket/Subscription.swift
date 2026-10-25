@@ -26,6 +26,7 @@ public extension JellyfinSocket {
                         messageType: .activityLogEntryStart
                     )
                 )
+
             case .scheduledTasks:
                 .scheduledTasksInfoStartMessage(
                     .init(
@@ -33,6 +34,7 @@ public extension JellyfinSocket {
                         messageType: .scheduledTasksInfoStart
                     )
                 )
+
             case .sessions:
                 .sessionsStartMessage(
                     .init(

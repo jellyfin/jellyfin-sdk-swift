@@ -13,7 +13,7 @@ import Testing
 struct JellyfinClientLoginTests {
 
     @Test
-    func signInReturnsATokenAndUser() async throws {
+    func `sign in returns A token and user`() async throws {
         let client = try TestConnection.makeClient(deviceID: "login-token")
         let result = try await client.signIn(username: TestConnection.username, password: TestConnection.password)
 
@@ -27,7 +27,7 @@ struct JellyfinClientLoginTests {
     }
 
     @Test
-    func tokenAuthorizesAPrivateEndpoint() async throws {
+    func `token authorizes A private endpoint`() async throws {
         let client = try TestConnection.makeClient(deviceID: "login-private")
         let result = try await client.signIn(username: TestConnection.username, password: TestConnection.password)
 
@@ -38,7 +38,7 @@ struct JellyfinClientLoginTests {
     }
 
     @Test
-    func tokenReturnsLibraryContent() async throws {
+    func `token returns library content`() async throws {
         let client = try TestConnection.makeClient(deviceID: "login-library")
 
         try await client.signIn(username: TestConnection.username, password: TestConnection.password)
@@ -51,7 +51,7 @@ struct JellyfinClientLoginTests {
     }
 
     @Test
-    func tokenIsTransferable() async throws {
+    func `token is transferable`() async throws {
         let signInClient = try TestConnection.makeClient(deviceID: "login-transfer")
         let result = try await signInClient.signIn(username: TestConnection.username, password: TestConnection.password)
         let token = try #require(result.accessToken)
@@ -63,7 +63,7 @@ struct JellyfinClientLoginTests {
     }
 
     @Test
-    func privateEndpointIsRefusedWithoutAToken() async throws {
+    func `private endpoint is refused without A token`() async throws {
         let client = try TestConnection.makeClient(deviceID: "login-anonymous")
 
         await #expect(throws: (any Error).self) {

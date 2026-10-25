@@ -13,7 +13,7 @@ import Testing
 struct JellyfinSocketTests {
 
     @Test
-    func aSubscriptionOutlivesOneOfItsSubscribers() throws {
+    func `a subscription outlives one of its subscribers`() throws {
         let session = try TestConnection.makeSocket(client: TestConnection.makeUnreachableClient())
 
         defer { session.disconnect() }
@@ -37,7 +37,7 @@ struct JellyfinSocketTests {
     }
 
     @Test(.timeLimit(.minutes(1)))
-    func disconnectingDuringBackoffEndsTheStream() async throws {
+    func `disconnecting during backoff ends the stream`() async throws {
         let session = try TestConnection.makeSocket(
             client: TestConnection.makeUnreachableClient(),
             reconnectDelay: .seconds(30)
@@ -55,7 +55,7 @@ struct JellyfinSocketTests {
     }
 
     @Test(.timeLimit(.minutes(1)))
-    func socketConnectsAndReportsTheDisconnect() async throws {
+    func `socket connects and reports the disconnect`() async throws {
         let client = try TestConnection.makeClient(deviceID: "socket-disconnect")
 
         try await client.signIn(username: TestConnection.username, password: TestConnection.password)
@@ -86,7 +86,7 @@ struct JellyfinSocketTests {
     }
 
     @Test(.timeLimit(.minutes(1)))
-    func socketEndsOnRefusedCredentials() async throws {
+    func `socket ends on refused credentials`() async throws {
         let client = try TestConnection.makeClient(
             deviceID: "socket-unauthorized",
             accessToken: "0000000000000000000000000000dead"
@@ -96,7 +96,7 @@ struct JellyfinSocketTests {
 
         defer { session.disconnect() }
 
-        var caught: (any Error)?
+        var caught: any Error?
 
         do {
             for try await _ in session.events {}
@@ -113,7 +113,7 @@ struct JellyfinSocketTests {
     }
 
     @Test(.timeLimit(.minutes(25)))
-    func socketStaysConnected() async throws {
+    func `socket stays connected`() async throws {
         let client = try TestConnection.makeClient(deviceID: "socket-observe")
 
         try await client.signIn(username: TestConnection.username, password: TestConnection.password)

@@ -13,7 +13,7 @@ import Testing
 struct GroupUpdateDecodingTests {
 
     @Test
-    func groupJoinedDecodesThroughWebSocketMessage() throws {
+    func `group joined decodes through web socket message`() throws {
         let data = Data(#"""
         {
             "MessageType": "SyncPlayGroupUpdate",

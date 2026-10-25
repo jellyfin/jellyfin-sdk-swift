@@ -9,9 +9,9 @@
 import Foundation
 import Get
 
+@available(*, deprecated, message: "Deprecated")
 public extension Paths {
     /// Gets the first user.
-    @available(*, deprecated, message: "Deprecated")
     static var getFirstUser: Request<StartupUserDto> {
         Request(path: "/Startup/User", method: "GET", id: "GetFirstUser")
     }

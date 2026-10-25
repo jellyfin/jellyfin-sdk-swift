@@ -46,18 +46,12 @@ public extension JellyfinClient {
         private static func parse(value: String) -> (major: Int, minor: Int, patch: Int) {
             let components = value.split(separator: ".")
 
-            guard components.count == 3 else {
-                return (0, 0, 0)
-            }
-
-            guard let major = Int(components[0]),
+            guard components.count == 3,
+                  let major = Int(components[0]),
                   let minor = Int(components[1]),
-                  let patch = Int(components[2])
+                  let patch = Int(components[2]),
+                  major >= 0 && minor >= 0 && patch >= 0
             else {
-                return (0, 0, 0)
-            }
-
-            guard major >= 0 && minor >= 0 && patch >= 0 else {
                 return (0, 0, 0)
             }
 
