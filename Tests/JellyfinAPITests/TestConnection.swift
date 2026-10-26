@@ -12,16 +12,9 @@ import Testing
 
 enum TestConnection {
 
-    // Defaults to the public demo server. To use your own, set these for one run:
+    // Defaults to the public demo server, set environment variables to own instance if needed.
     //
-    // JELLYFIN_SERVER=http://localhost:8096 JELLYFIN_USERNAME=user JELLYFIN_PASSWORD=secret swift test
-    //
-    // To keep them for every terminal, add the same assignments as `export` lines to
-    // ~/.zshrc. In Xcode, set them under Product > Scheme > Edit Scheme > Test >
-    // Arguments > Environment Variables, since a scheme ignores the shell's environment.
-    //
-    // The password is PLAINTEXT wherever it is put! Using a test account/server or resetting
-    // your password is recommended after testing is complete.
+    // Warning: The password is plaintext. Use a test account.
 
     static let serverURL = ProcessInfo.processInfo.environment["JELLYFIN_SERVER"] ?? "https://demo.jellyfin.org/stable"
     static let username = ProcessInfo.processInfo.environment["JELLYFIN_USERNAME"] ?? "demo"
@@ -48,9 +41,10 @@ enum TestConnection {
         url: String = serverURL,
         deviceID: String = UUID().uuidString,
         accessToken: String? = nil,
-        requestTimeout: TimeInterval = 30
+        requestTimeout: TimeInterval = 30,
+        sessionConfiguration: URLSessionConfiguration = .default
     ) throws -> JellyfinClient {
-        let sessionConfiguration = URLSessionConfiguration.default
+        let sessionConfiguration = sessionConfiguration.copy() as! URLSessionConfiguration
         sessionConfiguration.timeoutIntervalForRequest = requestTimeout
 
         return try JellyfinClient(

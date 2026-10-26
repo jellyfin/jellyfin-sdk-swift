@@ -19,7 +19,7 @@ struct JellyfinClientURLTests {
         ("https://example.com:8096/foo/", "https://example.com:8096/foo/bar"),
     ])
     func `url path appends to base URL path`(baseURL: String, expectedURL: String) throws {
-        let client = try makeClient(baseURL: baseURL)
+        let client = try TestConnection.makeClient(url: baseURL)
 
         #expect(try #require(client.url(path: "/bar")).absoluteString == expectedURL)
     }
@@ -57,14 +57,14 @@ struct JellyfinClientURLTests {
         ),
     ])
     func `url path combines base and path query items`(baseURL: String, path: String, expectedURL: String) throws {
-        let client = try makeClient(baseURL: baseURL)
+        let client = try TestConnection.makeClient(url: baseURL)
 
         #expect(try #require(client.url(path: path)).absoluteString == expectedURL)
     }
 
     @Test
     func `url path can resolve query item conflicts with path query item`() throws {
-        let client = try makeClient(baseURL: "https://example.com/foo?mode=one")
+        let client = try TestConnection.makeClient(url: "https://example.com/foo?mode=one")
         let url = try #require(client.url(path: "/bar?mode=two") { _, y in y })
 
         #expect(url.absoluteString == "https://example.com/foo/bar?mode=two")
@@ -72,7 +72,7 @@ struct JellyfinClientURLTests {
 
     @Test
     func `url with request appends request path to base path`() throws {
-        let client = try makeClient(baseURL: "https://example.com/foo")
+        let client = try TestConnection.makeClient(url: "https://example.com/foo")
         let url = try #require(client.url(with: Paths.getPublicSystemInfo))
 
         #expect(url.absoluteString == "https://example.com/foo/System/Info/Public")
@@ -80,7 +80,7 @@ struct JellyfinClientURLTests {
 
     @Test
     func `url with request combines base and request query items`() throws {
-        let client = try makeClient(baseURL: "https://example.com/foo?token=a%2Bb")
+        let client = try TestConnection.makeClient(url: "https://example.com/foo?token=a%2Bb")
         let url = try #require(client.url(with: Paths.getItem(itemID: "bar", userID: "baz")))
 
         #expect(url.absoluteString == "https://example.com/foo/Items/bar?token=a%2Bb&userId=baz")
@@ -88,7 +88,7 @@ struct JellyfinClientURLTests {
 
     @Test
     func `url with request encodes generated query items`() throws {
-        let client = try makeClient(baseURL: "https://example.com/foo?token=base")
+        let client = try TestConnection.makeClient(url: "https://example.com/foo?token=base")
         let request = Paths.getItems(parameters: .init(limit: 10, searchTerm: "foo bar"))
         let url = try #require(client.url(with: request))
 
@@ -97,25 +97,12 @@ struct JellyfinClientURLTests {
 
     @Test
     func `url with request appends API key after base and request query items`() throws {
-        let client = try makeClient(
-            baseURL: "https://example.com/foo?token=base",
+        let client = try TestConnection.makeClient(
+            url: "https://example.com/foo?token=base",
             accessToken: "token"
         )
         let url = try #require(client.url(with: Paths.getItem(itemID: "bar", userID: "baz"), queryAPIKey: true))
 
         #expect(url.absoluteString == "https://example.com/foo/Items/bar?token=base&userId=baz&ApiKey=token")
-    }
-
-    private func makeClient(baseURL: String, accessToken: String? = nil) throws -> JellyfinClient {
-        try JellyfinClient(
-            configuration: .init(
-                url: #require(URL(string: baseURL)),
-                accessToken: accessToken,
-                client: "JellyfinClientURLTests",
-                deviceName: "Tests",
-                deviceID: "test-device-id",
-                version: "1.0"
-            )
-        )
     }
 }
