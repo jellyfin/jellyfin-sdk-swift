@@ -571,7 +571,7 @@ private extension JellyfinSocket.Session {
 
             group.addTask { [weak self] in
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .formatted(OpenISO8601DateFormatter())
+                decoder.dateDecodingStrategy = JellyfinDateCoding.decodingStrategy
 
                 var hasYieldedConnected = false
 

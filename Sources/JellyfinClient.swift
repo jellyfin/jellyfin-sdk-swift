@@ -49,14 +49,12 @@ public final class JellyfinClient: @unchecked Sendable {
             configuration.sessionConfiguration = sessionConfiguration
             configuration.sessionDelegate = sessionDelegate
 
-            let isoDateFormatter: DateFormatter = OpenISO8601DateFormatter()
-
             let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(isoDateFormatter)
+            decoder.dateDecodingStrategy = JellyfinDateCoding.decodingStrategy
             configuration.decoder = decoder
 
             let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .formatted(isoDateFormatter)
+            encoder.dateEncodingStrategy = JellyfinDateCoding.encodingStrategy
             encoder.outputFormatting = .prettyPrinted
             configuration.encoder = encoder
         }
