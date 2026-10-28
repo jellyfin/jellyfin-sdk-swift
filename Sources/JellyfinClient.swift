@@ -28,8 +28,8 @@ public final class JellyfinClient: @unchecked Sendable {
 
     /// Create a `JellyfinClient` instance given a configuration.
     ///
-    /// - Note: A strong reference is made to the `delegate` if one is provided. Make sure to avoid
-    /// retain cycles if you are referencing the `JellyfinClient` instance from the delegate.
+    /// - Note: Strong references are made to `delegate` and `sessionDelegate` if provided. Use weak
+    /// references back to the `JellyfinClient` instance from either delegate to avoid retain cycles.
     public init(
         configuration: Configuration,
         delegate: APIClientDelegate? = nil,
@@ -61,6 +61,10 @@ public final class JellyfinClient: @unchecked Sendable {
 
         self.passthroughDelegate.actualDelegate = delegate
         self.passthroughDelegate.jellyfinClient = self
+    }
+
+    deinit {
+        _apiClient.session.finishTasksAndInvalidate()
     }
 
     // MARK: - Configuration
@@ -248,12 +252,11 @@ public extension JellyfinClient {
         return response
     }
 
-    /// Signs out the current user with the server by revoking the current access token if one is set.
-    /// Overrides the current access token if the revoke was successful.
+    /// Signs out the current user with the server by ending the current session if an access token is set.
+    /// Clears the current access token after the server successfully logs out the session and revokes its token.
     func signOut() async throws {
-        if let accessToken {
-            let revokeKeyRequest = Paths.revokeKey(key: accessToken)
-            try await send(revokeKeyRequest)
+        if accessToken != nil {
+            try await send(Paths.reportSessionEnded)
         }
 
         self.configuration.accessToken = nil

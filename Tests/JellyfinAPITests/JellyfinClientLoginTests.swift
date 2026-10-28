@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Get
 @testable import JellyfinAPI
 import Testing
 
@@ -68,6 +69,27 @@ struct JellyfinClientLoginTests {
 
         await #expect(throws: (any Error).self) {
             try await client.send(Paths.getCurrentUser)
+        }
+    }
+
+    @Test
+    func `sign out revokes the current user token`() async throws {
+        let deviceID = UUID().uuidString
+        let client = try TestConnection.makeClient(deviceID: deviceID)
+        let result = try await client.signIn(username: TestConnection.username, password: TestConnection.password)
+        let token = try #require(result.accessToken)
+        let tokenClient = try TestConnection.makeClient(deviceID: deviceID, accessToken: token)
+
+        _ = try await tokenClient.send(Paths.getCurrentUser)
+        try await client.signOut()
+
+        #expect(client.accessToken == nil)
+        await #expect {
+            try await tokenClient.send(Paths.getCurrentUser)
+        } throws: { error in
+            guard case let APIError.unacceptableStatusCode(code) = error else { return false }
+
+            return code == 401 || code == 403
         }
     }
 }
