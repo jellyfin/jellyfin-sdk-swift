@@ -10,7 +10,7 @@ import Foundation
 
 /// Library changed message.
 public struct LibraryChangedMessage: Codable, Hashable, Sendable {
-    /// Class LibraryUpdateInfo.
+    /// Gets or sets the data.
     public var data: LibraryUpdateInfo?
     /// Gets or sets the message id.
     public var messageID: String?
