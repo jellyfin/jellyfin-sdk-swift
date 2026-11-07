@@ -9,6 +9,7 @@
 import Foundation
 
 public struct MediaSourceInfo: Codable, Hashable, Identifiable, Sendable {
+    /// The protocol used to access a media source.
     public var `protocol`: MediaProtocol?
     public var analyzeDurationMs: Int?
     public var bitrate: Int?

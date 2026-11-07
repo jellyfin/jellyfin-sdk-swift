@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The type of recommendation reason for an item.
 public enum RecommendationType: String, Codable, CaseIterable, Sendable {
     case similarToRecentlyPlayed = "SimilarToRecentlyPlayed"
     case similarToLikedItem = "SimilarToLikedItem"

@@ -13,14 +13,14 @@ public struct SeriesInfoRemoteSearchQuery: Codable, Hashable, Sendable {
     public var isIncludeDisabledProviders: Bool?
     public var itemID: String?
     /// The lookup info for series.
-    public var searchInfo: MetadataLookupInfo?
+    public var searchInfo: SeriesInfo?
     /// Gets or sets the provider name to search within if set.
     public var searchProviderName: String?
 
     public init(
         isIncludeDisabledProviders: Bool? = nil,
         itemID: String? = nil,
-        searchInfo: MetadataLookupInfo? = nil,
+        searchInfo: SeriesInfo? = nil,
         searchProviderName: String? = nil
     ) {
         self.isIncludeDisabledProviders = isIncludeDisabledProviders
@@ -33,7 +33,7 @@ public struct SeriesInfoRemoteSearchQuery: Codable, Hashable, Sendable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.isIncludeDisabledProviders = try values.decodeIfPresent(Bool.self, forKey: "IncludeDisabledProviders")
         self.itemID = try values.decodeIfPresent(String.self, forKey: "ItemId")
-        self.searchInfo = try values.decodeIfPresent(MetadataLookupInfo.self, forKey: "SearchInfo")
+        self.searchInfo = try values.decodeIfPresent(SeriesInfo.self, forKey: "SearchInfo")
         self.searchProviderName = try values.decodeIfPresent(String.self, forKey: "SearchProviderName")
     }
 
