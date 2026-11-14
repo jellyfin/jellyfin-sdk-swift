@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Get all keys.
-    static var getKeys: Request<AuthenticationInfoQueryResult> {
+    static var getKeys: Request<AuthenticationInfoDtoQueryResult> {
         Request(path: "/Auth/Keys", method: "GET", id: "GetKeys")
     }
 }

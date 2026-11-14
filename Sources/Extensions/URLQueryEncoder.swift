@@ -226,22 +226,20 @@ private extension URLQueryEncoder {
             } else {
                 queryItems.append(URLQueryItem(name: key, value: value))
             }
-        } else {
-            if codingPath.count == 2 { // Encoding an object
-                let newValue = "\(codingPath[1].stringValue),\(value)"
-                if var queryItem = queryItems.last, queryItem.name == key {
-                    queryItem.value = [queryItem.value, newValue].compactMap(\.self).joined(separator: ",")
-                    queryItems[queryItems.endIndex - 1] = queryItem
-                } else {
-                    queryItems.append(URLQueryItem(name: key, value: newValue))
-                }
-            } else { // Encoding an array or a primitive value
-                if var queryItem = queryItems.last, queryItem.name == key {
-                    queryItem.value = [queryItem.value, value].compactMap(\.self).joined(separator: _delimiter)
-                    queryItems[queryItems.endIndex - 1] = queryItem
-                } else {
-                    queryItems.append(URLQueryItem(name: key, value: value))
-                }
+        } else if codingPath.count == 2 { // Encoding an object
+            let newValue = "\(codingPath[1].stringValue),\(value)"
+            if var queryItem = queryItems.last, queryItem.name == key {
+                queryItem.value = [queryItem.value, newValue].compactMap(\.self).joined(separator: ",")
+                queryItems[queryItems.endIndex - 1] = queryItem
+            } else {
+                queryItems.append(URLQueryItem(name: key, value: newValue))
+            }
+        } else { // Encoding an array or a primitive value
+            if var queryItem = queryItems.last, queryItem.name == key {
+                queryItem.value = [queryItem.value, value].compactMap(\.self).joined(separator: _delimiter)
+                queryItems[queryItems.endIndex - 1] = queryItem
+            } else {
+                queryItems.append(URLQueryItem(name: key, value: value))
             }
         }
     }

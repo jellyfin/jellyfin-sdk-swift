@@ -9,14 +9,27 @@
 import Foundation
 import Get
 
-public extension Paths {
+extension Paths {
     /// Gets an HLS subtitle playlist.
-    static func getSubtitlePlaylist(itemID: String, index: Int, mediaSourceID: String, segmentLength: Int) -> Request<Data> {
+    public static func getSubtitlePlaylist(
+        itemID: String,
+        index: Int,
+        mediaSourceID: String,
+        segmentLength: Int,
+        vttTimestampMapMpegts: Int? = nil
+    ) -> Request<Data> {
         Request(
             path: "/Videos/\(itemID)/\(mediaSourceID)/Subtitles/\(index)/subtitles.m3u8",
             method: "GET",
-            query: [("segmentLength", String(segmentLength))],
+            query: makeGetSubtitlePlaylistQuery(segmentLength, vttTimestampMapMpegts),
             id: "GetSubtitlePlaylist"
         )
+    }
+
+    private static func makeGetSubtitlePlaylistQuery(_ segmentLength: Int, _ vttTimestampMapMpegts: Int?) -> [(String, String?)] {
+        let encoder = URLQueryEncoder()
+        encoder.encode(segmentLength, forKey: "segmentLength")
+        encoder.encode(vttTimestampMapMpegts, forKey: "vttTimestampMapMpegts")
+        return encoder.items
     }
 }

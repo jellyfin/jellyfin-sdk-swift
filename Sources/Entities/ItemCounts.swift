@@ -14,6 +14,8 @@ public struct ItemCounts: Codable, Hashable, Sendable {
     public var albumCount: Int?
     /// Gets or sets the artist count.
     public var artistCount: Int?
+    /// Gets or sets the audio book count.
+    public var audioBookCount: Int?
     /// Gets or sets the book count.
     public var bookCount: Int?
     /// Gets or sets the box set count.
@@ -38,6 +40,7 @@ public struct ItemCounts: Codable, Hashable, Sendable {
     public init(
         albumCount: Int? = nil,
         artistCount: Int? = nil,
+        audioBookCount: Int? = nil,
         bookCount: Int? = nil,
         boxSetCount: Int? = nil,
         episodeCount: Int? = nil,
@@ -51,6 +54,7 @@ public struct ItemCounts: Codable, Hashable, Sendable {
     ) {
         self.albumCount = albumCount
         self.artistCount = artistCount
+        self.audioBookCount = audioBookCount
         self.bookCount = bookCount
         self.boxSetCount = boxSetCount
         self.episodeCount = episodeCount
@@ -67,6 +71,7 @@ public struct ItemCounts: Codable, Hashable, Sendable {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.albumCount = try values.decodeIfPresent(Int.self, forKey: "AlbumCount")
         self.artistCount = try values.decodeIfPresent(Int.self, forKey: "ArtistCount")
+        self.audioBookCount = try values.decodeIfPresent(Int.self, forKey: "AudioBookCount")
         self.bookCount = try values.decodeIfPresent(Int.self, forKey: "BookCount")
         self.boxSetCount = try values.decodeIfPresent(Int.self, forKey: "BoxSetCount")
         self.episodeCount = try values.decodeIfPresent(Int.self, forKey: "EpisodeCount")
@@ -83,6 +88,7 @@ public struct ItemCounts: Codable, Hashable, Sendable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encodeIfPresent(albumCount, forKey: "AlbumCount")
         try values.encodeIfPresent(artistCount, forKey: "ArtistCount")
+        try values.encodeIfPresent(audioBookCount, forKey: "AudioBookCount")
         try values.encodeIfPresent(bookCount, forKey: "BookCount")
         try values.encodeIfPresent(boxSetCount, forKey: "BoxSetCount")
         try values.encodeIfPresent(episodeCount, forKey: "EpisodeCount")
