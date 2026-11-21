@@ -8,7 +8,9 @@
 
 import Foundation
 
-public struct MetadataConfiguration: Codable, Hashable, Sendable {
+/// The metadata configuration DTO for API use.
+public struct MetadataConfigurationDto: Codable, Hashable, Sendable {
+    /// Gets or sets a value indicating whether to use file creation time for date added.
     public var useFileCreationTimeForDateAdded: Bool?
 
     public init(useFileCreationTimeForDateAdded: Bool? = nil) {

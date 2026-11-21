@@ -12,6 +12,7 @@ public struct RecommendationDto: Codable, Hashable, Sendable {
     public var baselineItemName: String?
     public var categoryID: String?
     public var items: [BaseItemDto]?
+    /// The type of recommendation reason for an item.
     public var recommendationType: RecommendationType?
 
     public init(

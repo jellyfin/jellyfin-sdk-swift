@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import Get
 
-/// Defines all possible methods for locking database access for concurrent queries.
-public enum DatabaseLockingBehaviorTypes: String, Codable, CaseIterable, Sendable {
-    case noLock = "NoLock"
-    case pessimistic = "Pessimistic"
-    case optimistic = "Optimistic"
+public extension Paths {
+    /// Updates LiveTv configuration.
+    static func updateLiveTvConfiguration(_ body: LiveTvOptionsDto) -> Request<Void> {
+        Request(path: "/System/Configuration/LiveTv", method: "POST", body: body, id: "UpdateLiveTvConfiguration")
+    }
 }

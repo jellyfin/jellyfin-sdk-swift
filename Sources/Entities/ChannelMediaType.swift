@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The media type of a channel.
 public enum ChannelMediaType: String, Codable, CaseIterable, Sendable {
     case audio = "Audio"
     case video = "Video"

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The type of extra media associated with an item.
 public enum ExtraType: String, Codable, CaseIterable, Sendable {
     case unknown = "Unknown"
     case clip = "Clip"

@@ -8,21 +8,37 @@
 
 import Foundation
 
-public struct LiveTvOptions: Codable, Hashable, Sendable {
+/// The LiveTV options DTO for API use.
+public struct LiveTvOptionsDto: Codable, Hashable, Sendable {
+    /// Gets or sets a value indicating whether to enable original audio with encoded recordings.
     public var enableOriginalAudioWithEncodedRecordings: Bool?
+    /// Gets or sets a value indicating whether to enable recording subfolders.
     public var enableRecordingSubfolders: Bool?
+    /// Gets or sets the guide days.
     public var guideDays: Int?
+    /// Gets or sets a value indicating whether to save recording images.
     public var isSaveRecordingImages: Bool?
+    /// Gets or sets a value indicating whether to save recording NFO.
     public var isSaveRecordingNFO: Bool?
+    /// Gets or sets the listing providers.
     public var listingProviders: [ListingsProviderInfo]?
+    /// Gets or sets the media locations created.
     public var mediaLocationsCreated: [String]?
+    /// Gets or sets the movie recording path.
     public var movieRecordingPath: String?
+    /// Gets or sets the post-padding seconds.
     public var postPaddingSeconds: Int?
+    /// Gets or sets the pre-padding seconds.
     public var prePaddingSeconds: Int?
+    /// Gets or sets the recording path.
     public var recordingPath: String?
+    /// Gets or sets the recording post processor.
     public var recordingPostProcessor: String?
+    /// Gets or sets the recording post processor arguments.
     public var recordingPostProcessorArguments: String?
+    /// Gets or sets the series recording path.
     public var seriesRecordingPath: String?
+    /// Gets or sets the tuner hosts.
     public var tunerHosts: [TunerHostInfo]?
 
     public init(

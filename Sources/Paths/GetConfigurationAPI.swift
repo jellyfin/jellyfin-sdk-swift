@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Gets application configuration.
-    static var getConfiguration: Request<ServerConfiguration> {
+    static var getConfiguration: Request<ServerConfigurationDto> {
         Request(path: "/System/Configuration", method: "GET", id: "GetConfiguration")
     }
 }

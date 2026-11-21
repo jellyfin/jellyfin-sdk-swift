@@ -46,6 +46,8 @@ public struct MediaStream: Codable, Hashable, Sendable {
     public var deliveryMethod: SubtitleDeliveryMethod?
     /// Gets or sets the delivery URL.
     public var deliveryURL: String?
+    /// Gets or sets DirectPlay errors.
+    public var directPlayErrors: [TranscodeReason]?
     public var displayTitle: String?
     /// Gets or sets the Dolby Vision bl signal compatibility id.
     public var dvBlSignalCompatibilityID: Int?
@@ -81,6 +83,8 @@ public struct MediaStream: Codable, Hashable, Sendable {
     public var isInterlaced: Bool?
     /// Gets or sets a value indicating whether this instance is original.
     public var isOriginal: Bool?
+    /// Gets a value indicating whether this instance is compatible with the device.
+    public var isSupportsDirectPlay: Bool?
     /// Gets or sets a value indicating whether [supports external stream].
     public var isSupportsExternalStream: Bool?
     public var isTextSubtitleStream: Bool?
@@ -154,6 +158,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         comment: String? = nil,
         deliveryMethod: SubtitleDeliveryMethod? = nil,
         deliveryURL: String? = nil,
+        directPlayErrors: [TranscodeReason]? = nil,
         displayTitle: String? = nil,
         dvBlSignalCompatibilityID: Int? = nil,
         dvLevel: Int? = nil,
@@ -173,6 +178,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         isHearingImpaired: Bool? = nil,
         isInterlaced: Bool? = nil,
         isOriginal: Bool? = nil,
+        isSupportsDirectPlay: Bool? = nil,
         isSupportsExternalStream: Bool? = nil,
         isTextSubtitleStream: Bool? = nil,
         language: String? = nil,
@@ -222,6 +228,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.comment = comment
         self.deliveryMethod = deliveryMethod
         self.deliveryURL = deliveryURL
+        self.directPlayErrors = directPlayErrors
         self.displayTitle = displayTitle
         self.dvBlSignalCompatibilityID = dvBlSignalCompatibilityID
         self.dvLevel = dvLevel
@@ -241,6 +248,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.isHearingImpaired = isHearingImpaired
         self.isInterlaced = isInterlaced
         self.isOriginal = isOriginal
+        self.isSupportsDirectPlay = isSupportsDirectPlay
         self.isSupportsExternalStream = isSupportsExternalStream
         self.isTextSubtitleStream = isTextSubtitleStream
         self.language = language
@@ -293,6 +301,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.comment = try values.decodeIfPresent(String.self, forKey: "Comment")
         self.deliveryMethod = try values.decodeIfPresent(SubtitleDeliveryMethod.self, forKey: "DeliveryMethod")
         self.deliveryURL = try values.decodeIfPresent(String.self, forKey: "DeliveryUrl")
+        self.directPlayErrors = try values.decodeIfPresent([TranscodeReason].self, forKey: "DirectPlayErrors")
         self.displayTitle = try values.decodeIfPresent(String.self, forKey: "DisplayTitle")
         self.dvBlSignalCompatibilityID = try values.decodeIfPresent(Int.self, forKey: "DvBlSignalCompatibilityId")
         self.dvLevel = try values.decodeIfPresent(Int.self, forKey: "DvLevel")
@@ -312,6 +321,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         self.isHearingImpaired = try values.decodeIfPresent(Bool.self, forKey: "IsHearingImpaired")
         self.isInterlaced = try values.decodeIfPresent(Bool.self, forKey: "IsInterlaced")
         self.isOriginal = try values.decodeIfPresent(Bool.self, forKey: "IsOriginal")
+        self.isSupportsDirectPlay = try values.decodeIfPresent(Bool.self, forKey: "SupportsDirectPlay")
         self.isSupportsExternalStream = try values.decodeIfPresent(Bool.self, forKey: "SupportsExternalStream")
         self.isTextSubtitleStream = try values.decodeIfPresent(Bool.self, forKey: "IsTextSubtitleStream")
         self.language = try values.decodeIfPresent(String.self, forKey: "Language")
@@ -364,6 +374,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         try values.encodeIfPresent(comment, forKey: "Comment")
         try values.encodeIfPresent(deliveryMethod, forKey: "DeliveryMethod")
         try values.encodeIfPresent(deliveryURL, forKey: "DeliveryUrl")
+        try values.encodeIfPresent(directPlayErrors, forKey: "DirectPlayErrors")
         try values.encodeIfPresent(displayTitle, forKey: "DisplayTitle")
         try values.encodeIfPresent(dvBlSignalCompatibilityID, forKey: "DvBlSignalCompatibilityId")
         try values.encodeIfPresent(dvLevel, forKey: "DvLevel")
@@ -383,6 +394,7 @@ public struct MediaStream: Codable, Hashable, Sendable {
         try values.encodeIfPresent(isHearingImpaired, forKey: "IsHearingImpaired")
         try values.encodeIfPresent(isInterlaced, forKey: "IsInterlaced")
         try values.encodeIfPresent(isOriginal, forKey: "IsOriginal")
+        try values.encodeIfPresent(isSupportsDirectPlay, forKey: "SupportsDirectPlay")
         try values.encodeIfPresent(isSupportsExternalStream, forKey: "SupportsExternalStream")
         try values.encodeIfPresent(isTextSubtitleStream, forKey: "IsTextSubtitleStream")
         try values.encodeIfPresent(language, forKey: "Language")
