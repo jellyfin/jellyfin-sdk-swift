@@ -10,8 +10,8 @@ import Foundation
 import Get
 
 public extension Paths {
-    /// Updates named configuration.
-    static func updateNamedConfiguration(key: String, _ body: AnyJSON) -> Request<Void> {
-        Request(path: "/System/Configuration/\(key)", method: "POST", body: body, id: "UpdateNamedConfiguration")
+    /// Updates encoding configuration.
+    static func updateEncodingConfiguration(_ body: EncodingOptionsDto) -> Request<Void> {
+        Request(path: "/System/Configuration/Encoding", method: "POST", body: body, id: "UpdateEncodingConfiguration")
     }
 }

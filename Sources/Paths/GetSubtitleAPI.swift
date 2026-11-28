@@ -34,6 +34,7 @@ public extension Paths {
         public var endPositionTicks: Int?
         public var isCopyTimestamps: Bool?
         public var isAddVttTimeMap: Bool?
+        public var vttTimestampMapMpegts: Int?
         public var startPositionTicks: Int?
 
         public init(
@@ -44,6 +45,7 @@ public extension Paths {
             endPositionTicks: Int? = nil,
             isCopyTimestamps: Bool? = nil,
             isAddVttTimeMap: Bool? = nil,
+            vttTimestampMapMpegts: Int? = nil,
             startPositionTicks: Int? = nil
         ) {
             self.itemID = itemID
@@ -53,6 +55,7 @@ public extension Paths {
             self.endPositionTicks = endPositionTicks
             self.isCopyTimestamps = isCopyTimestamps
             self.isAddVttTimeMap = isAddVttTimeMap
+            self.vttTimestampMapMpegts = vttTimestampMapMpegts
             self.startPositionTicks = startPositionTicks
         }
 
@@ -65,6 +68,7 @@ public extension Paths {
             encoder.encode(endPositionTicks, forKey: "endPositionTicks")
             encoder.encode(isCopyTimestamps, forKey: "copyTimestamps")
             encoder.encode(isAddVttTimeMap, forKey: "addVttTimeMap")
+            encoder.encode(vttTimestampMapMpegts, forKey: "vttTimestampMapMpegts")
             encoder.encode(startPositionTicks, forKey: "startPositionTicks")
             return encoder.items
         }

@@ -11,7 +11,7 @@ import Get
 
 public extension Paths {
     /// Updates application configuration.
-    static func updateConfiguration(_ body: ServerConfiguration) -> Request<Void> {
+    static func updateConfiguration(_ body: ServerConfigurationDto) -> Request<Void> {
         Request(path: "/System/Configuration", method: "POST", body: body, id: "UpdateConfiguration")
     }
 }

@@ -10,8 +10,8 @@ import Foundation
 import Get
 
 public extension Paths {
-    /// Gets a named configuration.
-    static func getNamedConfiguration(key: String) -> Request<Data> {
-        Request(path: "/System/Configuration/\(key)", method: "GET", id: "GetNamedConfiguration")
+    /// Gets metadata configuration.
+    static var getMetadataConfiguration: Request<MetadataConfigurationDto> {
+        Request(path: "/System/Configuration/Metadata", method: "GET", id: "GetMetadataConfiguration")
     }
 }

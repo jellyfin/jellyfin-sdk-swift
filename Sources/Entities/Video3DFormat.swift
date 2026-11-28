@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The 3D video layout format.
 public enum Video3DFormat: String, Codable, CaseIterable, Sendable {
     case halfSideBySide = "HalfSideBySide"
     case fullSideBySide = "FullSideBySide"

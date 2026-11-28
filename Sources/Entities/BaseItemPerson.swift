@@ -20,7 +20,7 @@ public struct BaseItemPerson: Codable, Hashable, Identifiable, Sendable {
     public var primaryImageTag: String?
     /// Gets or sets the role.
     public var role: String?
-    /// The person kind.
+    /// Gets or sets the type.
     public var type: PersonKind?
 
     public init(

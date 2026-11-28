@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// Class EncodingOptions.
-public struct EncodingOptions: Codable, Hashable, Sendable {
+/// The encoding options DTO for API use.
+public struct EncodingOptionsDto: Codable, Hashable, Sendable {
     /// Gets or sets a value indicating whether AV1 encoding is enabled.
     public var allowAv1Encoding: Bool?
     /// Gets or sets a value indicating whether HEVC encoding is enabled.

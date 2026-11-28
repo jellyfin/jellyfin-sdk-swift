@@ -8,11 +8,17 @@
 
 import Foundation
 
-public struct XbmcMetadataOptions: Codable, Hashable, Sendable {
+/// The XBMC metadata options DTO for API use.
+public struct XbmcMetadataOptionsDto: Codable, Hashable, Sendable {
+    /// Gets or sets a value indicating whether to enable extra thumbs duplication.
     public var enableExtraThumbsDuplication: Bool?
+    /// Gets or sets a value indicating whether to enable path substitution.
     public var enablePathSubstitution: Bool?
+    /// Gets or sets a value indicating whether to save image paths in NFO.
     public var isSaveImagePathsInNfo: Bool?
+    /// Gets or sets the release date format.
     public var releaseDateFormat: String?
+    /// Gets or sets the user id.
     public var userID: String?
 
     public init(

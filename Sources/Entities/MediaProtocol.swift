@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The protocol used to access a media source.
 public enum MediaProtocol: String, Codable, CaseIterable, Sendable {
     case file = "File"
     case http = "Http"
